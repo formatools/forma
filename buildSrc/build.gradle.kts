@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-val kotlin_version = "1.4.0"
+val kotlin_version = "1.3.72"
 
 dependencies {
     implementation("com.android.tools.build:gradle:4.1.0-rc01")

@@ -25,13 +25,14 @@ internal fun Project.applyConfiguration(
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunnerClass: String,
     consumerMinificationFiles: Set<String>,
-    manifestPlaceholders: Map<String, Any>
+    manifestPlaceholders: Map<String, Any>,
+    isApp: Boolean = false
 ) {
     the<BaseAppModuleExtension>().run {
         compileSdkVersion(configuration.compileSdk)
 
         defaultConfig {
-            applicationId = appId
+            if (isApp) applicationId = appId
             minSdkVersion(configuration.minSdk)
             targetSdkVersion(configuration.targetSdk)
             versionCode = configuration.versionCode

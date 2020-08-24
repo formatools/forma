@@ -1,22 +1,16 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
-// TODO: maybe enum for dagger, kotlin
-// TODO: maybe remove, let devs use default config capabilities for root
 fun Project.android_binary(
     packageName: String,
-    dependencies: Dependency = EmptyDependency,
-    testDependencies: Dependency = EmptyDependency,
-    androidTestDependencies: Dependency = EmptyDependency,
+    projectDependencies: Dependency = EmptyDependency,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any>  = emptyMap(),
     testInstrumentationRunner: String = androidJunitRunner
 ) = android_binary(
     packageName,
-    dependencies,
-    testDependencies,
-    androidTestDependencies,
+    projectDependencies,
     buildConfiguration,
     testInstrumentationRunner,
     consumerMinificationFiles,
@@ -26,9 +20,7 @@ fun Project.android_binary(
 
 private fun Project.android_binary(
     packageName: String,
-    dependencies: Dependency,
-    testDependencies: Dependency,
-    androidTestDependencies: Dependency,
+    projectDependencies: Dependency,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
@@ -36,6 +28,6 @@ private fun Project.android_binary(
     configuration: Configuration = Grip.configuration
 ) {
     apply(plugin = "com.android.application")
-    applyConfiguration(configuration, packageName, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
-    applyDependencies(dependencies, testDependencies, androidTestDependencies)
+    applyConfiguration(configuration, packageName, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders, isApp = true)
+    applyDependencies(projectDependencies = projectDependencies)
 }

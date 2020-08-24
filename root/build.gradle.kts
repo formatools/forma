@@ -1,7 +1,6 @@
 kt_android_library(
     packageName = "com.stepango.example",
     dependencies = setOf(
-        "org.jetbrains.kotlin:kotlin-stdlib:1.4.0",
         "androidx.core:core-ktx:1.2.0",
         "androidx.appcompat:appcompat:1.1.0",
         "com.google.android.material:material:1.1.0",
