@@ -20,7 +20,7 @@ allprojects {
     }
 }
 
-Grip.configure(
+Forma.configure(
     Configuration(
         minSdk = 21,
         targetSdk = 29,

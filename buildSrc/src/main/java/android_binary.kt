@@ -1,6 +1,10 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
+/**
+ * Application entry point. Manifest + minimal set of resources + root android project com.stepango.forma.internal.getDependency only.
+ * No library dependencies, no source code.
+ */
 fun Project.android_binary(
     packageName: String,
     projectDependencies: Dependency = EmptyDependency,
@@ -15,7 +19,7 @@ fun Project.android_binary(
     testInstrumentationRunner,
     consumerMinificationFiles,
     manifestPlaceholders,
-    Grip.configuration
+    Forma.configuration
 )
 
 private fun Project.android_binary(
@@ -25,9 +29,9 @@ private fun Project.android_binary(
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    configuration: Configuration = Grip.configuration
+    configuration: Configuration = Forma.configuration
 ) {
     apply(plugin = "com.android.application")
-    applyConfiguration(configuration, packageName, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders, isApp = true)
+    applyAppConfiguration(configuration, packageName, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
     applyDependencies(projectDependencies = projectDependencies)
 }

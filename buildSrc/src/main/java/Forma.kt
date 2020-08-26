@@ -1,4 +1,4 @@
-object Grip {
+object Forma {
     private lateinit var _configuration: Configuration
     val configuration: Configuration get() = _configuration
 
