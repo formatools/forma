@@ -2,12 +2,12 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
 fun Project.android_library(
-    dependencies: Dependency = EmptyDependency,
-    testDependencies: Dependency = EmptyDependency,
+    dependencies: NamedDependency = emptyDependency(),
+    testDependencies: NamedDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
-    androidTestDependencies: Dependency,
+    androidTestDependencies: NamedDependency,
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) = android_library(
     dependencies,
@@ -22,16 +22,20 @@ fun Project.android_library(
 
 @Suppress("UnstableApiUsage")
 internal fun Project.android_library(
-    dependencies: Dependency,
-    testDependencies: Dependency,
+    dependencies: NamedDependency,
+    testDependencies: FormaDependency,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any>,
-    androidTestDependencies: Dependency,
+    androidTestDependencies: NamedDependency,
     configuration: Configuration
 ) {
     apply(plugin = "com.android.library")
     applyLibraryConfiguration(configuration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
-    applyDependencies(dependencies, testDependencies, androidTestDependencies)
+    applyDependencies(
+        dependencies = dependencies,
+        testDependencies = testDependencies,
+        androidTestDependencies = androidTestDependencies
+    )
 }

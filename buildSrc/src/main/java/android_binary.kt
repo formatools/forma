@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.apply
  */
 fun Project.android_binary(
     packageName: String,
-    projectDependencies: Dependency = EmptyDependency,
+    projectDependencies: ProjectDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any>  = emptyMap(),
@@ -24,7 +24,7 @@ fun Project.android_binary(
 
 private fun Project.android_binary(
     packageName: String,
-    projectDependencies: Dependency,
+    projectDependencies: ProjectDependency,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
