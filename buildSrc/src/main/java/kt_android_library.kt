@@ -1,5 +1,6 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.dependencies
 
 fun Project.kt_android_library(
     packageName: String, // TODO: manifest placeholder for package
@@ -23,4 +24,9 @@ fun Project.kt_android_library(
         Forma.configuration
     )
     apply(plugin = "kotlin-android")
+    dependencies {
+        kotlin.stdlib_jdk8.names.forEach {
+            implementation(it)
+        }
+    }
 }

@@ -10,7 +10,8 @@ kt_android_library(
         androidx.appcompat,
         androidx.constraintlayout,
         androidx.navigation_fragment_ktx,
-        androidx.navigation_ui_ktx
+        androidx.navigation_ui_ktx,
+        androidx.vectordrawable
     ),
     projectDependencies = dependencies(
         project(":mylibrary")

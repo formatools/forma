@@ -64,12 +64,14 @@ fun dependencies(vararg dependencies: NamedDependency): NamedDependency
 fun dependencies(vararg dependencies: ProjectDependency): ProjectDependency
         = dependencies.flatMap { it.projects }.let(::ProjectDependency)
 
+val String.dep get() = dependencies(this)
+
 fun Project.applyDependencies(
     dependencies: NamedDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency(),
-    transitive: Boolean = true
+    transitive: Boolean = false
 ) {
     val configuration: (ExternalModuleDependency).() -> Unit = { isTransitive = transitive }
     dependencies {
