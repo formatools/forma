@@ -16,9 +16,11 @@ kt_android_library(
     projectDependencies = dependencies(
         project(":mylibrary")
     ),
-    testDependencies = dependencies("junit:junit:4.12"),
+    testDependencies = dependencies(
+        test.junit
+    ),
     androidTestDependencies = dependencies(
-        "androidx.test.ext:junit:1.1.1",
-        "androidx.test.espresso:espresso-core:3.2.0"
+        test.junit_ext,
+        test.espresso
     )
 )
