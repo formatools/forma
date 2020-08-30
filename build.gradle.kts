@@ -5,8 +5,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:$agp_version")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("com.android.tools.build:gradle:${versions.agp}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.jetbrains.kotlin}")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts.kts files
@@ -25,8 +25,8 @@ Forma.configure(
         minSdk = 21,
         targetSdk = 29,
         compileSdk = 29,
-        kotlinVersion = kotlin_version,
-        agpVersion = agp_version,
+        kotlinVersion = versions.jetbrains.kotlin,
+        agpVersion = versions.agp,
         versionCode = 1,
         versionName = "1.0"
     )
