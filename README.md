@@ -30,6 +30,8 @@ Forma.configure(
 )
 ```
 
+Your kotlin android library
+
 ```kotlin
 kt_android_library(
     packageName = "com.stepango.example",
