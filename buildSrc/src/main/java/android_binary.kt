@@ -29,9 +29,19 @@ private fun Project.android_binary(
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    configuration: Configuration = Forma.configuration
+    formaConfiguration: FormaConfiguration = Forma.configuration
 ) {
     apply(plugin = "com.android.application")
-    applyAppConfiguration(configuration, packageName, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
-    applyDependencies(projectDependencies = projectDependencies)
+    applyAppConfiguration(
+        formaConfiguration,
+        packageName,
+        buildConfiguration,
+        testInstrumentationRunner,
+        consumerMinificationFiles,
+        manifestPlaceholders
+    )
+    applyDependencies(
+        formaConfiguration = formaConfiguration,
+        projectDependencies = projectDependencies
+    )
 }

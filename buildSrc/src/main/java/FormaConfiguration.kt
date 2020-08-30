@@ -1,4 +1,5 @@
 import org.gradle.api.JavaVersion
+import org.gradle.api.artifacts.dsl.RepositoryHandler
 
 /**
  * Limitations:
@@ -19,7 +20,7 @@ import org.gradle.api.JavaVersion
 // TODO Configuration override
 // TODO 3rd party plugins
 // TODO 3rd party annotation processors
-data class Configuration(
+data class FormaConfiguration(
     val minSdk: Int,
     val targetSdk: Int,
     val compileSdk: Int,
@@ -27,5 +28,6 @@ data class Configuration(
     val agpVersion: String,
     val versionCode: Int,
     val versionName: String,
+    val repositories: RepositoryHandler.() -> Unit,
     val javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8 // Java/Kotlin configuration
 )

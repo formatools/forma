@@ -77,24 +77,26 @@ fun deps(vararg dependencies: ProjectDependency): ProjectDependency
 val String.dep get() = deps(this)
 
 fun Project.applyDependencies(
+    formaConfiguration: FormaConfiguration,
     dependencies: NamedDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency(),
     transitive: Boolean = false
 ) {
-    val configuration: (ExternalModuleDependency).() -> Unit = { isTransitive = transitive }
+    val dependencyConfiguration: (ExternalModuleDependency).() -> Unit = { isTransitive = transitive }
+    formaConfiguration.repositories(repositories)
     dependencies {
         dependencies.forEach {
-            addDependencyTo(it.config.name, it.name, configuration)
+            addDependencyTo(it.config.name, it.name, dependencyConfiguration)
         }
         projectDependencies.forEach { add(it.config.name, it.project) }
         testDependencies.forEach(
-            { testImplementation(it.name, configuration) },
+            { testImplementation(it.name, dependencyConfiguration) },
             { testImplementation(it) }
         )
         androidTestDependencies.forEach(
-            { androidTestImplementation(it.name, configuration) },
+            { androidTestImplementation(it.name, dependencyConfiguration) },
             { androidTestImplementation(it) }
         )
     }

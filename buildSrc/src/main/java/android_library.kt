@@ -29,11 +29,12 @@ internal fun Project.android_library(
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any>,
     androidTestDependencies: NamedDependency,
-    configuration: Configuration
+    formaConfiguration: FormaConfiguration
 ) {
     apply(plugin = "com.android.library")
-    applyLibraryConfiguration(configuration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
+    applyLibraryConfiguration(formaConfiguration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
     applyDependencies(
+        formaConfiguration = formaConfiguration,
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

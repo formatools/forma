@@ -19,30 +19,30 @@ data class BuildTypeConfiguration(
 
 @Suppress("UnstableApiUsage")
 internal fun Project.applyLibraryConfiguration(
-    configuration: Configuration,
+    formaConfiguration: FormaConfiguration,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunnerClass: String,
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any>
 ) {
     the<LibraryExtension>().run {
-        compileSdkVersion(configuration.compileSdk)
+        compileSdkVersion(formaConfiguration.compileSdk)
 
         defaultConfig.applyFrom(
-            configuration,
+            formaConfiguration,
             testInstrumentationRunnerClass,
             consumerMinificationFiles,
             manifestPlaceholders
         )
 
         buildTypes.applyFrom(buildConfiguration)
-        compileOptions.applyFrom(configuration)
+        compileOptions.applyFrom(formaConfiguration)
     }
 }
 
 @Suppress("UnstableApiUsage")
 internal fun Project.applyAppConfiguration(
-    configuration: Configuration,
+    formaConfiguration: FormaConfiguration,
     appId: String,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunnerClass: String,
@@ -50,39 +50,39 @@ internal fun Project.applyAppConfiguration(
     manifestPlaceholders: Map<String, Any>
 ) {
     the<BaseAppModuleExtension>().run {
-        compileSdkVersion(configuration.compileSdk)
+        compileSdkVersion(formaConfiguration.compileSdk)
 
         defaultConfig.applicationId = appId
 
         defaultConfig.applyFrom(
-            configuration,
+            formaConfiguration,
             testInstrumentationRunnerClass,
             consumerMinificationFiles,
             manifestPlaceholders
         )
 
         buildTypes.applyFrom(buildConfiguration)
-        compileOptions.applyFrom(configuration)
+        compileOptions.applyFrom(formaConfiguration)
     }
 }
 
 internal fun DefaultConfig.applyFrom(
-    configuration: Configuration,
+    formaConfiguration: FormaConfiguration,
     testInstrumentationRunnerClass: String,
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any>
 ) {
-    minSdkVersion(configuration.minSdk)
-    targetSdkVersion(configuration.targetSdk)
-    versionCode = configuration.versionCode
-    versionName = configuration.versionName
+    minSdkVersion(formaConfiguration.minSdk)
+    targetSdkVersion(formaConfiguration.targetSdk)
+    versionCode = formaConfiguration.versionCode
+    versionName = formaConfiguration.versionName
 
     testInstrumentationRunner = testInstrumentationRunnerClass
     consumerProguardFiles(*consumerMinificationFiles.toTypedArray())
     manifestPlaceholders(manifestPlaceholders)
 }
 
-internal fun CompileOptions.applyFrom(config: Configuration) {
+internal fun CompileOptions.applyFrom(config: FormaConfiguration) {
     sourceCompatibility = config.javaVersionCompatibility
     targetCompatibility = config.javaVersionCompatibility
 }
