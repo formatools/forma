@@ -18,16 +18,26 @@ import org.funktionale.option.Option
  * TODO: inline class
  * TODO: Annotation processor flag
  */
-typealias DepSpec = Option<Either<List<String>, List<Project>>>
 
-sealed class FormaDependency(val dependency: DepSpec)
+sealed class ConfigurationType(val name: String)
+object Implementation: ConfigurationType("implementation")
+object CompileOnly: ConfigurationType("compileOnly")
+object RuntimeOnly: ConfigurationType("runtimeOnly")
+object AnnotationProcessor: ConfigurationType("annotationProcessor")
+class Custom(name: String): ConfigurationType(name)
+
+data class DepSpec(val name: String, val config: ConfigurationType)
+data class ProjectSpec(val project: Project, val config: ConfigurationType)
+typealias DepType = Option<Either<List<DepSpec>, List<ProjectSpec>>>
+
+sealed class FormaDependency(val dependency: DepType, val type: ConfigurationType = Implementation)
 
 object EmptyDependency : FormaDependency(Option.None)
 
-data class NamedDependency(val names: List<String> = emptyList())
+data class NamedDependency(val names: List<DepSpec> = emptyList())
     : FormaDependency(Option.Some(Either.left(names)))
 
-data class ProjectDependency(val projects: List<Project> = emptyList())
+data class ProjectDependency(val projects: List<ProjectSpec> = emptyList())
     : FormaDependency(Option.Some(Either.right(projects)))
 
 inline fun <reified T : FormaDependency> emptyDependency(): T = when {
@@ -38,8 +48,8 @@ inline fun <reified T : FormaDependency> emptyDependency(): T = when {
 }
 
 internal fun FormaDependency.forEach(
-    nameAction: (String) -> Unit,
-    projectAction: (Project) -> Unit
+    nameAction: (DepSpec) -> Unit,
+    projectAction: (ProjectSpec) -> Unit
 ) {
     dependency.forEach { dependency ->
         with(dependency) {
@@ -49,22 +59,22 @@ internal fun FormaDependency.forEach(
     }
 }
 
-internal fun NamedDependency.forEach(action: (String) -> Unit) = forEach(action, {})
-internal fun ProjectDependency.forEach(action: (Project) -> Unit) = forEach({}, action)
+internal fun NamedDependency.forEach(action: (DepSpec) -> Unit) = forEach(action, {})
+internal fun ProjectDependency.forEach(action: (ProjectSpec) -> Unit) = forEach({}, action)
 
-fun dependencies(vararg names: String): NamedDependency
-        = NamedDependency(names.toList())
+fun deps(vararg names: String): NamedDependency
+        = NamedDependency(names.toList().map { DepSpec(it, Implementation) })
 
-fun dependencies(vararg projects: Project): ProjectDependency
-        = ProjectDependency(projects.toList())
+fun deps(vararg projects: Project): ProjectDependency
+        = ProjectDependency(projects.toList().map { ProjectSpec(it, Implementation) })
 
-fun dependencies(vararg dependencies: NamedDependency): NamedDependency
+fun deps(vararg dependencies: NamedDependency): NamedDependency
         = dependencies.flatMap { it.names }.let(::NamedDependency)
 
-fun dependencies(vararg dependencies: ProjectDependency): ProjectDependency
+fun deps(vararg dependencies: ProjectDependency): ProjectDependency
         = dependencies.flatMap { it.projects }.let(::ProjectDependency)
 
-val String.dep get() = dependencies(this)
+val String.dep get() = deps(this)
 
 fun Project.applyDependencies(
     dependencies: NamedDependency = emptyDependency(),
@@ -75,18 +85,28 @@ fun Project.applyDependencies(
 ) {
     val configuration: (ExternalModuleDependency).() -> Unit = { isTransitive = transitive }
     dependencies {
-        dependencies.forEach { implementation(it, configuration) }
-        projectDependencies.forEach { implementation(it) }
+        dependencies.forEach {
+            addDependencyTo(it.config.name, it.name, configuration)
+        }
+        projectDependencies.forEach { add(it.config.name, it.project) }
         testDependencies.forEach(
-            { testImplementation(it, configuration) },
+            { testImplementation(it.name, configuration) },
             { testImplementation(it) }
         )
         androidTestDependencies.forEach(
-            { testImplementation(it, configuration) },
-            { testImplementation(it) }
+            { androidTestImplementation(it.name, configuration) },
+            { androidTestImplementation(it) }
         )
     }
 }
+
+
+internal fun DependencyHandler.addDependencyTo(
+    configurationName: String,
+    dependencyNotation: String,
+    configuration:(ExternalModuleDependency).() -> Unit
+): ExternalModuleDependency =
+    addDependencyTo(this, configurationName, dependencyNotation, configuration)
 
 
 /**

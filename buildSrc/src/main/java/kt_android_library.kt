@@ -26,7 +26,7 @@ fun Project.kt_android_library(
     apply(plugin = "kotlin-android")
     dependencies {
         kotlin.stdlib_jdk8.names.forEach {
-            implementation(it)
+            implementation(it.name)
         }
     }
 }

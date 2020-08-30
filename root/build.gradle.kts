@@ -4,7 +4,7 @@
 
 kt_android_library(
     packageName = "com.stepango.example",
-    dependencies = dependencies(
+    dependencies = deps(
         google.material,
         androidx.core_ktx,
         androidx.appcompat,
@@ -13,13 +13,13 @@ kt_android_library(
         androidx.navigation_ui_ktx,
         androidx.vectordrawable
     ),
-    projectDependencies = dependencies(
+    projectDependencies = deps(
         project(":mylibrary")
     ),
-    testDependencies = dependencies(
+    testDependencies = deps(
         test.junit
     ),
-    androidTestDependencies = dependencies(
+    androidTestDependencies = deps(
         test.junit_ext,
         test.espresso
     )
