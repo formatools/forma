@@ -1,4 +1,6 @@
 # forma (WIP)
+<img src="./press.svg" width="150" height="150">
+
 Opinionated, scalable, thoughtfully structured, type-safe, guided  Gradle project framework for Android.
 
 - You don't need to be a gradle expert anymore
@@ -47,7 +49,6 @@ kt_android_library(
 )
 ```
 
-
-
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 
