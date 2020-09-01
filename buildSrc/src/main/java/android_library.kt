@@ -1,3 +1,7 @@
+import com.stepango.forma.FormaConfiguration
+import com.stepango.forma.Library
+import com.stepango.forma.Validator
+import com.stepango.forma.throwProjectValidationError
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
@@ -29,7 +33,8 @@ internal fun Project.android_library(
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any>,
     androidTestDependencies: NamedDependency,
-    formaConfiguration: FormaConfiguration
+    formaConfiguration: FormaConfiguration,
+    validator: Validator = LibraryValidator
 ) {
     apply(plugin = "com.android.library")
     applyLibraryConfiguration(formaConfiguration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
@@ -39,4 +44,13 @@ internal fun Project.android_library(
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies
     )
+    validator.validate(this)
+}
+
+object LibraryValidator: Validator {
+    override fun validate(project: Project) {
+        if (!Library.validate(project)) {
+            throwProjectValidationError(project, Library)
+        }
+    }
 }

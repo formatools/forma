@@ -1,7 +1,6 @@
 import org.gradle.api.Project
 
-fun Project.util(
+fun Project.test_util(
     dependencies: NamedDependency,
-    testDependency: NamedDependency,
     testUtils: ProjectDependency
 ): Unit = TODO()

@@ -1,7 +1,9 @@
+import com.stepango.forma.FormaConfiguration
+import org.funktionale.either.Either
+import org.funktionale.option.Option
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.artifacts.*
-import org.gradle.api.artifacts.Dependency as GradleDependency
 import org.gradle.api.artifacts.dsl.ArtifactHandler
 import org.gradle.api.artifacts.dsl.DependencyConstraintHandler
 import org.gradle.api.artifacts.dsl.DependencyHandler
@@ -10,8 +12,7 @@ import org.gradle.kotlin.dsl.accessors.runtime.addExternalModuleDependencyTo
 import org.gradle.kotlin.dsl.add
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.dependencies
-import org.funktionale.either.Either
-import org.funktionale.option.Option
+import org.gradle.api.artifacts.Dependency as GradleDependency
 
 /**
  * Dependency wrapper

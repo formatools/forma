@@ -1,3 +1,7 @@
+import com.stepango.forma.Binary
+import com.stepango.forma.FormaConfiguration
+import com.stepango.forma.Validator
+import com.stepango.forma.throwProjectValidationError
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
@@ -29,7 +33,8 @@ private fun Project.android_binary(
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    formaConfiguration: FormaConfiguration = Forma.configuration
+    formaConfiguration: FormaConfiguration = Forma.configuration,
+    validator: Validator = BinaryValidator
 ) {
     apply(plugin = "com.android.application")
     applyAppConfiguration(
@@ -44,4 +49,15 @@ private fun Project.android_binary(
         formaConfiguration = formaConfiguration,
         projectDependencies = projectDependencies
     )
+    //TODO: maybe separate name validation from dependencies validation for perf reasons
+    validator.validate(this)
+}
+
+object BinaryValidator: Validator {
+    override fun validate(project: Project) {
+        if (!Binary.validate(project)) {
+            throwProjectValidationError(project, Binary)
+        }
+        //TODO dependencies validation
+    }
 }
