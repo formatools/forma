@@ -27,7 +27,7 @@ object RuntimeOnly: ConfigurationType("runtimeOnly")
 object AnnotationProcessor: ConfigurationType("annotationProcessor")
 class Custom(name: String): ConfigurationType(name)
 
-data class DepSpec(val name: String, val config: ConfigurationType)
+data class DepSpec(val name: String, val config: ConfigurationType, val transitive: Boolean = false)
 data class ProjectSpec(val project: Project, val config: ConfigurationType)
 typealias DepType = Option<Either<List<DepSpec>, List<ProjectSpec>>>
 
@@ -48,9 +48,9 @@ inline fun <reified T : FormaDependency> emptyDependency(): T = when {
     else -> throw IllegalArgumentException("Illegal Empty dependency, expected ${T::class.simpleName}")
 }
 
-internal fun FormaDependency.forEach(
-    nameAction: (DepSpec) -> Unit,
-    projectAction: (ProjectSpec) -> Unit
+internal inline fun FormaDependency.forEach(
+    crossinline nameAction: (DepSpec) -> Unit,
+    crossinline projectAction: (ProjectSpec) -> Unit
 ) {
     dependency.forEach { dependency ->
         with(dependency) {
@@ -64,7 +64,10 @@ internal fun NamedDependency.forEach(action: (DepSpec) -> Unit) = forEach(action
 internal fun ProjectDependency.forEach(action: (ProjectSpec) -> Unit) = forEach({}, action)
 
 fun deps(vararg names: String): NamedDependency
-        = NamedDependency(names.toList().map { DepSpec(it, Implementation) })
+        = transitiveDeps(names = *names, transitive = false)
+
+fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency
+        = NamedDependency(names.toList().map { DepSpec(it, Implementation, transitive) })
 
 fun deps(vararg projects: Project): ProjectDependency
         = ProjectDependency(projects.toList().map { ProjectSpec(it, Implementation) })
@@ -82,23 +85,21 @@ fun Project.applyDependencies(
     dependencies: NamedDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
-    androidTestDependencies: FormaDependency = emptyDependency(),
-    transitive: Boolean = false
+    androidTestDependencies: FormaDependency = emptyDependency()
 ) {
-    val dependencyConfiguration: (ExternalModuleDependency).() -> Unit = { isTransitive = transitive }
     formaConfiguration.repositories(repositories)
     dependencies {
         dependencies.forEach {
-            addDependencyTo(it.config.name, it.name, dependencyConfiguration)
+            addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
         }
         projectDependencies.forEach { add(it.config.name, it.project) }
         testDependencies.forEach(
-            { testImplementation(it.name, dependencyConfiguration) },
-            { testImplementation(it) }
+            { testImplementation(it.name) { isTransitive = it.transitive } },
+            { testImplementation(it.project) }
         )
         androidTestDependencies.forEach(
-            { androidTestImplementation(it.name, dependencyConfiguration) },
-            { androidTestImplementation(it) }
+            { androidTestImplementation(it.name) { isTransitive = it.transitive } },
+            { androidTestImplementation(it.project) }
         )
     }
 }
