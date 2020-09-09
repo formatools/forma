@@ -1,4 +1,6 @@
 import com.stepango.forma.FormaConfiguration
+import com.stepango.forma.Validator
+import com.stepango.forma.emptyValidator
 import org.funktionale.either.Either
 import org.funktionale.option.Option
 import org.gradle.api.Action
@@ -85,14 +87,18 @@ fun Project.applyDependencies(
     dependencies: NamedDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
-    androidTestDependencies: FormaDependency = emptyDependency()
+    androidTestDependencies: FormaDependency = emptyDependency(),
+    validator: Validator = emptyValidator()
 ) {
     formaConfiguration.repositories(repositories)
     dependencies {
         dependencies.forEach {
             addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
         }
-        projectDependencies.forEach { add(it.config.name, it.project) }
+        projectDependencies.forEach {
+            validator.validate(it.project)
+            add(it.config.name, it.project)
+        }
         testDependencies.forEach(
             { testImplementation(it.name) { isTransitive = it.transitive } },
             { testImplementation(it.project) }
