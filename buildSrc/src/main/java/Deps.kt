@@ -49,6 +49,7 @@ object versions {
         val espresso = "3.2.0"
         val junit = "4.12"
         val junit_ext = "1.1.1"
+        val hamcrest = "1.3"
     }
 }
 
@@ -408,7 +409,8 @@ object google {
 
 object test {
     val junit = deps(
-        "junit:junit:${versions.test.junit}".dep
+        "junit:junit:${versions.test.junit}".dep,
+        "org.hamcrest:hamcrest-core:${versions.test.hamcrest}".dep
     )
 
     val junit_ext = deps(
