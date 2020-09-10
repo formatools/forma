@@ -3,8 +3,8 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 
 object Forma {
-    private lateinit var _Forma_configuration: FormaConfiguration
-    val configuration: FormaConfiguration get() = _Forma_configuration
+    private lateinit var _configuration: FormaConfiguration
+    val configuration: FormaConfiguration get() = _configuration
 
     fun configure(
         minSdk: Int,
@@ -17,7 +17,7 @@ object Forma {
         repositories: RepositoryHandler.() -> Unit,
         javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8 // Java/Kotlin configuration
     ) {
-        _Forma_configuration = FormaConfiguration(
+        _configuration = FormaConfiguration(
             minSdk = minSdk,
             targetSdk = targetSdk,
             compileSdk = compileSdk,
