@@ -23,11 +23,11 @@ import org.gradle.api.artifacts.Dependency as GradleDependency
  */
 
 sealed class ConfigurationType(val name: String)
-object Implementation: ConfigurationType("implementation")
-object CompileOnly: ConfigurationType("compileOnly")
-object RuntimeOnly: ConfigurationType("runtimeOnly")
-object AnnotationProcessor: ConfigurationType("annotationProcessor")
-class Custom(name: String): ConfigurationType(name)
+object Implementation : ConfigurationType("implementation")
+object CompileOnly : ConfigurationType("compileOnly")
+object RuntimeOnly : ConfigurationType("runtimeOnly")
+object AnnotationProcessor : ConfigurationType("annotationProcessor")
+class Custom(name: String) : ConfigurationType(name)
 
 data class DepSpec(val name: String, val config: ConfigurationType, val transitive: Boolean = false)
 data class ProjectSpec(val project: Project, val config: ConfigurationType)
@@ -114,7 +114,7 @@ fun Project.applyDependencies(
 internal fun DependencyHandler.addDependencyTo(
     configurationName: String,
     dependencyNotation: String,
-    configuration:(ExternalModuleDependency).() -> Unit
+    configuration: (ExternalModuleDependency).() -> Unit
 ): ExternalModuleDependency =
     addDependencyTo(this, configurationName, dependencyNotation, configuration)
 
@@ -274,7 +274,7 @@ internal fun DependencyHandler.testImplementation(
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
     this, "testImplementation", dependencyNotation, dependencyConfiguration
-) as ExternalModuleDependency
+)
 
 /**
  * Adds a dependency to the 'testImplementation' configuration.
@@ -405,7 +405,7 @@ internal fun DependencyHandler.androidTestImplementation(
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
     this, "androidTestImplementation", dependencyNotation, dependencyConfiguration
-) as ExternalModuleDependency
+)
 
 /**
  * Adds a dependency to the 'androidTestImplementation' configuration.
