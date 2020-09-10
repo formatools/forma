@@ -7,6 +7,10 @@ interface Validator {
     fun validate(project: Project)
 }
 
+fun emptyValidator(): Validator = object : Validator {
+    override fun validate(project: Project) { }
+}
+
 fun throwProjectValidationError(
     project: Project,
     targetName: TargetName
