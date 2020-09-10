@@ -1,3 +1,5 @@
+@file:Suppress("ObjectPropertyName")
+
 import com.stepango.forma.FormaConfiguration
 import org.gradle.api.JavaVersion
 import org.gradle.api.artifacts.dsl.RepositoryHandler
