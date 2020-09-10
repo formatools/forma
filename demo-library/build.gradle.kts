@@ -1,4 +1,4 @@
-kt_android_library(
+android_library(
     packageName = "com.stepango.mylibrary",
     dependencies = transitiveDeps(
         "androidx.core:core-ktx:1.3.1",
