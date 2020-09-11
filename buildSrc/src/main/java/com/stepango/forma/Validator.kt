@@ -22,3 +22,15 @@ fun throwProjectValidationError(
         """.trimIndent()
     )
 }
+
+fun throwProjectDepsValidationError(
+    project: Project,
+    vararg allowedTargets: TargetName
+) {
+    throw ProjectValidationError(
+        """
+            Project ${project.name}: incorrect type of dependencies
+            Allowed only ${allowedTargets.map { it.suffix }} types
+        """.trimIndent()
+    )
+}
