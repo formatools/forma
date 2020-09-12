@@ -9,6 +9,7 @@ import org.gradle.kotlin.dsl.dependencies
 @Suppress("UnstableApiUsage")
 internal fun Project.android_library(
     dependencies: NamedDependency,
+    projectDependencies: ProjectDependency,
     testDependencies: FormaDependency,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunner: String,
@@ -23,6 +24,7 @@ internal fun Project.android_library(
     applyDependencies(
         formaConfiguration = formaConfiguration,
         dependencies = dependencies,
+        projectDependencies = projectDependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies
     )
@@ -42,6 +44,7 @@ fun Project.android_library(
 ) {
     android_library(
         dependencies,
+        projectDependencies,
         testDependencies,
         buildConfiguration,
         testInstrumentationRunner,

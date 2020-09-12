@@ -83,7 +83,7 @@ fun deps(vararg dependencies: ProjectDependency): ProjectDependency
 val String.dep get() = deps(this)
 
 fun Project.applyDependencies(
-    formaConfiguration: FormaConfiguration,
+    formaConfiguration: FormaConfiguration = Forma.configuration,
     dependencies: NamedDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
