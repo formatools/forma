@@ -21,7 +21,7 @@ Forma.configure(
     minSdk = 21,
     targetSdk = 29,
     compileSdk = 29,
-    kotlinVersion = "1.4.0",
+    kotlinVersion = "1.4.10",
     agpVersion = "4.0.0",
     versionCode = 1,
     versionName = "1.0",
