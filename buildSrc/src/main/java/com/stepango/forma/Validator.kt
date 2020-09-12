@@ -3,8 +3,19 @@ package com.stepango.forma
 import org.gradle.api.Project
 
 interface Validator {
-    fun TargetName.validate(project: Project) = project.name.endsWith(suffix)
     fun validate(project: Project)
+}
+
+fun TargetName.validate(name: String) = name.endsWith(suffix)
+
+fun validateName(
+    name: String,
+    vararg targetNames: TargetName
+) {
+    //Name should match with at least one targetName
+    if (targetNames.map { it.validate(name) }.contains(true).not()) {
+        throwProjectValidationError(name, Library)
+    }
 }
 
 fun emptyValidator(): Validator = object : Validator {
@@ -12,12 +23,12 @@ fun emptyValidator(): Validator = object : Validator {
 }
 
 fun throwProjectValidationError(
-    project: Project,
+    name: String,
     targetName: TargetName
 ) {
     throw ProjectValidationError(
         """
-            Project ${project.name}: name does not match type requirements
+            Project ${name}: name does not match type requirements
             Projects of type "${targetName::class.simpleName}" should contain name suffix "${targetName.suffix}" 
         """.trimIndent()
     )

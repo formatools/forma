@@ -1,7 +1,6 @@
-import com.stepango.forma.Library
 import com.stepango.forma.TestUtil
 import com.stepango.forma.Validator
-import com.stepango.forma.throwProjectValidationError
+import com.stepango.forma.validateName
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
@@ -22,12 +21,14 @@ fun Project.test_util(
         dependencies = dependencies,
         projectDependencies = testUtils
     )
+
+    dependencies.names.forEach {
+        validateName(it.name, TestUtil)
+    }
 }
 
 object TestUtilValidator : Validator {
     override fun validate(project: Project) {
-        if (!TestUtil.validate(project)) {
-            throwProjectValidationError(project, Library)
-        }
+        validateName(project.name, TestUtil)
     }
 }

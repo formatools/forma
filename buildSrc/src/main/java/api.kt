@@ -1,4 +1,7 @@
-import com.stepango.forma.*
+import com.stepango.forma.Api
+import com.stepango.forma.FormaConfiguration
+import com.stepango.forma.Validator
+import com.stepango.forma.validateName
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
@@ -31,17 +34,12 @@ internal fun Project.api(
 
 private object ApiNameValidator : Validator {
     override fun validate(project: Project) {
-        if (!Api.validate(project)) {
-            throwProjectValidationError(project, Api)
-        }
+        validateName(project.name, Api)
     }
 }
 
 private object ApiDepsValidator : Validator {
-
     override fun validate(project: Project) {
-        if (Api.validate(project).not()) {
-            throwProjectDepsValidationError(project, Api)
-        }
+        validateName(project.name, Api)
     }
 }

@@ -61,21 +61,13 @@ internal fun Project.impl(
 }
 
 private object ImplNameValidator : Validator {
-
     override fun validate(project: Project) {
-        if (Impl.validate(project).not()) {
-            throwProjectValidationError(project, Impl)
-        }
+        validateName(project.name, Impl)
     }
 }
 
 private object ImplDepsValidator : Validator {
-
     override fun validate(project: Project) {
-        if (Api.validate(project).not() &&
-            Res.validate(project).not()
-        ) {
-            throwProjectDepsValidationError(project, Api, Res)
-        }
+        validateName(project.name, Api, Res)
     }
 }

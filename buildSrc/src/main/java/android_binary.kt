@@ -1,7 +1,7 @@
 import com.stepango.forma.Binary
 import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Validator
-import com.stepango.forma.throwProjectValidationError
+import com.stepango.forma.validateName
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
@@ -55,9 +55,7 @@ private fun Project.android_binary(
 
 object BinaryValidator: Validator {
     override fun validate(project: Project) {
-        if (!Binary.validate(project)) {
-            throwProjectValidationError(project, Binary)
-        }
+        validateName(project.name, Binary)
         //TODO dependencies validation
     }
 }

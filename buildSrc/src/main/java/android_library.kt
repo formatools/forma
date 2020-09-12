@@ -1,7 +1,7 @@
 import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Library
 import com.stepango.forma.Validator
-import com.stepango.forma.throwProjectValidationError
+import com.stepango.forma.validateName
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
@@ -63,8 +63,6 @@ fun Project.android_library(
 
 object LibraryValidator: Validator {
     override fun validate(project: Project) {
-        if (!Library.validate(project)) {
-            throwProjectValidationError(project, Library)
-        }
+        validateName(project.name, Library)
     }
 }
