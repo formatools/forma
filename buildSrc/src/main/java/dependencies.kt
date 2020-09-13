@@ -2,7 +2,6 @@ import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Validator
 import com.stepango.forma.emptyValidator
 import org.funktionale.either.Either
-import org.funktionale.option.Option
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.artifacts.*
@@ -29,62 +28,80 @@ object RuntimeOnly : ConfigurationType("runtimeOnly")
 object AnnotationProcessor : ConfigurationType("annotationProcessor")
 class Custom(name: String) : ConfigurationType(name)
 
-data class DepSpec(val name: String, val config: ConfigurationType, val transitive: Boolean = false)
+typealias DepType = List<Either<NameSpec, ProjectSpec>>
+
+val DepType.names get(): List<NameSpec> = this.filter { it.isLeft() }.map { it.left().get() }
+val DepType.projects
+    get(): List<ProjectSpec> = this.filter { it.isRight() }.map { it.right().get() }
+
+data class NameSpec(
+    val name: String,
+    val config: ConfigurationType,
+    val transitive: Boolean = false
+)
+
 data class ProjectSpec(val project: Project, val config: ConfigurationType)
-typealias DepType = Option<Either<List<DepSpec>, List<ProjectSpec>>>
 
-sealed class FormaDependency(val dependency: DepType, val type: ConfigurationType = Implementation)
+sealed class FormaDependency(
+    val dependency: DepType = emptyList(),
+    val type: ConfigurationType = Implementation
+)
 
-object EmptyDependency : FormaDependency(Option.None)
+object EmptyDependency : FormaDependency()
 
-data class NamedDependency(val names: List<DepSpec> = emptyList())
-    : FormaDependency(Option.Some(Either.left(names)))
+data class NamedDependency(val names: List<NameSpec> = emptyList()) :
+    FormaDependency(names.map { Either.left(it) })
 
-data class ProjectDependency(val projects: List<ProjectSpec> = emptyList())
-    : FormaDependency(Option.Some(Either.right(projects)))
+data class ProjectDependency(val projects: List<ProjectSpec> = emptyList()) :
+    FormaDependency(projects.map { Either.right(it) })
+
+data class MixedDependency(
+    val names: List<NameSpec> = emptyList(),
+    val projects: List<ProjectSpec> = emptyList()
+) : FormaDependency(projects.map { Either.right(it) } + names.map { Either.left(it) })
+
+infix fun FormaDependency.plus(dep: FormaDependency): MixedDependency = MixedDependency(
+    this.dependency.names + dep.dependency.names,
+    this.dependency.projects + dep.dependency.projects
+)
 
 inline fun <reified T : FormaDependency> emptyDependency(): T = when {
     T::class == FormaDependency::class -> EmptyDependency as T
     T::class == NamedDependency::class -> NamedDependency() as T
     T::class == ProjectDependency::class -> ProjectDependency() as T
+    T::class == MixedDependency::class -> MixedDependency() as T
     else -> throw IllegalArgumentException("Illegal Empty dependency, expected ${T::class.simpleName}")
 }
 
-internal inline fun FormaDependency.forEach(
-    crossinline nameAction: (DepSpec) -> Unit,
-    crossinline projectAction: (ProjectSpec) -> Unit
+internal fun FormaDependency.forEach(
+    nameAction: (NameSpec) -> Unit = {},
+    projectAction: (ProjectSpec) -> Unit = {}
 ) {
-    dependency.forEach { dependency ->
-        with(dependency) {
-            left().forEach { it.forEach(nameAction) }
-            right().forEach { it.forEach(projectAction) }
-        }
+    dependency.forEach {
+        it.right().forEach(projectAction)
+        it.left().forEach(nameAction)
     }
 }
 
-internal fun NamedDependency.forEach(action: (DepSpec) -> Unit) = forEach(action, {})
-internal fun ProjectDependency.forEach(action: (ProjectSpec) -> Unit) = forEach({}, action)
+fun deps(vararg names: String): NamedDependency = transitiveDeps(names = *names, transitive = false)
 
-fun deps(vararg names: String): NamedDependency
-        = transitiveDeps(names = *names, transitive = false)
+fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
+    NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
 
-fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency
-        = NamedDependency(names.toList().map { DepSpec(it, Implementation, transitive) })
+fun deps(vararg projects: Project): ProjectDependency =
+    ProjectDependency(projects.toList().map { ProjectSpec(it, Implementation) })
 
-fun deps(vararg projects: Project): ProjectDependency
-        = ProjectDependency(projects.toList().map { ProjectSpec(it, Implementation) })
+fun deps(vararg dependencies: NamedDependency): NamedDependency =
+    dependencies.flatMap { it.names }.let(::NamedDependency)
 
-fun deps(vararg dependencies: NamedDependency): NamedDependency
-        = dependencies.flatMap { it.names }.let(::NamedDependency)
-
-fun deps(vararg dependencies: ProjectDependency): ProjectDependency
-        = dependencies.flatMap { it.projects }.let(::ProjectDependency)
+fun deps(vararg dependencies: ProjectDependency): ProjectDependency =
+    dependencies.flatMap { it.projects }.let(::ProjectDependency)
 
 val String.dep get() = deps(this)
 
 fun Project.applyDependencies(
     formaConfiguration: FormaConfiguration = Forma.configuration,
-    dependencies: NamedDependency = emptyDependency(),
+    dependencies: FormaDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency(),
@@ -92,13 +109,15 @@ fun Project.applyDependencies(
 ) {
     formaConfiguration.repositories(repositories)
     dependencies {
-        dependencies.forEach {
-            addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
-        }
-        projectDependencies.forEach {
+        val projectAction: (ProjectSpec) -> Unit = {
             validator.validate(it.project)
             add(it.config.name, it.project)
         }
+        dependencies.forEach(
+            { addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive } },
+            projectAction
+        )
+        projectDependencies.forEach(projectAction = projectAction)
         testDependencies.forEach(
             { testImplementation(it.name) { isTransitive = it.transitive } },
             { testImplementation(it.project) }

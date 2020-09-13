@@ -5,8 +5,7 @@ import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 fun Project.test_util(
-    dependencies: NamedDependency,
-    testUtils: ProjectDependency
+    dependencies: FormaDependency = emptyDependency()
 ) {
     applyFeatures(setOf(
         FeatureDefinition(
@@ -18,13 +17,12 @@ fun Project.test_util(
     ))
 
     applyDependencies(
-        dependencies = dependencies,
-        projectDependencies = testUtils
+        dependencies = dependencies
     )
 
-    dependencies.names.forEach {
-        validateName(it.name, TestUtil)
-    }
+    dependencies.forEach(
+        projectAction = { validateName(it.project.name, TestUtil) }
+    )
 }
 
 object TestUtilValidator : Validator {

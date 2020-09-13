@@ -1,3 +1,4 @@
+include(":string-test-util")
 include(":root-library")
 include(":demo-library")
 include(":welcome-api")
