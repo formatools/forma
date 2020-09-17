@@ -4,16 +4,22 @@ import com.stepango.forma.validateName
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
+object EmptyFeatureDefinition
+
+val testUtilFeatureDefinition = FeatureDefinition(
+    pluginName = "kotlin",
+    pluginExtension = KotlinJvmProjectExtension::class,
+    featureConfiguration = EmptyFeatureDefinition,
+    defaultDependencies = kotlin.stdlib_jdk8
+) { _, _, _, _ -> }
+
 fun Project.test_util(
     dependencies: FormaDependency = emptyDependency()
 ) {
+    // TODO refactor to single method call
+    TestUtilValidator.validate(this)
     applyFeatures(setOf(
-        FeatureDefinition(
-            pluginName = "kotlin",
-            pluginExtension = KotlinJvmProjectExtension::class,
-            defaultDependencies = kotlin.stdlib_jdk8,
-            validator = TestUtilValidator
-        ) { _, _ -> }
+        testUtilFeatureDefinition
     ))
 
     applyDependencies(

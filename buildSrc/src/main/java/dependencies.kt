@@ -60,7 +60,7 @@ data class MixedDependency(
     val projects: List<ProjectSpec> = emptyList()
 ) : FormaDependency(projects.map { Either.right(it) } + names.map { Either.left(it) })
 
-infix fun FormaDependency.plus(dep: FormaDependency): MixedDependency = MixedDependency(
+infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency = MixedDependency(
     this.dependency.names + dep.dependency.names,
     this.dependency.projects + dep.dependency.projects
 )
