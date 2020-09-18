@@ -1,9 +1,9 @@
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.stepango.forma.Binary
-import com.stepango.forma.FormaConfiguration
+import com.stepango.forma.EmptyValidator
 import com.stepango.forma.Validator
 import com.stepango.forma.validator
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 
 /**
  * Application entry point. Manifest + minimal set of resources + root android project com.stepango.forma.internal.getDependency only.
@@ -13,43 +13,62 @@ fun Project.android_binary(
     packageName: String,
     projectDependencies: ProjectDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
+    testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
-    manifestPlaceholders: Map<String, Any>  = emptyMap(),
-    testInstrumentationRunner: String = androidJunitRunner
-) = android_binary(
-    packageName,
-    projectDependencies,
-    buildConfiguration,
-    testInstrumentationRunner,
-    consumerMinificationFiles,
-    manifestPlaceholders,
-    Forma.configuration
-)
-
-private fun Project.android_binary(
-    packageName: String,
-    projectDependencies: ProjectDependency,
-    buildConfiguration: BuildConfiguration,
-    testInstrumentationRunner: String,
-    consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    formaConfiguration: FormaConfiguration = Forma.configuration,
     validator: Validator = validator(Binary)
 ) {
-    apply(plugin = "com.android.application")
-    applyAppConfiguration(
-        formaConfiguration,
+
+    val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders
     )
+    applyFeatures(
+        androidBinaryFeatureDefinition(binaryFeatureConfiguration)
+    )
     applyDependencies(
-        formaConfiguration = formaConfiguration,
+        validator = binaryFeatureConfiguration.dependencyValidator,
         projectDependencies = projectDependencies
     )
     //TODO: maybe separate name validation from dependencies validation for perf reasons
     validator.validate(this)
 }
+
+data class AndroidBinaryFeatureConfiguration(
+    val packageName: String,
+    val buildConfiguration: BuildConfiguration,
+    val testInstrumentationRunnerClass: String,
+    val consumerMinificationFiles: Set<String>,
+    val manifestPlaceholders: Map<String, Any> = emptyMap(),
+    val dependencyValidator: Validator = EmptyValidator,
+    val selfValidator: Validator = validator(Binary)
+)
+
+fun androidBinaryFeatureDefinition(
+    featureConfiguration: AndroidBinaryFeatureConfiguration
+) = FeatureDefinition(
+    pluginName = "com.android.application",
+    pluginExtension = BaseAppModuleExtension::class,
+    featureConfiguration = featureConfiguration,
+    configuration = { extension, feature, _, formaConfiguration ->
+        with(extension) {
+            compileSdkVersion(formaConfiguration.compileSdk)
+
+            defaultConfig.applicationId = feature.packageName
+
+            defaultConfig.applyFrom(
+                formaConfiguration,
+                feature.testInstrumentationRunnerClass,
+                feature.consumerMinificationFiles,
+                feature.manifestPlaceholders
+            )
+
+            buildTypes.applyFrom(feature.buildConfiguration)
+            compileOptions.applyFrom(formaConfiguration)
+        }
+    }
+)
 

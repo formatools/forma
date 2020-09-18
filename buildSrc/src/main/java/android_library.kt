@@ -1,7 +1,4 @@
-import com.stepango.forma.FormaConfiguration
-import com.stepango.forma.Library
-import com.stepango.forma.Validator
-import com.stepango.forma.validator
+import com.stepango.forma.*
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
@@ -23,6 +20,7 @@ internal fun Project.android_library(
     apply(plugin = "com.android.library")
     applyLibraryConfiguration(formaConfiguration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
     applyDependencies(
+        validator = EmptyValidator, //TODO proper validator here
         formaConfiguration = formaConfiguration,
         dependencies = dependencies,
         projectDependencies = projectDependencies,

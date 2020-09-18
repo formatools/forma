@@ -1,6 +1,5 @@
 import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Validator
-import com.stepango.forma.emptyValidator
 import org.funktionale.either.Either
 import org.gradle.api.Action
 import org.gradle.api.Project
@@ -100,12 +99,12 @@ fun deps(vararg dependencies: ProjectDependency): ProjectDependency =
 val String.dep get() = deps(this)
 
 fun Project.applyDependencies(
+    validator: Validator,
     formaConfiguration: FormaConfiguration = Forma.configuration,
     dependencies: FormaDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
-    androidTestDependencies: FormaDependency = emptyDependency(),
-    validator: Validator = emptyValidator()
+    androidTestDependencies: FormaDependency = emptyDependency()
 ) {
     formaConfiguration.repositories(repositories)
     dependencies {

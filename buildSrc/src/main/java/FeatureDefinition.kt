@@ -17,12 +17,11 @@ data class FeatureDefinition<Extension : Any, FeatureConfiguration: Any>(
 }
 
 fun Project.applyFeatures(
-    features: Set<FeatureDefinition<*, *>>,
-    conf: FormaConfiguration = Forma.configuration
+    vararg features: FeatureDefinition<*, *>
 ) {
     features.forEach { definition ->
         apply(plugin = definition.pluginName)
-        definition.applyConfiguration(this, conf)
+        definition.applyConfiguration(this, Forma.configuration) //TODO remove static singleton access
         definition.defaultDependencies.names.forEach {
             dependencies.implementation(it.name)
         }

@@ -6,6 +6,10 @@ interface Validator {
     fun validate(project: Project)
 }
 
+object EmptyValidator : Validator {
+    override fun validate(project: Project) = Unit
+}
+
 fun TargetName.validate(name: String) = name.endsWith(suffix)
 
 fun validator(vararg targetNames: TargetName): Validator = object : Validator {
@@ -22,10 +26,6 @@ fun validateName(
     if (targetNames.map { it.validate(name) }.contains(true).not()) {
         throwProjectValidationError(name, Library)
     }
-}
-
-fun emptyValidator(): Validator = object : Validator {
-    override fun validate(project: Project) {}
 }
 
 fun throwProjectValidationError(

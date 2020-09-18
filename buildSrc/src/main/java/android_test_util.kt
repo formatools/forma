@@ -39,16 +39,12 @@ fun Project.android_test_util(
     // TODO refactor to single method call
     val nameValidator = validator(AndroidTestUtil)
     nameValidator.validate(this)
-    applyFeatures(setOf(
+    applyFeatures(
         testUtilFeatureDefinition
-    ))
-
-    applyDependencies(
-        dependencies = dependencies
     )
 
-    val dependencyValidator = validator(AndroidTestUtil, TestUtil)
-    dependencies.forEach(
-        projectAction = { dependencyValidator.validate(it.project) }
+    applyDependencies(
+        validator = validator(AndroidTestUtil, TestUtil),
+        dependencies = dependencies
     )
 }

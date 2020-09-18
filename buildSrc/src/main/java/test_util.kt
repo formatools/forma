@@ -15,18 +15,15 @@ val testUtilFeatureDefinition = FeatureDefinition(
 fun Project.test_util(
     dependencies: FormaDependency = emptyDependency()
 ) {
-    val validator = validator(TestUtil)
+    val nameValidator = validator(TestUtil)
     // TODO refactor to single method call
-    validator.validate(this)
-    applyFeatures(setOf(
+    nameValidator.validate(this)
+    applyFeatures(
         testUtilFeatureDefinition
-    ))
-
-    applyDependencies(
-        dependencies = dependencies
     )
 
-    dependencies.forEach(
-        projectAction = { validator.validate(project) }
+    applyDependencies(
+        validator = nameValidator,
+        dependencies = dependencies
     )
 }

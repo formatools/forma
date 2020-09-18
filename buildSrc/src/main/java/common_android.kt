@@ -1,6 +1,5 @@
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.CompileOptions
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.DefaultConfig
 import com.stepango.forma.FormaConfiguration
@@ -28,32 +27,6 @@ internal fun Project.applyLibraryConfiguration(
 ) {
     the<LibraryExtension>().run {
         compileSdkVersion(formaConfiguration.compileSdk)
-
-        defaultConfig.applyFrom(
-            formaConfiguration,
-            testInstrumentationRunnerClass,
-            consumerMinificationFiles,
-            manifestPlaceholders
-        )
-
-        buildTypes.applyFrom(buildConfiguration)
-        compileOptions.applyFrom(formaConfiguration)
-    }
-}
-
-@Suppress("UnstableApiUsage")
-internal fun Project.applyAppConfiguration(
-    formaConfiguration: FormaConfiguration,
-    appId: String,
-    buildConfiguration: BuildConfiguration,
-    testInstrumentationRunnerClass: String,
-    consumerMinificationFiles: Set<String>,
-    manifestPlaceholders: Map<String, Any>
-) {
-    the<BaseAppModuleExtension>().run {
-        compileSdkVersion(formaConfiguration.compileSdk)
-
-        defaultConfig.applicationId = appId
 
         defaultConfig.applyFrom(
             formaConfiguration,
