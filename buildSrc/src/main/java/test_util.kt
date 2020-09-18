@@ -1,6 +1,5 @@
 import com.stepango.forma.TestUtil
-import com.stepango.forma.Validator
-import com.stepango.forma.validateName
+import com.stepango.forma.validator
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
@@ -16,8 +15,9 @@ val testUtilFeatureDefinition = FeatureDefinition(
 fun Project.test_util(
     dependencies: FormaDependency = emptyDependency()
 ) {
+    val validator = validator(TestUtil)
     // TODO refactor to single method call
-    TestUtilValidator.validate(this)
+    validator.validate(this)
     applyFeatures(setOf(
         testUtilFeatureDefinition
     ))
@@ -27,12 +27,6 @@ fun Project.test_util(
     )
 
     dependencies.forEach(
-        projectAction = { validateName(it.project.name, TestUtil) }
+        projectAction = { validator.validate(project) }
     )
-}
-
-object TestUtilValidator : Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, TestUtil)
-    }
 }

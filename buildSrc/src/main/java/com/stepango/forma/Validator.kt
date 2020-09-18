@@ -8,6 +8,12 @@ interface Validator {
 
 fun TargetName.validate(name: String) = name.endsWith(suffix)
 
+fun validator(vararg targetNames: TargetName): Validator = object : Validator {
+    override fun validate(project: Project) {
+        validateName(project.name, *targetNames)
+    }
+}
+
 fun validateName(
     name: String,
     vararg targetNames: TargetName
@@ -19,7 +25,7 @@ fun validateName(
 }
 
 fun emptyValidator(): Validator = object : Validator {
-    override fun validate(project: Project) { }
+    override fun validate(project: Project) {}
 }
 
 fun throwProjectValidationError(

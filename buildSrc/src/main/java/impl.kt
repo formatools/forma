@@ -35,7 +35,7 @@ internal fun Project.impl(
     manifestPlaceholders: Map<String, Any>,
     androidTestDependencies: NamedDependency,
     formaConfiguration: FormaConfiguration,
-    validator: Validator = ImplNameValidator
+    validator: Validator = validator(Impl)
 ) {
     apply(plugin = "com.android.library")
     apply(plugin = "kotlin-android")
@@ -54,20 +54,8 @@ internal fun Project.impl(
         projectDependencies = projectDependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        validator = ImplDepsValidator
+        validator = validator(Api, Res)
     )
 
     validator.validate(this)
-}
-
-private object ImplNameValidator : Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, Impl)
-    }
-}
-
-private object ImplDepsValidator : Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, Api, Res)
-    }
 }

@@ -1,7 +1,7 @@
 import com.stepango.forma.Binary
 import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Validator
-import com.stepango.forma.validateName
+import com.stepango.forma.validator
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
@@ -34,7 +34,7 @@ private fun Project.android_binary(
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     formaConfiguration: FormaConfiguration = Forma.configuration,
-    validator: Validator = BinaryValidator
+    validator: Validator = validator(Binary)
 ) {
     apply(plugin = "com.android.application")
     applyAppConfiguration(
@@ -53,9 +53,3 @@ private fun Project.android_binary(
     validator.validate(this)
 }
 
-object BinaryValidator: Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, Binary)
-        //TODO dependencies validation
-    }
-}

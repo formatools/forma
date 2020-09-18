@@ -13,5 +13,3 @@ object Res : TargetName("-res")
 object View : TargetName("-view")
 object Api : TargetName("-api")
 object Impl : TargetName("-impl")
-
-

@@ -1,7 +1,7 @@
 import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Library
 import com.stepango.forma.Validator
-import com.stepango.forma.validateName
+import com.stepango.forma.validator
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
@@ -18,7 +18,7 @@ internal fun Project.android_library(
     manifestPlaceholders: Map<String, Any>,
     androidTestDependencies: NamedDependency,
     formaConfiguration: FormaConfiguration,
-    validator: Validator = LibraryValidator
+    validator: Validator = validator(Library)
 ) {
     apply(plugin = "com.android.library")
     applyLibraryConfiguration(formaConfiguration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
@@ -61,11 +61,5 @@ fun Project.android_library(
         kotlin.stdlib_jdk8.names.forEach {
             implementation(it.name)
         }
-    }
-}
-
-object LibraryValidator: Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, Library)
     }
 }

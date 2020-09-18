@@ -1,8 +1,7 @@
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.stepango.forma.AndroidTestUtil
 import com.stepango.forma.TestUtil
-import com.stepango.forma.Validator
-import com.stepango.forma.validateName
+import com.stepango.forma.validator
 import org.gradle.api.Project
 
 data class AndroidFeatureConfig(
@@ -38,7 +37,8 @@ fun Project.android_test_util(
     dependencies: FormaDependency = emptyDependency()
 ) {
     // TODO refactor to single method call
-    AndroidTestUtilValidator.validate(this)
+    val nameValidator = validator(AndroidTestUtil)
+    nameValidator.validate(this)
     applyFeatures(setOf(
         testUtilFeatureDefinition
     ))
@@ -47,13 +47,8 @@ fun Project.android_test_util(
         dependencies = dependencies
     )
 
+    val dependencyValidator = validator(AndroidTestUtil, TestUtil)
     dependencies.forEach(
-        projectAction = { validateName(it.project.name, AndroidTestUtil, TestUtil) }
+        projectAction = { dependencyValidator.validate(it.project) }
     )
-}
-
-object AndroidTestUtilValidator : Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, AndroidTestUtil)
-    }
 }

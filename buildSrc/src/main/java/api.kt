@@ -1,7 +1,7 @@
 import com.stepango.forma.Api
 import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Validator
-import com.stepango.forma.validateName
+import com.stepango.forma.validator
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
@@ -19,27 +19,14 @@ internal fun Project.api(
     dependencies: NamedDependency,
     projectDependencies: ProjectDependency,
     formaConfiguration: FormaConfiguration,
-    validator: Validator = ApiNameValidator
+    validator: Validator = validator(Api)
 ) {
+    validator.validate(this)
     apply(plugin = "kotlin")
     applyDependencies(
         formaConfiguration = formaConfiguration,
         dependencies = dependencies,
         projectDependencies = projectDependencies,
-        validator = ApiDepsValidator
+        validator = validator
     )
-
-    validator.validate(this)
-}
-
-private object ApiNameValidator : Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, Api)
-    }
-}
-
-private object ApiDepsValidator : Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, Api)
-    }
 }
