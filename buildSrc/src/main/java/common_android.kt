@@ -37,6 +37,8 @@ internal fun Project.applyLibraryConfiguration(
 
         buildTypes.applyFrom(buildConfiguration)
         compileOptions.applyFrom(formaConfiguration)
+
+        buildFeatures.dataBinding = formaConfiguration.databindings
     }
 }
 

@@ -9,6 +9,7 @@ internal fun Project.android_library(
     projectDependencies: ProjectDependency,
     testDependencies: FormaDependency,
     testUtilDependencies: ProjectDependency,
+    kaptDependencies: FormaDependency,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
@@ -18,6 +19,10 @@ internal fun Project.android_library(
     validator: Validator = validator(Library)
 ) {
     apply(plugin = "com.android.library")
+    apply(plugin = "kotlin-android")
+    if (kaptDependencies != EmptyDependency) {
+        apply(plugin = "kotlin-kapt")
+    }
     applyLibraryConfiguration(formaConfiguration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
     applyDependencies(
         validator = EmptyValidator, //TODO proper validator here
@@ -25,7 +30,8 @@ internal fun Project.android_library(
         dependencies = dependencies,
         projectDependencies = projectDependencies,
         testDependencies = testDependencies,
-        androidTestDependencies = androidTestDependencies
+        androidTestDependencies = androidTestDependencies,
+        kaptDependencies = kaptDependencies
     )
     validator.validate(this)
 }
@@ -36,6 +42,7 @@ fun Project.android_library(
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     testUtilDependencies: ProjectDependency = emptyDependency(),
+    kaptDependencies: FormaDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
@@ -47,6 +54,7 @@ fun Project.android_library(
         projectDependencies,
         testDependencies,
         testUtilDependencies,
+        kaptDependencies,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
@@ -54,7 +62,6 @@ fun Project.android_library(
         androidTestDependencies,
         Forma.configuration
     )
-    apply(plugin = "kotlin-android")
     dependencies {
         kotlin.stdlib_jdk8.names.forEach {
             implementation(it.name)

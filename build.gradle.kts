@@ -9,7 +9,8 @@ Forma.configure(
     repositories = {
         google()
         jcenter()
-    }
+    },
+    databindings = true
 )
 
 tasks.register("clean", Delete::class) {

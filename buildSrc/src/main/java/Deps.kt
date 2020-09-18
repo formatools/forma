@@ -10,6 +10,10 @@ object versions {
         const val kotlin = "1.4.10"
     }
 
+    object android {
+        const val databinding = "3.1.4"
+    }
+
     object androidx {
         const val activity = "1.1.0"
         const val annotation = "1.1.0"
@@ -24,6 +28,7 @@ object versions {
         const val constraintlayout = "2.0.1"
         const val customview = "1.1.0"
         const val cursoradapter = "1.0.0"
+        const val databinding = "4.0.1"
         const val documentfile = "1.0.1"
         const val drawerlayout = "1.1.0"
         const val interpolator = "1.0.0"
@@ -45,6 +50,10 @@ object versions {
 
     object google {
         const val material = "1.2.0"
+    }
+
+    object javax {
+        const val inject = "1"
     }
 
     object test {
@@ -94,6 +103,13 @@ object kotlinx {
 
 object androidx {
     val annotation = "androidx.annotation:annotation:${versions.androidx.annotation}".dep
+
+    val databinding = deps(
+        "androidx.databinding:databinding-runtime:${versions.androidx.databinding}".dep,
+        "androidx.databinding:databinding-common:${versions.androidx.databinding}".dep,
+        "androidx.databinding:viewbinding:${versions.androidx.databinding}".dep
+    )
+
     val collection = deps(
         annotation,
         "androidx.collection:collection:${versions.androidx.collection}".dep
@@ -409,6 +425,12 @@ object google {
     )
 }
 
+object javax {
+    val inject = deps(
+        "javax.inject:javax.inject:${versions.javax.inject}".dep
+    )
+}
+
 object test {
     val junit = deps(
         "junit:junit:${versions.test.junit}".dep,
@@ -421,5 +443,11 @@ object test {
 
     val espresso = deps(
         "androidx.test.espresso:espresso-core:${versions.test.espresso}".dep
+    )
+}
+
+object annotationProcessors {
+    val databinding = deps(
+        "com.android.databinding:compiler:${versions.android.databinding}".dep
     )
 }
