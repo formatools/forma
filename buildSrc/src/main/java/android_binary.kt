@@ -33,7 +33,6 @@ fun Project.android_binary(
         validator = binaryFeatureConfiguration.dependencyValidator,
         projectDependencies = projectDependencies
     )
-    //TODO: maybe separate name validation from dependencies validation for perf reasons
     validator.validate(this)
 }
 
