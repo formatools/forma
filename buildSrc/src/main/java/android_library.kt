@@ -1,5 +1,6 @@
-import com.android.build.gradle.LibraryExtension
 import com.stepango.forma.*
+import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
+import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
@@ -107,39 +108,3 @@ fun Project.androidLibrary(
 
     validator.validate(this)
 }
-
-private data class AndroidLibraryFeatureConfiguration(
-    val packageName: String,
-    val buildConfiguration: BuildConfiguration,
-    val testInstrumentationRunnerClass: String,
-    val consumerMinificationFiles: Set<String>,
-    val manifestPlaceholders: Map<String, Any> = emptyMap(),
-    val dependencyValidator: Validator = EmptyValidator,
-    val selfValidator: Validator = validator(Library)
-)
-
-private fun androidLibraryFeatureDefinition(
-    featureConfiguration: AndroidLibraryFeatureConfiguration
-) = FeatureDefinition(
-    pluginName = "com.android.library",
-    pluginExtension = LibraryExtension::class,
-    featureConfiguration = featureConfiguration,
-    configuration = { extension, feature, _, formaConfiguration ->
-        with(extension) {
-            compileSdkVersion(formaConfiguration.compileSdk)
-
-            defaultConfig.applyFrom(
-                formaConfiguration,
-                feature.testInstrumentationRunnerClass,
-                feature.consumerMinificationFiles,
-                feature.manifestPlaceholders
-            )
-
-            buildTypes.applyFrom(feature.buildConfiguration)
-            compileOptions.applyFrom(formaConfiguration)
-
-            // TODO may be don't need
-            // buildFeatures.dataBinding = formaConfiguration.databindings
-        }
-    }
-)
