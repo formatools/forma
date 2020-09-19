@@ -1,4 +1,4 @@
-android_library(
+androidLibrary(
     packageName = "com.stepango.blockme.library.mvvm",
 
     dependencies = deps(
