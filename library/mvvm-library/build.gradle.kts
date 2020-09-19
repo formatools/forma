@@ -14,10 +14,6 @@ android_library(
         javax.inject
     ),
 
-    kaptDependencies = deps(
-        annotationProcessors.databinding
-    ),
-
     testDependencies = deps(
         test.junit
     )

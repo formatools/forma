@@ -10,10 +10,6 @@ object versions {
         const val kotlin = "1.4.10"
     }
 
-    object android {
-        const val databinding = "3.1.4"
-    }
-
     object androidx {
         const val activity = "1.1.0"
         const val annotation = "1.1.0"
@@ -443,11 +439,5 @@ object test {
 
     val espresso = deps(
         "androidx.test.espresso:espresso-core:${versions.test.espresso}".dep
-    )
-}
-
-object annotationProcessors {
-    val databinding = deps(
-        "com.android.databinding:compiler:${versions.android.databinding}".dep
     )
 }
