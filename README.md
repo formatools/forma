@@ -13,10 +13,12 @@ Opinionated, scalable, thoughtfully structured, type-safe, guided  Gradle projec
 - Extensible - be the expert when you need to!
 - And much more...
 
-Poject configuration in a single method call:
+Configuration made easy:
 
 ```kotlin
 // root build.gradle.kts
+
+// Configure shared aspects of your android Projects in a single place, no need to copy it over to all your modules or invent some smart sharing technique;)
 Forma.configure(
     minSdk = 21,
     targetSdk = 29,
@@ -35,7 +37,11 @@ Forma.configure(
 Your kotlin android library
 
 ```kotlin
-android_library(
+// Type-safe creation of your module is a single method call
+// Required plugins applied automatically
+// Configuration inferred from Forma.configure
+// Configuration is fast ;)
+androidLibrary(
     packageName = "com.stepango.example",
     dependencies = deps(
         google.material,
