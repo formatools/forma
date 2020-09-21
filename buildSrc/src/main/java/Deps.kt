@@ -3,6 +3,8 @@
 object versions {
     const val agp = "4.1.0-rc01"
     const val funktionale = "1.2"
+    const val timber = "4.7.1"
+    const val coil = "0.8.0"
 
     object jetbrains {
         const val annotations = "20.0.0"
@@ -36,6 +38,7 @@ object versions {
         const val savedstate = "1.0.0"
         const val slidingpanelayout = "1.0.0"
         const val swiperefreshlayout = "1.0.0"
+        const val paging = "2.1.2"
         const val recyclerview = "1.1.0"
         const val transition = "1.3.1"
         const val vectordrawable = "1.1.0"
@@ -94,14 +97,6 @@ object kotlinx {
 
 object androidx {
     val annotation = "androidx.annotation:annotation:${versions.androidx.annotation}".dep
-
-    //TODO expose Observable* dependency for VM's, should we have separate module configuration for databinding VM's?
-    @Deprecated("Should not be used directly, dependencies added automatically for androidDataBinding and androidDataBindingAdapters module configurations")
-    val databinding = transitiveDeps(
-        "androidx.databinding:databinding-runtime:${Forma.configuration.agpVersion}",
-        "androidx.databinding:databinding-common:${Forma.configuration.agpVersion}",
-        "androidx.databinding:viewbinding:${Forma.configuration.agpVersion}"
-    )
 
     val collection = deps(
         annotation,
@@ -311,6 +306,12 @@ object androidx {
         interpolator
     )
 
+    private val paging_common = "androidx.paging:paging-common:${versions.androidx.paging}".dep
+    val paging = deps(
+        "androidx.paging:paging-runtime:${versions.androidx.paging}".dep,
+        paging_common
+    )
+
     val legacy_ui = deps(
         "androidx.legacy:legacy-support-core-ui:${versions.androidx.legacy}".dep,
         asynclayoutinflater,
@@ -437,4 +438,16 @@ object test {
     val espresso = deps(
         "androidx.test.espresso:espresso-core:${versions.test.espresso}".dep
     )
+}
+
+object io {
+    private val coil_base = "io.coil-kt:coil-base:${versions.coil}".dep
+    val coil = deps(
+        "io.coil-kt:coil:${versions.coil}".dep,
+        coil_base
+    )
+}
+
+object jakewharton {
+    val timber = "com.jakewharton.timber:timber:${versions.timber}".dep
 }

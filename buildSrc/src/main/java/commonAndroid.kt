@@ -1,11 +1,8 @@
-import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.CompileOptions
 import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.DefaultConfig
 import com.stepango.forma.FormaConfiguration
 import org.gradle.api.NamedDomainObjectContainer
-import org.gradle.api.Project
-import org.gradle.kotlin.dsl.the
 
 data class BuildConfiguration(
     val buildTypes: Map<String, BuildType.() -> Unit> = emptyMap()
@@ -16,31 +13,6 @@ data class BuildTypeConfiguration(
     val useDefaultMinificationRules: Boolean = false,
     val minificationRulesFileName: String = "proguard-rules.pro"
 )
-
-@Suppress("UnstableApiUsage")
-internal fun Project.applyLibraryConfiguration(
-    formaConfiguration: FormaConfiguration,
-    buildConfiguration: BuildConfiguration,
-    testInstrumentationRunnerClass: String,
-    consumerMinificationFiles: Set<String>,
-    manifestPlaceholders: Map<String, Any>
-) {
-    the<LibraryExtension>().run {
-        compileSdkVersion(formaConfiguration.compileSdk)
-
-        defaultConfig.applyFrom(
-            formaConfiguration,
-            testInstrumentationRunnerClass,
-            consumerMinificationFiles,
-            manifestPlaceholders
-        )
-
-        buildTypes.applyFrom(buildConfiguration)
-        compileOptions.applyFrom(formaConfiguration)
-
-        buildFeatures.dataBinding = formaConfiguration.dataBinding
-    }
-}
 
 internal fun DefaultConfig.applyFrom(
     formaConfiguration: FormaConfiguration,

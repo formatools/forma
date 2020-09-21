@@ -4,6 +4,7 @@ import com.stepango.forma.EmptyValidator
 import com.stepango.forma.Validator
 import com.stepango.forma.validator
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 
 /**
  * Application entry point. Manifest + minimal set of resources + root android project com.stepango.forma.internal.getDependency only.
@@ -16,22 +17,29 @@ fun Project.androidBinary(
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    validator: Validator = validator(Binary)
+    validator: Validator = validator(Binary),
+    dataBinding: Boolean = false
 ) {
-
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
-        manifestPlaceholders
+        manifestPlaceholders,
+        dataBinding = dataBinding
     )
     applyFeatures(
         androidBinaryFeatureDefinition(binaryFeatureConfiguration)
     )
+    // TODO Replace this flow for call KotlinAndroid, KotlinKapt definitions into applyFeatures {...}
+    if (dataBinding) {
+        apply(plugin = "kotlin-android")
+        apply(plugin = "kotlin-kapt")
+    }
     applyDependencies(
         validator = binaryFeatureConfiguration.dependencyValidator,
-        projectDependencies = projectDependencies
+        projectDependencies = projectDependencies,
+        dataBinding = dataBinding
     )
     validator.validate(this)
 }
@@ -43,7 +51,8 @@ data class AndroidBinaryFeatureConfiguration(
     val consumerMinificationFiles: Set<String>,
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val dependencyValidator: Validator = EmptyValidator,
-    val selfValidator: Validator = validator(Binary)
+    val selfValidator: Validator = validator(Binary),
+    val dataBinding: Boolean = false
 )
 
 fun androidBinaryFeatureDefinition(
@@ -67,6 +76,8 @@ fun androidBinaryFeatureDefinition(
 
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
+
+            buildFeatures.dataBinding = featureConfiguration.dataBinding
         }
     }
 )
