@@ -1,4 +1,4 @@
-test_util(
+testUtil(
     dependencies = deps(
         test.junit
     )

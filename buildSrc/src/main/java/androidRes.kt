@@ -16,4 +16,5 @@ enum class ResType {
     other
 }
 
+// Only resources allowed
 fun Project.resources(type: ResType): Unit = TODO()

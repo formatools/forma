@@ -31,7 +31,7 @@ data class FormaConfiguration(
     val versionCode: Int,
     val versionName: String,
     val repositories: RepositoryHandler.() -> Unit,
-    val databindings: Boolean = false,
+    val dataBinding: Boolean = false,
     val compose: Boolean = false,
     val javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8 // Java/Kotlin configuration
 )

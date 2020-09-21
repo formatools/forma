@@ -9,7 +9,7 @@ import org.gradle.api.Project
  * Application entry point. Manifest + minimal set of resources + root android project com.stepango.forma.internal.getDependency only.
  * No library dependencies, no source code.
  */
-fun Project.android_binary(
+fun Project.androidBinary(
     packageName: String,
     projectDependencies: ProjectDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),

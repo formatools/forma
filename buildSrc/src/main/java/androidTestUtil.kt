@@ -33,7 +33,7 @@ fun androidFeatureDefinition(
     }
 }
 
-fun Project.android_test_util(
+fun Project.androidTestUtil(
     dependencies: FormaDependency = emptyDependency()
 ) {
     // TODO refactor to single method call

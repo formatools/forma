@@ -10,7 +10,7 @@ Forma.configure(
         google()
         jcenter()
     },
-    databindings = true
+    dataBinding = true
 )
 
 tasks.register("clean", Delete::class) {

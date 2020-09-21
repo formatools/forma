@@ -24,7 +24,6 @@ object versions {
         const val constraintlayout = "2.0.1"
         const val customview = "1.1.0"
         const val cursoradapter = "1.0.0"
-        const val databinding = "4.0.1"
         const val documentfile = "1.0.1"
         const val drawerlayout = "1.1.0"
         const val interpolator = "1.0.0"
@@ -46,10 +45,6 @@ object versions {
 
     object google {
         const val material = "1.2.0"
-    }
-
-    object javax {
-        const val inject = "1"
     }
 
     object test {
@@ -100,10 +95,12 @@ object kotlinx {
 object androidx {
     val annotation = "androidx.annotation:annotation:${versions.androidx.annotation}".dep
 
-    val databinding = deps(
-        "androidx.databinding:databinding-runtime:${versions.androidx.databinding}".dep,
-        "androidx.databinding:databinding-common:${versions.androidx.databinding}".dep,
-        "androidx.databinding:viewbinding:${versions.androidx.databinding}".dep
+    //TODO expose Observable* dependency for VM's, should we have separate module configuration for databinding VM's?
+    @Deprecated("Should not be used directly, dependencies added automatically for androidDataBinding and androidDataBindingAdapters module configurations")
+    val databinding = transitiveDeps(
+        "androidx.databinding:databinding-runtime:${Forma.configuration.agpVersion}",
+        "androidx.databinding:databinding-common:${Forma.configuration.agpVersion}",
+        "androidx.databinding:viewbinding:${Forma.configuration.agpVersion}"
     )
 
     val collection = deps(
@@ -423,7 +420,7 @@ object google {
 
 object javax {
     val inject = deps(
-        "javax.inject:javax.inject:${versions.javax.inject}".dep
+        "javax.inject:javax.inject:1".dep
     )
 }
 

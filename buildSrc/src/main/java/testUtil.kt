@@ -12,7 +12,7 @@ val testUtilFeatureDefinition = FeatureDefinition(
     defaultDependencies = kotlin.stdlib_jdk8
 ) { _, _, _, _ -> }
 
-fun Project.test_util(
+fun Project.testUtil(
     dependencies: FormaDependency = emptyDependency()
 ) {
     val nameValidator = validator(TestUtil)

@@ -32,7 +32,7 @@ internal fun Project.android_library(
         formaConfiguration = formaConfiguration,
         dependencies = dependencies,
         projectDependencies = projectDependencies,
-        testDependencies = testDependencies,
+        testDependencies = testDependencies + testUtilDependencies,
         androidTestDependencies = androidTestDependencies,
         kaptDependencies = kaptDependencies
     )
@@ -78,7 +78,7 @@ fun Project.androidLibrary(
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
-    kaptDependencies: FormaDependency = emptyDependency(),
+    kaptDependencies: NamedDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
