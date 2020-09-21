@@ -18,7 +18,8 @@ Configuration made easy:
 ```kotlin
 // root build.gradle.kts
 
-// Configure shared aspects of your android Projects in a single place, no need to copy it over to all your modules or invent some smart sharing technique;)
+// Configure shared aspects of your android Projects in a single place,
+// no need to copy it over to all your modules or invent some smart sharing technique;)
 Forma.configure(
     minSdk = 21,
     targetSdk = 29,
@@ -42,7 +43,9 @@ Your kotlin android library
 // Configuration inferred from Forma.configure
 // Configuration is fast ;)
 androidLibrary(
+    // Mandatory, visible from build configuration
     packageName = "com.stepango.example",
+    // External dependencies declaration, one universal syntax
     dependencies = deps(
         google.material,
         androidx.core_ktx,
@@ -51,6 +54,19 @@ androidLibrary(
         androidx.navigation_fragment_ktx,
         androidx.navigation_ui_ktx,
         androidx.vectordrawable
+    ),
+    // Internal project dependencies, declared separately from externals
+    projectDependencies = deps(
+        project(":demo-library")
+    ),
+    // Test dependencies declaration
+    testDependencies = deps(
+        test.junit
+    ),
+    // Android test dependencies declaration
+    androidTestDependencies = deps(
+        test.junit_ext,
+        test.espresso
     )
 )
 ```
