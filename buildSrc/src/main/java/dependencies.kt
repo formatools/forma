@@ -104,7 +104,8 @@ fun Project.applyDependencies(
     dependencies: FormaDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
-    androidTestDependencies: FormaDependency = emptyDependency()
+    androidTestDependencies: FormaDependency = emptyDependency(),
+    kaptDependencies: FormaDependency = emptyDependency()
 ) {
     formaConfiguration.repositories(repositories)
     dependencies {
@@ -125,9 +126,21 @@ fun Project.applyDependencies(
             { androidTestImplementation(it.name) { isTransitive = it.transitive } },
             { androidTestImplementation(it.project) }
         )
+        kaptDependencies.forEach(
+            { kapt(it.name) }
+        )
     }
 }
 
+/**
+ * Adds a dependency to the `kapt` configuration.
+ *
+ * @param dependencyNotation name of dependency to add at specific configuration
+ *
+ * @return the dependency
+ */
+internal fun DependencyHandler.kapt(dependencyNotation: String) : GradleDependency? =
+    add("kapt", dependencyNotation)
 
 internal fun DependencyHandler.addDependencyTo(
     configurationName: String,

@@ -24,6 +24,7 @@ object versions {
         const val constraintlayout = "2.0.1"
         const val customview = "1.1.0"
         const val cursoradapter = "1.0.0"
+        const val databinding = "4.0.1"
         const val documentfile = "1.0.1"
         const val drawerlayout = "1.1.0"
         const val interpolator = "1.0.0"
@@ -45,6 +46,10 @@ object versions {
 
     object google {
         const val material = "1.2.0"
+    }
+
+    object javax {
+        const val inject = "1"
     }
 
     object test {
@@ -94,6 +99,13 @@ object kotlinx {
 
 object androidx {
     val annotation = "androidx.annotation:annotation:${versions.androidx.annotation}".dep
+
+    val databinding = deps(
+        "androidx.databinding:databinding-runtime:${versions.androidx.databinding}".dep,
+        "androidx.databinding:databinding-common:${versions.androidx.databinding}".dep,
+        "androidx.databinding:viewbinding:${versions.androidx.databinding}".dep
+    )
+
     val collection = deps(
         annotation,
         "androidx.collection:collection:${versions.androidx.collection}".dep
@@ -406,6 +418,12 @@ object google {
         androidx.legacy_utils,
         androidx.recyclerview,
         androidx.transition
+    )
+}
+
+object javax {
+    val inject = deps(
+        "javax.inject:javax.inject:${versions.javax.inject}".dep
     )
 }
 

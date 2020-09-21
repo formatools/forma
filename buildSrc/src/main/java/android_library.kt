@@ -1,14 +1,18 @@
 import com.stepango.forma.*
+import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
+import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("UnstableApiUsage")
+@Deprecated(message = "Use Project.androidLibrary(...)", level = DeprecationLevel.WARNING)
 internal fun Project.android_library(
     dependencies: NamedDependency,
     projectDependencies: ProjectDependency,
     testDependencies: FormaDependency,
     testUtilDependencies: ProjectDependency,
+    kaptDependencies: FormaDependency,
     buildConfiguration: BuildConfiguration,
     testInstrumentationRunner: String,
     consumerMinificationFiles: Set<String>,
@@ -18,6 +22,10 @@ internal fun Project.android_library(
     validator: Validator = validator(Library)
 ) {
     apply(plugin = "com.android.library")
+    apply(plugin = "kotlin-android")
+    if (kaptDependencies != EmptyDependency) {
+        apply(plugin = "kotlin-kapt")
+    }
     applyLibraryConfiguration(formaConfiguration, buildConfiguration, testInstrumentationRunner, consumerMinificationFiles, manifestPlaceholders)
     applyDependencies(
         validator = EmptyValidator, //TODO proper validator here
@@ -25,17 +33,19 @@ internal fun Project.android_library(
         dependencies = dependencies,
         projectDependencies = projectDependencies,
         testDependencies = testDependencies,
-        androidTestDependencies = androidTestDependencies
+        androidTestDependencies = androidTestDependencies,
+        kaptDependencies = kaptDependencies
     )
     validator.validate(this)
 }
-
+@Deprecated(message ="Use Project.androidLibrary(...)", level = DeprecationLevel.WARNING)
 fun Project.android_library(
     packageName: String, // TODO: manifest placeholder for package
     dependencies: NamedDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     testUtilDependencies: ProjectDependency = emptyDependency(),
+    kaptDependencies: FormaDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
@@ -47,6 +57,7 @@ fun Project.android_library(
         projectDependencies,
         testDependencies,
         testUtilDependencies,
+        kaptDependencies,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
@@ -54,10 +65,46 @@ fun Project.android_library(
         androidTestDependencies,
         Forma.configuration
     )
-    apply(plugin = "kotlin-android")
     dependencies {
         kotlin.stdlib_jdk8.names.forEach {
             implementation(it.name)
         }
     }
+}
+
+fun Project.androidLibrary(
+    packageName: String,
+    dependencies: FormaDependency = emptyDependency(),
+    projectDependencies: ProjectDependency = emptyDependency(),
+    testDependencies: NamedDependency = emptyDependency(),
+    androidTestDependencies: NamedDependency = emptyDependency(),
+    kaptDependencies: FormaDependency = emptyDependency(),
+    testInstrumentationRunner: String = androidJunitRunner,
+    buildConfiguration: BuildConfiguration = BuildConfiguration(),
+    consumerMinificationFiles: Set<String> = emptySet(),
+    manifestPlaceholders: Map<String, Any> = emptyMap(),
+    validator: Validator = validator(Library)
+) {
+    val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
+        packageName,
+        buildConfiguration,
+        testInstrumentationRunner,
+        consumerMinificationFiles,
+        manifestPlaceholders
+    )
+
+    applyFeatures(
+        androidLibraryFeatureDefinition(libraryFeatureConfiguration)
+    )
+
+    applyDependencies(
+        validator = libraryFeatureConfiguration.dependencyValidator,
+        dependencies = dependencies,
+        projectDependencies = projectDependencies,
+        testDependencies = testDependencies,
+        androidTestDependencies = androidTestDependencies,
+        kaptDependencies = kaptDependencies
+    )
+
+    validator.validate(this)
 }
