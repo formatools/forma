@@ -306,10 +306,9 @@ object androidx {
         interpolator
     )
 
-    private val paging_common = "androidx.paging:paging-common:${versions.androidx.paging}".dep
-    val paging = deps(
-        "androidx.paging:paging-runtime:${versions.androidx.paging}".dep,
-        paging_common
+    val paging = transitiveDeps(
+        "androidx.paging:paging-runtime:${versions.androidx.paging}",
+        "androidx.paging:paging-common:${versions.androidx.paging}"
     )
 
     val legacy_ui = deps(
@@ -441,10 +440,9 @@ object test {
 }
 
 object io {
-    private val coil_base = "io.coil-kt:coil-base:${versions.coil}".dep
-    val coil = deps(
-        "io.coil-kt:coil:${versions.coil}".dep,
-        coil_base
+    val coil = transitiveDeps(
+        "io.coil-kt:coil:${versions.coil}",
+        "io.coil-kt:coil-base:${versions.coil}"
     )
 }
 
