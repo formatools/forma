@@ -4,7 +4,6 @@ import com.stepango.forma.EmptyValidator
 import com.stepango.forma.Validator
 import com.stepango.forma.validator
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 
 /**
  * Application entry point. Manifest + minimal set of resources + root android project com.stepango.forma.internal.getDependency only.
@@ -17,29 +16,22 @@ fun Project.androidBinary(
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    validator: Validator = validator(Binary),
-    dataBinding: Boolean = false
+    validator: Validator = validator(Binary)
 ) {
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
-        manifestPlaceholders,
-        dataBinding = dataBinding
+        manifestPlaceholders
     )
     applyFeatures(
         androidBinaryFeatureDefinition(binaryFeatureConfiguration)
     )
-    // TODO Replace this flow for call KotlinAndroid, KotlinKapt definitions into applyFeatures {...}
-    if (dataBinding) {
-        apply(plugin = "kotlin-android")
-        apply(plugin = "kotlin-kapt")
-    }
     applyDependencies(
         validator = binaryFeatureConfiguration.dependencyValidator,
         projectDependencies = projectDependencies,
-        dataBinding = dataBinding
+        kotlinStdLib = false
     )
     validator.validate(this)
 }

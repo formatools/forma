@@ -41,7 +41,12 @@ fun androidLibraryFeatureDefinition(
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
 
-            buildFeatures.dataBinding = featureConfiguration.dataBinding
+            if (!formaConfiguration.dataBinding && feature.dataBinding){
+                //TODO better error msg
+                throw IllegalArgumentException("Please enable dataBinding feature trough Forma.configura")
+            }
+
+            buildFeatures.dataBinding = feature.dataBinding
         }
         project.tasks.withType(KotlinCompile::class.java).all {
             kotlinOptions.jvmTarget = formaConfiguration.javaVersionCompatibility.toString()

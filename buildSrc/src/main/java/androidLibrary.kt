@@ -40,8 +40,7 @@ fun Project.androidLibrary(
         dependencies = dependencies,
         projectDependencies = projectDependencies,
         testDependencies = testDependencies,
-        androidTestDependencies = androidTestDependencies,
-        dataBinding = dataBinding
+        androidTestDependencies = androidTestDependencies
     )
     // TODO Fix logic validation
 //    validator.validate(this)

@@ -105,7 +105,7 @@ fun Project.applyDependencies(
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency(),
-    dataBinding: Boolean = false
+    kotlinStdLib: Boolean = true
 ) {
     formaConfiguration.repositories(repositories)
     dependencies {
@@ -126,12 +126,7 @@ fun Project.applyDependencies(
             { androidTestImplementation(it.name) { isTransitive = it.transitive } },
             { androidTestImplementation(it.project) }
         )
-//        if (dataBinding) {
-//            //TODO expose Observable* dependency for VM's, should we have separate module configuration for databinding VM's?
-//            add("kapt", "androidx.databinding:databinding-compiler:${formaConfiguration.agpVersion}")
-//        }
-        // TODO remove, should only be applied for kotlin features
-        dependencies {
+        if (kotlinStdLib) dependencies {
             kotlin.stdlib_jdk8.names.forEach {
                 implementation(it.name)
             }
