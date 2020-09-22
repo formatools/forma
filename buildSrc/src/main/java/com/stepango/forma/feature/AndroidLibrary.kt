@@ -8,6 +8,7 @@ import com.stepango.forma.EmptyValidator
 import com.stepango.forma.Library
 import com.stepango.forma.Validator
 import com.stepango.forma.validator
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 data class AndroidLibraryFeatureConfiguration(
     val packageName: String,
@@ -26,7 +27,7 @@ fun androidLibraryFeatureDefinition(
     pluginName = "com.android.library",
     pluginExtension = LibraryExtension::class,
     featureConfiguration = featureConfiguration,
-    configuration = { extension, feature, _, formaConfiguration ->
+    configuration = { extension, feature, project, formaConfiguration ->
         with(extension) {
             compileSdkVersion(formaConfiguration.compileSdk)
 
@@ -41,6 +42,9 @@ fun androidLibraryFeatureDefinition(
             compileOptions.applyFrom(formaConfiguration)
 
             buildFeatures.dataBinding = featureConfiguration.dataBinding
+        }
+        project.tasks.withType(KotlinCompile::class.java).all {
+            kotlinOptions.jvmTarget = formaConfiguration.javaVersionCompatibility.toString()
         }
     }
 )

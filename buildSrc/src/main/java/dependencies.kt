@@ -130,6 +130,7 @@ fun Project.applyDependencies(
             //TODO expose Observable* dependency for VM's, should we have separate module configuration for databinding VM's?
             add("kapt", "androidx.databinding:databinding-compiler:${formaConfiguration.agpVersion}")
         }
+        // TODO remove, should only be applied for kotlin features
         dependencies {
             kotlin.stdlib_jdk8.names.forEach {
                 implementation(it.name)
