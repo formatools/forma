@@ -4,6 +4,5 @@ androidBinary(
         project(":root-library"),
         project(":mvvm:library"),
         project(":mvvm:databinding")
-    ),
-    dataBinding = true
+    )
 )
