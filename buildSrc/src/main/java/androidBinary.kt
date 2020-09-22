@@ -43,8 +43,7 @@ data class AndroidBinaryFeatureConfiguration(
     val consumerMinificationFiles: Set<String>,
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val dependencyValidator: Validator = EmptyValidator,
-    val selfValidator: Validator = validator(Binary),
-    val dataBinding: Boolean = false
+    val selfValidator: Validator = validator(Binary)
 )
 
 fun androidBinaryFeatureDefinition(
@@ -69,7 +68,7 @@ fun androidBinaryFeatureDefinition(
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
 
-            buildFeatures.dataBinding = featureConfiguration.dataBinding
+            buildFeatures.dataBinding = formaConfiguration.dataBinding
         }
     }
 )
