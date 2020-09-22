@@ -105,7 +105,7 @@ fun Project.applyDependencies(
     projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency(),
-    kaptDependencies: FormaDependency = emptyDependency()
+    kotlinStdLib: Boolean = true
 ) {
     formaConfiguration.repositories(repositories)
     dependencies {
@@ -126,9 +126,11 @@ fun Project.applyDependencies(
             { androidTestImplementation(it.name) { isTransitive = it.transitive } },
             { androidTestImplementation(it.project) }
         )
-        kaptDependencies.forEach(
-            { kapt(it.name) }
-        )
+        if (kotlinStdLib) dependencies {
+            kotlin.stdlib_jdk8.names.forEach {
+                implementation(it.name)
+            }
+        }
     }
 }
 

@@ -43,7 +43,7 @@
 //),
 
 
-android_library(
+androidLibrary(
     packageName = "com.stepango.example",
     dependencies = deps(
         google.material,

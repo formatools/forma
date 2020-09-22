@@ -18,7 +18,6 @@ fun Project.androidBinary(
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     validator: Validator = validator(Binary)
 ) {
-
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         buildConfiguration,
@@ -31,7 +30,8 @@ fun Project.androidBinary(
     )
     applyDependencies(
         validator = binaryFeatureConfiguration.dependencyValidator,
-        projectDependencies = projectDependencies
+        projectDependencies = projectDependencies,
+        kotlinStdLib = false
     )
     validator.validate(this)
 }
@@ -67,6 +67,8 @@ fun androidBinaryFeatureDefinition(
 
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
+
+            buildFeatures.dataBinding = formaConfiguration.dataBinding
         }
     }
 )

@@ -1,8 +1,8 @@
 include(":string-test-util")
 include(":root-library")
 include(":demo-library")
-include(":welcome-api")
-include(":welcome-impl")
 include(":app")
-include(":library:mvvm-library")
+include(":mvvm:library")
+include(":mvvm:databinding")
+include(":common:recyclerview")
 rootProject.name = "forma"
