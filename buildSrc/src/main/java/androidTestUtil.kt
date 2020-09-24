@@ -1,6 +1,6 @@
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.stepango.forma.AndroidTestUtil
-import com.stepango.forma.TestUtil
+import com.stepango.forma.AndroidTestUtilModule
+import com.stepango.forma.TestUtilModule
 import com.stepango.forma.validator
 import org.gradle.api.Project
 
@@ -37,14 +37,14 @@ fun Project.androidTestUtil(
     dependencies: FormaDependency = emptyDependency()
 ) {
     // TODO refactor to single method call
-    val nameValidator = validator(AndroidTestUtil)
+    val nameValidator = validator(AndroidTestUtilModule)
     nameValidator.validate(this)
     applyFeatures(
         testUtilFeatureDefinition
     )
 
     applyDependencies(
-        validator = validator(AndroidTestUtil, TestUtil),
+        validator = validator(AndroidTestUtilModule, TestUtilModule),
         dependencies = dependencies
     )
 }

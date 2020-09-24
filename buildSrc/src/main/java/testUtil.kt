@@ -1,4 +1,4 @@
-import com.stepango.forma.TestUtil
+import com.stepango.forma.TestUtilModule
 import com.stepango.forma.validator
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
@@ -15,7 +15,7 @@ val testUtilFeatureDefinition = FeatureDefinition(
 fun Project.testUtil(
     dependencies: FormaDependency = emptyDependency()
 ) {
-    val nameValidator = validator(TestUtil)
+    val nameValidator = validator(TestUtilModule)
     // TODO refactor to single method call
     nameValidator.validate(this)
     applyFeatures(

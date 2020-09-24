@@ -1,4 +1,4 @@
-import com.stepango.forma.Library
+import com.stepango.forma.LibraryModule
 import com.stepango.forma.Validator
 import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
@@ -16,7 +16,7 @@ fun Project.androidLibrary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    validator: Validator = validator(Library),
+    validator: Validator = validator(LibraryModule),
     dataBinding: Boolean = false
 ) {
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(

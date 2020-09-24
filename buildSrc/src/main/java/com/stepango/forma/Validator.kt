@@ -10,39 +10,41 @@ object EmptyValidator : Validator {
     override fun validate(project: Project) = Unit
 }
 
-fun TargetName.validate(name: String) = name.endsWith(suffix)
+fun ModuleDefinition.validate(name: String): Boolean {
+    return name == suffix || name.endsWith("-$suffix")
+}
 
-fun validator(vararg targetNames: TargetName): Validator = object : Validator {
+fun validator(vararg moduleDefinitions: ModuleDefinition): Validator = object : Validator {
     override fun validate(project: Project) {
-        validateName(project.name, *targetNames)
+        validateName(project.name, *moduleDefinitions)
     }
 }
 
 fun validateName(
     name: String,
-    vararg targetNames: TargetName
+    vararg moduleDefinitions: ModuleDefinition
 ) {
     //Name should match with at least one targetName
-    if (targetNames.map { it.validate(name) }.contains(true).not()) {
-        throwProjectValidationError(name, Library)
+    if (moduleDefinitions.map { it.validate(name) }.contains(true).not()) {
+        throwProjectValidationError(name, LibraryModule)
     }
 }
 
 fun throwProjectValidationError(
     name: String,
-    targetName: TargetName
+    moduleDefinition: ModuleDefinition
 ) {
     throw ProjectValidationError(
         """
             Project ${name}: name does not match type requirements
-            Projects of type "${targetName::class.simpleName}" should contain name suffix "${targetName.suffix}" 
+            Projects of type "${moduleDefinition::class.simpleName}" should contain name suffix "${moduleDefinition.suffix}" 
         """.trimIndent()
     )
 }
 
 fun throwProjectDepsValidationError(
     project: Project,
-    vararg allowedTargets: TargetName
+    vararg allowedTargets: ModuleDefinition
 ) {
     throw ProjectValidationError(
         """

@@ -1,5 +1,5 @@
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.stepango.forma.Binary
+import com.stepango.forma.BinaryModule
 import com.stepango.forma.EmptyValidator
 import com.stepango.forma.Validator
 import com.stepango.forma.validator
@@ -16,7 +16,7 @@ fun Project.androidBinary(
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    validator: Validator = validator(Binary)
+    validator: Validator = validator(BinaryModule)
 ) {
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
@@ -43,7 +43,7 @@ data class AndroidBinaryFeatureConfiguration(
     val consumerMinificationFiles: Set<String>,
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val dependencyValidator: Validator = EmptyValidator,
-    val selfValidator: Validator = validator(Binary)
+    val selfValidator: Validator = validator(BinaryModule)
 )
 
 fun androidBinaryFeatureDefinition(

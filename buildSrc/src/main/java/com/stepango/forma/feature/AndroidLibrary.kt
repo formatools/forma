@@ -5,7 +5,7 @@ import FeatureDefinition
 import applyFrom
 import com.android.build.gradle.LibraryExtension
 import com.stepango.forma.EmptyValidator
-import com.stepango.forma.Library
+import com.stepango.forma.LibraryModule
 import com.stepango.forma.Validator
 import com.stepango.forma.validator
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -17,7 +17,7 @@ data class AndroidLibraryFeatureConfiguration(
     val consumerMinificationFiles: Set<String>,
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val dependencyValidator: Validator = EmptyValidator,
-    val selfValidator: Validator = validator(Library),
+    val selfValidator: Validator = validator(LibraryModule),
     val dataBinding: Boolean = false
 )
 
