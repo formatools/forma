@@ -18,17 +18,12 @@ fun Project.util(
     // TODO refactor to single method call
     nameValidator.validate(this)
     applyFeatures(
-        testUtilFeatureDefinition
+        utilFeatureDefinition
     )
 
     applyDependencies(
         validator = nameValidator,
-        dependencies = dependencies
+        dependencies = dependencies,
+        testDependencies = testDependencies
     )
 }
-
-fun Project.util(
-    dependencies: NamedDependency,
-    testDependency: NamedDependency,
-    testUtils: ProjectDependency
-): Unit = TODO()

@@ -1,3 +1,4 @@
+import com.stepango.forma.EmptyValidator
 import com.stepango.forma.FormaConfiguration
 import com.stepango.forma.Validator
 import org.funktionale.either.Either
@@ -100,6 +101,7 @@ val String.dep get() = deps(this)
 
 fun Project.applyDependencies(
     validator: Validator,
+    testValidator: Validator = EmptyValidator, //TODO need to validate test dependencies
     formaConfiguration: FormaConfiguration = Forma.configuration,
     dependencies: FormaDependency = emptyDependency(),
     projectDependencies: ProjectDependency = emptyDependency(),

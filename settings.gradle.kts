@@ -1,3 +1,5 @@
+include("time:util")
+include("date:util")
 include(":string-test-util")
 include(":root-library")
 include(":demo-library")
