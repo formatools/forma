@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.common.recyclerview
+package com.stepango.blockme.common.recyclerview.widget
 
 import android.graphics.Rect
 import android.view.View

@@ -6,5 +6,5 @@ include(":demo-library")
 include(":app")
 include(":mvvm:library")
 include(":mvvm:databinding")
-include(":common:recyclerview")
+include(":common:recyclerview:widget")
 rootProject.name = "forma"
