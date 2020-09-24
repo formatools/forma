@@ -5,7 +5,7 @@ androidLibrary(
         io.coil
     ),
     projectDependencies = deps(
-        project(":common:recyclerview")
+        project(":common:recyclerview:widget")
     ),
     dataBinding = true
 )

@@ -18,7 +18,7 @@ package com.stepango.blockme.mvvm.databinding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.stepango.blockme.common.recyclerview.RecyclerViewItemDecoration
+import com.stepango.blockme.common.recyclerview.widget.RecyclerViewItemDecoration
 
 /**
  * Add an [RecyclerViewItemDecoration] to this RecyclerView. Item decorations can
