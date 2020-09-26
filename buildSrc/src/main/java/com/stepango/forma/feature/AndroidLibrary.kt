@@ -2,6 +2,7 @@ package com.stepango.forma.feature
 
 import BuildConfiguration
 import FeatureDefinition
+import androidJunitRunner
 import applyFrom
 import com.android.build.gradle.LibraryExtension
 import com.stepango.forma.EmptyValidator
@@ -12,9 +13,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 data class AndroidLibraryFeatureConfiguration(
     val packageName: String,
-    val buildConfiguration: BuildConfiguration,
-    val testInstrumentationRunnerClass: String,
-    val consumerMinificationFiles: Set<String>,
+    val buildConfiguration: BuildConfiguration = BuildConfiguration(),
+    val testInstrumentationRunnerClass: String = androidJunitRunner,
+    val consumerMinificationFiles: Set<String> = emptySet(),
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val dependencyValidator: Validator = EmptyValidator,
     val selfValidator: Validator = validator(LibraryModule),

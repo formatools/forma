@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 val utilFeatureDefinition = FeatureDefinition(
     pluginName = "kotlin",
     pluginExtension = KotlinJvmProjectExtension::class,
-    featureConfiguration = EmptyFeatureDefinition,
+    featureConfiguration = { },
     defaultDependencies = kotlin.stdlib_jdk8
 ) { _, _, _, _ -> }
 

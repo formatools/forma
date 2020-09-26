@@ -2,6 +2,8 @@ import com.stepango.forma.LibraryModule
 import com.stepango.forma.Validator
 import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
+import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
+import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.validator
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -16,9 +18,9 @@ fun Project.androidLibrary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    validator: Validator = validator(LibraryModule),
     dataBinding: Boolean = false
 ) {
+    val validator: Validator = validator(LibraryModule)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
@@ -28,10 +30,11 @@ fun Project.androidLibrary(
         dataBinding = dataBinding
     )
     applyFeatures(
-        androidLibraryFeatureDefinition(libraryFeatureConfiguration)
+        androidLibraryFeatureDefinition(libraryFeatureConfiguration),
+        kotlinAndroidFeatureDefinition(),
+        if (dataBinding) kotlinKaptFeatureDefinition() else emptyFeatureDefinition
     )
-    apply(plugin = "kotlin-android")
-    // TODO Replace this flow for call KotlinAndroid, KotlinKapt definitions into applyFeatures {...}
+
     if (dataBinding) {
         apply(plugin = "kotlin-kapt")
     }
