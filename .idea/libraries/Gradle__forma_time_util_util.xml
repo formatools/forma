@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: forma.time.util.util">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/time/util/build/libs/util.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

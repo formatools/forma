@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: forma.string-test-util.string-test-util">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/string-test-util/build/libs/string-test-util.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
