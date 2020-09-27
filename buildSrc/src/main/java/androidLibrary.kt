@@ -41,3 +41,4 @@ fun Project.androidLibrary(
         androidTestDependencies = androidTestDependencies
     )
 }
+
