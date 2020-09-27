@@ -4,7 +4,7 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
 import kotlin.reflect.KClass
 
-data class FeatureDefinition<Extension : Any, FeatureConfiguration: Any>(
+data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginName: String,
     val pluginExtension: KClass<Extension>,
     val featureConfiguration: FeatureConfiguration,
@@ -19,11 +19,16 @@ data class FeatureDefinition<Extension : Any, FeatureConfiguration: Any>(
 fun Project.applyFeatures(
     vararg features: FeatureDefinition<*, *>
 ) {
-    features.forEach { definition ->
-        apply(plugin = definition.pluginName)
-        definition.applyConfiguration(this, Forma.configuration) //TODO remove static singleton access
-        definition.defaultDependencies.names.forEach {
-            dependencies.implementation(it.name)
+    features
+        .filter { it != emptyFeatureDefinition }
+        .forEach { definition ->
+            apply(plugin = definition.pluginName)
+            definition.applyConfiguration(
+                this,
+                Forma.configuration
+            ) //TODO remove static singleton access
+            definition.defaultDependencies.names.forEach {
+                dependencies.implementation(it.name)
+            }
         }
-    }
 }
