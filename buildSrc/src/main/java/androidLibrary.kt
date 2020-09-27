@@ -6,8 +6,7 @@ import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.module.LibraryModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
-import com.stepango.forma.validation.Validator
-import com.stepango.forma.validation.validator
+import com.stepango.forma.validation.validate
 import org.gradle.api.Project
 
 fun Project.androidLibrary(
@@ -22,7 +21,8 @@ fun Project.androidLibrary(
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     dataBinding: Boolean = false
 ) {
-    val validator: Validator = validator(LibraryModule)
+    // TODO Fix logic validation
+    validate(LibraryModule)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
@@ -44,6 +44,4 @@ fun Project.androidLibrary(
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies
     )
-    // TODO Fix logic validation
-//    validator.validate(this)
 }

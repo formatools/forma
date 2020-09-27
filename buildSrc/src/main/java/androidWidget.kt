@@ -1,10 +1,13 @@
 import com.android.build.gradle.LibraryExtension
 import com.stepango.forma.feature.FeatureDefinition
 import com.stepango.forma.feature.applyFeatures
+import com.stepango.forma.module.AndroidUtilModule
+import com.stepango.forma.module.UtilModule
 import com.stepango.forma.module.WidgetModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
 import com.stepango.forma.utils.applyFrom
+import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -20,8 +23,7 @@ fun Project.widget(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    val nameValidator = validator(WidgetModule)
-    nameValidator.validate(this)
+    validate(WidgetModule)
 
     val viewFeatureConfiguration = ViewFeatureConfiguration(
         packageName,
@@ -38,7 +40,7 @@ fun Project.widget(
     apply(plugin = "kotlin-android")
 
     applyDependencies(
-        validator = nameValidator,
+        validator = validator(WidgetModule, UtilModule, AndroidUtilModule),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

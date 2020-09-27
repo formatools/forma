@@ -4,11 +4,12 @@ import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.module.BinaryModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
-import com.stepango.forma.validation.validator
+import com.stepango.forma.validation.EmptyValidator
+import com.stepango.forma.validation.validate
 import org.gradle.api.Project
 
 /**
- * Application entry point. Manifest + minimal set of resources + root android project com.stepango.forma.internal.getDependency only.
+ * Application entry point. Manifest + minimal set of resources + root android project dependency only.
  * No library dependencies, no source code.
  */
 fun Project.androidBinary(
@@ -19,7 +20,7 @@ fun Project.androidBinary(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    val validator = validator(BinaryModule)
+    validate(BinaryModule)
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         buildConfiguration,
@@ -31,10 +32,9 @@ fun Project.androidBinary(
         androidBinaryFeatureDefinition(binaryFeatureConfiguration)
     )
     applyDependencies(
-        validator = binaryFeatureConfiguration.dependencyValidator,
+        validator = EmptyValidator,
         projectDependencies = projectDependencies,
         kotlinStdLib = false
     )
-    validator.validate(this)
 }
 

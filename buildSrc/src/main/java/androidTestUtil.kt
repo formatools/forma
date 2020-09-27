@@ -6,6 +6,7 @@ import com.stepango.forma.module.AndroidTestUtilModule
 import com.stepango.forma.module.TestUtilModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import org.gradle.api.Project
 
@@ -21,8 +22,7 @@ fun Project.androidTestUtil(
     dependencies: FormaDependency = emptyDependency()
 ) {
     // TODO refactor to single method call
-    val nameValidator = validator(AndroidTestUtilModule)
-    nameValidator.validate(this)
+    validate(AndroidTestUtilModule)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
         packageName

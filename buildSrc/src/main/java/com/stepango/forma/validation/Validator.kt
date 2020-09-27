@@ -17,6 +17,10 @@ fun ModuleDefinition.validate(name: String): Boolean {
     return name == suffix || name.endsWith("-$suffix")
 }
 
+fun Project.validate(definition: ModuleDefinition) {
+    validator(definition).validate(this)
+}
+
 fun validator(vararg moduleDefinitions: ModuleDefinition): Validator = object : Validator {
     override fun validate(project: Project) {
         validateName(project.name, *moduleDefinitions)
