@@ -3,10 +3,8 @@ import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.feature.kotlinKaptFeatureDefinition
-import com.stepango.forma.module.LibraryModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
-import com.stepango.forma.validation.validate
 import org.gradle.api.Project
 
 fun Project.androidLibrary(
@@ -22,7 +20,7 @@ fun Project.androidLibrary(
     dataBinding: Boolean = false
 ) {
     // TODO Fix logic validation
-    validate(LibraryModule)
+//    validate(LibraryModule)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
