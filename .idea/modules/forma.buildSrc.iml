@@ -1,0 +1,1748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="forma:buildSrc" external.linked.project.path="$MODULE_DIR$/../../buildSrc" external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.8" allPlatforms="JVM [1.8]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files -java-parameters -Xjsr305=strict -XXLanguage:+NewInference -XXLanguage:+SamConversionForKotlinFunctions -XXLanguage:+ReferencesToSyntheticJavaProperties" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../buildSrc/build/classes/kotlin/main" />
+          <option name="classpath" value="$USER_HOME$/.gradle/caches/6.6.1/generated-gradle-jars/gradle-api-6.6.1.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/groovy-all-1.3-2.5.12.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-1.3.72.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-common-1.3.72.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-jdk7-1.3.72.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-jdk8-1.3.72.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-reflect-1.3.72.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/gradle-installation-beacon-6.6.1.jar:/Users/stepango/.gradle/caches/6.6.1/generated-gradle-jars/gradle-kotlin-dsl-extensions-6.6.1.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/gradle-kotlin-dsl-6.6.1.jar:/Users/stepango/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/gradle-kotlin-dsl-tooling-models-6.6.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/4.1.0-rc03/624553bb9861c2f545b6f09865f7c76bf48642ed/gradle-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/4.1.0-rc03/236c673f148de9dfc523b008a9c41a82402906f7/builder-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aaptcompiler/4.1.0-rc03/79b84af5469225603347b1f24bc659072bcdb862/aaptcompiler-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-gradle-api/27.1.0-rc03/dcb239671535cda0a6a3a36bfea9383e10b8852b/lint-gradle-api-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle-api/4.1.0-rc03/fe68a77daadd8a76884cb6b98ff9dfca98324931/gradle-api-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler-common/4.1.0-rc03/ec6aa6729882ec92f4cfa34192b323fd69fa9dcb/databinding-compiler-common-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/27.1.0-rc03/d692e32b0768e3c771e1761b254345f89a8bdd80/manifest-merger-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-model/27.1.0-rc03/275118de054f8d19b4c0bf8a10323f176dffa3fa/lint-model-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/27.1.0-rc03/5a9e972a3454960cbaedd2218fba8afa5b25c4ce/sdk-common-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/tracker/27.1.0-rc03/77df365c5acbb41d6e5e09bf0b90a52662d7ea3d/tracker-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/27.1.0-rc03/77c7ef44d79863993b116e87506a1452e23109cd/sdklib-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools/repository/27.1.0-rc03/3e35e73d54ee28e4ccfaa754a7d48b06f3efa84a/repository-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/shared/27.1.0-rc03/5a6391b22bb4c17d5cd078e7c8c0a3652e26350c/shared-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.72/916d54b9eb6442b615e6f1488978f551c0674720/kotlin-stdlib-jdk8-1.3.72.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.72/86613e1a669a701b0c660bfd2af4f82a7ae11fca/kotlin-reflect-1.3.72.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.4.10/a904ccf081bdc4a89103bcc26cde54d8fbf40cfa/kotlin-gradle-plugin-1.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-either/1.2/f8dea0a71f47e5692f48bc0c732f9dd1dae46804/funktionale-either-1.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.72/3adfc2f4ea4243e01204be8081fe63bde6b12815/kotlin-stdlib-jdk7-1.3.72.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-processor/1.0.0-beta09/fb2a015ff56e24939a88593ac73b84e627864476/jetifier-processor-1.0.0-beta09.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-core/1.0.0-beta09/c98ee0e5579aed97e17f605a89b101115a2f5a61/jetifier-core-1.0.0-beta09.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.4.10/c06dc95764119b3188034c644805de9b76148806/kotlin-gradle-plugin-api-1.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-model/1.4.10/d7c695c44a41c72469596c7f23f7e9f5b5bfd9dc/kotlin-gradle-plugin-model-1.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-klib/1.4.10/fb200e93c2d7073564702ec6fb35443811849267/kotlin-util-klib-1.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-option/1.2/8d4476c4b2de7b4def3dadd6e30734598429d1d8/funktionale-option-1.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-io/1.4.10/f923b4a7c76bd36a2e69759136bfe3800c0523aa/kotlin-util-io-1.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-collections/1.2/82ed681063798c68f56abd9e447574b3047ce90d/funktionale-collections-1.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-utils/1.2/7170c75bd854372fdb505fc93c4a13f41e957a3/funktionale-utils-1.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.4.10/ea29e063d2bbe695be13e9d044dcfb0c7add398e/kotlin-stdlib-1.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2-proto/4.1.0-rc03-6503028/d6183f934ae10cfd5772607a101ad4361f100d55/aapt2-proto-4.1.0-rc03-6503028.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/crash/27.1.0-rc03/73b951ad340a3a500facdfcac388f669ae69067f/crash-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/transform-api/2.0.0-deprecated-use-gradle-api/85bee1acea9e27152b920746c68133b30b11431/transform-api-2.0.0-deprecated-use-gradle-api.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/7.0/478006d07b7c561ae3a92ddc1829bca81ae0cdd1/asm-commons-7.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/7.0/18d4d07010c24405129a6dbb0e92057f8779fb9d/asm-util-7.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/7.0/4b310d20d6f1c6b7197a75f1b5d69f169bc8ac1f/asm-analysis-7.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/7.0/29bc62dcb85573af6e62e5b2d735ef65966c4180/asm-tree-7.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/7.0/d74d4ba0dee443f68fb2dcb7fcdb945a2cd89912/asm-7.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/4.9/ee9e9eaa0a35360dcfeac129ff4923215fd65904/jopt-simple-4.9.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-gradle/6.0.3/e5becf2356695a396b788110e386c38bad523bfc/proguard-gradle-6.0.3.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/bundletool/0.14.0/e7ecfb48a6d43f4ec23475c9d04b96c97ecc101b/bundletool-0.14.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.squareup/javapoet/1.10.0/712c178d35185d8261295913c9f2a7d6867a6007/javapoet-1.10.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java-util/3.10.0/a68c906db83e93babbb4024ce91e7441bb7598dd/protobuf-java-util-3.10.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.crypto.tink/tink/1.3.0-rc2/c7efb1ecc3b667b8a0789a1b019b06269037e19b/tink-1.3.0-rc2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/4.1.0-rc03/2ef3eba9d7374a9307cae48a68574d2e931754b4/builder-test-api-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/27.1.0-rc03/60b28c967f79de8030fdded71f590d3050221428/ddmlib-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/protos/27.1.0-rc03/2046af6aed8bf5a80783b82c624373f2f477c80a/protos-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.10.0/410b61dd0088aab4caa05739558d43df248958c9/protobuf-java-3.10.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.test.platform/core-proto/0.0.2-dev/56452fc5ddd0dc8e0e2f56b86910d97373a4b75c/core-proto-0.0.2-dev.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.5/f645ed69d595b24d4cf8b3fbb64cc505bede8829/gson-2.8.5.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/de.undercouch/gradle-download-task/4.0.2/2aaf2b081cd0dd5b3cf25fde69a20b043dd46fbd/gradle-download-task-4.0.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/4.1.0-rc03/cea6b10c4a01ce21b4d3cc86492e2e1e16484da5/builder-model-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android/signflinger/4.1.0-rc03/4d7fd2b0a64491542ebe75f73f8ffa44ccf44b81/signflinger-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android/zipflinger/4.1.0-rc03/affd5a71e6023f1ed95d87c46dd7c2a810054ab4/zipflinger-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/27.1.0-rc03/6929c2d3373b783ba3c47578a5f4adfd49ae75ee/layoutlib-api-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/27.1.0-rc03/5be626f2d7892f5fa209e9e00da03a2ce1b93cbd/dvlib-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools/common/27.1.0-rc03/69b2b162962d97f639e06392b6f94e009fc12f60/common-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apkzlib/4.1.0-rc03/122d307b54902d29919e1d22ac45fd63b3a65f84/apkzlib-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apksig/4.1.0-rc03/c035923627f3635853c9a81d564dc498ac8bae0f/apksig-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.5.0/81241ff7078ef14f42ea2a8995fa09c096256e6b/javawriter-2.5.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15on/1.56/4648af70268b6fdb24674fb1fd7c1fcc73db1231/bcpkix-jdk15on-1.56.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.56/a153c6f9744a3e9dd6feab5e210e1c9861362ec7/bcprov-jdk15on-1.56.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/7.2.0/5ad3a2bb04143f70aa0765fc29fc29571a7d6b34/fastutil-7.2.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.googlecode.json-simple/json-simple/1.1/5e303a03d04e6788dddfa3655272580ae0fc13bb/json-simple-1.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.jimfs/jimfs/1.1/8fbd0579dc68aba6186935cc1bee21d2f3e7ec1c/jimfs-1.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/28.1-jre/b0e91dcb6a44ffb6221b5027e12a5cb34b841145/guava-28.1-jre.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.tools/annotations/27.1.0-rc03/22809150f8f1e802ec34eb2f0dc0ec8dde316e00/annotations-27.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.5.6/164343da11db817e81e24e0d9869527e069850c9/httpmime-4.5.6.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.6/1afe5621985efe90a92d0fbc9be86271efbe796f/httpclient-4.5.6.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.10/acc54d9b28bdffe4bbde89ed2e4a1e86b5285e2b/httpcore-4.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-common/4.1.0-rc03/ba7288b403c3ca8d7b38762ef4bf2bf5e447cbb8/databinding-common-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.android.databinding/baseLibrary/4.1.0-rc03/a7f0f71b96cd6b401bf0d266206cbf565b583ff1/baseLibrary-4.1.0-rc03.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.5.3/f35db7e4b2446e4174ba6a73db7bd6b3e6bb5da1/antlr4-4.5.3.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/cd49678784c46aa8789c060538e0154013bb421b/juniversalchardet-1.0.3.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.3.1/dd6dda9da676a54c5b36ca2806ff95ee017d8738/jaxb-runtime-2.3.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-base/6.0.3/7135739d2d3834964c543ed21e2936ce34747aca/proguard-base-6.0.3.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jdom/jdom2/2.0.6/6f14738ec2e9dd0011e343717fa624a10f8aab64/jdom2-2.0.6.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.3.2/d1a0c5032570e0f64be6b4d9c90cdeb103129029/error_prone_annotations-2.3.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.json/json/20180813/8566b2b0391d9d4479ea225645c6ed47ef17fe41/json-20180813.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.4.10/6229be3465805c99db1142ad75e6c6ddeac0b04c/kotlin-stdlib-common-1.4.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.12/84caa68576e345eb5e7ae61a0e5a9229eb100d7b/commons-compress-1.12.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jetbrains.trove4j/trove4j/20160824/33c3e174a9c8368d93761d3d12712db18e903959/trove4j-20160824.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/ccbc77a5fd907ef863c29f3596c6f54ffa4e9442/kxml2-2.3.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/2.8.1/eb2e8ab75598548cc8acf9a1ca227e480e01881e/checker-qual-2.8.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.3/ba035118bc8bac37d7eff77700720999acd9986d/j2objc-annotations-1.3.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.18/f7aa683ea79dc6681ee9fb95756c999acbb62f5d/animal-sniffer-annotations-1.18.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.10/4b95f4897fa13f2cd904aee711aeafc0c5295cd8/commons-codec-1.10.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/javax.xml.bind/jaxb-api/2.3.1/8531ad5ac454cc2deb9d4d32c40c4d7451939b5d/jaxb-api-2.3.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/2.3.1/a09d2c48d3285f206fafbffe0e50619284e92126/txw2-2.3.1.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/3.0.7/c197c86ceec7318b1284bffb49b54226ca774003/istack-commons-runtime-3.0.7.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.8/8cc35f73da321c29973191f2cf143d29d26a1df7/stax-ex-1.8.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.sun.xml.fastinfoset/FastInfoset/1.2.15/bb7b7ec0379982b97c62cd17465cb6d9155f68e8/FastInfoset-1.2.15.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/javax.activation/javax.activation-api/1.2.0/85262acf3ca9816f9537ca47d5adeabaead7cb16/javax.activation-api-1.2.0.jar:/Users/stepango/.gradle/caches/modules-2/files-2.1/com.sun.activation/javax.activation/1.2.0/bf744c1e2776ed1de3c55c8dac1057ec331ef744/javax.activation-1.2.0.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="buildSrc" />
+          <option name="jvmTarget" value="1.8" />
+          <option name="languageVersion" value="1.3" />
+          <option name="apiVersion" value="1.3" />
+          <option name="pluginOptions">
+            <array>
+              <option value="plugin:org.jetbrains.kotlin.samWithReceiver:annotation=org.gradle.api.HasImplicitReceiver" />
+            </array>
+          </option>
+          <option name="pluginClasspaths">
+            <array>
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.3.72/493310ffbc1c20f00c75769c58feeec16c02935c/kotlin-gradle-plugin-api-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-model/1.3.72/a36215ad6c453674632d69e81acb68e2bfb66766/kotlin-gradle-plugin-model-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-native-utils/1.3.72/1a7ea2c49ce11fb4600dcc7371a0ac8cc9291a2b/kotlin-native-utils-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.3.72/657d8d34d91e1964b4439378c09933e840bfe8d5/kotlin-script-runtime-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.3.72/e09990437040879d692655d66f58a64318681ffe/kotlin-scripting-common-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.3.72/7dde2c909e6f1b80245c7ca100d32a8646b5666d/kotlin-scripting-jvm-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.72/6ca8bee3d88957eaaaef077c41c908c9940492d8/kotlin-stdlib-common-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.72/8032138f12c0180bc4e51fe139d4c52b46db6109/kotlin-stdlib-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-io/1.3.72/de15a69a986dfbf45c9496bd7591e672e01748be/kotlin-util-io-1.3.72.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.2.1/3839faf625f4197acaeceeb6da000f011a2acb49/kotlinx-coroutines-core-1.2.1.jar" />
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+              <option value="$KOTLIN_BUNDLED$/lib/sam-with-receiver-compiler-plugin.jar" />
+            </array>
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+    <facet type="android-gradle" name="Android-Gradle">
+      <configuration>
+        <option name="GRADLE_PROJECT_PATH" value=":" />
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" />
+        <option name="LAST_KNOWN_AGP_VERSION" />
+      </configuration>
+    </facet>
+    <facet type="java-gradle" name="Java-Gradle">
+      <configuration>
+        <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/../../buildSrc/build" />
+        <option name="BUILDABLE" value="true" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../../buildSrc/build/classes/java/main" />
+    <output-test url="file://$MODULE_DIR$/../../buildSrc/build/classes/java/test" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../buildSrc">
+      <sourceFolder url="file://$MODULE_DIR$/../../buildSrc/src/main/java" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../buildSrc/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../buildSrc/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="Gradle: forma.buildSrc.buildSrc" level="project" />
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:gradle:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/4.1.0-rc03/624553bb9861c2f545b6f09865f7c76bf48642ed/gradle-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/4.1.0-rc03/d295566e8927faf11a641075c4f2ba4185b5d415/gradle-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:builder:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/4.1.0-rc03/236c673f148de9dfc523b008a9c41a82402906f7/builder-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/4.1.0-rc03/e18a584cafb0cb86df18b726ce4d77a90f6acf59/builder-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:aaptcompiler:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aaptcompiler/4.1.0-rc03/79b84af5469225603347b1f24bc659072bcdb862/aaptcompiler-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aaptcompiler/4.1.0-rc03/131179d4c06f48c4e3be756889a46fdce81efd46/aaptcompiler-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.lint:lint-gradle-api:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-gradle-api/27.1.0-rc03/dcb239671535cda0a6a3a36bfea9383e10b8852b/lint-gradle-api-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-gradle-api/27.1.0-rc03/6697e704d8d432e80989146d6b1cdd25b24b94d5/lint-gradle-api-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:gradle-api:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle-api/4.1.0-rc03/fe68a77daadd8a76884cb6b98ff9dfca98324931/gradle-api-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle-api/4.1.0-rc03/343a11ee59eb943bf427f49891c3cb96e08087c6/gradle-api-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: androidx.databinding:databinding-compiler-common:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler-common/4.1.0-rc03/ec6aa6729882ec92f4cfa34192b323fd69fa9dcb/databinding-compiler-common-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler-common/4.1.0-rc03/20385c67409736267af3d56352b04fbf3d1f011b/databinding-compiler-common-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:manifest-merger:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/27.1.0-rc03/d692e32b0768e3c771e1761b254345f89a8bdd80/manifest-merger-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/27.1.0-rc03/3fa5a51a74855580ca27ae0673df56f4168bf124/manifest-merger-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.lint:lint-model:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-model/27.1.0-rc03/275118de054f8d19b4c0bf8a10323f176dffa3fa/lint-model-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-model/27.1.0-rc03/ff4440b8586b3e3ab578e164ac53bf9b6bbb4831/lint-model-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools:sdk-common:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/27.1.0-rc03/5a9e972a3454960cbaedd2218fba8afa5b25c4ce/sdk-common-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/27.1.0-rc03/534ac21200ebed85cd60dc0935ce22dca59766ff/sdk-common-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.analytics-library:tracker:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/tracker/27.1.0-rc03/77df365c5acbb41d6e5e09bf0b90a52662d7ea3d/tracker-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/tracker/27.1.0-rc03/f979665c2186425ba39e15cb1bfa8d1f7dee2c51/tracker-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools:sdklib:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/27.1.0-rc03/77c7ef44d79863993b116e87506a1452e23109cd/sdklib-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/27.1.0-rc03/a2a08895fa301a3208318cc4a09027b998046802/sdklib-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools:repository:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/repository/27.1.0-rc03/3e35e73d54ee28e4ccfaa754a7d48b06f3efa84a/repository-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/repository/27.1.0-rc03/589b5a387fcf70a120570e9b4ef0ab482107c7eb/repository-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.analytics-library:shared:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/shared/27.1.0-rc03/5a6391b22bb4c17d5cd078e7c8c0a3652e26350c/shared-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/shared/27.1.0-rc03/9296f753451b18261d721f71c51cd0dff55e9634/shared-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.72/916d54b9eb6442b615e6f1488978f551c0674720/kotlin-stdlib-jdk8-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.72/ec2720a30a88d8460b719051818e2172120d7961/kotlin-stdlib-jdk8-1.3.72-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.72/86613e1a669a701b0c660bfd2af4f82a7ae11fca/kotlin-reflect-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.72/fbbf32ddf5a870c4d43d949319d9bab2796406d8/kotlin-reflect-1.3.72-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.4.10/a904ccf081bdc4a89103bcc26cde54d8fbf40cfa/kotlin-gradle-plugin-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.4.10/130a57d5df6608b444aa405fce271896cd4b5b00/kotlin-gradle-plugin-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.funktionale:funktionale-either:1.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-either/1.2/f8dea0a71f47e5692f48bc0c732f9dd1dae46804/funktionale-either-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-either/1.2/a2114fd1036712052156f7d9e4eac48b784dcb30/funktionale-either-1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.72/3adfc2f4ea4243e01204be8081fe63bde6b12815/kotlin-stdlib-jdk7-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.72/e83fed78d9bc2951a2c7e457969d5fd171cb9d5f/kotlin-stdlib-jdk7-1.3.72-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta09">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-processor/1.0.0-beta09/fb2a015ff56e24939a88593ac73b84e627864476/jetifier-processor-1.0.0-beta09.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-processor/1.0.0-beta09/31bb732d1131d8e8eb85ad98f93e89adadd9f4e3/jetifier-processor-1.0.0-beta09-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build.jetifier:jetifier-core:1.0.0-beta09">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-core/1.0.0-beta09/c98ee0e5579aed97e17f605a89b101115a2f5a61/jetifier-core-1.0.0-beta09.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-core/1.0.0-beta09/c513281b5616c35f9e3316a7dbf5553e9b4a3879/jetifier-core-1.0.0-beta09-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.4.10/c06dc95764119b3188034c644805de9b76148806/kotlin-gradle-plugin-api-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.4.10/46d226d5d10f9f65fd0cf5d99c14acc5cbf37373/kotlin-gradle-plugin-api-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-gradle-plugin-model:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-model/1.4.10/d7c695c44a41c72469596c7f23f7e9f5b5bfd9dc/kotlin-gradle-plugin-model-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-model/1.4.10/ed8eec6fbe2eb2096afe03ab05a836185328eeb4/kotlin-gradle-plugin-model-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-util-klib:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-klib/1.4.10/fb200e93c2d7073564702ec6fb35443811849267/kotlin-util-klib-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-klib/1.4.10/c7bc65478717f2e9cf60aebddf734b9a1c9b2cb5/kotlin-util-klib-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.funktionale:funktionale-option:1.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-option/1.2/8d4476c4b2de7b4def3dadd6e30734598429d1d8/funktionale-option-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-option/1.2/1fa470c3c55336d712d73ffc35e4c66739d4f2a9/funktionale-option-1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-util-io:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-io/1.4.10/f923b4a7c76bd36a2e69759136bfe3800c0523aa/kotlin-util-io-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-io/1.4.10/2ff1fc00ed481cb003d9322697066af03238073c/kotlin-util-io-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.funktionale:funktionale-collections:1.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-collections/1.2/82ed681063798c68f56abd9e447574b3047ce90d/funktionale-collections-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-collections/1.2/9b17517fc0c45f46d966bc33ef68385ac29121c0/funktionale-collections-1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.funktionale:funktionale-utils:1.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-utils/1.2/7170c75bd854372fdb505fc93c4a13f41e957a3/funktionale-utils-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.funktionale/funktionale-utils/1.2/8a7a077d1eb5c9456cc872c68979b965f64ef207/funktionale-utils-1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.4.10" level="project" />
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:aapt2-proto:4.1.0-rc03-6503028">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2-proto/4.1.0-rc03-6503028/d6183f934ae10cfd5772607a101ad4361f100d55/aapt2-proto-4.1.0-rc03-6503028.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2-proto/4.1.0-rc03-6503028/2ccf576f2b6d18249fca04a6cd23795af6d90255/aapt2-proto-4.1.0-rc03-6503028-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.analytics-library:crash:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/crash/27.1.0-rc03/73b951ad340a3a500facdfcac388f669ae69067f/crash-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/crash/27.1.0-rc03/cd5539ce4bddce09be9b05070162042952910c34/crash-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:transform-api:2.0.0-deprecated-use-gradle-api">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/transform-api/2.0.0-deprecated-use-gradle-api/85bee1acea9e27152b920746c68133b30b11431/transform-api-2.0.0-deprecated-use-gradle-api.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/transform-api/2.0.0-deprecated-use-gradle-api/e4075c49e16e086140fe40eea56b2de7516874ee/transform-api-2.0.0-deprecated-use-gradle-api-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.ow2.asm:asm-commons:7.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/7.0/478006d07b7c561ae3a92ddc1829bca81ae0cdd1/asm-commons-7.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/7.0/6a7ca89b189929d4eb4349c6f075fc345b055e0/asm-commons-7.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.ow2.asm:asm-util:7.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/7.0/18d4d07010c24405129a6dbb0e92057f8779fb9d/asm-util-7.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/7.0/6274d34f71cc99df75ee96e7cdbc5adefa147997/asm-util-7.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.ow2.asm:asm-analysis:7.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/7.0/4b310d20d6f1c6b7197a75f1b5d69f169bc8ac1f/asm-analysis-7.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/7.0/70608c6f4ee3c2073ccd43f1e4a359783334f86f/asm-analysis-7.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.ow2.asm:asm-tree:7.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/7.0/29bc62dcb85573af6e62e5b2d735ef65966c4180/asm-tree-7.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/7.0/6064bf57bbce12aebc8ab96f32efe3f1c6cdd5fc/asm-tree-7.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.ow2.asm:asm:7.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/7.0/d74d4ba0dee443f68fb2dcb7fcdb945a2cd89912/asm-7.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/7.0/1e0eab03ec196dea229ea637e523b9c016e66b42/asm-7.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: net.sf.jopt-simple:jopt-simple:4.9">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/4.9/ee9e9eaa0a35360dcfeac129ff4923215fd65904/jopt-simple-4.9.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/4.9/d965219b87f79e81b07116d451e684ab2f3acc27/jopt-simple-4.9-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: net.sf.proguard:proguard-gradle:6.0.3">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-gradle/6.0.3/e5becf2356695a396b788110e386c38bad523bfc/proguard-gradle-6.0.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-gradle/6.0.3/1ebac416b8402b16e02a470f41e73af880d0db0f/proguard-gradle-6.0.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:bundletool:0.14.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/bundletool/0.14.0/e7ecfb48a6d43f4ec23475c9d04b96c97ecc101b/bundletool-0.14.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.squareup:javapoet:1.10.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/javapoet/1.10.0/712c178d35185d8261295913c9f2a7d6867a6007/javapoet-1.10.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/javapoet/1.10.0/59bdf07dc7cf5325a95ddb8366f673df0d127bc2/javapoet-1.10.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.protobuf:protobuf-java-util:3.10.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java-util/3.10.0/a68c906db83e93babbb4024ce91e7441bb7598dd/protobuf-java-util-3.10.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java-util/3.10.0/41a9d1aff6f67dcc3c178505d21ed07d78ac9f1b/protobuf-java-util-3.10.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.crypto.tink:tink:1.3.0-rc2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.crypto.tink/tink/1.3.0-rc2/c7efb1ecc3b667b8a0789a1b019b06269037e19b/tink-1.3.0-rc2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.crypto.tink/tink/1.3.0-rc2/4802869fddd206f71fb37f68b87c0719b45d9b9/tink-1.3.0-rc2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:builder-test-api:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/4.1.0-rc03/2ef3eba9d7374a9307cae48a68574d2e931754b4/builder-test-api-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/4.1.0-rc03/e5d51dd37cf90a0f49af1aba6b81f0859a683475/builder-test-api-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.ddms:ddmlib:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/27.1.0-rc03/60b28c967f79de8030fdded71f590d3050221428/ddmlib-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/27.1.0-rc03/bc723810ba2f9efda8783d0155b7f218cf06f138/ddmlib-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.analytics-library:protos:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/protos/27.1.0-rc03/2046af6aed8bf5a80783b82c624373f2f477c80a/protos-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/protos/27.1.0-rc03/a75c6c2aa6999c78fde3b731ef8cc2a4d4d5c74f/protos-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.protobuf:protobuf-java:3.10.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.10.0/410b61dd0088aab4caa05739558d43df248958c9/protobuf-java-3.10.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.10.0/3ee94b1a2c1a74d9a27196e39c4bcf8dd0101e70/protobuf-java-3.10.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.test.platform:core-proto:0.0.2-dev">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.test.platform/core-proto/0.0.2-dev/56452fc5ddd0dc8e0e2f56b86910d97373a4b75c/core-proto-0.0.2-dev.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.code.gson:gson:2.8.5">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.5/f645ed69d595b24d4cf8b3fbb64cc505bede8829/gson-2.8.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.5/c5b4c491aecb72e7c32a78da0b5c6b9cda8dee0f/gson-2.8.5-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: de.undercouch:gradle-download-task:4.0.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.undercouch/gradle-download-task/4.0.2/2aaf2b081cd0dd5b3cf25fde69a20b043dd46fbd/gradle-download-task-4.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.undercouch/gradle-download-task/4.0.2/a70ae418197c22abd9d3410f5f7f92664e22dafd/gradle-download-task-4.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:builder-model:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/4.1.0-rc03/cea6b10c4a01ce21b4d3cc86492e2e1e16484da5/builder-model-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/4.1.0-rc03/1218d3c1a476d35bca4c23ddc6118190fa07f59d/builder-model-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android:signflinger:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android/signflinger/4.1.0-rc03/4d7fd2b0a64491542ebe75f73f8ffa44ccf44b81/signflinger-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android/signflinger/4.1.0-rc03/ebaaf406348ab7bbbc12f40d9e53d18149394389/signflinger-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android:zipflinger:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android/zipflinger/4.1.0-rc03/affd5a71e6023f1ed95d87c46dd7c2a810054ab4/zipflinger-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android/zipflinger/4.1.0-rc03/b62017c4b4b39f4b56cf2b4a435e0c10283c396d/zipflinger-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.layoutlib:layoutlib-api:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/27.1.0-rc03/6929c2d3373b783ba3c47578a5f4adfd49ae75ee/layoutlib-api-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/27.1.0-rc03/d4087dd622dc811412181a344aefe0d8b17e4d19/layoutlib-api-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools:dvlib:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/27.1.0-rc03/5be626f2d7892f5fa209e9e00da03a2ce1b93cbd/dvlib-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/27.1.0-rc03/db409709a66b442f90bb66bd48bd769efc967071/dvlib-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools:common:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/common/27.1.0-rc03/69b2b162962d97f639e06392b6f94e009fc12f60/common-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/common/27.1.0-rc03/6165497fa8835514eb7906c9af0c27291562ea57/common-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:apkzlib:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apkzlib/4.1.0-rc03/122d307b54902d29919e1d22ac45fd63b3a65f84/apkzlib-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apkzlib/4.1.0-rc03/7d77d6389ee68a946fb9ccf66ff4877568ac4889/apkzlib-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools.build:apksig:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apksig/4.1.0-rc03/c035923627f3635853c9a81d564dc498ac8bae0f/apksig-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apksig/4.1.0-rc03/2b8c658ca2dd95c76959dd567a7da56bce9525a8/apksig-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.squareup:javawriter:2.5.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.5.0/81241ff7078ef14f42ea2a8995fa09c096256e6b/javawriter-2.5.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.5.0/1b2a0925ff06220c0261b6fd468183cd9e9a9a47/javawriter-2.5.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.bouncycastle:bcpkix-jdk15on:1.56">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15on/1.56/4648af70268b6fdb24674fb1fd7c1fcc73db1231/bcpkix-jdk15on-1.56.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15on/1.56/118b4633c59394749b2b2f278138beb31c930663/bcpkix-jdk15on-1.56-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.bouncycastle:bcprov-jdk15on:1.56">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.56/a153c6f9744a3e9dd6feab5e210e1c9861362ec7/bcprov-jdk15on-1.56.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.56/93c7b191596378df51c31b7d8717f71b0aeee53c/bcprov-jdk15on-1.56-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="module-library">
+      <library name="Gradle: it.unimi.dsi:fastutil:7.2.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/7.2.0/5ad3a2bb04143f70aa0765fc29fc29571a7d6b34/fastutil-7.2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/7.2.0/a1a8e178d7813bb9596ee4e3d5e07b90ebe660af/fastutil-7.2.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.googlecode.json-simple:json-simple:1.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.json-simple/json-simple/1.1/5e303a03d04e6788dddfa3655272580ae0fc13bb/json-simple-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.json-simple/json-simple/1.1/19c6d8dee6803c520d855ff7e8a8c3d97f1271ec/json-simple-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.jimfs:jimfs:1.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.jimfs/jimfs/1.1/8fbd0579dc68aba6186935cc1bee21d2f3e7ec1c/jimfs-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.jimfs/jimfs/1.1/a2e6f6d75b7fa7e8eedb3062e5bfd24cc9fe8591/jimfs-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.guava:guava:28.1-jre">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/28.1-jre/b0e91dcb6a44ffb6221b5027e12a5cb34b841145/guava-28.1-jre.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/28.1-jre/26f4fcbf06334df7a5091daa120682f252052957/guava-28.1-jre-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.tools:annotations:27.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/annotations/27.1.0-rc03/22809150f8f1e802ec34eb2f0dc0ec8dde316e00/annotations-27.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/annotations/27.1.0-rc03/64868b00cc97a6dc98e297e0f011db0fb14dd09d/annotations-27.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.apache.httpcomponents:httpmime:4.5.6">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.5.6/164343da11db817e81e24e0d9869527e069850c9/httpmime-4.5.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.5.6/f349336722665ba37bcc67d95efb5f2926b5ebc/httpmime-4.5.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.apache.httpcomponents:httpclient:4.5.6">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.6/1afe5621985efe90a92d0fbc9be86271efbe796f/httpclient-4.5.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.6/bda84e42670536453ecd61ee70349c2493445994/httpclient-4.5.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.apache.httpcomponents:httpcore:4.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.10/acc54d9b28bdffe4bbde89ed2e4a1e86b5285e2b/httpcore-4.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.10/35dcae32cc1c3bfb62546e64b90fc6359183b3b5/httpcore-4.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-common:4.1.0-rc03" level="project" />
+    <orderEntry type="module-library">
+      <library name="Gradle: com.android.databinding:baseLibrary:4.1.0-rc03">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.databinding/baseLibrary/4.1.0-rc03/a7f0f71b96cd6b401bf0d266206cbf565b583ff1/baseLibrary-4.1.0-rc03.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.databinding/baseLibrary/4.1.0-rc03/942ead960e1b5d332ce85e7d592ec2a8b176c3c0/baseLibrary-4.1.0-rc03-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.antlr:antlr4:4.5.3">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.5.3/f35db7e4b2446e4174ba6a73db7bd6b3e6bb5da1/antlr4-4.5.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.5.3/e836b2a7348320a86c3bbd91a032486798e6ab98/antlr4-4.5.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: commons-io:commons-io:2.4">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/f2d8698c46d1167ff24b06a840a87d91a02db891/commons-io-2.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/cd49678784c46aa8789c060538e0154013bb421b/juniversalchardet-1.0.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/77979eaa98f90806f984155f44f63cc1fb60ac25/juniversalchardet-1.0.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.3.1/dd6dda9da676a54c5b36ca2806ff95ee017d8738/jaxb-runtime-2.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.3.1/a6eab08c0837ac6ff0b1c1ad47d7945b1385fbda/jaxb-runtime-2.3.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: net.sf.proguard:proguard-base:6.0.3">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-base/6.0.3/7135739d2d3834964c543ed21e2936ce34747aca/proguard-base-6.0.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-base/6.0.3/c1e9f79efdc3963b29920f8ec8f08e4c8652fa7f/proguard-base-6.0.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jdom:jdom2:2.0.6">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jdom/jdom2/2.0.6/6f14738ec2e9dd0011e343717fa624a10f8aab64/jdom2-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jdom/jdom2/2.0.6/3dcf8ba7582eeac3b67ed5155ee3659e16c8dadc/jdom2-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.errorprone:error_prone_annotations:2.3.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.3.2/d1a0c5032570e0f64be6b4d9c90cdeb103129029/error_prone_annotations-2.3.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.3.2/6e986bccd3d116d8bc1aaac8534d068ea8edd2ae/error_prone_annotations-2.3.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.json:json:20180813">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20180813/8566b2b0391d9d4479ea225645c6ed47ef17fe41/json-20180813.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20180813/60753006d96d5fc85b61b0897f3326b5c4e1c4f0/json-20180813-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="Gradle: org.apache.commons:commons-compress:1.12">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.12/84caa68576e345eb5e7ae61a0e5a9229eb100d7b/commons-compress-1.12.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.12/1fdd1a2fed15cdf08780ed564279c0ddbff46419/commons-compress-1.12-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jetbrains.trove4j:trove4j:20160824">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.trove4j/trove4j/20160824/33c3e174a9c8368d93761d3d12712db18e903959/trove4j-20160824.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: net.sf.kxml:kxml2:2.3.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/ccbc77a5fd907ef863c29f3596c6f54ffa4e9442/kxml2-2.3.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/309cd2cff7260e465792fda3dcbb063b730d8050/kxml2-2.3.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.code.findbugs:jsr305:3.0.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.guava:failureaccess:1.0.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1d064e61aad6c51cc77f9b59dc2cccc78e792f5a/failureaccess-1.0.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.checkerframework:checker-qual:2.8.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/2.8.1/eb2e8ab75598548cc8acf9a1ca227e480e01881e/checker-qual-2.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/2.8.1/4b07e85f804e861360ee09ddd4550bc6b3fcfcad/checker-qual-2.8.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.j2objc:j2objc-annotations:1.3">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.3/ba035118bc8bac37d7eff77700720999acd9986d/j2objc-annotations-1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.3/d26c56180205cbb50447c3eca98ecb617cf9f58b/j2objc-annotations-1.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.18">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.18/f7aa683ea79dc6681ee9fb95756c999acbb62f5d/animal-sniffer-annotations-1.18.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.18/dff084acf1ff3ff9145b1708c566787d2c82dd0/animal-sniffer-annotations-1.18-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: commons-logging:commons-logging:1.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/ecf26c7507d67782a3bbd148d170b31dfad001aa/commons-logging-1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: commons-codec:commons-codec:1.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.10/4b95f4897fa13f2cd904aee711aeafc0c5295cd8/commons-codec-1.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.10/11fb3d88ae7e3b757d70237064210ceb954a5a04/commons-codec-1.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: javax.xml.bind:jaxb-api:2.3.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.xml.bind/jaxb-api/2.3.1/8531ad5ac454cc2deb9d4d32c40c4d7451939b5d/jaxb-api-2.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.xml.bind/jaxb-api/2.3.1/e47264d065cecbc572ba99856fcc7da19a470ae3/jaxb-api-2.3.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.glassfish.jaxb:txw2:2.3.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/2.3.1/a09d2c48d3285f206fafbffe0e50619284e92126/txw2-2.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/2.3.1/b83e3d8869ba034c44b8b0b233bc050b0c051700/txw2-2.3.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.sun.istack:istack-commons-runtime:3.0.7">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/3.0.7/c197c86ceec7318b1284bffb49b54226ca774003/istack-commons-runtime-3.0.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/3.0.7/c899ff66b36c0cf814b3996d5dd9aa6b4684212c/istack-commons-runtime-3.0.7-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.jvnet.staxex:stax-ex:1.8">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.8/8cc35f73da321c29973191f2cf143d29d26a1df7/stax-ex-1.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.8/bd2cfcaffb7feaecc7632191563f6beb91f2fd30/stax-ex-1.8-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.sun.xml.fastinfoset:FastInfoset:1.2.15">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.xml.fastinfoset/FastInfoset/1.2.15/bb7b7ec0379982b97c62cd17465cb6d9155f68e8/FastInfoset-1.2.15.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.xml.fastinfoset/FastInfoset/1.2.15/2679fa1855aebe1a48e4ec6928eafe7d261bf228/FastInfoset-1.2.15-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: javax.activation:javax.activation-api:1.2.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.activation/javax.activation-api/1.2.0/85262acf3ca9816f9537ca47d5adeabaead7cb16/javax.activation-api-1.2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.activation/javax.activation-api/1.2.0/1b4c6e77d35adab19794746d8ea753df30d77dca/javax.activation-api-1.2.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.sun.activation:javax.activation:1.2.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.activation/javax.activation/1.2.0/bf744c1e2776ed1de3c55c8dac1057ec331ef744/javax.activation-1.2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.activation/javax.activation/1.2.0/5b034823866d38f38f02bdad7ed8a14e650c61b6/javax.activation-1.2.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: gradle-api-6.6.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/6.6.1/generated-gradle-jars/gradle-api-6.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/ide" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/platform-native" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/reporting" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/language-groovy" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-option" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/launcher" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/platform-base" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/signing" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/core" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/installation-beacon" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/bootstrap" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/jvm-services" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/native" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/tooling-api" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/platform-play" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/ivy" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/enterprise" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/wrapper" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/process-services" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/snapshots" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/security" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/plugins" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/antlr" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/plugin-use" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/language-jvm" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/base-annotations" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/maven" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/testing-base" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/resources" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/version-control" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/testing-junit-platform" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/resources-http" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/composite-builds" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/model-groovy" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/normalization-java" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/test-kit" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/cli" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/hashing" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-init" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/ear" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/jacoco" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/kotlin-dsl-tooling-models" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/persistent-cache" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/file-watching" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/publish" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/platform-jvm" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/resources-sftp" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/base-services" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/model-core" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/scala" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/execution" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-cache-base" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/diagnostics" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-events" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/dependency-management" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/files" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/ide-play" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/workers" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/code-quality" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/language-java" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-profile" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-cache" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/plugin-development" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/core-api" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/javascript" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/worker-processes" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/resources-gcs" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/testing-native" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/ide-native" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/base-services-groovy" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/tooling-native" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/messaging" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/testing-jvm" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/tooling-api-builders" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/logging" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/language-scala" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/language-native" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/resources-s3" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/file-collections" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-cache-packaging" />
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/build-cache-http" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: groovy-all-1.3-2.5.12">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/groovy-all-1.3-2.5.12.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.gradle.groovy/groovy-all/1.3-2.5.12/a2c3403108f2da3944eb99a7f1101b91364aead5/groovy-all-1.3-2.5.12-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: kotlin-stdlib-1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: kotlin-stdlib-common-1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-common-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: kotlin-stdlib-jdk7-1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-jdk7-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: kotlin-stdlib-jdk8-1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-stdlib-jdk8-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: kotlin-reflect-1.3.72">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/kotlin-reflect-1.3.72.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: gradle-installation-beacon-6.6.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/gradle-installation-beacon-6.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/installation-beacon" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library name="Gradle: gradle-kotlin-dsl-extensions-6.6.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/6.6.1/generated-gradle-jars/gradle-kotlin-dsl-extensions-6.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library name="Gradle: gradle-kotlin-dsl-6.6.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/gradle-kotlin-dsl-6.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library name="Gradle: gradle-kotlin-dsl-tooling-models-6.6.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/lib/gradle-kotlin-dsl-tooling-models-6.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-6.6.1-all/ejrtlte9hlw8v6ii20a9584rs/gradle-6.6.1/src/kotlin-dsl-tooling-models" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-lite-metadata/0.1.0-rc1/f6e561e9053f2e9a2779d2ce1dffd45ce4dc3c74/tensorflow-lite-metadata-0.1.0-rc1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-lite-metadata/0.1.0-rc1/d574cea23842b0e6d2a016a2e24ab608980cbb96/tensorflow-lite-metadata-0.1.0-rc1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: com.google.flatbuffers:flatbuffers-java:1.12.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.flatbuffers/flatbuffers-java/1.12.0/8201cc7b511177a37071249e891f2f2fea4b32e9/flatbuffers-java-1.12.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.flatbuffers/flatbuffers-java/1.12.0/1bb8c570cde20d1f5e5939f160cc56d8edeef812/flatbuffers-java-1.12.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-annotation-processing-gradle:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.4.10/5a3d209daaa59f8532ab83fc173d16e0ec28a97/kotlin-annotation-processing-gradle-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-annotation-processing-gradle-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-android-extensions:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.4.10/acb62fa5f5ddd0ee4aa1f55e35fa803e114156c9/kotlin-android-extensions-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.4.10/f71a71aac2bbf050a995cc67afe61aa6d41229ec/kotlin-android-extensions-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-compiler-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.4.10/38c4b99d5d5362debdd9302a866730379aa2328a/kotlin-compiler-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-compiler-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-compiler-runner:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.4.10/fde10e9f044e6b6592f4fd06381a784f132cc24e/kotlin-compiler-runner-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.4.10/223774ce2d93b7cdee5c15b1fdd3d343ff268625/kotlin-compiler-runner-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-embeddable/1.4.10/c2bdea421e04cc24fe26dcddbdf7c6e4e114b7cd/kotlin-scripting-compiler-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-scripting-compiler-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-impl-embeddable/1.4.10/5c52f3e06dc12cbe094c2701a1fcb0c605fd53ca/kotlin-scripting-compiler-impl-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-impl-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-scripting-compiler-impl-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-daemon-client:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.4.10/335f61efa0b2d27aec17310385ad4410352f3c8d/kotlin-daemon-client-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.4.10/4b428dda76d849d05473f645427c37e9f0b07cb6/kotlin-daemon-client-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.4.10/e2b3c6695eee6085e606d96d685396dce23a3a06/kotlin-reflect-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.4.10/d0b96b542fcc85544df2b7ac2f0fbceaded2d90a/kotlin-reflect-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-jvm:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.4.10/89b312aa7b7944586c1e64e5ec52130d03019db0/kotlin-scripting-jvm-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.4.10/44b8b2b51c3d678a32bc653990220901096fff63/kotlin-scripting-jvm-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-common:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.4.10/befe5a2bcae1e5b86691e0a0dfb0b3ef039b00a9/kotlin-scripting-common-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.4.10/e33970af77c12a6edf2c7ae0f53187e6bcd8c115/kotlin-scripting-common-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.3.7/8e2eb78158638b33793d204ffef0b65c4a578e1c/kotlinx-coroutines-core-1.3.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.3.7/17b74f36d80c6bb5102a9fb46611f994e8f7ad23/kotlinx-coroutines-core-1.3.7-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: com.github.gundy:semver4j:0.16.4">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gundy/semver4j/0.16.4/de8c77583e97bbbd3cdbe5f406b583e9b081ff56/semver4j-0.16.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gundy/semver4j/0.16.4/5f35944750b5842c3c1e650b9385c41e7d892502/semver4j-0.16.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: com.google.auto.value:auto-value-annotations:1.6.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value-annotations/1.6.2/ed193d86e0af90cc2342aedbe73c5d86b03fa09b/auto-value-annotations-1.6.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value-annotations/1.6.2/c520c8c75f8fb1c591f327034cd11484e31a956f/auto-value-annotations-1.6.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-script-runtime:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.4.10/7c19d9c2001e016cd7664cebe9eea66fc04a7f4f/kotlin-script-runtime-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.4.10/abc7ecfd92ea677825899180807736acdfbb89b6/kotlin-script-runtime-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-daemon-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/1.4.10/dbd67f42bed28043d17d7c860b06110a00a45970/kotlin-daemon-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-daemon-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.intellij.deps:trove4j:1.0.20181211">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.intellij.deps/trove4j/1.0.20181211/216c2e14b070f334479d800987affe4054cd563f/trove4j-1.0.20181211.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.intellij.deps/trove4j/1.0.20181211/fff84a7f9b3215e7ef684672d0adf2853e20040a/trove4j-1.0.20181211-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-build-common:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.4.10/972bfb5a9b8f30c2da37e6dc0a2bf17c82ec00a1/kotlin-build-common-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.4.10/747245499b679e15f7c7e33610cb6fd2c3b2cc67/kotlin-build-common-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library name="Gradle: org.antlr:antlr4-runtime:4.5.2-1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.5.2-1/7fe31fde811943a1970cc97359557c57747026ef/antlr4-runtime-4.5.2-1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.5.2-1/49714a3e84c8f6834939749a85ce79f54654f352/antlr4-runtime-4.5.2-1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-annotation-processing-gradle:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.4.10/5a3d209daaa59f8532ab83fc173d16e0ec28a97/kotlin-annotation-processing-gradle-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-annotation-processing-gradle-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-android-extensions:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.4.10/acb62fa5f5ddd0ee4aa1f55e35fa803e114156c9/kotlin-android-extensions-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.4.10/f71a71aac2bbf050a995cc67afe61aa6d41229ec/kotlin-android-extensions-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-compiler-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.4.10/38c4b99d5d5362debdd9302a866730379aa2328a/kotlin-compiler-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-compiler-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-compiler-runner:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.4.10/fde10e9f044e6b6592f4fd06381a784f132cc24e/kotlin-compiler-runner-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.4.10/223774ce2d93b7cdee5c15b1fdd3d343ff268625/kotlin-compiler-runner-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-daemon-client:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.4.10/335f61efa0b2d27aec17310385ad4410352f3c8d/kotlin-daemon-client-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.4.10/4b428dda76d849d05473f645427c37e9f0b07cb6/kotlin-daemon-client-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.4.10/e2b3c6695eee6085e606d96d685396dce23a3a06/kotlin-reflect-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.4.10/d0b96b542fcc85544df2b7ac2f0fbceaded2d90a/kotlin-reflect-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-embeddable/1.4.10/c2bdea421e04cc24fe26dcddbdf7c6e4e114b7cd/kotlin-scripting-compiler-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-scripting-compiler-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-impl-embeddable/1.4.10/5c52f3e06dc12cbe094c2701a1fcb0c605fd53ca/kotlin-scripting-compiler-impl-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler-impl-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-scripting-compiler-impl-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-jvm:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.4.10/89b312aa7b7944586c1e64e5ec52130d03019db0/kotlin-scripting-jvm-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.4.10/44b8b2b51c3d678a32bc653990220901096fff63/kotlin-scripting-jvm-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-scripting-common:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.4.10/befe5a2bcae1e5b86691e0a0dfb0b3ef039b00a9/kotlin-scripting-common-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.4.10/e33970af77c12a6edf2c7ae0f53187e6bcd8c115/kotlin-scripting-common-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.3.7/8e2eb78158638b33793d204ffef0b65c4a578e1c/kotlinx-coroutines-core-1.3.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.3.7/17b74f36d80c6bb5102a9fb46611f994e8f7ad23/kotlinx-coroutines-core-1.3.7-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-lite-metadata/0.1.0-rc1/f6e561e9053f2e9a2779d2ce1dffd45ce4dc3c74/tensorflow-lite-metadata-0.1.0-rc1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-lite-metadata/0.1.0-rc1/d574cea23842b0e6d2a016a2e24ab608980cbb96/tensorflow-lite-metadata-0.1.0-rc1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: com.google.flatbuffers:flatbuffers-java:1.12.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.flatbuffers/flatbuffers-java/1.12.0/8201cc7b511177a37071249e891f2f2fea4b32e9/flatbuffers-java-1.12.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.flatbuffers/flatbuffers-java/1.12.0/1bb8c570cde20d1f5e5939f160cc56d8edeef812/flatbuffers-java-1.12.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: com.github.gundy:semver4j:0.16.4">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gundy/semver4j/0.16.4/de8c77583e97bbbd3cdbe5f406b583e9b081ff56/semver4j-0.16.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gundy/semver4j/0.16.4/5f35944750b5842c3c1e650b9385c41e7d892502/semver4j-0.16.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: com.google.auto.value:auto-value-annotations:1.6.2">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value-annotations/1.6.2/ed193d86e0af90cc2342aedbe73c5d86b03fa09b/auto-value-annotations-1.6.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value-annotations/1.6.2/c520c8c75f8fb1c591f327034cd11484e31a956f/auto-value-annotations-1.6.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-script-runtime:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.4.10/7c19d9c2001e016cd7664cebe9eea66fc04a7f4f/kotlin-script-runtime-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.4.10/abc7ecfd92ea677825899180807736acdfbb89b6/kotlin-script-runtime-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-daemon-embeddable:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/1.4.10/dbd67f42bed28043d17d7c860b06110a00a45970/kotlin-daemon-embeddable-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/1.4.10/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-daemon-embeddable-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.intellij.deps:trove4j:1.0.20181211">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.intellij.deps/trove4j/1.0.20181211/216c2e14b070f334479d800987affe4054cd563f/trove4j-1.0.20181211.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.intellij.deps/trove4j/1.0.20181211/fff84a7f9b3215e7ef684672d0adf2853e20040a/trove4j-1.0.20181211-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-build-common:1.4.10">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.4.10/972bfb5a9b8f30c2da37e6dc0a2bf17c82ec00a1/kotlin-build-common-1.4.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.4.10/747245499b679e15f7c7e33610cb6fd2c3b2cc67/kotlin-build-common-1.4.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: org.antlr:antlr4-runtime:4.5.2-1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.5.2-1/7fe31fde811943a1970cc97359557c57747026ef/antlr4-runtime-4.5.2-1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.5.2-1/49714a3e84c8f6834939749a85ce79f54654f352/antlr4-runtime-4.5.2-1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: gradle-test-kit-6.6.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/6.6.1/generated-gradle-jars/gradle-test-kit-6.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../buildSrc/build/pluginUnderTestMetadata" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/recyclerview" />
+            <option value="$PROJECT_DIR$/common/recyclerview/widget" />
+            <option value="$PROJECT_DIR$/date" />
+            <option value="$PROJECT_DIR$/date/util" />
+            <option value="$PROJECT_DIR$/demo-library" />
+            <option value="$PROJECT_DIR$/mvvm" />
+            <option value="$PROJECT_DIR$/mvvm/databinding" />
+            <option value="$PROJECT_DIR$/mvvm/library" />
+            <option value="$PROJECT_DIR$/root-library" />
+            <option value="$PROJECT_DIR$/string-test-util" />
+            <option value="$PROJECT_DIR$/time" />
+            <option value="$PROJECT_DIR$/time/util" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
