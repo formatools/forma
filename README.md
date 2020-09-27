@@ -20,7 +20,7 @@ Configuration made easy:
 
 // Configure shared aspects of your android Projects in a single place,
 // no need to copy it over to all your modules or invent some smart sharing technique;)
-Forma.configure(
+androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 29,
     compileSdk = 29,
@@ -70,6 +70,21 @@ androidLibrary(
     )
 )
 ```
+
+|    Supported module types     | implemented |    status    |
+|:-----------------------------:|:-----------:|:------------:|
+|         androidBinary         |      ✅      |              |
+| androidLibrary/androidFeature | in progress | experimental |
+|       androidDataBinding      | in progress |              |
+|   androidDataBindingAdapters  | in progress |              |
+|         androidWidget         | in progress |              |
+|           androidRes          | planned     |              |
+|        androidTestUtils       |      ✅     |              |
+|          androidUtils         | planned     |              |
+|           testUtils           |      ✅      |              |
+|             utils             |      ✅      |              |
+|             api               |      ✅      |              |
+|             impl              |      ✅      |              |
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
