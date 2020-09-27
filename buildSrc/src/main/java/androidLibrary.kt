@@ -1,12 +1,10 @@
-import com.stepango.forma.LibraryModule
-import com.stepango.forma.Validator
-import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
-import com.stepango.forma.feature.androidLibraryFeatureDefinition
-import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.feature.kotlinKaptFeatureDefinition
-import com.stepango.forma.validator
+import com.stepango.forma.feature.*
+import com.stepango.forma.module.LibraryModule
+import com.stepango.forma.utils.BuildConfiguration
+import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.validation.Validator
+import com.stepango.forma.validation.validator
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 
 fun Project.androidLibrary(
     packageName: String,
@@ -35,9 +33,6 @@ fun Project.androidLibrary(
         if (dataBinding) kotlinKaptFeatureDefinition() else emptyFeatureDefinition
     )
 
-    if (dataBinding) {
-        apply(plugin = "kotlin-kapt")
-    }
     applyDependencies(
         validator = libraryFeatureConfiguration.dependencyValidator,
         dependencies = dependencies,

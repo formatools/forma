@@ -1,14 +1,13 @@
 package com.stepango.forma.feature
 
-import BuildConfiguration
-import FeatureDefinition
 import androidJunitRunner
-import applyFrom
 import com.android.build.gradle.LibraryExtension
-import com.stepango.forma.EmptyValidator
-import com.stepango.forma.LibraryModule
-import com.stepango.forma.Validator
-import com.stepango.forma.validator
+import com.stepango.forma.module.LibraryModule
+import com.stepango.forma.utils.BuildConfiguration
+import com.stepango.forma.utils.applyFrom
+import com.stepango.forma.validation.EmptyValidator
+import com.stepango.forma.validation.Validator
+import com.stepango.forma.validation.validator
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 data class AndroidLibraryFeatureConfiguration(
@@ -49,7 +48,7 @@ fun androidLibraryFeatureDefinition(
 
             buildFeatures.dataBinding = feature.dataBinding
         }
-        project.tasks.withType(KotlinCompile::class.java).all {
+        project.tasks.withType(KotlinCompile::class.java).configureEach {
             kotlinOptions.jvmTarget = formaConfiguration.javaVersionCompatibility.toString()
         }
     }

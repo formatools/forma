@@ -1,14 +1,13 @@
 @file:Suppress("UnstableApiUsage")
 package com.stepango.forma.feature
 
-import BuildConfiguration
-import FeatureDefinition
-import applyFrom
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.stepango.forma.BinaryModule
-import com.stepango.forma.EmptyValidator
-import com.stepango.forma.Validator
-import com.stepango.forma.validator
+import com.stepango.forma.module.BinaryModule
+import com.stepango.forma.utils.BuildConfiguration
+import com.stepango.forma.utils.applyFrom
+import com.stepango.forma.validation.EmptyValidator
+import com.stepango.forma.validation.Validator
+import com.stepango.forma.validation.validator
 
 data class AndroidBinaryFeatureConfiguration(
     val packageName: String,
@@ -43,6 +42,11 @@ fun androidBinaryFeatureDefinition(
             compileOptions.applyFrom(formaConfiguration)
 
             buildFeatures.dataBinding = formaConfiguration.dataBinding
+
+            /**
+             * Workaround for compilation time issue with duplicate names for META-INF files
+             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
+             */
 
             /**
              * Workaround for compilation time issue with duplicate names for META-INF files

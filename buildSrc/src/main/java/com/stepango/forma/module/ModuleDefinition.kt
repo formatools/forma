@@ -1,4 +1,4 @@
-package com.stepango.forma
+package com.stepango.forma.module
 
 sealed class ModuleDefinition(val suffix: String)
 

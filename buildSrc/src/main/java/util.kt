@@ -1,5 +1,8 @@
-import com.stepango.forma.UtilModule
-import com.stepango.forma.validator
+import com.stepango.forma.feature.FeatureDefinition
+import com.stepango.forma.feature.applyFeatures
+import com.stepango.forma.module.UtilModule
+import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.validation.validator
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 

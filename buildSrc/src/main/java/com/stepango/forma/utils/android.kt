@@ -1,7 +1,9 @@
+package com.stepango.forma.utils
+
 import com.android.build.gradle.internal.CompileOptions
 import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.DefaultConfig
-import com.stepango.forma.FormaConfiguration
+import com.stepango.forma.config.FormaConfiguration
 import org.gradle.api.NamedDomainObjectContainer
 
 data class BuildConfiguration(

@@ -1,13 +1,16 @@
 import com.android.build.gradle.LibraryExtension
-import com.stepango.forma.EmptyValidator
-import com.stepango.forma.Validator
-import com.stepango.forma.WidgetModule
-import com.stepango.forma.validator
+import com.stepango.forma.feature.FeatureDefinition
+import com.stepango.forma.feature.applyFeatures
+import com.stepango.forma.module.WidgetModule
+import com.stepango.forma.utils.BuildConfiguration
+import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.utils.applyFrom
+import com.stepango.forma.validation.validator
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-fun Project.view(
+fun Project.widget(
     packageName: String,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),

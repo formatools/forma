@@ -1,4 +1,11 @@
-import com.stepango.forma.FormaConfiguration
+package com.stepango.forma.feature
+
+import Forma
+import NamedDependency
+import com.stepango.forma.config.FormaConfiguration
+import com.stepango.forma.utils.implementation
+import emptyDependency
+import emptyFeatureDefinition
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the

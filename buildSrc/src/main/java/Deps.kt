@@ -1,7 +1,7 @@
 @file:Suppress("ClassName", "MemberVisibilityCanBePrivate")
 
 object versions {
-    const val agp = "4.1.0-rc01"
+    const val agp = "4.1.0-rc03"
     const val funktionale = "1.2"
     const val timber = "4.7.1"
     const val coil = "0.8.0"
@@ -62,27 +62,7 @@ object jetbrains {
     val annotations = "org.jetbrains:annotations:${versions.jetbrains.annotations}".dep
 }
 
-object kotlin {
-    val stdlib_common = "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.jetbrains.kotlin}".dep
-    val stdlib = deps(
-        "org.jetbrains.kotlin:kotlin-stdlib:${versions.jetbrains.kotlin}".dep,
-        jetbrains.annotations,
-        stdlib_common
-    )
-    val stdlib_jdk7 = deps(
-        "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.jetbrains.kotlin}".dep,
-        stdlib
-    )
-    val stdlib_jdk8 = deps(
-        "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.jetbrains.kotlin}".dep,
-        stdlib,
-        stdlib_jdk7
-    )
-    val reflect = deps(
-        "org.jetbrains.kotlin:kotlin-reflect:${versions.jetbrains.kotlin}".dep,
-        stdlib
-    )
-}
+val kotlin = com.stepango.forma.dependencies.kotlin
 
 object kotlinx {
     val coroutines_core = deps(

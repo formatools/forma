@@ -1,4 +1,5 @@
-Forma.configure(
+// Enjoy easiest way to configure your Android project
+androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 29,
     compileSdk = 29,
@@ -12,7 +13,3 @@ Forma.configure(
     },
     dataBinding = true
 )
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}

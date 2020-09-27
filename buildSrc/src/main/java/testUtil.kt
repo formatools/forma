@@ -1,6 +1,9 @@
-import com.stepango.forma.TestUtilModule
+import com.stepango.forma.feature.FeatureDefinition
+import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinFeatureDefinition
-import com.stepango.forma.validator
+import com.stepango.forma.module.TestUtilModule
+import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.validation.validator
 import org.gradle.api.Project
 
 val emptyFeatureDefinition = FeatureDefinition<Any, Any>(

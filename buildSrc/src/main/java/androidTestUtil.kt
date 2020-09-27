@@ -1,9 +1,12 @@
-import com.stepango.forma.AndroidTestUtilModule
-import com.stepango.forma.TestUtilModule
 import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
+import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.validator
+import com.stepango.forma.module.AndroidTestUtilModule
+import com.stepango.forma.module.TestUtilModule
+import com.stepango.forma.utils.BuildConfiguration
+import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.validation.validator
 import org.gradle.api.Project
 
 data class AndroidFeatureConfig(

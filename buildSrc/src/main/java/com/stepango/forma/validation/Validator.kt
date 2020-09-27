@@ -1,5 +1,8 @@
-package com.stepango.forma
+package com.stepango.forma.validation
 
+import com.stepango.forma.error.ProjectValidationError
+import com.stepango.forma.module.LibraryModule
+import com.stepango.forma.module.ModuleDefinition
 import org.gradle.api.Project
 
 interface Validator {

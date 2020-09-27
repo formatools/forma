@@ -1,6 +1,5 @@
 package com.stepango.forma.feature
 
-import FeatureDefinition
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
