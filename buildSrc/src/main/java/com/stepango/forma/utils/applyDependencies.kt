@@ -9,9 +9,9 @@ import com.stepango.forma.validation.EmptyValidator
 import com.stepango.forma.validation.Validator
 import emptyDependency
 import forEach
+import kotlin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
-import kotlin
 
 fun Project.applyDependencies(
     validator: Validator,

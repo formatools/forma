@@ -1,4 +1,8 @@
-import com.stepango.forma.feature.*
+import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
+import com.stepango.forma.feature.androidLibraryFeatureDefinition
+import com.stepango.forma.feature.applyFeatures
+import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
+import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.module.LibraryModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies

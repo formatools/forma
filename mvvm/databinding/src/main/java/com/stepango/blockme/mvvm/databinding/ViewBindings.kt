@@ -17,7 +17,9 @@
 package com.stepango.blockme.mvvm.databinding
 
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.databinding.BindingAdapter
 
 /**
