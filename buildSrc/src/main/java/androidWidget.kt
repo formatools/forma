@@ -1,17 +1,15 @@
-import com.android.build.gradle.LibraryExtension
-import com.stepango.forma.feature.FeatureDefinition
+import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
+import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
+import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.module.AndroidUtilModule
 import com.stepango.forma.module.UtilModule
 import com.stepango.forma.module.WidgetModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
-import com.stepango.forma.utils.applyFrom
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun Project.widget(
     packageName: String,
@@ -25,7 +23,7 @@ fun Project.widget(
 ) {
     validate(WidgetModule)
 
-    val viewFeatureConfiguration = ViewFeatureConfiguration(
+    val featureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
@@ -34,10 +32,9 @@ fun Project.widget(
     )
 
     applyFeatures(
-        applyViewFeatureDefinition(viewFeatureConfiguration)
+        androidLibraryFeatureDefinition(featureConfiguration),
+        kotlinAndroidFeatureDefinition()
     )
-
-    apply(plugin = "kotlin-android")
 
     applyDependencies(
         validator = validator(WidgetModule, UtilModule, AndroidUtilModule),
@@ -46,38 +43,3 @@ fun Project.widget(
         androidTestDependencies = androidTestDependencies
     )
 }
-
-class ViewFeatureConfiguration(
-    val packageName: String,
-    val buildConfiguration: BuildConfiguration,
-    val testInstrumentationRunnerClass: String,
-    val consumerMinificationFiles: Set<String>,
-    val manifestPlaceholders: Map<String, Any> = emptyMap()
-)
-
-fun applyViewFeatureDefinition(
-    featureConfiguration: ViewFeatureConfiguration
-) = FeatureDefinition(
-    pluginName = "com.android.library",
-    pluginExtension = LibraryExtension::class,
-    featureConfiguration = featureConfiguration,
-    configuration = { extension, feature, project, formaConfiguration ->
-        with(extension) {
-            compileSdkVersion(formaConfiguration.compileSdk)
-
-            defaultConfig.applyFrom(
-                formaConfiguration,
-                feature.testInstrumentationRunnerClass,
-                feature.consumerMinificationFiles,
-                feature.manifestPlaceholders
-            )
-
-            buildTypes.applyFrom(feature.buildConfiguration)
-            compileOptions.applyFrom(formaConfiguration)
-
-            project.tasks.withType(KotlinCompile::class.java).all {
-                kotlinOptions.jvmTarget = formaConfiguration.javaVersionCompatibility.toString()
-            }
-        }
-    }
-)

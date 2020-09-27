@@ -33,8 +33,7 @@ fun Project.androidBinary(
     )
     applyDependencies(
         validator = EmptyValidator,
-        projectDependencies = projectDependencies,
-        kotlinStdLib = false
+        projectDependencies = projectDependencies
     )
 }
 

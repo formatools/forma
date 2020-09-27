@@ -1,4 +1,4 @@
-androidLibrary(
+dataBinding(
     packageName = "com.stepango.blockme.mvvm.databinding",
     dependencies = deps(
         androidx.recyclerview,
@@ -6,6 +6,5 @@ androidLibrary(
     ),
     projectDependencies = deps(
         project(":common:recyclerview:widget")
-    ),
-    dataBinding = true
+    )
 )

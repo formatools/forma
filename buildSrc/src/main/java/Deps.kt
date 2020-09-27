@@ -63,6 +63,7 @@ object jetbrains {
 }
 
 val kotlin = com.stepango.forma.dependencies.kotlin
+val dataBinding = com.stepango.forma.dependencies.dataBinding
 
 object kotlinx {
     val coroutines_core = deps(

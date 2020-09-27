@@ -39,6 +39,9 @@ fun androidBinaryFeatureDefinition(
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
 
+            /**
+             * DataBindings needs to be enabled for root project
+             */
             buildFeatures.dataBinding = formaConfiguration.dataBinding
 
             /**

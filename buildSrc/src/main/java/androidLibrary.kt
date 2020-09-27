@@ -2,9 +2,11 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.feature.kotlinKaptFeatureDefinition
+import com.stepango.forma.module.LibraryModule
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.validation.EmptyValidator
+import com.stepango.forma.validation.validate
 import org.gradle.api.Project
 
 fun Project.androidLibrary(
@@ -16,27 +18,23 @@ fun Project.androidLibrary(
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
-    manifestPlaceholders: Map<String, Any> = emptyMap(),
-    dataBinding: Boolean = false
+    manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    // TODO Fix logic validation
-//    validate(LibraryModule)
+    validate(LibraryModule)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
-        manifestPlaceholders,
-        dataBinding = dataBinding
+        manifestPlaceholders
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
-        kotlinAndroidFeatureDefinition(),
-        if (dataBinding) kotlinKaptFeatureDefinition() else emptyFeatureDefinition
+        kotlinAndroidFeatureDefinition()
     )
 
     applyDependencies(
-        validator = libraryFeatureConfiguration.dependencyValidator,
+        validator = EmptyValidator,
         dependencies = dependencies,
         projectDependencies = projectDependencies,
         testDependencies = testDependencies,

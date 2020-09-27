@@ -11,13 +11,12 @@ androidLibrary(
         androidx.lifecycle_viewmodel,
         androidx.lifecycle_viewmodel_ktx,
         androidx.paging,
+        dataBinding.runtime,
         javax.inject,
         jakewharton.timber
     ),
 
     testDependencies = deps(
         test.junit
-    ),
-
-    dataBinding = true
+    )
 )

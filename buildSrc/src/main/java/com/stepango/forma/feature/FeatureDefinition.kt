@@ -5,11 +5,10 @@ import NamedDependency
 import com.stepango.forma.config.FormaConfiguration
 import com.stepango.forma.utils.implementation
 import emptyDependency
-import emptyFeatureDefinition
+import kotlin.reflect.KClass
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
-import kotlin.reflect.KClass
 
 data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginName: String,
@@ -27,7 +26,6 @@ fun Project.applyFeatures(
     vararg features: FeatureDefinition<*, *>
 ) {
     features
-        .filter { it != emptyFeatureDefinition }
         .forEach { definition ->
             apply(plugin = definition.pluginName)
             definition.applyConfiguration(
