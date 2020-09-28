@@ -63,5 +63,6 @@ androidLibrary(
     androidTestDependencies = deps(
         test.junit_ext,
         test.espresso
-    )
+    ),
+    viewBinding = true
 )
