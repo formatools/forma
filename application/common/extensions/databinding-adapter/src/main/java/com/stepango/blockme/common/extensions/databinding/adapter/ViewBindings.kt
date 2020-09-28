@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.mvvm.databinding
+package com.stepango.blockme.common.extensions.databinding.adapter
 
 import android.view.View
 import android.view.View.GONE
