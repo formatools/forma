@@ -18,6 +18,7 @@ object Forma {
         versionName: String,
         repositories: RepositoryHandler.() -> Unit,
         dataBinding: Boolean = false,
+        viewBinding: Boolean = false,
         javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8 // Java/Kotlin configuration
     ) {
         _configuration = FormaConfiguration(
@@ -30,6 +31,7 @@ object Forma {
             versionName = versionName,
             repositories = repositories,
             dataBinding = dataBinding,
+            viewBinding = viewBinding,
             javaVersionCompatibility = javaVersionCompatibility
         )
     }

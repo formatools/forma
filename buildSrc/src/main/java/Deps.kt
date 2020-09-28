@@ -1,7 +1,7 @@
 @file:Suppress("ClassName", "MemberVisibilityCanBePrivate")
 
 object versions {
-    const val agp = "4.1.0-rc01"
+    const val agp = "4.1.0-rc03"
     const val funktionale = "1.2"
     const val timber = "4.7.1"
     const val coil = "0.8.0"

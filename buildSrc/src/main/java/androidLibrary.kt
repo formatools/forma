@@ -17,7 +17,8 @@ fun Project.androidLibrary(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     validator: Validator = validator(LibraryModule),
-    dataBinding: Boolean = false
+    dataBinding: Boolean = false,
+    viewBinding: Boolean = false
 ) {
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
@@ -25,7 +26,8 @@ fun Project.androidLibrary(
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        dataBinding = dataBinding
+        dataBinding = dataBinding,
+        viewBinding = viewBinding
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration)

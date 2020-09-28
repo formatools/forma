@@ -71,6 +71,7 @@ fun androidBinaryFeatureDefinition(
             compileOptions.applyFrom(formaConfiguration)
 
             buildFeatures.dataBinding = formaConfiguration.dataBinding
+            buildFeatures.viewBinding = formaConfiguration.viewBinding
 
             /**
              * Workaround for compilation time issue with duplicate names for META-INF files

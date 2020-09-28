@@ -18,7 +18,8 @@ data class AndroidLibraryFeatureConfiguration(
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val dependencyValidator: Validator = EmptyValidator,
     val selfValidator: Validator = validator(LibraryModule),
-    val dataBinding: Boolean = false
+    val dataBinding: Boolean = false,
+    val viewBinding: Boolean = false
 )
 
 fun androidLibraryFeatureDefinition(
@@ -46,7 +47,13 @@ fun androidLibraryFeatureDefinition(
                 throw IllegalArgumentException("Please enable dataBinding feature trough Forma.configura")
             }
 
+            if (!formaConfiguration.viewBinding && feature.viewBinding){
+                //TODO better error msg
+                throw IllegalArgumentException("Please enable viewBinding feature trough Forma.configura")
+            }
+
             buildFeatures.dataBinding = feature.dataBinding
+            buildFeatures.viewBinding = feature.viewBinding
         }
         project.tasks.withType(KotlinCompile::class.java).all {
             kotlinOptions.jvmTarget = formaConfiguration.javaVersionCompatibility.toString()
