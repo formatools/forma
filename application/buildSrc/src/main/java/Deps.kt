@@ -100,6 +100,10 @@ object androidx {
         annotation,
         "androidx.lifecycle:lifecycle-common:${versions.androidx.lifecycle}".dep
     )
+    val lifecycle_extensions = deps(
+        annotation,
+        "androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycle}".dep
+    )
     val lifecycle_runtime = deps(
         "androidx.lifecycle:lifecycle-runtime:${versions.androidx.lifecycle}".dep,
         core_common,
