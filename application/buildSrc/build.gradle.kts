@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":forma"))
+    api(project(":plugin"))
 }
 
 repositories {

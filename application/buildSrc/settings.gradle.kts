@@ -1,2 +1,2 @@
-include(":forma")
-project(":forma").projectDir = file("../../forma")
+include(":plugin")
+project(":plugin").projectDir = file("../../plugin")
