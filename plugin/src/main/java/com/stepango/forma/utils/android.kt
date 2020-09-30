@@ -5,6 +5,11 @@ import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.DefaultConfig
 import com.stepango.forma.config.FormaConfiguration
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.Project
+import org.gradle.api.file.ConfigurableFileCollection
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
 
 data class BuildConfiguration(
     val buildTypes: Map<String, BuildType.() -> Unit> = emptyMap()

@@ -14,6 +14,8 @@ fun Project.androidUtil(
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency()
 ) {
+
+    //TODO unify with util, use androidJar dependency
     validate(AndroidUtilModule)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
