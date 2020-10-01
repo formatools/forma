@@ -3,6 +3,6 @@ androidBinary(
     projectDependencies = deps(
         project(":root-library"),
         project(":mvvm:library"),
-        project(":mvvm:databinding")
+        project(":common:extensions:android-util")
     )
 )
