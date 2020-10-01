@@ -54,9 +54,6 @@ androidLibrary(
         androidx.navigation_ui_ktx,
         androidx.vectordrawable
     ),
-    projectDependencies = deps(
-        project(":demo-library")
-    ),
     testDependencies = deps(
         test.junit
     ),

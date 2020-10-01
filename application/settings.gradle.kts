@@ -1,12 +1,20 @@
-include("time:util")
-include("date:util")
-include(":string-test-util")
-include(":root-library")
-include(":demo-library")
-include(":app")
-include(":mvvm:library")
-include(":common:extensions:android-util")
-include(":common:extensions:databinding-adapter")
-include(":common:recyclerview:widget")
-include(":common:progressbar:databinding")
+include(
+    ":app",
+    ":date:util",
+
+    ":core:network:library",
+    ":core:mvvm:library",
+
+    ":common:extensions:android-util",
+    ":common:extensions:util",
+    ":common:extensions:databinding-adapter",
+    ":common:progressbar:databinding",
+    ":common:recyclerview:widget",
+    ":common:theme:android-util",
+    ":common:util",
+
+    ":root-library",
+    ":string-test-util",
+    ":time:util"
+)
 rootProject.name = "forma"
