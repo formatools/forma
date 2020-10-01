@@ -10,4 +10,5 @@ include(":common:extensions:util")
 include(":common:extensions:databinding-adapter")
 include(":common:recyclerview:widget")
 include(":common:progressbar:databinding")
+include(":common:theme:android-util")
 rootProject.name = "forma"
