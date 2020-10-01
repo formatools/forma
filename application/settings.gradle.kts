@@ -1,7 +1,9 @@
 include(
     ":app",
     ":date:util",
-    ":demo-library",
+
+    ":core:network:library",
+    ":core:mvvm:library",
 
     ":common:extensions:android-util",
     ":common:extensions:util",
@@ -12,7 +14,6 @@ include(
     ":common:util",
 
     ":root-library",
-    ":mvvm:library",
     ":string-test-util",
     ":time:util"
 )
