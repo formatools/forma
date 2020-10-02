@@ -2,6 +2,7 @@ include(
     ":app",
     ":date:util",
 
+    ":core:di:library",
     ":core:network:library",
     ":core:mvvm:library",
 

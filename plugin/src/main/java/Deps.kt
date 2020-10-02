@@ -48,6 +48,7 @@ object versions {
 
     object google {
         const val material = "1.2.0"
+        const val dagger = "2.25.3"
     }
 
     object test {
@@ -55,6 +56,11 @@ object versions {
         const val junit = "4.12"
         const val junit_ext = "1.1.1"
         const val hamcrest = "1.3"
+    }
+
+    object squareup {
+        const val retrofit = "2.7.0"
+        const val okhttp = "4.9.0"
     }
 }
 
@@ -401,11 +407,16 @@ object google {
         androidx.recyclerview,
         androidx.transition
     )
-}
-
-object javax {
-    val inject = deps(
+    private val inject = deps(
         "javax.inject:javax.inject:1".dep
+    )
+    val dagger = deps(
+        "com.google.dagger:dagger:${versions.google.dagger}".dep,
+        inject
+    )
+
+    val dagger_compiler = deps(
+        "com.google.dagger:dagger-compiler:${versions.google.dagger}".dep
     )
 }
 
@@ -433,4 +444,25 @@ object io {
 
 object jakewharton {
     val timber = "com.jakewharton.timber:timber:${versions.timber}".dep
+}
+
+object squareup {
+    private val logging_interceptor = deps(
+        "com.squareup.okhttp3:logging-interceptor:${versions.squareup.okhttp}".dep
+    )
+
+    private val okhttp = deps(
+        "com.squareup.okhttp3:okhttp:${versions.squareup.okhttp}".dep,
+        logging_interceptor
+    )
+
+    private val retrofit_converter = deps(
+        "com.squareup.retrofit2:converter-gson:${versions.squareup.retrofit}".dep
+    )
+
+    val retrofit = deps(
+        "com.squareup.retrofit2:retrofit:${versions.squareup.retrofit}".dep,
+        retrofit_converter,
+        okhttp
+    )
 }
