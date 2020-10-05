@@ -56,6 +56,8 @@ object versions {
         const val junit = "4.12"
         const val junit_ext = "1.1.1"
         const val hamcrest = "1.3"
+        const val mockito = "2.2.0"
+        const val mockk = "1.9.3"
     }
 
     object squareup {
@@ -432,6 +434,14 @@ object test {
 
     val espresso = deps(
         "androidx.test.espresso:espresso-core:${versions.test.espresso}".dep
+    )
+
+    val mockito = transitiveDeps(
+        "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.test.mockito}"
+    )
+
+    val mockk = deps(
+        "io.mockk:mockk:${versions.test.mockk}".dep
     )
 }
 
