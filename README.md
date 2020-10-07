@@ -13,6 +13,8 @@ Opinionated, scalable, thoughtfully structured, type-safe, guided  Gradle projec
 - Extensible - be the expert when you need to!
 - And much more...
 
+Easiest way to start is here >> ‼️ https://github.com/stepango/FormaShowcase ‼️
+
 Configuration made easy:
 
 ```kotlin
