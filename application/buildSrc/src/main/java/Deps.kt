@@ -1,7 +1,6 @@
 @file:Suppress("ClassName", "MemberVisibilityCanBePrivate")
 
 object versions {
-    const val agp = "4.1.0-rc03"
     const val funktionale = "1.2"
     const val timber = "4.7.1"
     const val coil = "0.8.0"
@@ -9,7 +8,6 @@ object versions {
     object jetbrains {
         const val annotations = "20.0.0"
         const val coroutines = "1.3.9"
-        const val kotlin = "1.4.10"
     }
 
     object androidx {
@@ -72,7 +70,7 @@ object kotlinx {
     )
     val coroutines_android = deps(
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.jetbrains.coroutines}".dep,
-        coroutines_core
+        kotlinx.coroutines_core
     )
 }
 
@@ -80,215 +78,215 @@ object androidx {
     val annotation = "androidx.annotation:annotation:${versions.androidx.annotation}".dep
 
     val collection = deps(
-        annotation,
+        androidx.annotation,
         "androidx.collection:collection:${versions.androidx.collection}".dep
     )
     val versionedparcelable = deps(
         "androidx.versionedparcelable:versionedparcelable:${versions.androidx.versionedparcelable}".dep,
-        annotation,
-        collection
+        androidx.annotation,
+        androidx.collection
     )
     val cardview = deps(
         "androidx.cardview:cardview:${versions.androidx.cardview}".dep,
-        annotation
+        androidx.annotation
     )
     val core_common = deps(
-        annotation,
+        androidx.annotation,
         "androidx.arch.core:core-common:${versions.androidx.core_common}".dep
     )
     val lifecycle_common = deps(
-        annotation,
+        androidx.annotation,
         "androidx.lifecycle:lifecycle-common:${versions.androidx.lifecycle}".dep
     )
     val lifecycle_extensions = deps(
-        annotation,
+        androidx.annotation,
         "androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycle}".dep
     )
     val lifecycle_runtime = deps(
         "androidx.lifecycle:lifecycle-runtime:${versions.androidx.lifecycle}".dep,
-        core_common,
-        lifecycle_common
+        androidx.core_common,
+        androidx.lifecycle_common
     )
     val lifecycle_viewmodel = deps(
-        annotation,
+        androidx.annotation,
         "androidx.lifecycle:lifecycle-viewmodel:${versions.androidx.lifecycle}".dep
     )
 
     val lifecycle_viewmodel_ktx = deps(
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}".dep,
-        lifecycle_viewmodel,
+        androidx.lifecycle_viewmodel,
         kotlinx.coroutines_android
     )
 
     val lifecycle_runtime_ktx = deps(
         "androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}".dep,
-        annotation,
+        androidx.annotation,
         kotlinx.coroutines_android
     )
 
     val savedstate = deps(
         "androidx.savedstate:savedstate:${versions.androidx.savedstate}".dep,
-        annotation,
-        core_common,
-        lifecycle_common
+        androidx.annotation,
+        androidx.core_common,
+        androidx.lifecycle_common
     )
 
     val core_runtime = deps(
         "androidx.arch.core:core-runtime:${versions.androidx.arch}".dep,
-        annotation,
-        core_common
+        androidx.annotation,
+        androidx.core_common
     )
 
     val lifecycle_livedate_core = deps(
         "androidx.lifecycle:lifecycle-livedata-core:${versions.androidx.lifecycle}".dep,
-        core_common,
-        core_runtime
+        androidx.core_common,
+        androidx.core_runtime
     )
 
     val lifecycle_viewmodel_savedstate = deps(
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.androidx.lifecycle}".dep,
-        annotation,
-        lifecycle_livedate_core,
-        lifecycle_viewmodel,
-        savedstate
+        androidx.annotation,
+        androidx.lifecycle_livedate_core,
+        androidx.lifecycle_viewmodel,
+        androidx.savedstate
     )
 
     val core = deps(
         "androidx.core:core:${versions.androidx.core}".dep,
-        annotation,
-        lifecycle_runtime,
-        versionedparcelable
+        androidx.annotation,
+        androidx.lifecycle_runtime,
+        androidx.versionedparcelable
     )
 
     val core_ktx = deps(
         "androidx.core:core-ktx:${versions.androidx.core}".dep,
-        annotation,
-        core
+        androidx.annotation,
+        androidx.core
     )
 
     val activity = deps(
         "androidx.activity:activity:${versions.androidx.activity}".dep,
-        annotation,
-        core,
-        lifecycle_runtime,
-        lifecycle_viewmodel,
-        lifecycle_viewmodel_savedstate,
-        savedstate
+        androidx.annotation,
+        androidx.core,
+        androidx.lifecycle_runtime,
+        androidx.lifecycle_viewmodel,
+        androidx.lifecycle_viewmodel_savedstate,
+        androidx.savedstate
     )
 
     val loader = deps(
         "androidx.loader:loader:${versions.androidx.loader}".dep,
-        annotation,
-        collection,
-        core,
-        lifecycle_livedate_core,
-        lifecycle_viewmodel
+        androidx.annotation,
+        androidx.collection,
+        androidx.core,
+        androidx.lifecycle_livedate_core,
+        androidx.lifecycle_viewmodel
     )
 
     val customview = deps(
         "androidx.customview:customview:${versions.androidx.customview}".dep,
-        annotation,
-        core
+        androidx.annotation,
+        androidx.core
     )
 
     val viewpager = deps(
         "androidx.viewpager:viewpager:${versions.androidx.viewpager}".dep,
-        annotation,
-        core,
-        customview
+        androidx.annotation,
+        androidx.core,
+        androidx.customview
     )
 
     val fragment = deps(
         "androidx.fragment:fragment:${versions.androidx.fragment}".dep,
-        annotation,
-        activity,
-        collection,
-        core,
-        lifecycle_livedate_core,
-        lifecycle_viewmodel,
-        lifecycle_viewmodel_savedstate,
-        loader,
-        viewpager
+        androidx.annotation,
+        androidx.activity,
+        androidx.collection,
+        androidx.core,
+        androidx.lifecycle_livedate_core,
+        androidx.lifecycle_viewmodel,
+        androidx.lifecycle_viewmodel_savedstate,
+        androidx.loader,
+        androidx.viewpager
     )
 
     val activity_ktx = deps(
         "androidx.activity:activity-ktx:${versions.androidx.activity}".dep,
-        activity,
-        core_ktx,
-        lifecycle_runtime_ktx,
-        lifecycle_viewmodel_ktx
+        androidx.activity,
+        androidx.core_ktx,
+        androidx.lifecycle_runtime_ktx,
+        androidx.lifecycle_viewmodel_ktx
     )
 
     val drawerlayout = deps(
         "androidx.drawerlayout:drawerlayout:${versions.androidx.drawerlayout}".dep,
-        annotation,
-        core,
-        customview
+        androidx.annotation,
+        androidx.core,
+        androidx.customview
     )
 
     val documentfile = deps(
         "androidx.documentfile:documentfile:${versions.androidx.documentfile}".dep,
-        annotation
+        androidx.annotation
     )
     val localbroadcastmanager = deps(
         "androidx.localbroadcastmanager:localbroadcastmanager:${versions.androidx.localbroadcastmanager}".dep,
-        annotation
+        androidx.annotation
     )
     val print = deps(
         "androidx.print:print:1.0.0".dep,
-        annotation
+        androidx.annotation
     )
     val legacy_utils = deps(
         "androidx.legacy:legacy-support-core-utils:${versions.androidx.legacy}".dep,
-        documentfile,
-        localbroadcastmanager,
-        print,
-        annotation,
-        core,
-        loader
+        androidx.documentfile,
+        androidx.localbroadcastmanager,
+        androidx.print,
+        androidx.annotation,
+        androidx.core,
+        androidx.loader
     )
 
     val vectordrawable = deps(
         "androidx.vectordrawable:vectordrawable:${versions.androidx.vectordrawable}".dep,
-        annotation,
-        collection,
-        core
+        androidx.annotation,
+        androidx.collection,
+        androidx.core
     )
 
     val asynclayoutinflater = deps(
         "androidx.asynclayoutinflater:asynclayoutinflater:${versions.androidx.asynclayoutinflater}".dep,
-        annotation,
-        core
+        androidx.annotation,
+        androidx.core
     )
 
     val coordinatorlayout = deps(
         "androidx.coordinatorlayout:coordinatorlayout:${versions.androidx.coordinatorlayout}".dep,
-        annotation,
-        collection,
-        core,
-        customview
+        androidx.annotation,
+        androidx.collection,
+        androidx.core,
+        androidx.customview
     )
 
     val interpolator = deps(
         "androidx.interpolator:interpolator:${versions.androidx.interpolator}".dep,
-        annotation
+        androidx.annotation
     )
     val cursoradapter = deps(
         "androidx.cursoradapter:cursoradapter:${versions.androidx.cursoradapter}".dep,
-        annotation
+        androidx.annotation
     )
 
     val slidingpanelayout = deps(
         "androidx.slidingpanelayout:slidingpanelayout:${versions.androidx.slidingpanelayout}".dep,
-        annotation,
-        customview
+        androidx.annotation,
+        androidx.customview
     )
 
     val swiperefreshlayout = deps(
         "androidx.swiperefreshlayout:swiperefreshlayout:${versions.androidx.swiperefreshlayout}".dep,
-        annotation,
-        core,
-        interpolator
+        androidx.annotation,
+        androidx.core,
+        androidx.interpolator
     )
 
     val paging = transitiveDeps(
@@ -298,54 +296,54 @@ object androidx {
 
     val legacy_ui = deps(
         "androidx.legacy:legacy-support-core-ui:${versions.androidx.legacy}".dep,
-        asynclayoutinflater,
-        coordinatorlayout,
-        cursoradapter,
-        interpolator,
-        slidingpanelayout,
-        swiperefreshlayout,
-        core,
-        customview,
-        drawerlayout,
-        legacy_utils,
-        viewpager
+        androidx.asynclayoutinflater,
+        androidx.coordinatorlayout,
+        androidx.cursoradapter,
+        androidx.interpolator,
+        androidx.slidingpanelayout,
+        androidx.swiperefreshlayout,
+        androidx.core,
+        androidx.customview,
+        androidx.drawerlayout,
+        androidx.legacy_utils,
+        androidx.viewpager
     )
     val recyclerview = deps(
         "androidx.recyclerview:recyclerview:${versions.androidx.recyclerview}".dep,
-        annotation,
-        collection,
-        core,
-        customview
+        androidx.annotation,
+        androidx.collection,
+        androidx.core,
+        androidx.customview
     )
     val transition = deps(
         "androidx.transition:transition:${versions.androidx.transition}".dep,
-        annotation,
-        collection,
-        core,
-        lifecycle_runtime
+        androidx.annotation,
+        androidx.collection,
+        androidx.core,
+        androidx.lifecycle_runtime
     )
     val navigation_common = deps(
         "androidx.navigation:navigation-common:${versions.androidx.navigation}".dep,
-        annotation,
-        collection,
-        core
+        androidx.annotation,
+        androidx.collection,
+        androidx.core
     )
 
     val appcompat = deps(
         "androidx.appcompat:appcompat:${versions.androidx.appcompat}".dep,
         "androidx.appcompat:appcompat-resources:${versions.androidx.appcompat}".dep,
-        annotation,
-        core,
-        cursoradapter,
-        drawerlayout,
-        fragment,
-        collection
+        androidx.annotation,
+        androidx.core,
+        androidx.cursoradapter,
+        androidx.drawerlayout,
+        androidx.fragment,
+        androidx.collection
     )
     val constraintlayout = deps(
         "androidx.constraintlayout:constraintlayout:${versions.androidx.constraintlayout}".dep,
         "androidx.constraintlayout:constraintlayout-solver:${versions.androidx.constraintlayout}".dep,
-        appcompat,
-        core
+        androidx.appcompat,
+        androidx.core
     )
 
     val navigation_ui_ktx = deps(
@@ -355,37 +353,37 @@ object androidx {
 
     val navigation_common_ktx = deps(
         "androidx.navigation:navigation-common:${versions.androidx.navigation}".dep,
-        annotation,
-        collection,
-        core
+        androidx.annotation,
+        androidx.collection,
+        androidx.core
     )
 
     val navigation_runtime = deps(
         "androidx.navigation:navigation-runtime:${versions.androidx.navigation}".dep,
-        activity,
-        lifecycle_viewmodel,
-        lifecycle_viewmodel_savedstate,
-        navigation_common,
-        savedstate
+        androidx.activity,
+        androidx.lifecycle_viewmodel,
+        androidx.lifecycle_viewmodel_savedstate,
+        androidx.navigation_common,
+        androidx.savedstate
     )
 
     val navigation_runtime_ktx = deps(
-        navigation_runtime,
-        navigation_common_ktx,
-        activity_ktx,
-        lifecycle_viewmodel_ktx
+        androidx.navigation_runtime,
+        androidx.navigation_common_ktx,
+        androidx.activity_ktx,
+        androidx.lifecycle_viewmodel_ktx
     )
 
     val navigation_fragment = deps(
         "androidx.navigation:navigation-fragment:${versions.androidx.navigation}".dep,
-        fragment,
-        navigation_runtime
+        androidx.fragment,
+        androidx.navigation_runtime
     )
     val navigation_fragment_ktx = deps(
         "androidx.navigation:navigation-fragment-ktx:${versions.androidx.navigation}".dep,
-        navigation_fragment,
-        navigation_runtime,
-        fragment
+        androidx.navigation_fragment,
+        androidx.navigation_runtime,
+        androidx.fragment
     )
 }
 
