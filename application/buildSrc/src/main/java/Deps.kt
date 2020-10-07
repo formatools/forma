@@ -1,7 +1,6 @@
 @file:Suppress("ClassName", "MemberVisibilityCanBePrivate")
 
 object versions {
-    const val agp = "4.1.0-rc03"
     const val funktionale = "1.2"
     const val timber = "4.7.1"
     const val coil = "0.8.0"
@@ -9,7 +8,6 @@ object versions {
     object jetbrains {
         const val annotations = "20.0.0"
         const val coroutines = "1.3.9"
-        const val kotlin = "1.4.10"
     }
 
     object androidx {
@@ -62,10 +60,6 @@ object versions {
         const val retrofit = "2.7.0"
         const val okhttp = "4.9.0"
     }
-}
-
-object jetbrains {
-    val annotations = "org.jetbrains:annotations:${versions.jetbrains.annotations}".dep
 }
 
 val kotlin = com.stepango.forma.dependencies.kotlin
