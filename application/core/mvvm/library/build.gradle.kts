@@ -12,7 +12,7 @@ androidLibrary(
         androidx.lifecycle_viewmodel_ktx,
         androidx.paging,
         dataBinding.runtime,
-        javax.inject,
+        google.dagger,
         jakewharton.timber
     ),
 

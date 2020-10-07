@@ -29,3 +29,10 @@ annotation class OpenClass
 @OpenClass
 @Target(AnnotationTarget.CLASS)
 annotation class OpenForTesting
+
+// TODO Implement allOpen for module types
+//allOpen {
+//    // allows mocking for classes w/o directly opening them for release builds
+//    annotation("com.vmadalin.core.annotations.OpenClass")
+//}
+

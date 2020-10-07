@@ -3,6 +3,6 @@ androidUtil(
 
     dependencies = deps(
         androidx.appcompat,
-        javax.inject
+        google.dagger
     )
 )
