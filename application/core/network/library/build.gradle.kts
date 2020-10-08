@@ -4,9 +4,7 @@ androidLibrary(
     dependencies = deps(
         squareup.retrofit,
         google.dagger
-    ),
-
-    projectDependencies = deps(
+    ) + deps(
         project(":common:util")
     )
 )

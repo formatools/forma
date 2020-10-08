@@ -12,7 +12,6 @@ import org.gradle.api.Project
 fun Project.androidLibrary(
     packageName: String,
     dependencies: FormaDependency = emptyDependency(),
-    projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
@@ -36,7 +35,6 @@ fun Project.androidLibrary(
     applyDependencies(
         validator = EmptyValidator,
         dependencies = dependencies,
-        projectDependencies = projectDependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies
     )

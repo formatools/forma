@@ -10,7 +10,6 @@ import org.gradle.api.Project
 
 fun Project.library(
     dependencies: FormaDependency = emptyDependency(),
-    projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency()
 ) {
     validate(LibraryModule)
@@ -23,7 +22,6 @@ fun Project.library(
     applyDependencies(
         validator = validator(UtilModule, TestUtilModule),
         dependencies = dependencies,
-        projectDependencies = projectDependencies,
         testDependencies = testDependencies
     )
 }

@@ -50,15 +50,12 @@ androidLibrary(
     // External dependencies declaration, one universal syntax
     dependencies = deps(
         google.material,
-        androidx.core_ktx,
         androidx.appcompat,
         androidx.constraintlayout,
-        androidx.navigation_fragment_ktx,
-        androidx.navigation_ui_ktx,
+        androidx.navigation,
         androidx.vectordrawable
-    ),
-    // Internal project dependencies, declared separately from externals
-    projectDependencies = deps(
+    ) + deps(
+        // Internal project dependencies, declared separately from externals
         project(":demo-library")
     ),
     // Test dependencies declaration

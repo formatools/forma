@@ -14,7 +14,7 @@ import org.gradle.api.Project
  */
 fun Project.androidBinary(
     packageName: String,
-    projectDependencies: ProjectDependency = emptyDependency(),
+    dependencies: FormaDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
@@ -33,7 +33,7 @@ fun Project.androidBinary(
     )
     applyDependencies(
         validator = EmptyValidator,
-        projectDependencies = projectDependencies
+        dependencies = dependencies
     )
 }
 

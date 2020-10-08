@@ -6,7 +6,6 @@ object versions {
     const val coil = "0.8.0"
 
     object jetbrains {
-        const val annotations = "20.0.0"
         const val coroutines = "1.3.9"
     }
 

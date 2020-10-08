@@ -15,8 +15,7 @@ import org.gradle.api.Project
 // Only layouts allowed
 fun Project.dataBinding(
     packageName: String,
-    dependencies: NamedDependency = emptyDependency(),
-    projectDependencies: ProjectDependency = emptyDependency(),
+    dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {
     if (!Forma.configuration.dataBinding){
@@ -35,8 +34,7 @@ fun Project.dataBinding(
     )
     applyDependencies(
         validator = validator(WidgetModule, AndroidUtilModule, DataBindingAdapterModule),
-        dependencies = dependencies,
-        projectDependencies = projectDependencies
+        dependencies = dependencies
     )
 }
 

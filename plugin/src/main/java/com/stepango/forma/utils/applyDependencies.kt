@@ -2,7 +2,6 @@ package com.stepango.forma.utils
 
 import Forma
 import FormaDependency
-import ProjectDependency
 import ProjectSpec
 import com.stepango.forma.config.FormaConfiguration
 import com.stepango.forma.validation.Validator
@@ -15,7 +14,6 @@ fun Project.applyDependencies(
     validator: Validator,
     formaConfiguration: FormaConfiguration = Forma.configuration,
     dependencies: FormaDependency = emptyDependency(),
-    projectDependencies: ProjectDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency()
 ) {
@@ -29,7 +27,6 @@ fun Project.applyDependencies(
             { addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive } },
             projectAction
         )
-        projectDependencies.forEach(projectAction = projectAction)
         testDependencies.forEach(
             { testImplementation(it.name) { isTransitive = it.transitive } },
             { testImplementation(it.project) }
