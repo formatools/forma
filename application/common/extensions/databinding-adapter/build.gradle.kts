@@ -4,9 +4,8 @@ dataBindingAdapters(
     dependencies = deps(
         androidx.recyclerview,
         io.coil
-    ),
-
-    projectDependencies = deps(
+    ) + deps(
         project(":common:recyclerview:widget")
     )
+
 )

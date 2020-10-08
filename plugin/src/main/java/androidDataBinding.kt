@@ -41,8 +41,7 @@ fun Project.dataBinding(
 // Only files with adapters allowed
 fun Project.dataBindingAdapters(
     packageName: String,
-    dependencies: NamedDependency = emptyDependency(),
-    projectDependencies: ProjectDependency = emptyDependency(),
+    dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {
     if (!Forma.configuration.dataBinding){
@@ -61,7 +60,6 @@ fun Project.dataBindingAdapters(
     )
     applyDependencies(
         validator = validator(WidgetModule, AndroidUtilModule),
-        dependencies = dependencies,
-        projectDependencies = projectDependencies
+        dependencies = dependencies
     )
 }

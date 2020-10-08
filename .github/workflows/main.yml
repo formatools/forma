@@ -15,4 +15,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
-      run: cd application && ./gradlew build test
+      run: cd application && ./gradlew build test -s --console=plain
