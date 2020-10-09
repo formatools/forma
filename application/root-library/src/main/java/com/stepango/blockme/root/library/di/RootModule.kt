@@ -27,6 +27,8 @@ import javax.inject.Singleton
  *
  * @see Module
  */
+// FIXME Wrong work with Dagger's modules behavior.
+// Need to remove passing argument as a field and change class on interface
 @Module
 class RootModule(private val application: Application) {
 

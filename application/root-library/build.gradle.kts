@@ -17,7 +17,7 @@ androidLibrary(
 
     ) + deps(
         project(":core:di:library"),
-        project(":common:theme:android-util")
+        project(":core:theme:android-util")
 
     ) + kapt(
         google.dagger_compiler

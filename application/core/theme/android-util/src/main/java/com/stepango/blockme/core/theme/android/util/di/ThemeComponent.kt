@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.common.theme.android.util.di
+package com.stepango.blockme.core.theme.android.util.di
 
-import com.stepango.blockme.common.theme.android.util.ThemeUtils
+import com.stepango.blockme.core.theme.android.util.ThemeUtils
 import dagger.Component
 import javax.inject.Singleton
 

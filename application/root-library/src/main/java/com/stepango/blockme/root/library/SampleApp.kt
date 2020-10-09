@@ -18,9 +18,9 @@ package com.stepango.blockme.root.library
 
 import android.content.Context
 import com.google.android.play.core.splitcompat.SplitCompatApplication
-import com.stepango.blockme.common.theme.android.util.ThemeUtils
-import com.stepango.blockme.common.theme.android.util.di.DaggerThemeComponent
-import com.stepango.blockme.common.theme.android.util.di.ThemeComponent
+import com.stepango.blockme.core.theme.android.util.ThemeUtils
+import com.stepango.blockme.core.theme.android.util.di.DaggerThemeComponent
+import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
 import com.stepango.blockme.root.library.di.DaggerRootComponent
 import com.stepango.blockme.root.library.di.RootComponent
 import timber.log.Timber
