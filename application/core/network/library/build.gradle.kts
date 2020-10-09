@@ -1,6 +1,4 @@
-androidLibrary(
-    packageName = "com.stepango.blockme.core.network.library",
-
+library(
     dependencies = deps(
         squareup.retrofit,
         google.dagger

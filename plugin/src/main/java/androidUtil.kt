@@ -2,6 +2,7 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
+import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.module.AndroidUtilModule
 import com.stepango.forma.module.TestUtilModule
 import com.stepango.forma.utils.applyDependencies
@@ -26,6 +27,12 @@ fun Project.androidUtil(
         androidLibraryFeatureDefinition(androidFeatureConfig),
         kotlinAndroidFeatureDefinition()
     )
+
+    if (dependencies.hasConfigType(Kapt)) {
+        applyFeatures(
+            kotlinKaptFeatureDefinition()
+        )
+    }
 
     applyDependencies(
         validator = validator(AndroidUtilModule, TestUtilModule),

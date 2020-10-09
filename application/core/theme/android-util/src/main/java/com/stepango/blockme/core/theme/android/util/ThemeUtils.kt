@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.common.theme.android.util
+package com.stepango.blockme.core.theme.android.util
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate

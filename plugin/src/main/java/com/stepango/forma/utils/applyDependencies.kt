@@ -3,6 +3,7 @@ package com.stepango.forma.utils
 import Forma
 import FormaDependency
 import ProjectSpec
+import Kapt
 import com.stepango.forma.config.FormaConfiguration
 import com.stepango.forma.validation.Validator
 import emptyDependency
@@ -23,8 +24,11 @@ fun Project.applyDependencies(
             validator.validate(it.project)
             add(it.config.name, it.project)
         }
-        dependencies.forEach(
-            { addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive } },
+        dependencies.forEach({
+            when (it.config) {
+                is Kapt -> kapt(it.name)
+                else -> addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+            }},
             projectAction
         )
         testDependencies.forEach(

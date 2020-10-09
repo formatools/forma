@@ -1,5 +1,5 @@
 androidBinary(
-    packageName = "com.stepango.blockme",
+    packageName = "com.stepango.blockme.app",
     dependencies = deps(
         project(":root-library"),
         project(":common:extensions:android-util"),
