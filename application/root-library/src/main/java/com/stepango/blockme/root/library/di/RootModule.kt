@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.app.di
+package com.stepango.blockme.root.library.di
 
 import android.app.Application
 import android.content.Context
@@ -23,12 +23,12 @@ import dagger.Provides
 import javax.inject.Singleton
 
 /**
- * Class that contributes to the object graph [CoreComponent].
+ * Class that contributes to the object graph [RootComponent].
  *
  * @see Module
  */
 @Module
-class ContextModule(private val application: Application) {
+class RootModule(private val application: Application) {
 
     /**
      * Create a provider method binding for [Context].

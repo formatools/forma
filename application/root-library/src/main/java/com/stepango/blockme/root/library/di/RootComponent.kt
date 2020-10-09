@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.common.theme.android.util.di
+package com.stepango.blockme.root.library.di
 
-import com.stepango.blockme.common.theme.android.util.ThemeUtils
-import com.stepango.blockme.common.theme.android.util.ThemeUtilsImpl
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import com.stepango.blockme.common.theme.android.util.di.ThemeComponent
+import com.stepango.blockme.core.di.library.scopes.AppScope
+import com.stepango.blockme.root.library.SampleApp
+import dagger.Component
 
 /**
- * Class that contributes to the object graph [ThemeComponent].
+ * App component that application component's components depend on.
  *
- * @see Module
+ * @see Component
  */
-@Module
-abstract class ThemeModule {
+@AppScope
+@Component(
+    dependencies = [ThemeComponent::class],
+    modules = [RootModule::class]
+)
+interface RootComponent {
 
     /**
-     * Create a provider method binding for [ThemeUtilsImpl].
+     * Inject dependencies on application.
      *
-     * @return Instance of theme utils.
-     * @see Binds
+     * @param application The sample application.
      */
-    @Singleton
-    @Binds
-    abstract fun bindThemeUtils(themeUtilsImpl: ThemeUtilsImpl): ThemeUtils
+    fun inject(application: SampleApp)
 }
