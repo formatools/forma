@@ -4,5 +4,8 @@ androidUtil(
     dependencies = deps(
         androidx.appcompat,
         google.dagger
+
+    ) + kapt(
+        google.dagger_compiler
     )
 )

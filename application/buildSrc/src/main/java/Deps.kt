@@ -2,7 +2,6 @@
 
 object versions {
     const val funktionale = "1.2"
-    const val timber = "4.7.1"
     const val coil = "0.8.0"
 
     object jetbrains {
@@ -46,6 +45,11 @@ object versions {
     object google {
         const val material = "1.2.0"
         const val dagger = "2.25.3"
+        const val play_core = "1.6.4"
+    }
+
+    object jakewharton {
+        const val timber = "4.7.1"
     }
 
     object test {
@@ -408,8 +412,12 @@ object google {
         inject
     )
 
-    val dagger_compiler = deps(
-        "com.google.dagger:dagger-compiler:${versions.google.dagger}".dep
+    val dagger_compiler = kapt(
+        "com.google.dagger:dagger-compiler:${versions.google.dagger}".kapt
+    )
+
+    val play_core = deps(
+        "com.google.android.play:core:${versions.google.play_core}".dep
     )
 }
 
@@ -436,7 +444,7 @@ object io {
 }
 
 object jakewharton {
-    val timber = "com.jakewharton.timber:timber:${versions.timber}".dep
+    val timber = "com.jakewharton.timber:timber:${versions.jakewharton.timber}".dep
 }
 
 object squareup {
