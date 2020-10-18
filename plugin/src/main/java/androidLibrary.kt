@@ -4,6 +4,8 @@ import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.module.LibraryModule
+import com.stepango.forma.owner.NoOwner
+import com.stepango.forma.owner.Owner
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
 import com.stepango.forma.validation.EmptyValidator
@@ -12,6 +14,7 @@ import org.gradle.api.Project
 
 fun Project.androidLibrary(
     packageName: String,
+    owner: Owner = NoOwner,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),

@@ -5,6 +5,8 @@ import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.module.AndroidUtilModule
 import com.stepango.forma.module.UtilModule
 import com.stepango.forma.module.WidgetModule
+import com.stepango.forma.owner.NoOwner
+import com.stepango.forma.owner.Owner
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
 import com.stepango.forma.validation.validate
@@ -13,6 +15,7 @@ import org.gradle.api.Project
 
 fun Project.widget(
     packageName: String,
+    owner: Owner = NoOwner,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
