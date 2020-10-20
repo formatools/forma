@@ -10,11 +10,14 @@ import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
 import com.stepango.forma.validation.EmptyValidator
 import com.stepango.forma.validation.validate
+import com.stepango.forma.visibility.Public
+import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
 fun Project.androidLibrary(
     packageName: String,
     owner: Owner = NoOwner,
+    visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),

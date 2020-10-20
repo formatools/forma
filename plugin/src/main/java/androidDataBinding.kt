@@ -12,12 +12,15 @@ import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.owner.NoOwner
+import com.stepango.forma.visibility.Public
+import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
 // Only layouts allowed
 fun Project.dataBinding(
     packageName: String,
     owner: Owner = NoOwner,
+    visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {

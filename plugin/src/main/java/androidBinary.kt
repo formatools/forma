@@ -7,6 +7,9 @@ import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyDependencies
 import com.stepango.forma.validation.EmptyValidator
 import com.stepango.forma.validation.validate
+import com.stepango.forma.owner.NoOwner
+import com.stepango.forma.visibility.Public
+import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
 /**
@@ -15,7 +18,8 @@ import org.gradle.api.Project
  */
 fun Project.androidBinary(
     packageName: String,
-    owner: Owner,
+    owner: Owner = NoOwner,
+    visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
