@@ -14,31 +14,24 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.root.library.di
+package com.stepango.blockme.feature.home.impl.ui.menu
 
-import android.app.Application
 import android.content.Context
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatCheckBox
+import com.stepango.blockme.feature.home.impl.R
 
 /**
- * Class that contributes to the object graph [RootComponent].
+ * Animated button menu item check box to apply night/light mode.
  *
- * @see Module
+ * @see AppCompatCheckBox
  */
-// FIXME Wrong work with Dagger's modules behavior.
-// Need to remove passing argument as a field and change class on interface
-@Module
-class RootModule(private val application: Application) {
+class ToggleThemeCheckBox @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) : AppCompatCheckBox(context, attrs) {
 
-    /**
-     * Create a provider method binding for [Context].
-     *
-     * @return Instance of context.
-     * @see Provides
-     */
-    @Singleton
-    @Provides
-    fun provideContext(): Context = application
+    init {
+        setButtonDrawable(R.drawable.asl_theme)
+    }
 }

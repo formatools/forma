@@ -26,8 +26,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
+import com.stepango.blockme.core.mvvm.library.lifecycle.ViewModelFactory
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
 /**
  * Base fragment to standardize and simplify initialization for this component.
@@ -35,13 +36,13 @@ import javax.inject.Inject
  * @param layoutId Layout resource reference identifier.
  * @see Fragment
  */
-abstract class BaseFragment<B : ViewDataBinding, M : ViewModel>(
+abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
     private val layoutId: Int
 ) : Fragment() {
 
     @Inject
-    lateinit var viewModel: M
+    lateinit var viewModelFactory: ViewModelFactory
     lateinit var viewBinding: B
 
     /**
@@ -119,6 +120,15 @@ abstract class BaseFragment<B : ViewDataBinding, M : ViewModel>(
             return activity
         } else {
             throw TypeCastException("Main activity should extend from 'AppCompatActivity'")
+        }
+    }
+
+    inline fun <reified T : Any> requireProvider(providerType: KClass<T>): T {
+        val appContext = requireContext().applicationContext
+        if (appContext is T) {
+            return appContext
+        } else {
+            throw TypeCastException("Application should extend from '$providerType'")
         }
     }
 }

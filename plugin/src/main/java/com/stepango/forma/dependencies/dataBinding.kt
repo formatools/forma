@@ -2,6 +2,7 @@ package com.stepango.forma.dependencies
 
 import Forma
 import transitiveDeps
+import kapt
 
 // TODO not sure if we need all dependencies here
 
@@ -20,5 +21,9 @@ object dataBinding {
 
     val adapters = transitiveDeps(
         "androidx.databinding:databinding-adapters:${Forma.configuration.agpVersion}"
+    )
+
+    val compiler = kapt(
+        "androidx.databinding:databinding-compiler:${Forma.configuration.agpVersion}".kapt
     )
 }

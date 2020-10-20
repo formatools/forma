@@ -16,11 +16,14 @@ androidLibrary(
         jakewharton.timber
 
     ) + deps(
+        project(":feature:home:api"),
+        project(":feature:home:impl"),
         project(":core:di:library"),
         project(":core:theme:android-util")
 
     ) + kapt(
-        google.dagger_compiler
+        google.dagger_compiler,
+        dataBinding.compiler
     ),
 
     testDependencies = deps(

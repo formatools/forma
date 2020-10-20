@@ -37,4 +37,15 @@ interface ThemeComponent {
      * @return ThemeUtils
      */
     fun themeUtils(): ThemeUtils
+
+    @Component.Factory
+    interface Factory {
+
+        fun create(): ThemeComponent
+    }
+}
+
+interface ThemeComponentProvider {
+
+    val themeComponent: ThemeComponent
 }

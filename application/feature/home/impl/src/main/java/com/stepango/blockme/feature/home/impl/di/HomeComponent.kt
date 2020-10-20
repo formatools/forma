@@ -14,31 +14,27 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.root.library.di
+package com.stepango.blockme.feature.home.impl.di
 
-import com.stepango.blockme.core.di.library.BaseComponent
+import com.stepango.blockme.core.di.library.scopes.FeatureScope
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
-import com.stepango.blockme.core.di.library.scopes.AppScope
-import com.stepango.blockme.root.library.SampleApp
+import com.stepango.blockme.feature.home.api.HomeFeature
+import com.stepango.blockme.feature.home.impl.ui.HomeFragment
 import dagger.Component
 
-/**
- * App component that application component's components depend on.
- *
- * @see Component
- */
-@AppScope
+@FeatureScope
 @Component(
-    dependencies = [
-        ThemeComponent::class,
-        BaseComponent::class],
-)
-interface RootComponent {
+    modules = [HomeModule::class],
+    dependencies = [ThemeComponent::class])
+interface HomeComponent {
 
-    /**
-     * Inject dependencies on application.
-     *
-     * @param application The sample application.
-     */
-    fun inject(application: SampleApp)
+    fun inject(homeFragment: HomeFragment)
+
+    @Component.Factory
+    interface Factory {
+
+        fun create(themeComponent: ThemeComponent): HomeComponent
+    }
 }
+
+interface HomeFeatureComponent : HomeFeature
