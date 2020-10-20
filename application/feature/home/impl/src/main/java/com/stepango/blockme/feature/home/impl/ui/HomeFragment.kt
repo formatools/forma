@@ -48,11 +48,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     lateinit var themeUtils: ThemeUtils
 
     private val viewModel: HomeViewModel by viewModels()
-
-    private val navGraphIds = listOf(
-        R.navigation.navigation_characters_list_graph,
-        R.navigation.navigation_characters_favorites_graph
-    )
+// TODO Uncomment when characters features will be delivering
+//    private val navGraphIds = listOf(
+//        R.navigation.navigation_characters_list_graph,
+//        R.navigation.navigation_characters_favorites_graph
+//    )
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -139,16 +139,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
      * Configure app bottom bar via navigation graph.
      */
     private fun setupBottomNavigationBar() {
-        val navController = viewBinding.bottomNavigation.setupWithNavController(
-            navGraphIds = navGraphIds,
-            fragmentManager = childFragmentManager,
-            containerId = R.id.nav_host_container,
-            intent = requireActivity().intent
-        )
-
-        navController.observe(viewLifecycleOwner, Observer {
-            viewModel.navigationControllerChanged(it)
-            setupActionBarWithNavController(requireCompatActivity(), it)
-        })
+// TODO Uncomment when characters features will be delivering
+//        val navController = viewBinding.bottomNavigation.setupWithNavController(
+//            navGraphIds = navGraphIds,
+//            fragmentManager = childFragmentManager,
+//            containerId = R.id.nav_host_container,
+//            intent = requireActivity().intent
+//        )
+//
+//        navController.observe(viewLifecycleOwner, Observer {
+//            viewModel.navigationControllerChanged(it)
+//            setupActionBarWithNavController(requireCompatActivity(), it)
+//        })
     }
 }
