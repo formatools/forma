@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.core.mvvm.library.livedata
+package com.stepango.blockme.core.mvvm.library.lifecycle
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

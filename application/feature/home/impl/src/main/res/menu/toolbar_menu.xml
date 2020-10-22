@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_toggle_theme"
+        android:title="@string/home_toolbar_theme"
+        app:showAsAction="always"
+        app:actionViewClass="com.stepango.blockme.feature.home.impl.ui.menu.ToggleThemeCheckBox" />
+</menu>

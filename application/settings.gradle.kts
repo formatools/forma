@@ -2,6 +2,9 @@ include(
     ":app",
     ":date:util",
 
+    ":feature:home:api",
+    ":feature:home:impl",
+
     ":core:di:library",
     ":core:network:library",
     ":core:mvvm:library",
