@@ -1,10 +1,16 @@
-package com.stepango.forma.utils
+package com.stepango.forma.dependencies
 
 import Forma
 import FormaDependency
 import ProjectSpec
 import Kapt
 import com.stepango.forma.config.FormaConfiguration
+import com.stepango.forma.feature.applyFeatures
+import com.stepango.forma.feature.kotlinKaptFeatureDefinition
+import com.stepango.forma.utils.addDependencyTo
+import com.stepango.forma.utils.androidTestImplementation
+import com.stepango.forma.utils.kapt
+import com.stepango.forma.utils.testImplementation
 import com.stepango.forma.validation.Validator
 import emptyDependency
 import forEach
@@ -18,17 +24,23 @@ fun Project.applyDependencies(
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency()
 ) {
+    var kaptApplied = false
     formaConfiguration.repositories(repositories)
     dependencies {
         val projectAction: (ProjectSpec) -> Unit = {
             validator.validate(it.project)
             add(it.config.name, it.project)
         }
-        dependencies.forEach({
-            when (it.config) {
-                is Kapt -> kapt(it.name)
-                else -> addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
-            }},
+        dependencies.forEach(
+            {
+                println(it)
+                if (!kaptApplied && it.config == Kapt) {
+                    // TODO Force one AP per module
+                    applyFeatures(kotlinKaptFeatureDefinition())
+                    kaptApplied = true
+                }
+                addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+            },
             projectAction
         )
         testDependencies.forEach(

@@ -7,7 +7,7 @@ import com.stepango.forma.module.AndroidUtilModule
 import com.stepango.forma.module.DataBindingAdapterModule
 import com.stepango.forma.module.DataBindingModule
 import com.stepango.forma.module.WidgetModule
-import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import com.stepango.forma.owner.Owner

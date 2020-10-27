@@ -44,7 +44,7 @@ object versions {
 
     object google {
         const val material = "1.2.0"
-        const val dagger = "2.25.3"
+        const val dagger = "2.29.1"
         const val play_core = "1.6.4"
     }
 
@@ -392,6 +392,12 @@ object androidx {
     )
 }
 
+object javax {
+    val inject = deps(
+        "javax.inject:javax.inject:1".dep
+    )
+}
+
 object google {
     val material = deps(
         "com.google.android.material:material:${versions.google.material}".dep,
@@ -404,15 +410,10 @@ object google {
         androidx.recyclerview,
         androidx.transition
     )
-    private val inject = deps(
-        "javax.inject:javax.inject:1".dep
-    )
-    val dagger = deps(
-        "com.google.dagger:dagger:${versions.google.dagger}".dep,
-        inject
-    )
 
-    val dagger_compiler = kapt(
+    val dagger = deps(
+        javax.inject,
+        "com.google.dagger:dagger:${versions.google.dagger}".dep,
         "com.google.dagger:dagger-compiler:${versions.google.dagger}".kapt
     )
 
@@ -452,18 +453,22 @@ object squareup {
         "com.squareup.okhttp3:logging-interceptor:${versions.squareup.okhttp}".dep
     )
 
-    private val okhttp = deps(
-        "com.squareup.okhttp3:okhttp:${versions.squareup.okhttp}".dep,
-        logging_interceptor
-    )
-
     private val retrofit_converter = deps(
         "com.squareup.retrofit2:converter-gson:${versions.squareup.retrofit}".dep
+    )
+
+    val okio = "com.squareup.okio:okio:2.9.0".dep
+
+    val okhttp = deps(
+        "com.squareup.okhttp3:okhttp:${versions.squareup.okhttp}".dep,
+        logging_interceptor,
+        okio
     )
 
     val retrofit = deps(
         "com.squareup.retrofit2:retrofit:${versions.squareup.retrofit}".dep,
         retrofit_converter,
-        okhttp
+        okhttp,
+        okio
     )
 }

@@ -11,16 +11,13 @@ androidLibrary(
         androidx.navigation_fragment_ktx,
         androidx.navigation_ui_ktx,
         androidx.vectordrawable,
+        // Kapt enabled based on provided dep
         google.dagger,
         google.play_core,
         jakewharton.timber
-
     ) + deps(
         project(":core:di:library"),
         project(":core:theme:android-util")
-
-    ) + kapt(
-        google.dagger_compiler
     ),
 
     testDependencies = deps(

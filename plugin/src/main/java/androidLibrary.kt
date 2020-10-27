@@ -7,7 +7,7 @@ import com.stepango.forma.module.LibraryModule
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.utils.BuildConfiguration
-import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.EmptyValidator
 import com.stepango.forma.validation.validate
 import com.stepango.forma.visibility.Public
@@ -38,12 +38,6 @@ fun Project.androidLibrary(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
         kotlinAndroidFeatureDefinition()
     )
-
-    if (dependencies.hasConfigType(Kapt)) {
-        applyFeatures(
-            kotlinKaptFeatureDefinition()
-        )
-    }
 
     applyDependencies(
         validator = EmptyValidator,

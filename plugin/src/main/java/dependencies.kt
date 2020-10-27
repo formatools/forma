@@ -30,20 +30,18 @@ data class NameSpec(
 data class ProjectSpec(val project: Project, val config: ConfigurationType)
 
 sealed class FormaDependency(
-    val dependency: DepType = emptyList(),
-    val type: ConfigurationType = Implementation
+    val dependency: DepType = emptyList()
 )
 
 object EmptyDependency : FormaDependency()
 
-data class NamedDependency(val names: List<NameSpec> = emptyList()) :
+class NamedDependency(
+    val names: List<NameSpec> = emptyList()
+) :
     FormaDependency(names.map { Either.left(it) })
 
 data class ProjectDependency(val projects: List<ProjectSpec> = emptyList()) :
     FormaDependency(projects.map { Either.right(it) })
-
-data class KaptDependency(val names: List<NameSpec> = emptyList()) :
-    FormaDependency(names.map { Either.left(it) }, Kapt)
 
 data class MixedDependency(
     val names: List<NameSpec> = emptyList(),
@@ -60,7 +58,6 @@ inline fun <reified T : FormaDependency> emptyDependency(): T = when {
     T::class == NamedDependency::class -> NamedDependency() as T
     T::class == ProjectDependency::class -> ProjectDependency() as T
     T::class == MixedDependency::class -> MixedDependency() as T
-    T::class == KaptDependency::class -> KaptDependency() as T
     else -> throw IllegalArgumentException("Illegal Empty dependency, expected ${T::class.simpleName}")
 }
 
@@ -75,18 +72,13 @@ internal fun FormaDependency.forEach(
 }
 
 internal fun FormaDependency.hasConfigType(configType: ConfigurationType): Boolean {
-    dependency.forEach {
-        val (nameSpec, _) = it
+    dependency.forEach { (nameSpec, _) ->
         if (nameSpec?.config == configType) return true
     }
     return false
 }
 
-
 fun deps(vararg names: String): NamedDependency = transitiveDeps(names = *names, transitive = false)
-
-fun kapt(vararg names: String): KaptDependency =
-    KaptDependency(names.toList().map { NameSpec(it, Kapt) })
 
 fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
     NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
@@ -95,13 +87,13 @@ fun deps(vararg projects: Project): ProjectDependency =
     ProjectDependency(projects.toList().map { ProjectSpec(it, Implementation) })
 
 fun deps(vararg dependencies: NamedDependency): NamedDependency =
-    dependencies.flatMap { it.names }.let(::NamedDependency)
+    dependencies.flatMap { it.names }.let { NamedDependency(it) }
 
 fun deps(vararg dependencies: ProjectDependency): ProjectDependency =
     dependencies.flatMap { it.projects }.let(::ProjectDependency)
 
-fun kapt(vararg dependencies: KaptDependency): KaptDependency =
-    KaptDependency(dependencies.flatMap { it.names })
+fun kapt(vararg names: String): NamedDependency =
+    NamedDependency(names.toList().map { NameSpec(it, Kapt, true) })
 
 val String.dep get() = deps(this)
 

@@ -8,7 +8,7 @@ import com.stepango.forma.module.WidgetModule
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.utils.BuildConfiguration
-import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import com.stepango.forma.visibility.Public
