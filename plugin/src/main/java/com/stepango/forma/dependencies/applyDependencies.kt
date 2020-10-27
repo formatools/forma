@@ -33,7 +33,6 @@ fun Project.applyDependencies(
         }
         dependencies.forEach(
             {
-                println(it)
                 if (!kaptApplied && it.config == Kapt) {
                     // TODO Force one AP per module
                     applyFeatures(kotlinKaptFeatureDefinition())

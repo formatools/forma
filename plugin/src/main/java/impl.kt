@@ -1,7 +1,7 @@
 import com.stepango.forma.feature.*
 import com.stepango.forma.module.*
 import com.stepango.forma.utils.BuildConfiguration
-import com.stepango.forma.utils.applyDependencies
+import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import org.gradle.api.Project
@@ -31,12 +31,6 @@ fun Project.impl(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
         kotlinAndroidFeatureDefinition()
     )
-
-    if (dependencies.hasConfigType(Kapt)) {
-        applyFeatures(
-            kotlinKaptFeatureDefinition()
-        )
-    }
 
     applyDependencies(
         validator = validator(ApiModule, AndroidUtilModule, TestUtilModule, UtilModule, LibraryModule, DataBindingAdapterModule),

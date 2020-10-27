@@ -23,7 +23,6 @@ object dataBinding {
         "androidx.databinding:databinding-adapters:${Forma.configuration.agpVersion}"
     )
 
-    val compiler = kapt(
-        "androidx.databinding:databinding-compiler:${Forma.configuration.agpVersion}".kapt
-    )
+//    val compiler = "androidx.databinding:databinding-compiler:${Forma.configuration.agpVersion}".kapt
+
 }

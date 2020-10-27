@@ -9,7 +9,6 @@ impl(
         google.material,
         google.dagger,
         jakewharton.timber
-
     ) + deps(
         project(":feature:home:api"),
         project(":core:di:library"),
@@ -17,11 +16,6 @@ impl(
         project(":core:mvvm:library"),
         project(":common:extensions:android-util"),
         project(":common:extensions:databinding-adapter")
-
-
-    ) + kapt(
-        google.dagger_compiler,
-        dataBinding.compiler
     ),
 
     dataBinding = true
