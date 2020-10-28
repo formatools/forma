@@ -24,6 +24,10 @@ import com.stepango.blockme.core.theme.android.util.ThemeUtils
 import com.stepango.blockme.core.theme.android.util.di.DaggerThemeComponent
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponentProvider
+import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
+import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
+import com.stepango.blockme.feature.characters.core.impl.di.CharactersCoreComponent
+import com.stepango.blockme.feature.characters.core.impl.di.DaggerCharactersCoreComponent
 import com.stepango.blockme.root.library.di.DaggerRootComponent
 import timber.log.Timber
 import javax.inject.Inject
@@ -34,13 +38,19 @@ import kotlin.random.Random
  *
  * @see SplitCompatApplication
  */
-class SampleApp : SplitCompatApplication(), BaseComponentProvider, ThemeComponentProvider {
+class SampleApp : SplitCompatApplication(),
+    BaseComponentProvider,
+    ThemeComponentProvider,
+    CharactersCoreFeatureProvider {
 
-    private val _baseComponent = DaggerBaseComponent.factory().create(this)
-    override val baseComponent: BaseComponent = _baseComponent
+    private lateinit var baseComponent: BaseComponent
+    override fun getBaseComponent(): BaseComponent = baseComponent
 
-    private val _themeComponent = DaggerThemeComponent.factory().create()
-    override val themeComponent: ThemeComponent = _themeComponent
+    private lateinit var themeComponent: ThemeComponent
+    override fun getThemeComponent(): ThemeComponent = themeComponent
+
+    private lateinit var characterCoreComponent: CharactersCoreComponent
+    override fun getCharactersCoreFeature(): CharactersCoreFeature = characterCoreComponent
 
     @Inject
     lateinit var themeUtils: ThemeUtils
@@ -66,12 +76,17 @@ class SampleApp : SplitCompatApplication(), BaseComponentProvider, ThemeComponen
      * Initialize root dependency injection component.
      */
     private fun initRootDependencyInjection() {
+        baseComponent = DaggerBaseComponent.factory().create(this)
+        themeComponent = DaggerThemeComponent.factory().create()
+
         DaggerRootComponent
             .builder()
             .baseComponent(baseComponent)
             .themeComponent(themeComponent)
             .build()
             .inject(this)
+
+        characterCoreComponent = DaggerCharactersCoreComponent.factory().create()
     }
 
     /**

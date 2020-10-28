@@ -14,38 +14,17 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.core.theme.android.util.di
-
-import com.stepango.blockme.core.theme.android.util.ThemeUtils
-import dagger.Component
-import javax.inject.Singleton
+package com.stepango.blockme.feature.characters.list.impl.ui
 
 /**
- * Theme component for different theme utils dependencies
- *
- * @see Component
+ * Different interaction events for [CharactersListFragment].
  */
-@Singleton
-@Component(modules = [
-    ThemeModule::class
-])
-interface ThemeComponent {
+sealed class CharactersListViewEvent {
 
     /**
-     * Provide dependency graph ThemeUtils
+     * Open character detail view.
      *
-     * @return ThemeUtils
+     * @param id Character identifier
      */
-    fun themeUtils(): ThemeUtils
-
-    @Component.Factory
-    interface Factory {
-
-        fun create(): ThemeComponent
-    }
-}
-
-interface ThemeComponentProvider {
-
-    fun getThemeComponent(): ThemeComponent
+    data class OpenCharacterDetail(val id: Long) : CharactersListViewEvent()
 }

@@ -16,6 +16,10 @@ androidLibrary(
         google.play_core,
         jakewharton.timber
     ) + deps(
+        project(":feature:characters:core:api"),
+        project(":feature:characters:core:impl")
+
+    ) + deps(
         project(":core:di:library"),
         project(":core:theme:android-util")
     ),

@@ -14,38 +14,24 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.core.theme.android.util.di
+package com.stepango.blockme.feature.characters.list.impl.di
 
-import com.stepango.blockme.core.theme.android.util.ThemeUtils
+import com.stepango.blockme.core.di.library.scopes.FeatureScope
+import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
+import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListFragment
 import dagger.Component
-import javax.inject.Singleton
 
-/**
- * Theme component for different theme utils dependencies
- *
- * @see Component
- */
-@Singleton
-@Component(modules = [
-    ThemeModule::class
-])
-interface ThemeComponent {
+@FeatureScope
+@Component(
+    modules = [CharactersListModule::class],
+    dependencies = [CharactersCoreFeature::class])
+internal interface CharactersListComponent {
 
-    /**
-     * Provide dependency graph ThemeUtils
-     *
-     * @return ThemeUtils
-     */
-    fun themeUtils(): ThemeUtils
+    fun inject(listFragment: CharactersListFragment)
 
     @Component.Factory
     interface Factory {
 
-        fun create(): ThemeComponent
+        fun create(charactersCoreFeature: CharactersCoreFeature): CharactersListComponent
     }
-}
-
-interface ThemeComponentProvider {
-
-    fun getThemeComponent(): ThemeComponent
 }

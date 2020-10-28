@@ -21,5 +21,5 @@ interface BaseComponent {
 
 interface BaseComponentProvider {
 
-    val baseComponent: BaseComponent
+    fun getBaseComponent(): BaseComponent
 }

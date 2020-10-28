@@ -4,8 +4,10 @@ include(
 
     ":feature:home:api",
     ":feature:home:impl",
-    ":feature:character:core:api",
-    ":feature:character:core:impl",
+    ":feature:characters:core:api",
+    ":feature:characters:core:impl",
+    ":feature:characters:list:api",
+    ":feature:characters:list:impl",
 
     ":core:di:library",
     ":core:network:library",

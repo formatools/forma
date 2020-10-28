@@ -111,7 +111,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         DaggerHomeComponent
             .factory()
             .create(
-                requireProvider(ThemeComponentProvider::class).themeComponent
+                requireProvider(ThemeComponentProvider::class).getThemeComponent()
             )
             .inject(this)
     }
