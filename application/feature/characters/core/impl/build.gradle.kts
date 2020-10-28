@@ -18,9 +18,6 @@ impl(
         project(":common:extensions:android-util"),
         project(":common:extensions:databinding-adapter")
 
-    ) + kapt(
-        google.dagger_compiler,
-        dataBinding.compiler
     ),
 
     dataBinding = true
