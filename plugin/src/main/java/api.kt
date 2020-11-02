@@ -15,13 +15,6 @@ fun Project.api(
     applyFeatures(
         kotlinFeatureDefinition()
     )
-
-    if (dependencies.hasConfigType(Kapt)) {
-        applyFeatures(
-            kotlinKaptFeatureDefinition()
-        )
-    }
-
     applyDependencies(
         validator = validator(ApiModule, LibraryModule),
         dependencies = dependencies
