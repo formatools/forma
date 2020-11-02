@@ -23,7 +23,8 @@ import androidx.navigation.NavController
 import com.stepango.blockme.feature.home.impl.R
 import javax.inject.Inject
 
-val NAV_FRAGMENTS_ID = setOf(R.id.characters_list_fragment, R.id.characters_favorites_fragment)
+// TODO Insert navigation R.id.characters_favorites_fragment for favorite feature
+val NAV_FRAGMENTS_ID = setOf(R.id.characters_list_fragment)
 
 /**
  * View model responsible for preparing and managing the data for [HomeFragment].

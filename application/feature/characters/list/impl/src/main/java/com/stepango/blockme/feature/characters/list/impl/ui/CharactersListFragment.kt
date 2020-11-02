@@ -23,8 +23,10 @@ import com.stepango.blockme.common.extensions.android.util.gridLayoutManager
 import com.stepango.blockme.common.extensions.android.util.observe
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
+import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
 import com.stepango.blockme.feature.characters.list.impl.R
 import com.stepango.blockme.feature.characters.list.impl.databinding.FragmentCharactersListBinding
+import com.stepango.blockme.feature.characters.list.impl.di.DaggerCharactersListComponent
 import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapter
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapterState
@@ -64,12 +66,12 @@ class CharactersListFragment :
      * Initialize dagger injection dependency graph.
      */
     override fun onInitDependencyInjection() {
-//        DaggerCharactersListComponent
-//            .builder()
-//            .coreComponent(coreComponent(requireContext()))
-//            .charactersListModule(CharactersListModule(this))
-//            .build()
-//            .inject(this)
+        DaggerCharactersListComponent
+            .factory()
+            .create(
+                requireProvider(CharactersCoreFeatureProvider::class).getCharactersCoreFeature()
+            )
+            .inject(this)
     }
 
     /**

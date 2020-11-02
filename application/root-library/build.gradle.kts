@@ -25,6 +25,7 @@ androidLibrary(
 
     ) + deps(
         project(":core:di:library"),
+        project(":core:navigation:library"),
         project(":core:theme:android-util")
     ),
 

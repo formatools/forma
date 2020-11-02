@@ -24,7 +24,8 @@ impl(
         project(":core:di:library"),
         project(":core:theme:android-util"),
         project(":core:mvvm:library"),
-        project(":core:network:library")
+        project(":core:network:library"),
+        project(":core:navigation:library")
 
     ) + deps(
         project(":common:util"),
