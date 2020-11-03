@@ -4,7 +4,6 @@ import org.gradle.api.Project
 /**
  * Dependency wrapper
  * TODO: inline class
- * TODO: Annotation processor flag
  */
 
 sealed class ConfigurationType(val name: String)

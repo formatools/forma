@@ -13,6 +13,9 @@ import com.stepango.forma.visibility.Public
 import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
+/**
+ * Can't depend on api\impl
+ */
 fun Project.library(
     dependencies: FormaDependency = emptyDependency(),
     owner: Owner = NoOwner,

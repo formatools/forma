@@ -7,7 +7,6 @@ import com.stepango.forma.module.UtilModule
 import com.stepango.forma.module.WidgetModule
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
-import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
@@ -23,18 +22,16 @@ fun Project.widget(
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
-    buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
     validate(WidgetModule)
 
     val featureConfiguration = AndroidLibraryFeatureConfiguration(
-        packageName,
-        buildConfiguration,
-        testInstrumentationRunner,
-        consumerMinificationFiles,
-        manifestPlaceholders
+        packageName = packageName,
+        testInstrumentationRunnerClass = testInstrumentationRunner,
+        consumerMinificationFiles = consumerMinificationFiles,
+        manifestPlaceholders = manifestPlaceholders
     )
 
     applyFeatures(

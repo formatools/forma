@@ -11,7 +11,7 @@ import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
 /**
- * TODO
+ * TODO - Can't be used without library
  *
  * External Libraries extensions - usage:
  * Add libraries to dependencies e.g. retrofit
@@ -24,7 +24,7 @@ import org.gradle.api.Project
  *     project("retrofit-util")
  * )
  * ```
- *
+ * Can't depend on api\impl
  */
 fun Project.util(
     owner: Owner = NoOwner,

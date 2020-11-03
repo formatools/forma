@@ -16,7 +16,17 @@ import com.stepango.forma.visibility.Public
 import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
-// Only layouts allowed
+/**
+ * Android Data Binding Target - Data Binding layouts collection
+ *
+ * Only MVVM interfaces and layouts allowed, no business logic or other resource types
+ *
+ * @param packageName - Application package name, used for publishing
+ * @param owner - owner of the target, team responsible for maintenance
+ * @param visibility - visibility scope for the target
+ * @param dependencies - list of external and project dependencies for the target
+ * @param consumerMinificationFiles - Proguard/R8 minification files list
+ */
 fun Project.dataBinding(
     packageName: String,
     owner: Owner = NoOwner,
@@ -44,9 +54,21 @@ fun Project.dataBinding(
     )
 }
 
-// Only files with adapters allowed
+/**
+ * Android Data Binding Adapters - Shared Data Binding Adapters collection
+ *
+ * Only DataBinding adapters allowed, no resources or business logic
+ *
+ * @param packageName - Application package name, used for publishing
+ * @param owner - owner of the target, team responsible for maintenance
+ * @param visibility - visibility scope for the target
+ * @param dependencies - list of external and project dependencies for the target
+ * @param consumerMinificationFiles - Proguard/R8 minification files list
+ */
 fun Project.dataBindingAdapters(
     packageName: String,
+    owner: Owner = NoOwner,
+    visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {

@@ -4,8 +4,9 @@ import Forma
 import transitiveDeps
 import kapt
 
-// TODO not sure if we need all dependencies here
-
+/**
+ * Data Bindind dependencies declarations for internal use
+ */
 object dataBinding {
     val viewBinding = transitiveDeps(
         "androidx.databinding:viewbinding:${Forma.configuration.agpVersion}"
@@ -22,7 +23,4 @@ object dataBinding {
     val adapters = transitiveDeps(
         "androidx.databinding:databinding-adapters:${Forma.configuration.agpVersion}"
     )
-
-//    val compiler = "androidx.databinding:databinding-compiler:${Forma.configuration.agpVersion}".kapt
-
 }

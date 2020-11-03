@@ -2,7 +2,6 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.module.LibraryModule
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
@@ -14,6 +13,9 @@ import com.stepango.forma.visibility.Public
 import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
+/**
+ * TODO Can't depend on widgets, cant depend on databindings
+ */
 fun Project.androidLibrary(
     packageName: String,
     owner: Owner = NoOwner,

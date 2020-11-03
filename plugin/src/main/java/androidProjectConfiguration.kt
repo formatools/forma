@@ -20,11 +20,14 @@ fun Project.androidProjectConfiguration(
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8 // Java/Kotlin configuration
 ) {
 
+    /**
+     * Default Android project clean task implementation
+     */
     tasks.register("clean", Delete::class) {
         delete(project.buildDir)
     }
 
-    Forma._configuration = FormaConfiguration(
+    val configuration = FormaConfiguration(
         minSdk = minSdk,
         targetSdk = targetSdk,
         compileSdk = compileSdk,
@@ -37,9 +40,19 @@ fun Project.androidProjectConfiguration(
         javaVersionCompatibility = javaVersionCompatibility
     )
 
+    Forma.store(configuration)
+
 }
 
+/**
+ * Singleton project configuration store
+ */
 object Forma {
-    internal lateinit var _configuration: FormaConfiguration
+
+    private lateinit var _configuration: FormaConfiguration
     val configuration: FormaConfiguration get() = _configuration
+
+    fun store(configuration: FormaConfiguration) {
+        _configuration = configuration
+    }
 }

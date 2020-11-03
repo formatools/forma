@@ -8,18 +8,25 @@ import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.EmptyValidator
 import com.stepango.forma.validation.validate
 import com.stepango.forma.owner.NoOwner
-import com.stepango.forma.visibility.Public
-import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
 /**
- * Application entry point. Manifest + minimal set of resources + root android project dependency only.
+ * Android Binary target - application entry point.
+ *
+ * Manifest + minimal set of resources + root android project dependency only.
  * No library dependencies, no source code.
+ *
+ * @param packageName - Application package name, used for publishing
+ * @param owner - owner of the target, team responsible for maintenance
+ * @param dependencies - list of external and project dependencies for the target
+ * @param buildConfiguration - Android Gradle Plugin configuration DSL
+ * @param testInstrumentationRunner - class name used for instrumentation tests execution
+ * @param consumerMinificationFiles - Proguard/R8 minification files list
+ * @param manifestPlaceholders - placeholders ot be injected in manifest
  */
 fun Project.androidBinary(
     packageName: String,
     owner: Owner = NoOwner,
-    visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
