@@ -3,6 +3,7 @@ androidUtil(
 
     dependencies = deps(
         androidx.appcompat,
+        google.material,
         google.dagger
     )
 )

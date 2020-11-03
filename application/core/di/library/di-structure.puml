@@ -1,0 +1,77 @@
+@startuml
+
+together {
+    package ":core:di:library" {
+        class BaseModule {
+            + providesContext(app: Application): Context
+        }
+
+        interface BaseComponent
+        BaseComponent ..> BaseModule : "modules"
+
+        interface BaseComponent.Factory {
+            + create(@BindsInstance app: Application): BaseComponent
+        }
+        BaseComponent.Factory ..> BaseComponent : "create"
+
+        interface BaseComponentProvider {
+            + baseComponent: BaseComponent
+        }
+        BaseComponentProvider ..> BaseComponent : "get"
+    }
+
+    package ":theme:android-util" {
+        class ThemeModule
+        class ThemeComponent
+        ThemeComponent ..> ThemeModule : "modules"
+
+        interface ThemeComponentProvider {
+            + themeComponent: ThemeComponent
+        }
+        ThemeComponentProvider ..> ThemeComponent : "get"
+    }
+
+    package ":root" {
+        class SampleApp implements BaseComponentProvider, ThemeComponentProvider
+    }
+}
+
+
+together {
+    package ":feature:home:api" {
+        interface HomeFeature {
+            + getSampleUseCase(): SampleUseCase
+        }
+
+        interface HomeFeatureProvider {
+            + homeFeature: HomeFeature
+        }
+        HomeFeatureProvider ..> HomeFeature : "get"
+    }
+
+    package ":feature:home:impl" {
+        interface HomeFeatureComponent extends HomeFeature
+        interface HomeFeatureComponent.Factory {
+            + create(baseComponent: BaseComponent): HomeFeatureComponent
+        }
+        HomeFeatureComponent.Factory ..> HomeFeatureComponent : "create"
+        HomeFeatureComponent.Factory ..> BaseComponent : "use"
+
+        interface HomeComponent
+        interface HomeComponent.Factory {
+            + create(homeFeatureComponent: HomeFeatureComponent): HomeComponent
+        }
+        HomeComponent.Factory ..> HomeComponent : "create"
+        HomeComponent.Factory ..> HomeFeatureComponent : "use"
+    }
+}
+
+package ":app" {
+}
+":app" ..> ":root" : deps
+":app" ..> ":feature:home:api" : deps
+":app" ..> ":feature:home:impl" : deps
+":app" ..> ":core:di:library" : deps
+
+
+@enduml

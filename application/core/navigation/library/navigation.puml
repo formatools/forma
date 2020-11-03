@@ -1,0 +1,46 @@
+@startuml
+
+package ":core:navigation" {
+
+    package "navigation-app-graph.xml" <<Rectangle>> {
+        class R {
+            id.home_fragment: Int
+            id.characters_list_fragment: Int
+            id.characters_detail_fragment: Int
+            id.characters_favorites_fragment: Int
+        }
+    }
+
+    class NavGraphIds {
+        values: Set<Int>
+    }
+    NavGraphIds ..> R : "uses"
+
+    interface Destination
+    class NavDestination implements Destination {
+        value: NavDestinations
+    }
+    class IdDestination implements Destination {
+        id: Int
+    }
+
+    interface Command <<Sealed>>
+
+    class To implements Command {
+        destination: Destination
+    }
+    To o-- Destination
+
+    class Back implements Command
+
+    class BackTo implements Command {
+        destination: Destination
+    }
+    BackTo o-- Destination
+
+    class ToRoot implements Command
+
+
+}
+
+@enduml

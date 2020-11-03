@@ -5,7 +5,7 @@ object versions {
     const val coil = "0.8.0"
 
     object jetbrains {
-        const val coroutines = "1.3.9"
+        const val coroutines = "1.3.7"
     }
 
     object androidx {
@@ -46,6 +46,7 @@ object versions {
         const val material = "1.2.0"
         const val dagger = "2.29.1"
         const val play_core = "1.6.4"
+        const val gson = "2.8.6"
     }
 
     object jakewharton {
@@ -419,6 +420,10 @@ object google {
 
     val play_core = deps(
         "com.google.android.play:core:${versions.google.play_core}".dep
+    )
+
+    val gson = deps (
+        "com.google.code.gson:gson:${versions.google.gson}".dep
     )
 }
 

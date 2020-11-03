@@ -47,5 +47,5 @@ interface ThemeComponent {
 
 interface ThemeComponentProvider {
 
-    val themeComponent: ThemeComponent
+    fun getThemeComponent(): ThemeComponent
 }

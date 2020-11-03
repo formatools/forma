@@ -25,7 +25,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Class that contributes to the object graph [CoreComponent].
+ * Class that contributes to the client object graph.
  *
  * @see Module
  */
@@ -54,14 +54,10 @@ class NetworkModule {
      */
     @Singleton
     @Provides
-    fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        val clientBuilder = OkHttpClient.Builder()
-// TODO Need to support build config configuration for different params
-//        if (BuildConfig.DEBUG) {
-//            clientBuilder.addInterceptor(interceptor)
-//        }
-        return clientBuilder.build()
-    }
+    fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
 
     /**
      * Create a provider method binding for [Retrofit].
@@ -71,10 +67,9 @@ class NetworkModule {
      */
     @Singleton
     @Provides
-    fun provideRetrofitBuilder() =
+    fun provideRetrofitBuilder(): Retrofit =
         Retrofit.Builder()
-// TODO Need to support build config configuration for different params
-//          .baseUrl(BuildConfig.MARVEL_API_BASE_URL)
+            .baseUrl("https://gateway.marvel.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 }
