@@ -84,6 +84,7 @@ androidLibrary(
 |          androidUtils         |      ✅     |
 |           testUtils           |      ✅      |
 |             utils             |      ✅      |
+|             library           |      ✅      |
 |             api               |      ✅      |
 |             impl              |      ✅      |
 
