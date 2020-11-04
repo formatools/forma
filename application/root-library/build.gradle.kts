@@ -21,9 +21,8 @@ androidLibrary(
         project(":feature:characters:core:api"),
         project(":feature:characters:core:impl"),
         project(":feature:characters:list:api"),
-        project(":feature:characters:list:impl")
+        project(":feature:characters:list:impl"),
 
-    ) + deps(
         project(":core:di:library"),
         project(":core:navigation:library"),
         project(":core:theme:android-util")

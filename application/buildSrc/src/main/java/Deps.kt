@@ -391,6 +391,11 @@ object androidx {
         navigation_runtime,
         fragment
     )
+
+    val navigation = deps(
+        navigation_fragment_ktx,
+        navigation_ui_ktx
+    )
 }
 
 object javax {

@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.stepango.forma"
-version = "0.0.1"
+version = "0.0.2"
 
 val kotlin_version = "1.4.10"
 
@@ -46,7 +46,7 @@ gradlePlugin {
     plugins {
         create("Forma") {
             id = "com.stepango.forma"
-            displayName = "Forma - Project Structure Framework"
+            displayName = "Forma - Meta Build System with Gradle and Android support"
             description = "Best way to structure your Android Project"
             implementationClass = "com.stepango.forma.plugin.FormaPlugin"
         }

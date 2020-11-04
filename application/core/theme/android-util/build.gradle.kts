@@ -1,3 +1,4 @@
+// TODO split DI and resources
 androidUtil(
     packageName = "com.stepango.blockme.core.theme.android.util",
 
