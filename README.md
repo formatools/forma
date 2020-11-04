@@ -1,5 +1,7 @@
-# forma (WIP)
+# forma
 <img src="./press.svg" width="150" height="150">
+
+⚠️ This is early *alpha* release - please do try this at home🏠
 
 Forma - Meta Build System with Android and Gradle support. Opinionated, scalable, thoughtfully structured, type-safe and guided way to declare your project structure. Distributed as a Gradle plugin, Forma helps developers to shift focus from `Build Configuration` to `Project Structure Declaration`, abstracting away build configuration complexity.
 
