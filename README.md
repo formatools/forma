@@ -1,4 +1,6 @@
 # forma
+![Android CI](https://github.com/stepango/forma/workflows/Android%20CI/badge.svg)
+
 <img src="./press.svg" width="150" height="150">
 
 ⚠️ This is early *alpha* release - please do try this at home🏠
