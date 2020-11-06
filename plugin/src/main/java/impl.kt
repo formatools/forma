@@ -1,5 +1,4 @@
 import com.stepango.forma.feature.*
-import com.stepango.forma.module.*
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.target.*
