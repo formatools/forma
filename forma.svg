@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+  <style type="text/css">
+    @font-face{
+    font-family: 'JetBrains Mono';
+    src: url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.eot') format('embedded-opentype'),
+         url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.woff2') format('woff2'),
+         url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.woff') format('woff'),
+         url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+  </style>
+</defs>
+  <text stroke="#000" xml:space="preserve" text-anchor="start" font-family="JetBrains Mono" font-size="24" id="svg_1" y="24" x="0" stroke-width="0" fill="#000000">forma</text>
+</svg>
