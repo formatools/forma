@@ -1,12 +1,3 @@
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0")
-    }
-}
-
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("java-gradle-plugin")
@@ -15,7 +6,7 @@ plugins {
 }
 
 group = "com.stepango.forma"
-version = "0.0.2"
+version = "0.0.3"
 
 val kotlin_version = "1.4.10"
 

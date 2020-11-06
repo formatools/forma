@@ -2,9 +2,9 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.module.AndroidUtilModule
-import com.stepango.forma.module.UtilModule
-import com.stepango.forma.module.WidgetModule
+import com.stepango.forma.target.AndroidUtilTarget
+import com.stepango.forma.target.UtilTarget
+import com.stepango.forma.target.WidgetTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.dependencies.applyDependencies
@@ -25,7 +25,7 @@ fun Project.widget(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    validate(WidgetModule)
+    validate(WidgetTarget)
 
     val featureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
@@ -40,7 +40,7 @@ fun Project.widget(
     )
 
     applyDependencies(
-        validator = validator(WidgetModule, UtilModule, AndroidUtilModule),
+        validator = validator(WidgetTarget, UtilTarget, AndroidUtilTarget),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

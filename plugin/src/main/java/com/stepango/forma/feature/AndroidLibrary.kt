@@ -2,7 +2,7 @@ package com.stepango.forma.feature
 
 import androidJunitRunner
 import com.android.build.gradle.LibraryExtension
-import com.stepango.forma.module.LibraryModule
+import com.stepango.forma.target.LibraryTarget
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.utils.applyFrom
 import com.stepango.forma.validation.Validator
@@ -14,7 +14,7 @@ data class AndroidLibraryFeatureConfiguration(
     val testInstrumentationRunnerClass: String = androidJunitRunner,
     val consumerMinificationFiles: Set<String> = emptySet(),
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
-    val selfValidator: Validator = validator(LibraryModule),
+    val selfValidator: Validator = validator(LibraryTarget),
     val dataBinding: Boolean = false
 )
 
@@ -24,7 +24,7 @@ fun androidLibraryFeatureDefinition(
     pluginName = "com.android.library",
     pluginExtension = LibraryExtension::class,
     featureConfiguration = featureConfiguration,
-    configuration = { extension, feature, project, formaConfiguration ->
+    configuration = { extension, feature, _, formaConfiguration ->
         with(extension) {
             compileSdkVersion(formaConfiguration.compileSdk)
 

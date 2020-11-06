@@ -2,8 +2,8 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.module.AndroidUtilModule
-import com.stepango.forma.module.TestUtilModule
+import com.stepango.forma.target.AndroidUtilTarget
+import com.stepango.forma.target.TestUtilTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.dependencies.applyDependencies
@@ -39,7 +39,7 @@ fun Project.androidUtil(
 ) {
 
     //TODO unify with util, use androidJar dependency
-    validate(AndroidUtilModule)
+    validate(AndroidUtilTarget)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
         packageName
@@ -51,7 +51,7 @@ fun Project.androidUtil(
     )
 
     applyDependencies(
-        validator = validator(AndroidUtilModule, TestUtilModule),
+        validator = validator(AndroidUtilTarget, TestUtilTarget),
         dependencies = dependencies,
         testDependencies = testDependencies
     )

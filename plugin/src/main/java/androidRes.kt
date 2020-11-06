@@ -3,13 +3,9 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.module.AndroidUtilModule
-import com.stepango.forma.module.LibraryModule
-import com.stepango.forma.module.ResourcesModule
-import com.stepango.forma.module.TestUtilModule
+import com.stepango.forma.target.ResourcesTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
-import com.stepango.forma.validation.EmptyValidator
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import com.stepango.forma.visibility.Public
@@ -33,7 +29,7 @@ fun Project.androidRes(
             assert(first() == "res")
         } ?: throw IllegalStateException("No resources folder found")
 
-    validate(ResourcesModule)
+    validate(ResourcesTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         manifestPlaceholders = manifestPlaceholders
@@ -44,7 +40,7 @@ fun Project.androidRes(
     )
 
     applyDependencies(
-        validator = validator(ResourcesModule),
+        validator = validator(ResourcesTarget),
         dependencies = dependencies
     )
 }

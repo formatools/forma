@@ -1,6 +1,6 @@
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinFeatureDefinition
-import com.stepango.forma.module.UtilModule
+import com.stepango.forma.target.UtilTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.dependencies.applyDependencies
@@ -32,14 +32,14 @@ fun Project.util(
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency()
 ) {
-    validate(UtilModule)
+    validate(UtilTarget)
 
     applyFeatures(
         kotlinFeatureDefinition()
     )
 
     applyDependencies(
-        validator = validator(UtilModule),
+        validator = validator(UtilTarget),
         dependencies = dependencies,
         testDependencies = testDependencies
     )

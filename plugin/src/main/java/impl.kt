@@ -2,6 +2,7 @@ import com.stepango.forma.feature.*
 import com.stepango.forma.module.*
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.dependencies.applyDependencies
+import com.stepango.forma.target.*
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import org.gradle.api.Project
@@ -17,14 +18,14 @@ fun Project.impl(
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     dataBinding: Boolean = false
 ) {
-    validate(ImplModule)
+    validate(ImplTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        selfValidator = validator(ImplModule),
+        selfValidator = validator(ImplTarget),
         dataBinding = dataBinding
     )
     applyFeatures(
@@ -33,7 +34,7 @@ fun Project.impl(
     )
 
     applyDependencies(
-        validator = validator(ApiModule, AndroidUtilModule, TestUtilModule, UtilModule, LibraryModule, DataBindingAdapterModule),
+        validator = validator(ApiTarget, AndroidUtilTarget, TestUtilTarget, UtilTarget, LibraryTarget, DataBindingAdapterTarget),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

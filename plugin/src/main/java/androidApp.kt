@@ -2,7 +2,7 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.target.LibraryTarget
+import com.stepango.forma.target.ApplicationTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.utils.BuildConfiguration
@@ -16,7 +16,7 @@ import org.gradle.api.Project
 /**
  * TODO Can't depend on widgets, cant depend on databindings
  */
-fun Project.androidLibrary(
+fun Project.androidApp(
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
@@ -28,7 +28,7 @@ fun Project.androidLibrary(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    validate(LibraryTarget)
+    validate(ApplicationTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,

@@ -1,3 +1,7 @@
+buildscript {
+    formaDependencies()
+}
+
 // Enjoy easiest way to configure your Android project
 androidProjectConfiguration(
     minSdk = 21,

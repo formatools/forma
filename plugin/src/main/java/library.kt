@@ -1,9 +1,9 @@
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinFeatureDefinition
 import com.stepango.forma.feature.kotlinKaptFeatureDefinition
-import com.stepango.forma.module.LibraryModule
-import com.stepango.forma.module.TestUtilModule
-import com.stepango.forma.module.UtilModule
+import com.stepango.forma.target.LibraryTarget
+import com.stepango.forma.target.TestUtilTarget
+import com.stepango.forma.target.UtilTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.dependencies.applyDependencies
@@ -22,7 +22,7 @@ fun Project.library(
     visibility: Visibility = Public,
     testDependencies: NamedDependency = emptyDependency()
 ) {
-    validate(LibraryModule)
+    validate(LibraryTarget)
 
     applyFeatures(
         kotlinFeatureDefinition()
@@ -35,7 +35,7 @@ fun Project.library(
     }
 
     applyDependencies(
-        validator = validator(UtilModule, TestUtilModule),
+        validator = validator(UtilTarget, TestUtilTarget),
         dependencies = dependencies,
         testDependencies = testDependencies
     )

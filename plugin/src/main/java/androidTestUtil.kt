@@ -2,8 +2,8 @@ import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
 import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.module.AndroidTestUtilModule
-import com.stepango.forma.module.TestUtilModule
+import com.stepango.forma.target.AndroidTestUtilTarget
+import com.stepango.forma.target.TestUtilTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.dependencies.applyDependencies
@@ -19,7 +19,7 @@ fun Project.androidTestUtil(
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency()
 ) {
-    validate(AndroidTestUtilModule)
+    validate(AndroidTestUtilTarget)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
         packageName
@@ -30,7 +30,7 @@ fun Project.androidTestUtil(
     )
 
     applyDependencies(
-        validator = validator(AndroidTestUtilModule, TestUtilModule),
+        validator = validator(AndroidTestUtilTarget, TestUtilTarget),
         dependencies = dependencies
     )
 }

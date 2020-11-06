@@ -6,6 +6,18 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.tasks.Delete
+import org.gradle.kotlin.dsl.ScriptHandlerScope
+import org.gradle.kotlin.dsl.repositories
+
+fun ScriptHandlerScope.formaDependencies(agpVersion: String = "4.1.0") = run {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:$agpVersion")
+    }
+}
 
 fun Project.androidProjectConfiguration(
     minSdk: Int,
@@ -17,7 +29,8 @@ fun Project.androidProjectConfiguration(
     versionName: String,
     repositories: RepositoryHandler.() -> Unit,
     dataBinding: Boolean = false,
-    javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8 // Java/Kotlin configuration
+    javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
+    mandatoryOwners: Boolean = false
 ) {
 
     /**
@@ -37,7 +50,8 @@ fun Project.androidProjectConfiguration(
         versionName = versionName,
         repositories = repositories,
         dataBinding = dataBinding,
-        javaVersionCompatibility = javaVersionCompatibility
+        javaVersionCompatibility = javaVersionCompatibility,
+        mandatoryOwners = mandatoryOwners
     )
 
     Forma.store(configuration)

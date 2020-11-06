@@ -1,8 +1,8 @@
-# forma <img src="./rings.svg" width="32" height="32">
+# forma <img src="./img/rings.svg" width="30" height="30">
 ![Android CI](https://github.com/stepango/forma/workflows/Android%20CI/badge.svg)
 [![Gradle Plugin](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin)](https://plugins.gradle.org/plugin/com.stepango.forma)
 
-<img src="./press.svg" width="150" height="150">
+<img src="./img/press.svg" width="128" height="128">
 
 ⚠️ This is early *alpha* release - please do try this at home🏠
 
@@ -26,9 +26,19 @@ Configuration made easy:
 
 ```kotlin
 // root build.gradle.kts
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:4.1.0")
+    }
+}
 
+plugins {
+    id("com.stepango.forma") version "0.0.2"
+}
 // Configure shared aspects of your android Projects in a single place,
-// no need to copy it over to all your targets or invent some smart sharing technique;)
 androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 29,

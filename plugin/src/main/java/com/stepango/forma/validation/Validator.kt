@@ -1,8 +1,8 @@
 package com.stepango.forma.validation
 
 import com.stepango.forma.error.ProjectValidationError
-import com.stepango.forma.module.LibraryModule
-import com.stepango.forma.module.ModuleDefinition
+import com.stepango.forma.target.LibraryTarget
+import com.stepango.forma.target.TargetDefinition
 import org.gradle.api.Project
 
 interface Validator {
@@ -13,45 +13,45 @@ object EmptyValidator : Validator {
     override fun validate(project: Project) = Unit
 }
 
-fun ModuleDefinition.validate(name: String): Boolean {
+fun TargetDefinition.validate(name: String): Boolean {
     return name == suffix || name.endsWith("-$suffix")
 }
 
-fun Project.validate(definition: ModuleDefinition) {
+fun Project.validate(definition: TargetDefinition) {
     validator(definition).validate(this)
 }
 
-fun validator(vararg moduleDefinitions: ModuleDefinition): Validator = object : Validator {
+fun validator(vararg targetDefinitions: TargetDefinition): Validator = object : Validator {
     override fun validate(project: Project) {
-        validateName(project.name, *moduleDefinitions)
+        validateName(project.name, *targetDefinitions)
     }
 }
 
 fun validateName(
     name: String,
-    vararg moduleDefinitions: ModuleDefinition
+    vararg targetDefinitions: TargetDefinition
 ) {
     //Name should match with at least one targetName
-    if (moduleDefinitions.map { it.validate(name) }.contains(true).not()) {
-        throwProjectValidationError(name, LibraryModule)
+    if (targetDefinitions.map { it.validate(name) }.contains(true).not()) {
+        throwProjectValidationError(name, LibraryTarget)
     }
 }
 
 fun throwProjectValidationError(
     name: String,
-    moduleDefinition: ModuleDefinition
+    targetDefinition: TargetDefinition
 ) {
     throw ProjectValidationError(
         """
             Project ${name}: name does not match type requirements
-            Projects of type "${moduleDefinition::class.simpleName}" should contain name suffix "${moduleDefinition.suffix}" 
+            Projects of type "${targetDefinition::class.simpleName}" should contain name suffix "${targetDefinition.suffix}" 
         """.trimIndent()
     )
 }
 
 fun throwProjectDepsValidationError(
     project: Project,
-    vararg allowedTargets: ModuleDefinition
+    vararg allowedTargets: TargetDefinition
 ) {
     throw ProjectValidationError(
         """

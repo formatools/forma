@@ -3,10 +3,10 @@ import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.feature.kotlinKaptFeatureDefinition
-import com.stepango.forma.module.AndroidUtilModule
-import com.stepango.forma.module.DataBindingAdapterModule
-import com.stepango.forma.module.DataBindingModule
-import com.stepango.forma.module.WidgetModule
+import com.stepango.forma.target.AndroidUtilTarget
+import com.stepango.forma.target.DataBindingAdapterTarget
+import com.stepango.forma.target.DataBindingTarget
+import com.stepango.forma.target.WidgetTarget
 import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
@@ -37,7 +37,7 @@ fun Project.dataBinding(
     if (!Forma.configuration.dataBinding){
         throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
     }
-    validate(DataBindingModule)
+    validate(DataBindingTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         consumerMinificationFiles = consumerMinificationFiles,
@@ -49,7 +49,7 @@ fun Project.dataBinding(
         kotlinKaptFeatureDefinition()
     )
     applyDependencies(
-        validator = validator(WidgetModule, AndroidUtilModule, DataBindingAdapterModule),
+        validator = validator(WidgetTarget, AndroidUtilTarget, DataBindingAdapterTarget),
         dependencies = dependencies
     )
 }
@@ -75,7 +75,7 @@ fun Project.dataBindingAdapters(
     if (!Forma.configuration.dataBinding){
         throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
     }
-    validate(DataBindingAdapterModule)
+    validate(DataBindingAdapterTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         consumerMinificationFiles = consumerMinificationFiles,
@@ -87,7 +87,7 @@ fun Project.dataBindingAdapters(
         kotlinKaptFeatureDefinition()
     )
     applyDependencies(
-        validator = validator(WidgetModule, AndroidUtilModule),
+        validator = validator(WidgetTarget, AndroidUtilTarget),
         dependencies = dependencies
     )
 }

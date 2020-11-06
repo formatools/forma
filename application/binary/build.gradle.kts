@@ -8,7 +8,7 @@ androidBinary(
         project(":feature:characters:core:impl"),
         project(":feature:characters:list:api"),
         project(":feature:characters:list:impl"),
-        project(":root-library"),
+        project(":root-app"),
         project(":common:extensions:android-util"),
         project(":core:mvvm:library"),
         project(":core:di:library")

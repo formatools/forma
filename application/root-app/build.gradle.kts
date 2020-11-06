@@ -1,8 +1,9 @@
 /**
  * This project meant to be self containing root library
  */
-androidLibrary(
+androidApp(
     packageName = "com.stepango.blockme.root.library",
+    owner = Teams.core,
     dependencies = deps(
         google.material,
         androidx.core_ktx,

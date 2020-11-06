@@ -1,0 +1,86 @@
+@startuml
+
+skinparam defaultFontName Monaco-Bold
+
+skinparam shadowing false
+skinparam backgroundColor #303031
+
+skinparam ArrowColor White
+skinparam packageFontColor White
+skinparam rectangleFontColor White
+skinparam packageBorderColor #469EAE
+skinparam rectangleBorderColor #469EAE
+skinparam textColor DeepSkyBlue
+
+package "app-release" <<rectangle>>{
+}
+
+package "app-debug" <<rectangle>>{
+}
+
+package "androidApp" <<rectangle>> {
+}
+
+together {
+    package "feature1" {
+        package "feature1-api" <<rectangle>> {
+        }
+
+        package "feature1-impl" <<rectangle>> {
+        }
+        "feature1-impl" --> "feature1-api"
+    }
+}
+
+package "feature2" {
+    package "feature2-api" <<rectangle>> {
+    }
+    package "feature2-impl" <<rectangle>> {
+    }
+    "feature2-impl" --> "feature2-api"
+}
+
+together {
+    package "widgets" {
+        package "widget2" <<rectangle>> {
+        }
+        package "widget1" <<rectangle>> {
+        }
+    }
+    package "res" {
+        package "view-res" <<rectangle>> {
+        }
+        package "string-res" <<rectangle>> {
+        }
+    }
+}
+
+package "network" {
+    package "network-util" <<rectangle>> {
+    }
+    package "network-library" <<rectangle>> {
+    }
+}
+
+"androidApp" --> "feature1"
+"androidApp" --> "feature2"
+
+"feature1-impl" --> "network-util"
+"feature2-impl" --> "network-util"
+
+"network-util" --> "network-library"
+
+"widget2" --> "view-res"
+"widget2" --> "string-res"
+"widget1" --> "string-res"
+
+"feature2-impl" --> "string-res"
+
+"feature2-impl" --> "widget2"
+
+"app-debug" --> "androidApp"
+"app-release" --> "androidApp"
+
+"feature1-impl" --> "feature2-api"
+
+@enduml

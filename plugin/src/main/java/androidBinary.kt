@@ -1,7 +1,7 @@
 import com.stepango.forma.feature.AndroidBinaryFeatureConfiguration
 import com.stepango.forma.feature.androidBinaryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
-import com.stepango.forma.module.BinaryModule
+import com.stepango.forma.target.BinaryTarget
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.dependencies.applyDependencies
@@ -33,7 +33,7 @@ fun Project.androidBinary(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    validate(BinaryModule)
+    validate(BinaryTarget)
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         buildConfiguration,

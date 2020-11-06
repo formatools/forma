@@ -5,7 +5,6 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 
 /**
  * Limitations:
- * No DataBindings Support
  * No BuildConfig Support
  */
 // TODO use jacoco by default
@@ -34,5 +33,6 @@ data class FormaConfiguration(
     // Databinding is Application level feature, android_binary will be infering dataBinding flag, developers does not need to know about
     val dataBinding: Boolean = false,
     val compose: Boolean = false,
-    val javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8 // Java/Kotlin configuration
+    val javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
+    val mandatoryOwners: Boolean
 )

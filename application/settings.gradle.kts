@@ -1,5 +1,5 @@
 include(
-    ":app",
+    ":binary",
     ":date:util",
 
     ":feature:home:api",
@@ -22,7 +22,7 @@ include(
     ":common:recyclerview:widget",
     ":common:util",
 
-    ":root-library",
+    ":root-app",
     ":string-test-util",
     ":time:util"
 )
