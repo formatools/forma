@@ -1,5 +1,6 @@
 # forma
 ![Android CI](https://github.com/stepango/forma/workflows/Android%20CI/badge.svg)
+[![Gradle Plugin](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin)](https://plugins.gradle.org/plugin/com.stepango.forma)
 
 <img src="./press.svg" width="150" height="150">
 
