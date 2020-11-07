@@ -19,6 +19,7 @@ include(
     ":common:extensions:util",
     ":common:extensions:databinding-adapter",
     ":common:progressbar:databinding",
+    ":common:progressbar:res",
     ":common:recyclerview:widget",
     ":common:util",
 

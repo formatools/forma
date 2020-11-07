@@ -6,18 +6,6 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.tasks.Delete
-import org.gradle.kotlin.dsl.ScriptHandlerScope
-import org.gradle.kotlin.dsl.repositories
-
-fun ScriptHandlerScope.formaDependencies(agpVersion: String = "4.1.0") = run {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:$agpVersion")
-    }
-}
 
 fun Project.androidProjectConfiguration(
     minSdk: Int,

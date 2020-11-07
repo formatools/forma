@@ -1,7 +1,6 @@
 package com.stepango.forma.validation
 
 import com.stepango.forma.error.ProjectValidationError
-import com.stepango.forma.target.LibraryTarget
 import com.stepango.forma.target.TargetDefinition
 import org.gradle.api.Project
 
@@ -33,18 +32,18 @@ fun validateName(
 ) {
     //Name should match with at least one targetName
     if (targetDefinitions.map { it.validate(name) }.contains(true).not()) {
-        throwProjectValidationError(name, LibraryTarget)
+        throwProjectValidationError(name, targetDefinitions.toList())
     }
 }
 
 fun throwProjectValidationError(
     name: String,
-    targetDefinition: TargetDefinition
+    targetDefinition: List<TargetDefinition>
 ) {
     throw ProjectValidationError(
         """
             Project ${name}: name does not match type requirements
-            Projects of type "${targetDefinition::class.simpleName}" should contain name suffix "${targetDefinition.suffix}" 
+            Projects of type "${targetDefinition::class.simpleName}" should contain name suffix from the list: "${targetDefinition.joinToString { it.suffix }}" 
         """.trimIndent()
     )
 }

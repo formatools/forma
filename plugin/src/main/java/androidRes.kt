@@ -8,10 +8,11 @@ import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
+import java.io.File
+import com.stepango.forma.validation.validateDirectoryContent
 import com.stepango.forma.visibility.Public
 import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
-import java.lang.IllegalStateException
 
 // Only resources allowed
 fun Project.androidRes(
@@ -21,13 +22,14 @@ fun Project.androidRes(
     dependencies: FormaDependency = emptyDependency(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    file("./src/main").listFiles()
-        ?.filter { it.isDirectory }
-        ?.map { it.name }
-        ?.apply {
-            assert(size == 1)
-            assert(first() == "res")
-        } ?: throw IllegalStateException("No resources folder found")
+
+    validateDirectoryContent(
+        dir = "./src/main",
+        errorMsg = "Please make sure this target only contains `res` folder in `src/main`"
+    ) {
+        it.filter(File::isDirectory)
+            .run { size == 1 && first().name == "res" }
+    }
 
     validate(ResourcesTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(

@@ -30,9 +30,6 @@ buildscript {
     repositories {
         google()
     }
-    dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0")
-    }
 }
 
 plugins {
@@ -87,21 +84,22 @@ androidLibrary(
 )
 ```
 
-|    Supported target types     | implemented |
-|:-----------------------------:|:-----------:|
-|         androidBinary         |      ✅      |
-|         androidLibrary        |      ✅      |
-|       androidDataBinding      |      ✅      |
-|   androidDataBindingAdapters  |      ✅      |
-|         androidWidget         |      ✅      |
-|           androidRes          | in progress  |
-|        androidTestUtils       |      ✅     |
-|          androidUtils         |      ✅     |
-|           testUtils           |      ✅      |
-|             utils             |      ✅      |
-|             library           |      ✅      |
-|             api               |      ✅      |
-|             impl              |      ✅      |
+|    Supported target types     | implemented | purpose              |
+|:-----------------------------:|:-----------:|:-------------------:|
+|         androidBinary         |      ✅      | Genearte single APK |
+|         androidApp            |      ✅      | Application class   |
+|         androidLibrary        |      ✅      | Android library   |
+|       androidDataBinding      |      ✅      | Data Binding Layouts |
+|   androidDataBindingAdapters  |      ✅      | Data Binding Adapters |
+|         androidWidget         |      ✅      | Custom View           |
+|           androidRes          | in progress  | Resources Only       |
+|        androidTestUtils       |      ✅      | Shared code for Android tests |
+|          androidUtils         |      ✅      | Library extensions   |
+|           testUtils           |      ✅      | Shared code for unit tests |
+|             utils             |      ✅      | JVM Library extensions   |
+|             library           |      ✅      | JVM Library         |
+|             api               |      ✅      | Feature external API's  |
+|             impl              |      ✅      | Feature implementation |
 
 
 

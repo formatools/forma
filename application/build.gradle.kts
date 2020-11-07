@@ -1,5 +1,7 @@
 buildscript {
-    formaDependencies()
+    repositories {
+        google()
+    }
 }
 
 // Enjoy easiest way to configure your Android project

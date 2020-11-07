@@ -4,6 +4,7 @@ import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.target.AndroidUtilTarget
+import com.stepango.forma.target.ResourcesTarget
 import com.stepango.forma.target.DataBindingAdapterTarget
 import com.stepango.forma.target.DataBindingTarget
 import com.stepango.forma.target.WidgetTarget
@@ -34,7 +35,7 @@ fun Project.dataBinding(
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {
-    if (!Forma.configuration.dataBinding){
+    if (!Forma.configuration.dataBinding) {
         throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
     }
     validate(DataBindingTarget)
@@ -49,7 +50,12 @@ fun Project.dataBinding(
         kotlinKaptFeatureDefinition()
     )
     applyDependencies(
-        validator = validator(WidgetTarget, AndroidUtilTarget, DataBindingAdapterTarget),
+        validator = validator(
+            WidgetTarget,
+            AndroidUtilTarget,
+            DataBindingAdapterTarget,
+            ResourcesTarget
+        ),
         dependencies = dependencies
     )
 }
@@ -72,7 +78,7 @@ fun Project.dataBindingAdapters(
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {
-    if (!Forma.configuration.dataBinding){
+    if (!Forma.configuration.dataBinding) {
         throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
     }
     validate(DataBindingAdapterTarget)

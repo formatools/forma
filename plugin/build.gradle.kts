@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.stepango.forma"
-version = "0.0.3"
+version = "0.0.4"
 
 val kotlin_version = "1.4.10"
 
