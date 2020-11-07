@@ -14,7 +14,7 @@ Forma - Meta Build System with Android and Gradle support. Opinionated, scalable
 - Built-in dependency visibility rules
 - Target types - enforce scalable project structure
 - High-performance builds: Gradle best practices are applied automatically
-- Opinionated dependency framework - helps developers to understand and deal with transitive dependencies hell
+- Dependencies framework - helps developers to understand and deal with transitive dependencies hell
 - Extensible - be the expert when you need to!
 - And much more...
 
@@ -35,7 +35,8 @@ buildscript {
 plugins {
     id("com.stepango.forma") version "0.0.2"
 }
-// Configure shared aspects of your android Projects in a single place,
+
+// Configure shared aspects of your android Project
 androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 29,
@@ -54,10 +55,9 @@ androidProjectConfiguration(
 Your kotlin android library
 
 ```kotlin
-// Type-safe creation of your target is a single method call
-// Required plugins applied automatically
-// Configuration inferred from Forma.configure
-// Configuration is fast ;)
+// Single method, type-safe creation of your target
+// Plugins applied automatically 
+// Project configuration shared between targets
 androidLibrary(
     // Mandatory, visible from build configuration
     packageName = "com.stepango.example",
@@ -65,9 +65,6 @@ androidLibrary(
     dependencies = deps(
         google.material,
         androidx.appcompat,
-        androidx.constraintlayout,
-        androidx.navigation,
-        androidx.vectordrawable
     ) + deps(
         // Internal project dependencies, declared separately from externals
         project(":demo-library")
@@ -78,7 +75,6 @@ androidLibrary(
     ),
     // Android test dependencies declaration
     androidTestDependencies = deps(
-        test.junit_ext,
         test.espresso
     )
 )
@@ -105,5 +101,3 @@ androidLibrary(
 
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-
-
