@@ -24,7 +24,7 @@ Easiest way to start is here >> ‼️ https://github.com/stepango/FormaShowcase
 
 Configuration made easy:
 
-```kotlin
+``` gradle
 // root build.gradle.kts
 buildscript {
     repositories {
@@ -33,7 +33,7 @@ buildscript {
 }
 
 plugins {
-    id("com.stepango.forma") version "0.0.2"
+    id("com.stepango.forma") version "0.0.3"
 }
 
 // Configure shared aspects of your android Project
@@ -54,7 +54,7 @@ androidProjectConfiguration(
 
 Your kotlin android library
 
-```kotlin
+``` gradle
 // Single method, type-safe creation of your target
 // Plugins applied automatically 
 // Project configuration shared between targets
@@ -100,4 +100,4 @@ androidLibrary(
 
 
 
-<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
