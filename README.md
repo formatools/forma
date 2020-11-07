@@ -83,23 +83,24 @@ androidLibrary(
     )
 )
 ```
+## Progress
 
-|    Supported target types     | implemented | purpose              |
-|:-----------------------------:|:-----------:|:-------------------:|
-|         androidBinary         |      ✅      | Genearte single APK |
-|         androidApp            |      ✅      | Application class   |
-|         androidLibrary        |      ✅      | Android library   |
-|       androidDataBinding      |      ✅      | Data Binding Layouts |
-|   androidDataBindingAdapters  |      ✅      | Data Binding Adapters |
-|         androidWidget         |      ✅      | Custom View           |
-|           androidRes          | in progress  | Resources Only       |
-|        androidTestUtils       |      ✅      | Shared code for Android tests |
-|          androidUtils         |      ✅      | Library extensions   |
-|           testUtils           |      ✅      | Shared code for unit tests |
-|             utils             |      ✅      | JVM Library extensions   |
-|             library           |      ✅      | JVM Library         |
-|             api               |      ✅      | Feature external API's  |
-|             impl              |      ✅      | Feature implementation |
+|    Supported target types     | implemented | purpose                  | validation |
+|:-----------------------------:|:-----------:|:------------------------:|:-----------:
+|         androidBinary         |      ✅      | Genearte single APK     |      ✅    |
+|         androidApp            |      ✅      | Application class       |    partial |
+|         androidLibrary        |      ✅      | Android library         |    partial |
+|           dataBinding         |      ✅      | Data Binding Layouts    |    partial |
+|       dataBindingAdapters     |      ✅      | Data Binding Adapters   |    partial |
+|         androidWidget         |      ✅      | Custom View             |    partial |
+|           androidRes          |      ✅      | Resources Only          |      ✅    |
+|        androidTestUtils       |      ✅      | Shared code for Android tests |✅    |
+|          androidUtils         |      ✅      | Library extensions      |    partial |
+|           testUtils           |      ✅      | Shared code for unit tests |   ✅    |
+|             utils             |      ✅      | JVM Library extensions  |    partial |
+|             library           |      ✅      | JVM Library             |    partial |
+|             api               |      ✅      | Feature external API's  |    partial |
+|             impl              |      ✅      | Feature implementation  |    partial |
 
 
 
