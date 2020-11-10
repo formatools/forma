@@ -1,6 +1,13 @@
 # forma <img src="./img/rings.svg" width="30" height="30">
 ![Android CI](https://github.com/stepango/forma/workflows/Android%20CI/badge.svg)
 [![Gradle Plugin](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin)](https://plugins.gradle.org/plugin/com.stepango.forma)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stepango/forma)
+![GitHub](https://img.shields.io/github/license/stepango/forma)
+![GitHub contributors](https://img.shields.io/github/contributors/stepango/forma)
+![GitHub top language](https://img.shields.io/github/languages/top/stepango/forma)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/stepango/forma)
+
+![GitHub Repo stars](https://img.shields.io/github/stars/stepango/forma?style=social)
 
 <img src="./img/press.svg" width="128" height="128">
 
