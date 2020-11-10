@@ -16,16 +16,14 @@ impl(
         kotlinx.coroutines_core
 
     ) + deps(
-        project(":feature:characters:core:api")
+        project(":feature:characters:core:api"),
 
-    ) + deps (
         project(":core:di:library"),
         project(":core:theme:android-util"),
         project(":core:mvvm:library"),
         project(":core:network:library"),
-        project(":core:navigation:library")
+        project(":core:navigation:library"),
 
-    ) + deps(
         project(":common:util"),
         project(":common:extensions:android-util"),
         project(":common:extensions:databinding-adapter"),
