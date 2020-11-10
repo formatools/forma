@@ -6,7 +6,6 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/stepango/forma)
 ![GitHub top language](https://img.shields.io/github/languages/top/stepango/forma)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/stepango/forma)
-
 ![GitHub Repo stars](https://img.shields.io/github/stars/stepango/forma?style=social)
 
 <img src="./img/press.svg" width="128" height="128">
