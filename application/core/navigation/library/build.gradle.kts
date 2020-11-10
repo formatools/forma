@@ -4,3 +4,5 @@ androidLibrary(
         androidx.navigation
     )
 )
+// TODO Need configurable plugin integration here
+apply(plugin = "androidx.navigation.safeargs.kotlin")

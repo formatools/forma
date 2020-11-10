@@ -16,6 +16,7 @@ androidApp(
         google.dagger,
         google.play_core,
         jakewharton.timber
+
     ) + deps(
         project(":feature:home:api"),
         project(":feature:home:impl"),
@@ -23,6 +24,7 @@ androidApp(
         project(":feature:characters:core:impl"),
         project(":feature:characters:list:api"),
         project(":feature:characters:list:impl"),
+        project(":feature:characters:detail:impl"),
 
         project(":core:di:library"),
         project(":core:navigation:library"),

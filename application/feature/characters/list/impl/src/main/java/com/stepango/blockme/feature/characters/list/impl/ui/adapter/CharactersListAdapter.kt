@@ -21,12 +21,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BasePagedListAdapter
+import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
+import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders.CharacterViewHolder
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders.ErrorViewHolder
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders.LoadingViewHolder
-import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
-import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
-import javax.inject.Inject
 
 /**
  * Enum class containing the different type of cell view, with the configuration.
@@ -47,7 +46,7 @@ internal enum class ItemView(val type: Int, val span: Int) {
  *
  * @see BaseListAdapter
  */
-class CharactersListAdapter @Inject constructor(
+class CharactersListAdapter constructor(
     private val viewModel: CharactersListViewModel
 ) : BasePagedListAdapter<CharacterItem>(
     itemsSame = { old, new -> old.id == new.id },
