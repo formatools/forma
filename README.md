@@ -1,4 +1,8 @@
 # forma <img src="./img/rings.svg" width="30" height="30">
+[![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
+
 ![Android CI](https://github.com/stepango/forma/workflows/Android%20CI/badge.svg)
 [![Gradle Plugin](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin)](https://plugins.gradle.org/plugin/com.stepango.forma)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stepango/forma)
