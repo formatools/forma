@@ -1,18 +1,25 @@
-# forma <img src="./img/rings.svg" width="30" height="30">
-[![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
 
-![Android CI](https://github.com/stepango/forma/workflows/Android%20CI/badge.svg)
-[![Gradle Plugin](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin)](https://plugins.gradle.org/plugin/com.stepango.forma)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stepango/forma)
-![GitHub](https://img.shields.io/github/license/stepango/forma)
-![GitHub contributors](https://img.shields.io/github/contributors/stepango/forma)
-![GitHub top language](https://img.shields.io/github/languages/top/stepango/forma)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/stepango/forma)
-![GitHub Repo stars](https://img.shields.io/github/stars/stepango/forma?style=social)
+<p align="center">
+    <a href="https://forma.tools" target="_blank" rel="noopener noreferrer"><img width="100" src="./img/press.svg" alt="Logo"></a>
+</p>
 
-<img src="./img/press.svg" width="128" height="128">
+<p align="center">
+    <a href="https://forma.tools"><img src="https://forthebadge.com/images/badges/built-by-developers.svg"/></a>
+    <a href="https://forma.tools"><img src="https://forthebadge.com/images/badges/built-for-android.svg"/></a>
+    <a href="https://forma.tools"><img src="https://forthebadge.com/images/badges/it-works-why.svg"/></a>
+</p>
+
+# forma 
+<p align="center">
+    <img src="https://github.com/stepango/forma/workflows/Android%20CI/badge.svg"/>
+    <a href="https://plugins.gradle.org/plugin/com.stepango.forma"><img src="https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin"/></a>
+    <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/stepango/forma">
+    <img alt="License" src="https://img.shields.io/github/license/stepango/forma"/>
+    <img alt="Contributors" src="https://img.shields.io/github/contributors/stepango/forma"/>
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/stepango/forma"/>
+    <img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/stepango/forma"/>
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/stepango/forma?style=social"/>
+</p>    
 
 ⚠️ This is early *alpha* release - please do try this at home🏠
 
