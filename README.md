@@ -9,7 +9,6 @@
     <a href="https://forma.tools"><img src="https://forthebadge.com/images/badges/it-works-why.svg"/></a>
 </p>
 
-# forma 
 <p align="center">
     <img src="https://github.com/stepango/forma/workflows/Android%20CI/badge.svg"/>
     <a href="https://plugins.gradle.org/plugin/com.stepango.forma"><img src="https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin"/></a>
@@ -21,9 +20,7 @@
     <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/stepango/forma?style=social"/>
 </p>    
 
-⚠️ This is early *alpha* release - please do try this at home🏠
-
-Forma - Meta Build System with Android and Gradle support. Opinionated, scalable, thoughtfully structured, type-safe and guided way to declare your project structure. Distributed as a Gradle plugin, Forma helps developers to shift focus from `Build Configuration` to `Project Structure Declaration`, abstracting away build configuration complexity.
+**Forma** - Meta Build System with Android and Gradle support. Opinionated, scalable, thoughtfully structured, type-safe and guided way to declare your project structure. Distributed as a Gradle plugin, Forma helps developers to shift focus from `Build Configuration` to `Project Structure Declaration`, abstracting away build configuration complexity.
 
 - You don't need to be a gradle expert anymore
 - Get rid of project configuration bad practices
@@ -37,6 +34,7 @@ Forma - Meta Build System with Android and Gradle support. Opinionated, scalable
 
 ⚠️ We are using `target` term to express application components(e.g. modules or projects, depending in the context) across documentation and code, there is couple of reasons for that. `Module` term often confused with Dagger modules which makes communication harder, `project` from the other hand used only in Gradle context but not in other build systems like Buck and Bazel.
 
+⚠️ This is early *alpha* release - please do try this at home🏠
 Easiest way to start is here >> ‼️ https://github.com/stepango/FormaShowcase ‼️
 
 Configuration made easy:
