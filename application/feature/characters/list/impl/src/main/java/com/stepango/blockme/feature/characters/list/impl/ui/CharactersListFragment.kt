@@ -18,6 +18,7 @@ package com.stepango.blockme.feature.characters.list.impl.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import com.stepango.blockme.common.extensions.android.util.gridLayoutManager
 import com.stepango.blockme.common.extensions.android.util.observe
@@ -30,7 +31,6 @@ import com.stepango.blockme.feature.characters.list.impl.di.DaggerCharactersList
 import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapter
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapterState
-import javax.inject.Inject
 
 /**
  * View listing the all marvel characters with option to display the detail view.
@@ -42,10 +42,9 @@ class CharactersListFragment :
         layoutId = R.layout.fragment_characters_list
     ) {
 
-    @Inject
-    lateinit var viewAdapter: CharactersListAdapter
-
     private val viewModel: CharactersListViewModel by viewModels()
+
+    private lateinit var viewAdapter: CharactersListAdapter
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -78,6 +77,8 @@ class CharactersListFragment :
      * Initialize view data binding variables.
      */
     override fun onInitDataBinding() {
+        viewAdapter = CharactersListAdapter(viewModel)
+
         viewBinding.viewModel = viewModel
         viewBinding.includeList.charactersList.apply {
             adapter = viewAdapter
@@ -122,13 +123,11 @@ class CharactersListFragment :
      * @param viewEvent Event on characters list.
      */
     private fun onViewEvent(viewEvent: CharactersListViewEvent) {
-// TODO Need to do routing to Details Screen through Home host
-//        when (viewEvent) {
-//            is CharactersListViewEvent.OpenCharacterDetail ->
-//
-//                findNavController().navigate(
-//                    CharactersListFragmentDirections
-//                        .actionCharactersListFragmentToCharacterDetailFragment(viewEvent.id))
-//        }
+        when (viewEvent) {
+            is CharactersListViewEvent.OpenCharacterDetail ->
+                findNavController().navigate(
+                    CharactersListFragmentDirections
+                        .actionCharactersListFragmentToCharacterDetailFragment(viewEvent.id))
+        }
     }
 }

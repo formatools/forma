@@ -39,7 +39,8 @@ fun Project.impl(
             TestUtilTarget,
             UtilTarget,
             LibraryTarget,
-            DataBindingAdapterTarget
+            DataBindingAdapterTarget,
+            DataBindingTarget
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,

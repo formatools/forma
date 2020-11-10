@@ -30,7 +30,7 @@ object versions {
         const val lifecycle = "2.2.0"
         const val loader = "1.1.0"
         const val localbroadcastmanager = "1.0.0"
-        const val navigation = "2.3.0"
+        const val navigation = "2.3.1"
         const val savedstate = "1.0.0"
         const val slidingpanelayout = "1.0.0"
         const val swiperefreshlayout = "1.0.0"
@@ -358,7 +358,7 @@ object androidx {
     )
 
     val navigation_common_ktx = deps(
-        "androidx.navigation:navigation-common:${versions.androidx.navigation}".dep,
+        "androidx.navigation:navigation-common-ktx:${versions.androidx.navigation}".dep,
         annotation,
         collection,
         core
@@ -394,7 +394,8 @@ object androidx {
 
     val navigation = deps(
         navigation_fragment_ktx,
-        navigation_ui_ktx
+        navigation_ui_ktx,
+        navigation_common_ktx
     )
 }
 

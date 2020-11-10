@@ -34,7 +34,6 @@ import kotlinx.coroutines.GlobalScope
 @Module
 internal abstract class CharactersListModule {
 
-    @FeatureScope
     @Binds
     @IntoMap
     @ViewModelKey(CharactersListViewModel::class)
@@ -55,11 +54,5 @@ internal abstract class CharactersListModule {
         @FeatureScope
         @Provides
         fun providesCharacterItemMapper() = CharacterItemMapper()
-
-        @FeatureScope
-        @Provides
-        fun providesCharactersListAdapter(
-            viewModel: CharactersListViewModel
-        ) = CharactersListAdapter(viewModel)
     }
 }
