@@ -11,15 +11,19 @@ fun Project.validateDirectoryContent(
     validator: (Array<File>) -> Boolean
 ) {
     val files = file(dir)
-        .listFiles()!!
+        .listFiles() ?: throw buildException(project.name, "'$dir' does not exists")
     if (!validator(files)) {
-        throw IllegalStateException(
+        throw buildException(
+            project.name,
             """$errorMsg
                   |Current list of files in $dir:
                   |${files.joinToString("\n") { it.name }}
                 """.trimMargin()
-        ).let {
-            BuildException("Error configuring ${project.name}", it)
-        }
+        )
     }
 }
+
+fun buildException(projectName: String, errorMsg: String) = BuildException(
+    "Error configuring '$projectName'",
+    IllegalStateException(errorMsg)
+)

@@ -17,7 +17,6 @@
 package com.stepango.blockme.core.theme.android.util
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatDelegate
 
 /**
  * Utils interface for application theme configuration.

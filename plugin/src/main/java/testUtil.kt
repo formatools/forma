@@ -5,6 +5,7 @@ import com.stepango.forma.target.UtilTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.dependencies.applyDependencies
+import com.stepango.forma.validation.disallowResources
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import com.stepango.forma.visibility.Public
@@ -16,6 +17,9 @@ fun Project.testUtil(
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency()
 ) {
+
+    disallowResources()
+
     validate(TestUtilTarget)
 
     applyFeatures(

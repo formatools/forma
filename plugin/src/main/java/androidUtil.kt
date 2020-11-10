@@ -3,12 +3,14 @@ import com.stepango.forma.feature.androidLibraryFeatureDefinition
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.target.AndroidUtilTarget
+import com.stepango.forma.target.ResourcesTarget
 import com.stepango.forma.target.TestUtilTarget
 import com.stepango.forma.owner.NoOwner
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
+import com.stepango.forma.validation.disallowResources
 import com.stepango.forma.visibility.Public
 import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
@@ -38,6 +40,8 @@ fun Project.androidUtil(
     testDependencies: FormaDependency = emptyDependency()
 ) {
 
+    disallowResources()
+
     //TODO unify with util, use androidJar dependency
     validate(AndroidUtilTarget)
 
@@ -51,7 +55,11 @@ fun Project.androidUtil(
     )
 
     applyDependencies(
-        validator = validator(AndroidUtilTarget, TestUtilTarget),
+        validator = validator(
+            AndroidUtilTarget,
+            TestUtilTarget,
+            ResourcesTarget
+        ),
         dependencies = dependencies,
         testDependencies = testDependencies
     )

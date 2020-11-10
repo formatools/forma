@@ -13,6 +13,7 @@ import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.owner.NoOwner
+import com.stepango.forma.validation.disallowResources
 import com.stepango.forma.visibility.Public
 import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
@@ -81,6 +82,9 @@ fun Project.dataBindingAdapters(
     if (!Forma.configuration.dataBinding) {
         throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
     }
+
+    disallowResources()
+
     validate(DataBindingAdapterTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
@@ -93,7 +97,11 @@ fun Project.dataBindingAdapters(
         kotlinKaptFeatureDefinition()
     )
     applyDependencies(
-        validator = validator(WidgetTarget, AndroidUtilTarget),
+        validator = validator(
+            WidgetTarget,
+            AndroidUtilTarget,
+            ResourcesTarget
+        ),
         dependencies = dependencies
     )
 }

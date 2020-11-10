@@ -7,12 +7,16 @@ import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import com.stepango.forma.owner.Owner
 import com.stepango.forma.owner.NoOwner
+import com.stepango.forma.validation.disallowResources
 import org.gradle.api.Project
 
 fun Project.api(
     owner: Owner = NoOwner,
     dependencies: FormaDependency = emptyDependency()
 ) {
+
+    disallowResources()
+
     validate(ApiTarget)
     applyFeatures(
         kotlinFeatureDefinition()

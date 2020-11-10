@@ -33,7 +33,14 @@ fun Project.impl(
     )
 
     applyDependencies(
-        validator = validator(ApiTarget, AndroidUtilTarget, TestUtilTarget, UtilTarget, LibraryTarget, DataBindingAdapterTarget),
+        validator = validator(
+            ApiTarget,
+            AndroidUtilTarget,
+            TestUtilTarget,
+            UtilTarget,
+            LibraryTarget,
+            DataBindingAdapterTarget
+        ),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

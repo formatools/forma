@@ -14,6 +14,7 @@ import com.stepango.forma.visibility.Public
 import com.stepango.forma.visibility.Visibility
 import org.gradle.api.Project
 
+// TODO only allow layouts
 fun Project.widget(
     packageName: String,
     owner: Owner = NoOwner,

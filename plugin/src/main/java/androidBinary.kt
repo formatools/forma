@@ -8,6 +8,7 @@ import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.validation.EmptyValidator
 import com.stepango.forma.validation.validate
 import com.stepango.forma.owner.NoOwner
+import com.stepango.forma.validation.disallowResources
 import org.gradle.api.Project
 
 /**
@@ -33,7 +34,11 @@ fun Project.androidBinary(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
+
+    disallowResources()
+
     validate(BinaryTarget)
+
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         buildConfiguration,

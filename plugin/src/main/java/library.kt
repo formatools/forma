@@ -1,6 +1,5 @@
 import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinFeatureDefinition
-import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.target.LibraryTarget
 import com.stepango.forma.target.TestUtilTarget
 import com.stepango.forma.target.UtilTarget
@@ -27,12 +26,6 @@ fun Project.library(
     applyFeatures(
         kotlinFeatureDefinition()
     )
-
-    if (dependencies.hasConfigType(Kapt)) {
-        applyFeatures(
-            kotlinKaptFeatureDefinition()
-        )
-    }
 
     applyDependencies(
         validator = validator(UtilTarget, TestUtilTarget),

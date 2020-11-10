@@ -56,7 +56,7 @@ Your kotlin android library
 
 ``` gradle
 // Single method, type-safe creation of your target
-// Plugins applied automatically 
+// Plugins applied automatically
 // Project configuration shared between targets
 androidLibrary(
     // Mandatory, visible from build configuration
