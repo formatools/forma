@@ -35,6 +35,7 @@
 ⚠️ We are using `target` term to express application components(e.g. modules or projects, depending in the context) across documentation and code, there is couple of reasons for that. `Module` term often confused with Dagger modules which makes communication harder, `project` from the other hand used only in Gradle context but not in other build systems like Buck and Bazel.
 
 ⚠️ This is early *alpha* release - please do try this at home🏠
+
 Easiest way to start is here >> ‼️ https://github.com/stepango/FormaShowcase ‼️
 
 Configuration made easy:
