@@ -38,6 +38,8 @@
 
 Easiest way to start is here >> ‼️ https://github.com/stepango/FormaShowcase ‼️
 
+[Presentation Link](https://www.beautiful.ai/player/-MLn7RnBBWeh7vePDoDq)
+
 Configuration made easy:
 
 ``` gradle
