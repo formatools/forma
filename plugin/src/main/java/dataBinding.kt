@@ -5,6 +5,7 @@ import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.target.AndroidUtilTarget
 import com.stepango.forma.target.ResourcesTarget
+import com.stepango.forma.target.LibraryTarget
 import com.stepango.forma.target.DataBindingAdapterTarget
 import com.stepango.forma.target.DataBindingTarget
 import com.stepango.forma.target.WidgetTarget
@@ -36,9 +37,7 @@ fun Project.dataBinding(
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {
-    if (!Forma.configuration.dataBinding) {
-        throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
-    }
+    checkDataBindingFlag()
     validate(DataBindingTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
@@ -55,7 +54,8 @@ fun Project.dataBinding(
             WidgetTarget,
             AndroidUtilTarget,
             DataBindingAdapterTarget,
-            ResourcesTarget
+            ResourcesTarget,
+            LibraryTarget
         ),
         dependencies = dependencies
     )
@@ -79,9 +79,7 @@ fun Project.dataBindingAdapters(
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
 ) {
-    if (!Forma.configuration.dataBinding) {
-        throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
-    }
+    checkDataBindingFlag()
 
     disallowResources()
 
@@ -104,4 +102,10 @@ fun Project.dataBindingAdapters(
         ),
         dependencies = dependencies
     )
+}
+
+private fun checkDataBindingFlag() {
+    if (!Forma.configuration.dataBinding) {
+        throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
+    }
 }

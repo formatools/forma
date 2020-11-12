@@ -8,7 +8,6 @@ androidApp(
         google.material,
         androidx.core_ktx,
         androidx.appcompat,
-        androidx.constraintlayout,
         androidx.navigation_fragment_ktx,
         androidx.navigation_ui_ktx,
         androidx.vectordrawable,
@@ -18,6 +17,8 @@ androidApp(
         jakewharton.timber
 
     ) + deps(
+        project(":root-res"),
+
         project(":feature:home:api"),
         project(":feature:home:impl"),
         project(":feature:characters:core:api"),

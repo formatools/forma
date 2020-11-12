@@ -20,7 +20,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.stepango.blockme.feature.home.impl.R
+import com.stepango.blockme.feature.home.res.R
 import javax.inject.Inject
 
 // TODO Insert navigation R.id.characters_favorites_fragment for favorite feature

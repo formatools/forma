@@ -2,6 +2,7 @@ import com.stepango.forma.feature.*
 import com.stepango.forma.utils.BuildConfiguration
 import com.stepango.forma.dependencies.applyDependencies
 import com.stepango.forma.target.*
+import com.stepango.forma.validation.disallowResources
 import com.stepango.forma.validation.validate
 import com.stepango.forma.validation.validator
 import org.gradle.api.Project
@@ -17,6 +18,9 @@ fun Project.impl(
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     dataBinding: Boolean = false
 ) {
+
+//    disallowResources()
+
     validate(ImplTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
@@ -40,7 +44,8 @@ fun Project.impl(
             UtilTarget,
             LibraryTarget,
             DataBindingAdapterTarget,
-            DataBindingTarget
+            DataBindingTarget,
+            ResourcesTarget
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
