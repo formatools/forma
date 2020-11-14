@@ -23,6 +23,7 @@ import androidx.lifecycle.viewModelScope
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import com.stepango.blockme.feature.characters.detail.impl.model.CharacterDetail
 import com.stepango.blockme.feature.characters.detail.impl.model.CharacterDetailMapper
+import com.stepango.blockme.feature.characters.detail.impl.model.ICharacterDetail
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
@@ -36,14 +37,14 @@ class CharacterDetailViewModel @Inject constructor(
 // TODO Uncomment for favorite feature
 //    val characterFavoriteRepository: CharacterFavoriteRepository,
     val characterDetailMapper: CharacterDetailMapper
-) : ViewModel() {
+) : ViewModel(), ICharacterDetailViewModel {
 
-    private val _data = MutableLiveData<CharacterDetail>()
-    val data: LiveData<CharacterDetail>
+    private val _data = MutableLiveData<ICharacterDetail>()
+    override val data: LiveData<ICharacterDetail>
         get() = _data
 
-    private val _state = MutableLiveData<CharacterDetailViewState>()
-    val state: LiveData<CharacterDetailViewState>
+    private val _state = MutableLiveData<ICharacterDetailViewState>()
+    override val state: LiveData<ICharacterDetailViewState>
         get() = _state
 
     // ============================================================================================
@@ -55,7 +56,7 @@ class CharacterDetailViewModel @Inject constructor(
      *
      * @param characterId Character identifier.
      */
-    fun loadCharacterDetail(characterId: Long) {
+    override fun loadCharacterDetail(characterId: Long) {
         _state.postValue(CharacterDetailViewState.Loading)
         viewModelScope.launch {
             try {
@@ -76,7 +77,7 @@ class CharacterDetailViewModel @Inject constructor(
     /**
      * Store selected character to database favorite list.
      */
-    fun addCharacterToFavorite() {
+    override fun addCharacterToFavorite() {
 // TODO Uncomment for favorite feature
 //        _data.value?.let {
 //            viewModelScope.launch {
@@ -93,7 +94,7 @@ class CharacterDetailViewModel @Inject constructor(
     /**
      * Send interaction event for dismiss character detail view.
      */
-    fun dismissCharacterDetail() {
+    override fun dismissCharacterDetail() {
         _state.postValue(CharacterDetailViewState.Dismiss)
     }
 }

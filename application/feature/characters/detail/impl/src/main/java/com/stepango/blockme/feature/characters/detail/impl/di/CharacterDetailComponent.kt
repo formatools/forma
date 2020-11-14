@@ -16,8 +16,6 @@
 
 package com.stepango.blockme.feature.characters.detail.impl.di
 
-import androidx.appcompat.app.AppCompatActivity
-import com.stepango.blockme.core.di.library.BaseComponent
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
 import com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailFragment

@@ -18,7 +18,7 @@ package com.stepango.blockme.feature.characters.detail.impl.ui
 
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewState
 
-sealed class CharacterDetailViewState : BaseViewState {
+sealed class CharacterDetailViewState : BaseViewState, ICharacterDetailViewState {
 
     /**
      * Loading character detail info.
@@ -59,40 +59,40 @@ sealed class CharacterDetailViewState : BaseViewState {
      *
      * @return True if is loading state, otherwise false.
      */
-    fun isLoading() = this is Loading
+    override fun isLoading() = this is Loading
 
     /**
      * Check if current view state is [Error].
      *
      * @return True if is error state, otherwise false.
      */
-    fun isError() = this is Error
+    override fun isError() = this is Error
 
     /**
      * Check if current view state is [AddToFavorite].
      *
      * @return True if is add to favorite state, otherwise false.
      */
-    fun isAddToFavorite() = this is AddToFavorite
+    override fun isAddToFavorite() = this is AddToFavorite
 
     /**
      * Check if current view state is [AddedToFavorite].
      *
      * @return True if is added to favorite state, otherwise false.
      */
-    fun isAddedToFavorite() = this is AddedToFavorite
+    override fun isAddedToFavorite() = this is AddedToFavorite
 
     /**
      * Check if current view state is [AlreadyAddedToFavorite].
      *
      * @return True if is already added to favorite state, otherwise false.
      */
-    fun isAlreadyAddedToFavorite() = this is AlreadyAddedToFavorite
+    override fun isAlreadyAddedToFavorite() = this is AlreadyAddedToFavorite
 
     /**
      * Check if current view state is [Dismiss].
      *
      * @return True if is delete state, otherwise false.
      */
-    fun isDismiss() = this is Dismiss
+    override fun isDismiss() = this is Dismiss
 }

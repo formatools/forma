@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewModel" />
+            type="com.stepango.blockme.feature.characters.detail.impl.ui.ICharacterDetailViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

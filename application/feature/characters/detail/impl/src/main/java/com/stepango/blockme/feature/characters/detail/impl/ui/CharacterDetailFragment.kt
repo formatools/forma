@@ -23,14 +23,12 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.stepango.blockme.common.extensions.android.util.observe
 import com.stepango.blockme.common.progressbar.databinding.ProgressBarDialog
-import com.stepango.blockme.core.di.library.BaseComponentProvider
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
+import com.stepango.blockme.feature.characters.detail.databinding.databinding.FragmentCharacterDetailBinding
 import com.stepango.blockme.feature.characters.detail.impl.R
-import com.stepango.blockme.feature.characters.detail.impl.databinding.FragmentCharacterDetailBinding
 import com.stepango.blockme.feature.characters.detail.impl.di.DaggerCharacterDetailComponent
-import javax.inject.Inject
 
 /**
  * View detail for selected character, displaying extra info and with option to add it to favorite.
@@ -92,19 +90,19 @@ class CharacterDetailFragment :
      *
      * @param viewState State of character detail.
      */
-    private fun onViewStateChange(viewState: CharacterDetailViewState) {
+    private fun onViewStateChange(viewState: ICharacterDetailViewState) {
         when (viewState) {
-            is CharacterDetailViewState.Loading ->
+            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.Loading ->
                 progressDialog.show(R.string.character_detail_dialog_loading_text)
-            is CharacterDetailViewState.Error ->
+            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.Error ->
                 progressDialog.dismissWithErrorMessage(R.string.character_detail_dialog_error_text)
-            is CharacterDetailViewState.AddedToFavorite ->
+            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.AddedToFavorite ->
                 Snackbar.make(
                     requireView(),
                     R.string.character_detail_added_to_favorite_message,
                     Snackbar.LENGTH_LONG
                 ).show()
-            is CharacterDetailViewState.Dismiss ->
+            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.Dismiss ->
                 findNavController().navigateUp()
             else -> progressDialog.dismiss()
         }

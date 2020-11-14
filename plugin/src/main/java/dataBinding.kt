@@ -4,6 +4,7 @@ import com.stepango.forma.feature.applyFeatures
 import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
 import com.stepango.forma.feature.kotlinKaptFeatureDefinition
 import com.stepango.forma.target.AndroidUtilTarget
+import com.stepango.forma.target.ApiTarget
 import com.stepango.forma.target.ResourcesTarget
 import com.stepango.forma.target.LibraryTarget
 import com.stepango.forma.target.DataBindingAdapterTarget
@@ -51,6 +52,7 @@ fun Project.dataBinding(
     )
     applyDependencies(
         validator = validator(
+            ApiTarget,
             WidgetTarget,
             AndroidUtilTarget,
             DataBindingAdapterTarget,

@@ -1,3 +1,5 @@
+include(":feature:characters:detail:api")
+include(":feature:characters:detail:databinding")
 include(":feature:home:databinding")
 include(":root-res")
 include(":core:theme:res")
