@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel" />
+            type="com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

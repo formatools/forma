@@ -16,7 +16,5 @@ impl(
         project(":common:extensions:android-util"),
         project(":common:extensions:databinding-adapter")
 
-    ),
-
-    dataBinding = true
+    )
 )

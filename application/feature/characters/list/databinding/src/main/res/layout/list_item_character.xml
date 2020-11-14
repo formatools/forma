@@ -6,11 +6,11 @@
 
         <variable
             name="character"
-            type="com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem" />
+            type="com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem" />
 
         <variable
             name="viewModel"
-            type="com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel" />
+            type="com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

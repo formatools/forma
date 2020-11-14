@@ -19,8 +19,8 @@ package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
-import com.stepango.blockme.feature.characters.list.impl.databinding.ListItemErrorBinding
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
+import com.stepango.model.databinding.ListItemErrorBinding
 
 /**
  * Class describes characters error view and metadata about its place within the [RecyclerView].

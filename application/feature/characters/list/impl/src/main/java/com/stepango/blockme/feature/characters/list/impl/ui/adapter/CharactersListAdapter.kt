@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BasePagedListAdapter
 import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders.CharacterViewHolder
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders.ErrorViewHolder
@@ -48,7 +49,7 @@ internal enum class ItemView(val type: Int, val span: Int) {
  */
 class CharactersListAdapter constructor(
     private val viewModel: CharactersListViewModel
-) : BasePagedListAdapter<CharacterItem>(
+) : BasePagedListAdapter<ICharacterItem>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {

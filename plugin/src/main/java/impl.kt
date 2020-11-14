@@ -15,11 +15,10 @@ fun Project.impl(
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
-    manifestPlaceholders: Map<String, Any> = emptyMap(),
-    dataBinding: Boolean = false
+    manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
 
-//    disallowResources()
+    disallowResources()
 
     validate(ImplTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
@@ -28,8 +27,7 @@ fun Project.impl(
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        selfValidator = validator(ImplTarget),
-        dataBinding = dataBinding
+        selfValidator = validator(ImplTarget)
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),

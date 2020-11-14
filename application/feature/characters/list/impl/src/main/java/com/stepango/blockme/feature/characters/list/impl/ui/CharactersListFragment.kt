@@ -26,11 +26,13 @@ import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
 import com.stepango.blockme.feature.characters.list.impl.R
-import com.stepango.blockme.feature.characters.list.impl.databinding.FragmentCharactersListBinding
 import com.stepango.blockme.feature.characters.list.impl.di.DaggerCharactersListComponent
-import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewEvent
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapter
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapterState
+import com.stepango.model.databinding.FragmentCharactersListBinding
 
 /**
  * View listing the all marvel characters with option to display the detail view.
@@ -95,7 +97,7 @@ class CharactersListFragment :
      *
      * @param viewData Paged list of characters.
      */
-    private fun onViewDataChange(viewData: PagedList<CharacterItem>) {
+    private fun onViewDataChange(viewData: PagedList<ICharacterItem>) {
         viewAdapter.submitList(viewData)
     }
 
@@ -104,7 +106,7 @@ class CharactersListFragment :
      *
      * @param viewState State of characters list.
      */
-    private fun onViewStateChange(viewState: CharactersListViewState) {
+    private fun onViewStateChange(viewState: ICharactersListViewState) {
         when (viewState) {
             is CharactersListViewState.Loaded ->
                 viewAdapter.submitState(CharactersListAdapterState.Added)
@@ -122,7 +124,7 @@ class CharactersListFragment :
      *
      * @param viewEvent Event on characters list.
      */
-    private fun onViewEvent(viewEvent: CharactersListViewEvent) {
+    private fun onViewEvent(viewEvent: ICharactersListViewEvent) {
         when (viewEvent) {
             is CharactersListViewEvent.OpenCharacterDetail ->
                 findNavController().navigate(

@@ -16,10 +16,12 @@
 
 package com.stepango.blockme.feature.characters.list.impl.ui
 
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewEvent
+
 /**
  * Different interaction events for [CharactersListFragment].
  */
-sealed class CharactersListViewEvent {
+sealed class CharactersListViewEvent : ICharactersListViewEvent {
 
     /**
      * Open character detail view.

@@ -19,9 +19,9 @@ package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
-import com.stepango.blockme.feature.characters.list.impl.databinding.ListItemCharacterBinding
-import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
+import com.stepango.model.databinding.ListItemCharacterBinding
 
 /**
  * Class describes character view and metadata about its place within the [RecyclerView].
@@ -40,7 +40,7 @@ class CharacterViewHolder(
      * @param viewModel Character list view model.
      * @param item Character list item.
      */
-    fun bind(viewModel: CharactersListViewModel, item: CharacterItem) {
+    fun bind(viewModel: CharactersListViewModel, item: ICharacterItem) {
         binding.viewModel = viewModel
         binding.character = item
         binding.executePendingBindings()

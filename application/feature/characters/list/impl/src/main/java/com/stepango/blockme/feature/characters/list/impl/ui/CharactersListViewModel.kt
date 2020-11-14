@@ -16,13 +16,19 @@
 
 package com.stepango.blockme.feature.characters.list.impl.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.stepango.blockme.core.mvvm.library.lifecycle.SingleLiveData
 import com.stepango.blockme.core.network.library.NetworkState
 import com.stepango.blockme.feature.characters.list.impl.data.datasource.CharactersPageDataSourceFactory
 import com.stepango.blockme.feature.characters.list.impl.data.datasource.PAGE_MAX_ELEMENTS
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewEvent
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewModel
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
 import javax.inject.Inject
 
 /**
@@ -32,15 +38,15 @@ import javax.inject.Inject
  */
 class CharactersListViewModel @Inject constructor(
     private val dataSourceFactory: CharactersPageDataSourceFactory
-) : ViewModel() {
+) : ViewModel(), ICharactersListViewModel {
 
-    val networkState = Transformations.switchMap(dataSourceFactory.sourceLiveData) {
+    override val networkState = Transformations.switchMap(dataSourceFactory.sourceLiveData) {
         it.networkState
     }
 
-    val event = SingleLiveData<CharactersListViewEvent>()
-    val data = LivePagedListBuilder(dataSourceFactory, PAGE_MAX_ELEMENTS).build()
-    val state = Transformations.map(networkState) {
+    override val event = SingleLiveData<ICharactersListViewEvent>()
+    override val data: LiveData<PagedList<ICharacterItem>> = LivePagedListBuilder(dataSourceFactory, PAGE_MAX_ELEMENTS).build()
+    override val state: LiveData<ICharactersListViewState> = Transformations.map(networkState) {
         when (it) {
             is NetworkState.Success ->
                 if (it.isAdditional && it.isEmptyResponse) {
@@ -72,14 +78,14 @@ class CharactersListViewModel @Inject constructor(
     /**
      * Refresh characters fetch them again and update the list.
      */
-    fun refreshLoadedCharactersList() {
+    override fun refreshLoadedCharactersList() {
         dataSourceFactory.refresh()
     }
 
     /**
      * Retry last fetch operation to add characters into list.
      */
-    fun retryAddCharactersList() {
+    override fun retryAddCharactersList() {
         dataSourceFactory.retry()
     }
 
@@ -88,7 +94,7 @@ class CharactersListViewModel @Inject constructor(
      *
      * @param characterId Character identifier.
      */
-    fun openCharacterDetail(characterId: Long) {
+    override fun openCharacterDetail(characterId: Long) {
         event.postValue(CharactersListViewEvent.OpenCharacterDetail(characterId))
     }
 }

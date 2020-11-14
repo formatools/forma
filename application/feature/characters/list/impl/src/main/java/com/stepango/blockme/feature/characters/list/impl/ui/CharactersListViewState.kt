@@ -17,13 +17,14 @@
 package com.stepango.blockme.feature.characters.list.impl.ui
 
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewState
+import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
 
 /**
  * Different states for [CharactersListFragment].
  *
  * @see BaseViewState
  */
-sealed class CharactersListViewState : BaseViewState {
+sealed class CharactersListViewState : BaseViewState, ICharactersListViewState {
 
     /**
      * Refreshing characters list.
@@ -74,54 +75,54 @@ sealed class CharactersListViewState : BaseViewState {
      *
      * @return True if is refreshing state, otherwise false.
      */
-    fun isRefreshing() = this is Refreshing
+    override fun isRefreshing() = this is Refreshing
 
     /**
      * Check if current view state is [Loaded].
      *
      * @return True if is loaded state, otherwise false.
      */
-    fun isLoaded() = this is Loaded
+    override fun isLoaded() = this is Loaded
 
     /**
      * Check if current view state is [Loading].
      *
      * @return True if is loading state, otherwise false.
      */
-    fun isLoading() = this is Loading
+    override fun isLoading() = this is Loading
 
     /**
      * Check if current view state is [AddLoading].
      *
      * @return True if is add loading state, otherwise false.
      */
-    fun isAddLoading() = this is AddLoading
+    override fun isAddLoading() = this is AddLoading
 
     /**
      * Check if current view state is [Empty].
      *
      * @return True if is empty state, otherwise false.
      */
-    fun isEmpty() = this is Empty
+    override fun isEmpty() = this is Empty
 
     /**
      * Check if current view state is [Error].
      *
      * @return True if is error state, otherwise false.
      */
-    fun isError() = this is Error
+    override fun isError() = this is Error
 
     /**
      * Check if current view state is [AddError].
      *
      * @return True if is add error state, otherwise false.
      */
-    fun isAddError() = this is AddError
+    override fun isAddError() = this is AddError
 
     /**
      * Check if current view state is [NoMoreElements].
      *
      * @return True if is no more elements state, otherwise false.
      */
-    fun isNoMoreElements() = this is NoMoreElements
+    override fun isNoMoreElements() = this is NoMoreElements
 }

@@ -17,8 +17,8 @@
 package com.stepango.blockme.feature.characters.list.impl.domain.model
 
 data class CharacterItem(
-    val id: Long,
-    val name: String,
-    val description: String,
-    val imageUrl: String
-)
+    override val id: Long,
+    override val name: String,
+    override val description: String,
+    override val imageUrl: String
+) : com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem

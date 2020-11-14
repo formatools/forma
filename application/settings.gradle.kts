@@ -1,3 +1,4 @@
+include(":feature:characters:list:databinding")
 include(":feature:characters:detail:api")
 include(":feature:characters:detail:databinding")
 include(":feature:home:databinding")
