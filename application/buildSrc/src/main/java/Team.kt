@@ -1,5 +1,5 @@
-import com.stepango.forma.owner.Team
-import com.stepango.forma.owner.Person
+import tools.forma.android.owner.Team
+import tools.forma.android.owner.Person
 
 object Users {
     val stepango = Person(
@@ -18,7 +18,7 @@ object Users {
 object Teams {
     val core = Team(
         name ="Core",
-        emailAlias = "android-core@forma.com",
+        emailAlias = "android-core@forma.tools",
         leads = arrayOf(
             Users.stepango,
             Users.michaem

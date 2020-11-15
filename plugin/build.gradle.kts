@@ -5,8 +5,8 @@ plugins {
     id("com.gradle.plugin-publish") version "0.12.0"
 }
 
-group = "com.stepango.forma"
-version = "0.0.4"
+group = "tools.forma.android"
+version = "0.0.1"
 
 val kotlin_version = "1.4.10"
 
@@ -45,17 +45,17 @@ tasks.named("publishPlugins").configure {
 gradlePlugin {
     plugins {
         create("Forma") {
-            id = "com.stepango.forma"
+            id = "tools.forma.android"
             displayName = "Forma - Meta Build System with Gradle and Android support"
             description = "Best way to structure your Android Project"
-            implementationClass = "com.stepango.forma.plugin.FormaPlugin"
+            implementationClass = "tools.forma.android.plugin.FormaPlugin"
         }
     }
 }
 
 pluginBundle {
-    website = "https://github.com/stepango/forma"
-    vcsUrl = "https://github.com/stepango/forma.git"
+    website = "https://github.com/formatools/forma"
+    vcsUrl = "https://github.com/formatools/forma.git"
     tags = listOf(
         "gradle",
         "kotlin",

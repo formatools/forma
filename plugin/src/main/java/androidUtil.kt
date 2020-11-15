@@ -1,19 +1,19 @@
-import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
-import com.stepango.forma.feature.androidLibraryFeatureDefinition
-import com.stepango.forma.feature.applyFeatures
-import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.target.AndroidUtilTarget
-import com.stepango.forma.target.ResourcesTarget
-import com.stepango.forma.target.TestUtilTarget
-import com.stepango.forma.owner.NoOwner
-import com.stepango.forma.owner.Owner
-import com.stepango.forma.dependencies.applyDependencies
-import com.stepango.forma.validation.validate
-import com.stepango.forma.validation.validator
-import com.stepango.forma.validation.disallowResources
-import com.stepango.forma.visibility.Public
-import com.stepango.forma.visibility.Visibility
+import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
+import tools.forma.android.feature.androidLibraryFeatureDefinition
+import tools.forma.android.feature.applyFeatures
+import tools.forma.android.feature.kotlinAndroidFeatureDefinition
+import tools.forma.android.target.AndroidUtilTarget
+import tools.forma.android.target.ResourcesTarget
+import tools.forma.android.target.TestUtilTarget
+import tools.forma.android.owner.NoOwner
+import tools.forma.android.owner.Owner
+import tools.forma.android.validation.validate
+import tools.forma.android.validation.validator
+import tools.forma.android.validation.disallowResources
+import tools.forma.android.visibility.Public
+import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
+import tools.forma.android.dependencies.applyDependencies
 
 
 /**

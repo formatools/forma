@@ -1,17 +1,17 @@
-import com.stepango.forma.feature.AndroidLibraryFeatureConfiguration
-import com.stepango.forma.feature.androidLibraryFeatureDefinition
-import com.stepango.forma.feature.applyFeatures
-import com.stepango.forma.feature.kotlinAndroidFeatureDefinition
-import com.stepango.forma.target.LibraryTarget
-import com.stepango.forma.owner.NoOwner
-import com.stepango.forma.owner.Owner
-import com.stepango.forma.utils.BuildConfiguration
-import com.stepango.forma.dependencies.applyDependencies
-import com.stepango.forma.validation.EmptyValidator
-import com.stepango.forma.validation.validate
-import com.stepango.forma.visibility.Public
-import com.stepango.forma.visibility.Visibility
+import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
+import tools.forma.android.feature.androidLibraryFeatureDefinition
+import tools.forma.android.feature.applyFeatures
+import tools.forma.android.feature.kotlinAndroidFeatureDefinition
+import tools.forma.android.target.LibraryTarget
+import tools.forma.android.owner.NoOwner
+import tools.forma.android.owner.Owner
+import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.validation.EmptyValidator
+import tools.forma.android.validation.validate
+import tools.forma.android.visibility.Public
+import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
+import tools.forma.android.dependencies.applyDependencies
 
 /**
  * TODO Can't depend on widgets, cant depend on databindings

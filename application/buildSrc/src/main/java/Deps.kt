@@ -66,8 +66,8 @@ object versions {
     }
 }
 
-val kotlin = com.stepango.forma.dependencies.kotlin
-val dataBinding = com.stepango.forma.dependencies.dataBinding
+val kotlin = tools.forma.android.dependencies.kotlin
+val dataBinding = tools.forma.android.dependencies.dataBinding
 
 object kotlinx {
     val coroutines_core = deps(

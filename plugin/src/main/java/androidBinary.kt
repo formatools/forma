@@ -1,15 +1,16 @@
-import com.stepango.forma.feature.AndroidBinaryFeatureConfiguration
-import com.stepango.forma.feature.androidBinaryFeatureDefinition
-import com.stepango.forma.feature.applyFeatures
-import com.stepango.forma.target.BinaryTarget
-import com.stepango.forma.owner.Owner
-import com.stepango.forma.utils.BuildConfiguration
-import com.stepango.forma.dependencies.applyDependencies
-import com.stepango.forma.validation.EmptyValidator
-import com.stepango.forma.validation.validate
-import com.stepango.forma.owner.NoOwner
-import com.stepango.forma.validation.disallowResources
+import tools.forma.android.feature.AndroidBinaryFeatureConfiguration
+import tools.forma.android.feature.androidBinaryFeatureDefinition
+import tools.forma.android.feature.applyFeatures
+import tools.forma.android.target.BinaryTarget
+import tools.forma.android.owner.Owner
+import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.validation.EmptyValidator
+import tools.forma.android.validation.validate
+import tools.forma.android.owner.NoOwner
+import tools.forma.android.validation.disallowResources
 import org.gradle.api.Project
+
+import tools.forma.android.dependencies.applyDependencies
 
 /**
  * Android Binary target - application entry point.
@@ -49,6 +50,7 @@ fun Project.androidBinary(
     applyFeatures(
         androidBinaryFeatureDefinition(binaryFeatureConfiguration)
     )
+
     applyDependencies(
         validator = EmptyValidator,
         dependencies = dependencies

@@ -1,16 +1,16 @@
-import com.stepango.forma.feature.applyFeatures
-import com.stepango.forma.feature.kotlinFeatureDefinition
-import com.stepango.forma.target.LibraryTarget
-import com.stepango.forma.target.TestUtilTarget
-import com.stepango.forma.target.UtilTarget
-import com.stepango.forma.owner.NoOwner
-import com.stepango.forma.owner.Owner
-import com.stepango.forma.dependencies.applyDependencies
-import com.stepango.forma.validation.validate
-import com.stepango.forma.validation.validator
-import com.stepango.forma.visibility.Public
-import com.stepango.forma.visibility.Visibility
+import tools.forma.android.feature.applyFeatures
+import tools.forma.android.feature.kotlinFeatureDefinition
+import tools.forma.android.target.LibraryTarget
+import tools.forma.android.target.TestUtilTarget
+import tools.forma.android.target.UtilTarget
+import tools.forma.android.owner.NoOwner
+import tools.forma.android.owner.Owner
+import tools.forma.android.validation.validate
+import tools.forma.android.validation.validator
+import tools.forma.android.visibility.Public
+import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
+import tools.forma.android.dependencies.applyDependencies
 
 /**
  * Can't depend on api\impl
