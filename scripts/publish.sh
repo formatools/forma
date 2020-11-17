@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./gradlew -p buildSrc plugin:publishPlugins
+./gradlew -p buildSrc plugin:android:publishPlugins

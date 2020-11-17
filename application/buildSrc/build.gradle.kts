@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":plugin"))
+    api(project(":plugins:android"))
 }
 
 repositories {
