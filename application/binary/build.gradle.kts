@@ -11,6 +11,8 @@ androidBinary(
         project(":feature:characters:list:api"),
         project(":feature:characters:list:impl"),
         project(":feature:characters:detail:impl"),
+        project(":feature:characters:favorite:api"),
+        project(":feature:characters:favorite:impl"),
 
         project(":common:extensions:android-util"),
         project(":core:mvvm:library"),

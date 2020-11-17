@@ -23,25 +23,16 @@ import androidx.navigation.NavController
 import com.stepango.blockme.feature.home.res.R
 import javax.inject.Inject
 
-// TODO Insert navigation R.id.characters_favorites_fragment for favorite feature
-val NAV_FRAGMENTS_ID = setOf(R.id.characters_list_fragment)
+val NAV_FRAGMENTS_ID = setOf(
+    R.id.characters_list_fragment,
+    R.id.character_favorite_fragment)
 
-/**
- * View model responsible for preparing and managing the data for [HomeFragment].
- *
- * @see ViewModel
- */
 class HomeViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableLiveData<HomeViewState>()
     val state: LiveData<HomeViewState>
         get() = _state
 
-    /**
-     * Navigation controller add destination changed listener.
-     *
-     * @param navController Navigation manager.
-     */
     fun navigationControllerChanged(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (NAV_FRAGMENTS_ID.contains(destination.id)) {

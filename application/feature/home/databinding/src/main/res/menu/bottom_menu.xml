@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_list"
         android:title="@string/home_tab_characters" />
     <item
-        android:id="@+id/navigation_characters_favorites_graph"
+        android:id="@+id/navigation_character_favorite_graph"
         android:icon="@drawable/ic_favorites"
         android:title="@string/home_tab_favorites" />
 </menu>

@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_characters_favorites_graph"
-    app:startDestination="@+id/characters_favorites_fragment"
+    android:id="@+id/navigation_character_favorite_graph"
+    app:startDestination="@+id/character_favorite_fragment"
     tools:ignore="UnusedNavigation">
     <fragment
-        android:id="@+id/characters_favorites_fragment"
-        android:name="com.stepango.blockme.feature.characters.favorite.impl.ui.CharactersFavoriteFragment"
+        android:id="@+id/character_favorite_fragment"
+        android:name="com.stepango.blockme.feature.characters.favorite.impl.ui.CharacterFavoriteFragment"
         android:label="Favorites" />
 </navigation>

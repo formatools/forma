@@ -16,6 +16,8 @@ include(
     ":feature:characters:list:api",
     ":feature:characters:list:impl",
     ":feature:characters:detail:impl",
+    ":feature:characters:favorite:api",
+    ":feature:characters:favorite:impl",
 
     ":core:di:library",
     ":core:network:library",
