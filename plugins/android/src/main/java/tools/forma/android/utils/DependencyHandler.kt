@@ -10,6 +10,7 @@ import org.gradle.api.artifacts.PublishArtifact
 import org.gradle.api.artifacts.dsl.ArtifactHandler
 import org.gradle.api.artifacts.dsl.DependencyConstraintHandler
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
 import org.gradle.kotlin.dsl.accessors.runtime.addExternalModuleDependencyTo
 import org.gradle.kotlin.dsl.add
 import org.gradle.kotlin.dsl.create
@@ -29,7 +30,7 @@ internal fun DependencyHandler.addDependencyTo(
     dependencyNotation: String,
     configuration: (ExternalModuleDependency).() -> Unit
 ): ExternalModuleDependency =
-    org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo(
+    addDependencyTo(
         this,
         configurationName,
         dependencyNotation,
@@ -60,7 +61,7 @@ internal fun DependencyHandler.implementation(dependencyNotation: Any): Dependen
 internal fun DependencyHandler.implementation(
     dependencyNotation: String,
     dependencyConfiguration: Action<ExternalModuleDependency>
-): ExternalModuleDependency = org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo(
+): ExternalModuleDependency = addDependencyTo(
     this, "implementation", dependencyNotation, dependencyConfiguration
 )
 
@@ -190,7 +191,7 @@ internal fun DependencyHandler.testImplementation(dependencyNotation: Any): org.
 internal fun DependencyHandler.testImplementation(
     dependencyNotation: String,
     dependencyConfiguration: Action<ExternalModuleDependency>
-): ExternalModuleDependency = org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo(
+): ExternalModuleDependency = addDependencyTo(
     this, "testImplementation", dependencyNotation, dependencyConfiguration
 )
 
@@ -321,7 +322,7 @@ internal fun DependencyHandler.androidTestImplementation(dependencyNotation: Any
 internal fun DependencyHandler.androidTestImplementation(
     dependencyNotation: String,
     dependencyConfiguration: Action<ExternalModuleDependency>
-): ExternalModuleDependency = org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo(
+): ExternalModuleDependency = addDependencyTo(
     this, "androidTestImplementation", dependencyNotation, dependencyConfiguration
 )
 

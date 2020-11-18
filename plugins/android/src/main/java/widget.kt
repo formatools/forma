@@ -14,7 +14,7 @@ import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.android.dependencies.applyDependencies
 
-// TODO only allow layouts
+// TODO only allow layouts and view classes
 fun Project.widget(
     packageName: String,
     owner: Owner = NoOwner,
@@ -41,7 +41,11 @@ fun Project.widget(
     )
 
     applyDependencies(
-        validator = validator(WidgetTarget, UtilTarget, AndroidUtilTarget),
+        validator = validator(
+            WidgetTarget,
+            UtilTarget,
+            AndroidUtilTarget
+        ),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

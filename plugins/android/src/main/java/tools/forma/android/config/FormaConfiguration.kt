@@ -8,7 +8,6 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
  * No BuildConfig Support
  */
 // TODO use jacoco by default
-// TODO disable transitive deps by default
 // TODO publishing
 // TODO owners
 // TODO modules dependency restrictions
@@ -20,7 +19,6 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 // TODO Manifest placeholders
 // TODO Configuration override
 // TODO 3rd party plugins
-// TODO 3rd party annotation processors
 data class FormaConfiguration(
     val minSdk: Int,
     val targetSdk: Int,

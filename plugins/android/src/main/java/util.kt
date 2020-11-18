@@ -1,6 +1,7 @@
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinFeatureDefinition
 import tools.forma.android.target.UtilTarget
+import tools.forma.android.target.LibraryTarget
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.android.validation.disallowResources
@@ -43,7 +44,7 @@ fun Project.util(
     )
 
     applyDependencies(
-        validator = validator(UtilTarget),
+        validator = validator(UtilTarget, LibraryTarget),
         dependencies = dependencies,
         testDependencies = testDependencies
     )

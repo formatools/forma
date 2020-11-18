@@ -36,7 +36,7 @@ fun Project.dataBinding(
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
-    consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
+    consumerMinificationFiles: Set<String> = emptySet()
 ) {
     checkDataBindingFlag()
     validate(DataBindingTarget)
@@ -79,7 +79,7 @@ fun Project.dataBindingAdapters(
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
-    consumerMinificationFiles: Set<String> = emptySet() //TODO maybe default proguard files for DataBindings
+    consumerMinificationFiles: Set<String> = emptySet()
 ) {
     checkDataBindingFlag()
 

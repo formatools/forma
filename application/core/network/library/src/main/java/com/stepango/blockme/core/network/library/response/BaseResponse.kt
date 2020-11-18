@@ -16,8 +16,6 @@
 
 package com.stepango.blockme.core.network.library.response
 
-import com.stepango.blockme.common.util.annotations.OpenForTesting
-
 /**
  * Generic network response for any type data [T].
  *
@@ -26,7 +24,6 @@ import com.stepango.blockme.common.util.annotations.OpenForTesting
  * @param message A more descriptive message of the failure call status.
  * @param data The results returned by the call.
  */
-@OpenForTesting
 data class BaseResponse<T>(
     val code: Any,
     val status: String,

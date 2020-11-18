@@ -16,8 +16,6 @@
 
 package com.stepango.blockme.core.network.library.response
 
-import com.stepango.blockme.common.util.annotations.OpenForTesting
-
 /**
  * Marvel API data network response format.
  *
@@ -27,7 +25,6 @@ import com.stepango.blockme.common.util.annotations.OpenForTesting
  * @param count The total number of results returned by this call.
  * @param results The list of [T] returned by the call.
  */
-@OpenForTesting
 data class DataResponse<T>(
     val offset: Int,
     val limit: Int,

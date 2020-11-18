@@ -3,23 +3,27 @@ package tools.forma.android.feature
 import Forma
 import NamedDependency
 import tools.forma.android.config.FormaConfiguration
-import tools.forma.android.utils.implementation
 import emptyDependency
 import kotlin.reflect.KClass
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
+import tools.forma.android.utils.addDependencyTo
 
 data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginName: String,
     val pluginExtension: KClass<Extension>,
     val featureConfiguration: FeatureConfiguration,
-    val defaultDependencies: NamedDependency = emptyDependency(), // TODO do we need projects here?
+    val defaultDependencies: NamedDependency = emptyDependency(),
+    val formaConfiguration: FormaConfiguration = Forma.configuration,
     val configuration: (Extension, FeatureConfiguration, Project, FormaConfiguration) -> Unit
 ) {
-    fun applyConfiguration(project: Project, conf: FormaConfiguration) {
-        configuration(project.the(pluginExtension), featureConfiguration, project, conf)
-    }
+    fun applyConfiguration(project: Project) = configuration(
+        project.the(pluginExtension),
+        featureConfiguration,
+        project,
+        formaConfiguration
+    )
 }
 
 fun Project.applyFeatures(
@@ -28,12 +32,9 @@ fun Project.applyFeatures(
     features
         .forEach { definition ->
             apply(plugin = definition.pluginName)
-            definition.applyConfiguration(
-                this,
-                Forma.configuration
-            ) //TODO remove static singleton access
+            definition.applyConfiguration(this)
             definition.defaultDependencies.names.forEach {
-                dependencies.implementation(it.name)
+                dependencies.addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
             }
         }
 }

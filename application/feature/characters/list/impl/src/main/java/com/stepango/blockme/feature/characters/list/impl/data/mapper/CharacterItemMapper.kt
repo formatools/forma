@@ -20,7 +20,6 @@ import com.stepango.blockme.common.util.mapper.Mapper
 import com.stepango.blockme.core.network.library.response.BaseResponse
 import com.stepango.blockme.feature.characters.core.api.data.response.CharacterResponse
 import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
-import javax.inject.Inject
 
 private const val IMAGE_URL_FORMAT = "%s.%s"
 
