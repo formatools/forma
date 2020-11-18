@@ -1,4 +1,4 @@
-package com.stepango.blockme.feature.characters.detail.impl.model
+package com.stepango.blockme.feature.characters.detail.api.domain.model
 
 interface ICharacterDetail {
     val id: Long

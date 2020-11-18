@@ -18,6 +18,7 @@ package com.stepango.blockme.feature.characters.favorite.impl.di
 
 import com.stepango.blockme.core.di.library.BaseComponent
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
+import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeature
 import com.stepango.blockme.feature.characters.favorite.impl.ui.CharacterFavoriteFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -33,7 +34,7 @@ import javax.inject.Singleton
         BaseComponent::class
     ]
 )
-internal interface CharacterFavoriteComponent {
+interface CharacterFavoriteComponent : CharacterFavoriteFeature {
 
     fun inject(favoriteFragment: CharacterFavoriteFragment)
 

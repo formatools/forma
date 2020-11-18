@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.detail.impl.model
+package com.stepango.blockme.feature.characters.detail.impl.data.mapper
 
 import com.stepango.blockme.common.util.mapper.Mapper
 import com.stepango.blockme.core.network.library.response.BaseResponse
 import com.stepango.blockme.feature.characters.core.api.data.response.CharacterResponse
+import com.stepango.blockme.feature.characters.detail.impl.domain.model.CharacterDetail
 
 private const val IMAGE_URL_FORMAT = "%s.%s"
 
-/**
- * Helper class to transforms network response to visual model, catching the necessary data.
- *
- * @see Mapper
- */
 class CharacterDetailMapper : Mapper<BaseResponse<CharacterResponse>, CharacterDetail> {
 
-    /**
-     * Transform network response to [CharacterDetail].
-     *
-     * @param from Network characters response.
-     * @return List of parsed characters items.
-     * @throws NoSuchElementException If the response results are empty.
-     */
     @Throws(NoSuchElementException::class)
     override suspend fun map(from: BaseResponse<CharacterResponse>): CharacterDetail {
         val characterResponse = from.data.results.first()

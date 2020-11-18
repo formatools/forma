@@ -14,29 +14,24 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.detail.impl.ui
+package com.stepango.blockme.feature.characters.detail.impl.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
-import com.stepango.blockme.feature.characters.detail.impl.model.CharacterDetail
-import com.stepango.blockme.feature.characters.detail.impl.model.CharacterDetailMapper
-import com.stepango.blockme.feature.characters.detail.impl.model.ICharacterDetail
-import javax.inject.Inject
+import com.stepango.blockme.feature.characters.detail.api.domain.model.ICharacterDetail
+import com.stepango.blockme.feature.characters.detail.impl.data.mapper.CharacterDetailMapper
+import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-/**
- * View model responsible for preparing and managing the data for [CharacterDetailFragment].
- *
- * @see ViewModel
- */
 class CharacterDetailViewModel @Inject constructor(
-    val marvelRepository: MarvelRepository,
-// TODO Uncomment for favorite feature
-//    val characterFavoriteRepository: CharacterFavoriteRepository,
-    val characterDetailMapper: CharacterDetailMapper
+    private val marvelRepository: MarvelRepository,
+    // TODO I'm a ViewModel and I can do anything! Give me more, plz!
+    private val characterFavoriteRepository: ICharacterFavoriteRepository,
+    private val characterDetailMapper: CharacterDetailMapper
 ) : ViewModel(), ICharacterDetailViewModel {
 
     private val _data = MutableLiveData<ICharacterDetail>()
@@ -47,53 +42,37 @@ class CharacterDetailViewModel @Inject constructor(
     override val state: LiveData<ICharacterDetailViewState>
         get() = _state
 
-    // ============================================================================================
-    //  Public methods
-    // ============================================================================================
-
-    /**
-     * Fetch selected character detail info.
-     *
-     * @param characterId Character identifier.
-     */
     override fun loadCharacterDetail(characterId: Long) {
         _state.postValue(CharacterDetailViewState.Loading)
         viewModelScope.launch {
             try {
                 val result = marvelRepository.getCharacter(characterId)
                 _data.postValue(characterDetailMapper.map(result))
-// TODO Uncomment for favorite feature
-//                characterFavoriteRepository.getCharacterFavorite(characterId)?.let {
-//                    _state.postValue(CharacterDetailViewState.AlreadyAddedToFavorite)
-//                } ?: run {
+
+                characterFavoriteRepository.getCharacterFavorite(characterId)?.let {
+                    _state.postValue(CharacterDetailViewState.AlreadyAddedToFavorite)
+                } ?: run {
                     _state.postValue(CharacterDetailViewState.AddToFavorite)
-//                }
+                }
             } catch (e: Exception) {
                 _state.postValue(CharacterDetailViewState.Error)
             }
         }
     }
 
-    /**
-     * Store selected character to database favorite list.
-     */
     override fun addCharacterToFavorite() {
-// TODO Uncomment for favorite feature
-//        _data.value?.let {
-//            viewModelScope.launch {
-//                characterFavoriteRepository.insertCharacterFavorite(
-//                    id = it.id,
-//                    name = it.name,
-//                    imageUrl = it.imageUrl
-//                )
-//                _state.postValue(CharacterDetailViewState.AddedToFavorite)
-//            }
-//        }
+        _data.value?.let {
+            viewModelScope.launch {
+                characterFavoriteRepository.insertCharacterFavorite(
+                    id = it.id,
+                    name = it.name,
+                    imageUrl = it.imageUrl
+                )
+                _state.postValue(CharacterDetailViewState.AddedToFavorite)
+            }
+        }
     }
 
-    /**
-     * Send interaction event for dismiss character detail view.
-     */
     override fun dismissCharacterDetail() {
         _state.postValue(CharacterDetailViewState.Dismiss)
     }

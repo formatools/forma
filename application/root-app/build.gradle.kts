@@ -21,6 +21,8 @@ androidApp(
 
         project(":feature:characters:core:api"),
         project(":feature:characters:core:impl"),
+        project(":feature:characters:favorite:api"),
+        project(":feature:characters:favorite:impl"),
 
         project(":core:di:library"),
         project(":core:navigation:library"),

@@ -1,7 +1,7 @@
-package com.stepango.blockme.feature.characters.detail.impl.ui
+package com.stepango.blockme.feature.characters.detail.impl.presentation
 
 import androidx.lifecycle.LiveData
-import com.stepango.blockme.feature.characters.detail.impl.model.ICharacterDetail
+import com.stepango.blockme.feature.characters.detail.api.domain.model.ICharacterDetail
 
 interface ICharacterDetailViewModel {
 

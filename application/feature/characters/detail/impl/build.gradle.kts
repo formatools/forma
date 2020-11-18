@@ -17,7 +17,7 @@ impl(
 
     ) + deps(
         project(":feature:characters:core:api"),
-
+        project(":feature:characters:favorite:api"),
         project(":feature:characters:detail:api"),
         project(":feature:characters:detail:databinding"),
 

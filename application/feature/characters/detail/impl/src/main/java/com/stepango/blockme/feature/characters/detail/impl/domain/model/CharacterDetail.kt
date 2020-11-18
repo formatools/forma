@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.detail.impl.model
+package com.stepango.blockme.feature.characters.detail.impl.domain.model
+
+import com.stepango.blockme.feature.characters.detail.api.domain.model.ICharacterDetail
 
 data class CharacterDetail(
     override val id: Long,
