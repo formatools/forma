@@ -28,20 +28,20 @@ import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
 import com.stepango.blockme.feature.characters.core.impl.di.CharactersCoreComponent
 import com.stepango.blockme.feature.characters.core.impl.di.DaggerCharactersCoreComponent
+import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeature
+import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeatureProvider
+import com.stepango.blockme.feature.characters.favorite.impl.di.CharacterFavoriteComponent
+import com.stepango.blockme.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
 import com.stepango.blockme.root.library.di.DaggerRootComponent
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
 
-/**
- * Base class for maintaining global application state.
- *
- * @see SplitCompatApplication
- */
 class SampleApp : SplitCompatApplication(),
     BaseComponentProvider,
     ThemeComponentProvider,
-    CharactersCoreFeatureProvider {
+    CharactersCoreFeatureProvider,
+    CharacterFavoriteFeatureProvider{
 
     private lateinit var baseComponent: BaseComponent
     override fun getBaseComponent(): BaseComponent = baseComponent
@@ -52,15 +52,12 @@ class SampleApp : SplitCompatApplication(),
     private lateinit var characterCoreComponent: CharactersCoreComponent
     override fun getCharactersCoreFeature(): CharactersCoreFeature = characterCoreComponent
 
+    private lateinit var characterFavoriteComponent: CharacterFavoriteComponent
+    override fun getCharacterFavoriteFeature(): CharacterFavoriteFeature = characterFavoriteComponent
+
     @Inject
     lateinit var themeUtils: ThemeUtils
 
-    /**
-     * Called when the application is starting, before any activity, service, or receiver objects
-     * (excluding content providers) have been created.
-     *
-     * @see SplitCompatApplication.onCreate
-     */
     override fun onCreate() {
         super.onCreate()
         initTimber()
@@ -68,13 +65,6 @@ class SampleApp : SplitCompatApplication(),
         initRandomNightMode()
     }
 
-    // ============================================================================================
-    //  Private init methods
-    // ============================================================================================
-
-    /**
-     * Initialize root dependency injection component.
-     */
     private fun initRootDependencyInjection() {
         baseComponent = DaggerBaseComponent.factory().create(this)
         themeComponent = DaggerThemeComponent.factory().create()
@@ -87,20 +77,15 @@ class SampleApp : SplitCompatApplication(),
             .inject(this)
 
         characterCoreComponent = DaggerCharactersCoreComponent.factory().create()
+        characterFavoriteComponent = DaggerCharacterFavoriteComponent.factory().create(baseComponent)
     }
 
-    /**
-     * Initialize log library Timber only on debug build.
-     */
     private fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
     }
 
-    /**
-     * Initialize random nightMode to make developer aware of day/night themes.
-     */
     private fun initRandomNightMode() {
         if (BuildConfig.DEBUG) {
             themeUtils.setNightMode(Random.nextBoolean())

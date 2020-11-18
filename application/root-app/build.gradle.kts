@@ -19,13 +19,10 @@ androidApp(
     ) + deps(
         project(":root-res"),
 
-        project(":feature:home:api"),
-        project(":feature:home:impl"),
         project(":feature:characters:core:api"),
         project(":feature:characters:core:impl"),
-        project(":feature:characters:list:api"),
-        project(":feature:characters:list:impl"),
-        project(":feature:characters:detail:impl"),
+        project(":feature:characters:favorite:api"),
+        project(":feature:characters:favorite:impl"),
 
         project(":core:di:library"),
         project(":core:navigation:library"),

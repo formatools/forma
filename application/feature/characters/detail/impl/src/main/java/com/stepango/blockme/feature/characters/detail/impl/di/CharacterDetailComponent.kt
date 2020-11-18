@@ -19,12 +19,18 @@ package com.stepango.blockme.feature.characters.detail.impl.di
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
 import com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailFragment
+import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeature
 import dagger.Component
 
 @FeatureScope
 @Component(
-    modules = [CharacterDetailModule::class],
-    dependencies = [CharactersCoreFeature::class]
+    modules = [
+        CharacterDetailModule::class
+    ],
+    dependencies = [
+        CharactersCoreFeature::class,
+        CharacterFavoriteFeature::class,
+    ]
 )
 internal interface CharacterDetailComponent {
 
@@ -34,7 +40,8 @@ internal interface CharacterDetailComponent {
     interface Factory {
 
         fun create(
-            charactersCoreFeature: CharactersCoreFeature
+            charactersCoreFeature: CharactersCoreFeature,
+            characterFavoriteFeature: CharacterFavoriteFeature
         ): CharacterDetailComponent
     }
 }

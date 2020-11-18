@@ -29,12 +29,11 @@ import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
 import com.stepango.blockme.feature.characters.detail.databinding.databinding.FragmentCharacterDetailBinding
 import com.stepango.blockme.feature.characters.detail.impl.R
 import com.stepango.blockme.feature.characters.detail.impl.di.DaggerCharacterDetailComponent
+import com.stepango.blockme.feature.characters.detail.impl.presentation.CharacterDetailViewModel
+import com.stepango.blockme.feature.characters.detail.impl.presentation.CharacterDetailViewState
+import com.stepango.blockme.feature.characters.detail.impl.presentation.ICharacterDetailViewState
+import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeatureProvider
 
-/**
- * View detail for selected character, displaying extra info and with option to add it to favorite.
- *
- * @see BaseFragment
- */
 class CharacterDetailFragment :
     BaseFragment<FragmentCharacterDetailBinding>(
         layoutId = R.layout.fragment_character_detail
@@ -46,14 +45,6 @@ class CharacterDetailFragment :
 
     private lateinit var progressDialog: ProgressBarDialog
 
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     *
-     * @param view The view returned by onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     * @see BaseFragment.onViewCreated
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressDialog = ProgressBarDialog(requireCompatActivity())
@@ -62,47 +53,33 @@ class CharacterDetailFragment :
         viewModel.loadCharacterDetail(args.characterId)
     }
 
-    /**
-     * Initialize dagger injection dependency graph.
-     */
     override fun onInitDependencyInjection() {
         DaggerCharacterDetailComponent
             .factory()
             .create(
-                requireProvider(CharactersCoreFeatureProvider::class).getCharactersCoreFeature()
+                requireProvider(CharactersCoreFeatureProvider::class).getCharactersCoreFeature(),
+                requireProvider(CharacterFavoriteFeatureProvider::class).getCharacterFavoriteFeature()
             )
             .inject(this)
     }
 
-    /**
-     * Initialize view data binding variables.
-     */
     override fun onInitDataBinding() {
         viewBinding.viewModel = viewModel
     }
 
-    // ============================================================================================
-    //  Private observers methods
-    // ============================================================================================
-
-    /**
-     * Observer view state change on [CharacterDetailViewState].
-     *
-     * @param viewState State of character detail.
-     */
     private fun onViewStateChange(viewState: ICharacterDetailViewState) {
         when (viewState) {
-            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.Loading ->
+            is CharacterDetailViewState.Loading ->
                 progressDialog.show(R.string.character_detail_dialog_loading_text)
-            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.Error ->
+            is CharacterDetailViewState.Error ->
                 progressDialog.dismissWithErrorMessage(R.string.character_detail_dialog_error_text)
-            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.AddedToFavorite ->
+            is CharacterDetailViewState.AddedToFavorite ->
                 Snackbar.make(
                     requireView(),
                     R.string.character_detail_added_to_favorite_message,
                     Snackbar.LENGTH_LONG
                 ).show()
-            is com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewState.Dismiss ->
+            is CharacterDetailViewState.Dismiss ->
                 findNavController().navigateUp()
             else -> progressDialog.dismiss()
         }

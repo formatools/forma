@@ -19,8 +19,8 @@ package com.stepango.blockme.feature.characters.detail.impl.di
 import androidx.lifecycle.ViewModel
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
 import com.stepango.blockme.core.mvvm.library.di.ViewModelKey
-import com.stepango.blockme.feature.characters.detail.impl.model.CharacterDetailMapper
-import com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailViewModel
+import com.stepango.blockme.feature.characters.detail.impl.data.mapper.CharacterDetailMapper
+import com.stepango.blockme.feature.characters.detail.impl.presentation.CharacterDetailViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
