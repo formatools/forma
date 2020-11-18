@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.holders
+package com.stepango.blockme.feature.characters.favorite.databinding.presentation
 
-import android.view.LayoutInflater
-import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
+import androidx.lifecycle.LiveData
 import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
-import com.stepango.blockme.feature.favorite.databinding.databinding.ListItemCharacterFavoriteBinding
 
-class CharacterFavoriteViewHolder(
-    inflater: LayoutInflater
-) : BaseViewHolder<ListItemCharacterFavoriteBinding>(
-    binding = ListItemCharacterFavoriteBinding.inflate(inflater)
-) {
+interface ICharacterFavoriteViewModel {
 
-    fun bind(characterFavorite: ICharacterFavorite) {
-        binding.character = characterFavorite
-        binding.executePendingBindings()
-    }
+    val data: LiveData<List<ICharacterFavorite>>
+
+    val state: LiveData<ICharacterFavoriteViewState>
+
+    fun loadFavoriteCharacters()
+
+    fun removeFavoriteCharacter(character: ICharacterFavorite)
 }
+
+interface ICharacterFavoriteViewState {
+
+    fun isEmpty(): Boolean
+
+    fun isListed(): Boolean
+}
+

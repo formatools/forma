@@ -16,18 +16,14 @@
 
 package com.stepango.blockme.feature.characters.favorite.impl.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.stepango.blockme.feature.characters.favorite.impl.domain.entity.CharacterFavorite
+import com.stepango.blockme.feature.characters.favorite.impl.data.model.CharacterFavorite
 
 @Dao
 interface CharacterFavoriteDao {
-
-    @Query("SELECT * FROM character_favorite ORDER BY name")
-    fun getAllCharactersFavoriteLiveData(): LiveData<List<CharacterFavorite>>
 
     @Query("SELECT * FROM character_favorite ORDER BY name")
     suspend fun getAllCharactersFavorite(): List<CharacterFavorite>

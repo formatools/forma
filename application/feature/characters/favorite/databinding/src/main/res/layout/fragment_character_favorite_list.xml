@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewModel" />
+            type="com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

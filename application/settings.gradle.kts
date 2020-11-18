@@ -18,6 +18,7 @@ include(
     ":feature:characters:detail:impl",
     ":feature:characters:favorite:api",
     ":feature:characters:favorite:impl",
+    ":feature:characters:favorite:databinding",
 
     ":core:di:library",
     ":core:network:library",

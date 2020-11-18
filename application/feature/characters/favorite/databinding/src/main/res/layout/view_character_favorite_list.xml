@@ -7,7 +7,7 @@
 
         <variable
             name="viewState"
-            type="com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewState" />
+            type="com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

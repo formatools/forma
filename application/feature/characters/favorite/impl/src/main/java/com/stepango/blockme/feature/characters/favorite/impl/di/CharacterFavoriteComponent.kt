@@ -18,7 +18,6 @@ package com.stepango.blockme.feature.characters.favorite.impl.di
 
 import com.stepango.blockme.core.di.library.BaseComponent
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
-import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
 import com.stepango.blockme.feature.characters.favorite.impl.ui.CharacterFavoriteFragment
 import dagger.Component
 import javax.inject.Singleton

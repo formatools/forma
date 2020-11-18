@@ -18,10 +18,10 @@ package com.stepango.blockme.feature.characters.favorite.impl.di
 
 import android.content.Context
 import androidx.room.Room
+import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
 import com.stepango.blockme.feature.characters.favorite.impl.data.database.MarvelDatabase
 import com.stepango.blockme.feature.characters.favorite.impl.data.database.migrations.MIGRATION_1_2
-import com.stepango.blockme.feature.characters.favorite.impl.data.repository.CharacterFavoriteRepositoryImpl
-import com.stepango.blockme.feature.characters.favorite.impl.domain.repository.CharacterFavoriteRepository
+import com.stepango.blockme.feature.characters.favorite.impl.data.repository.CharacterFavoriteRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -32,7 +32,9 @@ internal abstract class MarvelModule {
 
     @Singleton
     @Binds
-    abstract fun bindsCharacterFavoriteRepository(repository: CharacterFavoriteRepositoryImpl): CharacterFavoriteRepository
+    abstract fun bindsCharacterFavoriteRepository(
+        repository: CharacterFavoriteRepository
+    ): ICharacterFavoriteRepository
 
     companion object {
 

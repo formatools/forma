@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.favorite.impl.data.database
+package com.stepango.blockme.feature.characters.favorite.api.domain.model
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.stepango.blockme.feature.characters.favorite.impl.data.model.CharacterFavorite
-
-@Database(
-    entities = [CharacterFavorite::class],
-    exportSchema = false,
-    version = 1
-)
-abstract class MarvelDatabase : RoomDatabase() {
-
-    abstract fun characterFavoriteDao(): CharacterFavoriteDao
+interface ICharacterFavorite {
+    val id: Long
+    val name: String
+    val imageUrl: String
 }

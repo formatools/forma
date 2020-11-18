@@ -16,28 +16,41 @@
 
 package com.stepango.blockme.feature.characters.favorite.impl.presentation
 
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.stepango.blockme.feature.characters.favorite.impl.domain.entity.CharacterFavorite
-import com.stepango.blockme.feature.characters.favorite.impl.domain.repository.CharacterFavoriteRepository
+import androidx.lifecycle.*
+import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
+import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
+import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewState
+import com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewState.Empty
+import com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewState.Listed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterFavoriteViewModel @Inject constructor(
-    private val characterFavoriteRepository: CharacterFavoriteRepository
-) : ViewModel() {
+    private val characterFavoriteRepository: ICharacterFavoriteRepository
+) : ICharacterFavoriteViewModel, ViewModel() {
 
-    val data = characterFavoriteRepository.getAllCharactersFavoriteLiveData()
-    val state = Transformations.map(data) {
-        if (it.isEmpty()) {
-            CharacterFavoriteViewState.Empty
-        } else {
-            CharacterFavoriteViewState.Listed
+    private val _data = MutableLiveData<List<ICharacterFavorite>>()
+    override val data: LiveData<List<ICharacterFavorite>>
+        get() = _data
+
+    override val state: LiveData<ICharacterFavoriteViewState>
+        get() = Transformations.map(_data) {
+            if (it.isEmpty()) {
+                Empty
+            } else {
+                Listed
+            }
+        }
+
+    override fun loadFavoriteCharacters() {
+        viewModelScope.launch {
+            val result = characterFavoriteRepository.getAllCharactersFavorite()
+            _data.postValue(result)
         }
     }
 
-    fun removeFavoriteCharacter(character: CharacterFavorite) {
+    override fun removeFavoriteCharacter(character: ICharacterFavorite) {
         viewModelScope.launch {
             characterFavoriteRepository.deleteCharacterFavorite(character)
         }

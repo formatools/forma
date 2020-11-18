@@ -20,6 +20,7 @@ impl(
     ) + deps(
         project(":feature:characters:core:api"),
         project(":feature:characters:favorite:api"),
+        project(":feature:characters:favorite:databinding"),
 
         project(":core:di:library"),
         project(":core:theme:android-util"),
@@ -30,7 +31,5 @@ impl(
         project(":common:util"),
         project(":common:extensions:android-util"),
         project(":common:extensions:databinding-adapter")
-    ),
-
-    dataBinding = true
+    )
 )

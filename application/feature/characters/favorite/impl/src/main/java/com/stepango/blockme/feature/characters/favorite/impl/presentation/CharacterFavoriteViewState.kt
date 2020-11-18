@@ -17,14 +17,15 @@
 package com.stepango.blockme.feature.characters.favorite.impl.presentation
 
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewState
+import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewState
 
-sealed class CharacterFavoriteViewState : BaseViewState {
+sealed class CharacterFavoriteViewState : BaseViewState, ICharacterFavoriteViewState {
 
     object Empty : CharacterFavoriteViewState()
 
     object Listed : CharacterFavoriteViewState()
 
-    fun isEmpty() = this is Empty
+    override fun isEmpty() = this is Empty
 
-    fun isListed() = this is Listed
+    override fun isListed() = this is Listed
 }

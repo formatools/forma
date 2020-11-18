@@ -20,10 +20,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BaseListAdapter
+import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.holders.CharacterFavoriteViewHolder
-import com.stepango.blockme.feature.characters.favorite.impl.domain.entity.CharacterFavorite
 
-class CharacterFavoriteAdapter : BaseListAdapter<CharacterFavorite>(
+class CharacterFavoriteAdapter : BaseListAdapter<ICharacterFavorite>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {

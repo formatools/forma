@@ -23,26 +23,28 @@ import com.stepango.blockme.common.extensions.android.util.observe
 import com.stepango.blockme.core.di.library.BaseComponentProvider
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
+import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
 import com.stepango.blockme.feature.characters.favorite.impl.R
-import com.stepango.blockme.feature.characters.favorite.impl.databinding.FragmentCharacterFavoriteListBinding
 import com.stepango.blockme.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
-import com.stepango.blockme.feature.characters.favorite.impl.domain.entity.CharacterFavorite
-import com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewModel
+import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteAdapter
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteTouchHelper
+import com.stepango.blockme.feature.favorite.databinding.databinding.FragmentCharacterFavoriteListBinding
 
 class CharacterFavoriteFragment :
     BaseFragment<FragmentCharacterFavoriteListBinding>(
         layoutId = R.layout.fragment_character_favorite_list
     ) {
 
-    private val viewModel: CharacterFavoriteViewModel by viewModels()
+    private val viewModel: ICharacterFavoriteViewModel by viewModels()
 
     private val viewAdapter = CharacterFavoriteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe(viewModel.data, ::onViewDataChange)
+
+        viewModel.loadFavoriteCharacters()
     }
 
     override fun onInitDependencyInjection() {
@@ -63,7 +65,7 @@ class CharacterFavoriteFragment :
         }
     }
 
-    private fun onViewDataChange(viewData: List<CharacterFavorite>) {
+    private fun onViewDataChange(viewData: List<ICharacterFavorite>) {
         viewAdapter.submitList(viewData)
     }
 }
