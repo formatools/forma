@@ -16,8 +16,10 @@ class Custom(name: String) : ConfigurationType(name)
 
 typealias DepType = List<Either<NameSpec, ProjectSpec>>
 
-val DepType.names get(): List<NameSpec> = this.filter { it.isLeft() }.map { it.left().get() }
-val DepType.projects
+val DepType.names: List<NameSpec>
+    get(): List<NameSpec> = this.filter { it.isLeft() }.map { it.left().get() }
+
+val DepType.projects: List<ProjectSpec>
     get(): List<ProjectSpec> = this.filter { it.isRight() }.map { it.right().get() }
 
 data class NameSpec(
@@ -60,7 +62,7 @@ inline fun <reified T : FormaDependency> emptyDependency(): T = when {
     else -> throw IllegalArgumentException("Illegal Empty dependency, expected ${T::class.simpleName}")
 }
 
-internal fun FormaDependency.forEach(
+fun FormaDependency.forEach(
     nameAction: (NameSpec) -> Unit = {},
     projectAction: (ProjectSpec) -> Unit = {}
 ) {
@@ -94,6 +96,6 @@ fun deps(vararg dependencies: ProjectDependency): ProjectDependency =
 fun kapt(vararg names: String): NamedDependency =
     NamedDependency(names.toList().map { NameSpec(it, Kapt, true) })
 
-val String.dep get() = deps(this)
+val String.dep: NamedDependency get() = deps(this)
 
-val String.kapt get() = kapt(this)
+val String.kapt: NamedDependency get() = kapt(this)

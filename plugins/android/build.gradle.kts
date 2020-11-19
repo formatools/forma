@@ -2,7 +2,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm")
     id("java-gradle-plugin")
     id("org.gradle.kotlin.kotlin-dsl")
-    id("com.gradle.plugin-publish") version "0.12.0"
+    id("com.gradle.plugin-publish")
 }
 
 group = "tools.forma.android"
@@ -14,6 +14,7 @@ dependencies {
     implementation("com.android.tools.build:gradle:4.1.1")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     implementation("org.funktionale:funktionale-either:1.2")
+    api(project(":plugins:deps-core"))
 }
 
 gradlePlugin {
