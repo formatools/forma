@@ -8,7 +8,7 @@ plugins {
 group = "tools.forma.android"
 version = "0.0.1"
 
-val kotlin_version = "1.4.10"
+val kotlin_version = "1.4.20"
 
 dependencies {
     implementation("com.android.tools.build:gradle:4.1.1")
