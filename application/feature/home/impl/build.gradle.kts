@@ -11,6 +11,8 @@ impl(
         jakewharton.timber
 
     ) + deps(
+        project(":toggle-widget"),
+
         project(":feature:home:api"),
         project(":feature:home:databinding"),
 

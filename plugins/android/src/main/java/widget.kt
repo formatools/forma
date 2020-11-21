@@ -5,6 +5,7 @@ import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.AndroidUtilTarget
 import tools.forma.android.target.UtilTarget
 import tools.forma.android.target.WidgetTarget
+import tools.forma.android.target.ResourcesTarget
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.android.validation.validate
@@ -44,7 +45,8 @@ fun Project.widget(
         validator = validator(
             WidgetTarget,
             UtilTarget,
-            AndroidUtilTarget
+            AndroidUtilTarget,
+            ResourcesTarget
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,

@@ -12,6 +12,7 @@ import tools.forma.android.target.DataBindingTarget
 import tools.forma.android.target.WidgetTarget
 import tools.forma.android.validation.validate
 import tools.forma.android.validation.validator
+import tools.forma.android.validation.onlyAllowLayouts
 import tools.forma.android.owner.Owner
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.validation.disallowResources
@@ -39,6 +40,9 @@ fun Project.dataBinding(
     consumerMinificationFiles: Set<String> = emptySet()
 ) {
     checkDataBindingFlag()
+
+    onlyAllowLayouts()
+
     validate(DataBindingTarget)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,

@@ -20,7 +20,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.stepango.blockme.feature.home.res.R
+import com.stepango.blockme.feature.home.databinding.R
+
 import javax.inject.Inject
 
 val NAV_FRAGMENTS_ID = setOf(

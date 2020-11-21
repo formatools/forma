@@ -20,7 +20,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.stepango.blockme.common.extensions.android.util.setupWithNavController
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
@@ -28,7 +27,7 @@ import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.core.theme.android.util.ThemeUtils
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponentProvider
 import com.stepango.blockme.feature.home.impl.R
-import com.stepango.blockme.feature.home.res.databinding.FragmentHomeBinding
+import com.stepango.blockme.feature.home.databinding.databinding.FragmentHomeBinding
 import com.stepango.blockme.feature.home.impl.di.DaggerHomeComponent
 import com.stepango.blockme.feature.home.impl.ui.menu.ToggleThemeCheckBox
 import javax.inject.Inject

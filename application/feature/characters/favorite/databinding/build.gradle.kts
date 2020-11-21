@@ -10,6 +10,7 @@ dataBinding(
         androidx.navigation_ui_ktx
     ) + deps(
         project(":feature:characters:favorite:api"),
+        project(":feature:characters:favorite:res"),
 
         project(":core:navigation:library"),
         project(":core:mvvm:library"),

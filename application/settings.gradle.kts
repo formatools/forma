@@ -1,5 +1,8 @@
+include(":toggle-widget")
+include(":feature:home:res")
 include(":feature:characters:list:databinding")
 include(":feature:characters:detail:api")
+include(":feature:characters:detail:res")
 include(":feature:characters:detail:databinding")
 include(":feature:home:databinding")
 include(":root-res")
@@ -14,9 +17,11 @@ include(
     ":feature:characters:core:api",
     ":feature:characters:core:impl",
     ":feature:characters:list:api",
+    ":feature:characters:list:res",
     ":feature:characters:list:impl",
     ":feature:characters:detail:impl",
     ":feature:characters:favorite:api",
+    ":feature:characters:favorite:res",
     ":feature:characters:favorite:impl",
     ":feature:characters:favorite:databinding",
 

@@ -14,6 +14,7 @@ import tools.forma.android.target.LibraryTarget
 import tools.forma.android.target.ResourcesTarget
 import tools.forma.android.target.TestUtilTarget
 import tools.forma.android.target.UtilTarget
+import tools.forma.android.target.WidgetTarget
 import tools.forma.android.dependencies.applyDependencies
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
@@ -54,7 +55,8 @@ fun Project.impl(
             LibraryTarget,
             DataBindingAdapterTarget,
             DataBindingTarget,
-            ResourcesTarget
+            ResourcesTarget,
+            WidgetTarget //TODO: do we need widget targets here?
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,

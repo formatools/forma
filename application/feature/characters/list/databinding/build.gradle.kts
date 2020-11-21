@@ -12,6 +12,7 @@ dataBinding(
         project(":core:mvvm:library"),
         project(":feature:characters:core:api"),
         project(":feature:characters:list:api"),
+        project(":feature:characters:list:res"),
 
         project(":common:extensions:android-util"),
         project(":common:extensions:databinding-adapter")

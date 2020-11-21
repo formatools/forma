@@ -11,3 +11,19 @@ fun Project.disallowResources() = validateDirectoryContent(
         .map { it.name }
         .run { !contains("res") }
 }
+
+fun Project.onlyAllowResources() = validateDirectoryContent(
+    dir = "./src/main",
+    errorMsg = "Please make sure this target only contains `res` folder in `src/main`"
+) {
+    it.filter(File::isDirectory)
+        .run { size == 1 && first().name == "res" }
+}
+
+fun Project.onlyAllowLayouts() = validateDirectoryContent(
+    dir = "./src/main/res",
+    errorMsg = "Please make sure this target only contains `layout` folder in `src/main/res`"
+) {
+    it.filter(File::isDirectory)
+        .run { size == 1 && first().name == "layout" }
+}
