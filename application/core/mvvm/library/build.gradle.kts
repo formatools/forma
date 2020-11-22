@@ -1,3 +1,4 @@
+// TODO Change module type from `androidLibary` to `databinding`
 androidLibrary(
     packageName = "com.stepango.blockme.core.mvvm.library",
 
@@ -6,10 +7,8 @@ androidLibrary(
         androidx.core_ktx,
         androidx.appcompat,
         androidx.constraintlayout,
-        androidx.navigation_fragment_ktx,
-        androidx.navigation_ui_ktx,
-        androidx.lifecycle_viewmodel,
-        androidx.lifecycle_viewmodel_ktx,
+        androidx.navigation,
+        androidx.viewmodel,
         androidx.paging,
         dataBinding.runtime,
         google.dagger,
@@ -17,6 +16,6 @@ androidLibrary(
     ),
 
     testDependencies = deps(
-        test.junit
+        test.unit
     )
 )

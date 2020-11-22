@@ -5,9 +5,7 @@ dataBinding(
         google.material,
         androidx.navigation,
         androidx.appcompat,
-        androidx.constraintlayout,
-        androidx.navigation_fragment_ktx,
-        androidx.navigation_ui_ktx
+        androidx.constraintlayout
     ) + deps(
         project(":core:navigation:library"),
         project(":core:mvvm:library"),
