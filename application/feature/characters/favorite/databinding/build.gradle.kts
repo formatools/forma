@@ -6,8 +6,7 @@ dataBinding(
         androidx.navigation,
         androidx.appcompat,
         androidx.constraintlayout,
-        androidx.navigation_fragment_ktx,
-        androidx.navigation_ui_ktx
+        androidx.navigation
     ) + deps(
         project(":feature:characters:favorite:api"),
 

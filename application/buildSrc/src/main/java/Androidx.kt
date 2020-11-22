@@ -1,157 +1,76 @@
-@file:Suppress("ClassName", "MemberVisibilityCanBePrivate")
-
-object versions {
-    const val funktionale = "1.2"
-    const val coil = "0.8.0"
-
-    object jetbrains {
-        const val coroutines = "1.3.7"
-    }
-
-    object androidx {
-        const val activity = "1.1.0"
-        const val annotation = "1.1.0"
-        const val arch = "2.1.0"
-        const val asynclayoutinflater = "1.0.0"
-        const val appcompat = "1.2.0"
-        const val cardview = "1.0.0"
-        const val collection = "1.0.0"
-        const val core = "1.3.1"
-        const val core_common = "2.1.0"
-        const val coordinatorlayout = "1.1.0"
-        const val constraintlayout = "2.0.1"
-        const val customview = "1.1.0"
-        const val cursoradapter = "1.0.0"
-        const val documentfile = "1.0.1"
-        const val drawerlayout = "1.1.0"
-        const val interpolator = "1.0.0"
-        const val fragment = "1.2.5"
-        const val legacy = "1.0.0"
-        const val lifecycle = "2.2.0"
-        const val loader = "1.1.0"
-        const val localbroadcastmanager = "1.0.0"
-        const val navigation = "2.3.1"
-        const val savedstate = "1.0.0"
-        const val slidingpanelayout = "1.0.0"
-        const val swiperefreshlayout = "1.0.0"
-        const val sqlite = "2.0.1"
-        const val paging = "2.1.2"
-        const val recyclerview = "1.1.0"
-        const val room = "2.2.5"
-        const val transition = "1.3.1"
-        const val vectordrawable = "1.1.0"
-        const val versionedparcelable = "1.1.0"
-        const val viewpager = "1.0.0"
-    }
-
-    object google {
-        const val material = "1.2.0"
-        const val dagger = "2.29.1"
-        const val play_core = "1.6.4"
-        const val gson = "2.8.6"
-    }
-
-    object jakewharton {
-        const val timber = "4.7.1"
-    }
-
-    object test {
-        const val espresso = "3.2.0"
-        const val junit = "4.12"
-        const val junit_ext = "1.1.1"
-        const val hamcrest = "1.3"
-    }
-
-    object squareup {
-        const val retrofit = "2.7.0"
-        const val okhttp = "4.9.0"
-    }
-}
-
-val kotlin = tools.forma.android.dependencies.kotlin
-val dataBinding = tools.forma.android.dependencies.dataBinding
-
-object kotlinx {
-    val coroutines_core = deps(
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.jetbrains.coroutines}".dep,
-        kotlin.stdlib
-    )
-    val coroutines_android = deps(
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.jetbrains.coroutines}".dep,
-        coroutines_core
-    )
-}
-
 object androidx {
+
     val annotation = "androidx.annotation:annotation:${versions.androidx.annotation}".dep
 
-    val collection = deps(
-        annotation,
-        "androidx.collection:collection:${versions.androidx.collection}".dep
-    )
-    val versionedparcelable = deps(
-        "androidx.versionedparcelable:versionedparcelable:${versions.androidx.versionedparcelable}".dep,
-        annotation,
-        collection
-    )
     val cardview = deps(
         "androidx.cardview:cardview:${versions.androidx.cardview}".dep,
         annotation
     )
-    val core_common = deps(
+    private val collection = deps(
+        annotation,
+        "androidx.collection:collection:${versions.androidx.collection}".dep
+    )
+    private val versionedparcelable = deps(
+        "androidx.versionedparcelable:versionedparcelable:${versions.androidx.versionedparcelable}".dep,
+        annotation,
+        collection
+    )
+    private val core_common = deps(
         annotation,
         "androidx.arch.core:core-common:${versions.androidx.core_common}".dep
     )
-    val lifecycle_common = deps(
+    private val lifecycle_common = deps(
         annotation,
         "androidx.lifecycle:lifecycle-common:${versions.androidx.lifecycle}".dep
     )
-    val lifecycle_extensions = deps(
+
+    private val lifecycle_extensions = deps(
         annotation,
         "androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycle}".dep
     )
-    val lifecycle_runtime = deps(
+
+    private val lifecycle_runtime = deps(
         "androidx.lifecycle:lifecycle-runtime:${versions.androidx.lifecycle}".dep,
         core_common,
         lifecycle_common
     )
-    val lifecycle_viewmodel = deps(
+
+    private val lifecycle_viewmodel = deps(
         annotation,
         "androidx.lifecycle:lifecycle-viewmodel:${versions.androidx.lifecycle}".dep
     )
 
-    val lifecycle_viewmodel_ktx = deps(
+    private val lifecycle_viewmodel_ktx = deps(
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}".dep,
         lifecycle_viewmodel,
         kotlinx.coroutines_android
     )
 
-    val lifecycle_runtime_ktx = deps(
-        "androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}".dep,
-        annotation,
-        kotlinx.coroutines_android
+    val viewmodel = deps(
+        lifecycle_viewmodel_ktx,
+        lifecycle_extensions
     )
 
-    val savedstate = deps(
+    private val savedstate = deps(
         "androidx.savedstate:savedstate:${versions.androidx.savedstate}".dep,
         annotation,
         core_common,
         lifecycle_common
     )
 
-    val core_runtime = deps(
+    private val core_runtime = deps(
         "androidx.arch.core:core-runtime:${versions.androidx.arch}".dep,
         annotation,
         core_common
     )
 
-    val lifecycle_livedate_core = deps(
+    private val lifecycle_livedate_core = deps(
         "androidx.lifecycle:lifecycle-livedata-core:${versions.androidx.lifecycle}".dep,
         core_common,
         core_runtime
     )
 
-    val lifecycle_viewmodel_savedstate = deps(
+    private val lifecycle_viewmodel_savedstate = deps(
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.androidx.lifecycle}".dep,
         annotation,
         lifecycle_livedate_core,
@@ -172,7 +91,7 @@ object androidx {
         core
     )
 
-    val activity = deps(
+    private val activity = deps(
         "androidx.activity:activity:${versions.androidx.activity}".dep,
         annotation,
         core,
@@ -182,7 +101,7 @@ object androidx {
         savedstate
     )
 
-    val loader = deps(
+    private val loader = deps(
         "androidx.loader:loader:${versions.androidx.loader}".dep,
         annotation,
         collection,
@@ -191,13 +110,13 @@ object androidx {
         lifecycle_viewmodel
     )
 
-    val customview = deps(
+    private val customview = deps(
         "androidx.customview:customview:${versions.androidx.customview}".dep,
         annotation,
         core
     )
 
-    val viewpager = deps(
+    private val viewpager = deps(
         "androidx.viewpager:viewpager:${versions.androidx.viewpager}".dep,
         annotation,
         core,
@@ -217,30 +136,22 @@ object androidx {
         viewpager
     )
 
-    val activity_ktx = deps(
-        "androidx.activity:activity-ktx:${versions.androidx.activity}".dep,
-        activity,
-        core_ktx,
-        lifecycle_runtime_ktx,
-        lifecycle_viewmodel_ktx
-    )
-
-    val drawerlayout = deps(
+    private val drawerlayout = deps(
         "androidx.drawerlayout:drawerlayout:${versions.androidx.drawerlayout}".dep,
         annotation,
         core,
         customview
     )
 
-    val documentfile = deps(
+    private val documentfile = deps(
         "androidx.documentfile:documentfile:${versions.androidx.documentfile}".dep,
         annotation
     )
-    val localbroadcastmanager = deps(
+    private val localbroadcastmanager = deps(
         "androidx.localbroadcastmanager:localbroadcastmanager:${versions.androidx.localbroadcastmanager}".dep,
         annotation
     )
-    val print = deps(
+    private val print = deps(
         "androidx.print:print:1.0.0".dep,
         annotation
     )
@@ -261,13 +172,13 @@ object androidx {
         core
     )
 
-    val asynclayoutinflater = deps(
+    private val asynclayoutinflater = deps(
         "androidx.asynclayoutinflater:asynclayoutinflater:${versions.androidx.asynclayoutinflater}".dep,
         annotation,
         core
     )
 
-    val coordinatorlayout = deps(
+    private val coordinatorlayout = deps(
         "androidx.coordinatorlayout:coordinatorlayout:${versions.androidx.coordinatorlayout}".dep,
         annotation,
         collection,
@@ -275,16 +186,16 @@ object androidx {
         customview
     )
 
-    val interpolator = deps(
+    private val interpolator = deps(
         "androidx.interpolator:interpolator:${versions.androidx.interpolator}".dep,
         annotation
     )
-    val cursoradapter = deps(
+    private val cursoradapter = deps(
         "androidx.cursoradapter:cursoradapter:${versions.androidx.cursoradapter}".dep,
         annotation
     )
 
-    val slidingpanelayout = deps(
+    private val slidingpanelayout = deps(
         "androidx.slidingpanelayout:slidingpanelayout:${versions.androidx.slidingpanelayout}".dep,
         annotation,
         customview
@@ -330,7 +241,7 @@ object androidx {
         core,
         lifecycle_runtime
     )
-    val navigation_common = deps(
+    private val navigation_common = deps(
         "androidx.navigation:navigation-common:${versions.androidx.navigation}".dep,
         annotation,
         collection,
@@ -354,19 +265,19 @@ object androidx {
         core
     )
 
-    val navigation_ui_ktx = deps(
+    private val navigation_ui_ktx = deps(
         "androidx.navigation:navigation-ui-ktx:${versions.androidx.navigation}",
         "androidx.navigation:navigation-ui:${versions.androidx.navigation}"
     )
 
-    val navigation_common_ktx = deps(
+    private val navigation_common_ktx = deps(
         "androidx.navigation:navigation-common-ktx:${versions.androidx.navigation}".dep,
         annotation,
         collection,
         core
     )
 
-    val navigation_runtime = deps(
+    private val navigation_runtime = deps(
         "androidx.navigation:navigation-runtime:${versions.androidx.navigation}".dep,
         activity,
         lifecycle_viewmodel,
@@ -375,19 +286,12 @@ object androidx {
         savedstate
     )
 
-    val navigation_runtime_ktx = deps(
-        navigation_runtime,
-        navigation_common_ktx,
-        activity_ktx,
-        lifecycle_viewmodel_ktx
-    )
-
-    val navigation_fragment = deps(
+    private val navigation_fragment = deps(
         "androidx.navigation:navigation-fragment:${versions.androidx.navigation}".dep,
         fragment,
         navigation_runtime
     )
-    val navigation_fragment_ktx = deps(
+    private val navigation_fragment_ktx = deps(
         "androidx.navigation:navigation-fragment-ktx:${versions.androidx.navigation}".dep,
         navigation_fragment,
         navigation_runtime,
@@ -400,7 +304,7 @@ object androidx {
         navigation_common_ktx
     )
 
-    val sqlite = deps(
+    private val sqlite = deps(
         "androidx.sqlite:sqlite:${versions.androidx.sqlite}".dep,
         "androidx.sqlite:sqlite-framework:${versions.androidx.sqlite}".dep
     )
@@ -411,90 +315,5 @@ object androidx {
         "androidx.room:room-common:${versions.androidx.room}".dep,
         "androidx.room:room-compiler:${versions.androidx.room}".kapt,
         sqlite
-    )
-}
-
-object javax {
-    val inject = deps(
-        "javax.inject:javax.inject:1".dep
-    )
-}
-
-object google {
-    val material = deps(
-        "com.google.android.material:material:${versions.google.material}".dep,
-        androidx.appcompat,
-        androidx.cardview,
-        androidx.core,
-        androidx.annotation,
-        androidx.legacy_ui,
-        androidx.legacy_utils,
-        androidx.recyclerview,
-        androidx.transition
-    )
-
-    val dagger = deps(
-        javax.inject,
-        "com.google.dagger:dagger:${versions.google.dagger}".dep,
-        "com.google.dagger:dagger-compiler:${versions.google.dagger}".kapt
-    )
-
-    val play_core = deps(
-        "com.google.android.play:core:${versions.google.play_core}".dep
-    )
-
-    val gson = deps (
-        "com.google.code.gson:gson:${versions.google.gson}".dep
-    )
-}
-
-object test {
-    val junit = deps(
-        "junit:junit:${versions.test.junit}".dep,
-        "org.hamcrest:hamcrest-core:${versions.test.hamcrest}".dep
-    )
-
-    val junit_ext = deps(
-        "androidx.test.ext:junit:${versions.test.junit_ext}".dep
-    )
-
-    val espresso = deps(
-        "androidx.test.espresso:espresso-core:${versions.test.espresso}".dep
-    )
-}
-
-object io {
-    val coil = transitiveDeps(
-        "io.coil-kt:coil:${versions.coil}",
-        "io.coil-kt:coil-base:${versions.coil}"
-    )
-}
-
-object jakewharton {
-    val timber = "com.jakewharton.timber:timber:${versions.jakewharton.timber}".dep
-}
-
-object squareup {
-    private val logging_interceptor = deps(
-        "com.squareup.okhttp3:logging-interceptor:${versions.squareup.okhttp}".dep
-    )
-
-    private val retrofit_converter = deps(
-        "com.squareup.retrofit2:converter-gson:${versions.squareup.retrofit}".dep
-    )
-
-    val okio = "com.squareup.okio:okio:2.9.0".dep
-
-    val okhttp = deps(
-        "com.squareup.okhttp3:okhttp:${versions.squareup.okhttp}".dep,
-        logging_interceptor,
-        okio
-    )
-
-    val retrofit = deps(
-        "com.squareup.retrofit2:retrofit:${versions.squareup.retrofit}".dep,
-        retrofit_converter,
-        okhttp,
-        okio
     )
 }

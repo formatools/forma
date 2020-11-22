@@ -5,15 +5,14 @@ androidApp(
     packageName = "com.stepango.blockme.root.library",
     owner = Teams.core,
     dependencies = deps(
-        google.material,
         androidx.core_ktx,
         androidx.appcompat,
-        androidx.navigation_fragment_ktx,
-        androidx.navigation_ui_ktx,
+        androidx.navigation,
         androidx.vectordrawable,
+        google.material,
         // Kapt enabled based on provided dep
         google.dagger,
-        google.play_core,
+        google.play,
         jakewharton.timber
 
     ) + deps(
@@ -30,11 +29,10 @@ androidApp(
     ),
 
     testDependencies = deps(
-        test.junit
+        test.unit
     ),
 
     androidTestDependencies = deps(
-        test.junit_ext,
-        test.espresso
+        test.ui
     )
 )
