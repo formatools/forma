@@ -5,7 +5,7 @@ plugins {
     id("com.gradle.plugin-publish")
 }
 
-group = "tools.forma.android"
+group = "tools.forma.deps"
 version = "0.0.1"
 
 val kotlin_version: String by extra
@@ -13,17 +13,16 @@ val kotlin_version: String by extra
 dependencies {
     implementation("com.android.tools.build:gradle:4.1.1")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-    implementation("org.funktionale:funktionale-either:1.2")
     api(project(":plugins:deps-core"))
 }
 
 gradlePlugin {
     plugins {
-        create("Forma") {
-            id = "tools.forma.android"
-            displayName = "Forma - Meta Build System with Gradle and Android support"
-            description = "Best way to structure your Android Project"
-            implementationClass = "tools.forma.android.plugin.FormaPlugin"
+        create("Deps") {
+            id = "tools.forma.deps"
+            displayName = "Forma Deps - Scalable Gradle dependencies framework"
+            description = "Escape dependency hell!"
+            implementationClass = "tools.forma.deps.plugin.FormaPlugin"
         }
     }
 }

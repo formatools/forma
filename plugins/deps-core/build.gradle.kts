@@ -4,7 +4,7 @@ plugins {
     id("org.gradle.kotlin.kotlin-dsl")
 }
 
-val kotlin_version = "1.4.20"
+val kotlin_version: String by extra
 
 dependencies {
     implementation("com.android.tools.build:gradle:4.1.1")
