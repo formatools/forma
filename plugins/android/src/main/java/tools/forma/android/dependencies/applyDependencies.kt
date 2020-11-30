@@ -8,7 +8,7 @@ import tools.forma.android.feature.kotlinKaptFeatureDefinition
 import tools.forma.android.utils.addDependencyTo
 import tools.forma.android.utils.androidTestImplementation
 import tools.forma.android.utils.testImplementation
-import tools.forma.android.validation.Validator
+import tools.forma.validation.Validator
 import emptyDependency
 import forEach
 import org.gradle.api.Project

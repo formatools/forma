@@ -1,7 +1,7 @@
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
-import tools.forma.android.validation.validate
-import tools.forma.android.validation.validator
+import tools.forma.validation.validate
+import tools.forma.validation.validator
 import org.gradle.api.Project
 import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.applyFeatures

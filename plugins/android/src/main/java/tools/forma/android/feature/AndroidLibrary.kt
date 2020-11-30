@@ -5,8 +5,8 @@ import com.android.build.gradle.LibraryExtension
 import tools.forma.android.target.LibraryTarget
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
-import tools.forma.android.validation.Validator
-import tools.forma.android.validation.validator
+import tools.forma.validation.Validator
+import tools.forma.validation.validator
 
 data class AndroidLibraryFeatureConfiguration(
     val packageName: String,

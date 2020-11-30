@@ -3,7 +3,3 @@ plugins {
     id("java-gradle-plugin")
     id("org.gradle.kotlin.kotlin-dsl")
 }
-
-dependencies {
-    api(project(":plugins:target"))
-}

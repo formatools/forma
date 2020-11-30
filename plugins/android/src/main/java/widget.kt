@@ -8,8 +8,8 @@ import tools.forma.android.target.WidgetTarget
 import tools.forma.android.target.ResourcesTarget
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
-import tools.forma.android.validation.validate
-import tools.forma.android.validation.validator
+import tools.forma.validation.validate
+import tools.forma.validation.validator
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project

@@ -2,8 +2,8 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinFeatureDefinition
 import tools.forma.android.target.ApiTarget
 import tools.forma.android.target.LibraryTarget
-import tools.forma.android.validation.validate
-import tools.forma.android.validation.validator
+import tools.forma.validation.validate
+import tools.forma.validation.validator
 import tools.forma.android.owner.Owner
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.validation.disallowResources

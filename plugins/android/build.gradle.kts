@@ -15,6 +15,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     implementation("org.funktionale:funktionale-either:1.2")
     api(project(":plugins:deps-core"))
+    api(project(":plugins:target"))
+    api(project(":plugins:validation"))
 }
 
 gradlePlugin {

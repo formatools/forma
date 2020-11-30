@@ -10,8 +10,8 @@ import tools.forma.android.target.LibraryTarget
 import tools.forma.android.target.DataBindingAdapterTarget
 import tools.forma.android.target.DataBindingTarget
 import tools.forma.android.target.WidgetTarget
-import tools.forma.android.validation.validate
-import tools.forma.android.validation.validator
+import tools.forma.validation.validate
+import tools.forma.validation.validator
 import tools.forma.android.validation.onlyAllowLayouts
 import tools.forma.android.owner.Owner
 import tools.forma.android.owner.NoOwner
