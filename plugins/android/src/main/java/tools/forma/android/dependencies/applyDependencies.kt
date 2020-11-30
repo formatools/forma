@@ -5,9 +5,7 @@ import ProjectSpec
 import Kapt
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinKaptFeatureDefinition
-import tools.forma.android.utils.addDependencyTo
-import tools.forma.android.utils.androidTestImplementation
-import tools.forma.android.utils.testImplementation
+import tools.forma.deps.addDependencyTo
 import tools.forma.validation.Validator
 import emptyDependency
 import forEach
@@ -41,12 +39,12 @@ fun Project.applyDependencies(
             projectAction
         )
         testDependencies.forEach(
-            { testImplementation(it.name) { isTransitive = it.transitive } },
-            { testImplementation(it.project) }
+            { addDependencyTo("testImplementation", it.name) { isTransitive = it.transitive } },
+            { add("testImplementation", it.project) }
         )
         androidTestDependencies.forEach(
-            { androidTestImplementation(it.name) { isTransitive = it.transitive } },
-            { androidTestImplementation(it.project) }
+            { addDependencyTo("androidTestImplementation", it.name) { isTransitive = it.transitive } },
+            { add("androidTestImplementation", it.project) }
         )
     }
 }

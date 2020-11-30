@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
-import tools.forma.android.utils.addDependencyTo
+import tools.forma.deps.addDependencyTo
 
 data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginName: String,
@@ -28,13 +28,10 @@ data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
 
 fun Project.applyFeatures(
     vararg features: FeatureDefinition<*, *>
-) {
-    features
-        .forEach { definition ->
-            apply(plugin = definition.pluginName)
-            definition.applyConfiguration(this)
-            definition.defaultDependencies.names.forEach {
-                dependencies.addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
-            }
-        }
+) = features.forEach { definition ->
+    apply(plugin = definition.pluginName)
+    definition.applyConfiguration(this)
+    definition.defaultDependencies.names.forEach {
+        dependencies.addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+    }
 }
