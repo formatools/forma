@@ -60,7 +60,8 @@ fun Project.impl(
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        androidTestDependencies = androidTestDependencies
+        androidTestDependencies = androidTestDependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }
 

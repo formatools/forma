@@ -28,6 +28,7 @@ fun Project.testUtil(
 
     applyDependencies(
         validator = validator(TestUtilTarget, UtilTarget),
-        dependencies = dependencies
+        dependencies = dependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }

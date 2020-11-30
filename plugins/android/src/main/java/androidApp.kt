@@ -49,6 +49,7 @@ fun Project.androidApp(
     applyDependencies(
         validator = EmptyValidator,
         dependencies = dependencies,
+        repositoriesConfiguration = Forma.configuration.repositories,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies
     )

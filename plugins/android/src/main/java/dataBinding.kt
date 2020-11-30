@@ -63,7 +63,8 @@ fun Project.dataBinding(
             ResourcesTarget,
             LibraryTarget
         ),
-        dependencies = dependencies
+        dependencies = dependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }
 
@@ -106,7 +107,8 @@ fun Project.dataBindingAdapters(
             AndroidUtilTarget,
             ResourcesTarget
         ),
-        dependencies = dependencies
+        dependencies = dependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }
 

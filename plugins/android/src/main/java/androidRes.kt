@@ -40,6 +40,7 @@ fun Project.androidRes(
             ResourcesTarget,
             WidgetTarget
         ),
-        dependencies = dependencies
+        dependencies = dependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }

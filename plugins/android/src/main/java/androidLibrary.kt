@@ -45,7 +45,8 @@ fun Project.androidLibrary(
         validator = EmptyValidator,
         dependencies = dependencies,
         testDependencies = testDependencies,
-        androidTestDependencies = androidTestDependencies
+        androidTestDependencies = androidTestDependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }
 

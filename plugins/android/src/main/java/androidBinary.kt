@@ -53,7 +53,8 @@ fun Project.androidBinary(
 
     applyDependencies(
         validator = EmptyValidator,
-        dependencies = dependencies
+        dependencies = dependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }
 

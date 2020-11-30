@@ -31,6 +31,7 @@ fun Project.androidTestUtil(
 
     applyDependencies(
         validator = validator(AndroidTestUtilTarget, TestUtilTarget),
-        dependencies = dependencies
+        dependencies = dependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }

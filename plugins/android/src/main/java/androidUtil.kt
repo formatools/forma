@@ -61,6 +61,7 @@ fun Project.androidUtil(
             ResourcesTarget
         ),
         dependencies = dependencies,
-        testDependencies = testDependencies
+        testDependencies = testDependencies,
+        repositoriesConfiguration = Forma.configuration.repositories
     )
 }

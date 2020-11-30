@@ -1,10 +1,8 @@
 package tools.forma.android.dependencies
 
-import Forma
 import FormaDependency
 import ProjectSpec
 import Kapt
-import tools.forma.android.config.FormaConfiguration
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinKaptFeatureDefinition
 import tools.forma.android.utils.addDependencyTo
@@ -14,17 +12,18 @@ import tools.forma.android.validation.Validator
 import emptyDependency
 import forEach
 import org.gradle.api.Project
+import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.kotlin.dsl.dependencies
 
 fun Project.applyDependencies(
     validator: Validator,
-    formaConfiguration: FormaConfiguration = Forma.configuration,
+    repositoriesConfiguration: RepositoryHandler.() -> Unit,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency()
 ) {
     var kaptApplied = false
-    formaConfiguration.repositories(repositories)
+    repositoriesConfiguration(repositories)
     dependencies {
         val projectAction: (ProjectSpec) -> Unit = {
             validator.validate(it.project)
