@@ -1,8 +1,8 @@
 package tools.forma.android.dependencies
 
 import FormaDependency
-import ProjectSpec
-import Kapt
+import tools.forma.deps.ProjectSpec
+import tools.forma.deps.Kapt
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinKaptFeatureDefinition
 import tools.forma.deps.addDependencyTo

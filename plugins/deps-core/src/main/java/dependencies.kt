@@ -1,34 +1,18 @@
 import org.funktionale.either.Either
 import org.gradle.api.Project
 
-/**
- * Dependency wrapper
- * TODO: inline class
- */
-
-sealed class ConfigurationType(val name: String)
-object Implementation : ConfigurationType("implementation")
-object CompileOnly : ConfigurationType("compileOnly")
-object RuntimeOnly : ConfigurationType("runtimeOnly")
-object AnnotationProcessor : ConfigurationType("annotationProcessor")
-object Kapt : ConfigurationType("kapt")
-class Custom(name: String) : ConfigurationType(name)
-
-typealias DepType = List<Either<NameSpec, ProjectSpec>>
+import tools.forma.deps.DepType
+import tools.forma.deps.NameSpec
+import tools.forma.deps.ProjectSpec
+import tools.forma.deps.ConfigurationType
+import tools.forma.deps.Implementation
+import tools.forma.deps.Kapt
 
 val DepType.names: List<NameSpec>
     get(): List<NameSpec> = this.filter { it.isLeft() }.map { it.left().get() }
 
 val DepType.projects: List<ProjectSpec>
     get(): List<ProjectSpec> = this.filter { it.isRight() }.map { it.right().get() }
-
-data class NameSpec(
-    val name: String,
-    val config: ConfigurationType,
-    val transitive: Boolean = false
-)
-
-data class ProjectSpec(val project: Project, val config: ConfigurationType)
 
 sealed class FormaDependency(
     val dependency: DepType = emptyList()
