@@ -5,7 +5,6 @@ buildscript {
     }
     dependencies {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1")
-        classpath("com.android.tools.build:gradle:4.1.1")
     }
 }
 
@@ -18,9 +17,5 @@ androidProjectConfiguration(
     agpVersion = "4.1.1",
     versionCode = 1,
     versionName = "1.0",
-    repositories = {
-        google()
-        jcenter()
-    },
     dataBinding = true
 )

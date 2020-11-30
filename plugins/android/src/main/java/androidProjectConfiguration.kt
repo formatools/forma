@@ -15,7 +15,7 @@ fun Project.androidProjectConfiguration(
     agpVersion: String,
     versionCode: Int,
     versionName: String,
-    repositories: RepositoryHandler.() -> Unit,
+    repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false

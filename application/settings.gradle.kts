@@ -1,3 +1,13 @@
+dependencyResolutionManagement {
+    @Suppress("UnstableApiUsage")
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+rootProject.name = "forma"
+
 include(":toggle-widget")
 include(":feature:home:res")
 include(":feature:characters:list:databinding")
@@ -43,4 +53,3 @@ include(
     ":string-test-util",
     ":time:util"
 )
-rootProject.name = "forma"
