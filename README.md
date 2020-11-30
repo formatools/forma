@@ -40,7 +40,19 @@ Easiest way to start is here >> ‼️ https://github.com/stepango/FormaShowcase
 
 [Presentation Link](https://www.beautiful.ai/player/-MLn7RnBBWeh7vePDoDq)
 
-Configuration made easy:
+Configuration made easy (Gradle 6.8+):
+```gradle
+// settings.gradle.kts
+dependencyResolutionManagement {
+    @Suppress("UnstableApiUsage")
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+```
+
 
 ``` gradle
 // root build.gradle.kts
@@ -51,7 +63,7 @@ buildscript {
 }
 
 plugins {
-    id("com.stepango.forma") version "0.0.3"
+    id("tools.forma.android") version "0.0.1"
 }
 
 // Configure shared aspects of your android Project
@@ -62,11 +74,7 @@ androidProjectConfiguration(
     kotlinVersion = "1.4.10",
     agpVersion = "4.0.0",
     versionCode = 1,
-    versionName = "1.0",
-    repositories = {
-        google()
-        jcenter()
-    }
+    versionName = "1.0"
 )
 ```
 
@@ -115,7 +123,6 @@ androidLibrary(
 |             library           |      ✅      | JVM Library             |    partial |
 |             api               |      ✅      | Feature external API's  |    partial |
 |             impl              |      ✅      | Feature implementation  |    partial |
-
 
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
