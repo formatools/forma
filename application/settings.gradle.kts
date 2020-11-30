@@ -1,4 +1,3 @@
-include(":validation")
 include(":toggle-widget")
 include(":feature:home:res")
 include(":feature:characters:list:databinding")
