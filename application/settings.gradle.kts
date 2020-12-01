@@ -49,7 +49,5 @@ include(
     ":common:recyclerview:widget",
     ":common:util",
 
-    ":root-app",
-    ":string-test-util",
-    ":time:util"
+    ":root-app"
 )

@@ -1,3 +1,0 @@
-util(
-    owner = Teams.core
-)
