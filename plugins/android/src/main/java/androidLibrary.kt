@@ -13,7 +13,8 @@ import tools.forma.android.visibility.Visibility
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
 import org.gradle.api.Project
-import tools.forma.android.dependencies.applyDependencies
+import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.deps.applyDependencies
 
 /**
  * TODO Can't depend on widgets, cant depend on databindings
@@ -48,7 +49,8 @@ fun Project.androidLibrary(
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.configuration.repositories,
+        configurationFeatures = kaptConfigurationFeature()
     )
 }
 

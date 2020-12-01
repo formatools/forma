@@ -13,7 +13,8 @@ import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
-import tools.forma.android.dependencies.applyDependencies
+import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
 
 /**
@@ -62,6 +63,7 @@ fun Project.androidUtil(
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.configuration.repositories,
+        configurationFeatures = kaptConfigurationFeature()
     )
 }

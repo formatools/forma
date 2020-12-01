@@ -2,7 +2,6 @@ package tools.forma.android.dependencies
 
 import Forma
 import transitiveDeps
-import kapt
 
 /**
  * Data Bindind dependencies declarations for internal use

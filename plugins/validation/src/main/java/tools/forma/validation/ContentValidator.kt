@@ -1,4 +1,4 @@
-package tools.forma.android.validation
+package tools.forma.validation
 
 import org.gradle.api.Project
 import org.gradle.tooling.BuildException

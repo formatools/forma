@@ -7,6 +7,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tools.forma.deps.ConfigurationType
+import tools.forma.deps.Kapt
 
 private val configuration: (Any, () -> Unit, Project, FormaConfiguration) -> Unit =
     { _, _, project, formaConfiguration ->
@@ -38,3 +40,9 @@ fun kotlinKaptFeatureDefinition() = FeatureDefinition(
     defaultDependencies = kotlin.stdlib_jdk8,
     configuration = configuration
 )
+
+fun Project.kaptConfigurationFeature(): Map<ConfigurationType, () -> Unit> = mapOf(Kapt to {
+    applyFeatures(
+        kotlinKaptFeatureDefinition()
+    )
+})

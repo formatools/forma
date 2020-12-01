@@ -15,8 +15,9 @@ import tools.forma.android.target.ResourcesTarget
 import tools.forma.android.target.TestUtilTarget
 import tools.forma.android.target.UtilTarget
 import tools.forma.android.target.WidgetTarget
-import tools.forma.android.dependencies.applyDependencies
+import tools.forma.deps.applyDependencies
 import tools.forma.android.feature.androidLibraryFeatureDefinition
+import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
@@ -63,7 +64,8 @@ fun Project.impl(
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.configuration.repositories,
+        configurationFeatures = kaptConfigurationFeature()
     )
 }
 

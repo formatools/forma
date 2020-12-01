@@ -42,70 +42,7 @@ fun androidBinaryFeatureDefinition(
             /**
              * DataBindings needs to be enabled for root project
              */
-
-            /**
-             * DataBindings needs to be enabled for root project
-             */
-
-            /**
-             * DataBindings needs to be enabled for root project
-             */
-
-            /**
-             * DataBindings needs to be enabled for root project
-             */
-
-            /**
-             * DataBindings needs to be enabled for root project
-             */
-
-            /**
-             * DataBindings needs to be enabled for root project
-             */
-
-            /**
-             * DataBindings needs to be enabled for root project
-             */
-
-            /**
-             * DataBindings needs to be enabled for root project
-             */
             buildFeatures.dataBinding = formaConfiguration.dataBinding
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
 
             /**
              * Workaround for compilation time issue with duplicate names for META-INF files

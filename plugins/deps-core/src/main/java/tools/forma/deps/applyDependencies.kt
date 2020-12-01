@@ -1,11 +1,5 @@
-package tools.forma.android.dependencies
+package tools.forma.deps
 
-import tools.forma.deps.FormaDependency
-import tools.forma.deps.ProjectSpec
-import tools.forma.deps.Kapt
-import tools.forma.android.feature.applyFeatures
-import tools.forma.android.feature.kotlinKaptFeatureDefinition
-import tools.forma.deps.addDependencyTo
 import tools.forma.validation.Validator
 import emptyDependency
 import forEach
@@ -18,9 +12,9 @@ fun Project.applyDependencies(
     repositoriesConfiguration: RepositoryHandler.() -> Unit,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
-    androidTestDependencies: FormaDependency = emptyDependency()
+    androidTestDependencies: FormaDependency = emptyDependency(),
+    configurationFeatures: Map<ConfigurationType, () -> Unit> = emptyMap()
 ) {
-    var kaptApplied = false
     repositoriesConfiguration(repositories)
     dependencies {
         val projectAction: (ProjectSpec) -> Unit = {
@@ -29,11 +23,7 @@ fun Project.applyDependencies(
         }
         dependencies.forEach(
             {
-                if (!kaptApplied && it.config == Kapt) {
-                    // TODO Force one AP per module
-                    applyFeatures(kotlinKaptFeatureDefinition())
-                    kaptApplied = true
-                }
+                configurationFeatures[it.config]?.invoke()
                 addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
             },
             projectAction

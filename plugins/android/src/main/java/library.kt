@@ -10,7 +10,8 @@ import tools.forma.validation.validator
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
-import tools.forma.android.dependencies.applyDependencies
+import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
 
@@ -33,6 +34,7 @@ fun Project.library(
         validator = validator(UtilTarget, TestUtilTarget),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.configuration.repositories,
+        configurationFeatures = kaptConfigurationFeature()
     )
 }
