@@ -13,7 +13,7 @@ val kotlin_version: String by extra
 dependencies {
     implementation("com.android.tools.build:gradle:4.1.1")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-    api(project(":plugins:deps-core"))
+    implementation(project(":plugins:deps-core"))
 }
 
 gradlePlugin {

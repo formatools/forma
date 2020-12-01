@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    api(project(":plugins:target"))
+    implementation(project(":plugins:target"))
 }

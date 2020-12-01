@@ -3,7 +3,8 @@ plugins {
 }
 
 dependencies {
-    api(project(":plugins:android"))
+    implementation(project(":plugins:android"))
+    implementation(project(":plugins:deps-core"))
 }
 
 repositories {
