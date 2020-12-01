@@ -13,6 +13,7 @@ import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.android.dependencies.applyDependencies
+import tools.forma.deps.FormaDependency
 
 // Only resources allowed
 fun Project.androidRes(

@@ -9,6 +9,7 @@ import tools.forma.android.owner.NoOwner
 import tools.forma.android.validation.disallowResources
 import org.gradle.api.Project
 import tools.forma.android.dependencies.applyDependencies
+import tools.forma.deps.FormaDependency
 
 fun Project.api(
     owner: Owner = NoOwner,

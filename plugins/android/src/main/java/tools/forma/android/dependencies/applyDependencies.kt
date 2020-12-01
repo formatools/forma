@@ -1,6 +1,6 @@
 package tools.forma.android.dependencies
 
-import FormaDependency
+import tools.forma.deps.FormaDependency
 import tools.forma.deps.ProjectSpec
 import tools.forma.deps.Kapt
 import tools.forma.android.feature.applyFeatures

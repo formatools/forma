@@ -18,6 +18,8 @@ import tools.forma.android.target.WidgetTarget
 import tools.forma.android.dependencies.applyDependencies
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
+import tools.forma.deps.FormaDependency
+import tools.forma.deps.NamedDependency
 
 fun Project.impl(
     packageName: String,

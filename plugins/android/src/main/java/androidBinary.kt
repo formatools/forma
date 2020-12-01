@@ -8,6 +8,7 @@ import tools.forma.validation.EmptyValidator
 import tools.forma.validation.validate
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.validation.disallowResources
+import tools.forma.deps.FormaDependency
 import org.gradle.api.Project
 
 import tools.forma.android.dependencies.applyDependencies

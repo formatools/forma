@@ -1,7 +1,8 @@
 package tools.forma.android.feature
 
 import Forma
-import NamedDependency
+import tools.forma.deps.FormaDependency
+import tools.forma.deps.NamedDependency
 import tools.forma.android.config.FormaConfiguration
 import emptyDependency
 import kotlin.reflect.KClass

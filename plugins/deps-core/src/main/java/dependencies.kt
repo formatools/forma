@@ -1,4 +1,3 @@
-import org.funktionale.either.Either
 import org.gradle.api.Project
 
 import tools.forma.deps.DepType
@@ -7,31 +6,17 @@ import tools.forma.deps.ProjectSpec
 import tools.forma.deps.ConfigurationType
 import tools.forma.deps.Implementation
 import tools.forma.deps.Kapt
+import tools.forma.deps.FormaDependency
+import tools.forma.deps.MixedDependency
+import tools.forma.deps.EmptyDependency
+import tools.forma.deps.ProjectDependency
+import tools.forma.deps.NamedDependency
 
 val DepType.names: List<NameSpec>
     get(): List<NameSpec> = this.filter { it.isLeft() }.map { it.left().get() }
 
 val DepType.projects: List<ProjectSpec>
     get(): List<ProjectSpec> = this.filter { it.isRight() }.map { it.right().get() }
-
-sealed class FormaDependency(
-    val dependency: DepType = emptyList()
-)
-
-object EmptyDependency : FormaDependency()
-
-class NamedDependency(
-    val names: List<NameSpec> = emptyList()
-) :
-    FormaDependency(names.map { Either.left(it) })
-
-data class ProjectDependency(val projects: List<ProjectSpec> = emptyList()) :
-    FormaDependency(projects.map { Either.right(it) })
-
-data class MixedDependency(
-    val names: List<NameSpec> = emptyList(),
-    val projects: List<ProjectSpec> = emptyList()
-) : FormaDependency(projects.map { Either.right(it) } + names.map { Either.left(it) })
 
 infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency = MixedDependency(
     this.dependency.names + dep.dependency.names,
