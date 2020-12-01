@@ -1,1 +1,1 @@
-/Users/stepango/StudioProjects/forma/README.md
+../README.md
