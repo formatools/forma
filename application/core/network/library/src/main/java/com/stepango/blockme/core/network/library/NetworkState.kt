@@ -31,5 +31,9 @@ sealed class NetworkState {
         val isAdditional: Boolean = false
     ) : NetworkState()
 
-    infix fun `is`(state: NetworkState) = this == state
+    fun isSuccess() = this is Success
+
+    fun isLoading() = this is Loading
+
+    fun isError() = this is Error
 }

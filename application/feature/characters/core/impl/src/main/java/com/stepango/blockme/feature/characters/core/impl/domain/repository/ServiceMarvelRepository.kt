@@ -23,6 +23,8 @@ import com.stepango.blockme.feature.characters.core.api.domain.repository.Marvel
 import com.stepango.blockme.feature.characters.core.api.data.service.MarvelService
 import javax.inject.Inject
 
+// TODO https://github.com/formatools/forma/issues/45
+// Move out from here API keys into some config
 private const val API_PUBLIC_KEY = "34fc91a3d879f19895b515d8273965f9"
 private const val API_PRIVATE_KEY = "d66d90c45623d9a1daeb9a398a7ded8268a9628f"
 private const val HASH_FORMAT = "%s%s%s"
@@ -65,10 +67,6 @@ internal class ServiceMarvelRepository @Inject constructor(
             offset = offset,
             limit = limit)
     }
-
-    // ============================================================================================
-    //  Private generators methods
-    // ============================================================================================
 
     /**
      * Generate a md5 digest of the timestamp parameter, private API key and public.

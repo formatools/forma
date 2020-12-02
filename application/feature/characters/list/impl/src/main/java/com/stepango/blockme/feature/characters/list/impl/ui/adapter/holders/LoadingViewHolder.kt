@@ -17,15 +17,9 @@
 package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
-import com.stepango.model.databinding.ListItemLoadingBinding
+import com.stepango.blockme.feature.characters.list.databinding.databinding.ListItemLoadingBinding
 
-/**
- * Class describes characters loading view and metadata about its place within the [RecyclerView].
- *
- * @see BaseViewHolder
- */
 class LoadingViewHolder(
     inflater: LayoutInflater
 ) : BaseViewHolder<ListItemLoadingBinding>(
