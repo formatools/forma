@@ -126,6 +126,8 @@ class CharactersListFragment :
      */
     private fun onViewEvent(viewEvent: ICharactersListViewEvent) {
         when (viewEvent) {
+            // TODO https://github.com/formatools/forma/issues/46
+            // Need abstract navigation layer here
             is CharactersListViewEvent.OpenCharacterDetail ->
                 findNavController().navigate(
                     CharactersListFragmentDirections

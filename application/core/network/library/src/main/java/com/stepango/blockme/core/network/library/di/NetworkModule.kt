@@ -24,20 +24,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-/**
- * Class that contributes to the client object graph.
- *
- * @see Module
- */
 @Module
 class NetworkModule {
 
-    /**
-     * Create a provider method binding for [HttpLoggingInterceptor].
-     *
-     * @return Instance of http interceptor.
-     * @see Provides
-     */
     @Singleton
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
@@ -46,12 +35,6 @@ class NetworkModule {
         return httpLoggingInterceptor
     }
 
-    /**
-     * Create a provider method binding for [OkHttpClient].
-     *
-     * @return Instance of http client.
-     * @see Provides
-     */
     @Singleton
     @Provides
     fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
@@ -59,16 +42,12 @@ class NetworkModule {
             .addInterceptor(interceptor)
             .build()
 
-    /**
-     * Create a provider method binding for [Retrofit].
-     *
-     * @return Instance of retrofit.
-     * @see Provides
-     */
     @Singleton
     @Provides
     fun provideRetrofitBuilder(): Retrofit =
         Retrofit.Builder()
+            // TODO  https://github.com/formatools/forma/issues/45
+            // Move out urls to some app config
             .baseUrl("https://gateway.marvel.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()

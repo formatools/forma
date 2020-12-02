@@ -80,6 +80,8 @@ class CharacterDetailFragment :
                     Snackbar.LENGTH_LONG
                 ).show()
             is CharacterDetailViewState.Dismiss ->
+                // TODO https://github.com/formatools/forma/issues/46
+                // Need abstract navigation layer here
                 findNavController().navigateUp()
             else -> progressDialog.dismiss()
         }

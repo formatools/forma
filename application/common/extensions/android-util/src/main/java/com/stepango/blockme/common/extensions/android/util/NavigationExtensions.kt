@@ -27,11 +27,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-/**
- * This is a workaround until the Navigation Component supports multiple back stacks.
- * Issue tracking: https://issuetracker.google.com/issues/127932815
- * Issue github: https://github.com/android/architecture-components-samples/issues/530
- */
 @Suppress("UnsafeCast", "UnsafeCallOnNullableType", "LongMethod", "ComplexMethod")
 fun BottomNavigationView.setupWithNavController(
     navGraphIds: List<Int>,
