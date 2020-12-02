@@ -18,15 +18,7 @@ package com.stepango.blockme.feature.characters.list.impl.ui
 
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewEvent
 
-/**
- * Different interaction events for [CharactersListFragment].
- */
 sealed class CharactersListViewEvent : ICharactersListViewEvent {
 
-    /**
-     * Open character detail view.
-     *
-     * @param id Character identifier
-     */
     data class OpenCharacterDetail(val id: Long) : CharactersListViewEvent()
 }

@@ -29,6 +29,7 @@ import javax.inject.Provider
  *
  * @see DataSource.Factory
  */
+@Deprecated("Seems this class invoke some domain logic. It's wrong!", ReplaceWith("On target UseCase"))
 class CharactersPageDataSourceFactory @Inject constructor(
     private val providerDataSource: Provider<CharacterPageDataSource>
 ) : DataSource.Factory<Int, ICharacterItem>() {

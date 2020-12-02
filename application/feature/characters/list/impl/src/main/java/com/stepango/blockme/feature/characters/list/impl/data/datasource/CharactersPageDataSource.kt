@@ -38,7 +38,8 @@ const val PAGE_MAX_ELEMENTS = 50
  *
  * @see PageKeyedDataSource
  */
-// TODO Rewrite on clean version with separate Repository with local/remote datasource
+// TODO https://github.com/formatools/forma/issues/48
+// Rewrite on clean version with separate Repository with local/remote datasource
 open class CharacterPageDataSource @Inject constructor(
     private val repository: MarvelRepository,
     private val mapper: CharacterItemMapper
@@ -47,19 +48,14 @@ open class CharacterPageDataSource @Inject constructor(
     val networkState = MutableLiveData<NetworkState>()
     private var retry: (() -> Unit)? = null
 
-    /**
-     * Load initial data.
-     *
-     * @param params Parameters for initial load, including requested load size.
-     * @param callback Callback that receives initial load data.
-     * @see PageKeyedDataSource.loadInitial
-     */
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, ICharacterItem>
     ) {
         networkState.postValue(NetworkState.Loading())
-        // TODO Don't do that!!! Using GlobalScope here only for first working version
+        // TODO https://github.com/formatools/forma/issues/48
+        // Don't do that!!! Using GlobalScope here only for first working version
+        // Make it from UseCase and calling it from View Model scope
         GlobalScope.launch(CoroutineExceptionHandler { _, _ ->
             retry = {
                 loadInitial(params, callback)
@@ -89,7 +85,9 @@ open class CharacterPageDataSource @Inject constructor(
         callback: LoadCallback<Int, ICharacterItem>
     ) {
         networkState.postValue(NetworkState.Loading(true))
-        // TODO Don't do that!!! Using GlobalScope here only for first working version
+        // TODO https://github.com/formatools/forma/issues/48
+        // Don't do that!!! Using GlobalScope here only for first working version
+        // Make it from UseCase and calling it from View Model scope
         GlobalScope.launch(CoroutineExceptionHandler { _, _ ->
             retry = {
                 loadAfter(params, callback)

@@ -31,12 +31,9 @@ import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
 import javax.inject.Inject
 
-/**
- * View model responsible for preparing and managing the data for [CharactersListFragment].
- *
- * @see ViewModel
- */
 class CharactersListViewModel @Inject constructor(
+    // TODO https://github.com/formatools/forma/issues/48
+    // Aggregate UseCase here
     private val dataSourceFactory: CharactersPageDataSourceFactory
 ) : ViewModel(), ICharactersListViewModel {
 
@@ -71,29 +68,14 @@ class CharactersListViewModel @Inject constructor(
         }
     }
 
-    // ============================================================================================
-    //  Public methods
-    // ============================================================================================
-
-    /**
-     * Refresh characters fetch them again and update the list.
-     */
     override fun refreshLoadedCharactersList() {
         dataSourceFactory.refresh()
     }
 
-    /**
-     * Retry last fetch operation to add characters into list.
-     */
     override fun retryAddCharactersList() {
         dataSourceFactory.retry()
     }
 
-    /**
-     * Send interaction event for open character detail view from selected character.
-     *
-     * @param characterId Character identifier.
-     */
     override fun openCharacterDetail(characterId: Long) {
         event.postValue(CharactersListViewEvent.OpenCharacterDetail(characterId))
     }

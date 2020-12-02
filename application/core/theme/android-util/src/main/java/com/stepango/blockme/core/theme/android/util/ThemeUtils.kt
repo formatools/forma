@@ -34,7 +34,7 @@ interface ThemeUtils {
     fun isLightTheme(context: Context): Boolean
 
     /**
-     * Force [AppCompatDelegate] Mode to night/notnight.
+     * Force to night/notnight mode.
      *
      * @param forceNight Boolean that force night mode otherwise notnight is configured.
      * @param delay Delay to apply mode changes.

@@ -21,4 +21,4 @@ data class CharacterItem(
     override val name: String,
     override val description: String,
     override val imageUrl: String
-) : com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+) : ICharacterItem

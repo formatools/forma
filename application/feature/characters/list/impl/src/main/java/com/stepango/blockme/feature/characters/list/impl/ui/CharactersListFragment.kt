@@ -25,6 +25,7 @@ import com.stepango.blockme.common.extensions.android.util.observe
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
+import com.stepango.blockme.feature.characters.list.databinding.databinding.FragmentCharactersListBinding
 import com.stepango.blockme.feature.characters.list.impl.R
 import com.stepango.blockme.feature.characters.list.impl.di.DaggerCharactersListComponent
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
@@ -32,13 +33,8 @@ import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapter
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapterState
-import com.stepango.model.databinding.FragmentCharactersListBinding
 
-/**
- * View listing the all marvel characters with option to display the detail view.
- *
- * @see BaseFragment
- */
+
 class CharactersListFragment :
     BaseFragment<FragmentCharactersListBinding>(
         layoutId = R.layout.fragment_characters_list
@@ -48,14 +44,6 @@ class CharactersListFragment :
 
     private lateinit var viewAdapter: CharactersListAdapter
 
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     *
-     * @param view The view returned by onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     * @see BaseFragment.onViewCreated
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe(viewModel.state, ::onViewStateChange)
@@ -63,9 +51,6 @@ class CharactersListFragment :
         observe(viewModel.event, ::onViewEvent)
     }
 
-    /**
-     * Initialize dagger injection dependency graph.
-     */
     override fun onInitDependencyInjection() {
         DaggerCharactersListComponent
             .factory()
@@ -75,9 +60,6 @@ class CharactersListFragment :
             .inject(this)
     }
 
-    /**
-     * Initialize view data binding variables.
-     */
     override fun onInitDataBinding() {
         viewAdapter = CharactersListAdapter(viewModel)
 
@@ -88,24 +70,10 @@ class CharactersListFragment :
         }
     }
 
-    // ============================================================================================
-    //  Private observers methods
-    // ============================================================================================
-
-    /**
-     * Observer view data change on [CharactersListViewModel].
-     *
-     * @param viewData Paged list of characters.
-     */
     private fun onViewDataChange(viewData: PagedList<ICharacterItem>) {
         viewAdapter.submitList(viewData)
     }
 
-    /**
-     * Observer view state change on [CharactersListViewModel].
-     *
-     * @param viewState State of characters list.
-     */
     private fun onViewStateChange(viewState: ICharactersListViewState) {
         when (viewState) {
             is CharactersListViewState.Loaded ->
@@ -119,13 +87,10 @@ class CharactersListFragment :
         }
     }
 
-    /**
-     * Observer view event change on [CharactersListViewModel].
-     *
-     * @param viewEvent Event on characters list.
-     */
     private fun onViewEvent(viewEvent: ICharactersListViewEvent) {
         when (viewEvent) {
+            // TODO https://github.com/formatools/forma/issues/46
+            // Need abstract navigation layer here
             is CharactersListViewEvent.OpenCharacterDetail ->
                 findNavController().navigate(
                     CharactersListFragmentDirections

@@ -4,5 +4,6 @@ androidLibrary(
         androidx.navigation
     )
 )
-// TODO Need configurable plugin integration here
+// TODO https://github.com/formatools/forma/issues/35
+// Need configurable plugin integration here
 apply(plugin = "androidx.navigation.safeargs.kotlin")

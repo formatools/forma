@@ -30,45 +30,18 @@ import com.stepango.blockme.core.mvvm.library.lifecycle.ViewModelFactory
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
-/**
- * Base fragment to standardize and simplify initialization for this component.
- *
- * @param layoutId Layout resource reference identifier.
- * @see Fragment
- */
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
     private val layoutId: Int
 ) : Fragment() {
 
+    abstract fun onInitDependencyInjection()
+    abstract fun onInitDataBinding()
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var viewBinding: B
 
-    /**
-     * Called to initialize dagger injection dependency graph when fragment is attached.
-     */
-    abstract fun onInitDependencyInjection()
-
-    /**
-     * Called to Initialize view data binding variables when fragment view is created.
-     */
-    abstract fun onInitDataBinding()
-
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     *
-     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
-     * @param container If non-null, this is the parent view that the fragment's UI should be
-     * attached to. The fragment should not add the view itself, but this can be used to generate
-     * the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous
-     * saved state as given here.
-     *
-     * @return Return the View for the fragment's UI, or null.
-     *
-     * @see Fragment.onCreateView
-     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -79,41 +52,17 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return viewBinding.root
     }
 
-    /**
-     * Called when a fragment is first attached to its context.
-     *
-     * @param context The application context.
-     *
-     * @see Fragment.onAttach
-     */
     override fun onAttach(context: Context) {
         super.onAttach(context)
         onInitDependencyInjection()
     }
 
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     *
-     * @param view The view returned by onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     * @see Fragment.onViewCreated
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onInitDataBinding()
     }
 
-    /**
-     * Return the [AppCompatActivity] this fragment is currently associated with.
-     *
-     * @throws IllegalStateException if not currently associated with an activity or if associated
-     * only with a context.
-     * @throws TypeCastException if the currently associated activity don't extend [AppCompatActivity].
-     *
-     * @see requireActivity
-     */
-    fun requireCompatActivity(): AppCompatActivity {
+    protected fun requireCompatActivity(): AppCompatActivity {
         requireActivity()
         val activity = requireActivity()
         if (activity is AppCompatActivity) {
@@ -123,7 +72,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         }
     }
 
-    inline fun <reified T : Any> requireProvider(providerType: KClass<T>): T {
+    protected inline fun <reified T : Any> requireProvider(providerType: KClass<T>): T {
         val appContext = requireContext().applicationContext
         if (appContext is T) {
             return appContext

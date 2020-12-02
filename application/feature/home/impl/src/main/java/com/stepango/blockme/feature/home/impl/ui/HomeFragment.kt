@@ -95,6 +95,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun setupBottomNavigationBar() {
+        // TODO https://github.com/formatools/forma/issues/46
+        // Need abstract navigation layer here
         val navController = viewBinding.bottomNavigation.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = childFragmentManager,

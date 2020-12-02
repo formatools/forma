@@ -24,6 +24,8 @@ import com.stepango.blockme.feature.home.databinding.R
 
 import javax.inject.Inject
 
+// TODO https://github.com/formatools/forma/issues/46
+// Move out from here strong deps of navigation component
 val NAV_FRAGMENTS_ID = setOf(
     R.id.characters_list_fragment,
     R.id.character_favorite_fragment)

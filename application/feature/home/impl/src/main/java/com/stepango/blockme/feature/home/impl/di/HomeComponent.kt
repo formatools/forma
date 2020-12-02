@@ -18,7 +18,6 @@ package com.stepango.blockme.feature.home.impl.di
 
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
-import com.stepango.blockme.feature.home.api.HomeFeature
 import com.stepango.blockme.feature.home.impl.ui.HomeFragment
 import dagger.Component
 
@@ -36,5 +35,3 @@ interface HomeComponent {
         fun create(themeComponent: ThemeComponent): HomeComponent
     }
 }
-
-interface HomeFeatureComponent : HomeFeature

@@ -20,7 +20,6 @@ include(":core:theme:res")
 include(":common:placeholder:res")
 include(
     ":binary",
-    ":date:util",
 
     ":feature:home:api",
     ":feature:home:impl",
