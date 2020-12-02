@@ -11,13 +11,13 @@
 
 <p align="center">
     <img src="https://github.com/stepango/forma/workflows/Android%20CI/badge.svg"/>
-    <a href="https://plugins.gradle.org/plugin/com.stepango.forma"><img src="https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/stepango/forma/com.stepango.forma.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin"/></a>
+    <a href="https://plugins.gradle.org/plugin/tools.forma.android"><img src="https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/tools/forma/android/tools.forma.android.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin"/></a>
     <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/stepango/forma">
-    <img alt="License" src="https://img.shields.io/github/license/stepango/forma"/>
-    <img alt="Contributors" src="https://img.shields.io/github/contributors/stepango/forma"/>
-    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/stepango/forma"/>
-    <img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/stepango/forma"/>
-    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/stepango/forma?style=social"/>
+    <img alt="License" src="https://img.shields.io/github/license/formatools/forma"/>
+    <img alt="Contributors" src="https://img.shields.io/github/contributors/formatools/forma"/>
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/formatools/forma"/>
+    <img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/formatools/forma"/>
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/formatools/forma?style=social"/>
 </p>    
 
 **Forma** - Meta Build System with Android and Gradle support. Opinionated, scalable, thoughtfully structured, type-safe and guided way to declare your project structure. Distributed as a Gradle plugin, Forma helps developers to shift focus from `Build Configuration` to `Project Structure Declaration`, abstracting away build configuration complexity.
