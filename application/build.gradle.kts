@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2")
     }
 }
 
@@ -14,7 +14,7 @@ androidProjectConfiguration(
     targetSdk = 29,
     compileSdk = 29,
     kotlinVersion = "1.4.20",
-    agpVersion = "4.1.1",
+    agpVersion = "4.2.0-beta01",
     versionCode = 1,
     versionName = "1.0",
     dataBinding = true
