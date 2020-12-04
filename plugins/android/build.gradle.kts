@@ -8,12 +8,14 @@ plugins {
 group = "tools.forma.android"
 version = "0.0.1"
 
-val kotlin_version: String by extra
+val kotlin_dep: String by extra
+val agp_dep: String by extra
+val either_dep: String by extra
 
 dependencies {
-    implementation("com.android.tools.build:gradle:4.1.1")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-    implementation("org.funktionale:funktionale-either:1.2")
+    implementation(agp_dep)
+    implementation(kotlin_dep)
+    implementation(either_dep)
     implementation(project(":plugins:deps-core"))
     implementation(project(":plugins:target"))
     implementation(project(":plugins:validation"))
