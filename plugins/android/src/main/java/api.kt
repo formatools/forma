@@ -12,6 +12,7 @@ import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
 
 fun Project.api(
+    packageName: String,
     owner: Owner = NoOwner,
     dependencies: FormaDependency = emptyDependency()
 ) {

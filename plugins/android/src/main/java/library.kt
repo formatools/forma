@@ -19,6 +19,7 @@ import tools.forma.deps.NamedDependency
  * Can't depend on api\impl
  */
 fun Project.library(
+    packageName: String,
     dependencies: FormaDependency = emptyDependency(),
     owner: Owner = NoOwner,
     visibility: Visibility = Public,

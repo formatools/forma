@@ -14,6 +14,7 @@ import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
 
 fun Project.testUtil(
+    packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency()
