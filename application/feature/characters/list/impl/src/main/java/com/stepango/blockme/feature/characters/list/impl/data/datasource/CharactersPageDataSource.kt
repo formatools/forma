@@ -20,11 +20,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.stepango.blockme.core.network.library.NetworkState
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
-import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
 import com.stepango.blockme.feature.characters.list.impl.data.mapper.CharacterItemMapper
-import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject

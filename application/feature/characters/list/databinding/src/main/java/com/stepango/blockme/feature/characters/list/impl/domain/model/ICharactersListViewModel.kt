@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.stepango.blockme.core.mvvm.library.lifecycle.SingleLiveData
 import com.stepango.blockme.core.network.library.NetworkState
+import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
 
 interface ICharactersListViewModel {
     val networkState: LiveData<NetworkState>?
