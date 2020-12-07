@@ -28,7 +28,7 @@ import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
 import com.stepango.blockme.feature.characters.list.databinding.databinding.FragmentCharactersListBinding
 import com.stepango.blockme.feature.characters.list.impl.R
 import com.stepango.blockme.feature.characters.list.impl.di.DaggerCharactersListComponent
-import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewEvent
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapter

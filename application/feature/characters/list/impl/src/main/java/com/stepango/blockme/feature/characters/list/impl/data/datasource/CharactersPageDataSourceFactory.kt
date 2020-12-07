@@ -18,8 +18,7 @@ package com.stepango.blockme.feature.characters.list.impl.data.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
-import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
 import javax.inject.Inject
 import javax.inject.Provider
 

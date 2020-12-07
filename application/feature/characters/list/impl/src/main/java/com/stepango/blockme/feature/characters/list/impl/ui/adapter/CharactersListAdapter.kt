@@ -21,8 +21,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BasePagedListAdapter
-import com.stepango.blockme.feature.characters.list.impl.domain.model.CharacterItem
-import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders.CharacterViewHolder
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders.ErrorViewHolder

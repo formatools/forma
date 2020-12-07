@@ -16,6 +16,8 @@
 
 package com.stepango.blockme.feature.characters.list.impl.domain.model
 
+import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
+
 data class CharacterItem(
     override val id: Long,
     override val name: String,

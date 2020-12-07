@@ -19,7 +19,7 @@ package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 import android.view.LayoutInflater
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
 import com.stepango.blockme.feature.characters.list.databinding.databinding.ListItemCharacterBinding
-import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
 
 class CharacterViewHolder(
