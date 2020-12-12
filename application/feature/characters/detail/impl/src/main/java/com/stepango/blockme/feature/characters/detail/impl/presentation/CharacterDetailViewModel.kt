@@ -23,15 +23,16 @@ import androidx.lifecycle.viewModelScope
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import com.stepango.blockme.feature.characters.detail.api.domain.model.ICharacterDetail
 import com.stepango.blockme.feature.characters.detail.impl.data.mapper.CharacterDetailMapper
-import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.ISetCharacterFavoriteUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterDetailViewModel @Inject constructor(
-    private val marvelRepository: MarvelRepository,
-    // TODO I'm a ViewModel and I can do anything! Give me more, plz!
-    private val characterFavoriteRepository: ICharacterFavoriteRepository,
-    private val characterDetailMapper: CharacterDetailMapper
+        private val marvelRepository: MarvelRepository,
+        private val getCharacterFavoriteUseCase: IGetCharacterFavoriteUseCase,
+        private val setCharacterFavoriteUseCase: ISetCharacterFavoriteUseCase,
+        private val characterDetailMapper: CharacterDetailMapper
 ) : ViewModel(), ICharacterDetailViewModel {
 
     private val _data = MutableLiveData<ICharacterDetail>()
@@ -49,7 +50,7 @@ class CharacterDetailViewModel @Inject constructor(
                 val result = marvelRepository.getCharacter(characterId)
                 _data.postValue(characterDetailMapper.map(result))
 
-                characterFavoriteRepository.getCharacterFavorite(characterId)?.let {
+                getCharacterFavoriteUseCase(characterId)?.let {
                     _state.postValue(CharacterDetailViewState.AlreadyAddedToFavorite)
                 } ?: run {
                     _state.postValue(CharacterDetailViewState.AddToFavorite)
@@ -63,10 +64,10 @@ class CharacterDetailViewModel @Inject constructor(
     override fun addCharacterToFavorite() {
         _data.value?.let {
             viewModelScope.launch {
-                characterFavoriteRepository.insertCharacterFavorite(
-                    id = it.id,
-                    name = it.name,
-                    imageUrl = it.imageUrl
+                setCharacterFavoriteUseCase(
+                        id = it.id,
+                        name = it.name,
+                        imageUrl = it.imageUrl
                 )
                 _state.postValue(CharacterDetailViewState.AddedToFavorite)
             }
