@@ -17,8 +17,8 @@
 package com.stepango.blockme.root.library.di
 
 import com.stepango.blockme.core.di.library.BaseComponent
-import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
 import com.stepango.blockme.core.di.library.scopes.AppScope
+import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
 import com.stepango.blockme.root.library.SampleApp
 import dagger.Component
 
@@ -31,7 +31,11 @@ import dagger.Component
 @Component(
     dependencies = [
         ThemeComponent::class,
-        BaseComponent::class],
+        BaseComponent::class
+    ],
+    modules = [
+        ConfigModule::class,
+    ]
 )
 interface RootComponent {
 
