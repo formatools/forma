@@ -16,13 +16,14 @@
 
 package com.stepango.blockme.core.network.library.di
 
+import com.stepango.blockme.core.network.library.Config
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 class NetworkModule {
@@ -44,11 +45,9 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitBuilder(): Retrofit =
+    fun provideRetrofitBuilder(config: Config): Retrofit =
         Retrofit.Builder()
-            // TODO  https://github.com/formatools/forma/issues/45
-            // Move out urls to some app config
-            .baseUrl("https://gateway.marvel.com/")
+            .baseUrl(config.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 }

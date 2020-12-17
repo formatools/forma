@@ -20,6 +20,7 @@ import com.google.android.play.core.splitcompat.SplitCompatApplication
 import com.stepango.blockme.core.di.library.BaseComponent
 import com.stepango.blockme.core.di.library.BaseComponentProvider
 import com.stepango.blockme.core.di.library.DaggerBaseComponent
+import com.stepango.blockme.core.network.library.Config
 import com.stepango.blockme.core.theme.android.util.ThemeUtils
 import com.stepango.blockme.core.theme.android.util.di.DaggerThemeComponent
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
@@ -41,7 +42,7 @@ class SampleApp : SplitCompatApplication(),
     BaseComponentProvider,
     ThemeComponentProvider,
     CharactersCoreFeatureProvider,
-    CharacterFavoriteFeatureProvider{
+    CharacterFavoriteFeatureProvider {
 
     private lateinit var baseComponent: BaseComponent
     override fun getBaseComponent(): BaseComponent = baseComponent
@@ -57,6 +58,9 @@ class SampleApp : SplitCompatApplication(),
 
     @Inject
     lateinit var themeUtils: ThemeUtils
+
+    @Inject
+    lateinit var config: Config
 
     override fun onCreate() {
         super.onCreate()
@@ -76,7 +80,7 @@ class SampleApp : SplitCompatApplication(),
             .build()
             .inject(this)
 
-        characterCoreComponent = DaggerCharactersCoreComponent.factory().create()
+        characterCoreComponent = DaggerCharactersCoreComponent.factory().create(config)
         characterFavoriteComponent = DaggerCharacterFavoriteComponent.factory().create(baseComponent)
     }
 
