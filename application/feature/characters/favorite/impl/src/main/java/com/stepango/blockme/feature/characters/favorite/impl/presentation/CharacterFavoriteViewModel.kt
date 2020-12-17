@@ -18,7 +18,8 @@ package com.stepango.blockme.feature.characters.favorite.impl.presentation
 
 import androidx.lifecycle.*
 import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
-import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IDeleteCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetAllCharactersFavoriteUseCase
 import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
 import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewState
 import com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewState.Empty
@@ -27,7 +28,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterFavoriteViewModel @Inject constructor(
-    private val characterFavoriteRepository: ICharacterFavoriteRepository
+        private val getAllCharactersFavoriteUseCase: IGetAllCharactersFavoriteUseCase,
+        private val deleteCharacterFavoriteUseCase: IDeleteCharacterFavoriteUseCase
 ) : ICharacterFavoriteViewModel, ViewModel() {
 
     private val _data = MutableLiveData<List<ICharacterFavorite>>()
@@ -45,14 +47,14 @@ class CharacterFavoriteViewModel @Inject constructor(
 
     override fun loadFavoriteCharacters() {
         viewModelScope.launch {
-            val result = characterFavoriteRepository.getAllCharactersFavorite()
+            val result = getAllCharactersFavoriteUseCase()
             _data.postValue(result)
         }
     }
 
     override fun removeFavoriteCharacter(character: ICharacterFavorite) {
         viewModelScope.launch {
-            characterFavoriteRepository.deleteCharacterFavorite(character)
+            deleteCharacterFavoriteUseCase(character)
         }
     }
 }

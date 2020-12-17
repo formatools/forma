@@ -19,9 +19,17 @@ package com.stepango.blockme.feature.characters.favorite.impl.di
 import android.content.Context
 import androidx.room.Room
 import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IDeleteCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetAllCharactersFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.ISetCharacterFavoriteUseCase
 import com.stepango.blockme.feature.characters.favorite.impl.data.database.MarvelDatabase
 import com.stepango.blockme.feature.characters.favorite.impl.data.database.migrations.MIGRATION_1_2
 import com.stepango.blockme.feature.characters.favorite.impl.data.repository.CharacterFavoriteRepository
+import com.stepango.blockme.feature.characters.favorite.impl.domain.usecase.DeleteCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.impl.domain.usecase.GetAllCharactersFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.impl.domain.usecase.GetCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.impl.domain.usecase.SetCharacterFavoriteUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -35,6 +43,26 @@ internal abstract class MarvelModule {
     abstract fun bindsCharacterFavoriteRepository(
         repository: CharacterFavoriteRepository
     ): ICharacterFavoriteRepository
+
+    @Binds
+    abstract fun bindsGetCharacterFavoriteUseCase(
+            useCase: GetCharacterFavoriteUseCase
+    ): IGetCharacterFavoriteUseCase
+
+    @Binds
+    abstract fun bindsSetCharacterFavoriteUseCase(
+            useCase: SetCharacterFavoriteUseCase
+    ): ISetCharacterFavoriteUseCase
+
+    @Binds
+    abstract fun bindsGetAllCharactersFavoriteUseCase(
+            useCase: GetAllCharactersFavoriteUseCase
+    ): IGetAllCharactersFavoriteUseCase
+
+    @Binds
+    abstract fun bindsDeleteCharacterFavoriteUseCase(
+            useCase: DeleteCharacterFavoriteUseCase
+    ): IDeleteCharacterFavoriteUseCase
 
     companion object {
 
