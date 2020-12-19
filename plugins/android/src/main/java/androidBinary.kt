@@ -10,6 +10,8 @@ import tools.forma.android.owner.NoOwner
 import tools.forma.android.validation.disallowResources
 import tools.forma.deps.FormaDependency
 import org.gradle.api.Project
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 import tools.forma.deps.applyDependencies
 
@@ -28,6 +30,7 @@ import tools.forma.deps.applyDependencies
  * @param manifestPlaceholders - placeholders ot be injected in manifest
  */
 fun Project.androidBinary(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     dependencies: FormaDependency = emptyDependency(),
@@ -49,13 +52,13 @@ fun Project.androidBinary(
         manifestPlaceholders
     )
     applyFeatures(
-        androidBinaryFeatureDefinition(binaryFeatureConfiguration)
+        androidBinaryFeatureDefinition(configurationKey, binaryFeatureConfiguration)
     )
 
     applyDependencies(
         validator = EmptyValidator,
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma[configurationKey].repositories
     )
 }
 

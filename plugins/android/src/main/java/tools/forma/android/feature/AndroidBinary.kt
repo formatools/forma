@@ -7,6 +7,9 @@ import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
+import Forma
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 data class AndroidBinaryFeatureConfiguration(
     val packageName: String,
@@ -18,11 +21,13 @@ data class AndroidBinaryFeatureConfiguration(
 )
 
 fun androidBinaryFeatureDefinition(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     featureConfiguration: AndroidBinaryFeatureConfiguration
 ) = FeatureDefinition(
     pluginName = "com.android.application",
     pluginExtension = BaseAppModuleExtension::class,
     featureConfiguration = featureConfiguration,
+    formaConfiguration = Forma[configurationKey],
     configuration = { extension, feature, _, formaConfiguration ->
         with(extension) {
             compileSdkVersion(formaConfiguration.compileSdk)

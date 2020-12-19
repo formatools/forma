@@ -21,6 +21,8 @@ import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 /**
  * Android Data Binding Target - Data Binding layouts collection
@@ -34,13 +36,14 @@ import tools.forma.deps.FormaDependency
  * @param consumerMinificationFiles - Proguard/R8 minification files list
  */
 fun Project.dataBinding(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet()
 ) {
-    checkDataBindingFlag()
+    checkDataBindingFlag(configurationKey)
 
     onlyAllowLayouts()
 
@@ -51,9 +54,9 @@ fun Project.dataBinding(
         dataBinding = true
     )
     applyFeatures(
-        androidLibraryFeatureDefinition(libraryFeatureConfiguration),
-        kotlinAndroidFeatureDefinition(),
-        kotlinKaptFeatureDefinition()
+        androidLibraryFeatureDefinition(configurationKey, libraryFeatureConfiguration),
+        kotlinAndroidFeatureDefinition(configurationKey),
+        kotlinKaptFeatureDefinition(configurationKey)
     )
     applyDependencies(
         validator = validator(
@@ -65,7 +68,7 @@ fun Project.dataBinding(
             LibraryTarget
         ),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma[configurationKey].repositories
     )
 }
 
@@ -81,13 +84,14 @@ fun Project.dataBinding(
  * @param consumerMinificationFiles - Proguard/R8 minification files list
  */
 fun Project.dataBindingAdapters(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     consumerMinificationFiles: Set<String> = emptySet()
 ) {
-    checkDataBindingFlag()
+    checkDataBindingFlag(configurationKey)
 
     disallowResources()
 
@@ -98,9 +102,9 @@ fun Project.dataBindingAdapters(
         dataBinding = true
     )
     applyFeatures(
-        androidLibraryFeatureDefinition(libraryFeatureConfiguration),
-        kotlinAndroidFeatureDefinition(),
-        kotlinKaptFeatureDefinition()
+        androidLibraryFeatureDefinition(configurationKey, libraryFeatureConfiguration),
+        kotlinAndroidFeatureDefinition(configurationKey),
+        kotlinKaptFeatureDefinition(configurationKey)
     )
     applyDependencies(
         validator = validator(
@@ -109,12 +113,12 @@ fun Project.dataBindingAdapters(
             ResourcesTarget
         ),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma[configurationKey].repositories
     )
 }
 
-private fun checkDataBindingFlag() {
-    if (!Forma.configuration.dataBinding) {
+private fun checkDataBindingFlag(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) {
+    if (!Forma[configurationKey].dataBinding) {
         throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
     }
 }

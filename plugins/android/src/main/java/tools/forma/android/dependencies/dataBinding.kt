@@ -2,24 +2,27 @@ package tools.forma.android.dependencies
 
 import Forma
 import transitiveDeps
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 /**
  * Data Bindind dependencies declarations for internal use
  */
 object dataBinding {
-    val viewBinding = transitiveDeps(
-        "androidx.databinding:viewbinding:${Forma.configuration.agpVersion}"
+
+    fun viewBinding(configurationKey: FormaConfigurationKey) = transitiveDeps(
+        "androidx.databinding:viewbinding:${Forma[configurationKey].agpVersion}"
     )
 
-    val runtime = transitiveDeps(
-        "androidx.databinding:databinding-runtime:${Forma.configuration.agpVersion}"
+    fun runtime(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) = transitiveDeps(
+        "androidx.databinding:databinding-runtime:${Forma[configurationKey].agpVersion}"
     )
 
-    val common = transitiveDeps(
-        "androidx.databinding:databinding-common:${Forma.configuration.agpVersion}"
+    fun common(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) = transitiveDeps(
+        "androidx.databinding:databinding-common:${Forma[configurationKey].agpVersion}"
     )
 
-    val adapters = transitiveDeps(
-        "androidx.databinding:databinding-adapters:${Forma.configuration.agpVersion}"
+    fun adapters(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) = transitiveDeps(
+        "androidx.databinding:databinding-adapters:${Forma[configurationKey].agpVersion}"
     )
 }

@@ -16,9 +16,12 @@ import org.gradle.api.Project
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 // TODO only allow layouts and view classes
 fun Project.widget(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
@@ -39,8 +42,8 @@ fun Project.widget(
     )
 
     applyFeatures(
-        androidLibraryFeatureDefinition(featureConfiguration),
-        kotlinAndroidFeatureDefinition()
+        androidLibraryFeatureDefinition(configurationKey, featureConfiguration),
+        kotlinAndroidFeatureDefinition(configurationKey)
     )
 
     applyDependencies(
@@ -53,6 +56,6 @@ fun Project.widget(
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma[configurationKey].repositories
     )
 }

@@ -13,8 +13,11 @@ import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 fun Project.androidTestUtil(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
@@ -26,13 +29,13 @@ fun Project.androidTestUtil(
         packageName
     )
     applyFeatures(
-        androidLibraryFeatureDefinition(androidFeatureConfig),
-        kotlinAndroidFeatureDefinition()
+        androidLibraryFeatureDefinition(configurationKey, androidFeatureConfig),
+        kotlinAndroidFeatureDefinition(configurationKey)
     )
 
     applyDependencies(
         validator = validator(AndroidTestUtilTarget, TestUtilTarget),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma[configurationKey].repositories
     )
 }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="07587554-7e3f-489b-a7c8-d9afa11c6d02" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../application/buildSrc/src/main/java/FormaConfigurationKey.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/config/FormaConfigurationKey.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../application/buildSrc/src/main/java/Kotlinx.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../application/buildSrc/src/main/java/Kotlinx.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/androidApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/androidApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/androidBinary.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/androidBinary.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/androidLibrary.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/androidLibrary.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/androidProjectConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/androidProjectConfiguration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/androidRes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/androidRes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/androidTestUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/androidTestUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/androidUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/androidUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/api.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/api.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/dataBinding.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/dataBinding.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/impl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/impl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/library.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/library.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/testUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/testUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/dependencies/dataBinding.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/dependencies/dataBinding.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/dependencies/kotlin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/dependencies/kotlin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/AndroidBinary.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/AndroidBinary.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/AndroidLibrary.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/AndroidLibrary.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/FeatureDefinition.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/FeatureDefinition.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/Kotlin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/tools/forma/android/feature/Kotlin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/util.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/widget.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/widget.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1lPdo65nYLcjVTWvoKGBjnssvqY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="07587554-7e3f-489b-a7c8-d9afa11c6d02" name="Default Changelist" comment="" />
+      <created>1607502831799</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607502831799</updated>
+      <workItem from="1607504581492" duration="806000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="328" y="106" key="#Project_Structure" timestamp="1608376690806">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="328" y="106" key="#Project_Structure/0.0.1680.1050@0.0.1680.1050" timestamp="1608376690806" />
+    <state x="341" y="164" key="SettingsEditor" timestamp="1607504672477">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1607504672477" />
+    <state width="500" height="400" key="SwitcherDM" timestamp="1607502964687">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="500" height="400" key="SwitcherDM/0.0.1680.1050@0.0.1680.1050" timestamp="1607502964687" />
+    <state x="517" y="357" key="com.intellij.ide.util.TipDialog" timestamp="1607504601877">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="517" y="357" key="com.intellij.ide.util.TipDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1607504601877" />
+    <state x="505" y="248" width="670" height="675" key="run.anything.popup" timestamp="1607504650632">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="248" width="670" height="675" key="run.anything.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607504650632" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1607503140349">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607503140349" />
+  </component>
+</project>

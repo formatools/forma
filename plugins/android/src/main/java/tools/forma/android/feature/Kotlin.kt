@@ -9,6 +9,9 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tools.forma.deps.ConfigurationType
 import tools.forma.deps.Kapt
+import Forma
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 private val configuration: (Any, () -> Unit, Project, FormaConfiguration) -> Unit =
     { _, _, project, formaConfiguration ->
@@ -17,32 +20,35 @@ private val configuration: (Any, () -> Unit, Project, FormaConfiguration) -> Uni
         }
     }
 
-fun kotlinFeatureDefinition() = FeatureDefinition(
+fun kotlinFeatureDefinition(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) = FeatureDefinition(
+    formaConfiguration = Forma[configurationKey],
     pluginName = "kotlin",
     pluginExtension = KotlinJvmProjectExtension::class,
     featureConfiguration = {},
-    defaultDependencies = kotlin.stdlib_jdk8,
+    defaultDependencies = kotlin.stdlib_jdk8(configurationKey),
     configuration = configuration
 )
 
-fun kotlinAndroidFeatureDefinition() = FeatureDefinition(
+fun kotlinAndroidFeatureDefinition(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) = FeatureDefinition(
+    formaConfiguration = Forma[configurationKey],
     pluginName = "kotlin-android",
     pluginExtension = KotlinAndroidProjectExtension::class,
     featureConfiguration = {},
-    defaultDependencies = kotlin.stdlib_jdk8,
+    defaultDependencies = kotlin.stdlib_jdk8(configurationKey),
     configuration = configuration
 )
 
-fun kotlinKaptFeatureDefinition() = FeatureDefinition(
+fun kotlinKaptFeatureDefinition(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) = FeatureDefinition(
+    formaConfiguration = Forma[configurationKey],
     pluginName = "kotlin-kapt",
     pluginExtension = KaptExtension::class,
     featureConfiguration = {},
-    defaultDependencies = kotlin.stdlib_jdk8,
+    defaultDependencies = kotlin.stdlib_jdk8(configurationKey),
     configuration = configuration
 )
 
-fun Project.kaptConfigurationFeature(): Map<ConfigurationType, () -> Unit> = mapOf(Kapt to {
+fun Project.kaptConfigurationFeature(configurationKey: FormaConfigurationKey = DefaultConfigurationKey): Map<ConfigurationType, () -> Unit> = mapOf(Kapt to {
     applyFeatures(
-        kotlinKaptFeatureDefinition()
+        kotlinKaptFeatureDefinition(configurationKey)
     )
 })

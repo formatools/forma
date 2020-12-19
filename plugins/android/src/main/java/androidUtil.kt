@@ -16,6 +16,8 @@ import org.gradle.api.Project
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 /**
  * TODO
@@ -34,6 +36,7 @@ import tools.forma.deps.FormaDependency
  *
  */
 fun Project.androidUtil(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
@@ -51,8 +54,8 @@ fun Project.androidUtil(
     )
 
     applyFeatures(
-        androidLibraryFeatureDefinition(androidFeatureConfig),
-        kotlinAndroidFeatureDefinition()
+        androidLibraryFeatureDefinition(configurationKey, androidFeatureConfig),
+        kotlinAndroidFeatureDefinition(configurationKey)
     )
 
     applyDependencies(
@@ -63,7 +66,7 @@ fun Project.androidUtil(
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories,
-        configurationFeatures = kaptConfigurationFeature()
+        repositoriesConfiguration = Forma[configurationKey].repositories,
+        configurationFeatures = kaptConfigurationFeature(configurationKey)
     )
 }

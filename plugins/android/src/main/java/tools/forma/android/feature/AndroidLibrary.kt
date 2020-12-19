@@ -7,6 +7,9 @@ import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
+import Forma
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 data class AndroidLibraryFeatureConfiguration(
     val packageName: String,
@@ -19,11 +22,13 @@ data class AndroidLibraryFeatureConfiguration(
 )
 
 fun androidLibraryFeatureDefinition(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     featureConfiguration: AndroidLibraryFeatureConfiguration
 ) = FeatureDefinition(
     pluginName = "com.android.library",
     pluginExtension = LibraryExtension::class,
     featureConfiguration = featureConfiguration,
+    formaConfiguration = Forma[configurationKey],
     configuration = { extension, feature, _, formaConfiguration ->
         with(extension) {
             compileSdkVersion(formaConfiguration.compileSdk)

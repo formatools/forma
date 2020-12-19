@@ -16,11 +16,14 @@ import tools.forma.deps.NamedDependency
 import tools.forma.deps.applyDependencies
 import org.gradle.api.Project
 import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 /**
  * TODO Can't depend on widgets, cant depend on databindings
  */
 fun Project.androidApp(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
@@ -44,18 +47,18 @@ fun Project.androidApp(
         manifestPlaceholders
     )
     applyFeatures(
-        androidLibraryFeatureDefinition(libraryFeatureConfiguration),
-        kotlinAndroidFeatureDefinition()
+        androidLibraryFeatureDefinition(configurationKey, libraryFeatureConfiguration),
+        kotlinAndroidFeatureDefinition(configurationKey)
     )
 
 
     applyDependencies(
         validator = EmptyValidator,
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories,
+        repositoriesConfiguration = Forma[configurationKey].repositories,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        configurationFeatures = kaptConfigurationFeature()
+        configurationFeatures = kaptConfigurationFeature(configurationKey)
     )
 }
 

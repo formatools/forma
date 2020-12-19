@@ -1,0 +1,5 @@
+package tools.forma.android.config
+
+interface FormaConfigurationKey
+
+internal object DefaultConfigurationKey: FormaConfigurationKey

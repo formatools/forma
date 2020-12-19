@@ -15,7 +15,7 @@ data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginExtension: KClass<Extension>,
     val featureConfiguration: FeatureConfiguration,
     val defaultDependencies: NamedDependency = emptyDependency(),
-    val formaConfiguration: FormaConfiguration = Forma.configuration,
+    val formaConfiguration: FormaConfiguration,
     val configuration: (Extension, FeatureConfiguration, Project, FormaConfiguration) -> Unit
 ) {
     fun applyConfiguration(project: Project) = configuration(

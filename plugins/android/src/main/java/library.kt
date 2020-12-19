@@ -14,11 +14,14 @@ import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 /**
  * Can't depend on api\impl
  */
 fun Project.library(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     dependencies: FormaDependency = emptyDependency(),
     owner: Owner = NoOwner,
@@ -28,14 +31,14 @@ fun Project.library(
     validate(LibraryTarget)
 
     applyFeatures(
-        kotlinFeatureDefinition()
+        kotlinFeatureDefinition(configurationKey)
     )
 
     applyDependencies(
         validator = validator(UtilTarget, TestUtilTarget),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories,
-        configurationFeatures = kaptConfigurationFeature()
+        repositoriesConfiguration = Forma[configurationKey].repositories,
+        configurationFeatures = kaptConfigurationFeature(configurationKey)
     )
 }

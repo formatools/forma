@@ -21,8 +21,11 @@ import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 fun Project.impl(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
@@ -45,8 +48,8 @@ fun Project.impl(
         selfValidator = validator(ImplTarget)
     )
     applyFeatures(
-        androidLibraryFeatureDefinition(libraryFeatureConfiguration),
-        kotlinAndroidFeatureDefinition()
+        androidLibraryFeatureDefinition(configurationKey, libraryFeatureConfiguration),
+        kotlinAndroidFeatureDefinition(configurationKey)
     )
 
     applyDependencies(
@@ -64,8 +67,8 @@ fun Project.impl(
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories,
-        configurationFeatures = kaptConfigurationFeature()
+        repositoriesConfiguration = Forma[configurationKey].repositories,
+        configurationFeatures = kaptConfigurationFeature(configurationKey)
     )
 }
 

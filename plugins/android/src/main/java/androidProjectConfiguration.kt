@@ -6,8 +6,10 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.tasks.Delete
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
-fun Project.androidProjectConfiguration(
+fun Project.androidProjectDefaultConfiguration(
     minSdk: Int,
     targetSdk: Int,
     compileSdk: Int,
@@ -42,7 +44,54 @@ fun Project.androidProjectConfiguration(
         mandatoryOwners = mandatoryOwners
     )
 
-    Forma.store(configuration)
+    Forma.defaultConfiguration = configuration
+
+}
+
+/**
+ * Add configuration with specific [FormaConfigurationKey].
+ * If configuration argument is null value set in [androidProjectDefaultConfiguration] will be taken.
+ * Also [repositories] will be added to repositories setted in [androidProjectDefaultConfiguration]
+ */
+fun androidProjectConfiguration(
+    configurationKey: FormaConfigurationKey,
+    minSdk: Int? = null,
+    targetSdk: Int? = null,
+    compileSdk: Int? = null,
+    kotlinVersion: String? = null,
+    agpVersion: String? = null,
+    versionCode: Int? = null,
+    versionName: String? = null,
+    repositories: (RepositoryHandler.() -> Unit)? = null,
+    dataBinding: Boolean? = null,
+    javaVersionCompatibility: JavaVersion? = null, // Java/Kotlin configuration
+    mandatoryOwners: Boolean? = null
+) {
+    // TODO: should not happens because DefaultConfigurationKey is internal
+    require(configurationKey != DefaultConfigurationKey)
+
+    val defaultConfiguration = Forma.defaultConfiguration
+
+    val combinedRepositories: RepositoryHandler.() -> Unit = {
+        defaultConfiguration.repositories(this)
+        repositories?.let { it(this) }
+    }
+
+    val configuration = defaultConfiguration.copy(
+        minSdk = minSdk ?: defaultConfiguration.minSdk,
+        targetSdk = targetSdk ?: defaultConfiguration.targetSdk,
+        compileSdk = compileSdk ?: defaultConfiguration.compileSdk,
+        kotlinVersion = kotlinVersion ?: defaultConfiguration.kotlinVersion,
+        agpVersion = agpVersion ?: defaultConfiguration.agpVersion,
+        versionCode = versionCode ?: defaultConfiguration.versionCode,
+        versionName = versionName ?: defaultConfiguration.versionName,
+        repositories = combinedRepositories,
+        dataBinding = dataBinding ?: defaultConfiguration.dataBinding,
+        javaVersionCompatibility = javaVersionCompatibility ?: defaultConfiguration.javaVersionCompatibility,
+        mandatoryOwners = mandatoryOwners ?: defaultConfiguration.mandatoryOwners
+    )
+
+    Forma[configurationKey] = configuration
 
 }
 
@@ -51,10 +100,21 @@ fun Project.androidProjectConfiguration(
  */
 object Forma {
 
-    private lateinit var _configuration: FormaConfiguration
-    val configuration: FormaConfiguration get() = _configuration
+    private val configurations = mutableMapOf<Any, FormaConfiguration>()
 
-    fun store(configuration: FormaConfiguration) {
-        _configuration = configuration
+    var defaultConfiguration: FormaConfiguration
+        get() = configurations[DefaultConfigurationKey]
+            ?: error("Trying to access to any project configuration, but there is no one configuration")
+        set(value) {
+            require(configurations[DefaultConfigurationKey] == null) { "You already have set default configuration. You must do it once." }
+            configurations[DefaultConfigurationKey] = value
+        }
+
+    operator fun get(configurationKey: FormaConfigurationKey = DefaultConfigurationKey) = configurations[configurationKey]
+        ?: error("Trying to access to project configuration with key $configurationKey, but it was not initialize")
+
+    operator fun set(configurationKey: FormaConfigurationKey = DefaultConfigurationKey, configuration: FormaConfiguration) {
+        configurations[configurationKey] = configuration
     }
+
 }

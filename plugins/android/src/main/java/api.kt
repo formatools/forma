@@ -10,8 +10,11 @@ import tools.forma.android.validation.disallowResources
 import org.gradle.api.Project
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
+import tools.forma.android.config.FormaConfigurationKey
+import tools.forma.android.config.DefaultConfigurationKey
 
 fun Project.api(
+    configurationKey: FormaConfigurationKey = DefaultConfigurationKey,
     packageName: String,
     owner: Owner = NoOwner,
     dependencies: FormaDependency = emptyDependency()
@@ -21,12 +24,12 @@ fun Project.api(
 
     validate(ApiTarget)
     applyFeatures(
-        kotlinFeatureDefinition()
+        kotlinFeatureDefinition(configurationKey)
     )
     applyDependencies(
         validator = validator(ApiTarget, LibraryTarget),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma[configurationKey].repositories
     )
 }
 
