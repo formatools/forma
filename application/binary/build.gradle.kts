@@ -21,6 +21,7 @@ androidBinary(
 
         project(":common:extensions:android-util"),
         project(":common:progressbar:databinding"),
+        project(":common:util-native"),
         project(":core:mvvm:library"),
         project(":core:di:library")
     )

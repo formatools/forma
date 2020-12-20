@@ -64,6 +64,7 @@ class SampleApp : SplitCompatApplication(),
 
     override fun onCreate() {
         super.onCreate()
+        AppStartup.init(this)
         initTimber()
         initRootDependencyInjection()
         initRandomNightMode()
