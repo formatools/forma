@@ -5,9 +5,8 @@ plugins {
 }
 
 subprojects {
-    extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20"
+    extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
     extra["agp_dep"] = "com.android.tools.build:gradle:4.1.1"
-    extra["either_dep"] = "org.funktionale:funktionale-either:1.2"
 
     repositories {
         google()

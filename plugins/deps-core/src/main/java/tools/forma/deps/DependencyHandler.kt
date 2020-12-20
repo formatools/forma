@@ -1,7 +1,6 @@
 package tools.forma.deps
 
 import org.gradle.api.Action
-import org.gradle.api.Project
 import org.gradle.api.artifacts.ConfigurablePublishArtifact
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.DependencyConstraint
