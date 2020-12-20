@@ -1,6 +1,5 @@
 package tools.forma.deps
 
-import org.funktionale.either.Either
 import org.gradle.api.Project
 
 /**
@@ -16,12 +15,14 @@ object AnnotationProcessor : ConfigurationType("annotationProcessor")
 object Kapt : ConfigurationType("kapt")
 class Custom(name: String) : ConfigurationType(name)
 
-data class ProjectSpec(val project: Project, val config: ConfigurationType)
+sealed class DepSpec(val config: ConfigurationType)
 
-data class NameSpec(
+class ProjectSpec(val project: Project, config: ConfigurationType) : DepSpec(config)
+
+class NameSpec(
     val name: String,
-    val config: ConfigurationType,
+    config: ConfigurationType,
     val transitive: Boolean = false
-)
+) : DepSpec(config)
 
-typealias DepType = List<Either<NameSpec, ProjectSpec>>
+typealias DepType = List<DepSpec>

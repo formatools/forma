@@ -6,11 +6,9 @@ plugins {
 
 val agp_dep: String by extra
 val kotlin_dep: String by extra
-val either_dep: String by extra
 
 dependencies {
     implementation(agp_dep)
     implementation(kotlin_dep)
-    implementation(either_dep)
     implementation(project(":plugins:validation"))
 }

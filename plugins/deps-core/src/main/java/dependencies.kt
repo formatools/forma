@@ -13,10 +13,10 @@ import tools.forma.deps.ProjectDependency
 import tools.forma.deps.NamedDependency
 
 val DepType.names: List<NameSpec>
-    get(): List<NameSpec> = this.filter { it.isLeft() }.map { it.left().get() }
+    get(): List<NameSpec> = this.filterIsInstance<NameSpec>()
 
 val DepType.projects: List<ProjectSpec>
-    get(): List<ProjectSpec> = this.filter { it.isRight() }.map { it.right().get() }
+    get(): List<ProjectSpec> = this.filterIsInstance<ProjectSpec>()
 
 infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency = MixedDependency(
     this.dependency.names + dep.dependency.names,
@@ -35,15 +35,15 @@ fun FormaDependency.forEach(
     nameAction: (NameSpec) -> Unit = {},
     projectAction: (ProjectSpec) -> Unit = {}
 ) {
-    dependency.forEach {
-        it.right().forEach(projectAction)
-        it.left().forEach(nameAction)
+    with(dependency) {
+        names.forEach(nameAction)
+        projects.forEach(projectAction)
     }
 }
 
 internal fun FormaDependency.hasConfigType(configType: ConfigurationType): Boolean {
-    dependency.forEach { (nameSpec, _) ->
-        if (nameSpec?.config == configType) return true
+    dependency.forEach { spec ->
+        if (spec.config == configType) return true
     }
     return false
 }
