@@ -14,7 +14,12 @@ data class ProjectDependency(
     val targets: List<TargetSpec> = emptyList()
 ) : FormaDependency(targets)
 
+data class FileDependency(
+    val files: List<FileSpec> = emptyList()
+) : FormaDependency(files)
+
 data class MixedDependency(
     val names: List<NameSpec> = emptyList(),
-    val targets: List<TargetSpec> = emptyList()
-) : FormaDependency(targets + names)
+    val targets: List<TargetSpec> = emptyList(),
+    val files: List<FileSpec> = emptyList()
+) : FormaDependency(targets + names + files)

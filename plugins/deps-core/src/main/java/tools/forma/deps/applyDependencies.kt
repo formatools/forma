@@ -26,15 +26,18 @@ fun Project.applyDependencies(
                 configurationFeatures[it.config]?.invoke()
                 addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
             },
-            projectAction
+            projectAction,
+            { add(it.config.name, files(it.file)) }
         )
         testDependencies.forEach(
             { addDependencyTo("testImplementation", it.name) { isTransitive = it.transitive } },
-            { add("testImplementation", it.target.project) }
+            { add("testImplementation", it.target.project) },
+            { add("testImplementation", files(it.file)) }
         )
         androidTestDependencies.forEach(
             { addDependencyTo("androidTestImplementation", it.name) { isTransitive = it.transitive } },
-            { add("androidTestImplementation", it.target.project) }
+            { add("androidTestImplementation", it.target.project) },
+            { add("androidTestImplementation", files(it.file)) }
         )
     }
 }
