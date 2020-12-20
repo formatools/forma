@@ -2,7 +2,7 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.LibraryTarget
+import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.android.utils.BuildConfiguration
@@ -31,7 +31,7 @@ fun Project.androidLibrary(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    validate(LibraryTarget)
+    target.validate(LibraryTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,

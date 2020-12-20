@@ -1,26 +1,26 @@
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
-import tools.forma.validation.validate
 import tools.forma.validation.validator
 import org.gradle.api.Project
 import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.applyFeatures
-import tools.forma.android.target.AndroidUtilTarget
-import tools.forma.android.target.ApiTarget
-import tools.forma.android.target.DataBindingAdapterTarget
-import tools.forma.android.target.DataBindingTarget
-import tools.forma.android.target.ImplTarget
-import tools.forma.android.target.LibraryTarget
-import tools.forma.android.target.ResourcesTarget
-import tools.forma.android.target.TestUtilTarget
-import tools.forma.android.target.UtilTarget
-import tools.forma.android.target.WidgetTarget
+import tools.forma.android.target.AndroidUtilTargetTemplate
+import tools.forma.android.target.ApiTargetTemplate
+import tools.forma.android.target.DataBindingAdapterTargetTemplate
+import tools.forma.android.target.DataBindingTargetTemplate
+import tools.forma.android.target.ImplTargetTemplate
+import tools.forma.android.target.LibraryTargetTemplate
+import tools.forma.android.target.ResourcesTargetTemplate
+import tools.forma.android.target.TestUtilTargetTemplate
+import tools.forma.android.target.UtilTargetTemplate
+import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.deps.applyDependencies
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
+import tools.forma.validation.validate
 
 fun Project.impl(
     packageName: String,
@@ -35,14 +35,14 @@ fun Project.impl(
 
     disallowResources()
 
-    validate(ImplTarget)
+    target.validate(ImplTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        selfValidator = validator(ImplTarget)
+        selfValidator = validator(ImplTargetTemplate)
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
@@ -51,15 +51,15 @@ fun Project.impl(
 
     applyDependencies(
         validator = validator(
-            ApiTarget,
-            AndroidUtilTarget,
-            TestUtilTarget,
-            UtilTarget,
-            LibraryTarget,
-            DataBindingAdapterTarget,
-            DataBindingTarget,
-            ResourcesTarget,
-            WidgetTarget //TODO: do we need widget targets here?
+            ApiTargetTemplate,
+            AndroidUtilTargetTemplate,
+            TestUtilTargetTemplate,
+            UtilTargetTemplate,
+            LibraryTargetTemplate,
+            DataBindingAdapterTargetTemplate,
+            DataBindingTargetTemplate,
+            ResourcesTargetTemplate,
+            WidgetTargetTemplate //TODO: do we need widget targets here?
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,

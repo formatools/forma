@@ -2,8 +2,8 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.ResourcesTarget
-import tools.forma.android.target.WidgetTarget
+import tools.forma.android.target.ResourcesTargetTemplate
+import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.validation.validate
@@ -26,7 +26,7 @@ fun Project.androidRes(
 
     onlyAllowResources()
 
-    validate(ResourcesTarget)
+    target.validate(ResourcesTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         manifestPlaceholders = manifestPlaceholders
@@ -38,8 +38,8 @@ fun Project.androidRes(
 
     applyDependencies(
         validator = validator(
-            ResourcesTarget,
-            WidgetTarget
+            ResourcesTargetTemplate,
+            WidgetTargetTemplate
         ),
         dependencies = dependencies,
         repositoriesConfiguration = Forma.configuration.repositories

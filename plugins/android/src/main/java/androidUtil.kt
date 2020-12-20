@@ -2,9 +2,9 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidUtilTarget
-import tools.forma.android.target.ResourcesTarget
-import tools.forma.android.target.TestUtilTarget
+import tools.forma.android.target.AndroidUtilTargetTemplate
+import tools.forma.android.target.ResourcesTargetTemplate
+import tools.forma.android.target.TestUtilTargetTemplate
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.validation.validate
@@ -44,7 +44,7 @@ fun Project.androidUtil(
     disallowResources()
 
     //TODO unify with util, use androidJar dependency
-    validate(AndroidUtilTarget)
+    target.validate(AndroidUtilTargetTemplate)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
         packageName
@@ -57,9 +57,9 @@ fun Project.androidUtil(
 
     applyDependencies(
         validator = validator(
-            AndroidUtilTarget,
-            TestUtilTarget,
-            ResourcesTarget
+            AndroidUtilTargetTemplate,
+            TestUtilTargetTemplate,
+            ResourcesTargetTemplate
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,

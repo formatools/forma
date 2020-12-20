@@ -11,4 +11,5 @@ dependencies {
     implementation(agp_dep)
     implementation(kotlin_dep)
     implementation(project(":plugins:validation"))
+    implementation(project(":plugins:target"))
 }

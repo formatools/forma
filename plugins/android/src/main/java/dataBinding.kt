@@ -3,14 +3,13 @@ import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.feature.kotlinKaptFeatureDefinition
-import tools.forma.android.target.AndroidUtilTarget
-import tools.forma.android.target.ApiTarget
-import tools.forma.android.target.ResourcesTarget
-import tools.forma.android.target.LibraryTarget
-import tools.forma.android.target.DataBindingAdapterTarget
-import tools.forma.android.target.DataBindingTarget
-import tools.forma.android.target.WidgetTarget
-import tools.forma.validation.validate
+import tools.forma.android.target.AndroidUtilTargetTemplate
+import tools.forma.android.target.ApiTargetTemplate
+import tools.forma.android.target.ResourcesTargetTemplate
+import tools.forma.android.target.LibraryTargetTemplate
+import tools.forma.android.target.DataBindingAdapterTargetTemplate
+import tools.forma.android.target.DataBindingTargetTemplate
+import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.validation.validator
 import tools.forma.android.validation.onlyAllowLayouts
 import tools.forma.android.owner.Owner
@@ -21,6 +20,7 @@ import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
+import tools.forma.validation.validate
 
 /**
  * Android Data Binding Target - Data Binding layouts collection
@@ -44,7 +44,7 @@ fun Project.dataBinding(
 
     onlyAllowLayouts()
 
-    validate(DataBindingTarget)
+    target.validate(DataBindingTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         consumerMinificationFiles = consumerMinificationFiles,
@@ -57,12 +57,12 @@ fun Project.dataBinding(
     )
     applyDependencies(
         validator = validator(
-            ApiTarget,
-            WidgetTarget,
-            AndroidUtilTarget,
-            DataBindingAdapterTarget,
-            ResourcesTarget,
-            LibraryTarget
+            ApiTargetTemplate,
+            WidgetTargetTemplate,
+            AndroidUtilTargetTemplate,
+            DataBindingAdapterTargetTemplate,
+            ResourcesTargetTemplate,
+            LibraryTargetTemplate
         ),
         dependencies = dependencies,
         repositoriesConfiguration = Forma.configuration.repositories
@@ -91,7 +91,7 @@ fun Project.dataBindingAdapters(
 
     disallowResources()
 
-    validate(DataBindingAdapterTarget)
+    target.validate(DataBindingAdapterTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         consumerMinificationFiles = consumerMinificationFiles,
@@ -104,9 +104,9 @@ fun Project.dataBindingAdapters(
     )
     applyDependencies(
         validator = validator(
-            WidgetTarget,
-            AndroidUtilTarget,
-            ResourcesTarget
+            WidgetTargetTemplate,
+            AndroidUtilTargetTemplate,
+            ResourcesTargetTemplate
         ),
         dependencies = dependencies,
         repositoriesConfiguration = Forma.configuration.repositories

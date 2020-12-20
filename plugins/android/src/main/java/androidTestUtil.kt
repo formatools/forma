@@ -2,8 +2,8 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidTestUtilTarget
-import tools.forma.android.target.TestUtilTarget
+import tools.forma.android.target.AndroidTestUtilTargetTemplate
+import tools.forma.android.target.TestUtilTargetTemplate
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.validation.validate
@@ -20,7 +20,7 @@ fun Project.androidTestUtil(
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency()
 ) {
-    validate(AndroidTestUtilTarget)
+    target.validate(AndroidTestUtilTargetTemplate)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
         packageName
@@ -31,7 +31,7 @@ fun Project.androidTestUtil(
     )
 
     applyDependencies(
-        validator = validator(AndroidTestUtilTarget, TestUtilTarget),
+        validator = validator(AndroidTestUtilTargetTemplate, TestUtilTargetTemplate),
         dependencies = dependencies,
         repositoriesConfiguration = Forma.configuration.repositories
     )

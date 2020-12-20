@@ -2,33 +2,34 @@ package tools.forma.validation
 
 import tools.forma.validation.error.ProjectValidationError
 import tools.forma.target.FormaTarget
+import tools.forma.target.TargetTemplate
 import org.gradle.api.Project
 
 interface Validator {
-    fun validate(project: Project)
+    fun validate(target: FormaTarget)
 }
 
 object EmptyValidator : Validator {
-    override fun validate(project: Project) = Unit
+    override fun validate(target: FormaTarget) = Unit
 }
 
-fun FormaTarget.validate(name: String): Boolean {
+fun TargetTemplate.validate(name: String): Boolean {
     return name == suffix || name.endsWith("-$suffix")
 }
 
-fun Project.validate(target: FormaTarget) {
+fun FormaTarget.validate(target: TargetTemplate) {
     validator(target).validate(this)
 }
 
-fun validator(vararg targets: FormaTarget): Validator = object : Validator {
-    override fun validate(project: Project) {
-        validateName(project.name, *targets)
+fun validator(vararg targets: TargetTemplate): Validator = object : Validator {
+    override fun validate(target: FormaTarget) {
+        validateName(target.name, *targets)
     }
 }
 
 fun validateName(
     name: String,
-    vararg targets: FormaTarget
+    vararg targets: TargetTemplate
 ) {
     //Name should match with at least one targetName
     if (targets.map { it.validate(name) }.contains(true).not()) {
@@ -38,7 +39,7 @@ fun validateName(
 
 fun throwProjectValidationError(
     name: String,
-    targets: List<FormaTarget>
+    targets: List<TargetTemplate>
 ) {
     throw ProjectValidationError(
         """
@@ -50,7 +51,7 @@ fun throwProjectValidationError(
 
 fun throwProjectDepsValidationError(
     project: Project,
-    vararg allowedTargets: FormaTarget
+    vararg allowedTargets: TargetTemplate
 ) {
     throw ProjectValidationError(
         """
