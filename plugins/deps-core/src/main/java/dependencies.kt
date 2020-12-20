@@ -11,7 +11,7 @@ import tools.forma.deps.FormaDependency
 import tools.forma.deps.FileDependency
 import tools.forma.deps.MixedDependency
 import tools.forma.deps.EmptyDependency
-import tools.forma.deps.ProjectDependency
+import tools.forma.deps.TargetDependency
 import tools.forma.deps.NamedDependency
 import tools.forma.target.FormaTarget
 import java.io.File
@@ -35,7 +35,7 @@ inline fun <reified T : FormaDependency> emptyDependency(): T = when {
     T::class == FormaDependency::class -> EmptyDependency as T
     T::class == NamedDependency::class -> NamedDependency() as T
     T::class == FileDependency::class -> FileDependency() as T
-    T::class == ProjectDependency::class -> ProjectDependency() as T
+    T::class == TargetDependency::class -> TargetDependency() as T
     T::class == MixedDependency::class -> MixedDependency() as T
     else -> throw IllegalArgumentException("Illegal Empty dependency, expected ${T::class.simpleName}")
 }
@@ -66,8 +66,14 @@ fun deps(vararg names: String): NamedDependency = transitiveDeps(names = *names,
 fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
     NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
 
-fun deps(vararg projects: Project): ProjectDependency =
-    ProjectDependency(projects.toList().map { TargetSpec(it.target, Implementation) })
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Deprecated in favor of targets version of this function:\n" +
+        "deps(target(\":name\"))")
+fun deps(vararg projects: Project): TargetDependency =
+    TargetDependency(projects.toList().map { TargetSpec(it.target, Implementation) })
+
+fun deps(vararg targets: FormaTarget): TargetDependency =
+    TargetDependency(targets.toList().map { TargetSpec(it, Implementation) })
 
 fun deps(vararg files: File): FileDependency =
     FileDependency(files.toList().map { FileSpec(it, Implementation) })
@@ -75,8 +81,8 @@ fun deps(vararg files: File): FileDependency =
 fun deps(vararg dependencies: NamedDependency): NamedDependency =
     dependencies.flatMap { it.names }.let(::NamedDependency)
 
-fun deps(vararg dependencies: ProjectDependency): ProjectDependency =
-    dependencies.flatMap { it.targets }.let(::ProjectDependency)
+fun deps(vararg dependencies: TargetDependency): TargetDependency =
+    dependencies.flatMap { it.targets }.let(::TargetDependency)
 
 fun kapt(vararg names: String): NamedDependency =
     NamedDependency(names.toList().map { NameSpec(it, Kapt, true) })
@@ -86,4 +92,6 @@ val String.dep: NamedDependency get() = deps(this)
 val String.kapt: NamedDependency get() = kapt(this)
 
 val Project.target: FormaTarget get() = FormaTarget(this)
+
+fun Project.target(name: String) : FormaTarget = FormaTarget(project(name))
 

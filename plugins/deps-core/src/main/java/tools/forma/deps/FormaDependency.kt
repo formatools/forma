@@ -10,7 +10,7 @@ class NamedDependency(
     val names: List<NameSpec> = emptyList()
 ) : FormaDependency(names)
 
-data class ProjectDependency(
+data class TargetDependency(
     val targets: List<TargetSpec> = emptyList()
 ) : FormaDependency(targets)
 
