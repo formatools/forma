@@ -37,7 +37,6 @@ fun androidNativeDefinition(
 
             defaultConfig.applyFrom(configuration.abi)
 
-            @Suppress("REDUNDANT_ELSE_IN_WHEN")
             when (buildSystem) {
                 is CMake -> {
                     externalNativeBuild.applyFrom(buildSystem)
@@ -47,7 +46,6 @@ fun androidNativeDefinition(
                     externalNativeBuild.applyFrom(buildSystem)
                     defaultConfig.externalNativeBuild.applyFrom(buildSystem)
                 }
-                else -> throw IllegalStateException("")
             }
 
             compileOptions.applyFrom(formaConfiguration)

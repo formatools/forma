@@ -17,13 +17,13 @@ import tools.forma.target.FormaTarget
 import java.io.File
 
 val DepType.names: List<NameSpec>
-    get(): List<NameSpec> = filterIsInstance(NameSpec::class.java)
+    get(): List<NameSpec> = filterIsInstance<NameSpec>()
 
 val DepType.targets: List<TargetSpec>
-    get(): List<TargetSpec> = filterIsInstance(TargetSpec::class.java)
+    get(): List<TargetSpec> = filterIsInstance<TargetSpec>()
 
 val DepType.files: List<FileSpec>
-    get(): List<FileSpec> = filterIsInstance(FileSpec::class.java)
+    get(): List<FileSpec> = filterIsInstance<FileSpec>()
 
 infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency = MixedDependency(
     dependency.names + dep.dependency.names,
