@@ -17,24 +17,27 @@ fun Project.applyDependencies(
 ) {
     repositoriesConfiguration(repositories)
     dependencies {
-        val projectAction: (ProjectSpec) -> Unit = {
-            validator.validate(it.project)
-            add(it.config.name, it.project)
+        val projectAction: (TargetSpec) -> Unit = {
+            validator.validate(it.target)
+            add(it.config.name, it.target.project)
         }
         dependencies.forEach(
             {
                 configurationFeatures[it.config]?.invoke()
                 addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
             },
-            projectAction
+            projectAction,
+            { add(it.config.name, files(it.file)) }
         )
         testDependencies.forEach(
             { addDependencyTo("testImplementation", it.name) { isTransitive = it.transitive } },
-            { add("testImplementation", it.project) }
+            { add("testImplementation", it.target.project) },
+            { add("testImplementation", files(it.file)) }
         )
         androidTestDependencies.forEach(
             { addDependencyTo("androidTestImplementation", it.name) { isTransitive = it.transitive } },
-            { add("androidTestImplementation", it.project) }
+            { add("androidTestImplementation", it.target.project) },
+            { add("androidTestImplementation", files(it.file)) }
         )
     }
 }

@@ -1,5 +1,7 @@
 package tools.forma.target
 
-interface FormaTarget {
-    val suffix: String
+import org.gradle.api.Project
+
+class FormaTarget(val project: Project) {
+    val name: String = project.name
 }

@@ -10,11 +10,16 @@ class NamedDependency(
     val names: List<NameSpec> = emptyList()
 ) : FormaDependency(names)
 
-data class ProjectDependency(
-    val projects: List<ProjectSpec> = emptyList()
-) : FormaDependency(projects)
+data class TargetDependency(
+    val targets: List<TargetSpec> = emptyList()
+) : FormaDependency(targets)
+
+data class FileDependency(
+    val files: List<FileSpec> = emptyList()
+) : FormaDependency(files)
 
 data class MixedDependency(
     val names: List<NameSpec> = emptyList(),
-    val projects: List<ProjectSpec> = emptyList()
-) : FormaDependency(projects + names)
+    val targets: List<TargetSpec> = emptyList(),
+    val files: List<FileSpec> = emptyList()
+) : FormaDependency(targets + names + files)

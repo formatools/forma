@@ -1,6 +1,7 @@
 package tools.forma.deps
 
-import org.gradle.api.Project
+import tools.forma.target.FormaTarget
+import java.io.File
 
 /**
  * Dependency wrapper
@@ -17,7 +18,15 @@ class Custom(name: String) : ConfigurationType(name)
 
 sealed class DepSpec(val config: ConfigurationType)
 
-class ProjectSpec(val project: Project, config: ConfigurationType) : DepSpec(config)
+class TargetSpec(
+    val target: FormaTarget,
+    config: ConfigurationType
+) : DepSpec(config)
+
+class FileSpec(
+    val file: File,
+    config: ConfigurationType
+) : DepSpec(config)
 
 class NameSpec(
     val name: String,

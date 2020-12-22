@@ -18,6 +18,7 @@ include(":feature:home:databinding")
 include(":root-res")
 include(":core:theme:res")
 include(":common:placeholder:res")
+include(":common:util-native")
 include(
     ":binary",
 

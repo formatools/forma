@@ -1,7 +1,7 @@
 import tools.forma.android.feature.AndroidBinaryFeatureConfiguration
 import tools.forma.android.feature.androidBinaryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
-import tools.forma.android.target.BinaryTarget
+import tools.forma.android.target.BinaryTargetTemplate
 import tools.forma.android.owner.Owner
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.validation.EmptyValidator
@@ -39,7 +39,7 @@ fun Project.androidBinary(
 
     disallowResources()
 
-    validate(BinaryTarget)
+    target.validate(BinaryTargetTemplate)
 
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,

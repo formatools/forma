@@ -2,7 +2,7 @@
 package tools.forma.android.feature
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import tools.forma.android.target.BinaryTarget
+import tools.forma.android.target.BinaryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
@@ -14,7 +14,7 @@ data class AndroidBinaryFeatureConfiguration(
     val testInstrumentationRunnerClass: String,
     val consumerMinificationFiles: Set<String>,
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
-    val selfValidator: Validator = validator(BinaryTarget)
+    val selfValidator: Validator = validator(BinaryTargetTemplate)
 )
 
 fun androidBinaryFeatureDefinition(
