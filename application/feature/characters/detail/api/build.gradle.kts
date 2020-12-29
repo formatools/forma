@@ -1,4 +1,7 @@
 api(
     packageName = "com.stepango.blockme.character.detail.api",
-    owner = Teams.core
+    owner = Teams.core,
+    dependencies = deps(
+        target(":feature:characters:core:api")
+    )
 )
