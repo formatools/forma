@@ -23,10 +23,10 @@ import com.stepango.blockme.common.extensions.android.util.observe
 import com.stepango.blockme.core.di.library.BaseComponentProvider
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
-import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
+import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
 import com.stepango.blockme.feature.characters.favorite.impl.R
 import com.stepango.blockme.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
-import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteAdapter
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteTouchHelper
 import com.stepango.blockme.feature.favorite.databinding.databinding.FragmentCharacterFavoriteListBinding
@@ -65,7 +65,7 @@ class CharacterFavoriteFragment :
         }
     }
 
-    private fun onViewDataChange(viewData: List<ICharacterFavorite>) {
+    private fun onViewDataChange(viewData: List<ICharacter>) {
         viewAdapter.submitList(viewData)
     }
 }

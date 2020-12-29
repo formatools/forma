@@ -21,6 +21,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 val MIGRATION_1_2: Migration = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        // Implement first migration
+        database.execSQL("ALTER TABLE character_favorite ADD COLUMN description STRING")
     }
 }

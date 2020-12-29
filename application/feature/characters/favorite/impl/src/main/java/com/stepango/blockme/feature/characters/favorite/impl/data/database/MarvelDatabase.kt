@@ -23,7 +23,7 @@ import com.stepango.blockme.feature.characters.favorite.impl.data.model.Characte
 @Database(
     entities = [CharacterFavorite::class],
     exportSchema = false,
-    version = 1
+    version = 2
 )
 abstract class MarvelDatabase : RoomDatabase() {
 

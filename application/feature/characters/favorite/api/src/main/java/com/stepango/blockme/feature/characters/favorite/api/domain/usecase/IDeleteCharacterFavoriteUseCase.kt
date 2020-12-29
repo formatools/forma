@@ -1,8 +1,8 @@
 package com.stepango.blockme.feature.characters.favorite.api.domain.usecase
 
-import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 
 interface IDeleteCharacterFavoriteUseCase {
 
-    suspend operator fun invoke(character: ICharacterFavorite)
+    suspend operator fun invoke(character: ICharacter)
 }

@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class SetCharacterFavoriteUseCase @Inject constructor(private val repository: ICharacterFavoriteRepository) : ISetCharacterFavoriteUseCase {
 
-    override suspend operator fun invoke(id: Long, name: String, imageUrl: String) {
-        repository.insertCharacterFavorite(id, name, imageUrl)
+    override suspend operator fun invoke(id: Long, name: String, description: String, imageUrl: String) {
+        repository.insertCharacterFavorite(id, name, description, imageUrl)
     }
 }

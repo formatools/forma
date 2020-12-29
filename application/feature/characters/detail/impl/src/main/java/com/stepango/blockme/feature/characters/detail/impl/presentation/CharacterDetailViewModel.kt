@@ -65,9 +65,10 @@ class CharacterDetailViewModel @Inject constructor(
         _data.value?.let {
             viewModelScope.launch {
                 setCharacterFavoriteUseCase(
-                        id = it.id,
-                        name = it.name,
-                        imageUrl = it.imageUrl
+                    id = it.id,
+                    name = it.name,
+                    description = it.description,
+                    imageUrl = it.imageUrl
                 )
                 _state.postValue(CharacterDetailViewState.AddedToFavorite)
             }

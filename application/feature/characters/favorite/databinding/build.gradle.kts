@@ -8,6 +8,7 @@ dataBinding(
         androidx.constraintlayout,
         androidx.navigation
     ) + deps(
+        project(":feature:characters:core:api"),
         project(":feature:characters:favorite:api"),
         project(":feature:characters:favorite:res"),
 

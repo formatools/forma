@@ -19,11 +19,12 @@ package com.stepango.blockme.feature.characters.favorite.impl.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 
 @Entity(tableName = "character_favorite")
 data class CharacterFavorite(
     @PrimaryKey override val id: Long,
     @ColumnInfo(name = "name") override val name: String,
+    @ColumnInfo(name = "description") override val description: String,
     @ColumnInfo(name = "imageUrl") override val imageUrl: String
-) : ICharacterFavorite
+) : ICharacter

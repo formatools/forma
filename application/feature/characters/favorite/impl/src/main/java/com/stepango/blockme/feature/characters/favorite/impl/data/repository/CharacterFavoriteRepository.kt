@@ -16,7 +16,7 @@
 
 package com.stepango.blockme.feature.characters.favorite.impl.data.repository
 
-import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
 import com.stepango.blockme.feature.characters.favorite.impl.data.database.CharacterFavoriteDao
 import com.stepango.blockme.feature.characters.favorite.impl.data.model.CharacterFavorite
@@ -26,10 +26,10 @@ class CharacterFavoriteRepository @Inject constructor(
     private val characterFavoriteDao: CharacterFavoriteDao
 ) : ICharacterFavoriteRepository {
 
-    override suspend fun getAllCharactersFavorite(): List<ICharacterFavorite> =
+    override suspend fun getAllCharactersFavorite(): List<ICharacter> =
         characterFavoriteDao.getAllCharactersFavorite()
 
-    override suspend fun getCharacterFavorite(characterFavoriteId: Long): ICharacterFavorite? =
+    override suspend fun getCharacterFavorite(characterFavoriteId: Long): ICharacter? =
         characterFavoriteDao.getCharacterFavorite(characterFavoriteId)
 
     override suspend fun deleteAllCharactersFavorite() =
@@ -38,16 +38,22 @@ class CharacterFavoriteRepository @Inject constructor(
     override suspend fun deleteCharacterFavoriteById(characterFavoriteId: Long) =
         characterFavoriteDao.deleteCharacterFavoriteById(characterFavoriteId)
 
-    override suspend fun deleteCharacterFavorite(character: ICharacterFavorite) =
+    override suspend fun deleteCharacterFavorite(character: ICharacter) =
         characterFavoriteDao.deleteCharacterFavorite(character as CharacterFavorite)
 
-    override suspend fun insertCharactersFavorites(characters: List<ICharacterFavorite>) =
+    override suspend fun insertCharactersFavorites(characters: List<ICharacter>) =
         characterFavoriteDao.insertCharactersFavorites(characters as List<CharacterFavorite>)
 
-    override suspend fun insertCharacterFavorite(id: Long, name: String, imageUrl: String) {
+    override suspend fun insertCharacterFavorite(
+        id: Long,
+        name: String,
+        description: String,
+        imageUrl: String,
+    ) {
         val characterFavorite = CharacterFavorite(
             id = id,
             name = name,
+            description = description,
             imageUrl = imageUrl
         )
         characterFavoriteDao.insertCharacterFavorite(characterFavorite)
