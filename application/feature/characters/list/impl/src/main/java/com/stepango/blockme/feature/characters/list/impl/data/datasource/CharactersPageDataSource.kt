@@ -21,7 +21,7 @@ import androidx.paging.PageKeyedDataSource
 import com.stepango.blockme.core.network.library.NetworkState
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import com.stepango.blockme.feature.characters.list.impl.data.mapper.CharacterItemMapper
-import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -41,14 +41,14 @@ const val PAGE_MAX_ELEMENTS = 50
 open class CharacterPageDataSource @Inject constructor(
     private val repository: MarvelRepository,
     private val mapper: CharacterItemMapper
-) : PageKeyedDataSource<Int, ICharacterItem>() {
+) : PageKeyedDataSource<Int, ICharacter>() {
 
     val networkState = MutableLiveData<NetworkState>()
     private var retry: (() -> Unit)? = null
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, ICharacterItem>
+        callback: LoadInitialCallback<Int, ICharacter>
     ) {
         networkState.postValue(NetworkState.Loading())
         // TODO https://github.com/formatools/forma/issues/48
@@ -80,7 +80,7 @@ open class CharacterPageDataSource @Inject constructor(
      */
     override fun loadAfter(
         params: LoadParams<Int>,
-        callback: LoadCallback<Int, ICharacterItem>
+        callback: LoadCallback<Int, ICharacter>
     ) {
         networkState.postValue(NetworkState.Loading(true))
         // TODO https://github.com/formatools/forma/issues/48
@@ -112,7 +112,7 @@ open class CharacterPageDataSource @Inject constructor(
      */
     override fun loadBefore(
         params: LoadParams<Int>,
-        callback: LoadCallback<Int, ICharacterItem>
+        callback: LoadCallback<Int, ICharacter>
     ) {
         // Ignored, since we only ever append to our initial load
     }

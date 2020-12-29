@@ -19,7 +19,7 @@ package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 import android.view.LayoutInflater
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
 import com.stepango.blockme.feature.characters.list.databinding.databinding.ListItemCharacterBinding
-import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
 
 class CharacterViewHolder(
@@ -28,7 +28,7 @@ class CharacterViewHolder(
     binding = ListItemCharacterBinding.inflate(inflater)
 ) {
 
-    fun bind(viewModel: CharactersListViewModel, item: ICharacterItem) {
+    fun bind(viewModel: CharactersListViewModel, item: ICharacter) {
         binding.viewModel = viewModel
         binding.character = item
         binding.executePendingBindings()

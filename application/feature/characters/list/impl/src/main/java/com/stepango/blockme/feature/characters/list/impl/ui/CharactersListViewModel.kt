@@ -25,7 +25,7 @@ import com.stepango.blockme.core.mvvm.library.lifecycle.SingleLiveData
 import com.stepango.blockme.core.network.library.NetworkState
 import com.stepango.blockme.feature.characters.list.impl.data.datasource.CharactersPageDataSourceFactory
 import com.stepango.blockme.feature.characters.list.impl.data.datasource.PAGE_MAX_ELEMENTS
-import com.stepango.blockme.feature.characters.list.api.domain.model.ICharacterItem
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewEvent
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewModel
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
@@ -42,7 +42,7 @@ class CharactersListViewModel @Inject constructor(
     }
 
     override val event = SingleLiveData<ICharactersListViewEvent>()
-    override val data: LiveData<PagedList<ICharacterItem>> = LivePagedListBuilder(dataSourceFactory, PAGE_MAX_ELEMENTS).build()
+    override val data: LiveData<PagedList<ICharacter>> = LivePagedListBuilder(dataSourceFactory, PAGE_MAX_ELEMENTS).build()
     override val state: LiveData<ICharactersListViewState> = Transformations.map(networkState) {
         when (it) {
             is NetworkState.Success ->
