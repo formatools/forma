@@ -26,7 +26,8 @@ androidApp(
         project(":core:di:library"),
         project(":core:navigation:library"),
         project(":core:theme:android-util"),
-        project(":core:network:library")
+        project(":core:network:library"),
+        project(":common:util")
     ),
 
     testDependencies = deps(

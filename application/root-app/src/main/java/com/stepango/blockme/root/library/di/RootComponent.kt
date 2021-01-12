@@ -35,6 +35,7 @@ import dagger.Component
     ],
     modules = [
         ConfigModule::class,
+        ClockModule::class,
     ]
 )
 interface RootComponent {

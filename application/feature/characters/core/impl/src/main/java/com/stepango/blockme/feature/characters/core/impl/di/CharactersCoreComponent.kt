@@ -1,5 +1,6 @@
 package com.stepango.blockme.feature.characters.core.impl.di
 
+import com.stepango.blockme.common.util.clock.Clock
 import com.stepango.blockme.core.network.library.Config
 import com.stepango.blockme.core.network.library.di.NetworkModule
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
@@ -17,7 +18,6 @@ interface CharactersCoreComponent : CharactersCoreFeature {
     @Component.Factory
     interface Factory {
 
-        fun create(@BindsInstance config: Config): CharactersCoreComponent
+        fun create(@BindsInstance config: Config, @BindsInstance clock: Clock): CharactersCoreComponent
     }
-
 }
