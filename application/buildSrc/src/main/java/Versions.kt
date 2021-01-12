@@ -58,6 +58,7 @@ object versions {
         const val junit = "4.12"
         const val junit_ext = "1.1.1"
         const val hamcrest = "1.3"
+        const val mockk = "1.10.2"
     }
 
     object squareup {
