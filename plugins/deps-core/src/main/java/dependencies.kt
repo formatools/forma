@@ -63,8 +63,12 @@ internal fun FormaDependency.hasConfigType(configType: ConfigurationType): Boole
 
 fun deps(vararg names: String): NamedDependency = transitiveDeps(names = *names, transitive = false)
 
-fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
-    NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
+fun platform(vararg names: String): NamedDependency = transitiveDeps(names = *names, transitive = false, platform = true)
+
+fun transitivePlatform(vararg names: String): NamedDependency = transitiveDeps(names = *names, transitive = true, platform = true)
+
+fun transitiveDeps(vararg names: String, transitive: Boolean = true, platform: Boolean = false): NamedDependency =
+    NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive, platform) })
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated("Deprecated in favor of targets version of this function:\n" +

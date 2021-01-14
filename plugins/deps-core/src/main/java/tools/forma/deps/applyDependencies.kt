@@ -24,7 +24,11 @@ fun Project.applyDependencies(
         dependencies.forEach(
             {
                 configurationFeatures[it.config]?.invoke()
-                addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+                if (it.platform) {
+                    addDependencyTo(it.config.name, platform(it.name)) { isTransitive = it.transitive }
+                } else {
+                    addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+                }
             },
             projectAction,
             { add(it.config.name, files(it.file)) }

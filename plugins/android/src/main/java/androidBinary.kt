@@ -1,17 +1,16 @@
+import org.gradle.api.Project
 import tools.forma.android.feature.AndroidBinaryFeatureConfiguration
 import tools.forma.android.feature.androidBinaryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
-import tools.forma.android.target.BinaryTargetTemplate
-import tools.forma.android.owner.Owner
-import tools.forma.android.utils.BuildConfiguration
-import tools.forma.validation.EmptyValidator
-import tools.forma.validation.validate
 import tools.forma.android.owner.NoOwner
+import tools.forma.android.owner.Owner
+import tools.forma.android.target.BinaryTargetTemplate
+import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
 import tools.forma.deps.FormaDependency
-import org.gradle.api.Project
-
 import tools.forma.deps.applyDependencies
+import tools.forma.validation.EmptyValidator
+import tools.forma.validation.validate
 
 /**
  * Android Binary target - application entry point.
@@ -35,7 +34,7 @@ fun Project.androidBinary(
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
-) {
+): FormaBuilder {
 
     disallowResources()
 
@@ -57,5 +56,7 @@ fun Project.androidBinary(
         dependencies = dependencies,
         repositoriesConfiguration = Forma.configuration.repositories
     )
+
+    return FormaBuilder(this)
 }
 

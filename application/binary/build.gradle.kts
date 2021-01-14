@@ -25,4 +25,4 @@ androidBinary(
         target(":core:mvvm:library"),
         target(":core:di:library")
     )
-)
+).withPlugin(pluginWrappers.crashlytics())
