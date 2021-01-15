@@ -3,6 +3,11 @@ object test {
         "junit:junit:${versions.test.junit}".dep,
         "org.hamcrest:hamcrest-core:${versions.test.hamcrest}".dep
     )
+
+    private val mockk = deps(
+        transitiveDeps("io.mockk:mockk:${versions.test.mockk}")
+    )
+
     private val junit_ext = deps(
         "androidx.test.ext:junit:${versions.test.junit_ext}".dep
     )
@@ -12,7 +17,8 @@ object test {
     )
 
     val unit = deps(
-        junit
+        junit,
+        mockk
         // Place here other Unit-test deps
     )
 

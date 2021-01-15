@@ -14,7 +14,12 @@ impl(
 
         project(":common:extensions:util"),
         project(":common:extensions:android-util"),
-        project(":common:extensions:databinding-adapter")
+        project(":common:extensions:databinding-adapter"),
+        project(":common:util")
 
+    ),
+    testDependencies = deps(
+        test.unit,
+        kotlinx.coroutines_test
     )
 )

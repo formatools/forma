@@ -17,6 +17,7 @@
 package com.stepango.blockme.root.library
 
 import com.google.android.play.core.splitcompat.SplitCompatApplication
+import com.stepango.blockme.common.util.clock.Clock
 import com.stepango.blockme.core.di.library.BaseComponent
 import com.stepango.blockme.core.di.library.BaseComponentProvider
 import com.stepango.blockme.core.di.library.DaggerBaseComponent
@@ -62,6 +63,9 @@ class SampleApp : SplitCompatApplication(),
     @Inject
     lateinit var config: Config
 
+    @Inject
+    lateinit var clock: Clock
+
     override fun onCreate() {
         super.onCreate()
         AppStartup.init(this)
@@ -81,7 +85,7 @@ class SampleApp : SplitCompatApplication(),
             .build()
             .inject(this)
 
-        characterCoreComponent = DaggerCharactersCoreComponent.factory().create(config)
+        characterCoreComponent = DaggerCharactersCoreComponent.factory().create(config, clock)
         characterFavoriteComponent = DaggerCharacterFavoriteComponent.factory().create(baseComponent)
     }
 

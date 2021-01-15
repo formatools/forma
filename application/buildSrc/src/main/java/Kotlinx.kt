@@ -7,4 +7,9 @@ object kotlinx {
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.jetbrains.coroutines}".dep,
         coroutines_core
     )
+
+    val coroutines_test = deps(
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.jetbrains.coroutines}".dep,
+        kotlinx.coroutines_core
+    )
 }
