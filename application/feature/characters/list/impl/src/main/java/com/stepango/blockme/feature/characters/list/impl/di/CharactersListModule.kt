@@ -19,17 +19,14 @@ package com.stepango.blockme.feature.characters.list.impl.di
 import androidx.lifecycle.ViewModel
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
 import com.stepango.blockme.core.mvvm.library.di.ViewModelKey
+import com.stepango.blockme.feature.characters.core.api.data.mapper.ICharacterMapper
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import com.stepango.blockme.feature.characters.list.impl.data.datasource.CharacterPageDataSource
-import com.stepango.blockme.feature.characters.list.impl.data.mapper.CharacterItemMapper
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
-import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapter
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 
 @Module
 internal abstract class CharactersListModule {
@@ -45,14 +42,10 @@ internal abstract class CharactersListModule {
         @Provides
         fun providesCharactersPageDataSource(
             repository: MarvelRepository,
-            mapper: CharacterItemMapper
+            mapper: ICharacterMapper
         ) = CharacterPageDataSource(
             repository = repository,
             mapper = mapper
         )
-
-        @FeatureScope
-        @Provides
-        fun providesCharacterItemMapper() = CharacterItemMapper()
     }
 }

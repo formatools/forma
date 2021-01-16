@@ -19,9 +19,9 @@ package com.stepango.blockme.feature.characters.list.impl.data.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.stepango.blockme.core.network.library.NetworkState
-import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
-import com.stepango.blockme.feature.characters.list.impl.data.mapper.CharacterItemMapper
+import com.stepango.blockme.feature.characters.core.api.data.mapper.ICharacterMapper
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
+import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -40,7 +40,7 @@ const val PAGE_MAX_ELEMENTS = 50
 // Rewrite on clean version with separate Repository with local/remote datasource
 open class CharacterPageDataSource @Inject constructor(
     private val repository: MarvelRepository,
-    private val mapper: CharacterItemMapper
+    private val mapper: ICharacterMapper,
 ) : PageKeyedDataSource<Int, ICharacter>() {
 
     val networkState = MutableLiveData<NetworkState>()
