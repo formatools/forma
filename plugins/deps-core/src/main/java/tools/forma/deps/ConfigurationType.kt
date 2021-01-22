@@ -31,8 +31,13 @@ class FileSpec(
 class NameSpec(
     val name: String,
     config: ConfigurationType,
-    val transitive: Boolean = false,
-    val platform: Boolean = false
+    val transitive: Boolean = false
+) : DepSpec(config)
+
+class PlatformSpec(
+    val name: String,
+    config: ConfigurationType,
+    val transitive: Boolean = false
 ) : DepSpec(config)
 
 typealias DepType = List<DepSpec>

@@ -6,6 +6,10 @@ sealed class FormaDependency(
 
 object EmptyDependency : FormaDependency()
 
+class PlatformDependency(
+    val names: List<PlatformSpec> = emptyList()
+) : FormaDependency(names)
+
 class NamedDependency(
     val names: List<NameSpec> = emptyList()
 ) : FormaDependency(names)

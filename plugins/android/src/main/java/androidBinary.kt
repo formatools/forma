@@ -34,7 +34,7 @@ fun Project.androidBinary(
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
-): FormaBuilder {
+): TargetBuilder {
 
     disallowResources()
 
@@ -57,6 +57,6 @@ fun Project.androidBinary(
         repositoriesConfiguration = Forma.configuration.repositories
     )
 
-    return FormaBuilder(this)
+    return TargetBuilder(this)
 }
 

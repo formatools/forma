@@ -3,4 +3,4 @@ androidLibrary(
     dependencies = deps(
         androidx.navigation
     )
-).withPlugin(pluginWrappers.navigationSafeArgs)
+).withPlugin(Plugins.navigationSafeArgs)

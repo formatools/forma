@@ -1,37 +1,29 @@
 package tools.forma.android.plugin
 
-import tools.forma.deps.FormaDependency
+import Forma
 import emptyDependency
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
+import tools.forma.deps.FormaDependency
 import tools.forma.deps.applyDependencies
 import tools.forma.validation.EmptyValidator
-import Forma
-import kotlin.reflect.KClass
 
-open class PluginWrapper<TPluginExtension : Any>(
-        protected val pluginId: String,
-        protected val pluginExtension: KClass<TPluginExtension>? = null,
-        protected val dependencies: FormaDependency = emptyDependency(),
-        protected val pluginConfiguration: (TPluginExtension.() -> Unit)? = null
+class PluginWrapper<TPluginExtension : Any>(
+    private val pluginId: String,
+    private val dependencies: FormaDependency = emptyDependency(),
+    private val pluginConfiguration: PluginConfiguration<TPluginExtension>? = null
 ) {
-
-    init {
-        if (pluginConfiguration != null) {
-            require(pluginExtension != null) { "You must specify pluginExtension if you pass pluginConfiguration" }
-        }
-    }
 
     operator fun invoke(project: Project) {
         project.apply(plugin = pluginId)
-        pluginExtension?.let {
-            pluginConfiguration?.invoke(project.the(pluginExtension))
+        pluginConfiguration?.let {
+            it.configuration(project.the(it.extensionClass))
         }
         project.applyDependencies(
-                validator = EmptyValidator,
-                dependencies = dependencies,
-                repositoriesConfiguration = Forma.configuration.repositories
+            validator = EmptyValidator,
+            dependencies = dependencies,
+            repositoriesConfiguration = Forma.configuration.repositories
         )
     }
 

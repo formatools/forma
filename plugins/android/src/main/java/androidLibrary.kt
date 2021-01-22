@@ -1,5 +1,9 @@
 import org.gradle.api.Project
-import tools.forma.android.feature.*
+import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
+import tools.forma.android.feature.androidLibraryFeatureDefinition
+import tools.forma.android.feature.applyFeatures
+import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.android.target.LibraryTargetTemplate
@@ -26,7 +30,7 @@ fun Project.androidLibrary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
-): FormaBuilder {
+): TargetBuilder {
     target.validate(LibraryTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
@@ -49,6 +53,6 @@ fun Project.androidLibrary(
         configurationFeatures = kaptConfigurationFeature()
     )
 
-    return FormaBuilder(this)
+    return TargetBuilder(this)
 }
 
