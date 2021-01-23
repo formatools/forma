@@ -19,7 +19,6 @@ package com.stepango.blockme.feature.characters.list.impl.data.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.stepango.blockme.core.network.library.NetworkState
-import com.stepango.blockme.feature.characters.core.api.data.mapper.ICharacterMapper
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -40,7 +39,6 @@ const val PAGE_MAX_ELEMENTS = 50
 // Rewrite on clean version with separate Repository with local/remote datasource
 open class CharacterPageDataSource @Inject constructor(
     private val repository: MarvelRepository,
-    private val mapper: ICharacterMapper,
 ) : PageKeyedDataSource<Int, ICharacter>() {
 
     val networkState = MutableLiveData<NetworkState>()
@@ -64,9 +62,8 @@ open class CharacterPageDataSource @Inject constructor(
                 offset = PAGE_INIT_ELEMENTS,
                 limit = PAGE_MAX_ELEMENTS
             )
-            val data = mapper.map(response)
-            callback.onResult(data, null, PAGE_MAX_ELEMENTS)
-            networkState.postValue(NetworkState.Success(isEmptyResponse = data.isEmpty()))
+            callback.onResult(response, null, PAGE_MAX_ELEMENTS)
+            networkState.postValue(NetworkState.Success(isEmptyResponse = response.isEmpty()))
         }
     }
 
@@ -96,9 +93,8 @@ open class CharacterPageDataSource @Inject constructor(
                 offset = params.key,
                 limit = PAGE_MAX_ELEMENTS
             )
-            val data = mapper.map(response)
-            callback.onResult(data, params.key + PAGE_MAX_ELEMENTS)
-            networkState.postValue(NetworkState.Success(true, data.isEmpty()))
+            callback.onResult(response, params.key + PAGE_MAX_ELEMENTS)
+            networkState.postValue(NetworkState.Success(true, response.isEmpty()))
         }
     }
 

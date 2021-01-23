@@ -20,7 +20,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stepango.blockme.feature.characters.core.api.data.mapper.ICharacterMapper
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetCharacterFavoriteUseCase
@@ -32,7 +31,6 @@ class CharacterDetailViewModel @Inject constructor(
         private val marvelRepository: MarvelRepository,
         private val getCharacterFavoriteUseCase: IGetCharacterFavoriteUseCase,
         private val setCharacterFavoriteUseCase: ISetCharacterFavoriteUseCase,
-        private val characterDetailMapper: ICharacterMapper,
 ) : ViewModel(), ICharacterDetailViewModel {
 
     private val _data = MutableLiveData<ICharacter>()
@@ -48,7 +46,7 @@ class CharacterDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val result = marvelRepository.getCharacter(characterId)
-                _data.postValue(characterDetailMapper.map(result).first())
+                _data.postValue(result)
 
                 getCharacterFavoriteUseCase(characterId)?.let {
                     _state.postValue(CharacterDetailViewState.AlreadyAddedToFavorite)

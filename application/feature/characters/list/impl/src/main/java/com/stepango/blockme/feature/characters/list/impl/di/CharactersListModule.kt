@@ -19,7 +19,6 @@ package com.stepango.blockme.feature.characters.list.impl.di
 import androidx.lifecycle.ViewModel
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
 import com.stepango.blockme.core.mvvm.library.di.ViewModelKey
-import com.stepango.blockme.feature.characters.core.api.data.mapper.ICharacterMapper
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import com.stepango.blockme.feature.characters.list.impl.data.datasource.CharacterPageDataSource
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
@@ -42,10 +41,8 @@ internal abstract class CharactersListModule {
         @Provides
         fun providesCharactersPageDataSource(
             repository: MarvelRepository,
-            mapper: ICharacterMapper
         ) = CharacterPageDataSource(
             repository = repository,
-            mapper = mapper
         )
     }
 }

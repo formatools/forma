@@ -18,15 +18,13 @@ package com.stepango.blockme.feature.characters.core.impl.data.mapper
 
 import com.stepango.blockme.common.util.mapper.Mapper
 import com.stepango.blockme.core.network.library.response.BaseResponse
-import com.stepango.blockme.feature.characters.core.api.data.mapper.ICharacterMapper
 import com.stepango.blockme.feature.characters.core.api.data.response.CharacterResponse
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.core.impl.domain.model.Character
 
 private const val IMAGE_URL_FORMAT = "%s.%s"
 
-class CharacterMapper :
-    Mapper<BaseResponse<CharacterResponse>, List<ICharacter>>, ICharacterMapper {
+class CharacterMapper : Mapper<BaseResponse<CharacterResponse>, List<ICharacter>> {
 
     @Throws(NoSuchElementException::class)
     override suspend fun map(from: BaseResponse<CharacterResponse>): List<ICharacter> =
