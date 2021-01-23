@@ -1,11 +1,11 @@
 package tools.forma.deps
 
-import tools.forma.validation.Validator
 import emptyDependency
 import forEach
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.kotlin.dsl.dependencies
+import tools.forma.validation.Validator
 
 fun Project.applyDependencies(
     validator: Validator,
@@ -27,7 +27,8 @@ fun Project.applyDependencies(
                 addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
             },
             projectAction,
-            { add(it.config.name, files(it.file)) }
+            { add(it.config.name, files(it.file)) },
+            { addDependencyTo(it.config.name, platform(it.name)) { isTransitive = it.transitive } }
         )
         testDependencies.forEach(
             { addDependencyTo("testImplementation", it.name) { isTransitive = it.transitive } },

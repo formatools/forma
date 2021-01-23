@@ -1,18 +1,19 @@
 import org.gradle.api.Project
-
-import tools.forma.deps.DepType
-import tools.forma.deps.FileSpec
-import tools.forma.deps.NameSpec
-import tools.forma.deps.TargetSpec
 import tools.forma.deps.ConfigurationType
+import tools.forma.deps.DepType
+import tools.forma.deps.EmptyDependency
+import tools.forma.deps.FileDependency
+import tools.forma.deps.FileSpec
+import tools.forma.deps.FormaDependency
 import tools.forma.deps.Implementation
 import tools.forma.deps.Kapt
-import tools.forma.deps.FormaDependency
-import tools.forma.deps.FileDependency
 import tools.forma.deps.MixedDependency
-import tools.forma.deps.EmptyDependency
-import tools.forma.deps.TargetDependency
+import tools.forma.deps.NameSpec
 import tools.forma.deps.NamedDependency
+import tools.forma.deps.PlatformDependency
+import tools.forma.deps.PlatformSpec
+import tools.forma.deps.TargetDependency
+import tools.forma.deps.TargetSpec
 import tools.forma.target.FormaTarget
 import java.io.File
 
@@ -43,12 +44,14 @@ inline fun <reified T : FormaDependency> emptyDependency(): T = when {
 fun FormaDependency.forEach(
     nameAction: (NameSpec) -> Unit = {},
     targetAction: (TargetSpec) -> Unit = {},
-    fileAction: (FileSpec) -> Unit = {}
+    fileAction: (FileSpec) -> Unit = {},
+    platformAction: (PlatformSpec) -> Unit = {}
 ) {
-    dependency.forEach loop@ { spec ->
+    dependency.forEach loop@{ spec ->
         return@loop when (spec) {
             is TargetSpec -> targetAction(spec)
             is NameSpec -> nameAction(spec)
+            is PlatformSpec -> platformAction(spec)
             is FileSpec -> fileAction(spec)
         }
     }
@@ -63,12 +66,19 @@ internal fun FormaDependency.hasConfigType(configType: ConfigurationType): Boole
 
 fun deps(vararg names: String): NamedDependency = transitiveDeps(names = *names, transitive = false)
 
+fun platform(vararg names: String): PlatformDependency = transitivePlatform(*names, transitive = false)
+
+fun transitivePlatform(vararg names: String, transitive: Boolean = true): PlatformDependency =
+    PlatformDependency(names.toList().map { PlatformSpec(it, Implementation, transitive) })
+
 fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
     NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
 
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Deprecated in favor of targets version of this function:\n" +
-        "deps(target(\":name\"))")
+@Deprecated(
+    "Deprecated in favor of targets version of this function:\n" +
+            "deps(target(\":name\"))"
+)
 fun deps(vararg projects: Project): TargetDependency =
     TargetDependency(projects.toList().map { TargetSpec(it.target, Implementation) })
 
@@ -93,5 +103,5 @@ val String.kapt: NamedDependency get() = kapt(this)
 
 val Project.target: FormaTarget get() = FormaTarget(this)
 
-fun Project.target(name: String) : FormaTarget = FormaTarget(project(name))
+fun Project.target(name: String): FormaTarget = FormaTarget(project(name))
 

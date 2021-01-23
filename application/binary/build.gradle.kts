@@ -26,3 +26,5 @@ androidBinary(
         target(":core:di:library")
     )
 )
+// TODO: enable when create crashlytics project
+//    .withPlugins(Plugins.googleServices, Plugins.crashlytics())

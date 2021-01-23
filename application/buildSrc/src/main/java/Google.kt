@@ -24,4 +24,7 @@ object google {
     val gson = deps(
         "com.google.code.gson:gson:${versions.google.gson}".dep
     )
+
+    val firebase = transitivePlatform("com.google.firebase:firebase-bom:26.1.0")
+
 }

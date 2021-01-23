@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.4.1")
     }
 }
 

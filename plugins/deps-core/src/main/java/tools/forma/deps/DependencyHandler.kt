@@ -36,6 +36,18 @@ fun DependencyHandler.addDependencyTo(
     configuration
 )
 
+// TODO: only using for platform, maybe make addPlatformDependencyTo?
+fun DependencyHandler.addDependencyTo(
+    configurationName: String,
+    dependency: Dependency,
+    configuration: (ExternalModuleDependency).() -> Unit
+): ExternalModuleDependency = addDependencyTo(
+    this,
+    configurationName,
+    dependency,
+    configuration
+)
+
 /**
  * Adds a dependency to the 'implementation' configuration.
  *
