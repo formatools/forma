@@ -1,5 +1,5 @@
 dataBindingAdapters(
-    packageName = "com.stepango.blockme.common.extensions.databinding.util",
+    packageName = "com.stepango.blockme.common.extensions.databinding.adapter",
 
     dependencies = deps(
         androidx.recyclerview,

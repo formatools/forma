@@ -1,5 +1,5 @@
 dataBinding(
-    packageName = "com.stepango.blockme.feature.home.res",
+    packageName = "com.stepango.blockme.feature.home.databinding",
     dependencies = deps(
         google.dagger,
         google.material,

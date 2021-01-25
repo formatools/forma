@@ -52,17 +52,6 @@ fun DependencyHandler.addDependencyTo(
  * Adds a dependency to the 'implementation' configuration.
  *
  * @param dependencyNotation notation for the dependency to be added.
- * @return The dependency.
- *
- * @see [DependencyHandler.add]
- */
-internal fun DependencyHandler.implementation(dependencyNotation: Any): Dependency? =
-    add("implementation", dependencyNotation)
-
-/**
- * Adds a dependency to the 'implementation' configuration.
- *
- * @param dependencyNotation notation for the dependency to be added.
  * @param dependencyConfiguration expression to use to configure the dependency.
  * @return The dependency.
  *
