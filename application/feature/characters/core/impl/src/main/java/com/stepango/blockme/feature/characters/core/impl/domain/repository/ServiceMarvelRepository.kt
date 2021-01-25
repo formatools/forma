@@ -18,10 +18,12 @@ package com.stepango.blockme.feature.characters.core.impl.domain.repository
 
 import com.stepango.blockme.common.extensions.util.toMD5
 import com.stepango.blockme.common.util.clock.Clock
+import com.stepango.blockme.common.util.mapper.Mapper
 import com.stepango.blockme.core.network.library.Config
 import com.stepango.blockme.core.network.library.response.BaseResponse
 import com.stepango.blockme.feature.characters.core.api.data.response.CharacterResponse
 import com.stepango.blockme.feature.characters.core.api.data.service.MarvelService
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import javax.inject.Inject
 
@@ -34,6 +36,7 @@ internal class ServiceMarvelRepository @Inject constructor(
 	private val service: MarvelService,
 	private val config: Config,
 	private val clock: Clock,
+	private val characterMapper: Mapper<BaseResponse<CharacterResponse>, List<ICharacter>>
 ) : MarvelRepository {
 
 	/**
@@ -42,15 +45,17 @@ internal class ServiceMarvelRepository @Inject constructor(
 	 * @param id A single character id.
 	 * @return Response for single character resource.
 	 */
-	override suspend fun getCharacter(id: Long): BaseResponse<CharacterResponse> {
+	override suspend fun getCharacter(id: Long): ICharacter {
 		val timestamp = clock.currentTimeMillis().toString()
 
-		return service.getCharacter(
+		val result = service.getCharacter(
 			id = id,
 			apiKey = config.publicApiKey,
 			hash = generateApiHash(timestamp),
 			timestamp = timestamp
 		)
+
+		return characterMapper.map(result).first()
 	}
 
 	/**
@@ -60,15 +65,17 @@ internal class ServiceMarvelRepository @Inject constructor(
 	 * @param limit Limit the result set to the specified number of resources.
 	 * @return Response for comic characters resource.
 	 */
-	override suspend fun getCharacters(offset: Int, limit: Int): BaseResponse<CharacterResponse> {
+	override suspend fun getCharacters(offset: Int, limit: Int): List<ICharacter> {
 		val timestamp = clock.currentTimeMillis().toString()
-		return service.getCharacters(
+		val result = service.getCharacters(
 			apiKey = config.publicApiKey,
 			hash = generateApiHash(timestamp),
 			timestamp = timestamp,
 			offset = offset,
 			limit = limit
 		)
+
+		return characterMapper.map(result)
 	}
 
 	/**

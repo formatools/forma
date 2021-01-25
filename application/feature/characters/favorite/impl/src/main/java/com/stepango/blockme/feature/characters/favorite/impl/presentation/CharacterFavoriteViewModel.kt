@@ -17,7 +17,7 @@
 package com.stepango.blockme.feature.characters.favorite.impl.presentation
 
 import androidx.lifecycle.*
-import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IDeleteCharacterFavoriteUseCase
 import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetAllCharactersFavoriteUseCase
 import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
@@ -32,8 +32,8 @@ class CharacterFavoriteViewModel @Inject constructor(
         private val deleteCharacterFavoriteUseCase: IDeleteCharacterFavoriteUseCase
 ) : ICharacterFavoriteViewModel, ViewModel() {
 
-    private val _data = MutableLiveData<List<ICharacterFavorite>>()
-    override val data: LiveData<List<ICharacterFavorite>>
+    private val _data = MutableLiveData<List<ICharacter>>()
+    override val data: LiveData<List<ICharacter>>
         get() = _data
 
     override val state: LiveData<ICharacterFavoriteViewState>
@@ -52,7 +52,7 @@ class CharacterFavoriteViewModel @Inject constructor(
         }
     }
 
-    override fun removeFavoriteCharacter(character: ICharacterFavorite) {
+    override fun removeFavoriteCharacter(character: ICharacter) {
         viewModelScope.launch {
             deleteCharacterFavoriteUseCase(character)
         }

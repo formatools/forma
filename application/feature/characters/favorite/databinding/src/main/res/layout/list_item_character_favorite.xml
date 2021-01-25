@@ -6,7 +6,7 @@
 
         <variable
             name="character"
-            type="com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite" />
+            type="com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter" />
 
     </data>
 

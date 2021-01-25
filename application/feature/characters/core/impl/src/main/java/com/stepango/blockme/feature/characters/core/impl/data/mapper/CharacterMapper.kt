@@ -14,28 +14,29 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.detail.impl.data.mapper
+package com.stepango.blockme.feature.characters.core.impl.data.mapper
 
 import com.stepango.blockme.common.util.mapper.Mapper
 import com.stepango.blockme.core.network.library.response.BaseResponse
 import com.stepango.blockme.feature.characters.core.api.data.response.CharacterResponse
-import com.stepango.blockme.feature.characters.detail.impl.domain.model.CharacterDetail
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
+import com.stepango.blockme.feature.characters.core.impl.domain.model.Character
 
 private const val IMAGE_URL_FORMAT = "%s.%s"
 
-class CharacterDetailMapper : Mapper<BaseResponse<CharacterResponse>, CharacterDetail> {
+class CharacterMapper : Mapper<BaseResponse<CharacterResponse>, List<ICharacter>> {
 
     @Throws(NoSuchElementException::class)
-    override suspend fun map(from: BaseResponse<CharacterResponse>): CharacterDetail {
-        val characterResponse = from.data.results.first()
-        return CharacterDetail(
-            id = characterResponse.id,
-            name = characterResponse.name,
-            description = characterResponse.description,
-            imageUrl = IMAGE_URL_FORMAT.format(
-                characterResponse.thumbnail.path.replace("http", "https"),
-                characterResponse.thumbnail.extension
+    override suspend fun map(from: BaseResponse<CharacterResponse>): List<ICharacter> =
+        from.data.results.map { characterResponse ->
+            Character(
+                id = characterResponse.id,
+                name = characterResponse.name,
+                description = characterResponse.description,
+                imageUrl = IMAGE_URL_FORMAT.format(
+                    characterResponse.thumbnail.path.replace("http", "https"),
+                    characterResponse.thumbnail.extension
+                )
             )
-        )
-    }
+        }
 }

@@ -17,17 +17,17 @@
 package com.stepango.blockme.feature.characters.favorite.databinding.presentation
 
 import androidx.lifecycle.LiveData
-import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 
 interface ICharacterFavoriteViewModel {
 
-    val data: LiveData<List<ICharacterFavorite>>
+    val data: LiveData<List<ICharacter>>
 
     val state: LiveData<ICharacterFavoriteViewState>
 
     fun loadFavoriteCharacters()
 
-    fun removeFavoriteCharacter(character: ICharacterFavorite)
+    fun removeFavoriteCharacter(character: ICharacter)
 }
 
 interface ICharacterFavoriteViewState {

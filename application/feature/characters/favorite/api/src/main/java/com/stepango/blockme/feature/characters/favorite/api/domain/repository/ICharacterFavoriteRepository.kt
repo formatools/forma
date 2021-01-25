@@ -1,20 +1,20 @@
 package com.stepango.blockme.feature.characters.favorite.api.domain.repository
 
-import com.stepango.blockme.feature.characters.favorite.api.domain.model.ICharacterFavorite
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 
 interface ICharacterFavoriteRepository {
 
-    suspend fun getAllCharactersFavorite(): List<ICharacterFavorite>
+    suspend fun getAllCharactersFavorite(): List<ICharacter>
 
-    suspend fun getCharacterFavorite(characterFavoriteId: Long): ICharacterFavorite?
+    suspend fun getCharacterFavorite(characterFavoriteId: Long): ICharacter?
 
     suspend fun deleteAllCharactersFavorite()
 
     suspend fun deleteCharacterFavoriteById(characterFavoriteId: Long)
 
-    suspend fun deleteCharacterFavorite(character: ICharacterFavorite)
+    suspend fun deleteCharacterFavorite(character: ICharacter)
 
-    suspend fun insertCharactersFavorites(characters: List<ICharacterFavorite>)
+    suspend fun insertCharactersFavorites(characters: List<ICharacter>)
 
-    suspend fun insertCharacterFavorite(id: Long, name: String, imageUrl: String)
+    suspend fun insertCharacterFavorite(id: Long, name: String, description: String, imageUrl: String)
 }
