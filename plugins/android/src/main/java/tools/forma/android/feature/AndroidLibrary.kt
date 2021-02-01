@@ -29,30 +29,6 @@ fun androidLibraryFeatureDefinition(
     configuration = { extension, feature, project, formaConfiguration ->
         with(extension) {
             compileSdkVersion(formaConfiguration.compileSdk)
-            if (feature.generateManifest) {
-                /**
-                 * Some naive caching here, file name equals package name
-                 * We create new file only if package is changed or on first build
-                 */
-                with(File(project.buildDir, "tmp/manifest/${feature.packageName}.xml")) {
-                    if (!exists()) {
-                        parentFile.mkdirs()
-                        createNewFile()
-                        writeText(
-                            """<?xml version="1.0" encoding="utf-8"?>
-                           <manifest package="${feature.packageName}"/>
-                        """.trimIndent()
-                        )
-                    }
-                    sourceSets {
-                        /**
-                         * Manifest file resolved during configuration,
-                         * so we need to create file before we get into plugin is configured
-                         */
-                        getByName("main").manifest.srcFile(path)
-                    }
-                }
-            }
 
             defaultConfig.applyFrom(
                 formaConfiguration,
@@ -65,6 +41,46 @@ fun androidLibraryFeatureDefinition(
             compileOptions.applyFrom(formaConfiguration)
 
             buildFeatures.dataBinding = feature.dataBinding
+
+            if (feature.generateManifest) {
+                val path = generateManifest(project.buildDir, feature.packageName)
+                sourceSets {
+                    /**
+                     * Manifest file resolved during configuration,
+                     * so we need to create file before we get into plugin is configured
+                     */
+                    getByName("main").manifest.srcFile(path)
+                }
+            }
         }
     }
 )
+
+/**
+ * Manifest file generated and added it to sourceSet
+ * @param buildDir - project's build dir
+ * @param packageName - will be injected to manifest template
+ * @return path to generated file
+ */
+private fun generateManifest(
+    buildDir: File,
+    packageName: String
+): String {
+    /**
+     * Some naive caching here, file name equals package name
+     * We create new file only if package is changed or on first build
+     */
+    val tmpManifest = File(buildDir, "tmp/manifest/${packageName}.xml")
+    with(tmpManifest) {
+        if (!exists()) {
+            parentFile.mkdirs()
+            createNewFile()
+            writeText(
+                """<?xml version="1.0" encoding="utf-8"?>
+                           <manifest package="$packageName"/>
+                """.trimIndent()
+            )
+        }
+    }
+    return tmpManifest.path
+}
