@@ -1,5 +1,5 @@
 androidRes(
-    packageName = "com.stepango.blockme.feature.character.detail.res",
+    packageName = "com.stepango.blockme.feature.character.list.res",
     dependencies = deps(
         google.material,
         androidx.appcompat,
