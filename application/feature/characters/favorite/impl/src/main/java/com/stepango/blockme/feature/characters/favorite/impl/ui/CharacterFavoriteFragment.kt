@@ -29,7 +29,7 @@ import com.stepango.blockme.feature.characters.favorite.impl.R
 import com.stepango.blockme.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteAdapter
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteTouchHelper
-import com.stepango.blockme.feature.favorite.databinding.databinding.FragmentCharacterFavoriteListBinding
+import com.stepango.blockme.feature.favorite.res.databinding.FragmentCharacterFavoriteListBinding
 
 class CharacterFavoriteFragment :
     BaseFragment<FragmentCharacterFavoriteListBinding>(

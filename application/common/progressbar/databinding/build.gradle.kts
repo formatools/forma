@@ -5,8 +5,8 @@ dataBinding(
         androidx.appcompat,
         androidx.constraintlayout
     ) + deps(
-        project(":common:extensions:android-util"),
-        project(":common:extensions:databinding-adapter"),
-        project(":common:progressbar:res")
+        target(":common:extensions:android-util"),
+        target(":common:extensions:databinding-adapter"),
+        target(":common:progressbar:res")
     )
 )
