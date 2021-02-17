@@ -41,7 +41,8 @@ fun Project.androidApp(
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
-        manifestPlaceholders
+        manifestPlaceholders,
+        generateManifest = false
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
