@@ -61,9 +61,3 @@ fun Project.viewBinding(
         repositoriesConfiguration = Forma.configuration.repositories
     )
 }
-
-//private fun checkDataBindingFlag() {
-//    if (!Forma.configuration.dataBinding) {
-//        throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
-//    }
-//}
