@@ -2,12 +2,12 @@ package tools.forma.android.feature
 
 import androidJunitRunner
 import com.android.build.gradle.LibraryExtension
-import java.io.File
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
+import java.io.File
 
 class AndroidLibraryFeatureConfiguration(
     val packageName: String,
@@ -15,6 +15,7 @@ class AndroidLibraryFeatureConfiguration(
     val testInstrumentationRunnerClass: String = androidJunitRunner,
     val consumerMinificationFiles: Set<String> = emptySet(),
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
+    val viewBinding: Boolean = false,
     val dataBinding: Boolean = false,
     val generateManifest: Boolean = true,
     val selfValidator: Validator = validator(LibraryTargetTemplate)
@@ -41,6 +42,7 @@ fun androidLibraryFeatureDefinition(
             compileOptions.applyFrom(formaConfiguration)
 
             buildFeatures.dataBinding = feature.dataBinding
+            buildFeatures.viewBinding = feature.viewBinding
 
             if (feature.generateManifest) {
                 val path = generateManifest(project.buildDir, feature.packageName)

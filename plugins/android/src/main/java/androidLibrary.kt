@@ -30,7 +30,7 @@ fun Project.androidLibrary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    generateManifest: Boolean = true
+    generateManifest: Boolean = false
 ): TargetBuilder {
     target.validate(LibraryTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
