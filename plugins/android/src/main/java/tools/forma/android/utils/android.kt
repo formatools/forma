@@ -30,6 +30,8 @@ internal fun DefaultConfig.applyFrom(
     testInstrumentationRunner = testInstrumentationRunnerClass
     consumerProguardFiles(*consumerMinificationFiles.toTypedArray())
     manifestPlaceholders(manifestPlaceholders)
+
+    vectorDrawables.useSupportLibrary = formaConfiguration.vectorDrawablesUseSupportLibrary
 }
 
 internal fun CompileOptions.applyFrom(config: FormaConfiguration) {
