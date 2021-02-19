@@ -30,9 +30,8 @@ fun androidLibraryFeatureDefinition(
     featureConfiguration = featureConfiguration,
     configuration = { extension, feature, project, formaConfiguration ->
         with(extension) {
-            if (feature.generateManifest) {
-                applyManifestGenerationFeature(project, feature.packageName)
-            }
+            maybeGenerateManifest(project, feature)
+
             compileSdkVersion(formaConfiguration.compileSdk)
 
             defaultConfig.applyFrom(
@@ -51,14 +50,12 @@ fun androidLibraryFeatureDefinition(
     }
 )
 
-private fun LibraryExtension.applyManifestGenerationFeature(
+private fun LibraryExtension.maybeGenerateManifest(
     project: Project,
-    packageName: String
+    feature: AndroidLibraryFeatureConfiguration
 ) {
-    val manifestFile = manifestFile(project.buildDir, packageName)
-    project.beforeEvaluate {
-        populateManifest(manifestFile, packageName)
-    }
+    val manifestFile = manifestFile(project.buildDir, feature.packageName)
+    populateManifest(manifestFile, feature.packageName)
     sourceSets {
         /**
          * Manifest file resolved during configuration,
