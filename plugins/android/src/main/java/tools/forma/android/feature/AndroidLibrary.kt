@@ -8,6 +8,7 @@ import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
 import java.io.File
+import org.gradle.api.Project
 
 class AndroidLibraryFeatureConfiguration(
     val packageName: String,
@@ -29,6 +30,9 @@ fun androidLibraryFeatureDefinition(
     featureConfiguration = featureConfiguration,
     configuration = { extension, feature, project, formaConfiguration ->
         with(extension) {
+            if (feature.generateManifest) {
+                applyManifestGenerationFeature(project, feature.packageName)
+            }
             compileSdkVersion(formaConfiguration.compileSdk)
 
             defaultConfig.applyFrom(
@@ -43,20 +47,29 @@ fun androidLibraryFeatureDefinition(
 
             buildFeatures.dataBinding = feature.dataBinding
             buildFeatures.viewBinding = feature.viewBinding
-
-            if (feature.generateManifest) {
-                val path = generateManifest(project.buildDir, feature.packageName)
-                sourceSets {
-                    /**
-                     * Manifest file resolved during configuration,
-                     * so we need to create file before we get into plugin is configured
-                     */
-                    getByName("main").manifest.srcFile(path)
-                }
-            }
         }
     }
 )
+
+private fun LibraryExtension.applyManifestGenerationFeature(
+    project: Project,
+    packageName: String
+) {
+    val manifestFile = manifestFile(project.buildDir, packageName)
+    project.beforeEvaluate {
+        populateManifest(manifestFile, packageName)
+    }
+    sourceSets {
+        /**
+         * Manifest file resolved during configuration,
+         * so we need to create file before we get into plugin is configured
+         */
+        getByName("main").manifest.srcFile(manifestFile.path)
+    }
+}
+
+fun manifestFile(buildDir: File, packageName: String) =
+    File(buildDir, "tmp/manifest/${packageName}.xml")
 
 /**
  * Manifest file generated and added it to sourceSet
@@ -64,16 +77,15 @@ fun androidLibraryFeatureDefinition(
  * @param packageName - will be injected to manifest template
  * @return path to generated file
  */
-private fun generateManifest(
-    buildDir: File,
+private fun populateManifest(
+    manifestFile: File,
     packageName: String
 ): String {
     /**
      * Some naive caching here, file name equals package name
      * We create new file only if package is changed or on first build
      */
-    val tmpManifest = File(buildDir, "tmp/manifest/${packageName}.xml")
-    with(tmpManifest) {
+    with(manifestFile) {
         if (!exists()) {
             parentFile.mkdirs()
             createNewFile()
@@ -84,5 +96,5 @@ private fun generateManifest(
             )
         }
     }
-    return tmpManifest.path
+    return manifestFile.path
 }
