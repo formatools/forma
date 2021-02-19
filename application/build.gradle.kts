@@ -1,3 +1,5 @@
+import java.util.Properties
+
 buildscript {
     repositories {
         google()
@@ -9,18 +11,17 @@ buildscript {
     }
 }
 
-val properties = java.util.Properties()
-properties.load(project.rootProject.file("local.properties").inputStream())
-val agpVersion: String? = properties.getProperty("agpVersion")
-val kotlinVersion: String? = properties.getProperty("kotlinVersion")
+val properties = Properties()
+val file: File = project.rootProject.file("local.properties")
+if (file.exists()) properties.load(file.inputStream())
 
 // Enjoy easiest way to configure your Android project
 androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 29,
     compileSdk = 29,
-    kotlinVersion = kotlinVersion ?: "1.4.21",
-    agpVersion = agpVersion ?: "4.2.0-beta02",
+    kotlinVersion = properties.getProperty("kotlinVersion", "1.4.21"),
+    agpVersion = properties.getProperty("agpVersion",  "4.2.0-beta02"),
     versionCode = 1,
     versionName = "1.0",
     dataBinding = true
