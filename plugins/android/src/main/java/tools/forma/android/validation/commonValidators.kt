@@ -23,8 +23,8 @@ fun Project.onlyAllowResources() = validateDirectoryContent(
 
 fun Project.onlyAllowLayouts() = validateDirectoryContent(
     dir = "./src/main/res",
-    errorMsg = "Please make sure this target only contains `layout` folder in `src/main/res`"
+    errorMsg = "Please make sure this target only contains `layout.*` folders in `src/main/res`"
 ) {
     it.filter(File::isDirectory)
-        .run { size == 1 && first().name == "layout" }
+        .all { it.name.startsWith("layout") }
 }
