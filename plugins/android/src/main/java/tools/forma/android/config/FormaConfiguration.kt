@@ -1,5 +1,6 @@
 package tools.forma.android.config
 
+import com.android.apksig.internal.util.AndroidSdkVersion
 import org.gradle.api.JavaVersion
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 
@@ -31,6 +32,7 @@ data class FormaConfiguration(
     // Databinding is Application level feature, android_binary will be infering dataBinding flag, developers does not need to know about
     val dataBinding: Boolean = false,
     val compose: Boolean = false,
+    val vectorDrawablesUseSupportLibrary: Boolean = minSdk < AndroidSdkVersion.N,
     val javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     val mandatoryOwners: Boolean
 )
