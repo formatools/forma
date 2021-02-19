@@ -13,7 +13,7 @@ buildscript {
 
 val properties = Properties()
 val file: File = project.rootProject.file("local.properties")
-if (file.exists()) properties.load(file.inputStream())
+if (file.exists()) file.inputStream().use { properties.load(it) }
 
 // Enjoy easiest way to configure your Android project
 androidProjectConfiguration(
@@ -21,7 +21,7 @@ androidProjectConfiguration(
     targetSdk = 29,
     compileSdk = 29,
     kotlinVersion = properties.getProperty("kotlinVersion", "1.4.21"),
-    agpVersion = properties.getProperty("agpVersion",  "4.2.0-beta02"),
+    agpVersion = properties.getProperty("agpVersion", "4.2.0-beta02"),
     versionCode = 1,
     versionName = "1.0",
     dataBinding = true
