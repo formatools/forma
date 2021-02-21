@@ -5,7 +5,8 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
 import tools.forma.android.target.BinaryTargetTemplate
-import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.config.BuildConfiguration
+import tools.forma.android.config.None
 import tools.forma.android.validation.disallowResources
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.applyDependencies
@@ -30,7 +31,7 @@ fun Project.androidBinary(
     packageName: String,
     owner: Owner = NoOwner,
     dependencies: FormaDependency = emptyDependency(),
-    buildConfiguration: BuildConfiguration = BuildConfiguration(),
+    buildConfiguration: BuildConfiguration = None(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()

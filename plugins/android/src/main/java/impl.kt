@@ -1,4 +1,5 @@
-import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.config.BuildConfiguration
+import tools.forma.android.config.None
 import tools.forma.android.validation.disallowResources
 import tools.forma.validation.validator
 import org.gradle.api.Project
@@ -28,7 +29,7 @@ fun Project.impl(
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
-    buildConfiguration: BuildConfiguration = BuildConfiguration(),
+    buildConfiguration: BuildConfiguration = None(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {

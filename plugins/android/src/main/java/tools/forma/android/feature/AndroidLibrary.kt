@@ -3,7 +3,8 @@ package tools.forma.android.feature
 import androidJunitRunner
 import com.android.build.gradle.LibraryExtension
 import tools.forma.android.target.LibraryTargetTemplate
-import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.config.BuildConfiguration
+import tools.forma.android.config.None
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
@@ -12,7 +13,7 @@ import org.gradle.api.Project
 
 class AndroidLibraryFeatureConfiguration(
     val packageName: String,
-    val buildConfiguration: BuildConfiguration = BuildConfiguration(),
+    val buildConfiguration: BuildConfiguration = None(),
     val testInstrumentationRunnerClass: String = androidJunitRunner,
     val consumerMinificationFiles: Set<String> = emptySet(),
     val manifestPlaceholders: Map<String, Any> = emptyMap(),

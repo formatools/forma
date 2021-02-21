@@ -5,7 +5,8 @@ import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.ApplicationTargetTemplate
 import tools.forma.android.owner.NoOwner
 import tools.forma.android.owner.Owner
-import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.config.BuildConfiguration
+import tools.forma.android.config.None
 import tools.forma.validation.EmptyValidator
 import tools.forma.android.validation.disallowResources
 import tools.forma.validation.validate
@@ -28,7 +29,7 @@ fun Project.androidApp(
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
-    buildConfiguration: BuildConfiguration = BuildConfiguration(),
+    buildConfiguration: BuildConfiguration = None(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {

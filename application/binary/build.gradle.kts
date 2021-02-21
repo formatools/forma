@@ -1,6 +1,4 @@
-import tools.forma.android.utils.BuildConfiguration
-import tools.forma.android.utils.BuildTypeConfiguration
-import tools.forma.android.utils.SigningConfiguration
+import tools.forma.android.config.Debug
 
 androidBinary(
     packageName = "com.stepango.blockme.app",
@@ -29,18 +27,7 @@ androidBinary(
         target(":core:mvvm:library"),
         target(":core:di:library")
     ),
-    buildConfiguration = BuildConfiguration(
-        type = BuildTypeConfiguration(
-            name = "debug",
-            testCoverageEnabled = true
-        ),
-        signingConfig = SigningConfiguration(
-            keystore = "keystore.properties"
-        ),
-        fieldConfig = mutableListOf(
-            "value" to true.toString()
-        )
-    )
+    buildConfiguration = Debug()
 )
 // TODO: enable when create crashlytics project
 //    .withPlugins(Plugins.googleServices, Plugins.crashlytics())

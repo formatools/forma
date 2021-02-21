@@ -3,7 +3,7 @@ package tools.forma.android.feature
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import tools.forma.android.target.BinaryTargetTemplate
-import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.config.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
