@@ -42,6 +42,7 @@ fun Project.androidApp(
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
+        // AndroidApp should always use custom manifest
         generateManifest = false
     )
     applyFeatures(
