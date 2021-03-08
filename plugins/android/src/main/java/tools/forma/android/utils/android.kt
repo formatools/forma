@@ -37,7 +37,6 @@ internal fun CompileOptions.applyFrom(config: FormaConfiguration) {
 internal fun NamedDomainObjectContainer<BuildType>.applyFrom(config: BuildConfiguration) {
     when (config) {
         is Debug -> getByName("debug") {
-            applicationIdSuffix = ".debug"
             isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = true
@@ -46,11 +45,19 @@ internal fun NamedDomainObjectContainer<BuildType>.applyFrom(config: BuildConfig
         }
 
         is Release -> getByName("release") {
-            applicationIdSuffix = ".release"
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = config.debuggable
             isTestCoverageEnabled = false
+
+            check(config.proguardFiles.isNotEmpty()) {
+                "BuildType ${config.typeName}: empty rules files. " +
+                "Use default files `proguard-android-optimize.txt` or `proguard-android.txt`"
+            }
+            for (file in config.proguardFiles) {
+                proguardFile(file)
+            }
+
             config.typeCustomizer(this)
         }
 

@@ -21,6 +21,7 @@ include(":common:placeholder:res")
 include(":common:util-native")
 include(
     ":binary",
+    ":release-binary",
 
     ":feature:home:api",
     ":feature:home:impl",

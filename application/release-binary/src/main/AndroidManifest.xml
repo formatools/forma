@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.stepango.blockme.app.debug">
+<manifest package="com.stepango.blockme.app.release">
     <application/>
 </manifest>

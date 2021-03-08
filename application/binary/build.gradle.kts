@@ -1,7 +1,7 @@
 import tools.forma.android.config.Debug
 
 androidBinary(
-    packageName = "com.stepango.blockme.app",
+    packageName = "com.stepango.blockme.app.debug",
     owner = Teams.core,
     dependencies = deps(
         target(":root-app"),
