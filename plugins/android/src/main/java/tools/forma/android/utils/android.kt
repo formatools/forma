@@ -5,6 +5,7 @@ import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.DefaultConfig
 import tools.forma.android.config.FormaConfiguration
 import tools.forma.android.config.BuildConfiguration
+import tools.forma.android.config.BuildFields
 import tools.forma.android.config.Debug
 import tools.forma.android.config.Release
 import tools.forma.android.config.Custom
@@ -41,6 +42,7 @@ internal fun NamedDomainObjectContainer<BuildType>.applyFrom(config: BuildConfig
             isShrinkResources = false
             isDebuggable = true
             isTestCoverageEnabled = true
+            applyFrom(config.buildFields)
             config.typeCustomizer(this)
         }
 
@@ -58,6 +60,7 @@ internal fun NamedDomainObjectContainer<BuildType>.applyFrom(config: BuildConfig
                 proguardFile(file)
             }
 
+            applyFrom(config.buildFields)
             config.typeCustomizer(this)
         }
 
@@ -66,5 +69,16 @@ internal fun NamedDomainObjectContainer<BuildType>.applyFrom(config: BuildConfig
         }
 
         is None -> return
+    }
+}
+
+private fun BuildType.applyFrom(fields: BuildFields) {
+    fields.values.forEach { (name, value) ->
+        when (value) {
+            is String -> buildConfigField("String", name, value)
+            is Int -> buildConfigField("int", name, value.toString())
+            is Boolean -> buildConfigField("boolean", name, value.toString())
+            else -> throw IllegalArgumentException("Unsupported build config field: name=$name, type=$value")
+        }
     }
 }

@@ -1,4 +1,5 @@
 import tools.forma.android.config.Debug
+import tools.forma.android.config.buildFields
 
 androidBinary(
     packageName = "com.stepango.blockme.app.debug",
@@ -27,7 +28,10 @@ androidBinary(
         target(":core:mvvm:library"),
         target(":core:di:library")
     ),
-    buildConfiguration = Debug()
+    buildConfiguration = Debug(
+        buildFields = buildFields()
+            .add("ENABLE_CRASHLYTICS", false)
+    )
 )
 // TODO: enable when create crashlytics project
 //    .withPlugins(Plugins.googleServices, Plugins.crashlytics())
