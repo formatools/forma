@@ -23,8 +23,10 @@ object test {
     )
 
     val ui = deps(
+        junit,
         junit_ext,
-        espresso
+        espresso,
+        "androidx.test:monitor:1.3.0".dep
         // Place here other UI-test deps
     )
 }

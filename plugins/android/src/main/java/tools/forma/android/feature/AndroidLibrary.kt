@@ -46,6 +46,7 @@ fun androidLibraryFeatureDefinition(
 
             sourceSets["main"].java.srcDirs("src/main/kotlin")
             sourceSets["test"].java.srcDirs("src/test/kotlin")
+            sourceSets["androidTest"].java.srcDirs("src/androidTest/kotlin")
 
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
