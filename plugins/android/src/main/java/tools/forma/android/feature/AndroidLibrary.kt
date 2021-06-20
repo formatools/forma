@@ -41,6 +41,9 @@ fun androidLibraryFeatureDefinition(
                 feature.manifestPlaceholders
             )
 
+            sourceSets["main"].java.srcDirs("src/main/kotlin")
+            sourceSets["test"].java.srcDirs("src/test/kotlin")
+
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
 
