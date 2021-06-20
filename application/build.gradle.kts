@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.3")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.0")
     }
 }
@@ -21,7 +21,7 @@ androidProjectConfiguration(
     targetSdk = 29,
     compileSdk = 29,
     kotlinVersion = properties.getProperty("kotlinVersion", "1.4.21"),
-    agpVersion = properties.getProperty("agpVersion", "4.2.0-beta02"),
+    agpVersion = properties.getProperty("agpVersion", "7.0.0-beta04"),
     versionCode = 1,
     versionName = "1.0",
     dataBinding = true

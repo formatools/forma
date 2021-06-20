@@ -2,13 +2,14 @@ package tools.forma.android.feature
 
 import androidJunitRunner
 import com.android.build.gradle.LibraryExtension
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.get
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
 import java.io.File
-import org.gradle.api.Project
 
 class AndroidLibraryFeatureConfiguration(
     val packageName: String,
@@ -30,7 +31,9 @@ fun androidLibraryFeatureDefinition(
     featureConfiguration = featureConfiguration,
     configuration = { extension, feature, project, formaConfiguration ->
         with(extension) {
-            maybeGenerateManifest(project, feature)
+            if (feature.generateManifest) {
+                maybeGenerateManifest(project, feature)
+            }
 
             compileSdkVersion(formaConfiguration.compileSdk)
 
