@@ -4,46 +4,48 @@ import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
+import tools.forma.android.owner.NoOwner
+import tools.forma.android.owner.Owner
 import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.ApiTargetTemplate
-import tools.forma.android.target.DataBindingAdapterTargetTemplate
-import tools.forma.android.target.DataBindingTargetTemplate
-import tools.forma.android.target.ImplTargetTemplate
-import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.target.TestUtilTargetTemplate
 import tools.forma.android.target.UiLibraryTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
-import tools.forma.android.validation.disallowResources
+import tools.forma.android.visibility.Public
+import tools.forma.android.visibility.Visibility
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
 import tools.forma.deps.applyDependencies
 import tools.forma.validation.validate
 import tools.forma.validation.validator
 
-fun Project.impl(
+/**
+ * Android UI Library target - this can be used to share common ui code for impl and widget target.
+ * Remember, widget cannot depends on library target, but can depends on uiLibrary.
+ * You can use it to store you own ui libraries in project, f.e. recycler delegates library
+ */
+fun Project.uiLibrary(
     packageName: String,
+    owner: Owner = NoOwner,
+    visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
-    manifestPlaceholders: Map<String, Any> = emptyMap()
-) {
-
-    disallowResources()
-
-    target.validate(ImplTargetTemplate)
+    manifestPlaceholders: Map<String, Any> = emptyMap(),
+    generateManifest: Boolean = true
+): TargetBuilder {
+    target.validate(UiLibraryTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        selfValidator = validator(ImplTargetTemplate)
+        generateManifest
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
@@ -52,16 +54,11 @@ fun Project.impl(
 
     applyDependencies(
         validator = validator(
-            ApiTargetTemplate,
-            AndroidUtilTargetTemplate,
-            TestUtilTargetTemplate,
+            // Better to have ability to use widget while we experiment with dependency rules
+            WidgetTargetTemplate,
             UtilTargetTemplate,
-            LibraryTargetTemplate,
-            UiLibraryTargetTemplate,
-            DataBindingAdapterTargetTemplate,
-            DataBindingTargetTemplate,
-            ResourcesTargetTemplate,
-            WidgetTargetTemplate //TODO: do we need widget targets here?
+            AndroidUtilTargetTemplate,
+            ResourcesTargetTemplate
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
@@ -69,5 +66,7 @@ fun Project.impl(
         repositoriesConfiguration = Forma.configuration.repositories,
         configurationFeatures = kaptConfigurationFeature()
     )
+
+    return TargetBuilder(this)
 }
 

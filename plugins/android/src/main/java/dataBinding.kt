@@ -18,6 +18,7 @@ import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
+import tools.forma.android.target.UiLibraryTargetTemplate
 import tools.forma.deps.applyDependencies
 import tools.forma.deps.FormaDependency
 import tools.forma.validation.validate
@@ -58,6 +59,7 @@ fun Project.dataBinding(
     applyDependencies(
         validator = validator(
             ApiTargetTemplate,
+            UiLibraryTargetTemplate,
             WidgetTargetTemplate,
             AndroidUtilTargetTemplate,
             DataBindingAdapterTargetTemplate,
@@ -104,6 +106,7 @@ fun Project.dataBindingAdapters(
     )
     applyDependencies(
         validator = validator(
+            UiLibraryTargetTemplate,
             WidgetTargetTemplate,
             AndroidUtilTargetTemplate,
             ResourcesTargetTemplate
