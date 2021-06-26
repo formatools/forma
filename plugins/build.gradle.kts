@@ -6,7 +6,7 @@ plugins {
 
 subprojects {
     extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
-    extra["agp_dep"] = "com.android.tools.build:gradle:4.1.1"
+    extra["agp_dep"] = "com.android.tools.build:gradle:7.0.0-beta04"
 
     repositories {
         google()

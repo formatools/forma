@@ -16,7 +16,6 @@ import tools.forma.android.target.UiLibraryTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
-import tools.forma.android.validation.disallowResources
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
 import tools.forma.deps.applyDependencies
@@ -28,13 +27,12 @@ fun Project.impl(
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
+    viewBinding: Boolean = true,
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-
-    disallowResources()
 
     target.validate(ImplTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
@@ -43,7 +41,8 @@ fun Project.impl(
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        selfValidator = validator(ImplTargetTemplate)
+        selfValidator = validator(ImplTargetTemplate),
+        viewBinding = viewBinding
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
