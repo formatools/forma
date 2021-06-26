@@ -29,11 +29,9 @@ androidApp(
         project(":core:network:library"),
         project(":common:util")
     ),
-
     testDependencies = deps(
         test.unit
     ),
-
     androidTestDependencies = deps(
         test.ui
     )
