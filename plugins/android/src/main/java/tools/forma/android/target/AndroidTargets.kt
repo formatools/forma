@@ -5,6 +5,7 @@ import tools.forma.target.TargetTemplate
 object BinaryTargetTemplate : TargetTemplate("binary")
 object ApplicationTargetTemplate : TargetTemplate("app")
 object LibraryTargetTemplate : TargetTemplate("library")
+object UiLibraryTargetTemplate : TargetTemplate("ui-library")
 object NativeTarget : TargetTemplate("native")
 object UtilTargetTemplate : TargetTemplate("util")
 object TestUtilTargetTemplate : TargetTemplate("test-util")
