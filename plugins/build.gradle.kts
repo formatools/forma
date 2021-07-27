@@ -4,9 +4,30 @@ plugins {
     id("com.gradle.plugin-publish") version "0.12.0" apply false
 }
 
+val properties = java.util.Properties()
+val file = project.rootProject.file("../gradle.properties")
+try {
+    file.inputStream().use { properties.load(it) }
+} catch (e: Throwable) {
+    throw Exception(
+        "Cannot read gradle.properties file from root project. " +
+                "Be sure that you have gradle.properties file in you root dir. " +
+                "Expected file path ${file.absolutePath}",
+        e
+    )
+}
+
+// TODO: actually error will not be displayed, find the way to fix it
+fun errorNoProperty(propertyName: String): Nothing = error(
+    "Be sure that you have property with name $propertyName in you gradle.properties file, stored in ${file.absolutePath}"
+)
+
+val kotlinVersion = properties["forma.kotlinVersion"] ?: errorNoProperty("forma.kotlinVersion")
+val agpVersion = properties["forma.agpVersion"] ?: errorNoProperty("forma.agpVersion")
+
 subprojects {
-    extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
-    extra["agp_dep"] = "com.android.tools.build:gradle:7.0.0-beta04"
+    extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+    extra["agp_dep"] = "com.android.tools.build:gradle:$agpVersion"
 
     repositories {
         google()
