@@ -24,12 +24,12 @@ try {
 }
 
 // TODO: actually error will not be displayed, find the way to fix it
-fun errorNoProperty(propertyName: String): Nothing = throw FormaRootConfigurationException(
-    "Can't find property $propertyName in ${file.absolutePath}"
-)
+fun getProperty(propertyName: String): Any =
+    properties[propertyName]
+        ?: throw FormaRootConfigurationException("Can't find property $propertyName in ${file.absolutePath}")
 
-val kotlinVersion = properties[propertyKotlinVersion] ?: errorNoProperty(propertyKotlinVersion)
-val agpVersion = properties[propertyAgpVersion] ?: errorNoProperty(propertyAgpVersion)
+val kotlinVersion = getProperty(propertyKotlinVersion)
+val agpVersion = getProperty(propertyAgpVersion)
 
 subprojects {
     extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
