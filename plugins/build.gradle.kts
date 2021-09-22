@@ -4,9 +4,36 @@ plugins {
     id("com.gradle.plugin-publish") version "0.12.0" apply false
 }
 
+class FormaRootConfigurationException(
+    override val message: String,
+    override val cause: Throwable? = null
+): Exception()
+
+val propertyKotlinVersion = "forma.kotlinVersion"
+val propertyAgpVersion = "forma.agpVersion"
+
+val properties = java.util.Properties()
+val file = project.rootProject.file("../gradle.properties")
+try {
+    file.inputStream().use { properties.load(it) }
+} catch (e: Throwable) {
+    throw FormaRootConfigurationException(
+        "Can't read ${file.absolutePath}\nCreate file and declare $propertyKotlinVersion and $propertyAgpVersion",
+        e
+    )
+}
+
+// TODO: actually error will not be displayed, find the way to fix it
+fun getProperty(propertyName: String): Any =
+    properties[propertyName]
+        ?: throw FormaRootConfigurationException("Can't find property $propertyName in ${file.absolutePath}")
+
+val kotlinVersion = getProperty(propertyKotlinVersion)
+val agpVersion = getProperty(propertyAgpVersion)
+
 subprojects {
-    extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
-    extra["agp_dep"] = "com.android.tools.build:gradle:7.0.0-beta04"
+    extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+    extra["agp_dep"] = "com.android.tools.build:gradle:$agpVersion"
 
     repositories {
         google()

@@ -27,7 +27,7 @@ fun Project.impl(
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
-    viewBinding: Boolean = true,
+    viewBinding: Boolean = false,
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
