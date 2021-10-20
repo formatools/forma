@@ -4,12 +4,14 @@ import androidJunitRunner
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
+import org.xml.sax.InputSource
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
 import java.io.File
+import javax.xml.parsers.DocumentBuilderFactory
 
 class AndroidLibraryFeatureConfiguration(
     val packageName: String,
@@ -34,7 +36,9 @@ fun androidLibraryFeatureDefinition(
             if (feature.generateManifest) {
                 maybeGenerateManifest(project, feature)
             }
-
+            if (formaConfiguration.validateManifestPackages) {
+                validateManifestPackage(feature.packageName, project)
+            }
             compileSdkVersion(formaConfiguration.compileSdk)
 
             defaultConfig.applyFrom(
@@ -56,6 +60,32 @@ fun androidLibraryFeatureDefinition(
         }
     }
 )
+
+private fun LibraryExtension.validateManifestPackage(
+    packageName: String,
+    project: Project
+) {
+    sourceSets.forEach {
+        if (it.manifest.srcFile.exists()) {
+            val manifestPackageName = DocumentBuilderFactory
+                .newInstance()
+                .newDocumentBuilder()
+                .parse(InputSource(it.manifest.srcFile.reader()))
+                .documentElement
+                .getAttribute("package")
+
+            if (manifestPackageName != packageName) {
+                error(
+                    "Package in manifest is not equal to packageName declared in build.gradle.kts" +
+                            "\nmanifest ${it.manifest.srcFile.absolutePath}" +
+                            "\npackage $manifestPackageName" +
+                            "\nbuild script ${project.buildFile.absolutePath}" +
+                            "\npackageName $packageName"
+                )
+            }
+        }
+    }
+}
 
 private fun LibraryExtension.maybeGenerateManifest(
     project: Project,

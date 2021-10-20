@@ -17,6 +17,7 @@ fun Project.androidProjectConfiguration(
     versionName: String,
     repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
+    validateManifestPackages: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false
 ) {
@@ -38,6 +39,7 @@ fun Project.androidProjectConfiguration(
         versionName = versionName,
         repositories = repositories,
         dataBinding = dataBinding,
+        validateManifestPackages = validateManifestPackages,
         javaVersionCompatibility = javaVersionCompatibility,
         mandatoryOwners = mandatoryOwners
     )

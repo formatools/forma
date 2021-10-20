@@ -21,8 +21,9 @@ androidProjectConfiguration(
     targetSdk = 29,
     compileSdk = 29,
     kotlinVersion = properties.getProperty("kotlinVersion", "1.4.21"),
-    agpVersion = properties.getProperty("agpVersion", "7.0.0-beta04"),
+    agpVersion = properties.getProperty("agpVersion", "7.0.0"),
     versionCode = 1,
     versionName = "1.0",
-    dataBinding = true
+    dataBinding = true,
+    validateManifestPackages = true
 )
