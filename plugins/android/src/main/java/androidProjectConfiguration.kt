@@ -1,18 +1,16 @@
 @file:Suppress("ObjectPropertyName")
 
-import tools.forma.android.config.FormaConfiguration
-import tools.forma.android.utils.register
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.tasks.Delete
+import tools.forma.android.config.FormaConfiguration
+import tools.forma.android.utils.register
 
 fun Project.androidProjectConfiguration(
     minSdk: Int,
     targetSdk: Int,
     compileSdk: Int,
-    kotlinVersion: String,
-    agpVersion: String,
     versionCode: Int,
     versionName: String,
     repositories: RepositoryHandler.() -> Unit = {},
@@ -33,8 +31,9 @@ fun Project.androidProjectConfiguration(
         minSdk = minSdk,
         targetSdk = targetSdk,
         compileSdk = compileSdk,
-        kotlinVersion = kotlinVersion,
-        agpVersion = agpVersion,
+        // we don't need check properties for exist, we read it successfully in forma configuration
+        kotlinVersion = properties["forma.kotlinVersion"]!!.toString(),
+        agpVersion = properties["forma.agpVersion"]!!.toString(),
         versionCode = versionCode,
         versionName = versionName,
         repositories = repositories,

@@ -35,7 +35,7 @@ object versions {
         const val sqlite = "2.0.1"
         const val paging = "2.1.2"
         const val recyclerview = "1.1.0"
-        const val room = "2.2.5"
+        const val room = "2.3.0"
         const val transition = "1.3.1"
         const val vectordrawable = "1.1.0"
         const val versionedparcelable = "1.1.0"
@@ -44,7 +44,7 @@ object versions {
 
     object google {
         const val material = "1.2.0"
-        const val dagger = "2.29.1"
+        const val dagger = "2.38"
         const val play_core = "1.6.4"
         const val gson = "2.8.6"
     }
