@@ -7,6 +7,16 @@ import org.gradle.api.tasks.Delete
 import tools.forma.android.config.FormaConfiguration
 import tools.forma.android.utils.register
 
+// TODO: add docs for every fun param
+/**
+ * Configures common values for whole forma modules.
+ * @param minSdk is min android sdk
+ * @param targetSdk is target android sdk
+ * @param compileSdk is compile android sdk
+ * @param versionCode is version code for
+ * @param validateManifestPackages enabling validation of manifests during configuration
+ * @param generateMissedManifests enabling generation missing manifests during configuration
+ */
 fun Project.androidProjectConfiguration(
     minSdk: Int,
     targetSdk: Int,
@@ -16,6 +26,7 @@ fun Project.androidProjectConfiguration(
     repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
     validateManifestPackages: Boolean = false,
+    generateMissedManifests: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false
 ) {
@@ -38,6 +49,7 @@ fun Project.androidProjectConfiguration(
         versionName = versionName,
         repositories = repositories,
         dataBinding = dataBinding,
+        generateMissedManifests = generateMissedManifests,
         validateManifestPackages = validateManifestPackages,
         javaVersionCompatibility = javaVersionCompatibility,
         mandatoryOwners = mandatoryOwners

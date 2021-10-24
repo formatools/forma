@@ -41,9 +41,7 @@ fun Project.androidApp(
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
-        manifestPlaceholders,
-        // AndroidApp should always use custom manifest
-        generateManifest = false
+        manifestPlaceholders
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),

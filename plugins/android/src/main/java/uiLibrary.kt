@@ -36,7 +36,6 @@ fun Project.uiLibrary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
-    generateManifest: Boolean = true
 ): TargetBuilder {
     target.validate(UiLibraryTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
@@ -45,7 +44,6 @@ fun Project.uiLibrary(
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        generateManifest
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
