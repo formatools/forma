@@ -20,7 +20,5 @@ androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 29,
     compileSdk = 29,
-    versionCode = 1,
-    versionName = "1.0",
     dataBinding = true
 )

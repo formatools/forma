@@ -16,18 +16,20 @@
 
 package com.stepango.blockme.feature.home.impl.ui
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.stepango.blockme.common.extensions.android.util.setupWithNavController
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.core.theme.android.util.ThemeUtils
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponentProvider
-import com.stepango.blockme.feature.home.impl.R
 import com.stepango.blockme.feature.home.databinding.databinding.FragmentHomeBinding
+import com.stepango.blockme.feature.home.impl.R
 import com.stepango.blockme.feature.home.impl.di.DaggerHomeComponent
 import com.stepango.blockme.feature.home.impl.ui.menu.ToggleThemeCheckBox
 import javax.inject.Inject
@@ -72,6 +74,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 actionView.setOnCheckedChangeListener { _, isChecked ->
                     themeUtils.setNightMode(isChecked, DELAY_TO_APPLY_THEME)
                 }
+            }
+        }
+        menu.findItem(R.id.menu_app_info).apply {
+            setOnMenuItemClickListener {
+                try {
+                    // Correct way to take app version code and version name, instead of BuildConfig
+                    val packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
+                    val versionName = packageInfo.versionName
+                    val versionCode = packageInfo.versionCode
+                    Toast
+                        .makeText(
+                            requireContext(),
+                            getString(R.string.home_app_info_template, versionName, versionCode),
+                            Toast.LENGTH_LONG
+                        )
+                        .show()
+                } catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
+                true
             }
         }
     }

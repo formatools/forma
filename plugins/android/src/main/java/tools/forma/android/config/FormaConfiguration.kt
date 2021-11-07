@@ -26,8 +26,6 @@ data class FormaConfiguration(
     val compileSdk: Int,
     val kotlinVersion: String,
     val agpVersion: String,
-    val versionCode: Int,
-    val versionName: String,
     val repositories: RepositoryHandler.() -> Unit,
     // Databinding is Application level feature, android_binary will be infering dataBinding flag, developers does not need to know about
     val dataBinding: Boolean = false,

@@ -29,6 +29,8 @@ import tools.forma.validation.validate
 fun Project.androidBinary(
     packageName: String,
     owner: Owner = NoOwner,
+    versionCode: Int,
+    versionName: String,
     dependencies: FormaDependency = emptyDependency(),
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
@@ -42,6 +44,8 @@ fun Project.androidBinary(
 
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
+        versionCode,
+        versionName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
