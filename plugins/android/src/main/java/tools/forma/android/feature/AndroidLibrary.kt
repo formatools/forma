@@ -4,6 +4,7 @@ import androidJunitRunner
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.support.listFilesOrdered
 import org.xml.sax.InputSource
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
@@ -90,8 +91,19 @@ private fun LibraryExtension.maybeGenerateManifest(
     project: Project,
     feature: AndroidLibraryFeatureConfiguration
 ) {
-    val manifestFile = File(project.projectDir, "src/main/AndroidManifest.xml")
-    populateManifest(manifestFile, feature.packageName)
+    val srcDir = File(project.projectDir, "src")
+    val mainDir = File(srcDir, "main")
+    // other source sets inherit manifest in case of existing main manifest
+    if (mainDir.isDirectory && mainDir.exists()) {
+        populateManifest(File(mainDir, "AndroidManifest.xml"), feature.packageName)
+    } else {
+        val sourceSetNames = sourceSets.names
+        srcDir
+            .listFilesOrdered { it.name in sourceSetNames && it.isDirectory }
+            .forEach {
+                populateManifest(File(it, "AndroidManifest.xml"), feature.packageName)
+            }
+    }
 }
 
 /**
@@ -113,7 +125,8 @@ private fun populateManifest(
             parentFile.mkdirs()
             createNewFile()
             writeText(
-                """<manifest package="$packageName"/>"""
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                        "<manifest package=\"$packageName\"/>"
             )
         }
     }
