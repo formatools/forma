@@ -4,12 +4,15 @@ import androidJunitRunner
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.support.listFilesOrdered
+import org.xml.sax.InputSource
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
 import java.io.File
+import javax.xml.parsers.DocumentBuilderFactory
 
 class AndroidLibraryFeatureConfiguration(
     val packageName: String,
@@ -19,7 +22,6 @@ class AndroidLibraryFeatureConfiguration(
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val viewBinding: Boolean = false,
     val dataBinding: Boolean = false,
-    val generateManifest: Boolean = true,
     val selfValidator: Validator = validator(LibraryTargetTemplate)
 )
 
@@ -31,10 +33,12 @@ fun androidLibraryFeatureDefinition(
     featureConfiguration = featureConfiguration,
     configuration = { extension, feature, project, formaConfiguration ->
         with(extension) {
-            if (feature.generateManifest) {
+            if (formaConfiguration.generateMissedManifests) {
                 maybeGenerateManifest(project, feature)
             }
-
+            if (formaConfiguration.validateManifestPackages) {
+                validateManifestPackage(feature.packageName, project)
+            }
             compileSdkVersion(formaConfiguration.compileSdk)
 
             defaultConfig.applyFrom(
@@ -57,23 +61,50 @@ fun androidLibraryFeatureDefinition(
     }
 )
 
+private fun LibraryExtension.validateManifestPackage(
+    packageName: String,
+    project: Project
+) {
+    sourceSets.forEach {
+        if (it.manifest.srcFile.exists()) {
+            val manifestPackageName = DocumentBuilderFactory
+                .newInstance()
+                .newDocumentBuilder()
+                .parse(InputSource(it.manifest.srcFile.reader()))
+                .documentElement
+                .getAttribute("package")
+
+            if (manifestPackageName != packageName) {
+                error(
+                    "Manifest package != build.gradle.kts packageName, it must be equal" +
+                            "\nmanifest ${it.manifest.srcFile.absolutePath}" +
+                            "\npackage $manifestPackageName" +
+                            "\nbuild script ${project.buildFile.absolutePath}" +
+                            "\npackageName $packageName"
+                )
+            }
+        }
+    }
+}
+
 private fun LibraryExtension.maybeGenerateManifest(
     project: Project,
     feature: AndroidLibraryFeatureConfiguration
 ) {
-    val manifestFile = manifestFile(project.buildDir, feature.packageName)
-    populateManifest(manifestFile, feature.packageName)
-    sourceSets {
-        /**
-         * Manifest file resolved during configuration,
-         * so we need to create file before we get into plugin is configured
-         */
-        getByName("main").manifest.srcFile(manifestFile.path)
+    val srcDir = File(project.projectDir, "src")
+    val mainDir = File(srcDir, "main")
+    // other source sets inherit manifest in case of existing main manifest
+    if (mainDir.isDirectory && mainDir.exists()) {
+        populateManifest(File(mainDir, "AndroidManifest.xml"), feature.packageName)
+    } else {
+        val sourceSetNames = sourceSets.names
+        srcDir
+            .listFilesOrdered { it.name in sourceSetNames && it.isDirectory }
+            .forEach {
+                populateManifest(File(it, "AndroidManifest.xml"), feature.packageName)
+            }
     }
 }
-
-fun manifestFile(buildDir: File, packageName: String) =
-    File(buildDir, "tmp/manifest/${packageName}.xml")
 
 /**
  * Manifest file generated and added it to sourceSet
@@ -94,9 +125,8 @@ private fun populateManifest(
             parentFile.mkdirs()
             createNewFile()
             writeText(
-                """<?xml version="1.0" encoding="utf-8"?>
-                           <manifest package="$packageName"/>
-                """.trimIndent()
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                        "<manifest package=\"$packageName\"/>"
             )
         }
     }

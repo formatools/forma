@@ -20,5 +20,7 @@ androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 29,
     compileSdk = 29,
-    dataBinding = true
+    dataBinding = true,
+    validateManifestPackages = true,
+    generateMissedManifests = true
 )
