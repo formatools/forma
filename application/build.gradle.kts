@@ -22,5 +22,7 @@ androidProjectConfiguration(
     compileSdk = 29,
     versionCode = 1,
     versionName = "1.0",
-    dataBinding = true
+    dataBinding = true,
+    validateManifestPackages = true,
+    generateMissedManifests = true
 )
