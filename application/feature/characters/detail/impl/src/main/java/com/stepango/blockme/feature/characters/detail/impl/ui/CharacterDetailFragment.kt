@@ -28,11 +28,11 @@ import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
 import com.stepango.blockme.feature.characters.detail.databinding.databinding.FragmentCharacterDetailBinding
 import com.stepango.blockme.feature.characters.detail.impl.R
+import com.stepango.blockme.feature.characters.detail.api.CharacterDetailsDepsProvider
 import com.stepango.blockme.feature.characters.detail.impl.di.DaggerCharacterDetailComponent
 import com.stepango.blockme.feature.characters.detail.impl.presentation.CharacterDetailViewModel
 import com.stepango.blockme.feature.characters.detail.impl.presentation.CharacterDetailViewState
 import com.stepango.blockme.feature.characters.detail.impl.presentation.ICharacterDetailViewState
-import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeatureProvider
 
 class CharacterDetailFragment :
     BaseFragment<FragmentCharacterDetailBinding>(
@@ -58,7 +58,7 @@ class CharacterDetailFragment :
             .factory()
             .create(
                 requireProvider(CharactersCoreFeatureProvider::class).getCharactersCoreFeature(),
-                requireProvider(CharacterFavoriteFeatureProvider::class).getCharacterFavoriteFeature()
+                CharacterDetailsDepsProvider.deps
             )
             .inject(this)
     }

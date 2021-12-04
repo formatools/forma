@@ -25,7 +25,7 @@ import com.stepango.blockme.feature.characters.favorite.impl.data.model.Characte
     exportSchema = false,
     version = 2
 )
-abstract class MarvelDatabase : RoomDatabase() {
+internal abstract class MarvelDatabase : RoomDatabase() {
 
     abstract fun characterFavoriteDao(): CharacterFavoriteDao
 }

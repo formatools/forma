@@ -22,15 +22,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
-import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetCharacterFavoriteUseCase
-import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.ISetCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.detail.api.CharacterDetailsDeps
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterDetailViewModel @Inject constructor(
-        private val marvelRepository: MarvelRepository,
-        private val getCharacterFavoriteUseCase: IGetCharacterFavoriteUseCase,
-        private val setCharacterFavoriteUseCase: ISetCharacterFavoriteUseCase,
+    private val marvelRepository: MarvelRepository,
+    private val deps: CharacterDetailsDeps,
 ) : ViewModel(), ICharacterDetailViewModel {
 
     private val _data = MutableLiveData<ICharacter>()
@@ -48,7 +46,7 @@ class CharacterDetailViewModel @Inject constructor(
                 val result = marvelRepository.getCharacter(characterId)
                 _data.postValue(result)
 
-                getCharacterFavoriteUseCase(characterId)?.let {
+                deps.getCharacterFavoriteUseCase(characterId)?.let {
                     _state.postValue(CharacterDetailViewState.AlreadyAddedToFavorite)
                 } ?: run {
                     _state.postValue(CharacterDetailViewState.AddToFavorite)
@@ -62,7 +60,7 @@ class CharacterDetailViewModel @Inject constructor(
     override fun addCharacterToFavorite() {
         _data.value?.let {
             viewModelScope.launch {
-                setCharacterFavoriteUseCase(
+                deps.setCharacterFavoriteUseCase(
                     id = it.id,
                     name = it.name,
                     description = it.description,

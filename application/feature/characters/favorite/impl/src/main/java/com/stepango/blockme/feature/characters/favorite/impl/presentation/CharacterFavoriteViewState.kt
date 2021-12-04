@@ -19,7 +19,7 @@ package com.stepango.blockme.feature.characters.favorite.impl.presentation
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewState
 import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewState
 
-sealed class CharacterFavoriteViewState : BaseViewState, ICharacterFavoriteViewState {
+internal sealed class CharacterFavoriteViewState : BaseViewState, ICharacterFavoriteViewState {
 
     object Empty : CharacterFavoriteViewState()
 

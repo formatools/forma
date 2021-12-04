@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.favorite.impl.di
+package com.stepango.blockme.feature.characters.favorite.api
 
+import androidx.fragment.app.Fragment
 import com.stepango.blockme.core.di.library.BaseComponent
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
-import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeature
+import com.stepango.blockme.feature.characters.favorite.impl.di.CharacterFavoriteModule
+import com.stepango.blockme.feature.characters.favorite.impl.di.MarvelModule
 import com.stepango.blockme.feature.characters.favorite.impl.ui.CharacterFavoriteFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -34,9 +36,11 @@ import javax.inject.Singleton
         BaseComponent::class
     ]
 )
-interface CharacterFavoriteComponent : CharacterFavoriteFeature {
+abstract class CharacterFavoriteComponent : CharactersFavoriteApi {
 
-    fun inject(favoriteFragment: CharacterFavoriteFragment)
+    internal abstract fun inject(favoriteFragment: CharacterFavoriteFragment)
+
+    override fun getFragment(): Fragment = CharacterFavoriteFragment()
 
     @Component.Factory
     interface Factory {

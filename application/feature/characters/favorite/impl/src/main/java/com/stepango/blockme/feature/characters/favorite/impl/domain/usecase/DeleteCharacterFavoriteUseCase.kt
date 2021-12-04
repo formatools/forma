@@ -1,13 +1,12 @@
 package com.stepango.blockme.feature.characters.favorite.impl.domain.usecase
 
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
-import com.stepango.blockme.feature.characters.favorite.api.domain.repository.ICharacterFavoriteRepository
-import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IDeleteCharacterFavoriteUseCase
+import com.stepango.blockme.feature.characters.favorite.impl.data.repository.CharacterFavoriteRepository
 import javax.inject.Inject
 
-class DeleteCharacterFavoriteUseCase @Inject constructor(private val repository: ICharacterFavoriteRepository) : IDeleteCharacterFavoriteUseCase {
+internal class DeleteCharacterFavoriteUseCase @Inject constructor(private val repository: CharacterFavoriteRepository) {
 
-    override suspend operator fun invoke(character: ICharacter) {
+    suspend operator fun invoke(character: ICharacter) {
         repository.deleteCharacterFavorite(character)
     }
 }

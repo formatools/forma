@@ -8,6 +8,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "forma"
 
+apply(from = "core/modules.gradle.kts")
+
 include(":toggle-widget")
 include(":feature:home:res")
 include(":feature:characters:list:databinding")
@@ -16,7 +18,6 @@ include(":feature:characters:detail:res")
 include(":feature:characters:detail:databinding")
 include(":feature:home:databinding")
 include(":root-res")
-include(":core:theme:res")
 include(":common:placeholder:res")
 include(":common:util-native")
 include(
@@ -34,12 +35,6 @@ include(
     ":feature:characters:favorite:res",
     ":feature:characters:favorite:impl",
     ":feature:characters:favorite:databinding",
-
-    ":core:di:library",
-    ":core:network:library",
-    ":core:mvvm:library",
-    ":core:navigation:library",
-    ":core:theme:android-util",
 
     ":common:extensions:android-util",
     ":common:extensions:util",

@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 
 @Entity(tableName = "character_favorite")
-data class CharacterFavorite(
+internal data class CharacterFavorite(
     @PrimaryKey override val id: Long,
     @ColumnInfo(name = "name") override val name: String,
     @ColumnInfo(name = "description") override val description: String,

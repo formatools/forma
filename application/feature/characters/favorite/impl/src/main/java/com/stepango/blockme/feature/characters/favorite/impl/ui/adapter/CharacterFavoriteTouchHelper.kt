@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
 import androidx.recyclerview.widget.RecyclerView
 import javax.inject.Inject
 
-class CharacterFavoriteTouchHelper @Inject constructor(
+internal class CharacterFavoriteTouchHelper @Inject constructor(
     private val onSwiped: ((Int) -> Unit)
 ) : ItemTouchHelper.SimpleCallback(
     ACTION_STATE_IDLE,

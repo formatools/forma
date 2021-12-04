@@ -1,5 +1,5 @@
 /**
- * This project meant to be self containing root library
+ * This target meant to be self containing root library
  */
 androidApp(
     packageName = "com.stepango.blockme.root.library",
@@ -16,18 +16,19 @@ androidApp(
         jakewharton.timber
 
     ) + deps(
-        project(":root-res"),
+        target(":root-res"),
 
-        project(":feature:characters:core:api"),
-        project(":feature:characters:core:impl"),
-        project(":feature:characters:favorite:api"),
-        project(":feature:characters:favorite:impl"),
+        target(":feature:characters:core:api"),
+        target(":feature:characters:core:impl"),
+        target(":feature:characters:favorite:api"),
+        target(":feature:characters:favorite:impl"),
+        target(":feature:characters:detail:impl"),
 
-        project(":core:di:library"),
-        project(":core:navigation:library"),
-        project(":core:theme:android-util"),
-        project(":core:network:library"),
-        project(":common:util")
+        target(":core:di:library"),
+        target(":core:navigation:library"),
+        target(":core:theme:android-util"),
+        target(":core:network:library"),
+        target(":common:util")
     ),
     testDependencies = deps(
         test.unit

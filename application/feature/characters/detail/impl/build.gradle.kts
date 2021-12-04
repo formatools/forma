@@ -15,20 +15,20 @@ impl(
         kotlinx.coroutines_core
 
     ) + deps(
-        project(":feature:characters:core:api"),
-        project(":feature:characters:favorite:api"),
-        project(":feature:characters:detail:api"),
-        project(":feature:characters:detail:databinding"),
+        target(":feature:characters:core:api"),
+        target(":feature:characters:favorite:api"),
+        target(":feature:characters:detail:api"),
+        target(":feature:characters:detail:databinding"),
 
-        project(":core:di:library"),
-        project(":core:theme:android-util"),
-        project(":core:mvvm:library"),
-        project(":core:network:library"),
-        project(":core:navigation:library"),
+        target(":core:di:library"),
+        target(":core:theme:android-util"),
+        target(":core:mvvm:library"),
+        target(":core:network:library"),
+        target(":core:navigation:library"),
 
-        project(":common:util"),
-        project(":common:extensions:android-util"),
-        project(":common:extensions:databinding-adapter"),
-        project(":common:progressbar:databinding")
+        target(":common:util"),
+        target(":common:extensions:android-util"),
+        target(":common:extensions:databinding-adapter"),
+        target(":common:progressbar:databinding")
     )
 )

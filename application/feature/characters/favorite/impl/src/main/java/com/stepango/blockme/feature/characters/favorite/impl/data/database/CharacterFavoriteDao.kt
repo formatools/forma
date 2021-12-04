@@ -23,7 +23,7 @@ import androidx.room.Query
 import com.stepango.blockme.feature.characters.favorite.impl.data.model.CharacterFavorite
 
 @Dao
-interface CharacterFavoriteDao {
+internal interface CharacterFavoriteDao {
 
     @Query("SELECT * FROM character_favorite ORDER BY name")
     suspend fun getAllCharactersFavorite(): List<CharacterFavorite>

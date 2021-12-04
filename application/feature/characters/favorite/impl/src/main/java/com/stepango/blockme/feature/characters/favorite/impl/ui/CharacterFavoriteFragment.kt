@@ -24,14 +24,14 @@ import com.stepango.blockme.core.di.library.BaseComponentProvider
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
+import com.stepango.blockme.feature.characters.favorite.api.DaggerCharacterFavoriteComponent
 import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
 import com.stepango.blockme.feature.characters.favorite.impl.R
-import com.stepango.blockme.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteAdapter
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteTouchHelper
 import com.stepango.blockme.feature.favorite.res.databinding.FragmentCharacterFavoriteListBinding
 
-class CharacterFavoriteFragment :
+internal class CharacterFavoriteFragment :
     BaseFragment<FragmentCharacterFavoriteListBinding>(
         layoutId = R.layout.fragment_character_favorite_list
     ) {

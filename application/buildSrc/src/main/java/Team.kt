@@ -13,6 +13,11 @@ object Users {
         userName = "michaem",
         email = "michaem@gmail.com"
     )
+    val ikarenkov = Person(
+        fullName = "Igor Karenkov",
+        userName = "ikarenkov",
+        email = "karenkovigor@gmail.com"
+    )
 }
 
 object Teams {
@@ -21,7 +26,8 @@ object Teams {
         emailAlias = "android-core@forma.tools",
         leads = arrayOf(
             Users.stepango,
-            Users.michaem
+            Users.michaem,
+            Users.ikarenkov
         )
     )
 }

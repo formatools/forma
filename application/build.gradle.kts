@@ -18,8 +18,8 @@ if (file.exists()) file.inputStream().use { properties.load(it) }
 // Enjoy easiest way to configure your Android project
 androidProjectConfiguration(
     minSdk = 21,
-    targetSdk = 29,
-    compileSdk = 29,
+    targetSdk = 31,
+    compileSdk = 31,
     versionCode = 1,
     versionName = "1.0",
     dataBinding = true,

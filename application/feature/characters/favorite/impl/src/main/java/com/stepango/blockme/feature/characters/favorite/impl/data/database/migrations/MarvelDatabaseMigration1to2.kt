@@ -19,7 +19,7 @@ package com.stepango.blockme.feature.characters.favorite.impl.data.database.migr
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+internal val MIGRATION_1_2: Migration = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE character_favorite ADD COLUMN description STRING")
     }

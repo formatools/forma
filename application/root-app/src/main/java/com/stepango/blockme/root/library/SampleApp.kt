@@ -26,14 +26,14 @@ import com.stepango.blockme.core.theme.android.util.ThemeUtils
 import com.stepango.blockme.core.theme.android.util.di.DaggerThemeComponent
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponent
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponentProvider
-import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
+import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreApi
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
 import com.stepango.blockme.feature.characters.core.impl.di.CharactersCoreComponent
 import com.stepango.blockme.feature.characters.core.impl.di.DaggerCharactersCoreComponent
-import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeature
-import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeatureProvider
-import com.stepango.blockme.feature.characters.favorite.impl.di.CharacterFavoriteComponent
-import com.stepango.blockme.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
+import com.stepango.blockme.feature.characters.detail.api.CharacterDetailsDepsStore
+import com.stepango.blockme.feature.characters.favorite.api.CharacterFavoriteComponent
+import com.stepango.blockme.feature.characters.favorite.api.DaggerCharacterFavoriteComponent
+import com.stepango.blockme.root.library.deps.CharactersDetailsDepsImpl
 import com.stepango.blockme.root.library.di.DaggerRootComponent
 import timber.log.Timber
 import javax.inject.Inject
@@ -42,8 +42,7 @@ import kotlin.random.Random
 class SampleApp : SplitCompatApplication(),
     BaseComponentProvider,
     ThemeComponentProvider,
-    CharactersCoreFeatureProvider,
-    CharacterFavoriteFeatureProvider {
+    CharactersCoreFeatureProvider {
 
     private lateinit var baseComponent: BaseComponent
     override fun getBaseComponent(): BaseComponent = baseComponent
@@ -52,10 +51,9 @@ class SampleApp : SplitCompatApplication(),
     override fun getThemeComponent(): ThemeComponent = themeComponent
 
     private lateinit var characterCoreComponent: CharactersCoreComponent
-    override fun getCharactersCoreFeature(): CharactersCoreFeature = characterCoreComponent
+    override fun getCharactersCoreFeature(): CharactersCoreApi = characterCoreComponent
 
     private lateinit var characterFavoriteComponent: CharacterFavoriteComponent
-    override fun getCharacterFavoriteFeature(): CharacterFavoriteFeature = characterFavoriteComponent
 
     @Inject
     lateinit var themeUtils: ThemeUtils
@@ -76,7 +74,7 @@ class SampleApp : SplitCompatApplication(),
 
     private fun initRootDependencyInjection() {
         baseComponent = DaggerBaseComponent.factory().create(this)
-        themeComponent = DaggerThemeComponent.factory().create()
+        themeComponent = DaggerThemeComponent.create()
 
         DaggerRootComponent
             .builder()
@@ -87,6 +85,7 @@ class SampleApp : SplitCompatApplication(),
 
         characterCoreComponent = DaggerCharactersCoreComponent.factory().create(config, clock)
         characterFavoriteComponent = DaggerCharacterFavoriteComponent.factory().create(baseComponent)
+        CharacterDetailsDepsStore.deps = CharactersDetailsDepsImpl(characterFavoriteComponent)
     }
 
     private fun initTimber() {

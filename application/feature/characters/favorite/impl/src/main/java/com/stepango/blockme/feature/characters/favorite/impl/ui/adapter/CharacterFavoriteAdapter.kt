@@ -23,7 +23,7 @@ import com.stepango.blockme.core.mvvm.library.ui.BaseListAdapter
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.holders.CharacterFavoriteViewHolder
 
-class CharacterFavoriteAdapter : BaseListAdapter<ICharacter>(
+internal class CharacterFavoriteAdapter : BaseListAdapter<ICharacter>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {

@@ -17,14 +17,14 @@
 package com.stepango.blockme.feature.characters.list.impl.di
 
 import com.stepango.blockme.core.di.library.scopes.FeatureScope
-import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
+import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreApi
 import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListFragment
 import dagger.Component
 
 @FeatureScope
 @Component(
     modules = [CharactersListModule::class],
-    dependencies = [CharactersCoreFeature::class])
+    dependencies = [CharactersCoreApi::class])
 internal interface CharactersListComponent {
 
     fun inject(listFragment: CharactersListFragment)
@@ -32,6 +32,6 @@ internal interface CharactersListComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(charactersCoreFeature: CharactersCoreFeature): CharactersListComponent
+        fun create(charactersCoreApi: CharactersCoreApi): CharactersListComponent
     }
 }

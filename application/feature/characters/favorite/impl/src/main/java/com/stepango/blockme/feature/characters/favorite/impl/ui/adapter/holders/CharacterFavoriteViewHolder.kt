@@ -21,7 +21,7 @@ import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.favorite.res.databinding.ListItemCharacterFavoriteBinding
 
-class CharacterFavoriteViewHolder(
+internal class CharacterFavoriteViewHolder(
     inflater: LayoutInflater
 ) : BaseViewHolder<ListItemCharacterFavoriteBinding>(
     binding = ListItemCharacterFavoriteBinding.inflate(inflater)
