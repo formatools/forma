@@ -14,7 +14,7 @@ object versions {
         const val appcompat = "1.2.0"
         const val cardview = "1.0.0"
         const val collection = "1.0.0"
-        const val core = "1.3.1"
+        const val core = "1.7.0"
         const val core_common = "2.1.0"
         const val coordinatorlayout = "1.1.0"
         const val constraintlayout = "2.0.1"
