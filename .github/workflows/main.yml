@@ -16,4 +16,4 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
     - name: Build with Gradle
-      run: cd application && ./gradlew build test -s --console=plain
+      run: cd application && ./gradlew --no-configuration-cache build test -s --console=plain
