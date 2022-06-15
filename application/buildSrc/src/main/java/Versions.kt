@@ -1,6 +1,6 @@
 object versions {
     const val funktionale = "1.2"
-    const val coil = "0.8.0"
+    const val coil = "2.1.0"
 
     object jetbrains {
         const val coroutines = "1.3.7"
@@ -28,7 +28,7 @@ object versions {
         const val lifecycle = "2.2.0"
         const val loader = "1.1.0"
         const val localbroadcastmanager = "1.0.0"
-        const val navigation = "2.3.1"
+        const val navigation = "2.4.2"
         const val savedstate = "1.0.0"
         const val slidingpanelayout = "1.0.0"
         const val swiperefreshlayout = "1.0.0"
@@ -44,7 +44,7 @@ object versions {
 
     object google {
         const val material = "1.2.0"
-        const val dagger = "2.38"
+        const val dagger = "2.42"
         const val play_core = "1.6.4"
         const val gson = "2.8.6"
     }
