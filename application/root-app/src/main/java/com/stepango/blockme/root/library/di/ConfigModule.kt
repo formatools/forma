@@ -9,8 +9,8 @@ import dagger.Provides
 @Module
 class ConfigModule {
 
-	@AppScope
-	@Provides
-	fun provideNetworkConfig(): Config =
-		NetworkConfig()
+    @AppScope
+    @Provides
+    fun provideNetworkConfig(): Config =
+        NetworkConfig()
 }

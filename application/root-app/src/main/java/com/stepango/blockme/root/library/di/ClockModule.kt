@@ -9,8 +9,8 @@ import dagger.Provides
 @Module
 class ClockModule {
 
-	@AppScope
-	@Provides
-	fun provideClock(): Clock =
-		AppClock()
+    @AppScope
+    @Provides
+    fun provideClock(): Clock =
+        AppClock()
 }

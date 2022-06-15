@@ -5,4 +5,7 @@
 
     <!--Home toolbar items-->
     <string name="home_toolbar_theme">Toggle Theme</string>
+    <string name="home_app_info">App info</string>
+
+    <string name="home_app_info_template">versionName: %s, versionCode: %d</string>
 </resources>

@@ -20,8 +20,6 @@ androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 31,
     compileSdk = 31,
-    versionCode = 1,
-    versionName = "1.0",
     dataBinding = true,
     validateManifestPackages = true,
     generateMissedManifests = true

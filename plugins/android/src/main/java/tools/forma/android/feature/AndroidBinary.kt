@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage")
+
 package tools.forma.android.feature
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
@@ -10,6 +11,8 @@ import tools.forma.validation.validator
 
 data class AndroidBinaryFeatureConfiguration(
     val packageName: String,
+    val versionCode: Int,
+    val versionName: String,
     val buildConfiguration: BuildConfiguration,
     val testInstrumentationRunnerClass: String,
     val consumerMinificationFiles: Set<String>,
@@ -23,20 +26,22 @@ fun androidBinaryFeatureDefinition(
     pluginName = "com.android.application",
     pluginExtension = BaseAppModuleExtension::class,
     featureConfiguration = featureConfiguration,
-    configuration = { extension, feature, _, formaConfiguration ->
+    configuration = { extension, configuration, _, formaConfiguration ->
         with(extension) {
             compileSdkVersion(formaConfiguration.compileSdk)
 
-            defaultConfig.applicationId = feature.packageName
+            defaultConfig.applicationId = configuration.packageName
+            defaultConfig.versionCode = configuration.versionCode
+            defaultConfig.versionName = configuration.versionName
 
             defaultConfig.applyFrom(
                 formaConfiguration,
-                feature.testInstrumentationRunnerClass,
-                feature.consumerMinificationFiles,
-                feature.manifestPlaceholders
+                configuration.testInstrumentationRunnerClass,
+                configuration.consumerMinificationFiles,
+                configuration.manifestPlaceholders
             )
 
-            buildTypes.applyFrom(feature.buildConfiguration)
+            buildTypes.applyFrom(configuration.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
 
             /**

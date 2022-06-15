@@ -4,6 +4,6 @@ import com.stepango.blockme.common.util.clock.Clock
 
 class AppClock : Clock {
 
-	override fun currentTimeMillis(): Long =
-		System.currentTimeMillis()
+    override fun currentTimeMillis(): Long =
+        System.currentTimeMillis()
 }

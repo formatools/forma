@@ -25,15 +25,14 @@ import com.stepango.blockme.common.extensions.android.util.observe
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.list.databinding.databinding.FragmentCharactersListBinding
 import com.stepango.blockme.feature.characters.list.impl.R
 import com.stepango.blockme.feature.characters.list.impl.di.DaggerCharactersListComponent
-import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewEvent
 import com.stepango.blockme.feature.characters.list.impl.domain.model.ICharactersListViewState
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapter
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapterState
-
 
 class CharactersListFragment :
     BaseFragment<FragmentCharactersListBinding>(
@@ -94,7 +93,8 @@ class CharactersListFragment :
             is CharactersListViewEvent.OpenCharacterDetail ->
                 findNavController().navigate(
                     CharactersListFragmentDirections
-                        .actionCharactersListFragmentToCharacterDetailFragment(viewEvent.id))
+                        .actionCharactersListFragmentToCharacterDetailFragment(viewEvent.id)
+                )
         }
     }
 }

@@ -21,8 +21,6 @@ fun Project.androidProjectConfiguration(
     minSdk: Int,
     targetSdk: Int,
     compileSdk: Int,
-    versionCode: Int,
-    versionName: String,
     repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
     validateManifestPackages: Boolean = false,
@@ -45,8 +43,6 @@ fun Project.androidProjectConfiguration(
         // we don't need check properties for exist, we read it successfully in forma configuration
         kotlinVersion = properties["forma.kotlinVersion"]!!.toString(),
         agpVersion = properties["forma.agpVersion"]!!.toString(),
-        versionCode = versionCode,
-        versionName = versionName,
         repositories = repositories,
         dataBinding = dataBinding,
         generateMissedManifests = generateMissedManifests,

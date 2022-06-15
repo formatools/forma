@@ -22,10 +22,8 @@ internal fun DefaultConfig.applyFrom(
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any>
 ) {
-    minSdkVersion(formaConfiguration.minSdk)
-    targetSdkVersion(formaConfiguration.targetSdk)
-    versionCode = formaConfiguration.versionCode
-    versionName = formaConfiguration.versionName
+    minSdk = formaConfiguration.minSdk
+    targetSdk = formaConfiguration.targetSdk
 
     testInstrumentationRunner = testInstrumentationRunnerClass
     consumerProguardFiles(*consumerMinificationFiles.toTypedArray())
