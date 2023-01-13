@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.ceil
 
 class RecyclerViewItemDecoration(
-    @VisibleForTesting(otherwise = PRIVATE)
+    @get:VisibleForTesting(otherwise = PRIVATE)
     internal val spacingPx: Int
 ) : RecyclerView.ItemDecoration() {
 

@@ -32,12 +32,12 @@ infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency =
     dependency.files + dep.dependency.files
 )
 
-inline fun <reified T : FormaDependency> emptyDependency(): T = when {
-    T::class == FormaDependency::class -> EmptyDependency as T
-    T::class == NamedDependency::class -> NamedDependency() as T
-    T::class == FileDependency::class -> FileDependency() as T
-    T::class == TargetDependency::class -> TargetDependency() as T
-    T::class == MixedDependency::class -> MixedDependency() as T
+inline fun <reified T : FormaDependency> emptyDependency(): T = when(T::class) {
+    FormaDependency::class -> EmptyDependency as T
+    NamedDependency::class -> NamedDependency() as T
+    FileDependency::class -> FileDependency() as T
+    TargetDependency::class -> TargetDependency() as T
+    MixedDependency::class -> MixedDependency() as T
     else -> throw IllegalArgumentException("Illegal Empty dependency, expected ${T::class.simpleName}")
 }
 
