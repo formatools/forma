@@ -3,7 +3,7 @@ import java.util.Properties
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2")
@@ -15,7 +15,7 @@ val properties = Properties()
 val file: File = project.rootProject.file("local.properties")
 if (file.exists()) file.inputStream().use { properties.load(it) }
 
-// Enjoy easiest way to configure your Android project
+// Enjoy the easiest way to configure your Android project
 androidProjectConfiguration(
     minSdk = 21,
     targetSdk = 31,

@@ -39,7 +39,7 @@ fun androidLibraryFeatureDefinition(
             if (formaConfiguration.validateManifestPackages) {
                 validateManifestPackage(feature.packageName, project)
             }
-            compileSdkVersion(formaConfiguration.compileSdk)
+            compileSdk = formaConfiguration.compileSdk
 
             defaultConfig.applyFrom(
                 formaConfiguration,

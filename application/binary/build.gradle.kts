@@ -23,7 +23,7 @@ androidBinary(
 
         target(":common:extensions:android-util"),
         target(":common:progressbar:databinding"),
-        target(":common:util-native"),
+//        target(":common:util-native"),
         target(":core:mvvm:library"),
         target(":core:di:library")
     )

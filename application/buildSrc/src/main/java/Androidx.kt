@@ -24,31 +24,20 @@ object androidx {
         "androidx.lifecycle:lifecycle-common:${versions.androidx.lifecycle}".dep
     )
 
-    private val lifecycle_extensions = deps(
-        annotation,
-        "androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycle}".dep
-    )
-
     private val lifecycle_runtime = deps(
         "androidx.lifecycle:lifecycle-runtime:${versions.androidx.lifecycle}".dep,
         core_common,
         lifecycle_common
     )
 
-    private val lifecycle_viewmodel = deps(
-        annotation,
-        "androidx.lifecycle:lifecycle-viewmodel:${versions.androidx.lifecycle}".dep
-    )
-
     private val lifecycle_viewmodel_ktx = deps(
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}".dep,
-        lifecycle_viewmodel,
+        "androidx.lifecycle:lifecycle-viewmodel:${versions.androidx.lifecycle}".dep,
         kotlinx.coroutines_android
     )
 
     val viewmodel = deps(
         lifecycle_viewmodel_ktx,
-        lifecycle_extensions
     )
 
     private val savedstate = deps(
@@ -74,7 +63,7 @@ object androidx {
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.androidx.lifecycle}".dep,
         annotation,
         lifecycle_livedate_core,
-        lifecycle_viewmodel,
+        lifecycle_viewmodel_ktx,
         savedstate
     )
 
@@ -96,7 +85,7 @@ object androidx {
         annotation,
         core,
         lifecycle_runtime,
-        lifecycle_viewmodel,
+        lifecycle_viewmodel_ktx,
         lifecycle_viewmodel_savedstate,
         savedstate
     )
@@ -107,7 +96,7 @@ object androidx {
         collection,
         core,
         lifecycle_livedate_core,
-        lifecycle_viewmodel
+        lifecycle_viewmodel_ktx,
     )
 
     private val customview = deps(
@@ -130,7 +119,7 @@ object androidx {
         collection,
         core,
         lifecycle_livedate_core,
-        lifecycle_viewmodel,
+        lifecycle_viewmodel_ktx,
         lifecycle_viewmodel_savedstate,
         loader,
         viewpager
@@ -280,7 +269,7 @@ object androidx {
     private val navigation_runtime = deps(
         "androidx.navigation:navigation-runtime:${versions.androidx.navigation}".dep,
         activity,
-        lifecycle_viewmodel,
+        lifecycle_viewmodel_ktx,
         lifecycle_viewmodel_savedstate,
         navigation_common,
         savedstate

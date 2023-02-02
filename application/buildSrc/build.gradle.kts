@@ -9,6 +9,6 @@ dependencies {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     google()
 }
