@@ -1,3 +1,5 @@
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
+
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
     repositories {

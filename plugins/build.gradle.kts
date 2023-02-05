@@ -37,7 +37,7 @@ subprojects {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     plugins.whenPluginAdded {
