@@ -1,5 +1,6 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm")
-    id("java-gradle-plugin")
-    id("org.gradle.kotlin.kotlin-dsl")
+    `kotlin-dsl`
+    id("com.gradle.plugin-publish")
 }
+
+group = "tools.forma"

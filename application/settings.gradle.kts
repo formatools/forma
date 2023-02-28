@@ -1,14 +1,19 @@
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
-dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    repositories {
-        google()
-        mavenCentral()
-    }
+rootProject.name = "forma-demo-app"
+
+pluginManagement {
+    apply(from = "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts")
+    includeBuild("../build-settings")
+    includeBuild("../build-dependencies")
 }
 
-rootProject.name = "forma"
+plugins {
+    id("convention-dependencies")
+    id("tools.forma.android")
+    id("tools.forma.deps")
+}
+
 
 include(":toggle-widget")
 include(":feature:home:res")
