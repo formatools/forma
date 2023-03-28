@@ -5,8 +5,8 @@ dataBindingAdapters(
         androidx.recyclerview,
         io.coil
     ) + deps(
-        project(":common:recyclerview:widget"),
-        project(":common:placeholder:res")
+        target(":common:recyclerview:widget"),
+        target(":common:placeholder:res")
     )
 
 )

@@ -7,11 +7,11 @@ dataBinding(
         androidx.appcompat,
         androidx.constraintlayout
     ) + deps(
-        project(":core:navigation:library"),
-        project(":core:mvvm:library"),
-        project(":core:theme:res"),
-        project(":feature:home:res"),
-        project(":common:extensions:databinding-adapter"),
-        project(":common:extensions:android-util")
+        target(":core:navigation:library"),
+        target(":core:mvvm:library"),
+        target(":core:theme:res"),
+        target(":feature:home:res"),
+        target(":common:extensions:databinding-adapter"),
+        target(":common:extensions:android-util")
     )
 )

@@ -7,14 +7,14 @@ dataBinding(
         google.material
     ) + deps(
 
-        project(":core:theme:res"),
-        project(":core:network:library"),
-        project(":core:mvvm:library"),
-        project(":feature:characters:core:api"),
-        project(":feature:characters:list:api"),
-        project(":feature:characters:list:res"),
+        target(":core:theme:res"),
+        target(":core:network:library"),
+        target(":core:mvvm:library"),
+        target(":feature:characters:core:api"),
+        target(":feature:characters:list:api"),
+        target(":feature:characters:list:res"),
 
-        project(":common:extensions:android-util"),
-        project(":common:extensions:databinding-adapter")
+        target(":common:extensions:android-util"),
+        target(":common:extensions:databinding-adapter")
     )
 )

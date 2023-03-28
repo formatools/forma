@@ -5,6 +5,6 @@ library(
         google.gson,
         google.dagger
     ) + deps(
-        project(":common:util")
+        target(":common:util")
     )
 )

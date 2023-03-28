@@ -103,5 +103,5 @@ val String.kapt: NamedDependency get() = kapt(this)
 
 val Project.target: FormaTarget get() = FormaTarget(this)
 
-fun Project.target(name: String): FormaTarget = FormaTarget(project(name))
+fun Project.target(name: String): FormaTarget = FormaTarget(project(":" + name.substring(1).replace(":", "-")))
 

@@ -6,12 +6,12 @@ dataBinding(
         google.material
     ) + deps(
 
-        project(":core:theme:res"),
-        project(":feature:characters:core:api"),
-        project(":feature:characters:detail:api"),
-        project(":feature:characters:detail:res"),
+        target(":core:theme:res"),
+        target(":feature:characters:core:api"),
+        target(":feature:characters:detail:api"),
+        target(":feature:characters:detail:res"),
 
-        project(":common:extensions:android-util"),
-        project(":common:extensions:databinding-adapter")
+        target(":common:extensions:android-util"),
+        target(":common:extensions:databinding-adapter")
     )
 )

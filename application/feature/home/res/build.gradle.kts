@@ -5,6 +5,6 @@ androidRes(
         androidx.appcompat,
         androidx.constraintlayout
     ) + deps(
-        project(":core:theme:res")
+        target(":core:theme:res")
     )
 )

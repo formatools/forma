@@ -8,14 +8,14 @@ dataBinding(
         androidx.constraintlayout,
         androidx.navigation
     ) + deps(
-        project(":feature:characters:core:api"),
-        project(":feature:characters:favorite:api"),
-        project(":feature:characters:favorite:res"),
+        target(":feature:characters:core:api"),
+        target(":feature:characters:favorite:api"),
+        target(":feature:characters:favorite:res"),
 
-        project(":core:navigation:library"),
-        project(":core:mvvm:library"),
-        project(":core:theme:res"),
-        project(":common:extensions:databinding-adapter"),
-        project(":common:extensions:android-util")
+        target(":core:navigation:library"),
+        target(":core:mvvm:library"),
+        target(":core:theme:res"),
+        target(":common:extensions:databinding-adapter"),
+        target(":common:extensions:android-util")
     )
 )

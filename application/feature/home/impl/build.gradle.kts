@@ -10,17 +10,17 @@ impl(
         jakewharton.timber
 
     ) + deps(
-        project(":toggle-widget"),
+        target(":toggle-widget"),
 
-        project(":feature:home:api"),
-        project(":feature:home:databinding"),
+        target(":feature:home:api"),
+        target(":feature:home:databinding"),
 
-        project(":core:di:library"),
-        project(":core:theme:android-util"),
-        project(":core:mvvm:library"),
-        project(":core:navigation:library"),
+        target(":core:di:library"),
+        target(":core:theme:android-util"),
+        target(":core:mvvm:library"),
+        target(":core:navigation:library"),
 
-        project(":common:extensions:android-util"),
-        project(":common:extensions:databinding-adapter")
+        target(":common:extensions:android-util"),
+        target(":common:extensions:databinding-adapter")
     )
 )

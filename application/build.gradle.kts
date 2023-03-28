@@ -15,14 +15,3 @@ buildscript {
         )
     )
 }
-
-/**
- * By design, Forma does not support Root Project plugins
- */
-plugins {
-    id("com.osacky.doctor") version "0.8.1"
-}
-
-val properties = Properties()
-val file: File = project.rootProject.file("local.properties")
-if (file.exists()) file.inputStream().use { properties.load(it) }

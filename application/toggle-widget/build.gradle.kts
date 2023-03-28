@@ -3,6 +3,6 @@ widget(
     dependencies = deps(
         androidx.appcompat
     ) + deps(
-        project(":feature:home:res")
+        target(":feature:home:res")
     )
 )

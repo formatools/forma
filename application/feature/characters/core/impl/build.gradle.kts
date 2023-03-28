@@ -5,17 +5,17 @@ impl(
         squareup.retrofit
 
     ) + deps(
-        project(":feature:characters:core:api"),
+        target(":feature:characters:core:api"),
 
-        project(":core:di:library"),
-        project(":core:theme:android-util"),
-        project(":core:mvvm:library"),
-        project(":core:network:library"),
+        target(":core:di:library"),
+        target(":core:theme:android-util"),
+        target(":core:mvvm:library"),
+        target(":core:network:library"),
 
-        project(":common:extensions:util"),
-        project(":common:extensions:android-util"),
-        project(":common:extensions:databinding-adapter"),
-        project(":common:util")
+        target(":common:extensions:util"),
+        target(":common:extensions:android-util"),
+        target(":common:extensions:databinding-adapter"),
+        target(":common:util")
 
     ),
     testDependencies = deps(
