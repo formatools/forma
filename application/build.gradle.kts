@@ -1,5 +1,3 @@
-import java.util.Properties
-
 buildscript {
     androidProjectConfiguration(
         project = project,
