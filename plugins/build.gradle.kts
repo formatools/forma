@@ -1,7 +1,9 @@
 import com.gradle.publish.PublishPlugin
+import java.util.Properties
 
 plugins {
-    id("com.gradle.plugin-publish") version "0.12.0" apply false
+    id("com.gradle.plugin-publish") version "1.1.0" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.8.10" apply false
 }
 
 class FormaRootConfigurationException(
@@ -12,7 +14,7 @@ class FormaRootConfigurationException(
 val propertyKotlinVersion = "forma.kotlinVersion"
 val propertyAgpVersion = "forma.agpVersion"
 
-val properties = java.util.Properties()
+val properties = Properties()
 val file = project.rootProject.file("../gradle.properties")
 try {
     file.inputStream().use { properties.load(it) }

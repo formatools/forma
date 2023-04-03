@@ -1,10 +1,10 @@
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
 import kotlin.system.measureTimeMillis
 
 buildscript {
     repositories {
         mavenCentral()
+        google()
     }
     dependencies {
         classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
@@ -19,6 +19,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 val counter = java.util.concurrent.atomic.AtomicInteger(0)
 
 rootProject.name = "forma"
