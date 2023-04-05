@@ -15,7 +15,7 @@ val propertyKotlinVersion = "forma.kotlinVersion"
 val propertyAgpVersion = "forma.agpVersion"
 
 val properties = Properties()
-val file = project.rootProject.file("../gradle.properties")
+val file = project.rootProject.file("gradle.properties")
 try {
     file.inputStream().use { properties.load(it) }
 } catch (e: Throwable) {

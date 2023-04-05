@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 
 val counter = java.util.concurrent.atomic.AtomicInteger(0)
 
-rootProject.name = "forma"
+rootProject.name = "application"
 measureTimeMillis {
     runBlocking {
         findGradleKtsFiles(rootDir)
