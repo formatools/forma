@@ -28,7 +28,8 @@ fun androidBinaryFeatureDefinition(
     featureConfiguration = featureConfiguration,
     configuration = { extension, configuration, _, formaConfiguration ->
         with(extension) {
-            compileSdkVersion(formaConfiguration.compileSdk)
+            namespace = configuration.packageName
+            compileSdk = formaConfiguration.compileSdk
 
             defaultConfig.applicationId = configuration.packageName
             defaultConfig.versionCode = configuration.versionCode

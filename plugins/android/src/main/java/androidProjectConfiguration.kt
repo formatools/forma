@@ -15,9 +15,11 @@ import tools.forma.android.utils.register
  * @param minSdk is min android sdk
  * @param targetSdk is target android sdk
  * @param compileSdk SDK version used to compile Android App
- * @param versionCode is version code of the App
- * @param validateManifestPackages enabling validation of manifests during configuration
- * @param generateMissedManifests enabling generation missing manifests during configuration
+ * @param repositories is a function that configures repositories for project
+ * @param dataBinding is a flag that enables databinding
+ * @param javaVersionCompatibility is a java version that will be used for targetCompatibility and sourceCompatibility versions
+ * @param mandatoryOwners is a flag that enables mandatory owners for all modules
+ * @param extraPlugins is a list of extra plugins that will be applied to project
  */
 fun ScriptHandlerScope.androidProjectConfiguration(
     project: Project,
@@ -26,8 +28,6 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     compileSdk: Int,
     repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
-    validateManifestPackages: Boolean = false,
-    generateMissedManifests: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
     extraPlugins: List<Any>
@@ -51,8 +51,6 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             agpVersion = properties["forma.agpVersion"]!!.toString(),
             repositories = repositories,
             dataBinding = dataBinding,
-            generateMissedManifests = generateMissedManifests,
-            validateManifestPackages = validateManifestPackages,
             javaVersionCompatibility = javaVersionCompatibility,
             mandatoryOwners = mandatoryOwners
         )
@@ -93,8 +91,6 @@ fun Project.androidProjectConfiguration(
             agpVersion = properties["forma.agpVersion"]!!.toString(),
             repositories = repositories,
             dataBinding = dataBinding,
-            generateMissedManifests = generateMissedManifests,
-            validateManifestPackages = validateManifestPackages,
             javaVersionCompatibility = javaVersionCompatibility,
             mandatoryOwners = mandatoryOwners
         )
