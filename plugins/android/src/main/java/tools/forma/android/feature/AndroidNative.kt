@@ -22,9 +22,10 @@ fun androidNativeDefinition(
     pluginName = "com.android.library",
     pluginExtension = LibraryExtension::class,
     featureConfiguration = configuration,
-    configuration = { extension, feature, _, formaConfiguration ->
+    configuration = { extension, _, _, formaConfiguration ->
         with(extension) {
-            compileSdkVersion(formaConfiguration.compileSdk)
+            namespace = configuration.packageName
+            compileSdk = formaConfiguration.compileSdk
 
             defaultConfig.applyFrom(
                 formaConfiguration,
