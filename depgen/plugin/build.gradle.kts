@@ -51,8 +51,8 @@ testing {
 gradlePlugin {
     // Define the plugin
     val greeting by plugins.creating {
-        id = "depgen.greeting"
-        implementationClass = "depgen.DepgenPlugin"
+        id = "tools.forma.depgen"
+        implementationClass = "tools.forma.depgen.DepgenPlugin"
     }
 }
 

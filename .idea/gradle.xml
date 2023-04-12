@@ -79,6 +79,15 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/includer" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/includer" />
+            <option value="$PROJECT_DIR$/includer/plugin" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/plugins" />
         <option name="modules">
           <set>

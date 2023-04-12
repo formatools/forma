@@ -1,4 +1,4 @@
-package depgen
+package tools.forma.depgen
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.CacheableTask
