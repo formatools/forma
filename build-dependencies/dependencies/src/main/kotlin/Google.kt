@@ -1,4 +1,6 @@
 object google {
+    val inject = "javax.inject:javax.inject:1".dep
+
     val material = deps(
         "com.google.android.material:material:${versions.google.material}".dep,
         androidx.appcompat,
@@ -12,7 +14,7 @@ object google {
     )
 
     val dagger = deps(
-        "javax.inject:javax.inject:1".dep,
+        google.inject,
         "com.google.dagger:dagger:${versions.google.dagger}".dep,
         "com.google.dagger:dagger-compiler:${versions.google.dagger}".kapt
     )

@@ -15,20 +15,30 @@ val propertyKotlinVersion = "forma.kotlinVersion"
 val propertyAgpVersion = "forma.agpVersion"
 
 val properties = Properties()
-val file = project.rootProject.file("gradle.properties")
+val root = project.rootProject.file("gradle.properties")
+val application = rootProject.file("../application/gradle.properties")
 try {
-    file.inputStream().use { properties.load(it) }
+    root.inputStream().use { properties.load(it) }
 } catch (e: Throwable) {
-    throw FormaRootConfigurationException(
-        "Can't read ${file.absolutePath}\nCreate file and declare $propertyKotlinVersion and $propertyAgpVersion",
-        e
+    println(
+        "Can't read ${root.absolutePath}\n" +
+                "Create file and declare $propertyKotlinVersion and $propertyAgpVersion"
     )
+    try {
+        application.inputStream().use { properties.load(it) }
+    } catch (e: Throwable) {
+        throw FormaRootConfigurationException(
+            "Can't read ${application.absolutePath}\n" +
+                    "Create file and declare $propertyKotlinVersion and $propertyAgpVersion",
+            e
+        )
+    }
 }
 
 // TODO: actually error will not be displayed, find the way to fix it
 fun getProperty(propertyName: String): Any =
     properties[propertyName]
-        ?: throw FormaRootConfigurationException("Can't find property $propertyName in ${file.absolutePath}")
+        ?: throw FormaRootConfigurationException("Can't find property $propertyName in ${root.absolutePath}")
 
 val kotlinVersion = getProperty(propertyKotlinVersion)
 val agpVersion = getProperty(propertyAgpVersion)
@@ -36,11 +46,6 @@ val agpVersion = getProperty(propertyAgpVersion)
 subprojects {
     extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
     extra["agp_dep"] = "com.android.tools.build:gradle:$agpVersion"
-
-    repositories {
-        google()
-        mavenCentral()
-    }
 
     plugins.whenPluginAdded {
         when (this) {
@@ -71,3 +76,8 @@ fun Project.registerPublishingTasks() {
         dependsOn(pluginPublishKeysSetup)
     }
 }
+
+tasks.register("publishPluginsToMavenLocal") {
+    dependsOn(subprojects.map { "${it.path}:publishToMavenLocal" })
+}
+

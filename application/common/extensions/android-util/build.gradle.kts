@@ -1,6 +1,5 @@
 androidUtil(
     packageName = "com.stepango.blockme.common.extensions.android.util",
-    owner = Teams.core,
     dependencies = deps(
         androidx.constraintlayout,
         androidx.core_ktx,

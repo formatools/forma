@@ -1,6 +1,18 @@
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
+pluginManagement {
+    apply(from = "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts")
+    includeBuild("../build-settings")
+    includeBuild("../build-dependencies")
+}
+
+plugins {
+    id("convention-dependencies")
+    id("tools.forma.android")
+    id("tools.forma.deps")
+}
+
 buildscript {
     repositories {
         mavenCentral()

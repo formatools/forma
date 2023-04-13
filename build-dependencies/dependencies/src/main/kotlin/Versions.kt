@@ -65,4 +65,8 @@ object versions {
         const val retrofit = "2.7.0"
         const val okhttp = "4.9.0"
     }
+
+    object viewbinding {
+        const val viewbindingpropertydelegate = "1.5.8"
+    }
 }

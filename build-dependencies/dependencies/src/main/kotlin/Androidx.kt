@@ -8,7 +8,7 @@ object androidx {
     )
     private val collection = deps(
         annotation,
-        "androidx.collection:collection:${versions.androidx.collection}".dep
+        "androidx.collection:collection:${versions.androidx.collection}".dep,
     )
     private val collection_ktx = deps(
         collection,

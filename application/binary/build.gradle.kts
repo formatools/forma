@@ -1,6 +1,6 @@
 androidBinary(
     packageName = "com.stepango.blockme.app",
-    owner = Teams.core,
+
     versionCode = 1,
     versionName = "0.0.1",
     dependencies = deps(
