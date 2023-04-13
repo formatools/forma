@@ -23,7 +23,7 @@ class IncluderPlugin : Plugin<Settings> {
         measureTimeMillis {
             runBlocking {
                 findGradleKtsFiles(settings.rootDir, settings.rootDir)
-                    .toList().forEach {
+                    .forEach {
                         val moduleDir = it.parentFile
                         val relativePath = settings.rootDir.toPath().relativize(moduleDir.toPath()).toString()
                         val moduleName = ":" + relativePath.replace(File.separator, "-")
