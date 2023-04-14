@@ -3,7 +3,7 @@
  */
 androidApp(
     packageName = "com.stepango.blockme.root.library",
-    ""
+    owner = Teams.core,
     dependencies = deps(
         androidx.core_ktx,
         androidx.appcompat,

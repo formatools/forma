@@ -1,4 +1,4 @@
 api(
     packageName = "com.stepango.blockme.character.list.api",
-    .core
+    owner = Teams.core,
 )

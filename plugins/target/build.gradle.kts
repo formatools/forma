@@ -1,5 +1,5 @@
 plugins {
-    `kotlin-dsl`
+    id("org.jetbrains.kotlin.jvm")
     id("com.gradle.plugin-publish")
 }
 

@@ -1,5 +1,4 @@
 object versions {
-    const val funktionale = "1.2"
     const val coil = "2.1.0"
 
     object jetbrains {

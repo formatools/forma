@@ -1,5 +1,5 @@
 plugins {
-    `kotlin-dsl`
+    id("org.gradle.kotlin.kotlin-dsl")
     id("com.gradle.plugin-publish")
 }
 
@@ -20,24 +20,25 @@ dependencies {
 gradlePlugin {
     website.set("https://forma.tools/")
     vcsUrl.set("https://github.com/formatools/forma.git")
-
     plugins {
         create("Forma") {
             id = "tools.forma.android"
             displayName = "Forma - Meta Build System with Gradle and Android support"
             description = "Best way to structure your Android Project"
             implementationClass = "tools.forma.android.plugin.FormaPlugin"
-            tags.set(listOf(
-                "gradle",
-                "kotlin",
-                "android",
-                "plugin",
-                "structure",
-                "dependencies",
-                "module",
-                "rules",
-                "project"
-            ))
+            tags.set(
+                listOf(
+                    "gradle",
+                    "kotlin",
+                    "android",
+                    "plugin",
+                    "structure",
+                    "dependencies",
+                    "module",
+                    "rules",
+                    "project"
+                )
+            )
         }
     }
 }

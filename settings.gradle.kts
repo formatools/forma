@@ -1,2 +1,11 @@
-// Empty file preventing Intellij from freaking out
-rootProject.name = "forma"
+pluginManagement {
+    includeBuild("build-settings")
+}
+
+
+plugins {
+    id("convention-dependencies")
+}
+
+includeBuild("application")
+includeBuild("depgen")
