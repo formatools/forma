@@ -1,5 +1,3 @@
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
-
 rootProject.name = "forma-demo-app"
 
 pluginManagement {
