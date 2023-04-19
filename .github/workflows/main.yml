@@ -16,8 +16,8 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
       - name: Build with Gradle
-        run: >
-          (cd application; ./gradlew build -s --console=plain)
-          (cd depgen; ./gradlew build -s --console=plain)
-          (cd includer; ./gradlew build -s --console=plain)
-          (cd plugins; ./gradlew build -s --console=plain)
+        run: |
+          (cd application || exit 1; ./gradlew build -s --console=plain)
+          (cd depgen || exit 1; ./gradlew build -s --console=plain)
+          (cd includer || exit 1; ./gradlew build -s --console=plain)
+          (cd plugins || exit 1; ./gradlew build -s --console=plain)
