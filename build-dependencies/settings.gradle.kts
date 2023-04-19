@@ -1,3 +1,5 @@
+rootProject.name = "build-dependencies"
+
 pluginManagement {
     includeBuild("../build-settings")
 }
