@@ -1,11 +1,7 @@
 rootProject.name = "includer"
 
-pluginManagement {
-    includeBuild("../build-settings")
-}
-
 plugins {
-    id("convention-dependencies")
+    id("org.gradle.toolchains.foojay-resolver-convention") version("0.4.0")
 }
 
 include("plugin")

@@ -6,6 +6,10 @@ plugins {
 version = "0.1.1"
 group = "tools.forma"
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
@@ -13,6 +17,12 @@ dependencies {
 
 kotlin {
     jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+java {
+    toolchain {
         languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
