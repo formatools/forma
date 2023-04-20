@@ -5,7 +5,7 @@ buildscript {
         targetSdk = 31,
         compileSdk = 31,
         kotlinVersion = embeddedKotlinVersion,
-        agpVersion = "7.4.2"
+        agpVersion = "7.4.2",
         dataBinding = true,
         extraPlugins = listOf(
             "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3",
