@@ -6,12 +6,9 @@ plugins {
 group = "tools.forma"
 version = "0.0.1"
 
-val kotlin_dep: String by extra
-val agp_dep: String by extra
-
 dependencies {
-    implementation(agp_dep)
-    implementation(kotlin_dep)
+    implementation("com.android.tools.build:gradle:7.4.2")
+    implementation(embeddedKotlin("gradle-plugin"))
     implementation(project(":deps-core"))
     implementation(project(":target"))
     implementation(project(":validation"))

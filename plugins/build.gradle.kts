@@ -11,34 +11,7 @@ class FormaRootConfigurationException(
     override val cause: Throwable? = null
 ) : Exception()
 
-val propertyKotlinVersion = "forma.kotlinVersion"
-val propertyAgpVersion = "forma.agpVersion"
-
-
-// FIXME: find better way to specify kotlin and agp version
-val properties = Properties()
-val applicationRoot = rootProject.file("../application/gradle.properties")
-try {
-    applicationRoot.inputStream().use { properties.load(it) }
-} catch (e: Throwable) {
-    println(
-        "Can't read ${applicationRoot.absolutePath}\n" +
-                "Create file and declare $propertyKotlinVersion and $propertyAgpVersion"
-    )
-}
-
-// TODO: actually error will not be displayed, find the way to fix it
-fun getProperty(propertyName: String): Any =
-    properties[propertyName]
-        ?: throw FormaRootConfigurationException("Can't find property $propertyName in ${applicationRoot.absolutePath}")
-
-val kotlinVersion = getProperty(propertyKotlinVersion)
-val agpVersion = getProperty(propertyAgpVersion)
-
 subprojects {
-    extra["kotlin_dep"] = "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
-    extra["agp_dep"] = "com.android.tools.build:gradle:$agpVersion"
-
     plugins.whenPluginAdded {
         when (this) {
             is PublishPlugin -> registerPublishingTasks()

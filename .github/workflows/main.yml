@@ -4,7 +4,7 @@ name: Run build checks
 on: [ push, workflow_dispatch ]
 
 jobs:
-  build:
+  build_application:
 
     runs-on: ubuntu-latest
 
@@ -15,9 +15,47 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-      - name: Build with Gradle
-        run: |
-          (cd application || exit 1; ./gradlew build -s --console=plain)
-          (cd depgen || exit 1; ./gradlew build -s --console=plain)
-          (cd includer || exit 1; ./gradlew build -s --console=plain)
-          (cd plugins || exit 1; ./gradlew build -s --console=plain)
+      - name: Build Application
+        run: (cd application || exit 1; ./gradlew build -s --console=plain)
+
+  build_depgen:
+
+      runs-on: ubuntu-latest
+
+      steps:
+          - uses: actions/checkout@v2
+          - name: set up JDK 11
+            uses: actions/setup-java@v2
+            with:
+                distribution: 'adopt'
+                java-version: '11'
+          - name: Build Depgen
+            run: (cd depgen || exit 1; ./gradlew build -s --console=plain)
+
+  build_plugins:
+
+      runs-on: ubuntu-latest
+
+      steps:
+          - uses: actions/checkout@v2
+          - name: set up JDK 11
+            uses: actions/setup-java@v2
+            with:
+                distribution: 'adopt'
+                java-version: '11'
+          - name: Build Depgen
+            run: (cd plugins || exit 1; ./gradlew build -s --console=plain)
+
+  build_includer:
+
+      runs-on: ubuntu-latest
+
+      steps:
+          - uses: actions/checkout@v2
+          - name: set up JDK 11
+            uses: actions/setup-java@v2
+            with:
+                distribution: 'adopt'
+                java-version: '11'
+          - name: Build Depgen
+            run: (cd includer || exit 1; ./gradlew build -s --console=plain)

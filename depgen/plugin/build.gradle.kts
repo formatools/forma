@@ -1,6 +1,6 @@
 plugins {
     id("com.gradle.plugin-publish") version "1.1.0"
-    id("org.jetbrains.kotlin.jvm") version "1.8.20"
+    id("org.jetbrains.kotlin.jvm") version embeddedKotlinVersion
 }
 
 testing {
@@ -8,13 +8,13 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.8.20")
+            useKotlinTest(embeddedKotlinVersion)
         }
 
         // Create a new test suite
         val functionalTest by registering(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.8.20")
+            useKotlinTest(embeddedKotlinVersion)
 
             dependencies {
                 // functionalTest test suite depends on the production code in tests
