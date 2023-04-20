@@ -1,9 +1,9 @@
 .gradle
-/local.properties
+**/local.properties
 .DS_Store
 build
 /captures
-.idea/*
+**/.idea/*
 !.idea/codeStyles
 !.idea/dictionaries
 !.idea/fileTemplates
