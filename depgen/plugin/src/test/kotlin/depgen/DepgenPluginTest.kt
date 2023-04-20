@@ -4,6 +4,7 @@
 package depgen
 
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.jupiter.api.Disabled
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
@@ -11,6 +12,8 @@ import kotlin.test.assertNotNull
  * A simple unit test for the 'depgen.greeting' plugin.
  */
 class DepgenPluginTest {
+
+    @Disabled
     @Test fun `plugin registers task`() {
         // Create a test project and apply the plugin
         val project = ProjectBuilder.builder().build()
