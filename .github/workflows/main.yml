@@ -43,7 +43,7 @@ jobs:
             with:
                 distribution: 'adopt'
                 java-version: '11'
-          - name: Build Depgen
+          - name: Build Plugins
             run: (cd plugins || exit 1; ./gradlew build -s --console=plain)
 
   build_includer:
@@ -57,5 +57,5 @@ jobs:
             with:
                 distribution: 'adopt'
                 java-version: '11'
-          - name: Build Depgen
+          - name: Build Includer
             run: (cd includer || exit 1; ./gradlew build -s --console=plain)
