@@ -1,9 +1,7 @@
-rootProject.name = "forma-demo-app"
-
 pluginManagement {
     apply(from = "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts")
     includeBuild("../build-settings")
-    includeBuild("../build-dependencies")
+    includeBuild("../plugins")
     includeBuild("../includer")
 }
 
@@ -15,3 +13,7 @@ plugins {
 }
 
 rootProject.name = "application"
+
+// refer to this issue https://github.com/gradle/gradle/issues/18536
+// tools.forma.dependencies are applied in buildscript {} block
+includeBuild("../build-dependencies")

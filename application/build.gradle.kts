@@ -14,28 +14,3 @@ buildscript {
         )
     )
 }
-
-
-tasks.register("build") {
-    dependsOn(subprojects.mapNotNull { project ->
-        project.tasks.findByName(name)?.run {
-            project.absoluteProjectPath(name)
-        }
-    })
-}
-
-tasks.register("check") {
-    dependsOn(subprojects.mapNotNull { project ->
-        project.tasks.findByName(name)?.run {
-            project.absoluteProjectPath(name)
-        }
-    })
-}
-
-tasks.named("clean") {
-    dependsOn(subprojects.mapNotNull { project ->
-        project.tasks.findByName(name)?.run {
-            project.absoluteProjectPath(name)
-        }
-    })
-}
