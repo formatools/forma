@@ -3,7 +3,7 @@ api(
     owner = Teams.core,
     dependencies = deps(
         squareup.retrofit
-    ) + deps (
+    ) + deps(
         target(":core:network:library")
     )
 )

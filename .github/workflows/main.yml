@@ -1,19 +1,61 @@
 
-name: Android CI
+name: Run build checks
 
-on: [push]
+on: [ push, workflow_dispatch ]
 
 jobs:
-  build:
+  build_application:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '11'
-    - name: Build with Gradle
-      run: cd application && ./gradlew build test -s --console=plain
+      - uses: actions/checkout@v2
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Build Application
+        run: (cd application || exit 1; ./gradlew build -s --console=plain)
+
+  build_depgen:
+
+      runs-on: ubuntu-latest
+
+      steps:
+          - uses: actions/checkout@v2
+          - name: set up JDK 11
+            uses: actions/setup-java@v2
+            with:
+                distribution: 'adopt'
+                java-version: '11'
+          - name: Build Depgen
+            run: (cd depgen || exit 1; ./gradlew build -s --console=plain)
+
+  build_plugins:
+
+      runs-on: ubuntu-latest
+
+      steps:
+          - uses: actions/checkout@v2
+          - name: set up JDK 11
+            uses: actions/setup-java@v2
+            with:
+                distribution: 'adopt'
+                java-version: '11'
+          - name: Build Plugins
+            run: (cd plugins || exit 1; ./gradlew build -s --console=plain)
+
+  build_includer:
+
+      runs-on: ubuntu-latest
+
+      steps:
+          - uses: actions/checkout@v2
+          - name: set up JDK 11
+            uses: actions/setup-java@v2
+            with:
+                distribution: 'adopt'
+                java-version: '11'
+          - name: Build Includer
+            run: (cd includer || exit 1; ./gradlew build -s --console=plain)

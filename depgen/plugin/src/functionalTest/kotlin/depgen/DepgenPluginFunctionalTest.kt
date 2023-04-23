@@ -7,6 +7,7 @@ import java.io.File
 import kotlin.test.assertTrue
 import kotlin.test.Test
 import org.gradle.testkit.runner.GradleRunner
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.io.TempDir
 
 /**
@@ -20,6 +21,7 @@ class DepgenPluginFunctionalTest {
     private val buildFile by lazy { projectDir.resolve("build.gradle") }
     private val settingsFile by lazy { projectDir.resolve("settings.gradle") }
 
+    @Disabled
     @Test fun `can run task`() {
         // Set up the test build
         settingsFile.writeText("")

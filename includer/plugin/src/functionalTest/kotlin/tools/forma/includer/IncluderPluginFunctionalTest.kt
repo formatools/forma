@@ -32,7 +32,7 @@ class IncluderPluginFunctionalTest {
         settingsFile.writeText(
             """
             plugins {
-                id("tools.forma.includer.greeting")
+                id("tools.forma.includer")
             }
         """.trimIndent()
         )

@@ -1,19 +1,14 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm")
-    id("java-gradle-plugin")
-    `kotlin-dsl`
+    id("org.gradle.kotlin.kotlin-dsl")
     id("com.gradle.plugin-publish")
 }
 
 group = "tools.forma"
 version = "0.0.1"
 
-val kotlin_dep: String by extra
-val agp_dep: String by extra
-
 dependencies {
-    implementation(agp_dep)
-    implementation(kotlin_dep)
+    implementation("com.android.tools.build:gradle:7.4.2")
+    implementation(embeddedKotlin("gradle-plugin"))
     implementation(project(":deps-core"))
     implementation(project(":target"))
     implementation(project(":validation"))
@@ -22,24 +17,25 @@ dependencies {
 gradlePlugin {
     website.set("https://forma.tools/")
     vcsUrl.set("https://github.com/formatools/forma.git")
-
     plugins {
         create("Forma") {
             id = "tools.forma.android"
             displayName = "Forma - Meta Build System with Gradle and Android support"
             description = "Best way to structure your Android Project"
             implementationClass = "tools.forma.android.plugin.FormaPlugin"
-            tags.set(listOf(
-                "gradle",
-                "kotlin",
-                "android",
-                "plugin",
-                "structure",
-                "dependencies",
-                "module",
-                "rules",
-                "project"
-            ))
+            tags.set(
+                listOf(
+                    "gradle",
+                    "kotlin",
+                    "android",
+                    "plugin",
+                    "structure",
+                    "dependencies",
+                    "module",
+                    "rules",
+                    "project"
+                )
+            )
         }
     }
 }

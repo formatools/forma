@@ -26,6 +26,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     minSdk: Int,
     targetSdk: Int,
     compileSdk: Int,
+    kotlinVersion: String,
+    agpVersion: String,
     repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
@@ -47,8 +49,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             targetSdk = targetSdk,
             compileSdk = compileSdk,
             // we don't need check properties for exist, we read it successfully in forma configuration
-            kotlinVersion = properties["forma.kotlinVersion"]!!.toString(),
-            agpVersion = properties["forma.agpVersion"]!!.toString(),
+            kotlinVersion = kotlinVersion,
+            agpVersion = agpVersion,
             repositories = repositories,
             dataBinding = dataBinding,
             javaVersionCompatibility = javaVersionCompatibility,
@@ -65,6 +67,8 @@ fun Project.androidProjectConfiguration(
     minSdk: Int,
     targetSdk: Int,
     compileSdk: Int,
+    kotlinVersion: String,
+    agpVersion: String,
     repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
     validateManifestPackages: Boolean = false,
@@ -72,32 +76,28 @@ fun Project.androidProjectConfiguration(
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
 ) {
-//    Forma.buildScriptConfiguration(this, extraPlugins)
-//    with(project) {
 
-        /**
-         * Default Android project clean task implementation
-         */
-        tasks.register("clean", Delete::class) {
-            delete(project.buildDir)
-        }
+    /**
+     * Default Android project clean task implementation
+     */
+    tasks.register("clean", Delete::class) {
+        delete(project.buildDir)
+    }
 
-        val configuration = FormaConfiguration(
-            minSdk = minSdk,
-            targetSdk = targetSdk,
-            compileSdk = compileSdk,
-            // we don't need check properties for exist, we read it successfully in forma configuration
-            kotlinVersion = properties["forma.kotlinVersion"]!!.toString(),
-            agpVersion = properties["forma.agpVersion"]!!.toString(),
-            repositories = repositories,
-            dataBinding = dataBinding,
-            javaVersionCompatibility = javaVersionCompatibility,
-            mandatoryOwners = mandatoryOwners
-        )
+    val configuration = FormaConfiguration(
+        minSdk = minSdk,
+        targetSdk = targetSdk,
+        compileSdk = compileSdk,
+        // we don't need check properties for exist, we read it successfully in forma configuration
+        kotlinVersion = kotlinVersion,
+        agpVersion = agpVersion,
+        repositories = repositories,
+        dataBinding = dataBinding,
+        javaVersionCompatibility = javaVersionCompatibility,
+        mandatoryOwners = mandatoryOwners
+    )
 
-        Forma.store(configuration)
-
-//    }
+    Forma.store(configuration)
 }
 
 /**
