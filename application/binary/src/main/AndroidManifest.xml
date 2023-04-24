@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.stepango.blockme.app"/>
+<manifest>
+        <!--
+        We cannot delete this because binary need even empty manifest to compile
+        (checks via com.android.internal.version-check plugin breaks if there is no manifest file)
+        Need to investigate how to bypass it
+         -->
+</manifest>
