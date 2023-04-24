@@ -4,8 +4,8 @@ import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.owner.NoOwner
-import tools.forma.android.owner.Owner
+import tools.forma.owner.NoOwner
+import tools.forma.owner.Owner
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.visibility.Public

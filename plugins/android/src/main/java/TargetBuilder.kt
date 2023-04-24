@@ -1,5 +1,5 @@
 import org.gradle.api.Project
-import tools.forma.android.plugin.PluginWrapper
+import tools.forma.deps.PluginWrapper
 
 class TargetBuilder(
         private val project: Project

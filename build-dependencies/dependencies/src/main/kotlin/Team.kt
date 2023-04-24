@@ -1,5 +1,5 @@
-import tools.forma.android.owner.Person
-import tools.forma.android.owner.Team
+import tools.forma.owner.Person
+import tools.forma.owner.Team
 
 object Users {
     val stepango = Person(

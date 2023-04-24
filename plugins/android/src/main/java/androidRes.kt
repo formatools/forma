@@ -4,8 +4,8 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.ResourcesTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
-import tools.forma.android.owner.NoOwner
-import tools.forma.android.owner.Owner
+import tools.forma.owner.NoOwner
+import tools.forma.owner.Owner
 import tools.forma.validation.validate
 import tools.forma.validation.validator
 import tools.forma.android.validation.onlyAllowResources

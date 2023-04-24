@@ -1,4 +1,4 @@
-package tools.forma.android.owner
+package tools.forma.owner
 
 sealed class Owner(val name: String, val email: String, val tags: Map<String, String>)
 

@@ -12,6 +12,8 @@ dependencies {
     implementation(project(":deps-core"))
     implementation(project(":target"))
     implementation(project(":validation"))
+    implementation(project(":owners"))
+    implementation(project(":config"))
 }
 
 gradlePlugin {

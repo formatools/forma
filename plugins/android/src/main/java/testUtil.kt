@@ -2,8 +2,8 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinFeatureDefinition
 import tools.forma.android.target.TestUtilTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
-import tools.forma.android.owner.NoOwner
-import tools.forma.android.owner.Owner
+import tools.forma.owner.NoOwner
+import tools.forma.owner.Owner
 import tools.forma.android.validation.disallowResources
 import tools.forma.validation.validator
 import tools.forma.android.visibility.Public

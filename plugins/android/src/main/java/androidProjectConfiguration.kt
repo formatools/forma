@@ -6,7 +6,8 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.tasks.Delete
 import org.gradle.kotlin.dsl.ScriptHandlerScope
 import org.gradle.kotlin.dsl.repositories
-import tools.forma.android.config.FormaConfiguration
+import tools.forma.config.FormaConfiguration
+import tools.forma.config.FormaConfigurationStore
 import tools.forma.android.utils.register
 
 // TODO: add docs for every fun param
@@ -105,12 +106,9 @@ fun Project.androidProjectConfiguration(
  */
 object Forma {
 
-    private lateinit var _configuration: FormaConfiguration
-    val configuration: FormaConfiguration get() = _configuration
+    val configuration: FormaConfiguration get() = FormaConfigurationStore.configuration
 
-    fun store(configuration: FormaConfiguration) {
-        _configuration = configuration
-    }
+    fun store(configuration: FormaConfiguration) = FormaConfigurationStore.store(configuration)
 
     val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpathDeps ->
         // TODO pass repositories configuration

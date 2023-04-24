@@ -6,8 +6,8 @@ import tools.forma.android.target.AndroidUtilTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.owner.NoOwner
-import tools.forma.android.owner.Owner
+import tools.forma.owner.NoOwner
+import tools.forma.owner.Owner
 import tools.forma.validation.validator
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility

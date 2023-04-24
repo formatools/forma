@@ -12,8 +12,8 @@ import tools.forma.android.target.DataBindingTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.validation.validator
 import tools.forma.android.validation.onlyAllowLayouts
-import tools.forma.android.owner.Owner
-import tools.forma.android.owner.NoOwner
+import tools.forma.owner.Owner
+import tools.forma.owner.NoOwner
 import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
