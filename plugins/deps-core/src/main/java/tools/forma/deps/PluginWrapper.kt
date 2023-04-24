@@ -1,12 +1,9 @@
-package tools.forma.android.plugin
+package tools.forma.deps
 
-import Forma
 import emptyDependency
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
-import tools.forma.deps.FormaDependency
-import tools.forma.deps.applyDependencies
 import tools.forma.validation.EmptyValidator
 
 class PluginWrapper<TPluginExtension : Any>(
@@ -23,8 +20,7 @@ class PluginWrapper<TPluginExtension : Any>(
         project.applyDependencies(
             validator = EmptyValidator,
             dependencies = dependencies,
-            repositoriesConfiguration = Forma.configuration.repositories
+            repositoriesConfiguration = {}
         )
     }
-
 }

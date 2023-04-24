@@ -1,8 +1,8 @@
 import org.gradle.api.Project
 import tools.forma.android.config.NdkAbi
 import tools.forma.android.config.NdkBuildSystem
-import tools.forma.android.owner.NoOwner
-import tools.forma.android.owner.Owner
+import tools.forma.owner.NoOwner
+import tools.forma.owner.Owner
 import tools.forma.android.target.NativeTarget
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility

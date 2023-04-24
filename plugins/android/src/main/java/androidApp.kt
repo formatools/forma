@@ -3,8 +3,8 @@ import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.ApplicationTargetTemplate
-import tools.forma.android.owner.NoOwner
-import tools.forma.android.owner.Owner
+import tools.forma.owner.NoOwner
+import tools.forma.owner.Owner
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.validation.EmptyValidator
 import tools.forma.android.validation.disallowResources

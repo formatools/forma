@@ -2,7 +2,7 @@ package tools.forma.android.feature
 
 import deps
 import kapt
-import tools.forma.android.config.FormaConfiguration
+import tools.forma.config.FormaConfiguration
 import org.gradle.api.Project
 import tools.forma.android.dependencies.kotlin
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension

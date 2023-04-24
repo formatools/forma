@@ -1,6 +1,6 @@
 object viewbinding {
     val viewBinding = transitiveDeps(
-        "androidx.databinding:viewbinding:${Forma.configuration.agpVersion}"
+        "androidx.databinding:viewbinding"
     )
 
     val viewpropertydelegate = deps(

@@ -1,4 +1,4 @@
-package tools.forma.android.plugin
+package tools.forma.deps
 
 import kotlin.reflect.KClass
 

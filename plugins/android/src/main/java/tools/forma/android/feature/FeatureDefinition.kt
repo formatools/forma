@@ -2,7 +2,7 @@ package tools.forma.android.feature
 
 import Forma
 import tools.forma.deps.NamedDependency
-import tools.forma.android.config.FormaConfiguration
+import tools.forma.config.FormaConfiguration
 import emptyDependency
 import kotlin.reflect.KClass
 import org.gradle.api.Project
