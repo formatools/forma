@@ -1,9 +1,11 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.gradle.plugin-publish") version "1.1.0"
     id("org.jetbrains.kotlin.jvm") version embeddedKotlinVersion
 }
 
-version = "0.1.1"
+version = "0.1.2"
 group = "tools.forma"
 
 repositories {
@@ -15,15 +17,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
 }
 
+val javaLanguageVersion = JavaLanguageVersion.of(11)
 kotlin {
     jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(javaLanguageVersion)
     }
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(javaLanguageVersion)
     }
 }
 

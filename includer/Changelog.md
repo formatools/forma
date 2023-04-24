@@ -1,3 +1,7 @@
+# 0.1.2 Minor patch release
+
+- Skip include for folders with non `.kts` settings files
+
 # 0.1.1 Minor patch release
 
 - Kotlin compile target set to 11

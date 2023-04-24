@@ -3,6 +3,7 @@ pluginManagement {
     includeBuild("../build-settings")
     includeBuild("../plugins")
     includeBuild("../includer")
+    includeBuild("../depgen")
 }
 
 plugins {
@@ -10,6 +11,7 @@ plugins {
     id("tools.forma.includer")
     id("tools.forma.android")
     id("tools.forma.deps")
+    id("tools.forma.depgen")
 }
 
 rootProject.name = "application"
