@@ -2,6 +2,7 @@ import org.gradle.api.Project
 import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
+import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.owner.NoOwner
 import tools.forma.owner.Owner
 import tools.forma.android.target.LibraryTargetTemplate
@@ -43,7 +44,8 @@ fun Project.viewBinding(
         viewBinding = true
     )
     applyFeatures(
-        androidLibraryFeatureDefinition(libraryFeatureConfiguration)
+        androidLibraryFeatureDefinition(libraryFeatureConfiguration),
+        kotlinAndroidFeatureDefinition(),
     )
     applyDependencies(
         validator = validator(
