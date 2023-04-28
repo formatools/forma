@@ -15,6 +15,7 @@ import tools.forma.android.target.TestUtilTargetTemplate
 import tools.forma.android.target.UiLibraryTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.ViewBindingTargetTemplate
+import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.deps.FormaDependency
 import tools.forma.deps.NamedDependency
@@ -61,6 +62,7 @@ fun Project.impl(
             DataBindingTargetTemplate,
             ResourcesTargetTemplate,
             ViewBindingTargetTemplate,
+            WidgetTargetTemplate,
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
