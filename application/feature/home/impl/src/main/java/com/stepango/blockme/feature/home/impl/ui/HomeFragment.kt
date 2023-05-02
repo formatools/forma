@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 vmadalin.com
+ * Copyright 2019 tinkoff.ru
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,28 +22,29 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.stepango.blockme.common.extensions.android.util.setupWithNavController
-import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
+import com.stepango.blockme.core.mvvm.library.ui.BaseViewBindingFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.core.theme.android.util.ThemeUtils
 import com.stepango.blockme.core.theme.android.util.di.ThemeComponentProvider
-import com.stepango.blockme.feature.home.databinding.databinding.FragmentHomeBinding
 import com.stepango.blockme.feature.home.impl.R
 import com.stepango.blockme.feature.home.impl.di.DaggerHomeComponent
 import com.stepango.blockme.feature.home.impl.ui.menu.ToggleThemeCheckBox
+import com.stepango.blockme.feature.home.viewbinding.databinding.FragmentHomeBinding
 import javax.inject.Inject
 
 private const val DELAY_TO_APPLY_THEME = 1000L
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(
-    layoutId = R.layout.fragment_home
-) {
+class HomeFragment : BaseViewBindingFragment(R.layout.fragment_home) {
 
     @Inject
     lateinit var themeUtils: ThemeUtils
 
     private val viewModel: HomeViewModel by viewModels()
+    private val viewBinding: FragmentHomeBinding by viewBinding(FragmentHomeBinding::bind)
 
     private val navGraphIds = listOf(
         R.navigation.navigation_characters_list_graph,
@@ -56,6 +57,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
+        startStateObserver()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -107,8 +109,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             .inject(this)
     }
 
-    override fun onInitDataBinding() {
-        viewBinding.viewModel = viewModel
+    private fun startStateObserver() {
+        viewModel.state.observe(this) {
+            viewBinding.appBarLayout.isVisible = it.isNavigationScreen()
+            viewBinding.bottomNavigation.isVisible = it.isNavigationScreen()
+        }
     }
 
     private fun setupToolbar() {
@@ -126,9 +131,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             intent = requireActivity().intent
         )
 
-        navController.observe(viewLifecycleOwner, {
+        navController.observe(viewLifecycleOwner) {
             viewModel.navigationControllerChanged(it)
             setupActionBarWithNavController(requireCompatActivity(), it)
-        })
+        }
     }
 }

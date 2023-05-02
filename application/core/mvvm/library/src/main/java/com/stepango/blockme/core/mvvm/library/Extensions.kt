@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
+import com.stepango.blockme.core.mvvm.library.ui.BaseViewBindingFragment
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -34,6 +35,12 @@ class ViewModelDelegate<VM : ViewModel>(
 }
 
 inline fun <reified VM : ViewModel> BaseFragment<*>.viewModels(
+    noinline ownerProducer: () -> ViewModelStoreOwner = { this },
+    noinline factoryProducer: () -> ViewModelProvider.Factory = { viewModelFactory }
+): ViewModelDelegate<VM> =
+    ViewModelDelegate(VM::class.java, ownerProducer, factoryProducer)
+
+inline fun <reified VM : ViewModel> BaseViewBindingFragment.viewModels(
     noinline ownerProducer: () -> ViewModelStoreOwner = { this },
     noinline factoryProducer: () -> ViewModelProvider.Factory = { viewModelFactory }
 ): ViewModelDelegate<VM> =

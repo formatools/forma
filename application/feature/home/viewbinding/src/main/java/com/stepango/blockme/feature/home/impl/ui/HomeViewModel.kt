@@ -20,7 +20,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.stepango.blockme.feature.home.databinding.R
+import com.stepango.blockme.feature.home.viewbinding.R
 
 import javax.inject.Inject
 
@@ -28,7 +28,8 @@ import javax.inject.Inject
 // Move out from here strong deps of navigation component
 val NAV_FRAGMENTS_ID = setOf(
     R.id.characters_list_fragment,
-    R.id.character_favorite_fragment)
+    R.id.character_favorite_fragment
+)
 
 class HomeViewModel @Inject constructor() : ViewModel() {
 

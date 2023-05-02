@@ -1,7 +1,7 @@
-dataBinding(
-    packageName = "com.stepango.blockme.feature.home.databinding",
+viewBinding(
+    packageName = "com.stepango.blockme.feature.home.viewbinding",
     dependencies = deps(
-        google.dagger,
+        google.inject,
         google.material,
         androidx.navigation,
         androidx.appcompat,
@@ -11,7 +11,5 @@ dataBinding(
         target(":core:mvvm:library"),
         target(":core:theme:res"),
         target(":feature:home:res"),
-        target(":common:extensions:databinding-adapter"),
-        target(":common:extensions:android-util")
     )
 )

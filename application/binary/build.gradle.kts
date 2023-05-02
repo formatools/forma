@@ -8,7 +8,6 @@ androidBinary(
 
         target(":feature:home:api"),
         target(":feature:home:impl"),
-        target(":feature:home:databinding"),
         target(":feature:characters:core:api"),
         target(":feature:characters:core:impl"),
         target(":feature:characters:list:api"),
