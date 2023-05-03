@@ -5,6 +5,7 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.owner.NoOwner
 import tools.forma.owner.Owner
+import tools.forma.android.target.ApiTargetTemplate
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.target.ResourcesTargetTemplate
 import tools.forma.android.target.ViewBindingTargetTemplate
@@ -49,6 +50,7 @@ fun Project.viewBinding(
     )
     applyDependencies(
         validator = validator(
+            ApiTargetTemplate,
             WidgetTargetTemplate,
             ResourcesTargetTemplate,
             LibraryTargetTemplate
