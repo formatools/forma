@@ -20,16 +20,16 @@ import androidx.lifecycle.*
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IDeleteCharacterFavoriteUseCase
 import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetAllCharactersFavoriteUseCase
-import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
-import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewState
+import com.stepango.blockme.feature.characters.favorite.viewbinding.presentation.ICharacterFavoriteViewModel
+import com.stepango.blockme.feature.characters.favorite.viewbinding.presentation.ICharacterFavoriteViewState
 import com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewState.Empty
 import com.stepango.blockme.feature.characters.favorite.impl.presentation.CharacterFavoriteViewState.Listed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterFavoriteViewModel @Inject constructor(
-        private val getAllCharactersFavoriteUseCase: IGetAllCharactersFavoriteUseCase,
-        private val deleteCharacterFavoriteUseCase: IDeleteCharacterFavoriteUseCase
+    private val getAllCharactersFavoriteUseCase: IGetAllCharactersFavoriteUseCase,
+    private val deleteCharacterFavoriteUseCase: IDeleteCharacterFavoriteUseCase
 ) : ICharacterFavoriteViewModel, ViewModel() {
 
     private val _data = MutableLiveData<List<ICharacter>>()

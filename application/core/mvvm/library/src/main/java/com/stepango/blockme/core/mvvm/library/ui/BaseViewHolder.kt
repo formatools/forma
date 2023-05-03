@@ -16,9 +16,9 @@
 
 package com.stepango.blockme.core.mvvm.library.ui
 
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
-abstract class BaseViewHolder<T : ViewDataBinding>(
+abstract class BaseViewHolder<T : ViewBinding>(
     val binding: T
 ) : RecyclerView.ViewHolder(binding.root)

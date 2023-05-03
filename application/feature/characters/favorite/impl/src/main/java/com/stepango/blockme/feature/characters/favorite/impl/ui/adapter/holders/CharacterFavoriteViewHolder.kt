@@ -17,9 +17,10 @@
 package com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.holders
 
 import android.view.LayoutInflater
+import com.stepango.blockme.common.extensions.android.util.loadImage
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
-import com.stepango.blockme.feature.favorite.res.databinding.ListItemCharacterFavoriteBinding
+import com.stepango.blockme.feature.favorite.viewbinding.databinding.ListItemCharacterFavoriteBinding
 
 class CharacterFavoriteViewHolder(
     inflater: LayoutInflater
@@ -28,7 +29,7 @@ class CharacterFavoriteViewHolder(
 ) {
 
     fun bind(characterFavorite: ICharacter) {
-        binding.character = characterFavorite
-        binding.executePendingBindings()
+        binding.characterImage.loadImage(characterFavorite.imageUrl)
+        binding.characterName.text = characterFavorite.name
     }
 }

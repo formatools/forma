@@ -17,7 +17,6 @@ androidBinary(
         target(":feature:characters:detail:impl"),
         target(":feature:characters:favorite:api"),
         target(":feature:characters:favorite:impl"),
-        target(":feature:characters:favorite:databinding"),
 
         target(":common:extensions:android-util"),
         target(":common:progressbar:databinding"),

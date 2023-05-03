@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.BackgroundStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/include_list"
+        layout="@layout/view_character_favorite_list" />
+
+    <include
+        android:id="@+id/include_list_empty"
+        layout="@layout/view_character_favorite_list_empty" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

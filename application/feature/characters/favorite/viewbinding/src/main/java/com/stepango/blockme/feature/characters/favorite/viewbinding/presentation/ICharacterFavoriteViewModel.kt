@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.favorite.impl.presentation
+package com.stepango.blockme.feature.characters.favorite.viewbinding.presentation
 
-import com.stepango.blockme.core.mvvm.library.ui.BaseViewState
-import com.stepango.blockme.feature.characters.favorite.viewbinding.presentation.ICharacterFavoriteViewState
+import androidx.lifecycle.LiveData
+import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 
-sealed class CharacterFavoriteViewState : BaseViewState, ICharacterFavoriteViewState {
+interface ICharacterFavoriteViewModel {
 
-    object Empty : CharacterFavoriteViewState()
+    val data: LiveData<List<ICharacter>>
 
-    object Listed : CharacterFavoriteViewState()
+    val state: LiveData<ICharacterFavoriteViewState>
 
-    override fun isEmpty() = this is Empty
+    fun loadFavoriteCharacters()
 
-    override fun isListed() = this is Listed
+    fun removeFavoriteCharacter(character: ICharacter)
 }
+
+interface ICharacterFavoriteViewState {
+
+    fun isEmpty(): Boolean
+
+    fun isListed(): Boolean
+}
+

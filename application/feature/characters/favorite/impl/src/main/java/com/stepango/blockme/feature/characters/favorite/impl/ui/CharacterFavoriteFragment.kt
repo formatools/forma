@@ -18,31 +18,37 @@ package com.stepango.blockme.feature.characters.favorite.impl.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.stepango.blockme.common.extensions.android.util.observe
+import com.stepango.blockme.common.recyclerview.widget.RecyclerViewItemDecoration
 import com.stepango.blockme.core.di.library.BaseComponentProvider
-import com.stepango.blockme.core.mvvm.library.ui.BaseFragment
+import com.stepango.blockme.core.mvvm.library.ui.BaseViewBindingFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
-import com.stepango.blockme.feature.characters.favorite.databinding.presentation.ICharacterFavoriteViewModel
+import com.stepango.blockme.feature.characters.favorite.viewbinding.presentation.ICharacterFavoriteViewModel
+import com.stepango.blockme.feature.characters.favorite.viewbinding.presentation.ICharacterFavoriteViewState
 import com.stepango.blockme.feature.characters.favorite.impl.R
 import com.stepango.blockme.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteAdapter
 import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteTouchHelper
-import com.stepango.blockme.feature.favorite.res.databinding.FragmentCharacterFavoriteListBinding
+import com.stepango.blockme.feature.favorite.viewbinding.databinding.FragmentCharacterFavoriteListBinding
 
-class CharacterFavoriteFragment :
-    BaseFragment<FragmentCharacterFavoriteListBinding>(
-        layoutId = R.layout.fragment_character_favorite_list
-    ) {
+class CharacterFavoriteFragment : BaseViewBindingFragment(
+    layoutId = R.layout.fragment_character_favorite_list
+) {
 
     private val viewModel: ICharacterFavoriteViewModel by viewModels()
+    private val viewBinding: FragmentCharacterFavoriteListBinding by viewBinding(FragmentCharacterFavoriteListBinding::bind)
 
     private val viewAdapter = CharacterFavoriteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         observe(viewModel.data, ::onViewDataChange)
+        observe(viewModel.state, ::onViewStateChange)
 
         viewModel.loadFavoriteCharacters()
     }
@@ -54,9 +60,13 @@ class CharacterFavoriteFragment :
             .inject(this)
     }
 
-    override fun onInitDataBinding() {
-        viewBinding.viewModel = viewModel
+    private fun setupRecyclerView() {
         viewBinding.includeList.charactersFavoriteList.apply {
+            addItemDecoration(
+                RecyclerViewItemDecoration(
+                    resources.getDimensionPixelSize(R.dimen.characters_favorite_list_item_padding)
+                )
+            )
             adapter = viewAdapter
 
             ItemTouchHelper(CharacterFavoriteTouchHelper {
@@ -67,5 +77,10 @@ class CharacterFavoriteFragment :
 
     private fun onViewDataChange(viewData: List<ICharacter>) {
         viewAdapter.submitList(viewData)
+    }
+
+    private fun onViewStateChange(viewState: ICharacterFavoriteViewState) {
+        viewBinding.includeListEmpty.emptyListContainer.isVisible = viewState.isEmpty()
+        viewBinding.includeList.characterFavouriteListContainer.isVisible = viewState.isListed()
     }
 }
