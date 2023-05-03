@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/character_detail_content_padding_horizontal"
+    android:paddingEnd="@dimen/character_detail_content_padding_horizontal"
+    android:paddingTop="@dimen/character_detail_content_padding_top">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/character_name"
+        style="@style/TextAppearance.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Character name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/character_description"
+        style="@style/TextAppearance.Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/character_detail_content_description_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/character_name"
+        tools:text="Character description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

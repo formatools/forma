@@ -12,13 +12,13 @@ impl(
         google.material,
         google.dagger,
         jakewharton.timber,
-        kotlinx.coroutines_core
-
+        kotlinx.coroutines_core,
+        viewbinding.viewpropertydelegate
     ) + deps(
         target(":feature:characters:core:api"),
         target(":feature:characters:favorite:api"),
         target(":feature:characters:detail:api"),
-        target(":feature:characters:detail:databinding"),
+        target(":feature:characters:detail:viewbinding"),
 
         target(":core:di:library"),
         target(":core:theme:android-util"),
@@ -28,7 +28,6 @@ impl(
 
         target(":common:util"),
         target(":common:extensions:android-util"),
-        target(":common:extensions:databinding-adapter"),
         target(":common:progressbar:databinding")
     )
 )
