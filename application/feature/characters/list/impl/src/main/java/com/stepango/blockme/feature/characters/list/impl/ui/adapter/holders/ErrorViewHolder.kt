@@ -17,18 +17,23 @@
 package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.RecyclerView
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
-import com.stepango.blockme.feature.characters.list.databinding.databinding.ListItemErrorBinding
-import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
+import com.stepango.blockme.feature.characters.list.viewbinding.databinding.ListItemErrorBinding
 
 class ErrorViewHolder(
-    inflater: LayoutInflater
+    inflater: LayoutInflater,
+    private val onRetryButtonClickListener: () -> Unit
 ) : BaseViewHolder<ListItemErrorBinding>(
     binding = ListItemErrorBinding.inflate(inflater)
 ) {
 
-    fun bind(viewModel: CharactersListViewModel) {
-        binding.viewModel = viewModel
-        binding.executePendingBindings()
+    init {
+        binding.retryButton.setOnClickListener {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                onRetryButtonClickListener()
+            }
+        }
     }
 }

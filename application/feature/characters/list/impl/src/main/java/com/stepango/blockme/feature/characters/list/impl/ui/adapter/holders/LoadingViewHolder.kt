@@ -18,7 +18,7 @@ package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 
 import android.view.LayoutInflater
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
-import com.stepango.blockme.feature.characters.list.databinding.databinding.ListItemLoadingBinding
+import com.stepango.blockme.feature.characters.list.viewbinding.databinding.ListItemLoadingBinding
 
 class LoadingViewHolder(
     inflater: LayoutInflater

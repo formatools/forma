@@ -17,20 +17,30 @@
 package com.stepango.blockme.feature.characters.list.impl.ui.adapter.holders
 
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.RecyclerView
+import com.stepango.blockme.common.extensions.android.util.loadImage
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewHolder
-import com.stepango.blockme.feature.characters.list.databinding.databinding.ListItemCharacterBinding
+import com.stepango.blockme.feature.characters.list.viewbinding.databinding.ListItemCharacterBinding
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
-import com.stepango.blockme.feature.characters.list.impl.ui.CharactersListViewModel
 
 class CharacterViewHolder(
-    inflater: LayoutInflater
+    inflater: LayoutInflater,
+    private val itemClickListener: (Int) -> Unit
 ) : BaseViewHolder<ListItemCharacterBinding>(
     binding = ListItemCharacterBinding.inflate(inflater)
 ) {
 
-    fun bind(viewModel: CharactersListViewModel, item: ICharacter) {
-        binding.viewModel = viewModel
-        binding.character = item
-        binding.executePendingBindings()
+    init {
+        binding.root.setOnClickListener {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                itemClickListener(position)
+            }
+        }
+    }
+
+    fun bind(item: ICharacter) {
+        binding.characterImage.loadImage(item.imageUrl)
+        binding.characterName.text = item.name
     }
 }

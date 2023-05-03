@@ -33,7 +33,7 @@ internal enum class ItemView(val type: Int, val span: Int) {
     ERROR(type = 2, span = 2);
 
     companion object {
-        fun valueOf(type: Int): ItemView? = values().first { it.type == type }
+        fun valueOf(type: Int): ItemView = values().first { it.type == type }
     }
 }
 
@@ -52,9 +52,15 @@ class CharactersListAdapter constructor(
         viewType: Int
     ): RecyclerView.ViewHolder =
         when (ItemView.valueOf(viewType)) {
-            ItemView.CHARACTER -> CharacterViewHolder(inflater)
+            ItemView.CHARACTER -> CharacterViewHolder(inflater) { position ->
+                getItem(position)?.let {
+                    viewModel.openCharacterDetail(it.id)
+                }
+            }
             ItemView.LOADING -> LoadingViewHolder(inflater)
-            else -> ErrorViewHolder(inflater)
+            else -> ErrorViewHolder(inflater) {
+                viewModel.retryAddCharactersList()
+            }
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -62,12 +68,8 @@ class CharactersListAdapter constructor(
             ItemView.CHARACTER ->
                 getItem(position)?.let {
                     if (holder is CharacterViewHolder) {
-                        holder.bind(viewModel, it)
+                        holder.bind(it)
                     }
-                }
-            ItemView.ERROR ->
-                if (holder is ErrorViewHolder) {
-                    holder.bind(viewModel)
                 }
             else -> {
             }
