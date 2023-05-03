@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 vmadalin.com
+ * Copyright 2019 forma.tools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
+import com.stepango.blockme.feature.characters.detail.api.presentation.ICharacterDetailViewModel
+import com.stepango.blockme.feature.characters.detail.api.presentation.ICharacterDetailViewState
 import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.IGetCharacterFavoriteUseCase
 import com.stepango.blockme.feature.characters.favorite.api.domain.usecase.ISetCharacterFavoriteUseCase
 import kotlinx.coroutines.launch
@@ -34,11 +36,11 @@ class CharacterDetailViewModel @Inject constructor(
 ) : ViewModel(), ICharacterDetailViewModel {
 
     private val _data = MutableLiveData<ICharacter>()
-    override val data: LiveData<ICharacter>
+    val data: LiveData<ICharacter>
         get() = _data
 
     private val _state = MutableLiveData<ICharacterDetailViewState>()
-    override val state: LiveData<ICharacterDetailViewState>
+    val state: LiveData<ICharacterDetailViewState>
         get() = _state
 
     override fun loadCharacterDetail(characterId: Long) {

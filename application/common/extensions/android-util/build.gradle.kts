@@ -12,5 +12,7 @@ androidUtil(
         androidx.paging,
         google.material,
         io.coil
+    ) + deps(
+        target(":common:placeholder:res")
     )
 )

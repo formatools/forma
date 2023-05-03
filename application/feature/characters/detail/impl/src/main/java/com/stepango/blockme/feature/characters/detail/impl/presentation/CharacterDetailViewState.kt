@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 vmadalin.com
+ * Copyright 2019 forma.tools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package com.stepango.blockme.feature.characters.detail.impl.presentation
 
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewState
+import com.stepango.blockme.feature.characters.detail.api.presentation.ICharacterDetailViewState
 
 sealed class CharacterDetailViewState : BaseViewState, ICharacterDetailViewState {
 
