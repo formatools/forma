@@ -12,7 +12,8 @@ androidLibrary(
         androidx.paging,
         dataBinding.runtime,
         google.dagger,
-        jakewharton.timber
+    )+ deps(
+        libs.jakewharton.timber,
     ),
 
     testDependencies = deps(
