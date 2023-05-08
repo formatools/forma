@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_list"
+            layout="@layout/view_characters_list" />
+
+        <include
+            android:id="@+id/include_list_empty"
+            layout="@layout/view_characters_list_empty" />
+
+        <include
+            android:id="@+id/include_list_error"
+            layout="@layout/view_characters_list_error" />
+
+        <include
+            android:id="@+id/include_list_loading"
+            layout="@layout/view_characters_list_loading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
