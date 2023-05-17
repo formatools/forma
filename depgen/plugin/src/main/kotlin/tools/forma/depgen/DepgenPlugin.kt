@@ -9,13 +9,5 @@ import org.gradle.kotlin.dsl.embeddedKotlinVersion
  */
 class DepgenPlugin : Plugin<Settings> {
     override fun apply(settings: Settings) {
-        settings.dependencyResolutionManagement {
-            versionCatalogs {
-                create("libs") {
-                    // For test purposes only
-                    library("kotlin-stdlib", "org.jetbrains.kotlin:kotlin-stdlib:$embeddedKotlinVersion")
-                }
-            }
-        }
     }
 }

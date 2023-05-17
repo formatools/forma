@@ -1,4 +1,9 @@
+import java.io.File
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ExternalModuleDependencyBundle
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.provider.Provider
 import tools.forma.deps.ConfigurationType
 import tools.forma.deps.DepType
 import tools.forma.deps.EmptyDependency
@@ -15,7 +20,6 @@ import tools.forma.deps.PlatformSpec
 import tools.forma.deps.TargetDependency
 import tools.forma.deps.TargetSpec
 import tools.forma.target.FormaTarget
-import java.io.File
 
 val DepType.names: List<NameSpec>
     get(): List<NameSpec> = filterIsInstance(NameSpec::class.java)
@@ -26,20 +30,34 @@ val DepType.targets: List<TargetSpec>
 val DepType.files: List<FileSpec>
     get(): List<FileSpec> = filterIsInstance(FileSpec::class.java)
 
-infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency = MixedDependency(
-    dependency.names + dep.dependency.names,
-    dependency.targets + dep.dependency.targets,
-    dependency.files + dep.dependency.files
-)
+val <T : Dependency> Provider<T>.dep: NameSpec
+    get() = with(get()) { NameSpec("$group:$name:$version", Implementation) }
 
-inline fun <reified T : FormaDependency> emptyDependency(): T = when(T::class) {
-    FormaDependency::class -> EmptyDependency as T
-    NamedDependency::class -> NamedDependency() as T
-    FileDependency::class -> FileDependency() as T
-    TargetDependency::class -> TargetDependency() as T
-    MixedDependency::class -> MixedDependency() as T
-    else -> throw IllegalArgumentException("Illegal Empty dependency, expected ${T::class.simpleName}")
-}
+val Dependency.dep: NameSpec
+    get() = NameSpec("$group:$name:$version", Implementation)
+
+val Provider<ExternalModuleDependencyBundle>.dep: List<NameSpec>
+    get() = get().map { it.dep }
+
+infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency =
+    MixedDependency(
+        dependency.names + dep.dependency.names,
+        dependency.targets + dep.dependency.targets,
+        dependency.files + dep.dependency.files
+    )
+
+inline fun <reified T : FormaDependency> emptyDependency(): T =
+    when (T::class) {
+        FormaDependency::class -> EmptyDependency as T
+        NamedDependency::class -> NamedDependency() as T
+        FileDependency::class -> FileDependency() as T
+        TargetDependency::class -> TargetDependency() as T
+        MixedDependency::class -> MixedDependency() as T
+        else ->
+            throw IllegalArgumentException(
+                "Illegal Empty dependency, expected ${T::class.simpleName}"
+            )
+    }
 
 fun FormaDependency.forEach(
     nameAction: (NameSpec) -> Unit = {},
@@ -58,15 +76,14 @@ fun FormaDependency.forEach(
 }
 
 internal fun FormaDependency.hasConfigType(configType: ConfigurationType): Boolean {
-    dependency.forEach { dep ->
-        if (dep.config == configType) return true
-    }
+    dependency.forEach { dep -> if (dep.config == configType) return true }
     return false
 }
 
-fun deps(vararg names: String): NamedDependency = transitiveDeps(names = *names, transitive = false)
+fun deps(vararg names: String): NamedDependency = transitiveDeps(names = names, transitive = false)
 
-fun platform(vararg names: String): PlatformDependency = transitivePlatform(*names, transitive = false)
+fun platform(vararg names: String): PlatformDependency =
+    transitivePlatform(*names, transitive = false)
 
 fun transitivePlatform(vararg names: String, transitive: Boolean = true): PlatformDependency =
     PlatformDependency(names.toList().map { PlatformSpec(it, Implementation, transitive) })
@@ -76,32 +93,45 @@ fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDepen
 
 @Suppress("DeprecatedCallableAddReplaceWith")
 @Deprecated(
-    "Deprecated in favor of targets version of this function:\n" +
-            "deps(target(\":name\"))"
+    "Deprecated in favor of targets version of this function:\n" + "deps(target(\":name\"))"
 )
 fun deps(vararg projects: Project): TargetDependency =
-    TargetDependency(projects.toList().map { TargetSpec(it.target, Implementation) })
+    TargetDependency(projects.map { TargetSpec(it.target, Implementation) })
 
 fun deps(vararg targets: FormaTarget): TargetDependency =
-    TargetDependency(targets.toList().map { TargetSpec(it, Implementation) })
+    TargetDependency(targets.map { TargetSpec(it, Implementation) })
 
 fun deps(vararg files: File): FileDependency =
-    FileDependency(files.toList().map { FileSpec(it, Implementation) })
+    FileDependency(files.map { FileSpec(it, Implementation) })
 
 fun deps(vararg dependencies: NamedDependency): NamedDependency =
     dependencies.flatMap { it.names }.let(::NamedDependency)
+
+@Suppress("UNCHECKED_CAST")
+inline fun <reified T : Any> deps(vararg dependencies: Provider<T>): NamedDependency =
+    when (T::class) {
+        Dependency::class,
+        MinimalExternalModuleDependency::class ->
+            dependencies.map { (it as Provider<MinimalExternalModuleDependency>).dep }
+        ExternalModuleDependencyBundle::class ->
+            dependencies.flatMap { (it as Provider<ExternalModuleDependencyBundle>).dep }
+        else -> throw IllegalArgumentException("Unsupported dependency type ${T::class.simpleName}")
+    }.let(::NamedDependency)
 
 fun deps(vararg dependencies: TargetDependency): TargetDependency =
     dependencies.flatMap { it.targets }.let(::TargetDependency)
 
 fun kapt(vararg names: String): NamedDependency =
-    NamedDependency(names.toList().map { NameSpec(it, Kapt, true) })
+    NamedDependency(names.map { NameSpec(it, Kapt, true) })
 
-val String.dep: NamedDependency get() = deps(this)
+val String.dep: NamedDependency
+    get() = deps(this)
 
-val String.kapt: NamedDependency get() = kapt(this)
+val String.kapt: NamedDependency
+    get() = kapt(this)
 
-val Project.target: FormaTarget get() = FormaTarget(this)
+val Project.target: FormaTarget
+    get() = FormaTarget(this)
 
-fun Project.target(name: String): FormaTarget = FormaTarget(project(":" + name.substring(1).replace(":", "-")))
-
+fun Project.target(name: String): FormaTarget =
+    FormaTarget(project(":" + name.substring(1).replace(":", "-")))
