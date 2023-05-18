@@ -25,7 +25,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.stepango.blockme.common.extensions.android.util.loadImage
 import com.stepango.blockme.common.extensions.android.util.observe
-import com.stepango.blockme.common.progressbar.databinding.ProgressBarDialog
+import com.stepango.blockme.common.progressbar.viewbinding.ProgressBarDialog
 import com.stepango.blockme.core.mvvm.library.ui.BaseViewBindingFragment
 import com.stepango.blockme.core.mvvm.library.viewModels
 import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeatureProvider

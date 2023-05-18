@@ -14,7 +14,6 @@ impl(
 
         target(":common:extensions:util"),
         target(":common:extensions:android-util"),
-        target(":common:extensions:databinding-adapter"),
         target(":common:util")
 
     ),

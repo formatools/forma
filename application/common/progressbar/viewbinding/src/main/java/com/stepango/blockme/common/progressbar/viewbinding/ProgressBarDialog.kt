@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.common.progressbar.databinding
+package com.stepango.blockme.common.progressbar.viewbinding
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.stepango.blockme.common.extensions.android.util.getString
-import com.stepango.blockme.common.progressbar.databinding.databinding.ViewProgressDialogBinding
+import com.stepango.blockme.common.progressbar.viewbinding.databinding.ViewProgressDialogBinding
 
 /**
  * Custom progress dialog to display as alert during on long process user waiting.
@@ -58,8 +59,10 @@ class ProgressBarDialog(
         setCanceledOnTouchOutside(false)
         setCancelable(false)
 
-        viewBinding.isLoading = true
-        viewBinding.message = context.getString(messageRes)
+        viewBinding.progressBarLoading.visibility = View.VISIBLE
+        val message = context.getString(messageRes)
+        viewBinding.progressBarMessage.text = message
+        viewBinding.progressBarMessage.visibility = if (message.isEmpty()) View.GONE else View.VISIBLE
     }
 
     /**
@@ -73,7 +76,9 @@ class ProgressBarDialog(
         setCanceledOnTouchOutside(true)
         setCancelable(true)
 
-        viewBinding.isLoading = false
-        viewBinding.message = context.getString(messageRes)
+        viewBinding.progressBarLoading.visibility = View.GONE
+        val message = context.getString(messageRes)
+        viewBinding.progressBarMessage.text = message
+        viewBinding.progressBarMessage.visibility = if (message.isEmpty()) View.GONE else View.VISIBLE
     }
 }

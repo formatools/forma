@@ -29,6 +29,6 @@ impl(
 
         target(":common:util"),
         target(":common:extensions:android-util"),
-        target(":common:progressbar:databinding")
+        target(":common:progressbar:viewbinding")
     )
 )

@@ -18,7 +18,6 @@ androidBinary(
         target(":feature:characters:favorite:impl"),
 
         target(":common:extensions:android-util"),
-        target(":common:progressbar:databinding"),
 //        target(":common:util-native"),
         target(":core:mvvm:library"),
         target(":core:di:library")
