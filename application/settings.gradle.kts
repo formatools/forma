@@ -37,6 +37,7 @@ dependencyResolutionManagement {
             addPlugin("tools.forma.demo:dependencies:0.0.1")
             addPlugin("com.google.devtools.ksp:symbol-processing-gradle-plugin:1.8.10-1.0.9", "androidx.room:room-compiler:$roomVersion")
         }
+
     }
 }
 
