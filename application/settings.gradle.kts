@@ -26,7 +26,6 @@ dependencyResolutionManagement {
             addBundle("coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion")
             addPlugin( "tools.forma.demo:dependencies:0.0.1")
         }
-
     }
 }
 
@@ -58,20 +57,6 @@ fun VersionCatalogBuilder.addLibrary(
 }
 
 fun defaultNameGenerator(groupArtifactVersion: String) =
-    groupArtifactVersion
-        .split(":")
-        .verifyVersion()
-        .dropLast(1)
-        .fold(emptyList<String>()) { acc, s -> acc + s.split(".", "-") }
-        .filter { it !in filteredTokens }
-        .distinct()
-        .joinToString(".")
-        .also { println("Generated name $it for $groupArtifactVersion") }
-
-/**
- * For some reason you need to specify plugin version separately, so we assume there is no version in plugin name
- */
-fun defaultPluginNameGenerator(groupArtifactVersion: String) =
     groupArtifactVersion
         .split(":")
         .verifyVersion()
