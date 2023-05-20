@@ -26,7 +26,6 @@ dependencyResolutionManagement {
             addBundle("coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion")
             addPlugin( "tools.forma.demo:dependencies:0.0.1")
         }
-
     }
 }
 
