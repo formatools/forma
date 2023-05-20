@@ -24,17 +24,27 @@ dependencyResolutionManagement {
         create("libs") {
             addLibrary("com.jakewharton.timber:timber:4.7.1")
             addBundle("coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion")
+            addPlugin( "tools.forma.demo:dependencies:0.0.1")
         }
+
     }
+}
+
+fun VersionCatalogBuilder.addPlugin(
+    groupArtifactVersion: String,
+    vararg dependencies: String,
+    nameGenerator: (String) -> String = ::defaultNameGenerator
+) {
+    val (group, artifact, version) = groupArtifactVersion.split(":")
+    plugin(nameGenerator(groupArtifactVersion), "$group:$artifact").version { strictly(version) }
 }
 
 fun VersionCatalogBuilder.addBundle(
     name: String,
     vararg groupArtifactVersion: String,
     nameGenerator: (String) -> String = ::defaultNameGenerator
-): String {
+) {
     bundle(name, groupArtifactVersion.map { addLibrary(it, nameGenerator) })
-    return name
 }
 
 fun VersionCatalogBuilder.addLibrary(
@@ -50,6 +60,21 @@ fun VersionCatalogBuilder.addLibrary(
 fun defaultNameGenerator(groupArtifactVersion: String) =
     groupArtifactVersion
         .split(":")
+        .verifyVersion()
+        .dropLast(1)
+        .fold(emptyList<String>()) { acc, s -> acc + s.split(".", "-") }
+        .filter { it !in filteredTokens }
+        .distinct()
+        .joinToString(".")
+        .also { println("Generated name $it for $groupArtifactVersion") }
+
+/**
+ * For some reason you need to specify plugin version separately, so we assume there is no version in plugin name
+ */
+fun defaultPluginNameGenerator(groupArtifactVersion: String) =
+    groupArtifactVersion
+        .split(":")
+        .verifyVersion()
         .dropLast(1)
         .fold(emptyList<String>()) { acc, s -> acc + s.split(".", "-") }
         .filter { it !in filteredTokens }
@@ -60,3 +85,9 @@ fun defaultNameGenerator(groupArtifactVersion: String) =
 // refer to this issue https://github.com/gradle/gradle/issues/18536
 // tools.forma.dependencies are applied in buildscript {} block
 includeBuild("../build-dependencies")
+
+fun List<String>.verifyVersion(): List<String> {
+    // Very naive check if last string contains version
+    if (!last().last().isDigit()) throw IllegalArgumentException("Version is not specified")
+    return this
+}

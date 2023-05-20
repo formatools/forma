@@ -1,3 +1,7 @@
+@file:Suppress("UnstableApiUsage")
+
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     id("org.gradle.kotlin.kotlin-dsl")
     id("com.gradle.plugin-publish")
@@ -5,6 +9,12 @@ plugins {
 
 group = "tools.forma"
 version = "0.0.1"
+
+tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-receivers")
+    }
+}
 
 dependencies {
     implementation("com.android.tools.build:gradle:7.4.2")

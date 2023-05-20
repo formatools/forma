@@ -1,14 +1,14 @@
-@file:Suppress("ObjectPropertyName")
-
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.tasks.Delete
 import org.gradle.kotlin.dsl.ScriptHandlerScope
+import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import org.gradle.kotlin.dsl.repositories
+import tools.forma.android.utils.register
+import tools.forma.config.ConfigurationStore
 import tools.forma.config.FormaConfiguration
 import tools.forma.config.FormaConfigurationStore
-import tools.forma.android.utils.register
 
 // TODO: add docs for every fun param
 /**
@@ -22,45 +22,49 @@ import tools.forma.android.utils.register
  * @param mandatoryOwners is a flag that enables mandatory owners for all modules
  * @param extraPlugins is a list of extra plugins that will be applied to project
  */
+
 fun ScriptHandlerScope.androidProjectConfiguration(
     project: Project,
     minSdk: Int,
     targetSdk: Int,
     compileSdk: Int,
-    kotlinVersion: String,
+    kotlinVersion: String = embeddedKotlinVersion,
     agpVersion: String,
     repositories: RepositoryHandler.() -> Unit = {},
     dataBinding: Boolean = false,
+    compose: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
-    extraPlugins: List<Any>
+    vectorDrawablesUseSupportLibrary: Boolean = false,
+    extraPlugins: List<String> = emptyList()
 ) {
-    Forma.buildScriptConfiguration(this, extraPlugins)
-    with(project) {
+    buildScriptConfiguration(this, extraPlugins)
 
-        /**
-         * Default Android project clean task implementation
-         */
+    /**
+     * Default Android project clean task implementation
+     */
+    with(project) {
         tasks.register("clean", Delete::class) {
             delete(project.buildDir)
         }
-
-        val configuration = FormaConfiguration(
-            minSdk = minSdk,
-            targetSdk = targetSdk,
-            compileSdk = compileSdk,
-            // we don't need check properties for exist, we read it successfully in forma configuration
-            kotlinVersion = kotlinVersion,
-            agpVersion = agpVersion,
-            repositories = repositories,
-            dataBinding = dataBinding,
-            javaVersionCompatibility = javaVersionCompatibility,
-            mandatoryOwners = mandatoryOwners
-        )
-
-        Forma.store(configuration)
-
     }
+
+    val configuration = FormaConfiguration(
+        minSdk = minSdk,
+        targetSdk = targetSdk,
+        compileSdk = compileSdk,
+        // we don't need check properties for exist, we read it successfully in forma configuration
+        kotlinVersion = kotlinVersion,
+        agpVersion = agpVersion,
+        repositories = repositories,
+        dataBinding = dataBinding,
+        javaVersionCompatibility = javaVersionCompatibility,
+        mandatoryOwners = mandatoryOwners,
+        compose = compose,
+        vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary
+    )
+
+    Forma.store(configuration)
 }
 
 @Deprecated("Old approach to configuration, use ScriptHandlerScope Extension")
@@ -76,6 +80,8 @@ fun Project.androidProjectConfiguration(
     generateMissedManifests: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
+    compose: Boolean = false,
+    vectorDrawablesUseSupportLibrary: Boolean = true,
 ) {
 
     /**
@@ -95,29 +101,27 @@ fun Project.androidProjectConfiguration(
         repositories = repositories,
         dataBinding = dataBinding,
         javaVersionCompatibility = javaVersionCompatibility,
-        mandatoryOwners = mandatoryOwners
+        mandatoryOwners = mandatoryOwners,
+        compose = compose,
+        vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary
     )
 
     Forma.store(configuration)
 }
 
-/**
- * Singleton project configuration store
- */
-object Forma {
-
-    val configuration: FormaConfiguration get() = FormaConfigurationStore.configuration
-
-    fun store(configuration: FormaConfiguration) = FormaConfigurationStore.store(configuration)
-
-    val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpathDeps ->
-        // TODO pass repositories configuration
-        repositories {
-            google()
-            mavenCentral()
-        }
-        dependencies {
-            classpathDeps.forEach { classpath(it) }
-        }
+val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpathDeps ->
+    // TODO pass repositories configuration
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpathDeps.forEach { classpath(it) }
     }
 }
+
+/**
+ * Singleton project configuration store
+ * TODO remove
+ */
+object Forma: ConfigurationStore<FormaConfiguration> by FormaConfigurationStore
