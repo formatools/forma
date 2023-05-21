@@ -26,23 +26,27 @@ data class FormaConfiguration(
     val kotlinVersion: String,
     val agpVersion: String,
     val repositories: RepositoryHandler.() -> Unit,
-    // Databinding is Application level feature, android_binary will be infering dataBinding flag, developers does not need to know about
-    val dataBinding: Boolean = false,
-    val compose: Boolean = false,
-    val vectorDrawablesUseSupportLibrary: Boolean = true,
-    val javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
+    // Databinding is Application level feature, android_binary will be inferring dataBinding flag, developers does not need to know about
+    val dataBinding: Boolean,
+    val compose: Boolean,
+    val vectorDrawablesUseSupportLibrary: Boolean,
+    val javaVersionCompatibility: JavaVersion, // Java/Kotlin configuration
     val mandatoryOwners: Boolean
 )
 
 /**
- * Singleton project configuration store
+ * Singleton project configuration store, used by internal plugins
  */
-object FormaConfigurationStore {
-
+object FormaConfigurationStore : ConfigurationStore<FormaConfiguration> {
     private lateinit var _configuration: FormaConfiguration
-    val configuration: FormaConfiguration get() = _configuration
+    override val configuration: FormaConfiguration get() = _configuration
 
-    fun store(configuration: FormaConfiguration) {
+    override fun store(configuration: FormaConfiguration) {
         _configuration = configuration
     }
+}
+
+interface ConfigurationStore<T : Any> {
+    val configuration: T
+    fun store(configuration: T)
 }
