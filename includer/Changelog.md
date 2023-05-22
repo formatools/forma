@@ -1,3 +1,7 @@
+# 0.1.3 Minor patch release
+
+- Prevent traversing nested projects
+
 # 0.1.2 Minor patch release
 
 - Skip include for folders with non `.kts` settings files

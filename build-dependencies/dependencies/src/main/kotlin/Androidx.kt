@@ -296,17 +296,4 @@ object androidx {
         navigation_ui_ktx,
         navigation_common_ktx
     )
-
-    private val sqlite = deps(
-        "androidx.sqlite:sqlite:${versions.androidx.sqlite}".dep,
-        "androidx.sqlite:sqlite-framework:${versions.androidx.sqlite}".dep
-    )
-
-    val room = deps(
-        "androidx.room:room-runtime:${versions.androidx.room}".dep,
-        "androidx.room:room-ktx:${versions.androidx.room}".dep,
-        "androidx.room:room-common:${versions.androidx.room}".dep,
-        "androidx.room:room-compiler:${versions.androidx.room}".kapt,
-        sqlite
-    )
 }

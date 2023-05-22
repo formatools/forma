@@ -3,11 +3,6 @@ package tools.forma.deps
 import tools.forma.target.FormaTarget
 import java.io.File
 
-/**
- * Dependency wrapper
- * TODO: inline class
- */
-
 sealed class ConfigurationType(val name: String)
 object Implementation : ConfigurationType("implementation")
 object CompileOnly : ConfigurationType("compileOnly")

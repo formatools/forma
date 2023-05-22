@@ -2,8 +2,8 @@ buildscript {
     androidProjectConfiguration(
         project = project,
         minSdk = 21,
-        targetSdk = 31,
-        compileSdk = 31,
+        targetSdk = 33,
+        compileSdk = 33,
         agpVersion = "7.4.2",
         dataBinding = true,
         extraPlugins = listOf(

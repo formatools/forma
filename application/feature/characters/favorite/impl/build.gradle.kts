@@ -9,13 +9,12 @@ impl(
         androidx.recyclerview,
         androidx.swiperefreshlayout,
         androidx.paging,
-        androidx.room,
         google.material,
         google.dagger,
         jakewharton.timber,
         kotlinx.coroutines_core,
         viewbinding.viewpropertydelegate
-    ) + deps(
+    ) + deps(libs.bundles.room) + deps(
         target(":feature:characters:core:api"),
         target(":feature:characters:favorite:api"),
         target(":feature:characters:favorite:viewbinding"),

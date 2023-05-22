@@ -43,8 +43,9 @@ class IncluderPlugin : Plugin<Settings> {
     private suspend fun findGradleKtsFiles(
         rootDir: File,
         currentDir: File,
-        ignoredFilenames: List<String> = listOf("settings.gradle.kts", "settings.gradle"),
-        ignoredFolders: List<String> = listOf("build", "src", "buildSrc")
+        ignoredFilenames: List<String> = emptyList(),
+        ignoredFolders: List<String> = listOf("build", "src", "buildSrc"),
+        nestedProjectMarkerFiles: List<String> = listOf("settings.gradle.kts", "settings.gradle"),
     ): List<File> = coroutineScope {
 
         val children = currentDir.listFiles() ?: emptyArray()
@@ -55,7 +56,9 @@ class IncluderPlugin : Plugin<Settings> {
             .filter { it.name.endsWith(".gradle.kts") || it.name.endsWith(".gradle") }
             .filterNot { it.isHidden || it.name in ignoredFilenames }
 
-        val dirJobs = dirs
+        val skipNestedProject = currentDir != rootDir && files.any { it.name in nestedProjectMarkerFiles }
+
+        fun dirJobs() = dirs
             .filterNot { it.isHidden || it.name in ignoredFolders }
             .map { dir ->
                 async(Dispatchers.IO) {
@@ -63,7 +66,7 @@ class IncluderPlugin : Plugin<Settings> {
                 }
             }
 
-        val nestedGradleKtsFiles = dirJobs.awaitAll().flatten()
+        val nestedGradleKtsFiles = if (!skipNestedProject) dirJobs().awaitAll().flatten() else emptyList()
 
         gradleKtsFiles + nestedGradleKtsFiles
     }

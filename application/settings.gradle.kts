@@ -16,15 +16,26 @@ plugins {
 
 rootProject.name = "application"
 
-val filteredTokens = listOf("com", "io", "net", "org")
+val filteredTokens = listOf("com", "io", "net", "org", "gradle")
 val coilVersion = "2.1.0"
+val sqliteVersion = "2.2.0"
+val roomVersion = "2.5.1"
 
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             addLibrary("com.jakewharton.timber:timber:4.7.1")
-            addBundle("coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion")
-            addPlugin( "tools.forma.demo:dependencies:0.0.1")
+            addBundle(name = "coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion")
+            addBundle(
+                name = "room",
+                "androidx.sqlite:sqlite:$sqliteVersion",
+                "androidx.sqlite:sqlite-framework:$sqliteVersion",
+                "androidx.room:room-runtime:$roomVersion",
+                "androidx.room:room-ktx:$roomVersion",
+                "androidx.room:room-common:$roomVersion",
+            )
+            addPlugin("tools.forma.demo:dependencies:0.0.1")
+            addPlugin("com.google.devtools.ksp:symbol-processing-gradle-plugin:1.8.10-1.0.9", "androidx.room:room-compiler:$roomVersion")
         }
     }
 }
