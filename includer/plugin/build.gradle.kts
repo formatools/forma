@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version embeddedKotlinVersion
 }
 
-version = "0.1.2"
+version = "0.1.3"
 group = "tools.forma"
 
 repositories {
