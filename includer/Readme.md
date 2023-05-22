@@ -8,6 +8,6 @@ Remove all your `include` declarations from your `settings.gradle.kts` file and 
 
 ```kotlin
 plugins {
-    id("tools.forma.includer") version "0.1.1"
+    id("tools.forma.includer") version "0.1.3"
 }
 ```

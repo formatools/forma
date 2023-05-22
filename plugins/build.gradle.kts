@@ -1,5 +1,4 @@
 import com.gradle.publish.PublishPlugin
-import java.util.Properties
 
 plugins {
     `kotlin-dsl`
