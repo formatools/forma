@@ -1,8 +1,8 @@
 @file:Suppress("ClassName", "MemberVisibilityCanBePrivate")
 
-import tools.forma.config.FormaConfigurationStore
+import tools.forma.config.FormaSettingsStore
 
-val configuration = FormaConfigurationStore.configuration
+val configuration = FormaSettingsStore.settings
 
 object dataBinding {
     val viewBinding = transitiveDeps(

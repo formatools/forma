@@ -63,7 +63,7 @@ fun Project.androidUtil(
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        repositoriesConfiguration = Forma.configuration.repositories,
+        repositoriesConfiguration = Forma.settings.repositories,
         configurationFeatures = kaptConfigurationFeature()
     )
 }

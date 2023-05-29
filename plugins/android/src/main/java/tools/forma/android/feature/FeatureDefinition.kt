@@ -2,7 +2,7 @@ package tools.forma.android.feature
 
 import Forma
 import tools.forma.deps.NamedDependency
-import tools.forma.config.FormaConfiguration
+import tools.forma.config.AndroidProjectSettings
 import emptyDependency
 import kotlin.reflect.KClass
 import org.gradle.api.Project
@@ -15,14 +15,14 @@ data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginExtension: KClass<Extension>,
     val featureConfiguration: FeatureConfiguration,
     val defaultDependencies: NamedDependency = emptyDependency(),
-    val formaConfiguration: FormaConfiguration = Forma.configuration,
-    val configuration: (Extension, FeatureConfiguration, Project, FormaConfiguration) -> Unit
+    val androidProjectSettings: AndroidProjectSettings = Forma.settings,
+    val configuration: (Extension, FeatureConfiguration, Project, AndroidProjectSettings) -> Unit
 ) {
     fun applyConfiguration(project: Project) = configuration(
         project.the(pluginExtension),
         featureConfiguration,
         project,
-        formaConfiguration
+        androidProjectSettings
     )
 }
 

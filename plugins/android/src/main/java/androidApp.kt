@@ -52,7 +52,7 @@ fun Project.androidApp(
     applyDependencies(
         validator = EmptyValidator,
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories,
+        repositoriesConfiguration = Forma.settings.repositories,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
         configurationFeatures = kaptConfigurationFeature()

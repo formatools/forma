@@ -67,7 +67,7 @@ fun Project.dataBinding(
             LibraryTargetTemplate
         ),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.settings.repositories
     )
 }
 
@@ -112,12 +112,12 @@ fun Project.dataBindingAdapters(
             ResourcesTargetTemplate
         ),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.settings.repositories
     )
 }
 
 private fun checkDataBindingFlag() {
-    if (!Forma.configuration.dataBinding) {
+    if (!Forma.settings.dataBinding) {
         throw IllegalArgumentException("Please enable dataBinding feature trough androidProjectConfiguration")
     }
 }

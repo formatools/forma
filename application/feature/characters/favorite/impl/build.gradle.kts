@@ -11,10 +11,12 @@ impl(
         androidx.paging,
         google.material,
         google.dagger,
-        jakewharton.timber,
         kotlinx.coroutines_core,
         viewbinding.viewpropertydelegate
-    ) + deps(libs.bundles.room) + deps(
+    ) + deps(
+        libs.jakewharton.timber,
+        libs.bundles.room
+    ) + deps(
         target(":feature:characters:core:api"),
         target(":feature:characters:favorite:api"),
         target(":feature:characters:favorite:viewbinding"),

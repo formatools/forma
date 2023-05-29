@@ -33,6 +33,6 @@ fun Project.androidTestUtil(
     applyDependencies(
         validator = validator(AndroidTestUtilTargetTemplate, TestUtilTargetTemplate),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.settings.repositories
     )
 }

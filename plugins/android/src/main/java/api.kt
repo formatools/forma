@@ -26,7 +26,7 @@ fun Project.api(
     applyDependencies(
         validator = validator(ApiTargetTemplate, LibraryTargetTemplate),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.settings.repositories
     )
 }
 

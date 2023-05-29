@@ -58,7 +58,7 @@ fun Project.androidBinary(
     applyDependencies(
         validator = EmptyValidator,
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.settings.repositories
     )
 
     return TargetBuilder(this)

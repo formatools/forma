@@ -2,7 +2,7 @@ package tools.forma.android.feature
 
 import deps
 import kapt
-import tools.forma.config.FormaConfiguration
+import tools.forma.config.AndroidProjectSettings
 import org.gradle.api.Project
 import tools.forma.android.dependencies.kotlin
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
@@ -13,13 +13,13 @@ import org.gradle.api.tasks.compile.JavaCompile
 import tools.forma.deps.ConfigurationType
 import tools.forma.deps.Kapt
 
-private fun defaultConfiguration(project: Project, formaConfiguration: FormaConfiguration) {
+private fun defaultConfiguration(project: Project, androidProjectSettings: AndroidProjectSettings) {
     project.tasks.withType(JavaCompile::class.java).configureEach {
-        targetCompatibility = formaConfiguration.javaVersionCompatibility.toString()
-        sourceCompatibility = formaConfiguration.javaVersionCompatibility.toString()
+        targetCompatibility = androidProjectSettings.javaVersionCompatibility.toString()
+        sourceCompatibility = androidProjectSettings.javaVersionCompatibility.toString()
     }
     project.tasks.withType(KotlinCompile::class.java).configureEach {
-        kotlinOptions.jvmTarget = formaConfiguration.javaVersionCompatibility.toString()
+        kotlinOptions.jvmTarget = androidProjectSettings.javaVersionCompatibility.toString()
     }
 }
 
@@ -32,7 +32,7 @@ fun kotlinFeatureDefinition() = FeatureDefinition(
 )
 
 private fun <Extension : Any, FeatureConfiguration : Any> featureConfiguration() =
-    { _: Extension, _: FeatureConfiguration, project: Project, configuration: FormaConfiguration ->
+    { _: Extension, _: FeatureConfiguration, project: Project, configuration: AndroidProjectSettings ->
         defaultConfiguration(
             project,
             configuration

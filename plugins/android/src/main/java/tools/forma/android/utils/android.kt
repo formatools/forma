@@ -3,7 +3,7 @@ package tools.forma.android.utils
 import com.android.build.gradle.internal.CompileOptions
 import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.DefaultConfig
-import tools.forma.config.FormaConfiguration
+import tools.forma.config.AndroidProjectSettings
 import org.gradle.api.NamedDomainObjectContainer
 
 data class BuildConfiguration(
@@ -17,22 +17,22 @@ data class BuildTypeConfiguration(
 )
 
 internal fun DefaultConfig.applyFrom(
-    formaConfiguration: FormaConfiguration,
+    androidProjectSettings: AndroidProjectSettings,
     testInstrumentationRunnerClass: String,
     consumerMinificationFiles: Set<String>,
     manifestPlaceholders: Map<String, Any>
 ) {
-    minSdk = formaConfiguration.minSdk
-    targetSdk = formaConfiguration.targetSdk
+    minSdk = androidProjectSettings.minSdk
+    targetSdk = androidProjectSettings.targetSdk
 
     testInstrumentationRunner = testInstrumentationRunnerClass
     consumerProguardFiles(*consumerMinificationFiles.toTypedArray())
     manifestPlaceholders(manifestPlaceholders)
 
-    vectorDrawables.useSupportLibrary = formaConfiguration.vectorDrawablesUseSupportLibrary
+    vectorDrawables.useSupportLibrary = androidProjectSettings.vectorDrawablesUseSupportLibrary
 }
 
-internal fun CompileOptions.applyFrom(config: FormaConfiguration) {
+internal fun CompileOptions.applyFrom(config: AndroidProjectSettings) {
     sourceCompatibility = config.javaVersionCompatibility
     targetCompatibility = config.javaVersionCompatibility
 }

@@ -6,9 +6,9 @@ import org.gradle.kotlin.dsl.ScriptHandlerScope
 import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import org.gradle.kotlin.dsl.repositories
 import tools.forma.android.utils.register
-import tools.forma.config.ConfigurationStore
-import tools.forma.config.FormaConfiguration
-import tools.forma.config.FormaConfigurationStore
+import tools.forma.config.SettingsStore
+import tools.forma.config.AndroidProjectSettings
+import tools.forma.config.FormaSettingsStore
 
 // TODO: add docs for every fun param
 /**
@@ -49,7 +49,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
         }
     }
 
-    val configuration = FormaConfiguration(
+    val configuration = AndroidProjectSettings(
         minSdk = minSdk,
         targetSdk = targetSdk,
         compileSdk = compileSdk,
@@ -91,7 +91,7 @@ fun Project.androidProjectConfiguration(
         delete(project.buildDir)
     }
 
-    val configuration = FormaConfiguration(
+    val configuration = AndroidProjectSettings(
         minSdk = minSdk,
         targetSdk = targetSdk,
         compileSdk = compileSdk,
@@ -124,4 +124,4 @@ val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpa
  * Singleton project configuration store
  * TODO remove
  */
-object Forma: ConfigurationStore<FormaConfiguration> by FormaConfigurationStore
+object Forma: SettingsStore<AndroidProjectSettings> by FormaSettingsStore

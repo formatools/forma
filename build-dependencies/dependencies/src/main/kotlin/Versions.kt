@@ -48,10 +48,6 @@ object versions {
         const val gson = "2.8.6"
     }
 
-    object jakewharton {
-        const val timber = "4.7.1"
-    }
-
     object test {
         const val espresso = "3.2.0"
         const val junit = "4.12"

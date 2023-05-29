@@ -2,7 +2,6 @@ import java.io.File
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
-import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.provider.Provider
 import tools.forma.deps.ConfigurationType
 import tools.forma.deps.DepType
@@ -107,16 +106,20 @@ fun deps(vararg files: File): FileDependency =
 fun deps(vararg dependencies: NamedDependency): NamedDependency =
     dependencies.flatMap { it.names }.let(::NamedDependency)
 
-@Suppress("UNCHECKED_CAST")
-inline fun <reified T : Any> deps(vararg dependencies: Provider<T>): NamedDependency =
-    when (T::class) {
-        Dependency::class,
-        MinimalExternalModuleDependency::class ->
-            dependencies.map { (it as Provider<MinimalExternalModuleDependency>).dep }
-        ExternalModuleDependencyBundle::class ->
-            dependencies.flatMap { (it as Provider<ExternalModuleDependencyBundle>).dep }
-        else -> throw IllegalArgumentException("Unsupported dependency type ${T::class.simpleName}")
-    }.let(::NamedDependency)
+fun deps(vararg dependencies: Provider<*>): NamedDependency =
+    dependencies
+        .map { it.get() }
+        .flatMap { source ->
+            when (source) {
+                is Dependency -> listOf(source.dep)
+                is ExternalModuleDependencyBundle -> source.map { it.dep }
+                else ->
+                    throw IllegalArgumentException(
+                        "Unsupported dependency type ${source::class.simpleName}"
+                    )
+            }
+        }
+        .let(::NamedDependency)
 
 fun deps(vararg dependencies: TargetDependency): TargetDependency =
     dependencies.flatMap { it.targets }.let(::TargetDependency)

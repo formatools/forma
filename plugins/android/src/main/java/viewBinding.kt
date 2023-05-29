@@ -58,6 +58,6 @@ fun Project.viewBinding(
             AndroidUtilTargetTemplate,
         ),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.configuration.repositories
+        repositoriesConfiguration = Forma.settings.repositories
     )
 }

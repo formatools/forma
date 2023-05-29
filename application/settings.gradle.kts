@@ -1,5 +1,10 @@
+import org.gradle.api.internal.artifacts.dependencies.DefaultDependencyConstraint.strictly
+
 pluginManagement {
-    apply(from = "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts")
+    apply(
+        from =
+            "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts"
+    )
     includeBuild("../build-settings")
     includeBuild("../plugins")
     includeBuild("../includer")
@@ -16,7 +21,19 @@ plugins {
 
 rootProject.name = "application"
 
-val filteredTokens = listOf("com", "io", "net", "org", "gradle")
+val filteredTokens =
+    listOf(
+        "com",
+        "io",
+        "net",
+        "org",
+        "gradle",
+        "android",
+        "androidx",
+        "kotlin",
+        "kotlinx",
+        "google"
+    )
 val coilVersion = "2.1.0"
 val sqliteVersion = "2.2.0"
 val roomVersion = "2.5.1"
@@ -25,7 +42,11 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             addLibrary("com.jakewharton.timber:timber:4.7.1")
-            addBundle(name = "coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion")
+            addBundle(
+                name = "coil",
+                "io.coil-kt:coil:$coilVersion",
+                "io.coil-kt:coil-base:$coilVersion"
+            )
             addBundle(
                 name = "room",
                 "androidx.sqlite:sqlite:$sqliteVersion",
@@ -34,21 +55,27 @@ dependencyResolutionManagement {
                 "androidx.room:room-ktx:$roomVersion",
                 "androidx.room:room-common:$roomVersion",
             )
-            addPlugin("tools.forma.demo:dependencies:0.0.1")
-            addPlugin("com.google.devtools.ksp:symbol-processing-gradle-plugin:1.8.10-1.0.9", "androidx.room:room-compiler:$roomVersion")
+            addPlugin("tools.forma.demo:dependencies", "0.0.1")
+            addPlugin(
+                "com.google.devtools.ksp",
+                "1.8.10-1.0.9",
+                "androidx.room:room-compiler:$roomVersion"
+            )
         }
     }
 }
 
 fun VersionCatalogBuilder.addPlugin(
-    groupArtifactVersion: String,
+    notation: String,
+    version: String,
     vararg dependencies: String,
-    nameGenerator: (String) -> String = ::defaultNameGenerator
+    nameGenerator: (String) -> String = ::pluginNameGenerator
 ) {
-    val (group, artifact, version) = groupArtifactVersion.split(":")
-    plugin(nameGenerator(groupArtifactVersion), "$group:$artifact").version { strictly(version) }
+    val name = nameGenerator(notation)
+    plugin(name, notation).version { strictly(version) }
 }
 
+// todo split lib name and version
 fun VersionCatalogBuilder.addBundle(
     name: String,
     vararg groupArtifactVersion: String,
@@ -57,6 +84,7 @@ fun VersionCatalogBuilder.addBundle(
     bundle(name, groupArtifactVersion.map { addLibrary(it, nameGenerator) })
 }
 
+// todo split lib name and version
 fun VersionCatalogBuilder.addLibrary(
     groupArtifactVersion: String,
     nameGenerator: (String) -> String = ::defaultNameGenerator
@@ -66,6 +94,15 @@ fun VersionCatalogBuilder.addLibrary(
         library(this, group, artifact).version { strictly(version) }
     }
 }
+
+fun pluginNameGenerator(groupArtifactVersion: String) =
+    groupArtifactVersion
+        .split(":")
+        .fold(emptyList<String>()) { acc, s -> acc + s.split(".", "-") }
+        .filter { it !in filteredTokens }
+        .distinct()
+        .joinToString(".")
+        .also { println("Generated name $it for $groupArtifactVersion") }
 
 fun defaultNameGenerator(groupArtifactVersion: String) =
     groupArtifactVersion
