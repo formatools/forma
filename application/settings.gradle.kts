@@ -69,10 +69,12 @@ fun VersionCatalogBuilder.addPlugin(
     notation: String,
     version: String,
     vararg dependencies: String,
-    nameGenerator: (String) -> String = ::pluginNameGenerator
+    nameGenerator: (String) -> String = ::pluginNameGenerator,
+    depNameGenerator: (String) -> String = ::defaultNameGenerator
 ) {
     val name = nameGenerator(notation)
     plugin(name, notation).version { strictly(version) }
+    dependencies.forEach { addLibrary(it, depNameGenerator) }
 }
 
 // todo split lib name and version

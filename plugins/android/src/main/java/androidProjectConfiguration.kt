@@ -9,6 +9,7 @@ import tools.forma.android.utils.register
 import tools.forma.config.SettingsStore
 import tools.forma.config.AndroidProjectSettings
 import tools.forma.config.FormaSettingsStore
+import tools.forma.config.PluginInfoStore
 
 // TODO: add docs for every fun param
 /**
@@ -124,4 +125,4 @@ val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpa
  * Singleton project configuration store
  * TODO remove
  */
-object Forma: SettingsStore<AndroidProjectSettings> by FormaSettingsStore
+object Forma: SettingsStore<AndroidProjectSettings> by FormaSettingsStore, PluginInfoStore by FormaSettingsStore

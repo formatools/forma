@@ -3,7 +3,9 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.provider.Provider
+import tools.forma.config.FormaSettingsStore
 import tools.forma.deps.ConfigurationType
+import tools.forma.deps.Custom
 import tools.forma.deps.DepType
 import tools.forma.deps.EmptyDependency
 import tools.forma.deps.FileDependency
@@ -29,8 +31,16 @@ val DepType.targets: List<TargetSpec>
 val DepType.files: List<FileSpec>
     get(): List<FileSpec> = filterIsInstance(FileSpec::class.java)
 
-val <T : Dependency> Provider<T>.dep: NameSpec
-    get() = with(get()) { NameSpec("$group:$name:$version", Implementation) }
+val Provider<out Dependency>.dep: NameSpec
+    get() {
+        val pluginConf = FormaSettingsStore.pluginFor(this)
+        return with(get()) {
+            NameSpec(
+                "$group:$name:$version",
+                pluginConf?.configuration?.let(::Custom) ?: Implementation
+            )
+        }
+    }
 
 val Dependency.dep: NameSpec
     get() = NameSpec("$group:$name:$version", Implementation)
@@ -108,10 +118,13 @@ fun deps(vararg dependencies: NamedDependency): NamedDependency =
 
 fun deps(vararg dependencies: Provider<*>): NamedDependency =
     dependencies
-        .map { it.get() }
-        .flatMap { source ->
+        .flatMap { provider ->
+            val source = provider.get()
+            @Suppress("UNCHECKED_CAST")
             when (source) {
-                is Dependency -> listOf(source.dep)
+                // here we need to call .dep on provider to get the correct configuration
+                // since on configuration phase we don't have the actual dependency
+                is Dependency -> listOf((provider as Provider<Dependency>).dep)
                 is ExternalModuleDependencyBundle -> source.map { it.dep }
                 else ->
                     throw IllegalArgumentException(

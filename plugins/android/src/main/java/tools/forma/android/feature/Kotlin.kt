@@ -27,7 +27,6 @@ fun kotlinFeatureDefinition() = FeatureDefinition(
     pluginName = "kotlin",
     pluginExtension = KotlinJvmProjectExtension::class,
     featureConfiguration = {},
-    defaultDependencies = kotlin.stdlib_jdk8,
     configuration = featureConfiguration()
 )
 
@@ -43,7 +42,6 @@ fun kotlinAndroidFeatureDefinition() = FeatureDefinition(
     pluginName = "kotlin-android",
     pluginExtension = KotlinAndroidProjectExtension::class,
     featureConfiguration = {},
-    defaultDependencies = kotlin.stdlib_jdk8,
     configuration = featureConfiguration()
 )
 
@@ -51,7 +49,7 @@ fun kotlinKaptFeatureDefinition() = FeatureDefinition(
     pluginName = "kotlin-kapt",
     pluginExtension = KaptExtension::class,
     featureConfiguration = {},
-    defaultDependencies = deps(kotlin.stdlib_jdk8, "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0".kapt),
+    defaultDependencies = deps("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0".kapt),
     configuration = featureConfiguration()
 )
 

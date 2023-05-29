@@ -13,3 +13,5 @@ buildscript {
         )
     )
 }
+
+Forma.registerConfiguration("ksp", libs.plugins.devtools.ksp, libs.room.compiler)
