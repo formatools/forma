@@ -14,7 +14,6 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
 }
 
 val javaLanguageVersion = JavaLanguageVersion.of(11)
