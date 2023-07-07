@@ -16,9 +16,7 @@ plugins {
 # How does it work?
 
 Includer traverses the project's file tree and includes as subprojects all directories that have 
-files with `.gradle(.kts)` extensions. The plugin looks for more than just `build.gradle(.kts)` by default. 
-Because in large projects it may be necessary to use different build file names to make it 
-easier to search for them by name.
+files with `build.gradle(.kts)` files.
 
 Includer skips directories that have `settings.gradle(.kts)` files, treating them as nested projects.
 
@@ -34,27 +32,35 @@ rootProject
 |
 |--feature1
 |----api <- will be included as :feature1-api
-|------api.gradle.kts
+|------build.gradle.kts
 ```
 
 # Plugin configuration
 
-The plugin is configurable by specifying properties in the `gradle.properties` file.
+The plugin is configurable by specifying properties in the `includer` extension.
 
 ## Ignored folders
 
 Includer always skips directories with following names: `build`, `src`, `buildSrc`. But you can 
 specify additional ignored folder names:
 
-```properties
-tools.forma.includer.ignoredFolders=.cmake_cache,.gradle,gradle
+```kotlin
+// in settings.gradle.kts file after `plugins` block
+includer {
+    excludeFolders(".cmake_cache", "scripts")
+}
 ```
 
 ## Arbitrary build file names
 
-If in your case arbitrary build file names interfere with proper project configuration, 
-you can disable this option:
+If you want the plugin to look for any `*.gradle(.kts)` files, not just `build.gradle(.kts)`:
 
-```properties
-tools.forma.includer.arbitraryBuildFileNames=false
+```kotlin
+// in settings.gradle.kts file after `plugins` block
+includer {
+    arbitraryBuildScriptNames = true
+}
 ```
+
+> NOTE: If you use this property, there can only be one `*.gradle(.kts)` file in the root 
+> of any module.

@@ -28,6 +28,7 @@ class IncluderPluginFunctionalTest {
             plugins {
                 id("tools.forma.includer")
             }
+            
         """.trimIndent()
         )
         // :app
@@ -69,48 +70,6 @@ class IncluderPluginFunctionalTest {
         assertTrue("Should include ':app' project") {
             result.output.contains("Project ':app'")
         }
-        assertTrue("Should include ':feature1-api' project") {
-            result.output.contains("Project ':feature1-api'")
-        }
-        assertTrue("Should include ':feature1-impl' project") {
-            result.output.contains("Project ':feature1-impl'")
-        }
-        assertTrue("Should include ':util-android' project") {
-            result.output.contains("Project ':util-android'")
-        }
-        assertFalse(
-            "Shouldn't include ':build-logic' project " +
-                    "because it's a nested project"
-        ) {
-            result.output.contains("Project ':build-logic'")
-        }
-        assertFalse(
-            "Shouldn't include ':build-logic:conventions' project " +
-                    "because it's a subproject of a nested project"
-        ) {
-            result.output.contains("Project ':build-logic-conventions'")
-        }
-    }
-
-    @Test
-    fun `include projects with 'arbitraryBuildFileNames=false' option`() {
-        // Disable option `tools.forma.includer.arbitraryBuildFileNames`
-        projectDir.resolve("gradle.properties").writeText(
-            "tools.forma.includer.arbitraryBuildFileNames=false"
-        )
-
-        // Run the build
-        val runner = GradleRunner.create()
-        runner.forwardOutput()
-        runner.withPluginClasspath()
-        runner.withArguments("projects")
-        runner.withProjectDir(projectDir)
-        val result = runner.build()
-
-        // Verify the result
-        assertTrue("Should include ':app' project") {
-            result.output.contains("Project ':app'")
-        }
         assertFalse(
             "Shouldn't include ':feature1-api' project " +
                     "because this project has a non-standard build file name"
@@ -140,13 +99,14 @@ class IncluderPluginFunctionalTest {
         }
     }
 
-
     @Test
-    fun `include projects with 'ignoredFolders' option`() {
-        // Set option `tools.forma.includer.arbitraryBuildFileNames`
-        projectDir.resolve("gradle.properties").writeText(
-            "tools.forma.includer.ignoredFolders=android,impl"
-        )
+    fun `include projects with 'arbitraryBuildScriptNames=true' option`() {
+        // Enable option `arbitraryBuildScriptNames`
+        projectDir.resolve("settings.gradle.kts").appendText("""
+            includer {
+                arbitraryBuildScriptNames = true
+            }
+        """.trimIndent())
 
         // Run the build
         val runner = GradleRunner.create()
@@ -160,12 +120,62 @@ class IncluderPluginFunctionalTest {
         assertTrue("Should include ':app' project") {
             result.output.contains("Project ':app'")
         }
-        assertTrue("Should include ':feature1-api' project") {
+        assertTrue("Should include ':feature1-api' project" +
+                "because 'arbitraryBuildScriptNames = true'") {
+            result.output.contains("Project ':feature1-api'")
+        }
+        assertTrue("Should include ':feature1-impl' project" +
+                "because 'arbitraryBuildScriptNames = true'") {
+            result.output.contains("Project ':feature1-impl'")
+        }
+        assertTrue("Should include ':util-android' project") {
+            result.output.contains("Project ':util-android'")
+        }
+        assertFalse(
+            "Shouldn't include ':build-logic' project " +
+                    "because it's a nested project"
+        ) {
+            result.output.contains("Project ':build-logic'")
+        }
+        assertFalse(
+            "Shouldn't include ':build-logic:conventions' project " +
+                    "because it's a subproject of a nested project"
+        ) {
+            result.output.contains("Project ':build-logic-conventions'")
+        }
+    }
+
+
+    @Test
+    fun `include projects with 'excludeFolders' option`() {
+        // Exclude additional folders with `excludeFolders(...)`
+        projectDir.resolve("settings.gradle.kts").appendText("""
+            includer {
+                excludeFolders("android", "impl")
+            }
+        """.trimIndent())
+
+        // Run the build
+        val runner = GradleRunner.create()
+        runner.forwardOutput()
+        runner.withPluginClasspath()
+        runner.withArguments("projects")
+        runner.withProjectDir(projectDir)
+        val result = runner.build()
+
+        // Verify the result
+        assertTrue("Should include ':app' project") {
+            result.output.contains("Project ':app'")
+        }
+        assertFalse(
+            "Shouldn't include ':feature1-api' project " +
+                    "because this project has a non-standard build file name"
+        ) {
             result.output.contains("Project ':feature1-api'")
         }
         assertFalse(
             "Shouldn't include ':feature1-impl' project " +
-                    "because its folder name is in ignored folder names"
+                    "because this project has a non-standard build file name"
         ) {
             result.output.contains("Project ':feature1-impl'")
         }
@@ -191,6 +201,13 @@ class IncluderPluginFunctionalTest {
 
     @Test
     fun `include projects with multiple build files`() {
+        // Enable option `arbitraryBuildScriptNames`
+        projectDir.resolve("settings.gradle.kts").appendText("""
+            includer {
+                arbitraryBuildScriptNames = true
+            }
+        """.trimIndent())
+
         // Create a second build file in addition to the existing one
         projectDir.resolve("app/something.gradle").createNewFile()
 
@@ -206,7 +223,7 @@ class IncluderPluginFunctionalTest {
             runner.build()
         }
         assertTrue("Should detect more than one build file in :app module") {
-            exception.message?.contains("has more than one gradle build file") == true
+            exception.message?.contains("app has more than one gradle build file") == true
         }
     }
 }

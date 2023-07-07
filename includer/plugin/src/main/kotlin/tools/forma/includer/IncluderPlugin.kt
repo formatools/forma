@@ -7,7 +7,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.Plugin
 import org.gradle.api.initialization.Settings
-import org.gradle.api.logging.LogLevel
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import java.io.File
@@ -19,42 +18,21 @@ val logger: Logger = Logging.getLogger(IncluderPlugin::class.java)
  * Once applied, Includer will search for nested projects and automatically includes them in the
  * build.
  */
-class IncluderPlugin : Plugin<Settings> {
-
-    private class Options(
-        val ignoredFolders: Set<String>,
-        val arbitraryBuildFileNames: Boolean,
-    )
+abstract class IncluderPlugin : Plugin<Settings> {
 
     override fun apply(settings: Settings) {
         with(settings) {
-            includeSubprojects(loadOptions())
+            val extension = extensions.create("includer", IncluderExtension::class.java)
+
+            gradle.settingsEvaluated {
+                includeSubprojects(extension)
+            }
         }
     }
 
-    private fun Settings.loadOptions(): Options {
-        val ext = extensions.extraProperties.properties
-
-        // Comma separated list of folder names
-        val ignoredFolders = ext["tools.forma.includer.ignoredFolders"]
-            ?.toString()
-            ?.split(',')
-            ?.map { it.trim() }
-            .orEmpty()
-
-        // Default is "true"
-        val arbitraryBuildFileNames = ext["tools.forma.includer.arbitraryBuildFileNames"]
-            ?.toString() != "false"
-
-        return Options(
-            ignoredFolders = IGNORED_FOLDERS + ignoredFolders.toSet(),
-            arbitraryBuildFileNames = arbitraryBuildFileNames,
-        )
-    }
-
-    private fun Settings.includeSubprojects(options: Options) {
+    private fun Settings.includeSubprojects(extension: IncluderExtension) {
         val measuredTime = measureTimeMillis {
-            runBlocking { rootDir.findBuildFiles(options) }
+            runBlocking { rootDir.findBuildFiles(extension) }
                 .forEach { buildFile ->
                     val moduleDir = buildFile.parentFile
                     val relativePath = moduleDir.relativeTo(rootDir).path
@@ -70,10 +48,13 @@ class IncluderPlugin : Plugin<Settings> {
                     }
                 }
         }
-        logger.log(LogLevel.INFO, "Loaded in $measuredTime ms")
+        logger.info("Loaded in $measuredTime ms")
     }
 
-    private suspend fun File.findBuildFiles(options: Options, root: Boolean = true): List<File> =
+    private suspend fun File.findBuildFiles(
+        extension: IncluderExtension,
+        root: Boolean = true,
+    ): List<File> =
         coroutineScope {
             val (dirs, files) = listFiles().partition { it.isDirectory }
 
@@ -81,22 +62,25 @@ class IncluderPlugin : Plugin<Settings> {
             if (!root && files.any { it.name in PROJECT_MARKER_FILES })
                 return@coroutineScope emptyList()
 
-            files.filterBuildFiles(options, root) +
-                    dirs.filterNot { it.isHidden || it.name in options.ignoredFolders }
+            files.filterBuildFiles(extension, root) +
+                    dirs.filterNot { it.isHidden || it.name in extension.excludeFolders }
                         .map { dir ->
                             async(Dispatchers.IO) {
-                                dir.findBuildFiles(options, root = false)
+                                dir.findBuildFiles(extension, root = false)
                             }
                         }
                         .awaitAll()
                         .flatten()
         }
 
-    private fun List<File>.filterBuildFiles(options: Options, root: Boolean): List<File> {
+    private fun List<File>.filterBuildFiles(
+        extension: IncluderExtension,
+        root: Boolean,
+    ): List<File> {
         if (root) return emptyList()
 
         val buildFiles =
-            if (options.arbitraryBuildFileNames) {
+            if (extension.arbitraryBuildScriptNames) {
                 filter { it.name.endsWith(".gradle.kts") || it.name.endsWith(".gradle") }
             } else {
                 filter { it.name in BUILD_GRADLE_FILES }
@@ -113,9 +97,11 @@ class IncluderPlugin : Plugin<Settings> {
                 buildString {
                     appendLine("Directory $parentDir has more than one gradle build file:")
                     buildFiles.forEach { appendLine("- ${it.name}") }
-                    appendLine("Leave only one .gradle(.kts) file, or use the " +
-                            "`tools.forma.includer.arbitraryBuildFileNames=false` setting " +
-                            "to ignore any build files other than build.gradle(.kts).")
+                    appendLine(
+                        "Leave only one .gradle(.kts) file, or use the " +
+                                "`arbitraryBuildScriptNames = false` setting " +
+                                "to ignore any build files other than build.gradle(.kts)."
+                    )
                 }
             )
         }
@@ -125,6 +111,5 @@ class IncluderPlugin : Plugin<Settings> {
 
         private val BUILD_GRADLE_FILES = setOf("build.gradle.kts", "build.gradle")
         private val PROJECT_MARKER_FILES = setOf("settings.gradle.kts", "settings.gradle")
-        private val IGNORED_FOLDERS = setOf("build", "src", "buildSrc")
     }
 }
