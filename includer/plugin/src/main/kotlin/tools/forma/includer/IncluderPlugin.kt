@@ -9,7 +9,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.Plugin
 import org.gradle.api.initialization.Settings
-import org.gradle.api.logging.LogLevel
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
@@ -19,85 +18,94 @@ val logger: Logger = Logging.getLogger(IncluderPlugin::class.java)
  * Once applied, Includer will search for nested projects and automatically includes them in the
  * build.
  */
-class IncluderPlugin : Plugin<Settings> {
+abstract class IncluderPlugin : Plugin<Settings> {
+
     override fun apply(settings: Settings) {
-        includeSubprojects(settings)
-    }
-}
+        with(settings) {
+            val extension = extensions.create("includer", IncluderExtension::class.java)
 
-private fun includeSubprojects(settings: Settings) {
-    val measuredTime = measureTimeMillis {
-        runBlocking { findGradleKtsFiles(settings.rootDir, settings.rootDir) }
-            .forEach { buildFile ->
-                val moduleDir = buildFile.parentFile
-                val relativePath =
-                    settings.rootDir.toPath().relativize(moduleDir.toPath()).toString()
-                // Avoid using `:` as separator for module names as it is used by gradle to
-                // mark
-                // intermittent nested projects, which created automatically. This behavior
-                // leads to increased configuration time
-                val moduleName = ":" + relativePath.replace(File.separator, "-")
-
-                settings.include(moduleName)
-
-                val project = settings.findProject(moduleName)!!
-                project.projectDir = moduleDir
-                project.buildFileName = buildFile.name
-            }
-    }
-    logger.log(LogLevel.INFO, "Loaded in $measuredTime ms")
-}
-
-/**
- * Recursively finds all gradle files in the given directory, excluding the hidden files, given
- * filenames and folders.
- *
- * Ignores nested projects if the current directory contains a file from the `projectMarkerFiles`
- * list.
- *
- * @param rootDir root directory of the project
- * @param currentDir current directory to search
- * @param ignoredFilenames list of filenames to ignore
- * @param ignoredFolders list of folder names to ignore
- * @param projectMarkerFiles filenames that indicate that the directory as a gradle project
- */
-private suspend fun findGradleKtsFiles(
-    rootDir: File,
-    currentDir: File,
-    ignoredFilenames: List<String> = emptyList(),
-    ignoredFolders: List<String> = listOf("build", "src", "buildSrc"),
-    projectMarkerFiles: List<String> = listOf("settings.gradle.kts", "settings.gradle"),
-): List<File> = coroutineScope {
-    val children = currentDir.listFiles() ?: emptyArray()
-
-    val (dirs, files) = children.partition { it.isDirectory }
-
-    val gradleKtsFiles =
-        if (currentDir == rootDir) {
-            // Root project's build.gradle(.kts) always included implicitly
-            emptyList()
-        } else {
-            files
-                // gradle files may have name that is different from `build.gradle(.kts)` so we
-                // include files which follows `*.gradle(.kts)` pattern
-                .filter { it.name.endsWith(".gradle.kts") || it.name.endsWith(".gradle") }
-                .filterNot { it.isHidden || it.name in ignoredFilenames }
+            gradle.settingsEvaluated { it.includeSubprojects(extension) }
         }
+    }
 
-    val skipNestedProject = currentDir != rootDir && files.any { it.name in projectMarkerFiles }
+    private fun Settings.includeSubprojects(extension: IncluderExtension) {
+        val measuredTime = measureTimeMillis {
+            runBlocking { rootDir.findBuildFiles(extension) }
+                .forEach { buildFile ->
+                    val moduleDir = buildFile.parentFile
+                    val relativePath = moduleDir.relativeTo(rootDir).path
+                    // Avoid using `:` as separator for module names as it is used by gradle to mark
+                    // intermittent nested projects, which created automatically. This behavior
+                    // leads to increased configuration time
+                    val moduleName = ":$relativePath".replace(File.separator, "-")
 
-    if (skipNestedProject) {
-        gradleKtsFiles
-    } else {
-        gradleKtsFiles +
-            dirs
-                .filterNot { it.isHidden || it.name in ignoredFolders }
-                .map { dir ->
-                    async(Dispatchers.IO) {
-                        findGradleKtsFiles(rootDir, dir, ignoredFilenames, ignoredFolders)
+                    include(moduleName)
+                    with(project(moduleName)) {
+                        projectDir = moduleDir
+                        buildFileName = buildFile.name
                     }
+                }
+        }
+        logger.info("Loaded in $measuredTime ms")
+    }
+
+    private suspend fun File.findBuildFiles(
+        extension: IncluderExtension,
+        root: Boolean = true,
+    ): List<File> = coroutineScope {
+        val (dirs, files) =
+            listFiles()?.partition { it.isDirectory } ?: Pair(emptyList(), emptyList())
+
+        // Completely ignore the project with the settings file and all its child directories
+        if (!root && files.any { it.name in PROJECT_MARKER_FILES })
+            return@coroutineScope emptyList()
+
+        files.filterBuildFiles(extension, root) +
+            dirs
+                .filterNot { it.isHidden || it.name in extension.excludeFolders }
+                .map { dir ->
+                    async(Dispatchers.IO) { dir.findBuildFiles(extension, root = false) }
                 }
                 .awaitAll()
                 .flatten()
+    }
+
+    private fun List<File>.filterBuildFiles(
+        extension: IncluderExtension,
+        root: Boolean,
+    ): List<File> {
+        if (root) return emptyList()
+
+        val buildFiles =
+            if (extension.arbitraryBuildScriptNames) {
+                filter { it.name.endsWith(".gradle.kts") || it.name.endsWith(".gradle") }
+            } else {
+                filter { it.name in BUILD_GRADLE_FILES }
+            }
+
+        // Make sure that we found the only build file in the directory or did not find it at all
+        // Thus, we prevent the addition of the same module by several build files
+        if (buildFiles.isEmpty() || buildFiles.size == 1) {
+            return buildFiles
+        } else {
+            // If more than one build file is found, we inform the developer about the conflict
+            val parentDir = buildFiles.first().parentFile
+            error(
+                buildString {
+                    appendLine("Directory $parentDir has more than one gradle build file:")
+                    buildFiles.forEach { appendLine("- ${it.name}") }
+                    appendLine(
+                        "Leave only one .gradle(.kts) file, or use the " +
+                            "`arbitraryBuildScriptNames = false` setting " +
+                            "to ignore any build files other than build.gradle(.kts)."
+                    )
+                }
+            )
+        }
+    }
+
+    companion object {
+        private val BUILD_GRADLE_FILES = setOf("build.gradle.kts", "build.gradle")
+        private val PROJECT_MARKER_FILES = setOf("settings.gradle.kts", "settings.gradle")
     }
 }
