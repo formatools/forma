@@ -1,11 +1,11 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("com.gradle.plugin-publish") version "1.1.0"
+    id("com.gradle.plugin-publish") version "1.2.0"
     id("org.jetbrains.kotlin.jvm") version embeddedKotlinVersion
 }
 
-version = "0.1.3"
+version = "0.2.0"
 group = "tools.forma"
 
 repositories {
@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
 }
 
 val javaLanguageVersion = JavaLanguageVersion.of(11)
@@ -33,19 +33,18 @@ testing {
     suites {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
-            // Use Kotlin Test test framework
+            // Use Kotlin Test framework
             useKotlinTest(embeddedKotlinVersion)
         }
 
         // Create a new test suite
         val functionalTest by registering(JvmTestSuite::class) {
-            // Use Kotlin Test test framework
+            // Use Kotlin Test framework
             useKotlinTest(embeddedKotlinVersion)
 
             dependencies {
                 // functionalTest test suite depends on the production code in tests
                 implementation(project())
-                // implementation("org.gradle:gradle-test-kit:${gradle.gradleVersion}")
             }
 
             targets {

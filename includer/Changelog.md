@@ -1,3 +1,7 @@
+# 0.2.0 Minor patch release
+
+- Includer configuration extension added
+
 # 0.1.3 Minor patch release
 
 - Prevent traversing nested projects

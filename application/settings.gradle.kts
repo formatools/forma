@@ -1,5 +1,3 @@
-import org.gradle.api.internal.artifacts.dependencies.DefaultDependencyConstraint.strictly
-
 pluginManagement {
     apply(
         from =
@@ -18,6 +16,8 @@ plugins {
     id("tools.forma.deps")
     id("tools.forma.depgen")
 }
+
+includer { arbitraryBuildScriptNames = true }
 
 rootProject.name = "application"
 
@@ -58,7 +58,7 @@ dependencyResolutionManagement {
             addPlugin("tools.forma.demo:dependencies", "0.0.1")
             addPlugin(
                 "com.google.devtools.ksp",
-                "1.8.10-1.0.9",
+                "$embeddedKotlinVersion-1.0.9",
                 "androidx.room:room-compiler:$roomVersion"
             )
         }

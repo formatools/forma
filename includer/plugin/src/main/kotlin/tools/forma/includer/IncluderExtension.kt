@@ -16,15 +16,12 @@ abstract class IncluderExtension {
      */
     var arbitraryBuildScriptNames: Boolean = false
 
-    /**
-     * Add folder names to be excluded when searching for submodules
-     */
+    /** Add folder names to be excluded when searching for submodules */
     fun excludeFolders(vararg names: String) {
         excludeFolders = excludeFolders + names
     }
 
     private companion object {
-
         private val DEFAULT_EXCLUDED_FOLDERS = setOf("build", "src", "buildSrc")
     }
 }
