@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "tools.forma"
-version = "0.0.1"
+version = "0.1.0"
 
 tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
     compilerOptions {
@@ -37,10 +37,8 @@ gradlePlugin {
             implementationClass = "tools.forma.android.plugin.FormaPlugin"
             tags.set(
                 listOf(
-                    "gradle",
                     "kotlin",
                     "android",
-                    "plugin",
                     "structure",
                     "dependencies",
                     "module",
