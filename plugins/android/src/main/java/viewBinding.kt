@@ -14,8 +14,8 @@ import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.validation.onlyAllowLayouts
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
-import tools.forma.deps.FormaDependency
-import tools.forma.deps.applyDependencies
+import tools.forma.deps_core.FormaDependency
+import tools.forma.deps_core.applyDependencies
 import tools.forma.validation.validate
 import tools.forma.validation.validator
 

@@ -1,4 +1,4 @@
-package tools.forma.deps
+package tools.forma.deps_core
 
 sealed class FormaDependency(
     val dependency: DepType = emptyList()

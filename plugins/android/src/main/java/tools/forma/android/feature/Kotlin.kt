@@ -4,14 +4,13 @@ import deps
 import kapt
 import tools.forma.config.AndroidProjectSettings
 import org.gradle.api.Project
-import tools.forma.android.dependencies.kotlin
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.tasks.compile.JavaCompile
-import tools.forma.deps.ConfigurationType
-import tools.forma.deps.Kapt
+import tools.forma.deps_core.ConfigurationType
+import tools.forma.deps_core.Kapt
 
 private fun defaultConfiguration(project: Project, androidProjectSettings: AndroidProjectSettings) {
     project.tasks.withType(JavaCompile::class.java).configureEach {

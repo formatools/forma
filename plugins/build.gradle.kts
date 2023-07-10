@@ -1,5 +1,5 @@
 plugins {
-    `kotlin-dsl`
+    `kotlin-dsl-base`
     id("com.gradle.plugin-publish") version "1.2.0" apply false
 }
 

@@ -11,9 +11,9 @@ import tools.forma.android.validation.disallowResources
 import tools.forma.validation.validate
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
-import tools.forma.deps.FormaDependency
-import tools.forma.deps.NamedDependency
-import tools.forma.deps.applyDependencies
+import tools.forma.deps_core.FormaDependency
+import tools.forma.deps_core.NamedDependency
+import tools.forma.deps_core.applyDependencies
 import org.gradle.api.Project
 import tools.forma.android.feature.kaptConfigurationFeature
 

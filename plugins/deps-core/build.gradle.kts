@@ -1,6 +1,5 @@
 plugins {
-    id("org.gradle.kotlin.kotlin-dsl")
-    id("com.gradle.plugin-publish")
+    kotlin("jvm")
 }
 
 group = "tools.forma"
@@ -10,4 +9,5 @@ dependencies {
     implementation(project(":validation"))
     implementation(project(":target"))
     implementation(project(":config"))
+    implementation(gradleKotlinDsl())
 }

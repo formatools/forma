@@ -7,8 +7,8 @@ import tools.forma.owner.Owner
 import tools.forma.android.target.BinaryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
-import tools.forma.deps.FormaDependency
-import tools.forma.deps.applyDependencies
+import tools.forma.deps_core.FormaDependency
+import tools.forma.deps_core.applyDependencies
 import tools.forma.validation.EmptyValidator
 import tools.forma.validation.validate
 

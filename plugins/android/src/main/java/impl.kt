@@ -17,9 +17,9 @@ import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.ViewBindingTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
-import tools.forma.deps.FormaDependency
-import tools.forma.deps.NamedDependency
-import tools.forma.deps.applyDependencies
+import tools.forma.deps_core.FormaDependency
+import tools.forma.deps_core.NamedDependency
+import tools.forma.deps_core.applyDependencies
 import tools.forma.validation.validate
 import tools.forma.validation.validator
 
