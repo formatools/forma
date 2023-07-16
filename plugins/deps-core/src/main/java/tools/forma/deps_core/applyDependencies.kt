@@ -1,4 +1,4 @@
-package tools.forma.deps
+package tools.forma.deps_core
 
 import emptyDependency
 import forEach

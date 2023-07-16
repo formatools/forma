@@ -6,15 +6,12 @@ pluginManagement {
     includeBuild("../build-settings")
     includeBuild("../plugins")
     includeBuild("../includer")
-    includeBuild("../depgen")
 }
 
 plugins {
     id("convention-dependencies")
     id("tools.forma.includer")
     id("tools.forma.android")
-    id("tools.forma.deps")
-    id("tools.forma.depgen")
 }
 
 includer { arbitraryBuildScriptNames = true }

@@ -7,8 +7,8 @@ import tools.forma.owner.Owner
 import tools.forma.owner.NoOwner
 import tools.forma.android.validation.disallowResources
 import org.gradle.api.Project
-import tools.forma.deps.applyDependencies
-import tools.forma.deps.FormaDependency
+import tools.forma.deps_core.applyDependencies
+import tools.forma.deps_core.FormaDependency
 import tools.forma.validation.validate
 
 fun Project.api(

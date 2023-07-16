@@ -1,7 +1,10 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm")
-    id("com.gradle.plugin-publish")
+    kotlin("jvm")
 }
 
 group = "tools.forma"
 version = "0.0.1"
+
+dependencies {
+    implementation(gradleApi())
+}

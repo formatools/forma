@@ -12,8 +12,8 @@ import tools.forma.android.validation.onlyAllowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
-import tools.forma.deps.applyDependencies
-import tools.forma.deps.FormaDependency
+import tools.forma.deps_core.applyDependencies
+import tools.forma.deps_core.FormaDependency
 
 // Only resources allowed
 fun Project.androidRes(
