@@ -4,16 +4,16 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.ResourcesTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
-import tools.forma.owner.NoOwner
-import tools.forma.owner.Owner
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
 import tools.forma.validation.validate
 import tools.forma.validation.validator
 import tools.forma.android.validation.onlyAllowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
-import tools.forma.deps_core.applyDependencies
-import tools.forma.deps_core.FormaDependency
+import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.core.FormaDependency
 
 // Only resources allowed
 fun Project.androidRes(

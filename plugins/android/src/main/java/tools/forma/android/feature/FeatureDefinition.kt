@@ -1,14 +1,14 @@
 package tools.forma.android.feature
 
 import Forma
-import tools.forma.deps_core.NamedDependency
+import tools.forma.deps.core.NamedDependency
 import tools.forma.config.AndroidProjectSettings
 import emptyDependency
 import kotlin.reflect.KClass
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
-import tools.forma.deps_core.addDependencyTo
+import tools.forma.deps.core.addDependencyTo
 
 data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginName: String,

@@ -1,5 +1,5 @@
-import tools.forma.owner.Person
-import tools.forma.owner.Team
+import tools.forma.owners.Person
+import tools.forma.owners.Team
 
 object Users {
     val stepango = Person(

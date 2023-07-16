@@ -1,11 +1,29 @@
 plugins {
-    id("org.gradle.kotlin.kotlin-dsl")
+    kotlin("jvm")
     id("com.gradle.plugin-publish")
 }
 
-group = "tools.forma"
-version = "0.0.1"
+group = rootProject.ext["group"] as String
+version = rootProject.ext["version"] as String
+
+gradlePlugin {
+    website.set(rootProject.ext["website"] as String)
+    vcsUrl.set(rootProject.ext["vcsUrl"] as String)
+    plugins {
+        create(name) {
+            id = "$group.$name"
+            displayName = rootProject.ext["displayName"] as String
+            description = rootProject.ext["description"] as String
+            implementationClass = "$id.plugin.FormaPlugin"
+            @Suppress("UNCHECKED_CAST")
+            tags.set(rootProject.ext["tags"] as List<String>)
+        }
+    }
+}
 
 dependencies {
-    implementation(project(":deps-core"))
+    implementation(project(":validation"))
+    implementation(project(":target"))
+    implementation(project(":config"))
+    implementation(gradleKotlinDsl())
 }

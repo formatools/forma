@@ -1,4 +1,4 @@
-package tools.forma.deps_core
+package tools.forma.deps.core
 
 import tools.forma.target.FormaTarget
 import java.io.File

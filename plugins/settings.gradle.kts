@@ -1,6 +1,4 @@
-pluginManagement {
-    includeBuild("../build-settings")
-}
+pluginManagement { includeBuild("../build-settings") }
 
 plugins {
     id("convention-dependencies")

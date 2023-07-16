@@ -4,8 +4,8 @@ import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.owner.NoOwner
-import tools.forma.owner.Owner
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
 import tools.forma.android.target.AndroidUtilTargetTemplate
 import tools.forma.android.target.ResourcesTargetTemplate
 import tools.forma.android.target.UiLibraryTargetTemplate
@@ -14,9 +14,9 @@ import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
-import tools.forma.deps_core.FormaDependency
-import tools.forma.deps_core.NamedDependency
-import tools.forma.deps_core.applyDependencies
+import tools.forma.deps.core.FormaDependency
+import tools.forma.deps.core.NamedDependency
+import tools.forma.deps.core.applyDependencies
 import tools.forma.validation.validate
 import tools.forma.validation.validator
 

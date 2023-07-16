@@ -1,4 +1,4 @@
-package tools.forma.owner
+package tools.forma.owners
 
 sealed class Owner(val name: String, val email: String, val tags: Map<String, String>)
 

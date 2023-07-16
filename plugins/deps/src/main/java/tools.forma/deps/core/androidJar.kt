@@ -1,4 +1,4 @@
-package tools.forma.deps_core
+package tools.forma.deps.core
 
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileCollection
