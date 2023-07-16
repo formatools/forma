@@ -7,8 +7,23 @@ plugins {
     id("com.gradle.plugin-publish")
 }
 
-group = "tools.forma"
-version = "0.1.2"
+group = rootProject.ext["group"] as String
+version = rootProject.ext["version"] as String
+
+gradlePlugin {
+    website.set(rootProject.ext["website"] as String)
+    vcsUrl.set(rootProject.ext["vcsUrl"] as String)
+    plugins {
+        create(name) {
+            id = "$group.$name"
+            displayName = rootProject.ext["displayName"] as String
+            description = rootProject.ext["description"] as String
+            implementationClass = "$id.plugin.FormaPlugin"
+            @Suppress("UNCHECKED_CAST")
+            tags.set(rootProject.ext["tags"] as List<String>)
+        }
+    }
+}
 
 tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
     compilerOptions {
@@ -19,33 +34,19 @@ tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
 dependencies {
     implementation("com.android.tools.build:gradle:7.4.2")
     implementation(embeddedKotlin("gradle-plugin"))
-    implementation(project(":deps-core"))
     implementation(project(":target"))
     implementation(project(":validation"))
     implementation(project(":owners"))
     implementation(project(":config"))
+    implementation(project(":deps"))
 }
 
-gradlePlugin {
-    website.set("https://forma.tools/")
-    vcsUrl.set("https://github.com/formatools/forma.git")
-    plugins {
-        create("Forma") {
-            id = "tools.forma.android"
-            displayName = "Forma - Meta Build System with Gradle and Android support"
-            description = "Best way to structure your Android Project"
-            implementationClass = "tools.forma.android.plugin.FormaPlugin"
-            tags.set(
-                listOf(
-                    "kotlin",
-                    "android",
-                    "structure",
-                    "dependencies",
-                    "module",
-                    "rules",
-                    "project"
-                )
-            )
-        }
-    }
+tasks.named<Task>("publishPlugins") {
+    dependsOn(
+        ":target:publishPlugins",
+        ":validation:publishPlugins",
+        ":owners:publishPlugins",
+        ":config:publishPlugins",
+        ":deps:publishPlugins",
+    )
 }

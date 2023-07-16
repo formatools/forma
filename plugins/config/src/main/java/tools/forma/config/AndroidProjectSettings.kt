@@ -5,9 +5,6 @@ import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.provider.Provider
 import org.gradle.plugin.use.PluginDependency
-import tools.forma.config.FormaSettingsStore.configurations
-import tools.forma.config.FormaSettingsStore.dependencies
-import tools.forma.config.FormaSettingsStore.dependencyPlugins
 
 /**
  * Limitations:

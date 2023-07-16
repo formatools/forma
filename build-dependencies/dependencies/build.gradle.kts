@@ -5,7 +5,7 @@ plugins {
 group = "tools.forma.demo"
 
 dependencies {
-    implementation("tools.forma:deps-core")
+    implementation("tools.forma:deps")
     implementation("tools.forma:owners")
     implementation("tools.forma:config")
 

@@ -2,13 +2,13 @@ import org.gradle.api.Project
 import tools.forma.android.feature.AndroidBinaryFeatureConfiguration
 import tools.forma.android.feature.androidBinaryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
-import tools.forma.owner.NoOwner
-import tools.forma.owner.Owner
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
 import tools.forma.android.target.BinaryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
-import tools.forma.deps_core.FormaDependency
-import tools.forma.deps_core.applyDependencies
+import tools.forma.deps.core.FormaDependency
+import tools.forma.deps.core.applyDependencies
 import tools.forma.validation.EmptyValidator
 import tools.forma.validation.validate
 

@@ -1,6 +1,6 @@
 import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
-import tools.forma.deps_core.PluginWrapper
-import tools.forma.deps_core.pluginConfiguration
+import tools.forma.deps.core.PluginWrapper
+import tools.forma.deps.core.pluginConfiguration
 
 object Plugins {
 

@@ -9,8 +9,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.tasks.compile.JavaCompile
-import tools.forma.deps_core.ConfigurationType
-import tools.forma.deps_core.Kapt
+import tools.forma.deps.core.ConfigurationType
+import tools.forma.deps.core.Kapt
 
 private fun defaultConfiguration(project: Project, androidProjectSettings: AndroidProjectSettings) {
     project.tasks.withType(JavaCompile::class.java).configureEach {

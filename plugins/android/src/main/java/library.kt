@@ -3,16 +3,16 @@ import tools.forma.android.feature.kotlinFeatureDefinition
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.target.TestUtilTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
-import tools.forma.owner.NoOwner
-import tools.forma.owner.Owner
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
 import tools.forma.validation.validator
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.android.feature.kaptConfigurationFeature
-import tools.forma.deps_core.applyDependencies
-import tools.forma.deps_core.FormaDependency
-import tools.forma.deps_core.NamedDependency
+import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.core.FormaDependency
+import tools.forma.deps.core.NamedDependency
 import tools.forma.validation.validate
 
 /**

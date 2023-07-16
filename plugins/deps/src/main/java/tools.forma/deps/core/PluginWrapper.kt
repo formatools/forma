@@ -1,4 +1,4 @@
-package tools.forma.deps_core
+package tools.forma.deps.core
 
 import emptyDependency
 import org.gradle.api.Project
