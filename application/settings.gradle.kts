@@ -1,3 +1,5 @@
+import tools.forma.deps.core.NamedDependency
+
 pluginManagement {
     apply(
         from =
@@ -46,7 +48,7 @@ dependencyResolutionManagement {
             )
             addBundle(
                 name = "room",
-                "androidx.sqlite:sqlite:$sqliteVersion",
+                "androidx.sqlite:sqlite:$sqliteVersion".dep,
                 "androidx.sqlite:sqlite-framework:$sqliteVersion",
                 "androidx.room:room-runtime:$roomVersion",
                 "androidx.room:room-ktx:$roomVersion",
@@ -77,7 +79,7 @@ fun VersionCatalogBuilder.addPlugin(
 // todo split lib name and version
 fun VersionCatalogBuilder.addBundle(
     name: String,
-    vararg groupArtifactVersion: String,
+    vararg groupArtifactVersion: Any,
     nameGenerator: (String) -> String = ::defaultNameGenerator
 ) {
     bundle(name, groupArtifactVersion.map { addLibrary(it, nameGenerator) })
@@ -85,12 +87,27 @@ fun VersionCatalogBuilder.addBundle(
 
 // todo split lib name and version
 fun VersionCatalogBuilder.addLibrary(
-    groupArtifactVersion: String,
+    dependency: Any,
     nameGenerator: (String) -> String = ::defaultNameGenerator
 ): String {
-    val (group, artifact, version) = groupArtifactVersion.split(":")
-    return nameGenerator(groupArtifactVersion).apply {
-        library(this, group, artifact).version { strictly(version) }
+    return when (dependency) {
+        is String -> {
+            val (group, artifact, version) = dependency.split(":")
+            nameGenerator(dependency).apply {
+                library(this, group, artifact).version { strictly(version) }
+            }
+        }
+        is NamedDependency -> {
+            val name = dependency.names.first().name
+            val (group, artifact, version) = name.split(":")
+            nameGenerator(name).apply {
+                library(this, group, artifact).version { strictly(version) }
+            }
+        }
+        else ->
+            throw IllegalArgumentException(
+                "Dependency type ${dependency::class.qualifiedName} is not supported"
+            )
     }
 }
 
