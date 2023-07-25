@@ -19,6 +19,7 @@ package com.stepango.blockme.feature.characters.list.impl.data.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
+import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -30,7 +31,7 @@ import javax.inject.Provider
  */
 @Deprecated("Seems this class invoke some domain logic. It's wrong!", ReplaceWith("On target UseCase"))
 class CharactersPageDataSourceFactory @Inject constructor(
-    private val providerDataSource: Provider<CharacterPageDataSource>
+    private val repository: MarvelRepository,
 ) : DataSource.Factory<Int, ICharacter>() {
 
     var sourceLiveData = MutableLiveData<CharacterPageDataSource>()
@@ -42,7 +43,7 @@ class CharactersPageDataSourceFactory @Inject constructor(
      * @see DataSource.Factory.create
      */
     override fun create(): DataSource<Int, ICharacter> {
-        val dataSource = providerDataSource.get()
+        val dataSource = CharacterPageDataSource(repository)
         sourceLiveData.postValue(dataSource)
         return dataSource
     }
