@@ -29,8 +29,6 @@ data class AndroidProjectSettings(
     val kotlinVersion: String,
     val agpVersion: String,
     val repositories: RepositoryHandler.() -> Unit,
-    // Databinding is Application level feature, android_binary will be inferring dataBinding flag, developers does not need to know about
-    val dataBinding: Boolean,
     val compose: Boolean,
     val vectorDrawablesUseSupportLibrary: Boolean,
     val javaVersionCompatibility: JavaVersion, // Java/Kotlin configuration

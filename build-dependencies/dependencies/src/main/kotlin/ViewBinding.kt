@@ -1,6 +1,6 @@
 object viewbinding {
     val viewBinding = transitiveDeps(
-        "androidx.databinding:viewbinding"
+        "androidx.databinding:viewbinding:${configuration.agpVersion}"
     )
 
     val viewpropertydelegate = deps(
