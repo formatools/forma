@@ -1,4 +1,7 @@
 import org.gradle.api.Project
+import org.gradle.api.artifacts.type.ArtifactTypeDefinition
+import org.gradle.api.internal.artifacts.ArtifactAttributes.ARTIFACT_FORMAT
+import org.gradle.kotlin.dsl.dependencies
 import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures

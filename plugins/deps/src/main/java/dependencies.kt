@@ -1,4 +1,12 @@
+import java.io.File
+import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ExternalModuleDependencyBundle
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.provider.Provider
+import tools.forma.config.FormaSettingsStore
 import tools.forma.deps.core.ConfigurationType
+import tools.forma.deps.core.CustomConfiguration
 import tools.forma.deps.core.DepType
 import tools.forma.deps.core.EmptyDependency
 import tools.forma.deps.core.FileDependency
@@ -13,13 +21,6 @@ import tools.forma.deps.core.PlatformDependency
 import tools.forma.deps.core.PlatformSpec
 import tools.forma.deps.core.TargetDependency
 import tools.forma.deps.core.TargetSpec
-import tools.forma.deps.core.Custom
-import java.io.File
-import org.gradle.api.Project
-import org.gradle.api.artifacts.Dependency
-import org.gradle.api.artifacts.ExternalModuleDependencyBundle
-import org.gradle.api.provider.Provider
-import tools.forma.config.FormaSettingsStore
 import tools.forma.target.FormaTarget
 
 val DepType.names: List<NameSpec>
@@ -33,14 +34,25 @@ val DepType.files: List<FileSpec>
 
 val Provider<out Dependency>.dep: NameSpec
     get() {
-        val pluginConf = FormaSettingsStore.pluginFor(this)
+        val depName = get().run { "$group:$name:$version" }
+        val pluginConf = FormaSettingsStore.pluginFor(depName)
+        pluginConf?.let { println("PLUGIN CONFIGURATION: $it") }
+        println(this.get())
         return with(get()) {
             NameSpec(
                 "$group:$name:$version",
-                pluginConf?.configuration?.let(::Custom) ?: Implementation
+                pluginConf?.configuration?.let(::CustomConfiguration) ?: Implementation
             )
         }
     }
+
+fun Provider<out Dependency>.dep(configuration: CustomConfiguration): NameSpec {
+    return with(get()) { NameSpec("$group:$name:$version", configuration) }
+}
+
+private operator fun String.invoke(
+    vararg providers: Provider<MinimalExternalModuleDependency>
+): NamedDependency = NamedDependency(providers.map { it.dep })
 
 val Dependency.dep: NameSpec
     get() = NameSpec("$group:$name:$version", Implementation)
@@ -139,6 +151,9 @@ fun deps(vararg dependencies: TargetDependency): TargetDependency =
 
 fun kapt(vararg names: String): NamedDependency =
     NamedDependency(names.map { NameSpec(it, Kapt, true) })
+
+fun String.dep(configuration: CustomConfiguration, transitive: Boolean = true) =
+    NamedDependency(listOf(NameSpec(this, configuration, transitive)))
 
 val String.dep: NamedDependency
     get() = deps(this)

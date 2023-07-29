@@ -1,6 +1,12 @@
+import org.gradle.api.internal.artifacts.dependencies.DefaultImmutableVersionConstraint
+import tools.forma.config.FormaSettingsStore
+import tools.forma.deps.core.CustomConfiguration
 import tools.forma.deps.core.NamedDependency
 
 pluginManagement {
+    repositories {
+        google()
+    }
     apply(
         from =
             "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts"
@@ -37,6 +43,8 @@ val coilVersion = "2.1.0"
 val sqliteVersion = "2.2.0"
 val roomVersion = "2.5.1"
 
+val ksp = CustomConfiguration("ksp")
+
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
@@ -48,7 +56,7 @@ dependencyResolutionManagement {
             )
             addBundle(
                 name = "room",
-                "androidx.sqlite:sqlite:$sqliteVersion".dep,
+                "androidx.sqlite:sqlite:$sqliteVersion",
                 "androidx.sqlite:sqlite-framework:$sqliteVersion",
                 "androidx.room:room-runtime:$roomVersion",
                 "androidx.room:room-ktx:$roomVersion",
@@ -56,24 +64,45 @@ dependencyResolutionManagement {
             )
             addPlugin("tools.forma.demo:dependencies", "0.0.1")
             addPlugin(
-                "com.google.devtools.ksp",
-                "$embeddedKotlinVersion-1.0.9",
+                id = "com.google.devtools.ksp",
+                version = "$embeddedKotlinVersion-1.0.10",
+                configuration = ksp,
                 "androidx.room:room-compiler:$roomVersion"
             )
         }
     }
 }
 
+data class PluginDependencyImpl(val id: String, val ver: VersionConstraint) : PluginDependency {
+    override fun getPluginId(): String = id
+
+    override fun getVersion(): VersionConstraint = ver
+}
+
 fun VersionCatalogBuilder.addPlugin(
-    notation: String,
+    id: String,
     version: String,
+    configuration: CustomConfiguration? = null,
     vararg dependencies: String,
     nameGenerator: (String) -> String = ::pluginNameGenerator,
     depNameGenerator: (String) -> String = ::defaultNameGenerator
 ) {
-    val name = nameGenerator(notation)
-    plugin(name, notation).version { strictly(version) }
-    dependencies.forEach { addLibrary(it, depNameGenerator) }
+    val name = nameGenerator(id)
+    plugin(name, id).version { strictly(version) }
+    dependencies.forEach {
+        if (configuration != null) {
+            addLibrary(it) { "${depNameGenerator(it)}.${configuration.name}" }
+            FormaSettingsStore.registerConfiguration(
+                configuration.name,
+                providers.provider {
+                    PluginDependencyImpl(id, DefaultImmutableVersionConstraint(version))
+                },
+                it
+            )
+        } else {
+            addLibrary(it, depNameGenerator)
+        }
+    }
 }
 
 // todo split lib name and version
@@ -123,7 +152,6 @@ fun pluginNameGenerator(groupArtifactVersion: String) =
 fun defaultNameGenerator(groupArtifactVersion: String) =
     groupArtifactVersion
         .split(":")
-        .verifyVersion()
         .dropLast(1)
         .fold(emptyList<String>()) { acc, s -> acc + s.split(".", "-") }
         .filter { it !in filteredTokens }
@@ -134,9 +162,3 @@ fun defaultNameGenerator(groupArtifactVersion: String) =
 // refer to this issue https://github.com/gradle/gradle/issues/18536
 // tools.forma.dependencies are applied in buildscript {} block
 includeBuild("../build-dependencies")
-
-fun List<String>.verifyVersion(): List<String> {
-    // Very naive check if last string contains version
-    if (!last().last().isDigit()) throw IllegalArgumentException("Version is not specified")
-    return this
-}

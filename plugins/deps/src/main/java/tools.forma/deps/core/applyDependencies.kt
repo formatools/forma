@@ -4,7 +4,9 @@ import emptyDependency
 import forEach
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
+import tools.forma.config.FormaSettingsStore
 import tools.forma.validation.Validator
 
 fun Project.applyDependencies(
@@ -23,7 +25,13 @@ fun Project.applyDependencies(
         }
         dependencies.forEach(
             {
-                configurationFeatures[it.config]?.invoke()
+                // TODO refactor: we applying plugins(e.g. kapt) once per dependency with custom
+                // configuration,
+                //  ideally we should only apply once per configuration
+                FormaSettingsStore.pluginFor(it.name)?.let {
+                    apply(plugin = it.plugin.get().let { plugin -> plugin.pluginId + ":" + plugin.version })
+                }
+                    ?: configurationFeatures[it.config]?.invoke()
                 addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
             },
             projectAction,
@@ -36,7 +44,11 @@ fun Project.applyDependencies(
             { add("testImplementation", files(it.file)) }
         )
         androidTestDependencies.forEach(
-            { addDependencyTo("androidTestImplementation", it.name) { isTransitive = it.transitive } },
+            {
+                addDependencyTo("androidTestImplementation", it.name) {
+                    isTransitive = it.transitive
+                }
+            },
             { add("androidTestImplementation", it.target.project) },
             { add("androidTestImplementation", files(it.file)) }
         )

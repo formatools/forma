@@ -15,7 +15,8 @@ impl(
         viewbinding.viewpropertydelegate
     ) + deps(
         libs.jakewharton.timber,
-        libs.bundles.room
+        libs.bundles.room,
+        libs.room.compiler.ksp
     ) + deps(
         target(":feature:characters:core:api"),
         target(":feature:characters:favorite:api"),
