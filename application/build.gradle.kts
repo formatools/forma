@@ -11,9 +11,11 @@ buildscript {
                 "com.google.firebase:firebase-crashlytics-gradle:2.9.4",
                 // TODO remove .get() call
                 libs.plugins.tools.forma.demo.dependencies.get().pluginId,
-                libs.plugins.devtools.ksp.get().let {
-                    it.pluginId + ":" + it.version.strictVersion
-                }
+                libs.plugins.devtools.ksp.symbol.processing.plugin.get().let { it.pluginId + ":" + it.version.strictVersion }
             )
     )
 }
+
+
+
+apply(plugin = "com.google.devtools.ksp")

@@ -4,9 +4,7 @@ import tools.forma.deps.core.CustomConfiguration
 import tools.forma.deps.core.NamedDependency
 
 pluginManagement {
-    repositories {
-        google()
-    }
+    repositories { google() }
     apply(
         from =
             "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts"
@@ -45,33 +43,64 @@ val roomVersion = "2.5.1"
 
 val ksp = CustomConfiguration("ksp")
 
-dependencyResolutionManagement {
-    versionCatalogs {
-        create("libs") {
-            addLibrary("com.jakewharton.timber:timber:4.7.1")
-            addBundle(
-                name = "coil",
-                "io.coil-kt:coil:$coilVersion",
-                "io.coil-kt:coil-base:$coilVersion"
-            )
-            addBundle(
-                name = "room",
-                "androidx.sqlite:sqlite:$sqliteVersion",
-                "androidx.sqlite:sqlite-framework:$sqliteVersion",
-                "androidx.room:room-runtime:$roomVersion",
-                "androidx.room:room-ktx:$roomVersion",
-                "androidx.room:room-common:$roomVersion",
-            )
-            addPlugin("tools.forma.demo:dependencies", "0.0.1")
-            addPlugin(
-                id = "com.google.devtools.ksp",
-                version = "$embeddedKotlinVersion-1.0.10",
-                configuration = ksp,
-                "androidx.room:room-compiler:$roomVersion"
-            )
+fun projectDependencies(name: String = "libs", vararg deps: Any) {
+    dependencyResolutionManagement {
+        versionCatalogs {
+            create(name) {
+                deps.forEach {
+                    when (it) {
+                        is String -> addLibrary(it)
+                        is BundleDep -> addBundle(it)
+                    }
+                }
+
+                addPlugin("tools.forma.demo:dependencies", "0.0.1")
+                addPlugin(
+                    id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
+                    version = "$embeddedKotlinVersion-1.0.10",
+                    configuration = ksp,
+                    "androidx.room:room-compiler:$roomVersion"
+                )
+            }
         }
     }
 }
+
+projectDependencies(
+    "libs",
+    "com.jakewharton.timber:timber:4.7.1",
+    bundle(name = "coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion"),
+    bundle(
+        name = "room",
+        "androidx.sqlite:sqlite:$sqliteVersion",
+        "androidx.sqlite:sqlite-framework:$sqliteVersion",
+        "androidx.room:room-runtime:$roomVersion",
+        "androidx.room:room-ktx:$roomVersion",
+        "androidx.room:room-common:$roomVersion",
+    ),
+    // PluginDep()
+)
+
+fun bundle(
+    name: String,
+    vararg groupArtifactVersions: Any,
+    nameGenerator: (String) -> String = ::defaultNameGenerator
+) = BundleDep(name, groupArtifactVersions, nameGenerator)
+
+class BundleDep(
+    val name: String,
+    val groupArtifactVersions: Array<out Any>,
+    val nameGenerator: (String) -> String = ::defaultNameGenerator
+)
+
+class PluginDep(
+    id: String,
+    version: String,
+    configuration: CustomConfiguration? = null,
+    vararg dependencies: String,
+    nameGenerator: (String) -> String = ::pluginNameGenerator,
+    depNameGenerator: (String) -> String = ::defaultNameGenerator
+)
 
 data class PluginDependencyImpl(val id: String, val ver: VersionConstraint) : PluginDependency {
     override fun getPluginId(): String = id
@@ -103,6 +132,10 @@ fun VersionCatalogBuilder.addPlugin(
             addLibrary(it, depNameGenerator)
         }
     }
+}
+
+fun VersionCatalogBuilder.addBundle(bundle: BundleDep) {
+    addBundle(bundle.name, *bundle.groupArtifactVersions, nameGenerator = bundle.nameGenerator)
 }
 
 // todo split lib name and version

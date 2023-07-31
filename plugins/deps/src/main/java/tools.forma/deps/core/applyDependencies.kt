@@ -29,7 +29,8 @@ fun Project.applyDependencies(
                 // configuration,
                 //  ideally we should only apply once per configuration
                 FormaSettingsStore.pluginFor(it.name)?.let {
-                    apply(plugin = it.plugin.get().let { plugin -> plugin.pluginId + ":" + plugin.version })
+                    // TODO: find better way of inferring plugin name
+                    apply(plugin = it.plugin.get().pluginId.split(":")[0])
                 }
                     ?: configurationFeatures[it.config]?.invoke()
                 addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
