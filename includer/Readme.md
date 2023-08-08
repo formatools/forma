@@ -1,5 +1,7 @@
 # Includer
 
+<a href="https://plugins.gradle.org/plugin/tools.forma.includer"><img src="https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/tools/forma/includer/tools.forma.includer.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Includer"/></a>
+
 Simple and powerful plugin which helps you to save time and avoid writing tons of boilerplate code. 
 Uses kotlin coroutines to efficiently traverse even deeply nested project trees.
 
@@ -9,7 +11,7 @@ Remove all your `include` declarations from your `settings.gradle.kts` file and 
 
 ```kotlin
 plugins {
-    id("tools.forma.includer") version "0.1.3"
+    id("tools.forma.includer") version "0.2.0"
 }
 ```
 
