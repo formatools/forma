@@ -3,12 +3,6 @@
 </p>
 
 <p align="center">
-    <a href="https://forma.tools"><img src="https://forthebadge.com/images/badges/built-by-developers.svg"/></a>
-    <a href="https://forma.tools"><img src="https://forthebadge.com/images/badges/built-for-android.svg"/></a>
-    <a href="https://forma.tools"><img src="https://forthebadge.com/images/badges/it-works-why.svg"/></a>
-</p>
-
-<p align="center">
     <img src="https://github.com/stepango/forma/workflows/Android%20CI/badge.svg"/>
     <a href="https://plugins.gradle.org/plugin/tools.forma.android"><img src="https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/tools/forma/android/tools.forma.android.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin"/></a>
     <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/stepango/forma">
