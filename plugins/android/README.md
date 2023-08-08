@@ -3,12 +3,12 @@
 ### androidBinary
 The androidBinary target handles packaging Android application bundles into distributable APK files and publishing app artifacts. It contains Gradle tasks for generating final release builds, running ProGuard, signing the APK, versioning, etc.
 
-An androidBinary can only depend on an androidApp target. The binary encapsulates distribution logic and therefore needs to access the app configuration like flags, keys, features etc. But the app code itself should not depend on the binary. This prevents the app layer from getting coupled to low level packaging details.
+An androidBinary can only depend on an androidApp target. The binary encapsulates distribution logic and therefore needs to access the app configuration like flags, keys, features etc. But the Application code itself should not depend on the binary. This prevents the Application layer from getting coupled to packaging details.
 
 ### androidApp
-The androidApp target is used to configure and package Android applications. It contains code, resources and configurations like feature flags, keys, debug modes etc. specific to an app.
+The androidApp target is used to configure Android applications. It contains code, resources, and configurations like feature flags, keys modes, etc. specific to an Android Application.
 
-An androidApp cannot depend on androidBinary. The app target should only provide high level application configurations, components and resources. Depending on binary could tightly couple the app code to low level distribution details like signing, ProGuard, versioning etc. Isolating androidApp allows changing distribution methods without impacting app code.
+An androidApp cannot depend on androidBinary. The app target should only provide high-level application configurations, components, and resources. Depending on androidBinary could tightly couple the app code to distribution details like signing, ProGuard, versioning etc. Isolating androidApp allows changing distribution methods without impacting Application code.
 
 ### androidLibrary
 The androidLibrary target defines reusable components and code modules for Android. It contains business logic, data layers, UI widgets, custom views, etc that can be consumed by multiple androidApps or other libraries.
@@ -33,7 +33,7 @@ androidTestUtils can depend only on other testUtils and androidRes targets. This
 ### api
 The api target defines public interface contracts for components. These contain abstract classes, method signatures, data classes, annotations, etc. Api targets form the explicitly defined public APIs of libraries.
 
-An api can only depend on other api targets. This prevents implementation details from leaking into public facing APIs. Restricting dependencies forces clean separation of interface from implementation. If api could access impl targets, it could expose internal component details as public API contracts.
+An api can only depend on other api targets. This prevents implementation details from leaking into public-facing APIs. Restricting dependencies forces the clean separation of interface from implementation. If api could access impl targets, it could expose internal component details as public API contracts.
 
 ### impl
 The impl target provides concrete implementations of one api target interface. These contain business logic, platform integrations, algorithms, etc behind the public api.
@@ -41,14 +41,14 @@ The impl target provides concrete implementations of one api target interface. T
 An impl can only depend on its own api target. This enforces a 1:1 relationship between interface and implementation. Preventing impl-to-impl dependencies avoids tangled layers of hidden implementation logic. The impl contains private code to power the api contract. Isolating it avoids leaking internals.
 
 ### androidUtil
-The androidUtil target provides Android specific utilities and platform extensions. These contain code to wrap Android SDK APIs, system services, device integrations etc.
+The androidUtil target provides Android-specific utilities and platform extensions. These contain code to wrap Android SDK APIs, system services, device integrations, aar libraries etc.
 
-androidUtils can be used by Android libraries, widgets and resources. But they cannot depend on general utils, to prevent Android specific logic from leaking out. For example, a util accessing Android SDKs could limit its reuse on other platforms. Isolating androidUtil preserves reusability.
+androidUtils can be used by androidLibrary, androidWidget, androidApp, impl.
 
 ### util
-The util target provides general purpose utility code not specific to Android. This includes data types, helpers, extensions, algorithms etc. Usable across multiple platforms.
+The util target provides general-purpose utility code not specific to Android. This includes data types, helpers, extensions, algorithms, etc. Usable across multiple platforms.
 
-A util can only depend on other util targets. This prevents Android specific logic from entering generic utilities. For example a util accessing androidUtils could assume certain Android APIs are always available. Keeping utils isolated maximizes reusability beyond just Android.
+A util can only depend on other util targets and external JVM dependencies. Keeping utils isolated maximizes reusability beyond just Android, and acts as build performance optimization by avoiding, Android-specific build configuration
 
 ### testUtil
 The testUtil target provides reusable utilities for tests like mocks, fakes, assertions, spies, etc. These help abstract test code from implementation details.
