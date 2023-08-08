@@ -18,7 +18,6 @@ import tools.forma.config.PluginInfoStore
  * @param targetSdk is target android sdk
  * @param compileSdk SDK version used to compile Android App
  * @param repositories is a function that configures repositories for project
- * @param dataBinding is a flag that enables databinding
  * @param javaVersionCompatibility is a java version that will be used for targetCompatibility and sourceCompatibility versions
  * @param mandatoryOwners is a flag that enables mandatory owners for all modules
  * @param extraPlugins is a list of extra plugins that will be applied to project
@@ -32,7 +31,6 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     kotlinVersion: String = embeddedKotlinVersion,
     agpVersion: String,
     repositories: RepositoryHandler.() -> Unit = {},
-    dataBinding: Boolean = false,
     compose: Boolean = false,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
@@ -58,7 +56,6 @@ fun ScriptHandlerScope.androidProjectConfiguration(
         kotlinVersion = kotlinVersion,
         agpVersion = agpVersion,
         repositories = repositories,
-        dataBinding = dataBinding,
         javaVersionCompatibility = javaVersionCompatibility,
         mandatoryOwners = mandatoryOwners,
         compose = compose,
@@ -100,7 +97,6 @@ fun Project.androidProjectConfiguration(
         kotlinVersion = kotlinVersion,
         agpVersion = agpVersion,
         repositories = repositories,
-        dataBinding = dataBinding,
         javaVersionCompatibility = javaVersionCompatibility,
         mandatoryOwners = mandatoryOwners,
         compose = compose,

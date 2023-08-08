@@ -1,6 +1,8 @@
+import tools.forma.config.FormaSettingsStore
+
 object viewbinding {
     val viewBinding = transitiveDeps(
-        "androidx.databinding:viewbinding"
+        "androidx.databinding:viewbinding:${FormaSettingsStore.settings.agpVersion}"
     )
 
     val viewpropertydelegate = deps(

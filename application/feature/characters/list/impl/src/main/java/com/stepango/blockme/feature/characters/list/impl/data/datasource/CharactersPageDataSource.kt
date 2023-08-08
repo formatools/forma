@@ -24,7 +24,6 @@ import com.stepango.blockme.feature.characters.core.api.domain.repository.Marvel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 const val PAGE_INIT_ELEMENTS = 0
 const val PAGE_MAX_ELEMENTS = 50
@@ -37,7 +36,7 @@ const val PAGE_MAX_ELEMENTS = 50
  */
 // TODO https://github.com/formatools/forma/issues/48
 // Rewrite on clean version with separate Repository with local/remote datasource
-open class CharacterPageDataSource @Inject constructor(
+open class CharacterPageDataSource(
     private val repository: MarvelRepository,
 ) : PageKeyedDataSource<Int, ICharacter>() {
 

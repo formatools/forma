@@ -6,8 +6,6 @@ import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.AndroidUtilTargetTemplate
 import tools.forma.android.target.ApiTargetTemplate
-import tools.forma.android.target.DataBindingAdapterTargetTemplate
-import tools.forma.android.target.DataBindingTargetTemplate
 import tools.forma.android.target.ImplTargetTemplate
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.target.ResourcesTargetTemplate
@@ -58,8 +56,6 @@ fun Project.impl(
             UtilTargetTemplate,
             LibraryTargetTemplate,
             UiLibraryTargetTemplate,
-            DataBindingAdapterTargetTemplate,
-            DataBindingTargetTemplate,
             ResourcesTargetTemplate,
             ViewBindingTargetTemplate,
             WidgetTargetTemplate,
