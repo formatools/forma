@@ -127,13 +127,13 @@ androidLibrary(
 
 Each columh represents the list of allowed/disallowed dependencies
 
-|                  | androidApp | androidBinary | androidLibrary | androidWidget | androidRes | androidTestUtils | api | impl | androidUtil | util | testUtil |
-|------------------|------------|---------------|----------------|---------------|------------|------------------|-----|------|-------------|------|----------|
+|                  | androidApp  | androidBinary | androidLibrary | androidWidget | androidRes | androidTestUtils | api | impl | androidUtils | utils | testUtils |
+|------------------|-------------|---------------|----------------|---------------|------------|------------------|-----|------|-------------|------|----------|
 | androidApp       | ❌          | ✅             | ❌              | ❌             | ❌          | ❌                | ❌   | ❌    | ❌           | ❌    | ❌        |
 | androidBinary    | ❌          | ❌             | ❌              | ❌             | ❌          | ❌                | ❌   | ❌    | ❌           | ❌    | ❌        |
-| androidLibrary   | ✅          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ✅           | ❌    | ❌        |
-| androidWidget    | ❌          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ✅           | ❌    | ❌        |
-| androidRes       | ❌          | ❌             | ✅              | ✅             | ✅          | ✅                | ❌   | ✅    | ❌           | ❌    | ❌        |
+| androidLibrary   | ✅          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ❌           | ❌    | ❌        |
+| androidWidget    | ❌          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ❌           | ❌    | ❌        |
+| androidRes       | ❌          | ❌             | ✅              | ✅             | ✅          | ✅                | ❌   | ✅    | ✅           | ❌    | ❌        |
 | androidTestUtils | ❌          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ❌        |
 | api              | ✅          | ❌             | ❌              | ❌             | ❌          | ✅                | ✅   | ✅    | ❌           | ❌    | ❌        |
 | impl             | ✅          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ❌        |
