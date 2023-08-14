@@ -9,9 +9,8 @@ buildscript {
             listOf(
                 "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3",
                 "com.google.firebase:firebase-crashlytics-gradle:2.9.4",
-                // TODO remove .get() call
-                libs.plugins.tools.forma.demo.dependencies.get().pluginId,
-                libs.plugins.devtools.ksp.symbol.processing.plugin.get().let { it.pluginId + ":" + it.version.strictVersion }
+                libs.plugins.tools.forma.demo.dependencies,
+                libs.plugins.devtools.ksp.symbol.processing.plugin
             )
     )
 }
