@@ -1,11 +1,9 @@
-import java.io.File
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.provider.Provider
 import tools.forma.config.FormaSettingsStore
-import tools.forma.deps.core.ConfigurationType
 import tools.forma.deps.core.CustomConfiguration
 import tools.forma.deps.core.DepType
 import tools.forma.deps.core.EmptyDependency
@@ -22,6 +20,7 @@ import tools.forma.deps.core.PlatformSpec
 import tools.forma.deps.core.TargetDependency
 import tools.forma.deps.core.TargetSpec
 import tools.forma.target.FormaTarget
+import java.io.File
 
 val DepType.names: List<NameSpec>
     get(): List<NameSpec> = filterIsInstance(NameSpec::class.java)
@@ -36,8 +35,6 @@ val Provider<out Dependency>.dep: NameSpec
     get() {
         val depName = get().run { "$group:$name:$version" }
         val pluginConf = FormaSettingsStore.pluginFor(depName)
-        pluginConf?.let { println("PLUGIN CONFIGURATION: $it") }
-        println(this.get())
         return with(get()) {
             NameSpec(
                 "$group:$name:$version",
@@ -96,15 +93,7 @@ fun FormaDependency.forEach(
     }
 }
 
-internal fun FormaDependency.hasConfigType(configType: ConfigurationType): Boolean {
-    dependency.forEach { dep -> if (dep.config == configType) return true }
-    return false
-}
-
 fun deps(vararg names: String): NamedDependency = transitiveDeps(names = names, transitive = false)
-
-fun platform(vararg names: String): PlatformDependency =
-    transitivePlatform(*names, transitive = false)
 
 fun transitivePlatform(vararg names: String, transitive: Boolean = true): PlatformDependency =
     PlatformDependency(names.toList().map { PlatformSpec(it, Implementation, transitive) })

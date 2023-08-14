@@ -18,7 +18,9 @@ fun Project.applyDependencies(
     configurationFeatures: Map<ConfigurationType, () -> Unit> = emptyMap()
 ) {
     repositoriesConfiguration(repositories)
+    // Prevent same plugin to be applied twice
     val appliedPlugins = mutableSetOf<String>()
+
     dependencies {
         val projectAction: (TargetSpec) -> Unit = {
             validator.validate(it.target)
