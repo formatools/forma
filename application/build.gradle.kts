@@ -15,7 +15,3 @@ buildscript {
             )
     )
 }
-
-
-
-apply(plugin = "com.google.devtools.ksp")

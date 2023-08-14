@@ -112,13 +112,6 @@ fun transitivePlatform(vararg names: String, transitive: Boolean = true): Platfo
 fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
     NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
 
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated(
-    "Deprecated in favor of targets version of this function:\n" + "deps(target(\":name\"))"
-)
-fun deps(vararg projects: Project): TargetDependency =
-    TargetDependency(projects.map { TargetSpec(it.target, Implementation) })
-
 fun deps(vararg targets: FormaTarget): TargetDependency =
     TargetDependency(targets.map { TargetSpec(it, Implementation) })
 

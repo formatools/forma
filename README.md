@@ -101,7 +101,7 @@ androidLibrary(
 
 | Supported target types | implemented |            purpose            | validation |
 |:----------------------:|:-----------:|:-----------------------------:|:----------:|
-|     androidBinary      |      ✅      |      Genearte single APK      |     ✅      |
+|     androidBinary      |      ✅      |      Generate single APK      |     ✅      |
 |       androidApp       |      ✅      |       Application class       |  partial   |
 |     androidLibrary     |      ✅      |        Android library        |  partial   |
 |     androidWidget      |      ✅      |          Custom View          |  partial   |

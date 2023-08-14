@@ -18,22 +18,28 @@ fun Project.applyDependencies(
     configurationFeatures: Map<ConfigurationType, () -> Unit> = emptyMap()
 ) {
     repositoriesConfiguration(repositories)
+    val appliedPlugins = mutableSetOf<String>()
     dependencies {
         val projectAction: (TargetSpec) -> Unit = {
             validator.validate(it.target)
             add(it.config.name, it.target.project)
         }
         dependencies.forEach(
-            {
-                // TODO refactor: we applying plugins(e.g. kapt) once per dependency with custom
-                // configuration,
-                //  ideally we should only apply once per configuration
-                FormaSettingsStore.pluginFor(it.name)?.let {
-                    // TODO: find better way of inferring plugin name
-                    apply(plugin = it.plugin.get().pluginId.split(":")[0])
+            { spec ->
+                val plugin = FormaSettingsStore.pluginFor(spec.name)
+                if (plugin != null) {
+                    val pluginName = plugin.plugin.get().pluginId.split(":")[0]
+                    if (!appliedPlugins.contains(pluginName)) {
+                        apply(plugin = pluginName)
+                        appliedPlugins.add(pluginName)
+                    }
+                    // For custom plugin specs we always apply transitive dependencies
+                    // since this is what most of the plugins expect
+                    addDependencyTo(spec.config.name, spec.name) { isTransitive = true }
+                } else {
+                    configurationFeatures[spec.config]?.invoke()
+                    addDependencyTo(spec.config.name, spec.name) { isTransitive = spec.transitive }
                 }
-                    ?: configurationFeatures[it.config]?.invoke()
-                addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
             },
             projectAction,
             { add(it.config.name, files(it.file)) },

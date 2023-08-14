@@ -118,18 +118,18 @@ fun VersionCatalogBuilder.addPlugin(
 ) {
     val name = nameGenerator(id)
     plugin(name, id).version { strictly(version) }
-    dependencies.forEach {
+    dependencies.forEach { dep ->
         if (configuration != null) {
-            addLibrary(it) { "${depNameGenerator(it)}.${configuration.name}" }
+            addLibrary(dep) { "${depNameGenerator(it)}.${configuration.name}" }
             FormaSettingsStore.registerConfiguration(
                 configuration.name,
                 providers.provider {
                     PluginDependencyImpl(id, DefaultImmutableVersionConstraint(version))
                 },
-                it
+                dep
             )
         } else {
-            addLibrary(it, depNameGenerator)
+            addLibrary(dep, depNameGenerator)
         }
     }
 }
