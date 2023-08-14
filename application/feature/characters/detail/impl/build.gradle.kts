@@ -14,7 +14,7 @@ impl(
         kotlinx.coroutines_core,
         viewbinding.viewpropertydelegate
     ) + deps(
-        libs.jakewharton.timber,
+        libs.jakewhartonTimber,
     ) + deps(
         target(":feature:characters:core:api"),
         target(":feature:characters:favorite:api"),

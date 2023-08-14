@@ -13,7 +13,7 @@ androidApp(
             google.dagger,
             google.play,
         ) +
-            deps(libs.jakewharton.timber) +
+            deps(libs.jakewhartonTimber) +
             deps(
                 target(":root-res"),
                 target(":feature:characters:core:api"),

@@ -43,6 +43,8 @@ projectDependencies(
         "androidx.room:room-common:$roomVersion",
     ),
     plugin("tools.forma.demo:dependencies", "0.0.1"),
+    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.5.3"),
+    plugin("com.google.firebase:firebase-crashlytics-gradle", "2.9.4"),
     plugin(
         id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
         version = "$embeddedKotlinVersion-1.0.10",

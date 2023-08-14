@@ -1,5 +1,8 @@
 package tools.forma.deps.catalog
 
+import java.util.Locale
+import org.gradle.configurationcache.extensions.capitalized
+
 val filteredTokens =
     listOf(
         "com",
@@ -11,7 +14,8 @@ val filteredTokens =
         "androidx",
         "kotlin",
         "kotlinx",
-        "google"
+        "google",
+        "plugin"
     )
 
 fun pluginNameGenerator(groupArtifactVersion: String) =
@@ -20,7 +24,8 @@ fun pluginNameGenerator(groupArtifactVersion: String) =
         .fold(emptyList<String>()) { acc, s -> acc + s.split(".", "-") }
         .filter { it !in filteredTokens }
         .distinct()
-        .joinToString(".")
+        .joinToString("") { it.capitalized() }
+        .let { name -> name.replaceFirstChar { it.lowercase(Locale.getDefault()) } }
         .also { println("Generated name $it for $groupArtifactVersion") }
 
 fun defaultNameGenerator(groupArtifactVersion: String) =
@@ -30,5 +35,6 @@ fun defaultNameGenerator(groupArtifactVersion: String) =
         .fold(emptyList<String>()) { acc, s -> acc + s.split(".", "-") }
         .filter { it !in filteredTokens }
         .distinct()
-        .joinToString(".")
+        .joinToString("") { it.capitalized() }
+        .let { name -> name.replaceFirstChar { it.lowercase(Locale.getDefault()) } }
         .also { println("Generated name $it for $groupArtifactVersion") }

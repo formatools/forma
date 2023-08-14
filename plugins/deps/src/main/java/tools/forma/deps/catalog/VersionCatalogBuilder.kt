@@ -75,7 +75,7 @@ fun VersionCatalogBuilder.addPlugin(
     plugin(name, id).version { it.strictly(version) }
     dependencies.forEach { dep ->
         if (configuration != null) {
-            addLibrary(settings, dep) { "${depNameGenerator(it)}.${configuration.name}" }
+            addLibrary(settings, dep) { depNameGenerator(it) }
             FormaSettingsStore.registerConfiguration(
                 configuration.name,
                 settings.providers.provider {
