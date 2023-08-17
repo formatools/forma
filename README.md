@@ -114,5 +114,23 @@ androidLibrary(
 |          api           |      ✅      |    Feature external API's     |  partial   |
 |          impl          |      ✅      |    Feature implementation     |  partial   |
 
+## Dependency matrix
+
+Each columh represents the list of allowed/disallowed dependencies
+
+|                  | androidApp  | androidBinary | androidLibrary | androidWidget | androidRes | androidTestUtils | api | impl | androidUtils | utils | testUtils |
+|------------------|-------------|---------------|----------------|---------------|------------|------------------|-----|------|-------------|------|----------|
+| androidApp       | ❌          | ✅             | ❌              | ❌             | ❌          | ❌                | ❌   | ❌    | ❌           | ❌    | ❌        |
+| androidBinary    | ❌          | ❌             | ❌              | ❌             | ❌          | ❌                | ❌   | ❌    | ❌           | ❌    | ❌        |
+| androidLibrary   | ✅          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ❌           | ❌    | ❌        |
+| androidWidget    | ❌          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ❌           | ❌    | ❌        |
+| androidRes       | ❌          | ❌             | ✅              | ✅             | ✅          | ✅                | ❌   | ✅    | ✅           | ❌    | ❌        |
+| androidTestUtils | ❌          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ❌        |
+| api              | ✅          | ❌             | ❌              | ❌             | ❌          | ✅                | ✅   | ✅    | ❌           | ❌    | ❌        |
+| impl             | ✅          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ❌        |
+| androidUtils     | ✅          | ❌             | ✅              | ✅             | ❌          | ✅                | ❌   | ✅    | ✅           | ❌    | ❌        |
+| utils            | ❌          | ❌             | ✅              | ✅             | ❌          | ✅                | ❌   | ✅    | ✅           | ✅    | ✅        |
+| testUtils        | ❌          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ✅        |
+
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
