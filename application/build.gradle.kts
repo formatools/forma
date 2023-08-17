@@ -1,16 +1,16 @@
 buildscript {
     androidProjectConfiguration(
-        project = project,
+        project = rootProject,
         minSdk = 21,
         targetSdk = 33,
         compileSdk = 33,
         agpVersion = "7.4.2",
-        extraPlugins = listOf(
-            "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3",
-            "com.google.firebase:firebase-crashlytics-gradle:2.9.4",
-            libs.plugins.tools.forma.demo.dependencies.get().pluginId,
-        )
+        extraPlugins =
+            listOf(
+                libs.plugins.toolsFormaDemoDependencies,
+                libs.plugins.devtoolsKspSymbolProcessing,
+                libs.plugins.navigationSafeArgs,
+                libs.plugins.firebaseCrashlytics
+            )
     )
 }
-
-Forma.registerConfiguration("ksp", libs.plugins.devtools.ksp, libs.room.compiler)

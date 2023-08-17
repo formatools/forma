@@ -13,7 +13,7 @@ androidLibrary(
         viewbinding.viewBinding,
         google.dagger,
     )+ deps(
-        libs.jakewharton.timber,
+        libs.jakewhartonTimber,
     ),
 
     testDependencies = deps(

@@ -1,7 +1,6 @@
 package tools.forma.config
 
 import org.gradle.api.JavaVersion
-import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.provider.Provider
 import org.gradle.plugin.use.PluginDependency
@@ -47,8 +46,8 @@ object FormaSettingsStore : SettingsStore<AndroidProjectSettings>, PluginInfoSto
     }
 
     override val plugins: MutableMap<Provider<PluginDependency>, PluginConfiguration> = mutableMapOf()
-    override val dependencyPlugins: MutableMap<Provider<out Dependency>, PluginConfiguration> = mutableMapOf()
-    override val dependencies: MutableMap<Provider<out Dependency>, DependencyConfiguration> = mutableMapOf()
+    override val dependencyPlugins: MutableMap<String, PluginConfiguration> = mutableMapOf()
+    override val dependencies: MutableMap<String, DependencyConfiguration> = mutableMapOf()
     override val configurations: MutableMap<String, Provider<PluginDependency>> = mutableMapOf()
 }
 
@@ -58,15 +57,15 @@ interface SettingsStore<T : Any> {
 }
 
 data class PluginConfiguration(val plugin: Provider<PluginDependency>, val configuration: String)
-data class DependencyConfiguration(val dependency: Provider<out Dependency>, val configuration: String)
+data class DependencyConfiguration(val dependency: String, val configuration: String)
 
 interface PluginInfoStore {
     val plugins: MutableMap<Provider<PluginDependency>, PluginConfiguration>
-    val dependencyPlugins: MutableMap<Provider<out Dependency>, PluginConfiguration>
-    val dependencies: MutableMap<Provider<out Dependency>, DependencyConfiguration>
+    val dependencyPlugins: MutableMap<String, PluginConfiguration>
+    val dependencies: MutableMap<String, DependencyConfiguration>
     val configurations: MutableMap<String, Provider<PluginDependency>>
 
-    fun registerConfiguration(configuration: String, plugin: Provider<PluginDependency>, vararg dependencies: Provider<out Dependency>) {
+    fun registerConfiguration(configuration: String, plugin: Provider<PluginDependency>, vararg dependencies: String) {
         registerPlugin(plugin, configuration)
 
         dependencies.forEach { dependency ->
@@ -78,7 +77,7 @@ interface PluginInfoStore {
         plugins[plugin] = PluginConfiguration(plugin, configuration)
     }
 
-    fun registerDependency(dependency: Provider<out Dependency>, configuration: String){
+    fun registerDependency(dependency: String, configuration: String){
         if (configurations.containsKey(configuration)) {
             dependencyPlugins[dependency] = plugins[configurations[configuration]!!]!!
             dependencies[dependency] = DependencyConfiguration(dependency, configuration)
@@ -87,5 +86,9 @@ interface PluginInfoStore {
         }
     }
 
-    fun pluginFor(dependency: Provider<out Dependency>): PluginConfiguration? = dependencyPlugins[dependency]
+    fun pluginFor(dependencyName: String): PluginConfiguration? {
+        // println("DEP: $dependencyName")
+        // println(dependencyPlugins)
+        return dependencyPlugins[dependencyName]
+    }
 }

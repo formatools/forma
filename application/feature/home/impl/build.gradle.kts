@@ -10,7 +10,7 @@ impl(
             google.dagger,
             viewbinding.viewpropertydelegate
         ) +
-            deps(libs.jakewharton.timber) +
+            deps(libs.jakewhartonTimber) +
             deps(
                 target(":toggle-widget"),
                 target(":feature:home:api"),

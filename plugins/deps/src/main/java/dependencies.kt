@@ -1,4 +1,10 @@
-import tools.forma.deps.core.ConfigurationType
+import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ExternalModuleDependencyBundle
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.provider.Provider
+import tools.forma.config.FormaSettingsStore
+import tools.forma.deps.core.CustomConfiguration
 import tools.forma.deps.core.DepType
 import tools.forma.deps.core.EmptyDependency
 import tools.forma.deps.core.FileDependency
@@ -13,14 +19,8 @@ import tools.forma.deps.core.PlatformDependency
 import tools.forma.deps.core.PlatformSpec
 import tools.forma.deps.core.TargetDependency
 import tools.forma.deps.core.TargetSpec
-import tools.forma.deps.core.Custom
-import java.io.File
-import org.gradle.api.Project
-import org.gradle.api.artifacts.Dependency
-import org.gradle.api.artifacts.ExternalModuleDependencyBundle
-import org.gradle.api.provider.Provider
-import tools.forma.config.FormaSettingsStore
 import tools.forma.target.FormaTarget
+import java.io.File
 
 val DepType.names: List<NameSpec>
     get(): List<NameSpec> = filterIsInstance(NameSpec::class.java)
@@ -33,14 +33,23 @@ val DepType.files: List<FileSpec>
 
 val Provider<out Dependency>.dep: NameSpec
     get() {
-        val pluginConf = FormaSettingsStore.pluginFor(this)
+        val depName = get().run { "$group:$name:$version" }
+        val pluginConf = FormaSettingsStore.pluginFor(depName)
         return with(get()) {
             NameSpec(
                 "$group:$name:$version",
-                pluginConf?.configuration?.let(::Custom) ?: Implementation
+                pluginConf?.configuration?.let(::CustomConfiguration) ?: Implementation
             )
         }
     }
+
+fun Provider<out Dependency>.dep(configuration: CustomConfiguration): NameSpec {
+    return with(get()) { NameSpec("$group:$name:$version", configuration) }
+}
+
+private operator fun String.invoke(
+    vararg providers: Provider<MinimalExternalModuleDependency>
+): NamedDependency = NamedDependency(providers.map { it.dep })
 
 val Dependency.dep: NameSpec
     get() = NameSpec("$group:$name:$version", Implementation)
@@ -84,28 +93,13 @@ fun FormaDependency.forEach(
     }
 }
 
-internal fun FormaDependency.hasConfigType(configType: ConfigurationType): Boolean {
-    dependency.forEach { dep -> if (dep.config == configType) return true }
-    return false
-}
-
 fun deps(vararg names: String): NamedDependency = transitiveDeps(names = names, transitive = false)
-
-fun platform(vararg names: String): PlatformDependency =
-    transitivePlatform(*names, transitive = false)
 
 fun transitivePlatform(vararg names: String, transitive: Boolean = true): PlatformDependency =
     PlatformDependency(names.toList().map { PlatformSpec(it, Implementation, transitive) })
 
 fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
     NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
-
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated(
-    "Deprecated in favor of targets version of this function:\n" + "deps(target(\":name\"))"
-)
-fun deps(vararg projects: Project): TargetDependency =
-    TargetDependency(projects.map { TargetSpec(it.target, Implementation) })
 
 fun deps(vararg targets: FormaTarget): TargetDependency =
     TargetDependency(targets.map { TargetSpec(it, Implementation) })
@@ -139,6 +133,9 @@ fun deps(vararg dependencies: TargetDependency): TargetDependency =
 
 fun kapt(vararg names: String): NamedDependency =
     NamedDependency(names.map { NameSpec(it, Kapt, true) })
+
+fun String.dep(configuration: CustomConfiguration, transitive: Boolean = true) =
+    NamedDependency(listOf(NameSpec(this, configuration, transitive)))
 
 val String.dep: NamedDependency
     get() = deps(this)

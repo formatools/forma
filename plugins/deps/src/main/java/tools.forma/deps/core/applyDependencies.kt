@@ -4,7 +4,9 @@ import emptyDependency
 import forEach
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
+import tools.forma.config.FormaSettingsStore
 import tools.forma.validation.Validator
 
 fun Project.applyDependencies(
@@ -16,15 +18,30 @@ fun Project.applyDependencies(
     configurationFeatures: Map<ConfigurationType, () -> Unit> = emptyMap()
 ) {
     repositoriesConfiguration(repositories)
+    // Prevent same plugin to be applied twice
+    val appliedPlugins = mutableSetOf<String>()
+
     dependencies {
         val projectAction: (TargetSpec) -> Unit = {
             validator.validate(it.target)
             add(it.config.name, it.target.project)
         }
         dependencies.forEach(
-            {
-                configurationFeatures[it.config]?.invoke()
-                addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+            { spec ->
+                val plugin = FormaSettingsStore.pluginFor(spec.name)
+                if (plugin != null) {
+                    val pluginName = plugin.plugin.get().pluginId.split(":")[0]
+                    if (!appliedPlugins.contains(pluginName)) {
+                        apply(plugin = pluginName)
+                        appliedPlugins.add(pluginName)
+                    }
+                    // For custom plugin specs we always apply transitive dependencies
+                    // since this is what most of the plugins expect
+                    addDependencyTo(spec.config.name, spec.name) { isTransitive = true }
+                } else {
+                    configurationFeatures[spec.config]?.invoke()
+                    addDependencyTo(spec.config.name, spec.name) { isTransitive = spec.transitive }
+                }
             },
             projectAction,
             { add(it.config.name, files(it.file)) },
@@ -36,7 +53,11 @@ fun Project.applyDependencies(
             { add("testImplementation", files(it.file)) }
         )
         androidTestDependencies.forEach(
-            { addDependencyTo("androidTestImplementation", it.name) { isTransitive = it.transitive } },
+            {
+                addDependencyTo("androidTestImplementation", it.name) {
+                    isTransitive = it.transitive
+                }
+            },
             { add("androidTestImplementation", it.target.project) },
             { add("androidTestImplementation", files(it.file)) }
         )
