@@ -31,7 +31,7 @@ object Kapt : ConfigurationType {
 
 sealed class DepSpec(val config: ConfigurationType)
 
-class TargetSpec(val target: FormaTarget, config: ConfigurationType) : DepSpec(config)
+class TargetSpec(val target: FormaTarget, config: ConfigurationType = Implementation) : DepSpec(config)
 
 class FileSpec(val file: File, config: ConfigurationType) : DepSpec(config)
 

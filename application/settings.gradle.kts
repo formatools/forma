@@ -20,6 +20,8 @@ plugins {
     id("tools.forma.android")
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 includer { arbitraryBuildScriptNames = true }
 
 rootProject.name = "application"
