@@ -1,7 +1,9 @@
+import java.io.File
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.internal.catalog.DelegatingProjectDependency
 import org.gradle.api.provider.Provider
 import tools.forma.config.FormaSettingsStore
 import tools.forma.deps.core.CustomConfiguration
@@ -20,7 +22,6 @@ import tools.forma.deps.core.PlatformSpec
 import tools.forma.deps.core.TargetDependency
 import tools.forma.deps.core.TargetSpec
 import tools.forma.target.FormaTarget
-import java.io.File
 
 val DepType.names: List<NameSpec>
     get(): List<NameSpec> = filterIsInstance(NameSpec::class.java)
@@ -83,8 +84,8 @@ fun FormaDependency.forEach(
     fileAction: (FileSpec) -> Unit = {},
     platformAction: (PlatformSpec) -> Unit = {}
 ) {
-    dependency.forEach loop@{ spec ->
-        return@loop when (spec) {
+    dependency.forEach { spec ->
+        when (spec) {
             is TargetSpec -> targetAction(spec)
             is NameSpec -> nameAction(spec)
             is PlatformSpec -> platformAction(spec)
@@ -109,6 +110,9 @@ fun deps(vararg files: File): FileDependency =
 
 fun deps(vararg dependencies: NamedDependency): NamedDependency =
     dependencies.flatMap { it.names }.let(::NamedDependency)
+
+fun deps(vararg projects: DelegatingProjectDependency) =
+    projects.map { TargetSpec(target(it)) }.let(::TargetDependency)
 
 fun deps(vararg dependencies: Provider<*>): NamedDependency =
     dependencies
@@ -147,4 +151,7 @@ val Project.target: FormaTarget
     get() = FormaTarget(this)
 
 fun Project.target(name: String): FormaTarget =
-    FormaTarget(project(":" + name.substring(1).replace(":", "-")))
+    project(":" + name.substring(1).replace(":", "-")).target
+
+fun target(projectDependency: DelegatingProjectDependency): FormaTarget =
+    projectDependency.dependencyProject.target

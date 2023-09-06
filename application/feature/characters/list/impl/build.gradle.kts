@@ -16,9 +16,9 @@ impl(
             viewbinding.viewpropertydelegate,
         ) +
             deps(libs.jakewhartonTimber) +
+            deps(projects.featureCharactersCoreApi) +
             deps(
-                target(":feature:characters:core:api"),
-                target(":feature:characters:list:api"),
+                target(projects.featureCharactersListApi),
                 target(":feature:characters:list:viewbinding"),
                 target(":core:di:library"),
                 target(":core:theme:android-util"),
