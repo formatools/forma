@@ -120,11 +120,11 @@ class IncluderPluginFunctionalTest {
         assertTrue("Should include ':app' project") {
             result.output.contains("Project ':app'")
         }
-        assertTrue("Should include ':feature1-api' project" +
+        assertTrue("Should include ':feature1-api' project " +
                 "because 'arbitraryBuildScriptNames = true'") {
             result.output.contains("Project ':feature1-api'")
         }
-        assertTrue("Should include ':feature1-impl' project" +
+        assertTrue("Should include ':feature1-impl' project " +
                 "because 'arbitraryBuildScriptNames = true'") {
             result.output.contains("Project ':feature1-impl'")
         }
