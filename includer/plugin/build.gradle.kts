@@ -12,10 +12,6 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
-}
-
 val javaLanguageVersion = JavaLanguageVersion.of(11)
 kotlin {
     jvmToolchain {
