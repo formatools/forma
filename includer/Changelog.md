@@ -1,4 +1,8 @@
-# 0.2.0 Minor patch release
+# 0.3.0 Minor release
+
+- Includer now compatible with configuration cache
+
+# 0.2.0 Minor releasee
 
 - Includer configuration extension added
 
