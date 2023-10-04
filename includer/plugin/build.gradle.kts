@@ -12,7 +12,7 @@ repositories {
     mavenCentral()
 }
 
-val javaLanguageVersion = JavaLanguageVersion.of(11)
+val javaLanguageVersion = JavaLanguageVersion.of(17)
 kotlin {
     jvmToolchain {
         languageVersion.set(javaLanguageVersion)
