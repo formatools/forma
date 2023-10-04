@@ -58,9 +58,6 @@ class SampleApp : SplitCompatApplication(),
     override fun getCharacterFavoriteFeature(): CharacterFavoriteFeature = characterFavoriteComponent
 
     @Inject
-    lateinit var themeUtils: ThemeUtils
-
-    @Inject
     lateinit var config: Config
 
     @Inject
@@ -68,10 +65,7 @@ class SampleApp : SplitCompatApplication(),
 
     override fun onCreate() {
         super.onCreate()
-//        AppStartup.init(this)
-        initTimber()
         initRootDependencyInjection()
-        initRandomNightMode()
     }
 
     private fun initRootDependencyInjection() {
@@ -87,17 +81,5 @@ class SampleApp : SplitCompatApplication(),
 
         characterCoreComponent = DaggerCharactersCoreComponent.factory().create(config, clock)
         characterFavoriteComponent = DaggerCharacterFavoriteComponent.factory().create(baseComponent)
-    }
-
-    private fun initTimber() {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-    }
-
-    private fun initRandomNightMode() {
-        if (BuildConfig.DEBUG) {
-            themeUtils.setNightMode(Random.nextBoolean())
-        }
     }
 }

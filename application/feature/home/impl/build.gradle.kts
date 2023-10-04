@@ -14,6 +14,7 @@ impl(
             deps(
                 target(":toggle-widget"),
                 target(":feature:home:api"),
+                target(":feature:home:res"),
                 target(":feature:home:viewbinding"),
                 target(":core:di:library"),
                 target(":core:theme:android-util"),

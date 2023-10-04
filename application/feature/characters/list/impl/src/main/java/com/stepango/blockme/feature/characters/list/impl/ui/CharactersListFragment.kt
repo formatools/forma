@@ -38,7 +38,7 @@ import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersLi
 import com.stepango.blockme.feature.characters.list.impl.ui.adapter.CharactersListAdapterState
 
 class CharactersListFragment : BaseViewBindingFragment(
-    layoutId = R.layout.fragment_characters_list
+    layoutId = com.stepango.blockme.feature.characters.list.viewbinding.R.layout.fragment_characters_list
 ) {
 
     private val viewModel: CharactersListViewModel by viewModels()
@@ -70,7 +70,7 @@ class CharactersListFragment : BaseViewBindingFragment(
         viewBinding.includeList.charactersList.apply {
             addItemDecoration(
                 RecyclerViewItemDecoration(
-                    resources.getDimensionPixelSize(R.dimen.characters_list_item_padding)
+                    resources.getDimensionPixelSize(com.stepango.blockme.feature.character.list.res.R.dimen.characters_list_item_padding)
                 )
             )
             adapter = viewAdapter

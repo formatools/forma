@@ -49,7 +49,7 @@ projectDependencies(
     plugin("com.google.firebase:firebase-crashlytics-gradle", "2.9.4"),
     plugin(
         id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
-        version = "$embeddedKotlinVersion-1.0.10",
+        version = "$embeddedKotlinVersion-1.0.13",
         configuration = ksp,
         "androidx.room:room-compiler:$roomVersion"
     )

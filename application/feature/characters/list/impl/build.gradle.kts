@@ -20,6 +20,7 @@ impl(
             deps(
                 target(projects.featureCharactersListApi),
                 target(":feature:characters:list:viewbinding"),
+                target(":feature:characters:list:res"),
                 target(":core:di:library"),
                 target(":core:theme:android-util"),
                 target(":core:mvvm:library"),

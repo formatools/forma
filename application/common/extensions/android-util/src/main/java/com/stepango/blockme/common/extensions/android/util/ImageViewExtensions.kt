@@ -30,7 +30,7 @@ fun ImageView.loadImage(url: String?, @DrawableRes placeholderId: Int? = null) {
         placeholder(placeholderId?.let {
             ContextCompat.getDrawable(context, it)
         } ?: run {
-            val placeholdersColors = resources.getStringArray(R.array.placeholders)
+            val placeholdersColors = resources.getStringArray(com.stepango.blockme.common.placeholder.res.R.array.placeholders)
             val placeholderColor = placeholdersColors[Random.nextInt(placeholdersColors.size)]
             ColorDrawable(Color.parseColor(placeholderColor))
         })

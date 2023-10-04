@@ -27,8 +27,8 @@ import javax.inject.Inject
 // TODO https://github.com/formatools/forma/issues/46
 // Move out from here strong deps of navigation component
 val NAV_FRAGMENTS_ID = setOf(
-    R.id.characters_list_fragment,
-    R.id.character_favorite_fragment
+    com.stepango.blockme.core.navigation.library.R.id.characters_list_fragment,
+    com.stepango.blockme.core.navigation.library.R.id.character_favorite_fragment
 )
 
 class HomeViewModel @Inject constructor() : ViewModel() {

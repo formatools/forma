@@ -36,7 +36,7 @@ import com.stepango.blockme.feature.characters.favorite.impl.ui.adapter.Characte
 import com.stepango.blockme.feature.favorite.viewbinding.databinding.FragmentCharacterFavoriteListBinding
 
 class CharacterFavoriteFragment : BaseViewBindingFragment(
-    layoutId = R.layout.fragment_character_favorite_list
+    layoutId = com.stepango.blockme.feature.favorite.viewbinding.R.layout.fragment_character_favorite_list
 ) {
 
     private val viewModel: ICharacterFavoriteViewModel by viewModels()
@@ -64,7 +64,7 @@ class CharacterFavoriteFragment : BaseViewBindingFragment(
         viewBinding.includeList.charactersFavoriteList.apply {
             addItemDecoration(
                 RecyclerViewItemDecoration(
-                    resources.getDimensionPixelSize(R.dimen.characters_favorite_list_item_padding)
+                    resources.getDimensionPixelSize(com.stepango.blockme.feature.character.favorite.res.R.dimen.characters_favorite_list_item_padding)
                 )
             )
             adapter = viewAdapter
