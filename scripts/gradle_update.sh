@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Usage example: ./scripts/gradle_update.sh 8.3
+function usage {
+  echo "Usage: $0 <gradle_version>"
+  exit 1
+}
+
+function check_command {
+  if ! command -v "$1" &>/dev/null; then
+    echo "Error: $1 is not installed."
+    exit 1
+  fi
+}
 
 # check if current dir contains .github
 if [ ! -d ".github" ]; then
@@ -9,12 +20,15 @@ if [ ! -d ".github" ]; then
 fi
 
 # read gradle version from script arg
-if [ -z "$1" ]; then
-  echo "Please provide a gradle version."
-  exit 1
+if [ -z "${1:-}" ]; then
+  usage
 fi
 
-gradle_version=$1
+gradle_version="$1"
+
+# check if required commands are available
+check_command find
+check_command dirname
 
 # update gradle version in all folders containing gradlew
 
