@@ -62,6 +62,6 @@ object versions {
     }
 
     object viewbinding {
-        const val viewbindingpropertydelegate = "1.5.8"
+        const val viewbindingpropertydelegate = "1.5.9"
     }
 }

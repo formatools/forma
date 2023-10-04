@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.common.extensions.util
+package tools.forma.sample.common.extensions.util
 
 fun ByteArray.toHex() = joinToString("") {
     "%02x".format(it)

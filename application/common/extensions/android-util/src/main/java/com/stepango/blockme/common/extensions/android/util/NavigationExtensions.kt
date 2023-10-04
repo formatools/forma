@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.common.extensions.android.util
+package tools.forma.sample.common.extensions.android.util
 
 import android.content.Intent
 import android.util.SparseArray

@@ -1,5 +1,5 @@
 viewBinding(
-    packageName = "com.stepango.blockme.common.progressbar.viewbinding",
+    packageName = "tools.forma.sample.common.progressbar.viewbinding",
 
     dependencies = deps(
         androidx.appcompat,

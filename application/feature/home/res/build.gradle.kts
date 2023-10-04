@@ -1,5 +1,5 @@
 androidRes(
-    packageName = "com.stepango.blockme.feature.home.res",
+    packageName = "tools.forma.sample.feature.home.res",
     dependencies = deps(
         google.material,
         androidx.appcompat,

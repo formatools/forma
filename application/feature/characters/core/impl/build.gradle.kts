@@ -1,5 +1,5 @@
 impl(
-    packageName = "com.stepango.blockme.feature.characters.core.impl",
+    packageName = "tools.forma.sample.feature.characters.core.impl",
     dependencies = deps(
         google.dagger,
         squareup.retrofit

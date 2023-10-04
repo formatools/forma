@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.stepango.blockme.feature.characters.core.api.data.service
+package tools.forma.sample.feature.characters.core.api.data.service
 
-import com.stepango.blockme.core.network.library.response.BaseResponse
-import com.stepango.blockme.feature.characters.core.api.data.response.CharacterResponse
+import tools.forma.sample.core.network.library.response.BaseResponse
+import tools.forma.sample.feature.characters.core.api.data.response.CharacterResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

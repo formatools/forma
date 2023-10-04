@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/characters_list_fragment"
-        android:name="com.stepango.blockme.feature.characters.list.impl.ui.CharactersListFragment"
+        android:name="tools.forma.sample.feature.characters.list.impl.ui.CharactersListFragment"
         android:label="Characters">
         <action
             android:id="@+id/action_charactersListFragment_to_character_detail_fragment"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/character_detail_fragment"
-        android:name="com.stepango.blockme.feature.characters.detail.impl.ui.CharacterDetailFragment">
+        android:name="tools.forma.sample.feature.characters.detail.impl.ui.CharacterDetailFragment">
         <argument
             android:name="character_id"
             app:argType="long" />

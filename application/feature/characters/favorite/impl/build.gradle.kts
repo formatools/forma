@@ -1,5 +1,5 @@
 impl(
-    packageName = "com.stepango.blockme.feature.characters.favorite.impl",
+    packageName = "tools.forma.sample.feature.characters.favorite.impl",
     dependencies = deps(
         androidx.core_ktx,
         androidx.appcompat,

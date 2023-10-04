@@ -35,7 +35,7 @@ val ksp = CustomConfiguration("ksp")
 
 projectDependencies(
     "libs",
-    "com.jakewharton.timber:timber:4.7.1",
+    "com.jakewharton.timber:timber:5.0.1",
     bundle(name = "coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion"),
     bundle(
         name = "room",

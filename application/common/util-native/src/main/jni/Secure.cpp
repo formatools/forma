@@ -7,7 +7,7 @@
 
 static const char* kClassPathName = "com/stepango/blockme/root/library/AppStartup";
 static const std::vector<std::string> allowedPackages = { // NOLINT(cert-err58-cpp)
-        "com.stepango.blockme.app"
+        "tools.forma.sample.app"
 };
 
 jstring getPackageName(JNIEnv* env, jobject context) {

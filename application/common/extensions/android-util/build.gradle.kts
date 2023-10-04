@@ -1,5 +1,5 @@
 androidUtil(
-    packageName = "com.stepango.blockme.common.extensions.android.util",
+    packageName = "tools.forma.sample.common.extensions.android.util",
     owner = Teams.core,
     dependencies =
         deps(

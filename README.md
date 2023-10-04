@@ -77,7 +77,7 @@ Your kotlin android library
 // Project configuration shared between targets
 androidLibrary(
     // Mandatory, visible from build configuration
-    packageName = "com.stepango.example",
+    packageName = "tools.forma.sample.example",
     // External dependencies declaration, one universal syntax
     dependencies = deps(
         google.material,

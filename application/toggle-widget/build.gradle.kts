@@ -1,5 +1,5 @@
 widget(
-    packageName = "com.stepango.blockme.widget.toggle",
+    packageName = "tools.forma.sample.widget.toggle",
     dependencies = deps(
         androidx.appcompat
     ) + deps(

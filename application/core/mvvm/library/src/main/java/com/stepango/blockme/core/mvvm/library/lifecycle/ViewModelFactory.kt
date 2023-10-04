@@ -1,4 +1,4 @@
-package com.stepango.blockme.core.mvvm.library.lifecycle
+package tools.forma.sample.core.mvvm.library.lifecycle
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,5 +1,5 @@
 library(
-    packageName = "com.stepango.blockme.core.network.library",
+    packageName = "tools.forma.sample.core.network.library",
     dependencies = deps(
         squareup.retrofit,
         google.gson,

@@ -1,4 +1,4 @@
 api(
-    packageName = "com.stepango.blockme.home.api",
+    packageName = "tools.forma.sample.home.api",
     owner = Teams.core
 )

@@ -1,6 +1,6 @@
 // TODO Change module type from `androidLibary` to `databinding`
 androidLibrary(
-    packageName = "com.stepango.blockme.core.mvvm.library",
+    packageName = "tools.forma.sample.core.mvvm.library",
 
     dependencies = deps(
         google.material,

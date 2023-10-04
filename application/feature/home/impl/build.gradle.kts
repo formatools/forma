@@ -1,5 +1,5 @@
 impl(
-    packageName = "com.stepango.blockme.feature.home.impl",
+    packageName = "tools.forma.sample.feature.home.impl",
     dependencies =
         deps(
             androidx.core_ktx,

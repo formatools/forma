@@ -1,5 +1,5 @@
 androidLibrary(
-    packageName = "com.stepango.blockme.core.di.library",
+    packageName = "tools.forma.sample.core.di.library",
     dependencies = deps(
         google.dagger
     )

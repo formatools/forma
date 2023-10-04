@@ -1,6 +1,6 @@
 /** This project meant to be self containing root library */
 androidApp(
-    packageName = "com.stepango.blockme.root.library",
+    packageName = "tools.forma.sample.root.library",
     owner = Teams.core,
     dependencies =
         deps(
