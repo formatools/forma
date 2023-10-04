@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("com.gradle.plugin-publish") version "1.2.0"
+    id("com.gradle.plugin-publish") version "1.2.1"
     id("org.jetbrains.kotlin.jvm") version embeddedKotlinVersion
 }
 
