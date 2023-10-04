@@ -18,6 +18,7 @@ plugins {
     id("convention-dependencies")
     id("tools.forma.includer")
     id("tools.forma.android")
+    id("com.gradle.enterprise") version("3.15")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
