@@ -18,7 +18,9 @@ impl(
     ) + deps(
         target(":feature:characters:core:api"),
         target(":feature:characters:favorite:api"),
+        target(":feature:characters:favorite:res"),
         target(":feature:characters:detail:api"),
+        target(":feature:characters:detail:res"),
         target(":feature:characters:detail:viewbinding"),
 
         target(":core:di:library"),

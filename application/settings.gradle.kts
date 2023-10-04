@@ -18,6 +18,7 @@ plugins {
     id("convention-dependencies")
     id("tools.forma.includer")
     id("tools.forma.android")
+    id("com.gradle.enterprise") version("3.15")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -49,7 +50,7 @@ projectDependencies(
     plugin("com.google.firebase:firebase-crashlytics-gradle", "2.9.4"),
     plugin(
         id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
-        version = "$embeddedKotlinVersion-1.0.10",
+        version = "$embeddedKotlinVersion-1.0.13",
         configuration = ksp,
         "androidx.room:room-compiler:$roomVersion"
     )

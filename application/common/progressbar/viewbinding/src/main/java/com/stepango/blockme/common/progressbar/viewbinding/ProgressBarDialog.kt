@@ -31,7 +31,7 @@ import com.stepango.blockme.common.progressbar.viewbinding.databinding.ViewProgr
  */
 class ProgressBarDialog(
     context: Context
-) : AlertDialog(context, R.style.CustomProgressDialog) {
+) : AlertDialog(context, com.stepango.common.progressbar.res.R.style.CustomProgressDialog) {
 
     lateinit var viewBinding: ViewProgressDialogBinding
 

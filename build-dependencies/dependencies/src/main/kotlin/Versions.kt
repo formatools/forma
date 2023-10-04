@@ -43,7 +43,7 @@ object versions {
 
     object google {
         const val material = "1.2.0"
-        const val dagger = "2.44.2"
+        const val dagger = "2.48.1"
         const val play_core = "1.6.4"
         const val gson = "2.8.6"
     }

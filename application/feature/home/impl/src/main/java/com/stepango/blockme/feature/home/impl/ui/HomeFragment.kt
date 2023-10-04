@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 private const val DELAY_TO_APPLY_THEME = 1000L
 
-class HomeFragment : BaseViewBindingFragment(R.layout.fragment_home) {
+class HomeFragment : BaseViewBindingFragment(com.stepango.blockme.feature.home.viewbinding.R.layout.fragment_home) {
 
     @Inject
     lateinit var themeUtils: ThemeUtils
@@ -47,8 +47,8 @@ class HomeFragment : BaseViewBindingFragment(R.layout.fragment_home) {
     private val viewBinding: FragmentHomeBinding by viewBinding(FragmentHomeBinding::bind)
 
     private val navGraphIds = listOf(
-        R.navigation.navigation_characters_list_graph,
-        R.navigation.navigation_character_favorite_graph
+        com.stepango.blockme.core.navigation.library.R.navigation.navigation_characters_list_graph,
+        com.stepango.blockme.core.navigation.library.R.navigation.navigation_character_favorite_graph
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,9 +67,9 @@ class HomeFragment : BaseViewBindingFragment(R.layout.fragment_home) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu, menu)
+        inflater.inflate(com.stepango.blockme.widget.toggle.R.menu.toolbar_menu, menu)
 
-        menu.findItem(R.id.menu_toggle_theme).apply {
+        menu.findItem(com.stepango.blockme.widget.toggle.R.id.menu_toggle_theme).apply {
             val actionView = this.actionView
             if (actionView is ToggleThemeCheckBox) {
                 actionView.isChecked = themeUtils.isDarkTheme(requireContext())
@@ -78,7 +78,7 @@ class HomeFragment : BaseViewBindingFragment(R.layout.fragment_home) {
                 }
             }
         }
-        menu.findItem(R.id.menu_app_info).apply {
+        menu.findItem(com.stepango.blockme.widget.toggle.R.id.menu_app_info).apply {
             setOnMenuItemClickListener {
                 try {
                     // Correct way to take app version code and version name, instead of BuildConfig
@@ -88,7 +88,7 @@ class HomeFragment : BaseViewBindingFragment(R.layout.fragment_home) {
                     Toast
                         .makeText(
                             requireContext(),
-                            getString(R.string.home_app_info_template, versionName, versionCode),
+                            getString(com.stepango.blockme.feature.home.res.R.string.home_app_info_template, versionName, versionCode),
                             Toast.LENGTH_LONG
                         )
                         .show()
@@ -127,7 +127,7 @@ class HomeFragment : BaseViewBindingFragment(R.layout.fragment_home) {
         val navController = viewBinding.bottomNavigation.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = childFragmentManager,
-            containerId = R.id.nav_host_container,
+            containerId = com.stepango.blockme.feature.home.viewbinding.R.id.nav_host_container,
             intent = requireActivity().intent
         )
 

@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseListAdapter<T>(
+abstract class BaseListAdapter<T : Any>(
     itemsSame: (T, T) -> Boolean,
     contentsSame: (T, T) -> Boolean
 ) : ListAdapter<T, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<T>() {

@@ -32,6 +32,7 @@ import com.stepango.blockme.feature.characters.core.api.di.CharactersCoreFeature
 import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
 import com.stepango.blockme.feature.characters.detail.api.presentation.ICharacterDetailViewState
 import com.stepango.blockme.feature.characters.detail.viewbinding.databinding.FragmentCharacterDetailBinding
+import com.stepango.blockme.feature.characters.detail.viewbinding.databinding.ViewCharacterDetailContentBinding
 import com.stepango.blockme.feature.characters.detail.impl.R
 import com.stepango.blockme.feature.characters.detail.impl.di.DaggerCharacterDetailComponent
 import com.stepango.blockme.feature.characters.detail.impl.presentation.CharacterDetailViewModel
@@ -39,7 +40,7 @@ import com.stepango.blockme.feature.characters.detail.impl.presentation.Characte
 import com.stepango.blockme.feature.characters.favorite.api.di.CharacterFavoriteFeatureProvider
 
 class CharacterDetailFragment : BaseViewBindingFragment(
-    layoutId = R.layout.fragment_character_detail
+    layoutId = com.stepango.blockme.feature.characters.detail.viewbinding.R.layout.fragment_character_detail
 ) {
 
     private val viewModel: CharacterDetailViewModel by viewModels()
@@ -81,6 +82,7 @@ class CharacterDetailFragment : BaseViewBindingFragment(
     private fun onViewDataChange(viewData: ICharacter) {
         viewBinding.collapsingToolbar.title = viewData.name
         viewBinding.characterImage.loadImage(viewData.imageUrl)
+//        val includeDetailBody = ViewCharacterDetailContentBinding.bind(viewBinding.includeDetailBody)
         viewBinding.includeDetailBody.characterName.text = viewData.name
         viewBinding.includeDetailBody.characterDescription.text = viewData.description
     }
@@ -89,13 +91,13 @@ class CharacterDetailFragment : BaseViewBindingFragment(
         viewBinding.addFavoriteButton.isVisible = viewState.isAddToFavorite()
         when (viewState) {
             is CharacterDetailViewState.Loading ->
-                progressDialog.show(R.string.character_detail_dialog_loading_text)
+                progressDialog.show(com.stepango.blockme.feature.character.detail.res.R.string.character_detail_dialog_loading_text)
             is CharacterDetailViewState.Error ->
-                progressDialog.dismissWithErrorMessage(R.string.character_detail_dialog_error_text)
+                progressDialog.dismissWithErrorMessage(com.stepango.blockme.feature.character.detail.res.R.string.character_detail_dialog_error_text)
             is CharacterDetailViewState.AddedToFavorite ->
                 Snackbar.make(
                     requireView(),
-                    R.string.character_detail_added_to_favorite_message,
+                    com.stepango.blockme.feature.character.detail.res.R.string.character_detail_added_to_favorite_message,
                     Snackbar.LENGTH_LONG
                 ).show()
             is CharacterDetailViewState.Dismiss ->

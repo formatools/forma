@@ -20,6 +20,7 @@ impl(
     ) + deps(
         target(":feature:characters:core:api"),
         target(":feature:characters:favorite:api"),
+        target(":feature:characters:favorite:res"),
         target(":feature:characters:favorite:viewbinding"),
 
         target(":core:di:library"),

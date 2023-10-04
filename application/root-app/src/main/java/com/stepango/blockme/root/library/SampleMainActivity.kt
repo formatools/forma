@@ -37,6 +37,6 @@ class SampleMainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.stepango.blockme.rootres.R.layout.activity_main)
     }
 }
