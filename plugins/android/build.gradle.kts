@@ -31,21 +31,8 @@ tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
     }
 }
 
-val javaLanguageVersion: JavaLanguageVersion = JavaLanguageVersion.of(17)
-kotlin {
-    jvmToolchain {
-        languageVersion.set(javaLanguageVersion)
-    }
-}
-
-java {
-    toolchain {
-        languageVersion.set(javaLanguageVersion)
-    }
-}
-
 dependencies {
-    implementation("com.android.tools.build:gradle:8.1.2")
+    implementation("com.android.tools.build:gradle:7.4.2")
     implementation(embeddedKotlin("gradle-plugin"))
     implementation(project(":target"))
     implementation(project(":validation"))

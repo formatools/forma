@@ -40,10 +40,19 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     vectorDrawablesUseSupportLibrary: Boolean = false,
     extraPlugins: List<Any> = emptyList()
 ) {
-    buildScriptConfiguration(this, extraPlugins)
+    buildScriptConfiguration(
+        this, extraPlugins
+                // Add Correct AGP version to build classpath
+                + "com.android.tools.build:gradle:$agpVersion"
+    )
 
     /** Default Android project clean task implementation */
-    with(project) { tasks.register("clean", Delete::class) { delete(project.buildDir) } }
+    with(project) {
+        tasks.register(
+            "clean",
+            Delete::class
+        ) { delete(layout.buildDirectory) }
+    }
 
     val configuration =
         AndroidProjectSettings(
@@ -82,7 +91,7 @@ fun Project.androidProjectConfiguration(
 ) {
 
     /** Default Android project clean task implementation */
-    tasks.register("clean", Delete::class) { delete(project.buildDir) }
+    tasks.register("clean", Delete::class) { delete(project.layout.buildDirectory) }
 
     val configuration =
         AndroidProjectSettings(
