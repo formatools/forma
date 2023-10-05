@@ -4,7 +4,7 @@
     app:startDestination="@id/home_fragment">
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.stepango.blockme.feature.home.impl.ui.HomeFragment"
+        android:name="tools.forma.sample.feature.home.impl.ui.HomeFragment"
         android:label="HomeFragment">
     </fragment>
 </navigation>

@@ -1,3 +1,3 @@
 androidRes(
-    packageName = "com.stepango.blockme.common.placeholder.res"
+    packageName = "tools.forma.sample.common.placeholder.res"
 )

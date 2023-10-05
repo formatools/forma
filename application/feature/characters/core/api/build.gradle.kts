@@ -1,5 +1,5 @@
 api(
-    packageName = "com.stepango.blockme.common.extensions.util",
+    packageName = "tools.forma.sample.common.extensions.util",
     owner = Teams.core,
     dependencies = deps(
         squareup.retrofit

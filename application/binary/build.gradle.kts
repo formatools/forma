@@ -1,5 +1,5 @@
 androidBinary(
-    packageName = "com.stepango.blockme.app",
+    packageName = "tools.forma.sample.app",
     owner = Teams.core,
     versionCode = 1,
     versionName = "0.0.1",

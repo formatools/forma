@@ -1,4 +1,4 @@
 util(
-    packageName = "com.stepango.blockme.common.extensions.util",
+    packageName = "tools.forma.sample.common.extensions.util",
     owner = Teams.core
 )

@@ -1,5 +1,5 @@
 viewBinding(
-    packageName = "com.stepango.blockme.feature.favorite.viewbinding",
+    packageName = "tools.forma.sample.feature.favorite.viewbinding",
     dependencies = deps(
         google.material,
         androidx.navigation,

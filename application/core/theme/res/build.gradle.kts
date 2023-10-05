@@ -1,5 +1,5 @@
 androidRes(
-    packageName = "com.stepango.blockme.core.theme.android.res",
+    packageName = "tools.forma.sample.core.theme.android.res",
     owner = Teams.core,
     dependencies = deps(
         androidx.appcompat,

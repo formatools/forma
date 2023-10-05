@@ -1,5 +1,5 @@
 androidRes(
-    packageName = "com.stepango.blockme.rootres",
+    packageName = "tools.forma.sample.rootres",
     dependencies = deps(
         androidx.constraintlayout,
         androidx.navigation

@@ -1,5 +1,5 @@
 viewBinding(
-    packageName = "com.stepango.blockme.feature.home.viewbinding",
+    packageName = "tools.forma.sample.feature.home.viewbinding",
     dependencies = deps(
         google.inject,
         google.material,

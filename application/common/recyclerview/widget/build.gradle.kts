@@ -1,5 +1,5 @@
 widget(
-    packageName = "com.stepango.blockme.common.recyclerview.widget",
+    packageName = "tools.forma.sample.common.recyclerview.widget",
 
     dependencies = deps(
         androidx.recyclerview

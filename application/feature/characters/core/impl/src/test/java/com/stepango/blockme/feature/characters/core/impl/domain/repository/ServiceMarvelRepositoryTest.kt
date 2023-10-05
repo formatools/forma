@@ -1,14 +1,14 @@
-package com.stepango.blockme.feature.characters.core.impl.domain.repository
+package tools.forma.sample.feature.characters.core.impl.domain.repository
 
-import com.stepango.blockme.common.extensions.util.toMD5
-import com.stepango.blockme.common.util.clock.Clock
-import com.stepango.blockme.common.util.mapper.Mapper
-import com.stepango.blockme.core.network.library.Config
-import com.stepango.blockme.core.network.library.response.BaseResponse
-import com.stepango.blockme.feature.characters.core.api.data.response.CharacterResponse
-import com.stepango.blockme.feature.characters.core.api.data.service.MarvelService
-import com.stepango.blockme.feature.characters.core.api.domain.model.ICharacter
-import com.stepango.blockme.feature.characters.core.api.domain.repository.MarvelRepository
+import tools.forma.sample.common.extensions.util.toMD5
+import tools.forma.sample.common.util.clock.Clock
+import tools.forma.sample.common.util.mapper.Mapper
+import tools.forma.sample.core.network.library.Config
+import tools.forma.sample.core.network.library.response.BaseResponse
+import tools.forma.sample.feature.characters.core.api.data.response.CharacterResponse
+import tools.forma.sample.feature.characters.core.api.data.service.MarvelService
+import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
+import tools.forma.sample.feature.characters.core.api.domain.repository.MarvelRepository
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk

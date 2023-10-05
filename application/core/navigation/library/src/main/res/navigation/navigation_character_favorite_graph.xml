@@ -7,6 +7,6 @@
     tools:ignore="UnusedNavigation">
     <fragment
         android:id="@+id/character_favorite_fragment"
-        android:name="com.stepango.blockme.feature.characters.favorite.impl.ui.CharacterFavoriteFragment"
+        android:name="tools.forma.sample.feature.characters.favorite.impl.ui.CharacterFavoriteFragment"
         android:label="Favorites" />
 </navigation>

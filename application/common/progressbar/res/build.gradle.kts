@@ -1,3 +1,3 @@
 androidRes(
-    packageName = "com.stepango.common.progressbar.res"
+    packageName = "tools.forma.sample.common.progressbar.res"
 )

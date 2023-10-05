@@ -1,5 +1,5 @@
 viewBinding(
-    packageName = "com.stepango.blockme.feature.characters.detail.viewbinding",
+    packageName = "tools.forma.sample.feature.characters.detail.viewbinding",
     dependencies = deps(
         google.material,
         androidx.constraintlayout,
