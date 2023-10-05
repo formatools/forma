@@ -18,9 +18,10 @@ import javax.inject.Singleton
 @Module
 internal class CharactersCoreModule {
 
-	@Singleton
-	@Provides
-	fun provideMarvelService(retrofit: Retrofit): MarvelService = retrofit.create(MarvelService::class.java)
+    @Singleton
+    @Provides
+    fun provideMarvelService(retrofit: Retrofit): MarvelService =
+        retrofit.create(MarvelService::class.java)
 
     @Singleton
     @Provides
@@ -33,5 +34,6 @@ internal class CharactersCoreModule {
         ServiceMarvelRepository(service, config, clock, characterMapper)
 
     @Provides
-    fun provideCharacterMapper(): Mapper<BaseResponse<CharacterResponse>, List<ICharacter>> = CharacterMapper()
+    fun provideCharacterMapper(): Mapper<BaseResponse<CharacterResponse>, List<ICharacter>> =
+        CharacterMapper()
 }
