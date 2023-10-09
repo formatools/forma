@@ -5,6 +5,7 @@ import tools.forma.deps.core.CustomConfiguration
 
 pluginManagement {
     repositories { google() }
+    apply(from = "buildScan-disableAutoApplyFix.settings.gradle.kts")
     apply(
         from =
             "../build-settings/conventions/src/main/kotlin/convention-plugins.settings.gradle.kts"
