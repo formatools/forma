@@ -13,7 +13,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         id: gradle-setup
       - name: Build Application
-        run: (cd application || exit 1; ./gradlew build -s --console=plain --scan)
+        run: (cd application || exit 1; ./gradlew clean build -s --console=plain --scan)
 
   build_depgen:
 
