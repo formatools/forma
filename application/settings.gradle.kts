@@ -32,7 +32,8 @@ buildscript {
                     "org.checkerframework:checker-qual:3.12.0",
                     "com.google.errorprone:error_prone_annotations:2.11.0",
                     "commons-codec:commons-codec:1.15",
-                    "com.android.tools.build:aapt2-proto:8.1.2-10154469"
+                    "com.android.tools.build:aapt2-proto:8.1.2-10154469",
+                    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$embeddedKotlinVersion",
                 )
                 failOnVersionConflict()
                 failOnNonReproducibleResolution()
