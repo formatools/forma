@@ -15,11 +15,37 @@ pluginManagement {
     includeBuild("../includer")
 }
 
+buildscript {
+    dependencies {
+        configurations.all {
+            resolutionStrategy {
+                force(
+                    "com.android.tools.build:bundletool:1.15.5",
+                    "com.google.guava:guava:31.1-jre",
+                    "org.ow2.asm:asm:9.2",
+                    "org.ow2.asm:asm-commons:9.2",
+                    "org.ow2.asm:asm-util:9.2",
+                    "com.google.code.gson:gson:2.8.9",
+                    "org.apache.httpcomponents:httpclient:4.5.13",
+                    "com.google.protobuf:protobuf-java:3.19.2",
+                    "com.google.protobuf:protobuf-java-util:3.19.2",
+                    "org.checkerframework:checker-qual:3.12.0",
+                    "com.google.errorprone:error_prone_annotations:2.11.0",
+                    "commons-codec:commons-codec:1.15",
+                    "com.android.tools.build:aapt2-proto:8.1.2-10154469"
+                )
+                failOnVersionConflict()
+                failOnNonReproducibleResolution()
+            }
+        }
+    }
+}
+
 plugins {
     id("convention-dependencies")
     id("tools.forma.includer")
     id("tools.forma.android")
-    id("com.gradle.enterprise") version("3.15")
+    id("com.gradle.enterprise") version ("3.15")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -47,8 +73,8 @@ projectDependencies(
         "androidx.room:room-common:$roomVersion",
     ),
     plugin("tools.forma.demo:dependencies", "0.0.1"),
-    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.5.3"),
-    plugin("com.google.firebase:firebase-crashlytics-gradle", "2.9.4"),
+    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.7.4"),
+    plugin("com.google.firebase:firebase-crashlytics-gradle", "2.9.9"),
     plugin(
         id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
         version = "$embeddedKotlinVersion-1.0.13",
