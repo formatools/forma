@@ -28,6 +28,7 @@ buildscript {
                     "org.ow2.asm:asm-util:9.2",
                     "com.google.code.gson:gson:2.8.9",
                     "org.apache.httpcomponents:httpclient:4.5.13",
+                    "org.apache.httpcomponents:httpcore:4.4.15",
                     "com.google.protobuf:protobuf-java:3.19.2",
                     "com.google.protobuf:protobuf-java-util:3.19.2",
                     "org.checkerframework:checker-qual:3.12.0",
@@ -35,6 +36,9 @@ buildscript {
                     "commons-codec:commons-codec:1.15",
                     "com.android.tools.build:aapt2-proto:8.1.2-10154469",
                     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$embeddedKotlinVersion",
+                    "com.android.tools.build:gradle:8.1.2",
+                    "org.jetbrains.kotlin:kotlin-gradle-plugin:$embeddedKotlinVersion",
+                    "com.squareup:javapoet:1.13.0"
                 )
                 failOnVersionConflict()
                 failOnNonReproducibleResolution()

@@ -44,22 +44,6 @@ fun androidBinaryFeatureDefinition(
 
             buildTypes.applyFrom(configuration.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
-
-            /**
-             * Workaround for compilation time issue with duplicate names for META-INF files
-             * https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
-             */
-            packagingOptions {
-                exclude("META-INF/DEPENDENCIES")
-                exclude("META-INF/LICENSE")
-                exclude("META-INF/LICENSE.txt")
-                exclude("META-INF/license.txt")
-                exclude("META-INF/NOTICE")
-                exclude("META-INF/NOTICE.txt")
-                exclude("META-INF/notice.txt")
-                exclude("META-INF/ASL2.0")
-                exclude("META-INF/*.kotlin_module")
-            }
         }
     }
 )
