@@ -116,7 +116,7 @@ androidLibrary(
 
 ## Dependency matrix
 
-Each columh represents the list of allowed/disallowed dependencies
+Each column represents the list of allowed/disallowed dependencies
 
 |                  | androidApp  | androidBinary | androidLibrary | androidWidget | androidRes | androidTestUtils | api | impl | androidUtils | utils | testUtils |
 |------------------|-------------|---------------|----------------|---------------|------------|------------------|-----|------|-------------|------|----------|
