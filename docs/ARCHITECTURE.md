@@ -1,0 +1,344 @@
+# Forma architecture audit
+
+Living map of the monorepo build graph, plugin modules, sample app, CI, and
+what should become **forma-core**. Source of truth for F-002; update when the
+graph changes.
+
+Last audited: **2026-07-11** (worker host green after F-001).
+
+---
+
+## 1. Repository layout (composite builds)
+
+The root `settings.gradle.kts` only names the project (`forma`); it is **not** a
+unified multi-project build. Real work lives in **independent Gradle builds**
+that compose via `includeBuild`:
+
+| Path | Role | Gradle wrapper | Publishes / consumed as |
+|------|------|----------------|-------------------------|
+| `plugins/` | Forma Gradle plugins (main product) | 8.3 | Composite + Plugin Portal (`tools.forma.*`) |
+| `application/` | Sample Android product (gold standard) | 8.4 | Consumer only |
+| `includer/` | Settings plugin: auto-`include` subprojects | (own wrapper) | `tools.forma.includer` |
+| `depgen/` | Transitive-deps generation plugin | (own wrapper) | `tools.forma.depgen` (standalone) |
+| `build-settings/` | Shared settings conventions (repos) | — | `includeBuild` / convention plugins |
+| `build-dependencies/` | Typed external dep catalogs for sample | — | `includeBuild` as `tools.forma.demo:dependencies` |
+| `docs/`, `scripts/` | Worker/env docs (not Gradle) | — | — |
+| `.github/workflows/` | CI | — | — |
+
+```
+                    ┌──────────────────────┐
+                    │   build-settings     │  convention-dependencies,
+                    │   (pluginManagement) │  convention-plugins (repos)
+                    └──────────┬───────────┘
+           includeBuild        │
+    ┌──────────────────────────┼──────────────────────────┐
+    │                          │                          │
+    v                          v                          v
+┌─────────┐   includeBuild  ┌────────────┐   includeBuild  ┌──────────────┐
+│includer │◄────────────────│ application│────────────────►│   plugins    │
+└─────────┘                 │  (sample)  │                 │  (product)   │
+                            └─────┬──────┘                 └──────┬───────┘
+                                  │ includeBuild                  │ includeBuild
+                                  v                               │ ../build-settings
+                         ┌─────────────────┐                      │
+                         │build-dependencies│                     │
+                         └─────────────────┘                      │
+                                                                  │
+┌─────────┐                                                       │
+│ depgen  │  (separate; not on application critical path)         │
+└─────────┘                                                       │
+```
+
+**Application `pluginManagement` / plugins** (from `application/settings.gradle.kts`):
+
+- `includeBuild("../build-settings")`, `../plugins`, `../includer`
+- Settings plugins: `convention-dependencies`, `tools.forma.includer`, `tools.forma.android`, Gradle Enterprise
+- `includeBuild("../build-dependencies")` for demo catalog
+- Heavy `buildscript` resolution forces (AGP 8.1.2, bundletool, asm, guava, …)
+
+**Plugins build** (`plugins/settings.gradle.kts`):
+
+- `pluginManagement { includeBuild("../build-settings") }`
+- `tools.forma.includer` **0.2.0** from Portal (not local includer composite)
+- Includer discovers `:android`, `:config`, `:deps`, `:owners`, `:target`, `:validation`
+
+---
+
+## 2. `plugins/` module graph
+
+Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
+
+```
+                    ┌────────────┐
+                    │   target   │  TargetTemplate, FormaTarget
+                    └─────▲──────┘
+                          │
+              ┌───────────┼────────────┐
+              │           │            │
+        ┌─────┴─────┐ ┌───┴────┐       │
+        │validation │ │ owners │       │
+        └─────▲─────┘ └───▲────┘       │
+              │           │            │
+        ┌─────┴─────┐     │      ┌─────┴─────┐
+        │   deps    │◄────┼──────┤  config   │
+        └─────▲─────┘     │      └─────▲─────┘
+              │           │            │
+              └─────┬─────┴────────────┘
+                    │
+              ┌─────┴─────┐
+              │  android  │  user-facing DSL + AGP features
+              └───────────┘
+```
+
+| Module | Plugin id | Depends on | Responsibility |
+|--------|-----------|------------|----------------|
+| `:target` | `tools.forma.target` | `gradleApi` | `TargetTemplate(suffix)`, `FormaTarget(project)` |
+| `:validation` | `tools.forma.validation` | `:target`, `gradleApi` | Name validators, content validators, `ProjectValidationError` |
+| `:owners` | `tools.forma.owners` | `gradleApi` | `Owner` / `Person` / `Team` / `NoOwner` |
+| `:config` | `tools.forma.config` | `gradleApi` | `AndroidProjectSettings`, `FormaSettingsStore`, plugin/dep registration maps |
+| `:deps` | `tools.forma.deps` | `:validation`, `:target`, `:config`, kotlin-dsl | `FormaDependency` model, `applyDependencies`, version-catalog generators |
+| `:android` | `tools.forma.android` | all of the above + **AGP** + Kotlin GP | Target DSL (`api`, `impl`, `androidLibrary`, …), feature appliers |
+
+`:android` `implementation("com.android.tools.build:gradle:7.4.2")` while the sample
+forces **AGP 8.1.2** at runtime — intentional skew to watch for F-003/F-004.
+
+`publishPlugins` on `:android` depends on publishing all sibling plugins.
+
+### 2.1 Target templates (suffixes)
+
+Defined in `plugins/android/.../AndroidTargets.kt`:
+
+| Object | Suffix | User DSL entrypoint |
+|--------|--------|---------------------|
+| `BinaryTargetTemplate` | `binary` | `androidBinary` |
+| `ApplicationTargetTemplate` | `app` | `androidApp` |
+| `LibraryTargetTemplate` | `library` | `androidLibrary` **and** `library` (JVM) |
+| `UiLibraryTargetTemplate` | `ui-library` | `uiLibrary` |
+| `NativeTarget` | `native` | `androidNative` |
+| `UtilTargetTemplate` | `util` | `util` |
+| `TestUtilTargetTemplate` | `test-util` | `testUtil` |
+| `AndroidTestUtilTargetTemplate` | `android-test-util` | `androidTestUtil` |
+| `AndroidUtilTargetTemplate` | `android-util` | `androidUtil` |
+| `ViewBindingTargetTemplate` | `viewbinding` | `viewBinding` |
+| `ResourcesTargetTemplate` | `res` | `androidRes` |
+| `ApiTargetTemplate` | `api` | `api` |
+| `ImplTargetTemplate` | `impl` | `impl` |
+| `WidgetTargetTemplate` | `widget` | `widget` |
+
+Name rule (`validation`): project name equals `suffix` or ends with `-$suffix`.
+
+### 2.2 Allowed project dependencies (from live validators)
+
+This is **code truth** (each target’s `applyDependencies(validator = …)`).
+README matrix (F-010) should be reconciled against this table — they diverge
+(e.g. several Android entry targets use `EmptyValidator`).
+
+| Consumer DSL | Allowed *project* dependency suffixes | Content rules |
+|--------------|----------------------------------------|---------------|
+| `api` | `api`, `library` | no `res/` under `src/main` |
+| `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` | — |
+| `library` (JVM) | `util`, `test-util` | — |
+| `androidLibrary` | **EmptyValidator** (any project) | — |
+| `uiLibrary` | `widget`, `util`, `android-util`, `res` | — |
+| `util` | `util`, `library` | no `res/` |
+| `androidUtil` | `android-util`, `test-util`, `res` | no `res/` |
+| `testUtil` | `test-util`, `util` | no `res/` |
+| `androidTestUtil` | `android-test-util`, `test-util` | — |
+| `androidRes` | `res`, `widget` | **only** `res/` under `src/main` |
+| `widget` | `ui-library`, `widget`, `util`, `android-util`, `res` | — |
+| `viewBinding` | `api`, `widget`, `res`, `library`, `android-util` | only `layout*` under `src/main/res` |
+| `androidApp` | **EmptyValidator** | no `res/` |
+| `androidBinary` | **EmptyValidator** | no `res/` |
+| `androidNative` | (no `applyDependencies` in current code) | no `res/` |
+
+Notes for later tickets:
+
+- `impl` cannot depend on other `impl` (good for Dagger-ish boundaries) — F-011.
+- `androidLibrary` / `androidApp` / `androidBinary` skip dep-type checks — partial validation in README sense.
+- JVM `library` and Android `androidLibrary` share `LibraryTargetTemplate` suffix `library` — naming collision risk for forma-core registry design (F-020).
+
+### 2.3 Feature stack (Android module)
+
+Under `tools.forma.android.feature`:
+
+- `FeatureDefinition` + `applyFeatures`
+- `androidLibraryFeatureDefinition` / `androidBinaryFeatureDefinition` / `androidNativeDefinition`
+- Kotlin JVM vs Kotlin Android feature definitions
+- `kaptConfigurationFeature` (auto when kapt-ish deps present)
+
+Configuration singleton: `Forma` object delegates to `FormaSettingsStore`
+(`AndroidProjectSettings`: min/target/compile SDK, AGP/Kotlin versions, repos,
+compose flag, owners mandatory flag, Java compatibility).
+
+### 2.4 Deps subsystem
+
+- Model: `FormaDependency` sealed hierarchy (`NamedDependency`, `TargetDependency`,
+  `FileDependency`, `PlatformDependency`, `MixedDependency`, `EmptyDependency`)
+- Application: `applyDependencies` — validates each project dep, applies plugin
+  side-effects from catalog registrations, sets transitive flags
+- Catalog: `projectDependencies` / `bundle` / `plugin` in settings
+  (`tools.forma.deps.catalog`) + name generators
+- Sample also uses hand-written catalogs in `build-dependencies/dependencies`
+  (`Androidx`, `Google`, `Test`, …)
+
+### 2.5 Includer
+
+Settings plugin walks the tree for `build.gradle(.kts)` (optional arbitrary
+script names), skips nested settings roots, maps path → project name with
+`:` + path using `-` instead of `/` (avoids intermediate empty projects).
+Sample enables `arbitraryBuildScriptNames = true`.
+
+---
+
+## 3. Sample `application/` structure
+
+~35 Forma targets, multi-feature Rick-and-Morty style demo.
+
+```
+application/
+├── binary/                 androidBinary  (APK entry)
+├── root-app/               androidApp
+├── root-res/               androidRes
+├── toggle-widget/          widget
+├── core/
+│   ├── di/library          library
+│   ├── mvvm/library        library
+│   ├── navigation/library  library
+│   ├── network/library     library
+│   └── theme/{android-util,res}
+├── common/
+│   ├── util                util
+│   ├── extensions/{util,android-util}
+│   ├── placeholder/res
+│   ├── progressbar/{res,viewbinding}
+│   └── recyclerview/widget
+└── feature/
+    ├── home/{api,impl,res,viewbinding}
+    └── characters/
+        ├── core/{api,impl}
+        ├── list/{api,impl,res,viewbinding}
+        ├── detail/{api,impl,res,viewbinding}
+        └── favorite/{api,impl,res,viewbinding}
+```
+
+Wiring pattern:
+
+- Feature **api** = JVM Kotlin contracts (+ network/library etc.)
+- Feature **impl** = Android library + Dagger + navigation + viewbinding/res/widget
+- **binary** depends on root-app + all feature api/impl + shared core (explicit
+  graph; not only transitive)
+
+Root configuration (`application/build.gradle.kts`):
+
+```kotlin
+androidProjectConfiguration(
+  minSdk = 21, targetSdk = 33, compileSdk = 33,
+  agpVersion = "8.1.2",
+  extraPlugins = [ demo deps, KSP, nav safe-args, crashlytics ]
+)
+```
+
+---
+
+## 4. CI (`.github/workflows/main.yml`)
+
+Workflow name: **Run build checks** (`on: push`, `workflow_dispatch`).
+
+| Job | Directory | Java setup | Notes |
+|-----|-----------|------------|-------|
+| `build_application` | `application/` | Temurin **17** | `./gradlew build -s --console=plain --scan` |
+| `build_plugins` | `plugins/` | **none explicit** | relies on runner default |
+| `build_includer` | `includer/` | **none explicit** | |
+| `build_depgen` | `depgen/` | **none explicit** | |
+
+Gaps for F-004:
+
+1. Non-application jobs should pin Java 17 (parity with F-001 host).
+2. No Android SDK setup step for `build_application` (needs cmdline-tools /
+   `ANDROID_HOME` / licenses — likely flaky or image-dependent).
+3. README badge still points at old `stepango/forma` “Android CI” workflow name;
+   this repo uses `formatools/forma` + “Run build checks”.
+4. No cache strategy beyond `gradle/gradle-build-action@v2` (action itself caches).
+5. Plugins job does not publish or run Plugin Marker validation.
+
+---
+
+## 5. Toolchain snapshot (host + declared)
+
+| Component | Declared / observed |
+|-----------|---------------------|
+| JDK | 17 (CI application job; host OpenJDK 17 via Homebrew) |
+| Gradle | plugins 8.3, application 8.4 |
+| AGP | sample 8.1.2 (forced); plugins compile against 7.4.2 |
+| Kotlin | embeddedKotlin from Gradle distribution |
+| Android SDK | sample compile/target 33; host platforms;android-33 + build-tools 33/34 |
+| Forma version | 0.1.3 |
+
+Host bootstrap details: `docs/ENV.md`, `scripts/env-mac.sh` (F-001).
+
+---
+
+## 6. forma-core extraction map (candidates)
+
+Aligned with `docs/VISION.md`: core must not assume Android/AGP/Dagger.
+
+| Concern | Current home | forma-core? | Notes |
+|---------|--------------|-------------|-------|
+| Target type identity (`TargetTemplate` / suffix) | `:target` | **Yes** | Registry API (F-020/F-021) |
+| Name + dep-type `Validator` | `:validation` | **Yes** | Keep framework; Android content rules as plugins |
+| Content validators (`onlyAllowResources`, …) | `:android` + `:validation` helpers | **Split** | Generic dir checks → core; Android paths → android plugin |
+| Dependency model + apply | `:deps` | **Mostly yes** | Strip AGP-ish config features; catalog generators may stay tooling |
+| Settings store | `:config` | **Split** | Generic `SettingsStore` / plugin registry → core; `AndroidProjectSettings` → android |
+| Owners | `:owners` | **Optional / yes** | Platform-agnostic metadata |
+| Feature definitions (AGP library/binary/native) | `:android` | **No** | Stay platform |
+| DSL entrypoints (`api`/`impl`/…) | `:android` | **No** (register *onto* core) | First consumer of core (F-023) |
+| Includer / depgen | separate builds | **No** | Adjacent tooling |
+| build-dependencies catalogs | sample support | **No** | Demo-only; pattern informs F-012 |
+
+Suggested extraction order (tickets F-020…F-024):
+
+1. Document public API (`docs/forma-core-api.md`) — types, restriction engine, validator SPI, target registry.
+2. Move `:target` + pure validation + restriction tables into `forma-core`.
+3. Re-home `applyDependencies` project-validation path on core validators.
+4. Leave `:android` as the first platform package implementing templates + AGP features.
+5. Coordinates: e.g. `tools.forma:core` vs `tools.forma.android` (F-024).
+
+---
+
+## 7. Known inconsistencies / follow-ups
+
+| Item | Ticket |
+|------|--------|
+| README dependency matrix ≠ live validators | F-010 |
+| `EmptyValidator` on app/binary/androidLibrary | F-011 |
+| AGP 7.4.2 compile vs 8.1.2 runtime | F-003 |
+| CI missing SDK + Java on some jobs | F-004 |
+| Compose flag in settings, limited target support | F-013 |
+| Shared `library` suffix for JVM vs Android library | F-020 |
+| Plugin publish / Portal path | F-016 |
+| Configuration-time cost (includer walk, stores) | F-017 |
+
+---
+
+## 8. Quick reference — where to change what
+
+| Goal | Start here |
+|------|------------|
+| New target type | `AndroidTargets.kt` + new DSL file under `plugins/android/src/main/java/` + validator list |
+| Tighten dep rules | `validator(...)` in that DSL file; update this doc §2.2 |
+| Global SDK/AGP defaults | `androidProjectConfiguration` + sample `application/build.gradle.kts` |
+| External deps UX | `plugins/deps` catalog + `build-dependencies` |
+| Auto module discovery | `includer/` |
+| CI | `.github/workflows/main.yml` |
+| Sample structure | `application/feature/**`, `binary/` |
+
+---
+
+## 9. Audit method
+
+- Walked all `settings.gradle.kts` / `build.gradle.kts` for composite edges.
+- Read every `plugins/android` DSL entrypoint for `validator(...)` and content checks.
+- Listed `application/**/build.gradle.kts` targets and feature folders.
+- Inspected `.github/workflows/main.yml` and wrapper properties.
+- Host builds (F-001): `plugins/`, `includer/`, `depgen/`, `application/` all
+  **BUILD SUCCESSFUL** on OpenJDK 17 + Android SDK 33 — not re-run in this audit slice.

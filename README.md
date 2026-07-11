@@ -97,6 +97,10 @@ androidLibrary(
 )
 ```
 
+## Development environment
+
+Worker / contributor host setup (JDK 17+, Android SDK platform 33): see [`docs/ENV.md`](docs/ENV.md) and `source scripts/env-mac.sh`.
+
 ## Progress
 
 | Supported target types | implemented |            purpose            | validation |
