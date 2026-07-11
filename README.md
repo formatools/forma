@@ -103,38 +103,54 @@ Worker / contributor host setup (JDK 17+, Android SDK platform 33): see [`docs/E
 
 ## Progress
 
-| Supported target types | implemented |            purpose            | validation |
-|:----------------------:|:-----------:|:-----------------------------:|:----------:|
-|     androidBinary      |      ✅      |      Generate single APK      |     ✅      |
-|       androidApp       |      ✅      |       Application class       |  partial   |
-|     androidLibrary     |      ✅      |        Android library        |  partial   |
-|     androidWidget      |      ✅      |          Custom View          |  partial   |
-|       androidRes       |      ✅      |        Resources Only         |     ✅      |
-|    androidTestUtils    |      ✅      | Shared code for Android tests |     ✅      |
-|      androidUtils      |      ✅      |      Library extensions       |  partial   |
-|       testUtils        |      ✅      |  Shared code for unit tests   |     ✅      |
-|         utils          |      ✅      |    JVM Library extensions     |  partial   |
-|        library         |      ✅      |          JVM Library          |  partial   |
-|          api           |      ✅      |    Feature external API's     |  partial   |
-|          impl          |      ✅      |    Feature implementation     |  partial   |
+DSL names match code entrypoints (`widget`, `util`, …). **Validation** =
+project-dep type checks + content layout rules from live validators
+([full matrix](docs/DEPENDENCY-MATRIX.md)).
+
+| Supported target types | implemented | purpose | validation |
+|:----------------------:|:-----------:|:-------:|:----------:|
+| `androidBinary` | ✅ | Generate single APK | name + no `res/`; project deps **unrestricted** (`EmptyValidator`) |
+| `androidApp` | ✅ | Application / root Android library | name + no `res/`; project deps **unrestricted** |
+| `androidLibrary` | ✅ | Android library | name only; project deps **unrestricted** |
+| `uiLibrary` | ✅ | Shared UI library for impl/widget | project-dep list |
+| `widget` | ✅ | Custom View / UI component | project-dep list |
+| `androidRes` | ✅ | Resources only | only `res/` under `src/main` + project-dep list |
+| `viewBinding` | ✅ | Layout-only view binding module | only `layout*` under `res` + project-dep list |
+| `androidTestUtil` | ✅ | Shared code for Android tests | project-dep list |
+| `androidUtil` | ✅ | Android library extensions | no `res/` + project-dep list |
+| `testUtil` | ✅ | Shared code for unit tests | no `res/` + project-dep list |
+| `util` | ✅ | JVM library extensions | no `res/` + project-dep list |
+| `library` | ✅ | JVM library | project-dep list (shares `library` suffix with `androidLibrary`) |
+| `api` | ✅ | Feature external APIs | no `res/` + project-dep list |
+| `impl` | ✅ | Feature implementation | project-dep list (**no** other `impl`) |
+| `androidNative` | ✅ | NDK / native | no `res/`; no project-dep validation yet |
 
 ## Dependency matrix
 
-Each column represents the list of allowed/disallowed dependencies
+**Canonical reference (code truth):** [`docs/DEPENDENCY-MATRIX.md`](docs/DEPENDENCY-MATRIX.md).
 
-|                  | androidApp  | androidBinary | androidLibrary | androidWidget | androidRes | androidTestUtils | api | impl | androidUtils | utils | testUtils |
-|------------------|-------------|---------------|----------------|---------------|------------|------------------|-----|------|-------------|------|----------|
-| androidApp       | ❌          | ✅             | ❌              | ❌             | ❌          | ❌                | ❌   | ❌    | ❌           | ❌    | ❌        |
-| androidBinary    | ❌          | ❌             | ❌              | ❌             | ❌          | ❌                | ❌   | ❌    | ❌           | ❌    | ❌        |
-| androidLibrary   | ✅          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ❌           | ❌    | ❌        |
-| androidWidget    | ❌          | ❌             | ✅              | ✅             | ❌          | ❌                | ❌   | ✅    | ❌           | ❌    | ❌        |
-| androidRes       | ❌          | ❌             | ✅              | ✅             | ✅          | ✅                | ❌   | ✅    | ✅           | ❌    | ❌        |
-| androidTestUtils | ❌          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ❌        |
-| api              | ✅          | ❌             | ❌              | ❌             | ❌          | ✅                | ✅   | ✅    | ❌           | ❌    | ❌        |
-| impl             | ✅          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ❌        |
-| androidUtils     | ✅          | ❌             | ✅              | ✅             | ❌          | ✅                | ❌   | ✅    | ✅           | ❌    | ❌        |
-| utils            | ❌          | ❌             | ✅              | ✅             | ❌          | ✅                | ❌   | ✅    | ✅           | ✅    | ✅        |
-| testUtils        | ❌          | ❌             | ❌              | ❌             | ❌          | ✅                | ❌   | ❌    | ❌           | ❌    | ✅        |
+That document is generated from each target’s
+`applyDependencies(validator = …)` call and content helpers. Summary:
+
+| Consumer | May depend on project suffixes… |
+|----------|----------------------------------|
+| `api` | `api`, `library` |
+| `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` |
+| `library` (JVM) | `util`, `test-util` |
+| `androidLibrary` | *any* (`EmptyValidator`) |
+| `uiLibrary` | `widget`, `util`, `android-util`, `res` |
+| `util` | `util`, `library` |
+| `androidUtil` | `android-util`, `test-util`, `res` |
+| `testUtil` | `test-util`, `util` |
+| `androidTestUtil` | `android-test-util`, `test-util` |
+| `androidRes` | `res`, `widget` |
+| `widget` | `ui-library`, `widget`, `util`, `android-util`, `res` |
+| `viewBinding` | `api`, `widget`, `res`, `library`, `android-util` |
+| `androidApp` / `androidBinary` | *any* (`EmptyValidator`) |
+| `androidNative` | *(no project-dep check)* |
+
+Tightening unrestricted entry targets and Dagger-friendly `api`/`impl`
+boundaries is tracked as **F-011**.
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
