@@ -242,24 +242,26 @@ androidProjectConfiguration(
 
 ## 4. CI (`.github/workflows/main.yml`)
 
-Workflow name: **Run build checks** (`on: push`, `workflow_dispatch`).
+Display name **CI** (`on: push`, `pull_request`, `workflow_dispatch`).
 
-| Job | Directory | Java setup | Notes |
-|-----|-----------|------------|-------|
-| `build_application` | `application/` | Temurin **17** | `./gradlew build -s --console=plain --scan` |
-| `build_plugins` | `plugins/` | **none explicit** | relies on runner default |
-| `build_includer` | `includer/` | **none explicit** | |
-| `build_depgen` | `depgen/` | **none explicit** | |
+| Job | Directory | Java | Notes |
+|-----|-----------|------|-------|
+| `build_application` | `application/` | Temurin **17** | `android-actions/setup-android@v3` (SDK 33 + build-tools 33/34); `./gradlew build --stacktrace --console=plain` |
+| `build_plugins` | `plugins/` | Temurin **17** | `./gradlew build --stacktrace --console=plain` |
+| `build_includer` | `includer/` | Temurin **17** | same |
+| `build_depgen` | `depgen/` | Temurin **17** | same |
 
-Gaps for F-004:
+Concurrency group `ci-${{ github.workflow }}-${{ github.ref }}` cancels in-progress runs on the same ref.
 
-1. Non-application jobs should pin Java 17 (parity with F-001 host).
-2. No Android SDK setup step for `build_application` (needs cmdline-tools /
-   `ANDROID_HOME` / licenses — likely flaky or image-dependent).
-3. README badge still points at old `stepango/forma` “Android CI” workflow name;
-   this repo uses `formatools/forma` + “Run build checks”.
-4. No cache strategy beyond `gradle/gradle-build-action@v2` (action itself caches).
-5. Plugins job does not publish or run Plugin Marker validation.
+F-004 fixes applied (2026-07-11):
+
+1. **All jobs** pin Temurin 17 via `actions/setup-java@v4`.
+2. **Application** installs Android SDK packages matching sample `compileSdk` 33.
+3. README badge → `formatools/forma` + `actions/workflows/main.yml/badge.svg`.
+4. Gradle setup via `gradle/actions/setup-gradle@v4` (successor of `gradle-build-action`).
+5. Dropped unconditional `--scan` (no build-scan account coupling in CI).
+
+Still optional / later: plugin publish or Plugin Marker validation job; deeper Gradle remote cache.
 
 ---
 
@@ -267,7 +269,7 @@ Gaps for F-004:
 
 | Component | Declared / observed |
 |-----------|---------------------|
-| JDK | 17 (CI application job; host OpenJDK 17 via Homebrew) |
+| JDK | 17 (all CI jobs Temurin; host OpenJDK 17 via Homebrew) |
 | Gradle | plugins 8.3, application 8.4 |
 | AGP | sample 8.1.2 (forced); plugins compile against 7.4.2 |
 | Kotlin | embeddedKotlin from Gradle distribution |
@@ -312,7 +314,7 @@ Suggested extraction order (tickets F-020…F-024):
 | README dependency matrix ≠ live validators | F-010 |
 | `EmptyValidator` on app/binary/androidLibrary | F-011 |
 | AGP 7.4.2 compile vs 8.1.2 runtime | F-003 |
-| CI missing SDK + Java on some jobs | F-004 |
+| ~~CI missing SDK + Java on some jobs~~ (workflow fixed; await GHA green) | F-004 |
 | Compose flag in settings, limited target support | F-013 |
 | Shared `library` suffix for JVM vs Android library | F-020 |
 | Plugin publish / Portal path | F-016 |

@@ -11,7 +11,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-001 | done | Environment bootstrap: JDK + Android SDK tooling on worker host | OpenJDK 17 + cmdline-tools; see `docs/ENV.md`, `scripts/env-mac.sh`. plugins/app/includer/depgen build green on host |
 | F-002 | done | Audit build graph: plugins, sample app, CI workflows | Map modules → forma-core candidates; capture in `docs/ARCHITECTURE.md` |
 | F-003 | todo | Get plugins + sample `application/` building on modern toolchain | Host already green with current AGP 8.1.2 / Gradle 8.3–8.4; ticket may shrink to CI/modernization only |
-| F-004 | todo | CI green on GitHub Actions for plugins + application | Fix `.github/workflows` |
+| F-004 | in_progress | CI green on GitHub Actions for plugins + application | Fix `.github/workflows` |
 
 ## P1 — Android working product
 

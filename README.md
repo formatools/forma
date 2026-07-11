@@ -3,9 +3,9 @@
 </p>
 
 <p align="center">
-    <img src="https://github.com/stepango/forma/workflows/Android%20CI/badge.svg"/>
+    <img src="https://github.com/formatools/forma/actions/workflows/main.yml/badge.svg" alt="CI"/>
     <a href="https://plugins.gradle.org/plugin/tools.forma.android"><img src="https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/tools/forma/android/tools.forma.android.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=Gradle%20Plugin"/></a>
-    <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/stepango/forma">
+    <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/formatools/forma">
     <img alt="License" src="https://img.shields.io/github/license/formatools/forma"/>
     <img alt="Contributors" src="https://img.shields.io/github/contributors/formatools/forma"/>
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/formatools/forma"/>

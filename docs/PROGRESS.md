@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-004 CI green (workflow + badge)
+
+- **Ticket:** F-004 → `in_progress` (workflow shipped; full green claim waits on GHA run after PR)
+- **Branch:** `forma/F-004-ci-green` (from `origin/v2`; independent of open F-003 PR #152)
+- **Actions:**
+  - Rewrote `.github/workflows/main.yml`:
+    - Display name **CI**; triggers `push` + `pull_request` + `workflow_dispatch`
+    - Concurrency cancel-in-progress per ref
+    - **All four jobs** pin Temurin 17 (`actions/setup-java@v4`)
+    - Gradle via `gradle/actions/setup-gradle@v4`
+    - `build_application`: `android-actions/setup-android@v3` with `platforms;android-33`, platform-tools, build-tools 33.0.2 + 34.0.0
+    - Dropped unconditional `--scan`; use `--stacktrace --console=plain`
+  - README CI badge + code-size shield → `formatools/forma` + `actions/workflows/main.yml/badge.svg`
+  - `docs/ARCHITECTURE.md` §4 updated for new CI layout
+- **Local verification:** host still has JDK 17 + SDK 33 from F-001; full GHA run not available until push/PR
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none for the workflow change itself; mark F-004 `done` only after GHA jobs are green on the PR
+- **Next step:** merge order note — F-003 (#152 AGP 8.1.2 compile align) still open on `v2`; CI PR can land independently. After both merge, re-check application job on combined tip
+- **Related open PRs:** #150 F-001, #151 F-002 (already in `v2` tip), #152 F-003
+
 ## 2026-07-11 — v2 base of operations (merge open PRs)
 
 - **Action:** Created integration branch `v2` from `origin/master`, merged open work from:
