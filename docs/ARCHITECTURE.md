@@ -99,8 +99,9 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
 | `:deps` | `tools.forma.deps` | `:validation`, `:target`, `:config`, kotlin-dsl | `FormaDependency` model, `applyDependencies`, version-catalog generators |
 | `:android` | `tools.forma.android` | all of the above + **AGP** + Kotlin GP | Target DSL (`api`, `impl`, `androidLibrary`, …), feature appliers |
 
-`:android` `implementation("com.android.tools.build:gradle:7.4.2")` while the sample
-forces **AGP 8.1.2** at runtime — intentional skew to watch for F-003/F-004.
+`:android` compiles against **AGP 8.1.2** (aligned with sample runtime force in
+`application/settings.gradle.kts` as of F-003). Keep `plugins/android` AGP
+compile dep and consumer `agpVersion` in lockstep.
 
 `publishPlugins` on `:android` depends on publishing all sibling plugins.
 
@@ -269,7 +270,7 @@ Gaps for F-004:
 |-----------|---------------------|
 | JDK | 17 (CI application job; host OpenJDK 17 via Homebrew) |
 | Gradle | plugins 8.3, application 8.4 |
-| AGP | sample 8.1.2 (forced); plugins compile against 7.4.2 |
+| AGP | **8.1.2** sample runtime + plugins compile (aligned F-003) |
 | Kotlin | embeddedKotlin from Gradle distribution |
 | Android SDK | sample compile/target 33; host platforms;android-33 + build-tools 33/34 |
 | Forma version | 0.1.3 |
@@ -311,7 +312,7 @@ Suggested extraction order (tickets F-020…F-024):
 |------|--------|
 | README dependency matrix ≠ live validators | F-010 |
 | `EmptyValidator` on app/binary/androidLibrary | F-011 |
-| AGP 7.4.2 compile vs 8.1.2 runtime | F-003 |
+| ~~AGP 7.4.2 compile vs 8.1.2 runtime~~ (aligned 8.1.2) | F-003 done |
 | CI missing SDK + Java on some jobs | F-004 |
 | Compose flag in settings, limited target support | F-013 |
 | Shared `library` suffix for JVM vs Android library | F-020 |
