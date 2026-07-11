@@ -314,7 +314,7 @@ Suggested extraction order (tickets F-020…F-024):
 | README dependency matrix ≠ live validators | F-010 |
 | `EmptyValidator` on app/binary/androidLibrary | F-011 |
 | AGP 7.4.2 compile vs 8.1.2 runtime | F-003 |
-| ~~CI missing SDK + Java on some jobs~~ (workflow fixed; await GHA green) | F-004 |
+| ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |
 | Compose flag in settings, limited target support | F-013 |
 | Shared `library` suffix for JVM vs Android library | F-020 |
 | Plugin publish / Portal path | F-016 |

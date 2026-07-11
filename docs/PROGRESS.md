@@ -4,7 +4,7 @@ Newest entries first.
 
 ## 2026-07-11 — F-004 CI green (workflow + badge)
 
-- **Ticket:** F-004 → `in_progress` (workflow shipped; full green claim waits on GHA run after PR)
+- **Ticket:** F-004 → `done`
 - **Branch:** `forma/F-004-ci-green` (from `origin/v2`; independent of open F-003 PR #152)
 - **Actions:**
   - Rewrote `.github/workflows/main.yml`:
@@ -16,11 +16,14 @@ Newest entries first.
     - Dropped unconditional `--scan`; use `--stacktrace --console=plain`
   - README CI badge + code-size shield → `formatools/forma` + `actions/workflows/main.yml/badge.svg`
   - `docs/ARCHITECTURE.md` §4 updated for new CI layout
-- **Local verification:** host still has JDK 17 + SDK 33 from F-001; full GHA run not available until push/PR
-- **Commits/PRs:** this run — push + PR base `v2`
-- **Blockers:** none for the workflow change itself; mark F-004 `done` only after GHA jobs are green on the PR
-- **Next step:** merge order note — F-003 (#152 AGP 8.1.2 compile align) still open on `v2`; CI PR can land independently. After both merge, re-check application job on combined tip
-- **Related open PRs:** #150 F-001, #151 F-002 (already in `v2` tip), #152 F-003
+- **GHA verification (PR run 29162702015):** **all success**
+  - Plugins: success
+  - Includer: success
+  - Depgen: success
+  - Application: success (SDK setup + full sample build)
+- **Commits/PRs:** https://github.com/formatools/forma/pull/153
+- **Blockers:** none
+- **Next step:** P0 complete after #152 (F-003) + #153 (F-004) merge to `v2`. Then P1 top is F-010 (live dependency matrix docs). Related open: #150/#151 already in `v2` tip; #152 F-003 still open.
 
 ## 2026-07-11 — v2 base of operations (merge open PRs)
 
