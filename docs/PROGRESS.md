@@ -2,6 +2,29 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-004 CI green (workflow + badge)
+
+- **Ticket:** F-004 → `done`
+- **Branch:** `forma/F-004-ci-green` (from `origin/v2`; independent of open F-003 PR #152)
+- **Actions:**
+  - Rewrote `.github/workflows/main.yml`:
+    - Display name **CI**; triggers `push` + `pull_request` + `workflow_dispatch`
+    - Concurrency cancel-in-progress per ref
+    - **All four jobs** pin Temurin 17 (`actions/setup-java@v4`)
+    - Gradle via `gradle/actions/setup-gradle@v4`
+    - `build_application`: `android-actions/setup-android@v3` with `platforms;android-33`, platform-tools, build-tools 33.0.2 + 34.0.0
+    - Dropped unconditional `--scan`; use `--stacktrace --console=plain`
+  - README CI badge + code-size shield → `formatools/forma` + `actions/workflows/main.yml/badge.svg`
+  - `docs/ARCHITECTURE.md` §4 updated for new CI layout
+- **GHA verification (PR run 29162702015):** **all success**
+  - Plugins: success
+  - Includer: success
+  - Depgen: success
+  - Application: success (SDK setup + full sample build)
+- **Commits/PRs:** https://github.com/formatools/forma/pull/153
+- **Blockers:** none
+- **Next step:** P0 complete after #152 (F-003) + #153 (F-004) merge to `v2`. Then P1 top is F-010 (live dependency matrix docs).
+
 ## 2026-07-11 — F-003 Modern toolchain (AGP compile/runtime align)
 
 - **Ticket:** F-003 → `done`
