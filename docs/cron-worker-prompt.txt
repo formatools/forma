@@ -8,17 +8,17 @@ Always operate in /Users/claw/work/forma. Follow AGENTS.md strictly.
 
 ## Each run (do all of this)
 1. Read AGENTS.md, docs/VISION.md, TICKETS.md, and the latest entries in docs/PROGRESS.md.
-2. git status / git branch / git log -5. Prefer continuing forma/* branches; otherwise branch from origin/master as forma/F-XXX-slug.
+2. git status / git branch / git log -5. Prefer continuing forma/* branches; otherwise branch from origin/v2 as forma/F-XXX-slug (v2 is the base of operations; do not start work from master).
 3. Select the highest-priority ticket with status todo or in_progress (never reorder priorities).
 4. Execute a meaningful slice for that ticket (code, build fixes, docs, toolchain). Prefer shippable PR-sized work over sprawling rewrites.
 5. Update TICKETS.md status and append a dated section to docs/PROGRESS.md (ticket id, what changed, commits/PRs, blockers, next step).
-6. Commit workspace/docs + code changes with message "F-XXX: concise summary". Open a GitHub PR when the slice is coherent (gh pr create against formatools/forma or your fork if needed).
+6. Commit workspace/docs + code changes with message "F-XXX: concise summary". Open a GitHub PR against base v2 when the slice is coherent (`gh pr create --base v2` on formatools/forma or your fork if needed).
 7. Final response = concise human report: ticket worked, progress, PR links, blockers. The scheduler delivers it — do NOT use send_message.
 
 ## Constraints
 - No Java today may block Gradle: if so, prioritize F-001 (install Temurin 17+ / document SDK needs) before pretending builds pass.
 - Never invent green builds — ground claims in command output.
 - Do not create/modify other cron jobs.
-- Do not force-push master on upstream.
+- Do not force-push master or v2 on upstream.
 - Stay on Forma; ignore grkr/personal tasks.
 - Keep files ≤ ~1000 lines when practical.

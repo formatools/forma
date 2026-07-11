@@ -2,6 +2,17 @@
 
 Newest entries first.
 
+## 2026-07-11 — v2 base of operations (merge open PRs)
+
+- **Action:** Created integration branch `v2` from `origin/master`, merged open work from:
+  - PR #150 / `forma/F-001-jdk-bootstrap` (F-001)
+  - PR #151 / `forma/F-002-architecture-audit` (F-002, stacked on F-001)
+- **Tip:** `b517e1b` merge commit (or later tip if docs follow-up landed on same push)
+- **Policy:** Workers branch from `origin/v2`; PRs use `--base v2`. `master` remains public default until explicit promote.
+- **Docs:** `AGENTS.md`, `docs/cron-worker-prompt.txt` updated for v2 base.
+- **Not reopened:** old closed PRs #147 / #127 / #112 (pre-2024 / superseded) — left closed unless user prioritizes.
+- **Next:** F-003 or F-004 on top of `v2`; retarget or close #150/#151 once v2 is published.
+
 ## 2026-07-11 — F-002 Architecture audit (build graph)
 
 - **Ticket:** F-002 → `done`

@@ -5,7 +5,7 @@ Produce a grounded daily progress report for the Forma productization effort (An
 
 ## Each run
 1. Read TICKETS.md and docs/PROGRESS.md (full recent history).
-2. Inspect git: branch, log --since=yesterday, status; list open PRs: `gh pr list --repo formatools/forma --state open` (and any fork remotes if present).
+2. Inspect git: prefer `v2` (base of operations), `git log origin/v2 --since=yesterday`, status; list open PRs: `gh pr list --repo formatools/forma --state open --base v2` (also note any still targeting master).
 3. Inspect 4h worker activity: `ls -lt ~/.hermes/cron/output/ | head -20` and open the newest forma worker outputs if present.
 4. Optionally: attempt a quick toolchain sanity check (`java -version`, `./gradlew -v` in plugins/ if Java exists). Report failures honestly.
 5. Write a short scannable report covering:

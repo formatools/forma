@@ -13,20 +13,22 @@ Ship Forma as a **working Android product**, then **forma-core** extraction, the
 3. After functional changes: update `README.md` if user-facing; append `docs/PROGRESS.md`.
 4. Keep files under ~1000 lines; split rather than grow blobs.
 5. Do **not** create new cron jobs from a cron run.
-6. Do **not** force-push `master` on upstream. Prefer branch + PR to `formatools/forma` (or stepango fork if permissions require).
+6. Do **not** force-push `master` or `v2` on upstream. Prefer branch + PR to `formatools/forma` (or stepango fork if permissions require).
 7. Ground reports in tool output (builds, git, gh). Never invent green builds.
 8. If JDK/Android SDK missing, work F-001 first (install Temurin 17+ via brew/sdkman; document exact commands in PROGRESS).
+9. **Base of operations is `v2`** (not `master`). Feature branches and PRs target `v2`. Promote `v2` → `master` only when the user asks or CI is ready for public default.
 
 ## Git workflow
 
 ```bash
 cd /Users/claw/work/forma
 git fetch origin
-git checkout -B forma/F-XXX-short-slug origin/master   # or continue existing branch
+git checkout -B forma/F-XXX-short-slug origin/v2   # or continue existing forma/* branch
 # ... implement ...
 git status && git diff
 # commit with message: "F-XXX: concise summary"
-# push and open PR when slice is meaningful
+# push and open PR with base v2 when slice is meaningful:
+#   gh pr create --base v2 --title "F-XXX: ..." --body "..."
 ```
 
 ## Verify
