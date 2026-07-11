@@ -2,6 +2,22 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-002 Architecture audit (build graph)
+
+- **Ticket:** F-002 → `done`
+- **Branch:** `forma/F-002-architecture-audit` (stacked on F-001 docs commit)
+- **Actions:**
+  - Mapped composite builds: `plugins/`, `application/`, `includer/`, `depgen/`, `build-settings/`, `build-dependencies/`
+  - Documented plugins module DAG (`target` → `validation`/`owners`/`config` → `deps` → `android`)
+  - Extracted **live** allowed-dependency validators from every Android DSL entrypoint into a table (code truth vs README matrix)
+  - Listed sample app ~35 targets (feature api/impl/res/viewbinding pattern)
+  - Audited CI workflow gaps (Java only on application job; no Android SDK step; badge/name drift)
+  - Marked forma-core extraction candidates vs Android-only code
+- **Artifact:** `docs/ARCHITECTURE.md`
+- **Commits/PRs:** this run — push + PR
+- **Blockers:** none (docs-only slice; builds not re-run; F-001 host green still the baseline)
+- **Next step:** F-003 (toolchain modernization / AGP compile vs runtime skew) or F-004 (CI green) — prefer F-003 only if code changes needed; CI is the remaining P0 risk
+
 ## 2026-07-10 — F-001 Environment bootstrap (JDK + Android SDK)
 
 - **Ticket:** F-001 → `done`
