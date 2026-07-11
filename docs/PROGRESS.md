@@ -2,6 +2,22 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-003 Modern toolchain (AGP compile/runtime align)
+
+- **Ticket:** F-003 → `done`
+- **Branch:** `forma/F-003-modern-toolchain` (from `origin/v2`)
+- **Actions:**
+  - Bumped `plugins/android` compile dep `com.android.tools.build:gradle` **7.4.2 → 8.1.2** to match sample runtime force (`application/settings.gradle.kts` + `agpVersion = "8.1.2"`)
+  - README sample config: `agpVersion` + nav safe-args / crashlytics plugin versions aligned with application
+  - Docs: `ARCHITECTURE.md` toolchain snapshot + inconsistency table; `ENV.md` re-verify notes; `TICKETS.md` status
+- **Build verification (real tool output, OpenJDK 17 + SDK 33):**
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** in 42s (58 tasks; `:android:compileKotlin` clean after AGP bump)
+  - `application/`: `./gradlew build` → **BUILD SUCCESSFUL** in 3m8s (2080 tasks)
+- **Not in this slice:** CI workflow (F-004 — still missing Java on plugin jobs + Android SDK setup); further AGP/Gradle bumps beyond 8.1.2/8.4
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none for local modern-toolchain claim
+- **Next step:** F-004 CI green (pin Temurin 17 on all jobs; install Android SDK for `build_application`; fix badge/name drift)
+
 ## 2026-07-11 — v2 base of operations (merge open PRs)
 
 - **Action:** Created integration branch `v2` from `origin/master`, merged open work from:

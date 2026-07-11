@@ -61,14 +61,15 @@ sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk \
   /Library/Java/JavaVirtualMachines/openjdk-17.jdk
 ```
 
-## Verified on 2026-07-10 (F-001)
+## Verified on 2026-07-10 (F-001) / re-verified 2026-07-11 (F-003)
 
 - `java` / `javac` 17.0.19 (Homebrew OpenJDK)
-- `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL**
+- `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (AGP compile dep **8.1.2**)
 - `includer/`: `./gradlew build` → **BUILD SUCCESSFUL**
 - `depgen/`: `./gradlew build` → **BUILD SUCCESSFUL**
-- `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (2080 tasks, with Android SDK 33)
+- `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (2080 tasks, AGP runtime 8.1.2, Android SDK 33)
 - Gradle wrappers: plugins 8.3, application 8.4
+- Toolchain note: plugins compile AGP matches sample forced AGP (no 7.4.2 skew)
 
 ## Shell profile
 
