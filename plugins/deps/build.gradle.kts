@@ -26,4 +26,10 @@ dependencies {
     implementation(project(":target"))
     implementation(project(":config"))
     implementation(gradleKotlinDsl())
+
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
