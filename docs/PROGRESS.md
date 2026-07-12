@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-010 Dependency matrix from live validators
+
+- **Ticket:** F-010 → `done`
+- **Branch:** `forma/F-010-dependency-matrix` (from `origin/v2` after F-003/F-004 merge)
+- **Actions:**
+  - Added `docs/DEPENDENCY-MATRIX.md` as canonical code-truth matrix:
+    - How name / project-dep / content validation works
+    - Per-DSL allowed suffixes from each `applyDependencies(validator=…)`
+    - Content rules (`disallowResources` / `onlyAllowResources` / `onlyAllowLayouts`)
+    - Full consumer×dependency table (Y / * / — / n/a)
+    - README vs code divergence notes
+  - Replaced aspirational README ✅/❌ grid with code-aligned summary + link
+  - Expanded Progress target table (`uiLibrary`, `viewBinding`, `androidNative`, real DSL names)
+  - Pointed `docs/ARCHITECTURE.md` §2.2 + §7 at the new doc; marked F-010 done
+- **Also this run (P0 land on `v2`):**
+  - Squash-merge path unavailable (repo allows squash only); merged #152 then #153 into `v2` locally and pushed (`123ec44`)
+  - PR #152 F-003 and #153 F-004 both **MERGED** into `v2`
+- **Build:** docs-only slice; no Gradle re-run required for matrix extraction (rules read from Kotlin sources)
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none
+- **Next step:** F-011 tighten `api`/`impl` (+ optional replace `EmptyValidator` on app/binary/androidLibrary)
+
 ## 2026-07-11 — F-004 CI green (workflow + badge)
 
 - **Ticket:** F-004 → `done`

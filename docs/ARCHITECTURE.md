@@ -130,9 +130,9 @@ Name rule (`validation`): project name equals `suffix` or ends with `-$suffix`.
 
 ### 2.2 Allowed project dependencies (from live validators)
 
-This is **code truth** (each target’s `applyDependencies(validator = …)`).
-README matrix (F-010) should be reconciled against this table — they diverge
-(e.g. several Android entry targets use `EmptyValidator`).
+**Canonical tables + full matrix:** [`docs/DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md)
+(F-010). That file is the user-facing code truth; keep this section in sync
+when validators change.
 
 | Consumer DSL | Allowed *project* dependency suffixes | Content rules |
 |--------------|----------------------------------------|---------------|
@@ -312,7 +312,7 @@ Suggested extraction order (tickets F-020…F-024):
 
 | Item | Ticket |
 |------|--------|
-| README dependency matrix ≠ live validators | F-010 |
+| ~~README dependency matrix ≠ live validators~~ → [`docs/DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) | F-010 done |
 | `EmptyValidator` on app/binary/androidLibrary | F-011 |
 | ~~AGP 7.4.2 compile vs 8.1.2 runtime~~ (aligned 8.1.2) | F-003 done |
 | ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |

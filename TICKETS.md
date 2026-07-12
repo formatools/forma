@@ -17,7 +17,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-010 | todo | Document strict dependency matrix from live code (not only README) | Source of truth from validators/targets |
+| F-010 | done | Document strict dependency matrix from live code (not only README) | `docs/DEPENDENCY-MATRIX.md` + README summary aligned to validators |
 | F-011 | todo | Tighten validation for `api` / `impl` (Dagger2-friendly boundaries) | Align with current types; related GH #56, #18 |
 | F-012 | todo | External deps catalog UX + tooling polish | `plugins/deps` catalog generators |
 | F-013 | todo | Compose support for Android library/ui targets | GH #96 |
