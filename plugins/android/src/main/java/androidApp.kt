@@ -2,13 +2,23 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
+import tools.forma.android.target.AndroidUtilTargetTemplate
+import tools.forma.android.target.ApiTargetTemplate
 import tools.forma.android.target.ApplicationTargetTemplate
+import tools.forma.android.target.ImplTargetTemplate
+import tools.forma.android.target.LibraryTargetTemplate
+import tools.forma.android.target.ResourcesTargetTemplate
+import tools.forma.android.target.TestUtilTargetTemplate
+import tools.forma.android.target.UiLibraryTargetTemplate
+import tools.forma.android.target.UtilTargetTemplate
+import tools.forma.android.target.ViewBindingTargetTemplate
+import tools.forma.android.target.WidgetTargetTemplate
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.android.utils.BuildConfiguration
-import tools.forma.validation.EmptyValidator
 import tools.forma.android.validation.disallowResources
 import tools.forma.validation.validate
+import tools.forma.validation.validator
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
@@ -18,7 +28,11 @@ import org.gradle.api.Project
 import tools.forma.android.feature.kaptConfigurationFeature
 
 /**
- * TODO Can't depend on widgets, cant depend on databindings
+ * Root Android application library (feature composition, not the APK entry).
+ *
+ * Project-deps allowlist is Dagger2-friendly: may wire feature [api]/[impl],
+ * shared libraries/utils, and UI building blocks. Cannot depend on other `app`
+ * or `binary` targets (composition stays single-rooted via [androidBinary]).
  */
 fun Project.androidApp(
     packageName: String,
@@ -48,9 +62,19 @@ fun Project.androidApp(
         kotlinAndroidFeatureDefinition()
     )
 
-
     applyDependencies(
-        validator = EmptyValidator,
+        validator = validator(
+            ApiTargetTemplate,
+            ImplTargetTemplate,
+            LibraryTargetTemplate,
+            UtilTargetTemplate,
+            AndroidUtilTargetTemplate,
+            TestUtilTargetTemplate,
+            ResourcesTargetTemplate,
+            ViewBindingTargetTemplate,
+            WidgetTargetTemplate,
+            UiLibraryTargetTemplate,
+        ),
         dependencies = dependencies,
         repositoriesConfiguration = Forma.settings.repositories,
         testDependencies = testDependencies,
@@ -58,4 +82,3 @@ fun Project.androidApp(
         configurationFeatures = kaptConfigurationFeature()
     )
 }
-

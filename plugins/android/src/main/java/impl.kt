@@ -21,6 +21,15 @@ import tools.forma.deps.core.applyDependencies
 import tools.forma.validation.validate
 import tools.forma.validation.validator
 
+/**
+ * Feature **implementation** (Android library + optional view binding / kapt).
+ *
+ * Dagger2-friendly boundaries:
+ * - **May** depend on feature `api` contracts, shared libraries/utils, and UI
+ *   building blocks (`res`, `viewbinding`, `widget`, `ui-library`).
+ * - **Must not** depend on other `impl` modules — feature graphs compose only
+ *   at [androidApp] / [androidBinary] so implementations stay independent.
+ */
 fun Project.impl(
     packageName: String,
     dependencies: FormaDependency = emptyDependency(),
@@ -67,4 +76,3 @@ fun Project.impl(
         configurationFeatures = kaptConfigurationFeature()
     )
 }
-

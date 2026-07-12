@@ -11,6 +11,13 @@ import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.FormaDependency
 import tools.forma.validation.validate
 
+/**
+ * Feature **API** surface (JVM). Dagger2-friendly public contracts only.
+ *
+ * May depend on other `api` and pure `library` modules. Must not depend on
+ * `impl`, Android UI (`widget` / `viewbinding` / `res`), or utils that pull
+ * Android into the contract layer.
+ */
 fun Project.api(
     packageName: String,
     owner: Owner = NoOwner,
@@ -29,4 +36,3 @@ fun Project.api(
         repositoriesConfiguration = Forma.settings.repositories
     )
 }
-

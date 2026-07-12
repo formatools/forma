@@ -2,27 +2,34 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-011 api/impl + composition-root validation
+
+- **Ticket:** F-011 → `done`
+- **Branch:** `forma/F-011-api-impl-validation`
+- **Code:**
+  - `androidApp` / `androidBinary` / `androidLibrary`: replace `EmptyValidator` with Dagger-friendly project-dep allowlists
+  - `androidLibrary` **cannot** depend on `impl` (or widget/viewbinding)
+  - `impl` still cannot depend on `impl`; KDoc on `api`/`impl` documents boundaries
+  - Clearer validation error text in `Validator.kt`
+- **Docs:** `docs/DEPENDENCY-MATRIX.md`, README summary, TICKETS
+- **Verify:** `plugins` + `application` `./gradlew build` (see commit/PR notes)
+- **Next:** F-012 external deps catalog UX
+
 ## 2026-07-11 — F-010 Dependency matrix from live validators
 
 - **Ticket:** F-010 → `done`
 - **Branch:** `forma/F-010-dependency-matrix` (from `origin/v2` after F-003/F-004 merge)
 - **Actions:**
-  - Added `docs/DEPENDENCY-MATRIX.md` as canonical code-truth matrix:
-    - How name / project-dep / content validation works
-    - Per-DSL allowed suffixes from each `applyDependencies(validator=…)`
-    - Content rules (`disallowResources` / `onlyAllowResources` / `onlyAllowLayouts`)
-    - Full consumer×dependency table (Y / * / — / n/a)
-    - README vs code divergence notes
-  - Replaced aspirational README ✅/❌ grid with code-aligned summary + link
-  - Expanded Progress target table (`uiLibrary`, `viewBinding`, `androidNative`, real DSL names)
-  - Pointed `docs/ARCHITECTURE.md` §2.2 + §7 at the new doc; marked F-010 done
-- **Also this run (P0 land on `v2`):**
-  - Squash-merge path unavailable (repo allows squash only); merged #152 then #153 into `v2` locally and pushed (`123ec44`)
-  - PR #152 F-003 and #153 F-004 both **MERGED** into `v2`
-- **Build:** docs-only slice; no Gradle re-run required for matrix extraction (rules read from Kotlin sources)
-- **Commits/PRs:** this branch → PR base `v2`
-- **Blockers:** none
-- **Next step:** F-011 tighten `api`/`impl` (+ optional replace `EmptyValidator` on app/binary/androidLibrary)
+  - Added `docs/DEPENDENCY-MATRIX.md` as canonical code-truth matrix
+  - Replaced aspirational README matrix with code-aligned summary
+  - Pointed `docs/ARCHITECTURE.md` at the new doc; marked F-010 done
+- **Also that run:** F-003 #152 and F-004 #153 merged into `v2` (`123ec44`)
+- **PR:** #154 squash-merged to `v2` as `619ce05`
+
+## 2026-07-11 — v2 base of operations (merge open PRs)
+
+- Created `v2` from `master`; integrated F-001/F-002; workers branch/PR against `v2`
+- Tip later advanced with F-003/F-004/F-010/F-011
 
 ## 2026-07-11 — F-004 CI green (workflow + badge)
 

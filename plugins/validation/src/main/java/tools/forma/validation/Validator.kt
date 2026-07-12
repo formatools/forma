@@ -43,8 +43,9 @@ fun throwProjectValidationError(
 ) {
     throw ProjectValidationError(
         """
-            Project ${name}: name does not match type requirements
-            Projects of type "${targets.joinToString { it::class.simpleName ?: "" }} should contain name suffix from the list: "${targets.joinToString { it.suffix }}" 
+            Project $name: name does not match allowed target type(s)
+            Allowed name suffix(es): ${targets.joinToString { it.suffix }}
+            (Used for self-type checks and project-dependency type checks.)
         """.trimIndent()
     )
 }
