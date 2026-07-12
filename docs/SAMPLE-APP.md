@@ -4,7 +4,8 @@ The `application/` composite build is Forma’s **product reference**: a multi-f
 Android app wired with the full target set (`api` / `impl` / `res` / `viewbinding` /
 `widget` / `composeWidget` / composition roots).
 
-Use this layout when teaching Forma (F-015) or copying a starter structure.
+Use this layout when teaching Forma or copying a starter structure.
+**Getting started tutorial:** [GETTING-STARTED.md](GETTING-STARTED.md) (F-015 / GH #53).
 
 ## Layout
 

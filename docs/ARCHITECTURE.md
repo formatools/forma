@@ -324,6 +324,7 @@ Suggested extraction order (tickets F-020…F-024):
 | ~~AGP 7.4.2 compile vs 8.1.2 runtime~~ (aligned 8.1.2) | F-003 done |
 | ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |
 | ~~Compose flag in settings, limited target support~~ → per-target flags + `composeWidget` | F-013 done |
+| ~~Missing Android getting-started tutorial~~ → [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) | F-015 done |
 | Shared `library` suffix for JVM vs Android library | F-020 |
 | Plugin publish / Portal path | F-016 |
 | Configuration-time cost (includer walk, stores) | F-017 |
@@ -334,13 +335,14 @@ Suggested extraction order (tickets F-020…F-024):
 
 | Goal | Start here |
 |------|------------|
+| New user / first project | [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) |
 | New target type | `AndroidTargets.kt` + new DSL file under `plugins/android/src/main/java/` + validator list |
 | Tighten dep rules | `validator(...)` in that DSL file; update this doc §2.2 |
 | Global SDK/AGP defaults | `androidProjectConfiguration` + sample `application/build.gradle.kts` |
 | External deps UX | `plugins/deps` catalog + `build-dependencies` |
 | Auto module discovery | `includer/` |
 | CI | `.github/workflows/main.yml` |
-| Sample structure | `application/feature/**`, `binary/` |
+| Sample structure | `application/feature/**`, `binary/` · [SAMPLE-APP.md](SAMPLE-APP.md) |
 
 ---
 

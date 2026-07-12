@@ -2,6 +2,22 @@
 
 Newest entries first.
 
+## 2026-07-12 — F-015 Android project tutorial (getting started)
+
+- **Ticket:** F-015 → `done` (GH #53)
+- **Branch:** `forma/F-015-android-tutorial` (from `origin/v2`)
+- **Docs:**
+  - Added `docs/GETTING-STARTED.md` — mental model, prerequisites, Path A (build
+    sample), Path B (greenfield settings/root/targets), target cheat sheet,
+    deps, day-one rules, second feature, Compose pointer, pitfalls, checklist
+  - README: Getting started section + F-015 pointer under Progress
+  - SAMPLE-APP + TICKETS status links
+- **Code:** docs-only (no plugin/sample behavior change)
+- **Verify:** markdown + cross-links only (no Gradle required for this slice)
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none
+- **Next step:** F-016 Plugin publish path (Portal user + target publish config)
+
 ## 2026-07-12 — F-014 Sample app gold-standard multi-feature structure
 
 - **Ticket:** F-014 → `done`
