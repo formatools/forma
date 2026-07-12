@@ -33,10 +33,10 @@ import tools.forma.sample.feature.characters.favorite.impl.R
 import tools.forma.sample.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
 import tools.forma.sample.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteAdapter
 import tools.forma.sample.feature.characters.favorite.impl.ui.adapter.CharacterFavoriteTouchHelper
-import tools.forma.sample.feature.favorite.viewbinding.databinding.FragmentCharacterFavoriteListBinding
+import tools.forma.sample.feature.characters.favorite.viewbinding.databinding.FragmentCharacterFavoriteListBinding
 
 class CharacterFavoriteFragment : BaseViewBindingFragment(
-    layoutId = tools.forma.sample.feature.favorite.viewbinding.R.layout.fragment_character_favorite_list
+    layoutId = tools.forma.sample.feature.characters.favorite.viewbinding.R.layout.fragment_character_favorite_list
 ) {
 
     private val viewModel: ICharacterFavoriteViewModel by viewModels()
@@ -64,7 +64,7 @@ class CharacterFavoriteFragment : BaseViewBindingFragment(
         viewBinding.includeList.charactersFavoriteList.apply {
             addItemDecoration(
                 RecyclerViewItemDecoration(
-                    resources.getDimensionPixelSize(tools.forma.sample.feature.character.favorite.res.R.dimen.characters_favorite_list_item_padding)
+                    resources.getDimensionPixelSize(tools.forma.sample.feature.characters.favorite.res.R.dimen.characters_favorite_list_item_padding)
                 )
             )
             adapter = viewAdapter

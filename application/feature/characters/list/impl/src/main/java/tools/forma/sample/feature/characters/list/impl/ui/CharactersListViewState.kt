@@ -17,7 +17,7 @@
 package tools.forma.sample.feature.characters.list.impl.ui
 
 import tools.forma.sample.core.mvvm.library.ui.BaseViewState
-import tools.forma.sample.feature.characters.list.impl.domain.model.ICharactersListViewState
+import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewState
 
 sealed class CharactersListViewState : BaseViewState, ICharactersListViewState {
 

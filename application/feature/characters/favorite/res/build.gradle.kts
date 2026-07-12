@@ -1,5 +1,5 @@
 androidRes(
-    packageName = "tools.forma.sample.feature.character.favorite.res",
+    packageName = "tools.forma.sample.feature.characters.favorite.res",
     dependencies = deps(
         google.material,
         androidx.appcompat,

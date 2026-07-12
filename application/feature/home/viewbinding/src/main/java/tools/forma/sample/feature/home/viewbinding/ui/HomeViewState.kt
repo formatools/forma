@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package tools.forma.sample.feature.characters.list.impl.ui
+package tools.forma.sample.feature.home.viewbinding.ui
 
-import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewEvent
+import tools.forma.sample.core.mvvm.library.ui.BaseViewState
 
-sealed class CharactersListViewEvent : ICharactersListViewEvent {
+sealed class HomeViewState : BaseViewState {
 
-    data class OpenCharacterDetail(val id: Long) : CharactersListViewEvent()
+    object FullScreen : HomeViewState()
+
+    object NavigationScreen : HomeViewState()
+
+    fun isFullScreen() = this is FullScreen
+    fun isNavigationScreen() = this is NavigationScreen
 }

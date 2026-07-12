@@ -91,13 +91,13 @@ class CharacterDetailFragment : BaseViewBindingFragment(
         viewBinding.addFavoriteButton.isVisible = viewState.isAddToFavorite()
         when (viewState) {
             is CharacterDetailViewState.Loading ->
-                progressDialog.show(tools.forma.sample.feature.character.detail.res.R.string.character_detail_dialog_loading_text)
+                progressDialog.show(tools.forma.sample.feature.characters.detail.res.R.string.character_detail_dialog_loading_text)
             is CharacterDetailViewState.Error ->
-                progressDialog.dismissWithErrorMessage(tools.forma.sample.feature.character.detail.res.R.string.character_detail_dialog_error_text)
+                progressDialog.dismissWithErrorMessage(tools.forma.sample.feature.characters.detail.res.R.string.character_detail_dialog_error_text)
             is CharacterDetailViewState.AddedToFavorite ->
                 Snackbar.make(
                     requireView(),
-                    tools.forma.sample.feature.character.detail.res.R.string.character_detail_added_to_favorite_message,
+                    tools.forma.sample.feature.characters.detail.res.R.string.character_detail_added_to_favorite_message,
                     Snackbar.LENGTH_LONG
                 ).show()
             is CharacterDetailViewState.Dismiss ->

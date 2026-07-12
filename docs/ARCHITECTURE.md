@@ -197,7 +197,8 @@ Sample enables `arbitraryBuildScriptNames = true`.
 
 ## 3. Sample `application/` structure
 
-~35 Forma targets, multi-feature Rick-and-Morty style demo.
+~35 Forma targets, multi-feature Marvel demo. **User-facing gold-standard
+guide:** [`SAMPLE-APP.md`](SAMPLE-APP.md) (F-014).
 
 ```
 application/
@@ -206,14 +207,15 @@ application/
 ├── root-res/               androidRes
 ├── toggle-widget/          widget
 ├── core/
-│   ├── di/library          library
-│   ├── mvvm/library        library
-│   ├── navigation/library  library
-│   ├── network/library     library
+│   ├── di/library          androidLibrary
+│   ├── mvvm/library        androidLibrary
+│   ├── navigation/library  androidLibrary
+│   ├── network/library     library (JVM)
 │   └── theme/{android-util,res}
 ├── common/
 │   ├── util                util
 │   ├── extensions/{util,android-util}
+│   ├── greeting/compose-widget  composeWidget
 │   ├── placeholder/res
 │   ├── progressbar/{res,viewbinding}
 │   └── recyclerview/widget
@@ -232,6 +234,7 @@ Wiring pattern:
 - Feature **impl** = Android library + Dagger + navigation + viewbinding/res/widget
 - **binary** depends on root-app + all feature api/impl + shared core (explicit
   graph; not only transitive)
+- `packageName` aligned to path under `tools.forma.sample…` (F-014)
 
 Root configuration (`application/build.gradle.kts`):
 

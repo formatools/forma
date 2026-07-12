@@ -1,5 +1,5 @@
 api(
-    packageName = "tools.forma.sample.common.extensions.util",
+    packageName = "tools.forma.sample.feature.characters.core.api",
     owner = Teams.core,
     dependencies = deps(
         squareup.retrofit

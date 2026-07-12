@@ -26,9 +26,9 @@ import tools.forma.sample.core.network.library.NetworkState
 import tools.forma.sample.feature.characters.list.impl.data.datasource.CharactersPageDataSourceFactory
 import tools.forma.sample.feature.characters.list.impl.data.datasource.PAGE_MAX_ELEMENTS
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
-import tools.forma.sample.feature.characters.list.impl.domain.model.ICharactersListViewEvent
-import tools.forma.sample.feature.characters.list.impl.domain.model.ICharactersListViewModel
-import tools.forma.sample.feature.characters.list.impl.domain.model.ICharactersListViewState
+import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewEvent
+import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewModel
+import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewState
 import javax.inject.Inject
 
 class CharactersListViewModel @Inject constructor(

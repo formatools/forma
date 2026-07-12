@@ -1,5 +1,5 @@
 viewBinding(
-    packageName = "tools.forma.sample.feature.favorite.viewbinding",
+    packageName = "tools.forma.sample.feature.characters.favorite.viewbinding",
     dependencies = deps(
         google.material,
         androidx.navigation,

@@ -37,6 +37,6 @@ class SampleMainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(tools.forma.sample.rootres.R.layout.activity_main)
+        setContentView(tools.forma.sample.root.res.R.layout.activity_main)
     }
 }

@@ -16,9 +16,9 @@ impl(
             viewbinding.viewpropertydelegate,
         ) +
             deps(libs.jakewhartonTimber) +
-            deps(projects.featureCharactersCoreApi) +
             deps(
-                target(projects.featureCharactersListApi),
+                target(":feature:characters:core:api"),
+                target(":feature:characters:list:api"),
                 target(":feature:characters:list:viewbinding"),
                 target(":feature:characters:list:res"),
                 target(":core:di:library"),
