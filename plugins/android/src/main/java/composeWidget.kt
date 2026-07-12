@@ -64,7 +64,6 @@ fun Project.composeWidget(
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        androidTestDependencies = androidTestDependencies,
-        repositoriesConfiguration = Forma.settings.repositories
+        androidTestDependencies = androidTestDependencies
     )
 }

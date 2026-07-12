@@ -14,16 +14,59 @@ object EmptyValidator : Validator {
 }
 
 fun TargetTemplate.validate(name: String): Boolean {
-    return name == suffix || name.endsWith("-$suffix")
+    return name == suffix || name.endsWith("-$suffix", ignoreCase = false)
 }
 
 fun FormaTarget.validate(target: TargetTemplate) {
     validator(target).validate(this)
 }
 
-fun validator(vararg targets: TargetTemplate): Validator = object : Validator {
+/**
+ * Name-suffix validator for project dependency / self-type checks.
+ *
+ * Validators are **identity-cached** for a given set of [TargetTemplate] instances so
+ * multi-module configuration does not allocate a fresh anonymous [Validator] (and
+ * intermediate lists) on every `impl` / `api` / … call (F-017 / GH #106).
+ */
+fun validator(vararg targets: TargetTemplate): Validator {
+    if (targets.isEmpty()) return EmptyValidator
+    if (targets.size == 1) {
+        val only = targets[0]
+        return singleValidators.getOrPut(only) { SingleSuffixValidator(only) }
+    }
+    // Identity-based key: TargetTemplate objects are singletons in Forma.
+    val key = targets.toList()
+    return multiValidators.getOrPut(key) { MultiSuffixValidator(targets.copyOf()) }
+}
+
+private val singleValidators = java.util.concurrent.ConcurrentHashMap<TargetTemplate, Validator>()
+private val multiValidators = java.util.concurrent.ConcurrentHashMap<List<TargetTemplate>, Validator>()
+
+private class SingleSuffixValidator(
+    private val template: TargetTemplate
+) : Validator {
+    private val suffix: String = template.suffix
+    private val dashSuffix: String = "-$suffix"
+
     override fun validate(target: FormaTarget) {
-        validateName(target.name, *targets)
+        val name = target.name
+        if (name == suffix || name.endsWith(dashSuffix)) return
+        throwProjectValidationError(name, listOf(template))
+    }
+}
+
+private class MultiSuffixValidator(
+    private val templates: Array<out TargetTemplate>
+) : Validator {
+    private val suffixes: Array<String> = Array(templates.size) { templates[it].suffix }
+    private val dashSuffixes: Array<String> = Array(suffixes.size) { "-${suffixes[it]}" }
+
+    override fun validate(target: FormaTarget) {
+        val name = target.name
+        for (i in suffixes.indices) {
+            if (name == suffixes[i] || name.endsWith(dashSuffixes[i])) return
+        }
+        throwProjectValidationError(name, templates.asList())
     }
 }
 
@@ -31,10 +74,10 @@ fun validateName(
     name: String,
     vararg targets: TargetTemplate
 ) {
-    //Name should match with at least one targetName
-    if (targets.map { it.validate(name) }.contains(true).not()) {
-        throwProjectValidationError(name, targets.toList())
+    for (template in targets) {
+        if (template.validate(name)) return
     }
+    throwProjectValidationError(name, targets.toList())
 }
 
 fun throwProjectValidationError(

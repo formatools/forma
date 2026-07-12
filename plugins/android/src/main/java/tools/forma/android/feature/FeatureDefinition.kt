@@ -15,14 +15,19 @@ data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val pluginExtension: KClass<Extension>,
     val featureConfiguration: FeatureConfiguration,
     val defaultDependencies: NamedDependency = emptyDependency(),
-    val androidProjectSettings: AndroidProjectSettings = Forma.settings,
+    /**
+     * Optional settings override. When null (default), [applyConfiguration] reads the live
+     * [Forma.settings] so cached [FeatureDefinition] instances stay correct after
+     * `androidProjectConfiguration { … }` stores settings (F-017).
+     */
+    val androidProjectSettings: AndroidProjectSettings? = null,
     val configuration: (Extension, FeatureConfiguration, Project, AndroidProjectSettings) -> Unit
 ) {
     fun applyConfiguration(project: Project) = configuration(
         project.the(pluginExtension),
         featureConfiguration,
         project,
-        androidProjectSettings
+        androidProjectSettings ?: Forma.settings
     )
 }
 
@@ -31,7 +36,10 @@ fun Project.applyFeatures(
 ) = features.forEach { definition ->
     apply(plugin = definition.pluginName)
     definition.applyConfiguration(this)
-    definition.defaultDependencies.names.forEach {
-        dependencies.addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+    val defaults = definition.defaultDependencies.names
+    if (defaults.isNotEmpty()) {
+        defaults.forEach {
+            dependencies.addDependencyTo(it.config.name, it.name) { isTransitive = it.transitive }
+        }
     }
 }

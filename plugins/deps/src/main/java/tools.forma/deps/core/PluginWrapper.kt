@@ -20,7 +20,7 @@ class PluginWrapper<TPluginExtension : Any>(
         project.applyDependencies(
             validator = EmptyValidator,
             dependencies = dependencies,
-            repositoriesConfiguration = {}
+            repositoriesConfiguration = EmptyRepositoriesConfiguration
         )
     }
 }

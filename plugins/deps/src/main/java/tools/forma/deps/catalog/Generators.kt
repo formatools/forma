@@ -8,9 +8,10 @@ import org.gradle.configurationcache.extensions.capitalized
  * accessor names (e.g. `com.jakewharton.timber:timber:5.0.1` → `jakewhartonTimber`).
  *
  * Keep this list conservative: filtering too aggressively yields empty or colliding names.
+ * Stored as a [Set] for O(1) membership during name generation (F-017).
  */
-val filteredTokens =
-    listOf(
+val filteredTokens: Set<String> =
+    setOf(
         "com",
         "io",
         "net",
@@ -67,6 +68,7 @@ internal fun generateName(
 ): String {
     val name =
         tokens
+            .asSequence()
             .filter { it.isNotBlank() && it !in filteredTokens }
             .distinct()
             .joinToString("") { it.capitalized() }

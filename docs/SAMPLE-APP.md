@@ -119,5 +119,5 @@ JDK **17**. See [ENV.md](ENV.md), [COMPOSE.md](COMPOSE.md), [ARCHITECTURE.md](AR
 5. **Modern targets** represented: View widgets + Compose widget side by side.
 6. **Documented** enough to copy without reading every `build.gradle.kts`.
 
-Not in scope for F-014: full navigation redesign (GH #46), publish path (F-016),
-or configuration-time performance (F-017).
+Not in scope for F-014: full navigation redesign (GH #46), publish path (F-016).
+Configuration-time performance: [CONFIGURATION-PERFORMANCE.md](CONFIGURATION-PERFORMANCE.md) (F-017).

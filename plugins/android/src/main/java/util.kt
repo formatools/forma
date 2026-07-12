@@ -48,7 +48,6 @@ fun Project.util(
     applyDependencies(
         validator = validator(UtilTargetTemplate, LibraryTargetTemplate),
         dependencies = dependencies,
-        testDependencies = testDependencies,
-        repositoriesConfiguration = Forma.settings.repositories
+        testDependencies = testDependencies
     )
 }
