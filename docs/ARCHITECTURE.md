@@ -177,8 +177,9 @@ compose flag, owners mandatory flag, Java compatibility).
   `FileDependency`, `PlatformDependency`, `MixedDependency`, `EmptyDependency`)
 - Application: `applyDependencies` — validates each project dep, applies plugin
   side-effects from catalog registrations, sets transitive flags
-- Catalog: `projectDependencies` / `bundle` / `plugin` in settings
-  (`tools.forma.deps.catalog`) + name generators
+- Catalog: `projectDependencies` / `library` / `bundle` / `plugin` in settings
+  (`tools.forma.deps.catalog`) + pure name generators + GAV validation
+  (user guide: [`DEPS-CATALOG.md`](DEPS-CATALOG.md))
 - Sample also uses hand-written catalogs in `build-dependencies/dependencies`
   (`Androidx`, `Google`, `Test`, …)
 

@@ -101,6 +101,24 @@ androidLibrary(
 
 Worker / contributor host setup (JDK 17+, Android SDK platform 33): see [`docs/ENV.md`](docs/ENV.md) and `source scripts/env-mac.sh`.
 
+## External dependency catalogs
+
+Declare third-party libraries and plugins once in `settings.gradle.kts` with
+`projectDependencies` (version catalog), or use typed Kotlin catalogs
+(`build-dependencies/` pattern). Full guide: [`docs/DEPS-CATALOG.md`](docs/DEPS-CATALOG.md).
+
+```gradle
+// settings.gradle.kts
+projectDependencies(
+    "libs",
+    "com.jakewharton.timber:timber:5.0.1",
+    library("io.coil-kt:coil:2.1.0", name = "coil"),
+    bundle(name = "room", "androidx.room:room-runtime:2.5.1", /* … */),
+    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.7.4"),
+)
+// modules: deps(libs.jakewhartonTimber, libs.coil, libs.bundles.room)
+```
+
 ## Progress
 
 DSL names match code entrypoints (`widget`, `util`, …). **Validation** =

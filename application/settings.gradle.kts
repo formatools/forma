@@ -1,4 +1,5 @@
 import tools.forma.deps.catalog.bundle
+import tools.forma.deps.catalog.library
 import tools.forma.deps.catalog.plugin
 import tools.forma.deps.catalog.projectDependencies
 import tools.forma.deps.core.CustomConfiguration
@@ -66,10 +67,16 @@ val roomVersion = "2.5.1"
 
 val ksp = CustomConfiguration("ksp")
 
+// Version catalog UX: bare GAV, library(name=…), bundle, plugin — see docs/DEPS-CATALOG.md
 projectDependencies(
     "libs",
     "com.jakewharton.timber:timber:5.0.1",
-    bundle(name = "coil", "io.coil-kt:coil:$coilVersion", "io.coil-kt:coil-base:$coilVersion"),
+    // Explicit short names (library()) keep accessors stable: libs.coil, libs.coilBase
+    bundle(
+        name = "coil",
+        library("io.coil-kt:coil:$coilVersion", name = "coil"),
+        library("io.coil-kt:coil-base:$coilVersion", name = "coilBase"),
+    ),
     bundle(
         name = "room",
         "androidx.sqlite:sqlite:$sqliteVersion",

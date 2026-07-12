@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-012 External deps catalog UX
+
+- **Ticket:** F-012 → `done`
+- **Branch:** `forma/F-012-deps-catalog-ux` (from `origin/v2`)
+- **Code (`plugins/deps` catalog):**
+  - Pure name generators (removed configuration-time `println`)
+  - Clear GAV validation via `parseGroupArtifactVersion` (exactly `group:artifact:version`)
+  - Fail-fast when auto-name would be empty (all tokens filtered)
+  - New `library(gav, name = …)` factory for stable short accessors
+  - `projectDependencies` accepts `library()` / `bundle()` / `plugin()` / bare GAV; better error for unknown types
+  - Unit tests: `GeneratorsTest` (`:deps:test`)
+- **Sample:** `application/settings.gradle.kts` uses `library(..., name = "coil"|"coilBase")` inside the coil bundle
+- **Docs:** `docs/DEPS-CATALOG.md` (user guide); README section; ARCHITECTURE §2.4 pointer
+- **Verify (real tool output, OpenJDK 17 + SDK 33):**
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL**
+  - `plugins/`: `./gradlew :deps:test` → **BUILD SUCCESSFUL** (GeneratorsTest)
+  - `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (2080 tasks)
+  - Configuration log no longer spam-prints `Generated name …`
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none
+- **Next step:** F-013 Compose support (GH #96)
+
 ## 2026-07-11 — F-011 api/impl + composition-root validation
 
 - **Ticket:** F-011 → `done`
