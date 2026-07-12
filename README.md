@@ -109,9 +109,9 @@ project-dep type checks + content layout rules from live validators
 
 | Supported target types | implemented | purpose | validation |
 |:----------------------:|:-----------:|:-------:|:----------:|
-| `androidBinary` | ✅ | Generate single APK | name + no `res/`; project deps **unrestricted** (`EmptyValidator`) |
-| `androidApp` | ✅ | Application / root Android library | name + no `res/`; project deps **unrestricted** |
-| `androidLibrary` | ✅ | Android library | name only; project deps **unrestricted** |
+| `androidBinary` | ✅ | Generate single APK | name + no `res/`; composition-root project-dep list |
+| `androidApp` | ✅ | Application / root Android library | name + no `res/`; composition-root project-dep list |
+| `androidLibrary` | ✅ | Android library | name + project-dep list (**no** `impl`) |
 | `uiLibrary` | ✅ | Shared UI library for impl/widget | project-dep list |
 | `widget` | ✅ | Custom View / UI component | project-dep list |
 | `androidRes` | ✅ | Resources only | only `res/` under `src/main` + project-dep list |
@@ -137,7 +137,7 @@ That document is generated from each target’s
 | `api` | `api`, `library` |
 | `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` |
 | `library` (JVM) | `util`, `test-util` |
-| `androidLibrary` | *any* (`EmptyValidator`) |
+| `androidLibrary` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
 | `uiLibrary` | `widget`, `util`, `android-util`, `res` |
 | `util` | `util`, `library` |
 | `androidUtil` | `android-util`, `test-util`, `res` |
@@ -146,11 +146,11 @@ That document is generated from each target’s
 | `androidRes` | `res`, `widget` |
 | `widget` | `ui-library`, `widget`, `util`, `android-util`, `res` |
 | `viewBinding` | `api`, `widget`, `res`, `library`, `android-util` |
-| `androidApp` / `androidBinary` | *any* (`EmptyValidator`) |
+| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
+| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
 | `androidNative` | *(no project-dep check)* |
 
-Tightening unrestricted entry targets and Dagger-friendly `api`/`impl`
-boundaries is tracked as **F-011**.
+Dagger2-friendly `api`/`impl` + composition roots: **F-011** (landed).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

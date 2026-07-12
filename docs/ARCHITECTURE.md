@@ -139,7 +139,7 @@ when validators change.
 | `api` | `api`, `library` | no `res/` under `src/main` |
 | `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` | — |
 | `library` (JVM) | `util`, `test-util` | — |
-| `androidLibrary` | **EmptyValidator** (any project) | — |
+| `androidLibrary` | `library`, `util`, `android-util`, `test-util`, `res`, `api` | — |
 | `uiLibrary` | `widget`, `util`, `android-util`, `res` | — |
 | `util` | `util`, `library` | no `res/` |
 | `androidUtil` | `android-util`, `test-util`, `res` | no `res/` |
@@ -148,14 +148,14 @@ when validators change.
 | `androidRes` | `res`, `widget` | **only** `res/` under `src/main` |
 | `widget` | `ui-library`, `widget`, `util`, `android-util`, `res` | — |
 | `viewBinding` | `api`, `widget`, `res`, `library`, `android-util` | only `layout*` under `src/main/res` |
-| `androidApp` | **EmptyValidator** | no `res/` |
-| `androidBinary` | **EmptyValidator** | no `res/` |
+| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` | no `res/` |
+| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` | no `res/` |
 | `androidNative` | (no `applyDependencies` in current code) | no `res/` |
 
 Notes for later tickets:
 
-- `impl` cannot depend on other `impl` (good for Dagger-ish boundaries) — F-011.
-- `androidLibrary` / `androidApp` / `androidBinary` skip dep-type checks — partial validation in README sense.
+- `impl` cannot depend on other `impl` (Dagger-friendly) — enforced; F-011.
+- `androidLibrary` / `androidApp` / `androidBinary` use restricted project-dep lists — F-011 done.
 - JVM `library` and Android `androidLibrary` share `LibraryTargetTemplate` suffix `library` — naming collision risk for forma-core registry design (F-020).
 
 ### 2.3 Feature stack (Android module)
@@ -313,7 +313,7 @@ Suggested extraction order (tickets F-020…F-024):
 | Item | Ticket |
 |------|--------|
 | ~~README dependency matrix ≠ live validators~~ → [`docs/DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) | F-010 done |
-| `EmptyValidator` on app/binary/androidLibrary | F-011 |
+| ~~`EmptyValidator` on app/binary/androidLibrary~~ (composition-root + library allowlists) | F-011 done |
 | ~~AGP 7.4.2 compile vs 8.1.2 runtime~~ (aligned 8.1.2) | F-003 done |
 | ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |
 | Compose flag in settings, limited target support | F-013 |

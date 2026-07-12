@@ -8,7 +8,7 @@ Source of truth for **F-010**. Every rule below is taken from the live
 When validators change, update **this file first**, then the README summary
 matrix. Do not invent rules from aspirational docs.
 
-Last verified: **2026-07-11** against `v2` tip (post F-003 / F-004).
+Last verified: **2026-07-11** against `v2` tip + F-011 validator tighten.
 
 ---
 
@@ -76,7 +76,7 @@ these suffixes (or are unrestricted if `EmptyValidator`).
 | `api` | `api.kt` | `validator(api, library)` | `api`, `library` |
 | `impl` | `impl.kt` | `validator(api, android-util, test-util, util, library, ui-library, res, viewbinding, widget)` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` |
 | `library` (JVM) | `library.kt` | `validator(util, test-util)` | `util`, `test-util` |
-| `androidLibrary` | `androidLibrary.kt` | **`EmptyValidator`** | *any project* |
+| `androidLibrary` | `androidLibrary.kt` | `validator(library, util, android-util, test-util, res, api)` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
 | `uiLibrary` | `uiLibrary.kt` | `validator(widget, util, android-util, res)` | `widget`, `util`, `android-util`, `res` |
 | `util` | `util.kt` | `validator(util, library)` | `util`, `library` |
 | `androidUtil` | `androidUtil.kt` | `validator(android-util, test-util, res)` | `android-util`, `test-util`, `res` |
@@ -85,21 +85,25 @@ these suffixes (or are unrestricted if `EmptyValidator`).
 | `androidRes` | `androidRes.kt` | `validator(res, widget)` | `res`, `widget` |
 | `widget` | `widget.kt` | `validator(ui-library, widget, util, android-util, res)` | `ui-library`, `widget`, `util`, `android-util`, `res` |
 | `viewBinding` | `viewBinding.kt` | `validator(api, widget, res, library, android-util)` | `api`, `widget`, `res`, `library`, `android-util` |
-| `androidApp` | `androidApp.kt` | **`EmptyValidator`** | *any project* |
-| `androidBinary` | `androidBinary.kt` | **`EmptyValidator`** | *any project* |
+| `androidApp` | `androidApp.kt` | `validator(api, impl, library, util, android-util, test-util, res, viewbinding, widget, ui-library)` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
+| `androidBinary` | `androidBinary.kt` | `validator(app, api, impl, library, util, android-util, test-util, res, viewbinding, widget, ui-library)` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
 | `androidNative` | `androidNative.kt` | *(no `applyDependencies`)* | *no project-dep validation* |
 
 ### Explicit non-edges (important product rules)
 
 These follow from the table (not from separate deny-lists):
 
-- **`impl` cannot depend on `impl`** — only listed suffixes; good for
-  Dagger-style feature boundaries (tighten further in F-011).
+- **`impl` cannot depend on `impl`** — only listed suffixes; Dagger-style feature
+  boundaries (implementations compose only at app/binary).
 - **`api` cannot depend on `impl` / widgets / res / viewbinding** — JVM API
   surface only (`api` + `library`).
 - **`library` (JVM) cannot depend on `api` / `impl`** — comment in code:
   “Can't depend on api\impl”.
 - **`util` cannot depend on `api` / `impl`** — same intent as library.
+- **`androidLibrary` cannot depend on `impl` / widgets / viewbinding** —
+  shared libs may use `api` contracts only (F-011).
+- **`androidApp` / `androidBinary` cannot depend on other `binary`** —
+  single APK composition root (F-011; `app` may not depend on `app`/`binary`).
 - **Circular-ish UI graph is intentional while experimental:** `uiLibrary`
   may depend on `widget`, and `widget` may depend on `ui-library`
   (`uiLibrary.kt` comment).
@@ -142,7 +146,7 @@ Rows = **consumer**. Columns = **dependency type (suffix)**.
 | **api** | Y | — | Y | — | — | — | — | — | — | — | — | — | — | — |
 | **impl** | Y | — | Y | Y | Y | Y | Y | — | Y | Y | Y | — | — | — |
 | **library** (JVM) | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — |
-| **androidLibrary** | * | * | * | * | * | * | * | * | * | * | * | * | * | * |
+| **androidLibrary** | Y | — | Y | — | Y | Y | Y | — | Y | — | — | — | — | — |
 | **uiLibrary** | — | — | — | — | Y | — | Y | — | Y | — | Y | — | — | — |
 | **util** | — | — | Y | — | Y | — | — | — | — | — | — | — | — | — |
 | **androidUtil** | — | — | — | — | — | Y | Y | — | Y | — | — | — | — | — |
@@ -151,8 +155,8 @@ Rows = **consumer**. Columns = **dependency type (suffix)**.
 | **androidRes** | — | — | — | — | — | — | — | — | Y | — | Y | — | — | — |
 | **widget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | — | — | — |
 | **viewBinding** | Y | — | Y | — | — | — | Y | — | Y | — | Y | — | — | — |
-| **androidApp** | * | * | * | * | * | * | * | * | * | * | * | * | * | * |
-| **androidBinary** | * | * | * | * | * | * | * | * | * | * | * | * | * | * |
+| **androidApp** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | — | — | — |
+| **androidBinary** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — |
 | **androidNative** | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
 
 Self-deps: a type may depend on itself only if its own suffix is in its
@@ -171,8 +175,8 @@ Notable mismatches fixed by treating **this document** as truth:
 
 | Topic | Old README implication | Live code |
 |-------|------------------------|-----------|
-| `androidLibrary` project deps | selective ✅/❌ grid | **`EmptyValidator`** (unrestricted) |
-| `androidApp` / `androidBinary` project deps | selective grid | **`EmptyValidator`** |
+| `androidLibrary` project deps | selective ✅/❌ grid | **restricted** (no `impl`/widget/viewbinding) after F-011 |
+| `androidApp` / `androidBinary` project deps | selective grid | **restricted** composition-root lists after F-011 |
 | `impl` → `impl` | ❌ (agrees) | not in allowed list |
 | `api` → `library` | not clearly shown | **allowed** |
 | `impl` → `ui-library` / `viewbinding` / `widget` / `res` | partially missing | **allowed** |
@@ -181,8 +185,7 @@ Notable mismatches fixed by treating **this document** as truth:
 | `uiLibrary` | missing / confused with library | full row above |
 | DSL names | `androidWidget`, `utils`, … | `widget`, `util`, … |
 
-Tightening `EmptyValidator` targets and Dagger-friendly `api`/`impl` edges is
-**F-011**, not documentation fiction.
+Tightening unrestricted entry targets landed in **F-011**.
 
 ---
 
@@ -193,7 +196,7 @@ Tightening `EmptyValidator` targets and Dagger-friendly `api`/`impl` edges is
 - `feature/*/api` → JVM `api`
 - `feature/*/impl` → Android `impl` + viewbinding/res/widget/core libraries
 - `binary` → `androidBinary` with explicit deps on root-app + feature api/impl
-  (legal today because binary uses `EmptyValidator`)
+  (legal under composition-root allowlist; F-011)
 
 See `docs/ARCHITECTURE.md` §2.2 and §3 for the module map.
 
@@ -206,5 +209,5 @@ See `docs/ARCHITECTURE.md` §2.2 and §3 for the module map.
 3. Refresh the compact README matrix (link here as canonical).
 4. Note the change in `docs/PROGRESS.md` / ticket notes when user-facing.
 
-Related tickets: **F-011** (tighten validation), **F-020** (forma-core type
+Related tickets: **F-012** (deps catalog UX), **F-020** (forma-core type
 registry / shared `library` suffix).
