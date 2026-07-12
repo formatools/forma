@@ -14,6 +14,7 @@ import tools.forma.android.target.UiLibraryTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.ViewBindingTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
+import tools.forma.android.target.ComposeWidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
@@ -22,13 +23,16 @@ import tools.forma.validation.validate
 import tools.forma.validation.validator
 
 /**
- * Feature **implementation** (Android library + optional view binding / kapt).
+ * Feature **implementation** (Android library + optional view binding / kapt / Compose).
  *
  * Dagger2-friendly boundaries:
  * - **May** depend on feature `api` contracts, shared libraries/utils, and UI
- *   building blocks (`res`, `viewbinding`, `widget`, `ui-library`).
+ *   building blocks (`res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`).
  * - **Must not** depend on other `impl` modules — feature graphs compose only
  *   at [androidApp] / [androidBinary] so implementations stay independent.
+ *
+ * @param compose enable Jetpack Compose for this target; defaults to project-wide
+ *   [androidProjectConfiguration] `compose` flag.
  */
 fun Project.impl(
     packageName: String,
@@ -36,6 +40,7 @@ fun Project.impl(
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
     viewBinding: Boolean = false,
+    compose: Boolean = Forma.settings.compose,
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
@@ -50,7 +55,8 @@ fun Project.impl(
         consumerMinificationFiles,
         manifestPlaceholders,
         selfValidator = validator(ImplTargetTemplate),
-        viewBinding = viewBinding
+        viewBinding = viewBinding,
+        compose = compose
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
@@ -68,6 +74,7 @@ fun Project.impl(
             ResourcesTargetTemplate,
             ViewBindingTargetTemplate,
             WidgetTargetTemplate,
+            ComposeWidgetTargetTemplate,
         ),
         dependencies = dependencies,
         testDependencies = testDependencies,

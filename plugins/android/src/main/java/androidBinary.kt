@@ -16,6 +16,7 @@ import tools.forma.android.target.UiLibraryTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.ViewBindingTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
+import tools.forma.android.target.ComposeWidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
 import tools.forma.deps.core.FormaDependency
@@ -47,7 +48,9 @@ fun Project.androidBinary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
-    manifestPlaceholders: Map<String, Any> = emptyMap()
+    manifestPlaceholders: Map<String, Any> = emptyMap(),
+    /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
+    compose: Boolean = Forma.settings.compose,
 ): TargetBuilder {
 
     disallowResources()
@@ -61,7 +64,8 @@ fun Project.androidBinary(
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
-        manifestPlaceholders
+        manifestPlaceholders,
+        compose = compose,
     )
     applyFeatures(
         androidBinaryFeatureDefinition(binaryFeatureConfiguration)
@@ -79,6 +83,7 @@ fun Project.androidBinary(
             ResourcesTargetTemplate,
             ViewBindingTargetTemplate,
             WidgetTargetTemplate,
+            ComposeWidgetTargetTemplate,
             UiLibraryTargetTemplate,
         ),
         dependencies = dependencies,

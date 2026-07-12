@@ -20,7 +20,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-010 | done | Document strict dependency matrix from live code (not only README) | `docs/DEPENDENCY-MATRIX.md` + README summary aligned to validators |
 | F-011 | done | Tighten validation for `api` / `impl` (Dagger2-friendly boundaries) | app/binary/androidLibrary no longer EmptyValidator; impl still no→impl; docs matrix updated |
 | F-012 | done | External deps catalog UX + tooling polish | `library()` + pure generators + GAV validation + unit tests + `docs/DEPS-CATALOG.md` |
-| F-013 | todo | Compose support for Android library/ui targets | GH #96 |
+| F-013 | done | Compose support for Android library/ui targets | GH #96; `compose` flags + `composeWidget`; `docs/COMPOSE.md` |
 | F-014 | todo | Sample app: gold-standard multi-feature structure | Home/characters already present; modernize |
 | F-015 | todo | Android project tutorial (getting started) | GH #53 |
 | F-016 | todo | Plugin publish path (Portal user + target publish config) | GH #132, #133 |

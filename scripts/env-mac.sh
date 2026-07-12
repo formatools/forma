@@ -9,7 +9,8 @@
 #   export ANDROID_HOME="/usr/local/share/android-commandlinetools"
 #   yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
 #   "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install \
-#     "platforms;android-33" "platform-tools" "build-tools;33.0.2" "build-tools;34.0.0"
+#     "platforms;android-34" "platforms;android-33" "platform-tools" \
+#     "build-tools;33.0.2" "build-tools;34.0.0"
 #   printf 'sdk.dir=%s\n' "$ANDROID_HOME" > application/local.properties
 #
 # Note: brew install --cask temurin@17 needs sudo for the system pkg installer;
@@ -25,6 +26,9 @@ if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
   return 1 2>/dev/null || exit 1
 fi
 
+if [[ ! -d "$ANDROID_HOME/platforms/android-34" ]]; then
+  echo "env-mac.sh: warning: Android platform 34 missing under $ANDROID_HOME (sample compileSdk)" >&2
+fi
 if [[ ! -d "$ANDROID_HOME/platforms/android-33" ]]; then
   echo "env-mac.sh: warning: Android platform 33 missing under $ANDROID_HOME" >&2
 fi

@@ -4,6 +4,7 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.ResourcesTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
+import tools.forma.android.target.ComposeWidgetTargetTemplate
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.validation.validate
@@ -39,7 +40,8 @@ fun Project.androidRes(
     applyDependencies(
         validator = validator(
             ResourcesTargetTemplate,
-            WidgetTargetTemplate
+            WidgetTargetTemplate,
+            ComposeWidgetTargetTemplate,
         ),
         dependencies = dependencies,
         repositoriesConfiguration = Forma.settings.repositories

@@ -125,6 +125,7 @@ Defined in `plugins/android/.../AndroidTargets.kt`:
 | `ApiTargetTemplate` | `api` | `api` |
 | `ImplTargetTemplate` | `impl` | `impl` |
 | `WidgetTargetTemplate` | `widget` | `widget` |
+| `ComposeWidgetTargetTemplate` | `compose-widget` | `composeWidget` |
 
 Name rule (`validation`): project name equals `suffix` or ends with `-$suffix`.
 
@@ -137,19 +138,20 @@ when validators change.
 | Consumer DSL | Allowed *project* dependency suffixes | Content rules |
 |--------------|----------------------------------------|---------------|
 | `api` | `api`, `library` | no `res/` under `src/main` |
-| `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` | — |
+| `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` | — |
 | `library` (JVM) | `util`, `test-util` | — |
 | `androidLibrary` | `library`, `util`, `android-util`, `test-util`, `res`, `api` | — |
-| `uiLibrary` | `widget`, `util`, `android-util`, `res` | — |
+| `uiLibrary` | `widget`, `compose-widget`, `util`, `android-util`, `res` | — |
 | `util` | `util`, `library` | no `res/` |
 | `androidUtil` | `android-util`, `test-util`, `res` | no `res/` |
 | `testUtil` | `test-util`, `util` | no `res/` |
 | `androidTestUtil` | `android-test-util`, `test-util` | — |
-| `androidRes` | `res`, `widget` | **only** `res/` under `src/main` |
-| `widget` | `ui-library`, `widget`, `util`, `android-util`, `res` | — |
-| `viewBinding` | `api`, `widget`, `res`, `library`, `android-util` | only `layout*` under `src/main/res` |
-| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` | no `res/` |
-| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` | no `res/` |
+| `androidRes` | `res`, `widget`, `compose-widget` | **only** `res/` under `src/main` |
+| `widget` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` | — |
+| `composeWidget` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` | always Compose |
+| `viewBinding` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util` | only `layout*` under `src/main/res` |
+| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` | no `res/` |
+| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` | no `res/` |
 | `androidNative` | (no `applyDependencies` in current code) | no `res/` |
 
 Notes for later tickets:
@@ -169,7 +171,8 @@ Under `tools.forma.android.feature`:
 
 Configuration singleton: `Forma` object delegates to `FormaSettingsStore`
 (`AndroidProjectSettings`: min/target/compile SDK, AGP/Kotlin versions, repos,
-compose flag, owners mandatory flag, Java compatibility).
+compose default + compose compiler version, owners mandatory flag, Java
+compatibility). See [`COMPOSE.md`](COMPOSE.md) for F-013 usage.
 
 ### 2.4 Deps subsystem
 
@@ -234,7 +237,7 @@ Root configuration (`application/build.gradle.kts`):
 
 ```kotlin
 androidProjectConfiguration(
-  minSdk = 21, targetSdk = 33, compileSdk = 33,
+  minSdk = 21, targetSdk = 33, compileSdk = 34,
   agpVersion = "8.1.2",
   extraPlugins = [ demo deps, KSP, nav safe-args, crashlytics ]
 )
@@ -275,7 +278,7 @@ Still optional / later: plugin publish or Plugin Marker validation job; deeper G
 | Gradle | plugins 8.3, application 8.4 |
 | AGP | **8.1.2** sample runtime + plugins compile (aligned F-003) |
 | Kotlin | embeddedKotlin from Gradle distribution |
-| Android SDK | sample compile/target 33; host platforms;android-33 + build-tools 33/34 |
+| Android SDK | sample compileSdk **34** / target 33; host platforms 34+33 + build-tools 33/34 |
 | Forma version | 0.1.3 |
 
 Host bootstrap details: `docs/ENV.md`, `scripts/env-mac.sh` (F-001).
@@ -317,7 +320,7 @@ Suggested extraction order (tickets F-020…F-024):
 | ~~`EmptyValidator` on app/binary/androidLibrary~~ (composition-root + library allowlists) | F-011 done |
 | ~~AGP 7.4.2 compile vs 8.1.2 runtime~~ (aligned 8.1.2) | F-003 done |
 | ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |
-| Compose flag in settings, limited target support | F-013 |
+| ~~Compose flag in settings, limited target support~~ → per-target flags + `composeWidget` | F-013 done |
 | Shared `library` suffix for JVM vs Android library | F-020 |
 | Plugin publish / Portal path | F-016 |
 | Configuration-time cost (includer walk, stores) | F-017 |

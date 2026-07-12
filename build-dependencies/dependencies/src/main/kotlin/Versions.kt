@@ -39,6 +39,9 @@ object versions {
         const val vectordrawable = "1.1.0"
         const val versionedparcelable = "1.1.0"
         const val viewpager = "1.0.0"
+        // Compose set for sample (Kotlin 1.9.10 / compiler 1.5.3)
+        // Pin artifacts directly (Forma MixedDependency does not yet carry PlatformSpec)
+        const val compose = "1.5.3"
     }
 
     object google {

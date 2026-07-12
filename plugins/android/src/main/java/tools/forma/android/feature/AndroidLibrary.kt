@@ -16,6 +16,8 @@ class AndroidLibraryFeatureConfiguration(
     val consumerMinificationFiles: Set<String> = emptySet(),
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
     val viewBinding: Boolean = false,
+    /** Enable Jetpack Compose for this Android library target. */
+    val compose: Boolean = false,
     val selfValidator: Validator = validator(LibraryTargetTemplate)
 )
 
@@ -45,6 +47,11 @@ fun androidLibraryFeatureDefinition(
             compileOptions.applyFrom(formaConfiguration)
 
             buildFeatures.viewBinding = feature.viewBinding
+            if (feature.compose) {
+                buildFeatures.compose = true
+                composeOptions.kotlinCompilerExtensionVersion =
+                    formaConfiguration.composeCompilerVersion
+            }
         }
     }
 )

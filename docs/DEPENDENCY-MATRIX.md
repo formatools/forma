@@ -8,7 +8,7 @@ Source of truth for **F-010**. Every rule below is taken from the live
 When validators change, update **this file first**, then the README summary
 matrix. Do not invent rules from aspirational docs.
 
-Last verified: **2026-07-11** against `v2` tip + F-011 validator tighten.
+Last verified: **2026-07-11** against `v2` tip + F-013 Compose support.
 
 ---
 
@@ -54,6 +54,7 @@ From `plugins/android/.../AndroidTargets.kt`:
 | `api` | `ApiTargetTemplate` | `api` |
 | `impl` | `ImplTargetTemplate` | `impl` |
 | `widget` | `WidgetTargetTemplate` | `widget` |
+| `composeWidget` | `ComposeWidgetTargetTemplate` | `compose-widget` |
 
 **Collision note:** JVM `library` and Android `androidLibrary` share the same
 suffix `library` / `LibraryTargetTemplate`. The DSL functions differ (Kotlin
@@ -74,19 +75,20 @@ these suffixes (or are unrestricted if `EmptyValidator`).
 | Consumer DSL | Source file | Project-dep validator | Allowed dependency suffixes |
 |--------------|-------------|------------------------|-----------------------------|
 | `api` | `api.kt` | `validator(api, library)` | `api`, `library` |
-| `impl` | `impl.kt` | `validator(api, android-util, test-util, util, library, ui-library, res, viewbinding, widget)` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` |
+| `impl` | `impl.kt` | `validator(api, android-util, test-util, util, library, ui-library, res, viewbinding, widget, compose-widget)` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` |
 | `library` (JVM) | `library.kt` | `validator(util, test-util)` | `util`, `test-util` |
 | `androidLibrary` | `androidLibrary.kt` | `validator(library, util, android-util, test-util, res, api)` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
-| `uiLibrary` | `uiLibrary.kt` | `validator(widget, util, android-util, res)` | `widget`, `util`, `android-util`, `res` |
+| `uiLibrary` | `uiLibrary.kt` | `validator(widget, compose-widget, util, android-util, res)` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util.kt` | `validator(util, library)` | `util`, `library` |
 | `androidUtil` | `androidUtil.kt` | `validator(android-util, test-util, res)` | `android-util`, `test-util`, `res` |
 | `testUtil` | `testUtil.kt` | `validator(test-util, util)` | `test-util`, `util` |
 | `androidTestUtil` | `androidTestUtil.kt` | `validator(android-test-util, test-util)` | `android-test-util`, `test-util` |
-| `androidRes` | `androidRes.kt` | `validator(res, widget)` | `res`, `widget` |
-| `widget` | `widget.kt` | `validator(ui-library, widget, util, android-util, res)` | `ui-library`, `widget`, `util`, `android-util`, `res` |
-| `viewBinding` | `viewBinding.kt` | `validator(api, widget, res, library, android-util)` | `api`, `widget`, `res`, `library`, `android-util` |
-| `androidApp` | `androidApp.kt` | `validator(api, impl, library, util, android-util, test-util, res, viewbinding, widget, ui-library)` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
-| `androidBinary` | `androidBinary.kt` | `validator(app, api, impl, library, util, android-util, test-util, res, viewbinding, widget, ui-library)` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
+| `androidRes` | `androidRes.kt` | `validator(res, widget, compose-widget)` | `res`, `widget`, `compose-widget` |
+| `widget` | `widget.kt` | `validator(ui-library, widget, compose-widget, util, android-util, res)` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` |
+| `composeWidget` | `composeWidget.kt` | `validator(ui-library, compose-widget, widget, util, android-util, res)` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` |
+| `viewBinding` | `viewBinding.kt` | `validator(api, widget, compose-widget, res, library, android-util)` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util` |
+| `androidApp` | `androidApp.kt` | `validator(api, impl, library, util, android-util, test-util, res, viewbinding, widget, compose-widget, ui-library)` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
+| `androidBinary` | `androidBinary.kt` | `validator(app, api, impl, library, util, android-util, test-util, res, viewbinding, widget, compose-widget, ui-library)` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
 | `androidNative` | `androidNative.kt` | *(no `applyDependencies`)* | *no project-dep validation* |
 
 ### Explicit non-edges (important product rules)
@@ -105,8 +107,16 @@ These follow from the table (not from separate deny-lists):
 - **`androidApp` / `androidBinary` cannot depend on other `binary`** —
   single APK composition root (F-011; `app` may not depend on `app`/`binary`).
 - **Circular-ish UI graph is intentional while experimental:** `uiLibrary`
-  may depend on `widget`, and `widget` may depend on `ui-library`
-  (`uiLibrary.kt` comment).
+  may depend on `widget` / `compose-widget`, and `widget` / `compose-widget`
+  may depend on `ui-library` and on each other so View + Compose can coexist
+  (F-013 / GH #96).
+
+### Compose flags (not project-dep rules)
+
+Separate from suffix validation: `impl`, `androidLibrary`, `androidUtil`,
+`androidApp`, `uiLibrary`, and `androidBinary` accept `compose: Boolean`
+(default = project `androidProjectConfiguration(compose=…)`).
+`composeWidget` **always** enables Compose. See [`COMPOSE.md`](COMPOSE.md).
 
 ---
 
@@ -141,23 +151,24 @@ Legend:
 
 Rows = **consumer**. Columns = **dependency type (suffix)**.
 
-| Consumer ↓ \ Dep → | api | impl | library | ui-library | util | test-util | android-util | android-test-util | res | viewbinding | widget | app | binary | native |
-|--------------------|-----|------|---------|------------|------|-----------|--------------|-------------------|-----|-------------|--------|-----|--------|--------|
-| **api** | Y | — | Y | — | — | — | — | — | — | — | — | — | — | — |
-| **impl** | Y | — | Y | Y | Y | Y | Y | — | Y | Y | Y | — | — | — |
-| **library** (JVM) | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — |
-| **androidLibrary** | Y | — | Y | — | Y | Y | Y | — | Y | — | — | — | — | — |
-| **uiLibrary** | — | — | — | — | Y | — | Y | — | Y | — | Y | — | — | — |
-| **util** | — | — | Y | — | Y | — | — | — | — | — | — | — | — | — |
-| **androidUtil** | — | — | — | — | — | Y | Y | — | Y | — | — | — | — | — |
-| **testUtil** | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — |
-| **androidTestUtil** | — | — | — | — | — | Y | — | Y | — | — | — | — | — | — |
-| **androidRes** | — | — | — | — | — | — | — | — | Y | — | Y | — | — | — |
-| **widget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | — | — | — |
-| **viewBinding** | Y | — | Y | — | — | — | Y | — | Y | — | Y | — | — | — |
-| **androidApp** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | — | — | — |
-| **androidBinary** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — |
-| **androidNative** | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| Consumer ↓ \ Dep → | api | impl | library | ui-library | util | test-util | android-util | android-test-util | res | viewbinding | widget | compose-widget | app | binary | native |
+|--------------------|-----|------|---------|------------|------|-----------|--------------|-------------------|-----|-------------|--------|----------------|-----|--------|--------|
+| **api** | Y | — | Y | — | — | — | — | — | — | — | — | — | — | — | — |
+| **impl** | Y | — | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — | — |
+| **library** (JVM) | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — | — |
+| **androidLibrary** | Y | — | Y | — | Y | Y | Y | — | Y | — | — | — | — | — | — |
+| **uiLibrary** | — | — | — | — | Y | — | Y | — | Y | — | Y | Y | — | — | — |
+| **util** | — | — | Y | — | Y | — | — | — | — | — | — | — | — | — | — |
+| **androidUtil** | — | — | — | — | — | Y | Y | — | Y | — | — | — | — | — | — |
+| **testUtil** | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — | — |
+| **androidTestUtil** | — | — | — | — | — | Y | — | Y | — | — | — | — | — | — | — |
+| **androidRes** | — | — | — | — | — | — | — | — | Y | — | Y | Y | — | — | — |
+| **widget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | Y | — | — | — |
+| **composeWidget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | Y | — | — | — |
+| **viewBinding** | Y | — | Y | — | — | — | Y | — | Y | — | Y | Y | — | — | — |
+| **androidApp** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — | — |
+| **androidBinary** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | Y | — | — |
+| **androidNative** | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
 
 Self-deps: a type may depend on itself only if its own suffix is in its
 allowed list (e.g. `api`→`api` **Y**, `impl`→`impl` **—**, `widget`→`widget`
@@ -209,5 +220,5 @@ See `docs/ARCHITECTURE.md` §2.2 and §3 for the module map.
 3. Refresh the compact README matrix (link here as canonical).
 4. Note the change in `docs/PROGRESS.md` / ticket notes when user-facing.
 
-Related tickets: **F-012** (deps catalog UX), **F-020** (forma-core type
-registry / shared `library` suffix).
+Related tickets: **F-013** (Compose), **F-012** (deps catalog UX), **F-020**
+(forma-core type registry / shared `library` suffix).
