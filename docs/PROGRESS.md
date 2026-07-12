@@ -2,6 +2,37 @@
 
 Newest entries first.
 
+## 2026-07-12 — F-016 Plugin publish path (Portal + target publish config)
+
+- **Ticket:** F-016 → `done` (GH #132 code path; GH #133 Portal org remains human admin)
+- **Branch:** `forma/F-016-plugin-publish` (from `origin/v2`)
+- **Code (`plugins/buildSrc` + plugin modules):**
+  - Added `FormaPluginPublishExtension` + top-level helpers:
+    - `formaPluginConfiguration { … }` on plugins root (group/version/website/vcs/tags/…)
+    - `formaPublishedPlugin(name = …)` on each publishable subproject
+  - Replaced duplicated `rootProject.ext` + `gradlePlugin { }` blocks in
+    `:android`, `:target`, `:validation`, `:owners`, `:config`, `:deps`
+  - Root `plugins/build.gradle.kts` now only applies plugin-publish version +
+    `formaPluginConfiguration` (no raw `ext { }` map)
+  - buildSrc depends on `gradleApi()` only (must not put plugin-publish on
+    buildSrc classpath — causes "already on the classpath with unknown version")
+- **Docs:**
+  - `docs/PLUGIN-PUBLISH.md` — DSL usage, validate-only, credential model,
+    GH #133 operator checklist (no secrets in-repo)
+  - README Getting started + Progress pointers; ARCHITECTURE §2 publish note;
+    TICKETS status
+- **Verify (real tool output, OpenJDK 17):**
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (63 tasks)
+  - Plugin descriptors still `tools.forma.{android,target,validation,owners,config,deps}`
+    with `*.plugin.FormaPlugin`; group/version `tools.forma` / `0.1.3`
+  - `./gradlew :android:publishPlugins --validate-only` → fails only on
+    **Missing publishing keys** (expected without Portal credentials; packaging OK)
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL**
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** GH #133 (create/claim shared Forma Plugin Portal identity +
+  distribute keys) is outside automation
+- **Next step:** F-017 Configuration-time performance pass (GH #106, #42)
+
 ## 2026-07-12 — F-015 Android project tutorial (getting started)
 
 - **Ticket:** F-015 → `done` (GH #53)
