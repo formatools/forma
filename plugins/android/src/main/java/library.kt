@@ -35,7 +35,6 @@ fun Project.library(
         validator = validator(UtilTargetTemplate, TestUtilTargetTemplate),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        repositoriesConfiguration = Forma.settings.repositories,
         configurationFeatures = kaptConfigurationFeature()
     )
 }

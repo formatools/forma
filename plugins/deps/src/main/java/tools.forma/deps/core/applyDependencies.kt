@@ -9,17 +9,35 @@ import org.gradle.kotlin.dsl.dependencies
 import tools.forma.config.FormaSettingsStore
 import tools.forma.validation.Validator
 
+/** No-op repo config sentinel — skip [Project.repositories] when callers pass this. */
+val EmptyRepositoriesConfiguration: RepositoryHandler.() -> Unit = {}
+
 fun Project.applyDependencies(
     validator: Validator,
-    repositoriesConfiguration: RepositoryHandler.() -> Unit,
+    repositoriesConfiguration: RepositoryHandler.() -> Unit = EmptyRepositoriesConfiguration,
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: FormaDependency = emptyDependency(),
     androidTestDependencies: FormaDependency = emptyDependency(),
     configurationFeatures: Map<ConfigurationType, () -> Unit> = emptyMap()
 ) {
-    repositoriesConfiguration(repositories)
+    // Per-target repository blocks are expensive at scale. Prefer empty / settings-level
+    // dependencyResolutionManagement; only invoke when the caller passes a real config.
+    if (repositoriesConfiguration !== EmptyRepositoriesConfiguration) {
+        repositoriesConfiguration(repositories)
+    }
+
+    // EmptyDependency is the common default — avoid opening a dependencies {} block at all.
+    if (
+        dependencies === EmptyDependency &&
+            testDependencies === EmptyDependency &&
+            androidTestDependencies === EmptyDependency
+    ) {
+        return
+    }
+
     // Prevent same plugin to be applied twice
     val appliedPlugins = mutableSetOf<String>()
+    val hasPluginDeps = FormaSettingsStore.dependencyPlugins.isNotEmpty()
 
     dependencies {
         val projectAction: (TargetSpec) -> Unit = {
@@ -28,12 +46,12 @@ fun Project.applyDependencies(
         }
         dependencies.forEach(
             { spec ->
-                val plugin = FormaSettingsStore.pluginFor(spec.name)
+                val plugin =
+                    if (hasPluginDeps) FormaSettingsStore.pluginFor(spec.name) else null
                 if (plugin != null) {
                     val pluginName = plugin.plugin.get().pluginId.split(":")[0]
-                    if (!appliedPlugins.contains(pluginName)) {
+                    if (appliedPlugins.add(pluginName)) {
                         apply(plugin = pluginName)
-                        appliedPlugins.add(pluginName)
                     }
                     // For custom plugin specs we always apply transitive dependencies
                     // since this is what most of the plugins expect
@@ -47,19 +65,23 @@ fun Project.applyDependencies(
             { add(it.config.name, files(it.file)) },
             { addDependencyTo(it.config.name, platform(it.name)) { isTransitive = it.transitive } }
         )
-        testDependencies.forEach(
-            { addDependencyTo("testImplementation", it.name) { isTransitive = it.transitive } },
-            { add("testImplementation", it.target.project) },
-            { add("testImplementation", files(it.file)) }
-        )
-        androidTestDependencies.forEach(
-            {
-                addDependencyTo("androidTestImplementation", it.name) {
-                    isTransitive = it.transitive
-                }
-            },
-            { add("androidTestImplementation", it.target.project) },
-            { add("androidTestImplementation", files(it.file)) }
-        )
+        if (testDependencies !== EmptyDependency) {
+            testDependencies.forEach(
+                { addDependencyTo("testImplementation", it.name) { isTransitive = it.transitive } },
+                { add("testImplementation", it.target.project) },
+                { add("testImplementation", files(it.file)) }
+            )
+        }
+        if (androidTestDependencies !== EmptyDependency) {
+            androidTestDependencies.forEach(
+                {
+                    addDependencyTo("androidTestImplementation", it.name) {
+                        isTransitive = it.transitive
+                    }
+                },
+                { add("androidTestImplementation", it.target.project) },
+                { add("androidTestImplementation", files(it.file)) }
+            )
+        }
     }
 }

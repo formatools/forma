@@ -335,7 +335,7 @@ Suggested extraction order (tickets F-020…F-024):
 | ~~Missing Android getting-started tutorial~~ → [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) | F-015 done |
 | Shared `library` suffix for JVM vs Android library | F-020 |
 | Plugin publish / Portal path | F-016 (`docs/PLUGIN-PUBLISH.md`; Portal org GH #133 is human) |
-| Configuration-time cost (includer walk, stores) | F-017 |
+| ~~Configuration-time cost (validators/deps/repos)~~ → [`docs/CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md) | F-017 done |
 
 ---
 
@@ -344,6 +344,7 @@ Suggested extraction order (tickets F-020…F-024):
 | Goal | Start here |
 |------|------------|
 | New user / first project | [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) |
+| Configuration-time performance | [`docs/CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md) |
 | New target type | `AndroidTargets.kt` + new DSL file under `plugins/android/src/main/java/` + validator list |
 | Tighten dep rules | `validator(...)` in that DSL file; update this doc §2.2 |
 | Global SDK/AGP defaults | `androidProjectConfiguration` + sample `application/build.gradle.kts` |

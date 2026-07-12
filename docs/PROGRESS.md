@@ -2,6 +2,37 @@
 
 Newest entries first.
 
+## 2026-07-12 — F-017 Configuration-time performance pass (GH #106, #42)
+
+- **Ticket:** F-017 → `done`
+- **Branch:** `forma/F-017-config-performance` (from `origin/v2`)
+- **Code:**
+  - `validator(...)` identity-caches single/multi suffix validators; hot path uses
+    precomputed dash-suffixes (no per-call `map`/`contains` lists)
+  - `kotlinFeatureDefinition` / `kotlinAndroidFeatureDefinition` / kapt: singleton
+    `FeatureDefinition` instances; live `Forma.settings` read at apply time
+  - `applyDependencies`: empty-repo sentinel skips per-target `repositories {}`;
+    early-return when all dep bags are `EmptyDependency`; skip plugin lookup when
+    no plugin deps registered
+  - `deps` / `FormaDependency.plus` / `forEach`: typed merges + indexed loops
+    (less `filterIsInstance` / intermediate lists)
+  - Catalog `filteredTokens` → `Set`; Android targets drop redundant
+    `repositoriesConfiguration = Forma.settings.repositories`
+- **Docs:** `docs/CONFIGURATION-PERFORMANCE.md` (measure + guidance); README /
+  ARCHITECTURE / SAMPLE-APP / TICKETS links
+- **Verify (real tool output, OpenJDK 17 + SDK 34):**
+  - `plugins/`: `./gradlew build --offline` → **BUILD SUCCESSFUL** (63 tasks;
+    `:deps:test` green)
+  - `application/`: `./gradlew build --offline` → **BUILD SUCCESSFUL**
+    (2155 tasks)
+  - Profile `help --no-configuration-cache --offline` (daemon warm): Configuring
+    Projects ~4.8s → ~1.1s on best same-host pair; CC reuse `help` **880ms**
+  - Wall-clock is noisy under load (first cold after full app build spiked);
+    treat as allocation/hot-path win, not a fixed %
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none for F-017; deeper remote Build Scans / GH #42 still optional
+- **Next step:** F-020 Design forma-core public API (`docs/forma-core-api.md`)
+
 ## 2026-07-12 — F-016 Plugin publish path (Portal + target publish config)
 
 - **Ticket:** F-016 → `done` (GH #132 code path; GH #133 Portal org remains human admin)

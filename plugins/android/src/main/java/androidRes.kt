@@ -43,7 +43,6 @@ fun Project.androidRes(
             WidgetTargetTemplate,
             ComposeWidgetTargetTemplate,
         ),
-        dependencies = dependencies,
-        repositoriesConfiguration = Forma.settings.repositories
+        dependencies = dependencies
     )
 }

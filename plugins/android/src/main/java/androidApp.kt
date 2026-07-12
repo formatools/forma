@@ -81,7 +81,6 @@ fun Project.androidApp(
             UiLibraryTargetTemplate,
         ),
         dependencies = dependencies,
-        repositoriesConfiguration = Forma.settings.repositories,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
         configurationFeatures = kaptConfigurationFeature()

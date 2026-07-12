@@ -86,8 +86,7 @@ fun Project.androidBinary(
             ComposeWidgetTargetTemplate,
             UiLibraryTargetTemplate,
         ),
-        dependencies = dependencies,
-        repositoriesConfiguration = Forma.settings.repositories
+        dependencies = dependencies
     )
 
     return TargetBuilder(this)

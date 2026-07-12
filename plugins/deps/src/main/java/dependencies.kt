@@ -23,6 +23,10 @@ import tools.forma.deps.core.TargetDependency
 import tools.forma.deps.core.TargetSpec
 import tools.forma.target.FormaTarget
 
+/**
+ * Typed views over [DepType]. Prefer [FormaDependency.forEach] at apply-time so we do not
+ * allocate three filtered lists when only one kind is needed (F-017 / GH #106).
+ */
 val DepType.names: List<NameSpec>
     get(): List<NameSpec> = filterIsInstance(NameSpec::class.java)
 
@@ -34,14 +38,13 @@ val DepType.files: List<FileSpec>
 
 val Provider<out Dependency>.dep: NameSpec
     get() {
-        val depName = get().run { "$group:$name:$version" }
+        val resolved = get()
+        val depName = "${resolved.group}:${resolved.name}:${resolved.version}"
         val pluginConf = FormaSettingsStore.pluginFor(depName)
-        return with(get()) {
-            NameSpec(
-                "$group:$name:$version",
-                pluginConf?.configuration?.let(::CustomConfiguration) ?: Implementation
-            )
-        }
+        return NameSpec(
+            depName,
+            pluginConf?.configuration?.let(::CustomConfiguration) ?: Implementation
+        )
     }
 
 fun Provider<out Dependency>.dep(configuration: CustomConfiguration): NameSpec {
@@ -58,12 +61,80 @@ val Dependency.dep: NameSpec
 val Provider<ExternalModuleDependencyBundle>.dep: List<NameSpec>
     get() = get().map { it.dep }
 
-infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency =
-    MixedDependency(
-        dependency.names + dep.dependency.names,
-        dependency.targets + dep.dependency.targets,
-        dependency.files + dep.dependency.files
-    )
+infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency {
+    // Avoid three filterIsInstance passes (names/targets/files) when both sides are already typed.
+    val leftNames: List<NameSpec>
+    val leftTargets: List<TargetSpec>
+    val leftFiles: List<FileSpec>
+    when (this) {
+        is NamedDependency -> {
+            leftNames = names
+            leftTargets = emptyList()
+            leftFiles = emptyList()
+        }
+        is TargetDependency -> {
+            leftNames = emptyList()
+            leftTargets = targets
+            leftFiles = emptyList()
+        }
+        is FileDependency -> {
+            leftNames = emptyList()
+            leftTargets = emptyList()
+            leftFiles = files
+        }
+        is MixedDependency -> {
+            leftNames = names
+            leftTargets = targets
+            leftFiles = files
+        }
+        is PlatformDependency -> {
+            leftNames = emptyList()
+            leftTargets = emptyList()
+            leftFiles = emptyList()
+        }
+        EmptyDependency -> {
+            leftNames = emptyList()
+            leftTargets = emptyList()
+            leftFiles = emptyList()
+        }
+    }
+    val rightNames: List<NameSpec>
+    val rightTargets: List<TargetSpec>
+    val rightFiles: List<FileSpec>
+    when (dep) {
+        is NamedDependency -> {
+            rightNames = dep.names
+            rightTargets = emptyList()
+            rightFiles = emptyList()
+        }
+        is TargetDependency -> {
+            rightNames = emptyList()
+            rightTargets = dep.targets
+            rightFiles = emptyList()
+        }
+        is FileDependency -> {
+            rightNames = emptyList()
+            rightTargets = emptyList()
+            rightFiles = dep.files
+        }
+        is MixedDependency -> {
+            rightNames = dep.names
+            rightTargets = dep.targets
+            rightFiles = dep.files
+        }
+        is PlatformDependency -> {
+            rightNames = emptyList()
+            rightTargets = emptyList()
+            rightFiles = emptyList()
+        }
+        EmptyDependency -> {
+            rightNames = emptyList()
+            rightTargets = emptyList()
+            rightFiles = emptyList()
+        }
+    }
+    return MixedDependency(leftNames + rightNames, leftTargets + rightTargets, leftFiles + rightFiles)
+}
 
 inline fun <reified T : FormaDependency> emptyDependency(): T =
     when (T::class) {
@@ -84,8 +155,10 @@ fun FormaDependency.forEach(
     fileAction: (FileSpec) -> Unit = {},
     platformAction: (PlatformSpec) -> Unit = {}
 ) {
-    dependency.forEach { spec ->
-        when (spec) {
+    val specs = dependency
+    if (specs.isEmpty()) return
+    for (i in specs.indices) {
+        when (val spec = specs[i]) {
             is TargetSpec -> targetAction(spec)
             is NameSpec -> nameAction(spec)
             is PlatformSpec -> platformAction(spec)
@@ -97,10 +170,10 @@ fun FormaDependency.forEach(
 fun deps(vararg names: String): NamedDependency = transitiveDeps(names = names, transitive = false)
 
 fun transitivePlatform(vararg names: String, transitive: Boolean = true): PlatformDependency =
-    PlatformDependency(names.toList().map { PlatformSpec(it, Implementation, transitive) })
+    PlatformDependency(names.map { PlatformSpec(it, Implementation, transitive) })
 
 fun transitiveDeps(vararg names: String, transitive: Boolean = true): NamedDependency =
-    NamedDependency(names.toList().map { NameSpec(it, Implementation, transitive) })
+    NamedDependency(names.map { NameSpec(it, Implementation, transitive) })
 
 fun deps(vararg targets: FormaTarget): TargetDependency =
     TargetDependency(targets.map { TargetSpec(it, Implementation) })
@@ -108,32 +181,46 @@ fun deps(vararg targets: FormaTarget): TargetDependency =
 fun deps(vararg files: File): FileDependency =
     FileDependency(files.map { FileSpec(it, Implementation) })
 
-fun deps(vararg dependencies: NamedDependency): NamedDependency =
-    dependencies.flatMap { it.names }.let(::NamedDependency)
+fun deps(vararg dependencies: NamedDependency): NamedDependency {
+    if (dependencies.isEmpty()) return NamedDependency()
+    if (dependencies.size == 1) return dependencies[0]
+    val out = ArrayList<NameSpec>(dependencies.sumOf { it.names.size })
+    for (dep in dependencies) out.addAll(dep.names)
+    return NamedDependency(out)
+}
 
 fun deps(vararg projects: DelegatingProjectDependency) =
     projects.map { TargetSpec(target(it)) }.let(::TargetDependency)
 
-fun deps(vararg dependencies: Provider<*>): NamedDependency =
-    dependencies
-        .flatMap { provider ->
-            val source = provider.get()
-            @Suppress("UNCHECKED_CAST")
-            when (source) {
-                // here we need to call .dep on provider to get the correct configuration
-                // since on configuration phase we don't have the actual dependency
-                is Dependency -> listOf((provider as Provider<Dependency>).dep)
-                is ExternalModuleDependencyBundle -> source.map { it.dep }
-                else ->
-                    throw IllegalArgumentException(
-                        "Unsupported dependency type ${source::class.simpleName}"
-                    )
+fun deps(vararg dependencies: Provider<*>): NamedDependency {
+    if (dependencies.isEmpty()) return NamedDependency()
+    val out = ArrayList<NameSpec>(dependencies.size)
+    for (provider in dependencies) {
+        val source = provider.get()
+        @Suppress("UNCHECKED_CAST")
+        when (source) {
+            // here we need to call .dep on provider to get the correct configuration
+            // since on configuration phase we don't have the actual dependency
+            is Dependency -> out.add((provider as Provider<Dependency>).dep)
+            is ExternalModuleDependencyBundle -> {
+                for (item in source) out.add(item.dep)
             }
+            else ->
+                throw IllegalArgumentException(
+                    "Unsupported dependency type ${source::class.simpleName}"
+                )
         }
-        .let(::NamedDependency)
+    }
+    return NamedDependency(out)
+}
 
-fun deps(vararg dependencies: TargetDependency): TargetDependency =
-    dependencies.flatMap { it.targets }.let(::TargetDependency)
+fun deps(vararg dependencies: TargetDependency): TargetDependency {
+    if (dependencies.isEmpty()) return TargetDependency()
+    if (dependencies.size == 1) return dependencies[0]
+    val out = ArrayList<TargetSpec>(dependencies.sumOf { it.targets.size })
+    for (dep in dependencies) out.addAll(dep.targets)
+    return TargetDependency(out)
+}
 
 fun kapt(vararg names: String): NamedDependency =
     NamedDependency(names.map { NameSpec(it, Kapt, true) })

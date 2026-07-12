@@ -46,6 +46,7 @@ systems like Buck and Bazel.
 3. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
 4. [External deps catalogs](docs/DEPS-CATALOG.md) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
 5. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
+6. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
 
 Configuration made easy:
 
@@ -191,6 +192,8 @@ Android getting-started tutorial: **F-015**
 ([`docs/GETTING-STARTED.md`](docs/GETTING-STARTED.md)).
 Plugin Portal publish path: **F-016**
 ([`docs/PLUGIN-PUBLISH.md`](docs/PLUGIN-PUBLISH.md)).
+Configuration-time performance: **F-017**
+([`docs/CONFIGURATION-PERFORMANCE.md`](docs/CONFIGURATION-PERFORMANCE.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

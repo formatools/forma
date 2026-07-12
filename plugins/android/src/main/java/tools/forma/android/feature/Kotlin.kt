@@ -22,38 +22,50 @@ private fun defaultConfiguration(project: Project, androidProjectSettings: Andro
     }
 }
 
-fun kotlinFeatureDefinition() = FeatureDefinition(
-    pluginName = "kotlin",
-    pluginExtension = KotlinJvmProjectExtension::class,
-    featureConfiguration = {},
-    configuration = featureConfiguration()
-)
+private val sharedFeatureConfiguration:
+    (Any, Any, Project, AndroidProjectSettings) -> Unit =
+    { _, _, project, configuration -> defaultConfiguration(project, configuration) }
 
-private fun <Extension : Any, FeatureConfiguration : Any> featureConfiguration() =
-    { _: Extension, _: FeatureConfiguration, project: Project, configuration: AndroidProjectSettings ->
-        defaultConfiguration(
-            project,
-            configuration
-        )
-    }
-
-fun kotlinAndroidFeatureDefinition() = FeatureDefinition(
-    pluginName = "kotlin-android",
-    pluginExtension = KotlinAndroidProjectExtension::class,
-    featureConfiguration = {},
-    configuration = featureConfiguration()
-)
-
-fun kotlinKaptFeatureDefinition() = FeatureDefinition(
-    pluginName = "kotlin-kapt",
-    pluginExtension = KaptExtension::class,
-    featureConfiguration = {},
-    defaultDependencies = deps("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0".kapt),
-    configuration = featureConfiguration()
-)
-
-fun Project.kaptConfigurationFeature(): Map<ConfigurationType, () -> Unit> = mapOf(Kapt to {
-    applyFeatures(
-        kotlinKaptFeatureDefinition()
+/** Cached — same definition for every pure-JVM target (F-017). */
+private val kotlinFeatureDefinitionInstance =
+    FeatureDefinition(
+        pluginName = "kotlin",
+        pluginExtension = KotlinJvmProjectExtension::class,
+        featureConfiguration = Unit,
+        configuration = sharedFeatureConfiguration
     )
-})
+
+/** Cached — same definition for every Android library / widget target (F-017). */
+private val kotlinAndroidFeatureDefinitionInstance =
+    FeatureDefinition(
+        pluginName = "kotlin-android",
+        pluginExtension = KotlinAndroidProjectExtension::class,
+        featureConfiguration = Unit,
+        configuration = sharedFeatureConfiguration
+    )
+
+private val kotlinKaptFeatureDefinitionInstance =
+    FeatureDefinition(
+        pluginName = "kotlin-kapt",
+        pluginExtension = KaptExtension::class,
+        featureConfiguration = Unit,
+        defaultDependencies = deps("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0".kapt),
+        configuration = sharedFeatureConfiguration
+    )
+
+fun kotlinFeatureDefinition() = kotlinFeatureDefinitionInstance
+
+fun kotlinAndroidFeatureDefinition() = kotlinAndroidFeatureDefinitionInstance
+
+fun kotlinKaptFeatureDefinition() = kotlinKaptFeatureDefinitionInstance
+
+/**
+ * Lazy kapt plugin application when a target declares kapt deps.
+ * Map is small and shared; the lambda closes over the [Project] receiver.
+ */
+fun Project.kaptConfigurationFeature(): Map<ConfigurationType, () -> Unit> =
+    mapOf(
+        Kapt to {
+            applyFeatures(kotlinKaptFeatureDefinition())
+        }
+    )
