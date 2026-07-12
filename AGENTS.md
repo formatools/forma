@@ -29,6 +29,9 @@ git status && git diff
 # commit with message: "F-XXX: concise summary"
 # push and open PR with base v2 when slice is meaningful:
 #   gh pr create --base v2 --title "F-XXX: ..." --body "..."
+# auto-merge when green (squash only — repo allows squash only):
+#   gh pr merge --auto --squash --delete-branch
+# or immediately if CLEAN: gh pr merge --squash --delete-branch
 ```
 
 ## Verify

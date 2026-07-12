@@ -12,8 +12,9 @@ Always operate in /Users/claw/work/forma. Follow AGENTS.md strictly.
 3. Select the highest-priority ticket with status todo or in_progress (never reorder priorities).
 4. Execute a meaningful slice for that ticket (code, build fixes, docs, toolchain). Prefer shippable PR-sized work over sprawling rewrites.
 5. Update TICKETS.md status and append a dated section to docs/PROGRESS.md (ticket id, what changed, commits/PRs, blockers, next step).
-6. Commit workspace/docs + code changes with message "F-XXX: concise summary". Open a GitHub PR against base v2 when the slice is coherent (`gh pr create --base v2` on formatools/forma or your fork if needed).
-7. Final response = concise human report: ticket worked, progress, PR links, blockers. The scheduler delivers it — do NOT use send_message.
+6. Commit workspace/docs + code changes with message "F-XXX: concise summary". Open a GitHub PR against base **v2** when the slice is coherent (`gh pr create --base v2` on formatools/forma).
+7. **Auto-merge into v2:** After opening (or finding) an open PR with base `v2`, if checks are green (or none required) and it is mergeable, squash-merge it: `gh pr merge <N> --squash --delete-branch`. Prefer `gh pr merge <N> --auto --squash --delete-branch` when still waiting on CI. Do not merge PRs targeting `master` unless the user asked. Close stale master-base PRs whose commits are already on `origin/v2`.
+8. Final response = concise human report: ticket worked, progress, PR links, merge status, blockers. The scheduler delivers it — do NOT use send_message.
 
 ## Constraints
 - No Java today may block Gradle: if so, prioritize F-001 (install Temurin 17+ / document SDK needs) before pretending builds pass.
