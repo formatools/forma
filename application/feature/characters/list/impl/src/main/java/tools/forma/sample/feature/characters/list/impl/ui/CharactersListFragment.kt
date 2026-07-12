@@ -32,8 +32,8 @@ import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
 import tools.forma.sample.feature.characters.list.viewbinding.databinding.FragmentCharactersListBinding
 import tools.forma.sample.feature.characters.list.impl.R
 import tools.forma.sample.feature.characters.list.impl.di.DaggerCharactersListComponent
-import tools.forma.sample.feature.characters.list.impl.domain.model.ICharactersListViewEvent
-import tools.forma.sample.feature.characters.list.impl.domain.model.ICharactersListViewState
+import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewEvent
+import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewState
 import tools.forma.sample.feature.characters.list.impl.ui.adapter.CharactersListAdapter
 import tools.forma.sample.feature.characters.list.impl.ui.adapter.CharactersListAdapterState
 
@@ -70,7 +70,7 @@ class CharactersListFragment : BaseViewBindingFragment(
         viewBinding.includeList.charactersList.apply {
             addItemDecoration(
                 RecyclerViewItemDecoration(
-                    resources.getDimensionPixelSize(tools.forma.sample.feature.character.list.res.R.dimen.characters_list_item_padding)
+                    resources.getDimensionPixelSize(tools.forma.sample.feature.characters.list.res.R.dimen.characters_list_item_padding)
                 )
             )
             adapter = viewAdapter

@@ -20,7 +20,7 @@ import android.view.LayoutInflater
 import tools.forma.sample.common.extensions.android.util.loadImage
 import tools.forma.sample.core.mvvm.library.ui.BaseViewHolder
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
-import tools.forma.sample.feature.favorite.viewbinding.databinding.ListItemCharacterFavoriteBinding
+import tools.forma.sample.feature.characters.favorite.viewbinding.databinding.ListItemCharacterFavoriteBinding
 
 class CharacterFavoriteViewHolder(
     inflater: LayoutInflater

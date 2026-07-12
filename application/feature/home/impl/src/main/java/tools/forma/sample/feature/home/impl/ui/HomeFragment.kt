@@ -32,8 +32,9 @@ import tools.forma.sample.core.theme.android.util.ThemeUtils
 import tools.forma.sample.core.theme.android.util.di.ThemeComponentProvider
 import tools.forma.sample.feature.home.impl.R
 import tools.forma.sample.feature.home.impl.di.DaggerHomeComponent
-import tools.forma.sample.feature.home.impl.ui.menu.ToggleThemeCheckBox
 import tools.forma.sample.feature.home.viewbinding.databinding.FragmentHomeBinding
+import tools.forma.sample.feature.home.viewbinding.ui.HomeViewModel
+import tools.forma.sample.widget.toggle.ToggleThemeCheckBox
 import javax.inject.Inject
 
 private const val DELAY_TO_APPLY_THEME = 1000L

@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include "Log.h"
 
-static const char* kClassPathName = "com/stepango/blockme/root/library/AppStartup";
+static const char* kClassPathName = "tools/forma/sample/root/library/AppStartup";
 static const std::vector<std::string> allowedPackages = { // NOLINT(cert-err58-cpp)
         "tools.forma.sample.app"
 };

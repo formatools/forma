@@ -209,7 +209,8 @@ Tightening unrestricted entry targets landed in **F-011**.
 - `binary` → `androidBinary` with explicit deps on root-app + feature api/impl
   (legal under composition-root allowlist; F-011)
 
-See `docs/ARCHITECTURE.md` §2.2 and §3 for the module map.
+**Gold-standard guide:** [`SAMPLE-APP.md`](SAMPLE-APP.md) (F-014). See also
+`docs/ARCHITECTURE.md` §2.2 and §3 for the module map.
 
 ---
 

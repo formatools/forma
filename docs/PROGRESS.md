@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-12 — F-014 Sample app gold-standard multi-feature structure
+
+- **Ticket:** F-014 → `done`
+- **Branch:** `forma/F-014-sample-gold-standard` (from `origin/v2`)
+- **Sample modernization:**
+  - Relocated leftover `com/stepango/blockme/…` source trees under
+    `tools/forma/sample/…` (mvvm lifecycle, extensions, Marvel service/repo/mapper/tests)
+  - Aligned `packageName` with module path for home/characters api+res+viewbinding,
+    characters core api, root-res (`tools.forma.sample.root.res`)
+  - Moved `toggle-widget` sources into `tools.forma.sample.widget.toggle` (+ menu XML)
+  - Home viewbinding UI types under `…home.viewbinding.ui`; list contracts under
+    `…list.viewbinding.domain.model` (impl imports updated)
+  - Normalized `feature/characters/list/impl` deps to consistent `target(":…")` form
+  - Placeholder `FeatureHomeApi` / `FeatureCharactersListApi` objects for empty api modules
+- **Docs:** `docs/SAMPLE-APP.md` gold-standard guide; ARCHITECTURE §3, DEPENDENCY-MATRIX,
+  README pointers; TICKETS status
+- **Verify (real tool output, OpenJDK 17 + SDK 34):**
+  - `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (2112 tasks, 54s after clean)
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none
+- **Next step:** F-015 Android project tutorial (getting started)
+
 ## 2026-07-11 — F-013 Compose support (GH #96)
 
 - **Ticket:** F-013 → `done`

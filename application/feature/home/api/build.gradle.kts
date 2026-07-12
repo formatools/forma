@@ -1,4 +1,4 @@
 api(
-    packageName = "tools.forma.sample.home.api",
+    packageName = "tools.forma.sample.feature.home.api",
     owner = Teams.core
 )

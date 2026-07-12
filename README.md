@@ -175,6 +175,8 @@ That document is generated from each target’s
 Dagger2-friendly `api`/`impl` + composition roots: **F-011** (landed).
 Jetpack Compose: per-target `compose` flag + `composeWidget` — **F-013**
 ([`docs/COMPOSE.md`](docs/COMPOSE.md)).
+Sample multi-feature gold standard: **F-014**
+([`docs/SAMPLE-APP.md`](docs/SAMPLE-APP.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
