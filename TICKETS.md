@@ -23,7 +23,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-013 | done | Compose support for Android library/ui targets | GH #96; `compose` flags + `composeWidget`; `docs/COMPOSE.md` |
 | F-014 | done | Sample app: gold-standard multi-feature structure | packageName + source-root alignment; `docs/SAMPLE-APP.md`; home/characters pattern |
 | F-015 | done | Android project tutorial (getting started) | GH #53; `docs/GETTING-STARTED.md` + README entry |
-| F-016 | todo | Plugin publish path (Portal user + target publish config) | GH #132, #133 |
+| F-016 | done | Plugin publish path (Portal user + target publish config) | GH #132 done (`formaPluginConfiguration`/`formaPublishedPlugin`); GH #133 Portal org is human admin — see `docs/PLUGIN-PUBLISH.md` |
 | F-017 | todo | Configuration-time performance pass | GH #106, #42 |
 
 ## P2 — forma-core extraction

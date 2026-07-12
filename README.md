@@ -45,6 +45,7 @@ systems like Buck and Bazel.
 2. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
 3. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
 4. [External deps catalogs](docs/DEPS-CATALOG.md) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
+5. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
 
 Configuration made easy:
 
@@ -188,6 +189,8 @@ Sample multi-feature gold standard: **F-014**
 ([`docs/SAMPLE-APP.md`](docs/SAMPLE-APP.md)).
 Android getting-started tutorial: **F-015**
 ([`docs/GETTING-STARTED.md`](docs/GETTING-STARTED.md)).
+Plugin Portal publish path: **F-016**
+([`docs/PLUGIN-PUBLISH.md`](docs/PLUGIN-PUBLISH.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

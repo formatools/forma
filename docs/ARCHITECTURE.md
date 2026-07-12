@@ -105,6 +105,13 @@ compile dep and consumer `agpVersion` in lockstep.
 
 `publishPlugins` on `:android` depends on publishing all sibling plugins.
 
+**Publish configuration (F-016 / GH #132):** shared metadata lives in
+`plugins/build.gradle.kts` via `formaPluginConfiguration { … }`
+(`plugins/buildSrc`). Each plugin module calls
+`formaPublishedPlugin(name = …)` instead of copying `rootProject.ext` +
+`gradlePlugin { }` blocks. Operator guide: [`docs/PLUGIN-PUBLISH.md`](PLUGIN-PUBLISH.md)
+(Portal org/credentials for GH #133 are human-owned; not stored in-repo).
+
 ### 2.1 Target templates (suffixes)
 
 Defined in `plugins/android/.../AndroidTargets.kt`:
@@ -269,7 +276,8 @@ F-004 fixes applied (2026-07-11):
 4. Gradle setup via `gradle/actions/setup-gradle@v4` (successor of `gradle-build-action`).
 5. Dropped unconditional `--scan` (no build-scan account coupling in CI).
 
-Still optional / later: plugin publish or Plugin Marker validation job; deeper Gradle remote cache.
+Still optional / later: CI job for `publishPlugins --validate-only` (needs no
+keys) or full Portal publish via secrets; deeper Gradle remote cache.
 
 ---
 
@@ -326,7 +334,7 @@ Suggested extraction order (tickets F-020…F-024):
 | ~~Compose flag in settings, limited target support~~ → per-target flags + `composeWidget` | F-013 done |
 | ~~Missing Android getting-started tutorial~~ → [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) | F-015 done |
 | Shared `library` suffix for JVM vs Android library | F-020 |
-| Plugin publish / Portal path | F-016 |
+| Plugin publish / Portal path | F-016 (`docs/PLUGIN-PUBLISH.md`; Portal org GH #133 is human) |
 | Configuration-time cost (includer walk, stores) | F-017 |
 
 ---
