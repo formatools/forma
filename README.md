@@ -37,6 +37,15 @@ systems like Buck and Bazel.
 
 [Presentation Link](https://www.beautiful.ai/player/-MLn7RnBBWeh7vePDoDq)
 
+## Getting started
+
+**New to Forma?** Start here:
+
+1. [**Android project tutorial**](docs/GETTING-STARTED.md) — mental model, run the sample, greenfield skeleton, target cheat sheet (F-015 / GH #53)
+2. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
+3. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
+4. [External deps catalogs](docs/DEPS-CATALOG.md) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
+
 Configuration made easy:
 
 ``` gradle
@@ -177,6 +186,8 @@ Jetpack Compose: per-target `compose` flag + `composeWidget` — **F-013**
 ([`docs/COMPOSE.md`](docs/COMPOSE.md)).
 Sample multi-feature gold standard: **F-014**
 ([`docs/SAMPLE-APP.md`](docs/SAMPLE-APP.md)).
+Android getting-started tutorial: **F-015**
+([`docs/GETTING-STARTED.md`](docs/GETTING-STARTED.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
