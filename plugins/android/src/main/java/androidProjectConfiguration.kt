@@ -24,6 +24,8 @@ import tools.forma.config.SettingsStore
  * @param javaVersionCompatibility is a java version that will be used for targetCompatibility and
  *   sourceCompatibility versions
  * @param mandatoryOwners is a flag that enables mandatory owners for all modules
+ * @param compose project-wide default for per-target Compose flags (see [AndroidProjectSettings.compose])
+ * @param composeCompilerVersion Compose compiler extension version for AGP `composeOptions`
  * @param extraPlugins is a list of extra plugins that will be applied to project
  */
 fun ScriptHandlerScope.androidProjectConfiguration(
@@ -35,6 +37,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     agpVersion: String,
     repositories: RepositoryHandler.() -> Unit = {},
     compose: Boolean = false,
+    composeCompilerVersion: String = DEFAULT_COMPOSE_COMPILER_VERSION,
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
     vectorDrawablesUseSupportLibrary: Boolean = false,
@@ -67,6 +70,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             javaVersionCompatibility = javaVersionCompatibility,
             mandatoryOwners = mandatoryOwners,
             compose = compose,
+            composeCompilerVersion = composeCompilerVersion,
             vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary
         )
 
@@ -87,6 +91,7 @@ fun Project.androidProjectConfiguration(
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
     compose: Boolean = false,
+    composeCompilerVersion: String = DEFAULT_COMPOSE_COMPILER_VERSION,
     vectorDrawablesUseSupportLibrary: Boolean = true,
 ) {
 
@@ -106,11 +111,15 @@ fun Project.androidProjectConfiguration(
             javaVersionCompatibility = javaVersionCompatibility,
             mandatoryOwners = mandatoryOwners,
             compose = compose,
+            composeCompilerVersion = composeCompilerVersion,
             vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary
         )
 
     Forma.store(configuration)
 }
+
+/** Compose Compiler matching Kotlin 1.9.10 (application Gradle 8.4 embedded Kotlin). */
+const val DEFAULT_COMPOSE_COMPILER_VERSION = "1.5.3"
 
 val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpathDeps ->
     // TODO pass repositories configuration

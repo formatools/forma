@@ -59,7 +59,7 @@ buildscript {
         project = project,
         minSdk = 21,
         targetSdk = 33,
-        compileSdk = 33,
+        compileSdk = 34,
         agpVersion = "8.1.2",
         extraPlugins = listOf(
             "androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4",
@@ -99,7 +99,9 @@ androidLibrary(
 
 ## Development environment
 
-Worker / contributor host setup (JDK 17+, Android SDK platform 33): see [`docs/ENV.md`](docs/ENV.md) and `source scripts/env-mac.sh`.
+Worker / contributor host setup (JDK 17+, Android SDK platform **34** for
+`compileSdk`, 33 still useful for target): see [`docs/ENV.md`](docs/ENV.md) and
+`source scripts/env-mac.sh`.
 
 ## External dependency catalogs
 
@@ -132,6 +134,7 @@ project-dep type checks + content layout rules from live validators
 | `androidLibrary` | ✅ | Android library | name + project-dep list (**no** `impl`) |
 | `uiLibrary` | ✅ | Shared UI library for impl/widget | project-dep list |
 | `widget` | ✅ | Custom View / UI component | project-dep list |
+| `composeWidget` | ✅ | Compose UI component | always Compose + project-dep list |
 | `androidRes` | ✅ | Resources only | only `res/` under `src/main` + project-dep list |
 | `viewBinding` | ✅ | Layout-only view binding module | only `layout*` under `res` + project-dep list |
 | `androidTestUtil` | ✅ | Shared code for Android tests | project-dep list |
@@ -153,22 +156,25 @@ That document is generated from each target’s
 | Consumer | May depend on project suffixes… |
 |----------|----------------------------------|
 | `api` | `api`, `library` |
-| `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget` |
+| `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` |
 | `library` (JVM) | `util`, `test-util` |
 | `androidLibrary` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
-| `uiLibrary` | `widget`, `util`, `android-util`, `res` |
+| `uiLibrary` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util`, `library` |
 | `androidUtil` | `android-util`, `test-util`, `res` |
 | `testUtil` | `test-util`, `util` |
 | `androidTestUtil` | `android-test-util`, `test-util` |
-| `androidRes` | `res`, `widget` |
-| `widget` | `ui-library`, `widget`, `util`, `android-util`, `res` |
-| `viewBinding` | `api`, `widget`, `res`, `library`, `android-util` |
-| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
-| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `ui-library` |
+| `androidRes` | `res`, `widget`, `compose-widget` |
+| `widget` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` |
+| `composeWidget` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` |
+| `viewBinding` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util` |
+| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
+| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
 | `androidNative` | *(no project-dep check)* |
 
 Dagger2-friendly `api`/`impl` + composition roots: **F-011** (landed).
+Jetpack Compose: per-target `compose` flag + `composeWidget` — **F-013**
+([`docs/COMPOSE.md`](docs/COMPOSE.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

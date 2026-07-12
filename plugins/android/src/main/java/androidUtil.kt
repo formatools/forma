@@ -38,7 +38,9 @@ fun Project.androidUtil(
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
-    testDependencies: FormaDependency = emptyDependency()
+    testDependencies: FormaDependency = emptyDependency(),
+    /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
+    compose: Boolean = Forma.settings.compose,
 ) {
 
     disallowResources()
@@ -47,7 +49,8 @@ fun Project.androidUtil(
     target.validate(AndroidUtilTargetTemplate)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
-        packageName
+        packageName = packageName,
+        compose = compose,
     )
 
     applyFeatures(

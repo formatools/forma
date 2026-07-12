@@ -296,4 +296,20 @@ object androidx {
         navigation_ui_ktx,
         navigation_common_ktx
     )
+
+    /**
+     * Jetpack Compose runtime + UI + foundation + material (pinned versions).
+     * Pair with `compose = true` / `composeWidget` targets (F-013).
+     * Versions match Compose Compiler 1.5.3 / Kotlin 1.9.10.
+     * Uses [transitiveDeps] so Compose UI unit/graphics transitively resolve.
+     * Does not include activity-compose (pulls emoji2 requiring compileSdk 34);
+     * add that separately when hosting Compose in Activities on SDK 34+.
+     */
+    val compose = transitiveDeps(
+        "androidx.compose.runtime:runtime:${versions.androidx.compose}",
+        "androidx.compose.ui:ui:${versions.androidx.compose}",
+        "androidx.compose.foundation:foundation:${versions.androidx.compose}",
+        "androidx.compose.material:material:${versions.androidx.compose}",
+        "androidx.compose.ui:ui-tooling-preview:${versions.androidx.compose}",
+    )
 }

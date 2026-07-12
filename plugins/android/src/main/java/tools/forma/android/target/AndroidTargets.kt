@@ -16,3 +16,5 @@ object ResourcesTargetTemplate : TargetTemplate("res")
 object ApiTargetTemplate : TargetTemplate("api")
 object ImplTargetTemplate : TargetTemplate("impl")
 object WidgetTargetTemplate : TargetTemplate("widget")
+/** Compose UI component target (parallel to [WidgetTargetTemplate] for View system). */
+object ComposeWidgetTargetTemplate : TargetTemplate("compose-widget")

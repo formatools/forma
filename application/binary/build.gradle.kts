@@ -3,6 +3,8 @@ androidBinary(
     owner = Teams.core,
     versionCode = 1,
     versionName = "0.0.1",
+    // Compose enabled so binary can host Compose content from compose-widget deps.
+    compose = true,
     dependencies = deps(
         target(":root-app"),
 
@@ -19,6 +21,7 @@ androidBinary(
 
         target(":common:extensions:android-util"),
 //        target(":common:util-native"),
+        target(":common:greeting:compose-widget"),
         target(":core:mvvm:library"),
         target(":core:di:library")
     )

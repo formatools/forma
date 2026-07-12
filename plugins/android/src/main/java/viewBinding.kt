@@ -11,6 +11,7 @@ import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.target.ResourcesTargetTemplate
 import tools.forma.android.target.ViewBindingTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
+import tools.forma.android.target.ComposeWidgetTargetTemplate
 import tools.forma.android.validation.onlyAllowLayouts
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
@@ -53,6 +54,7 @@ fun Project.viewBinding(
         validator = validator(
             ApiTargetTemplate,
             WidgetTargetTemplate,
+            ComposeWidgetTargetTemplate,
             ResourcesTargetTemplate,
             LibraryTargetTemplate,
             AndroidUtilTargetTemplate,

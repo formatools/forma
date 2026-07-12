@@ -11,6 +11,7 @@ import tools.forma.android.target.ResourcesTargetTemplate
 import tools.forma.android.target.UiLibraryTargetTemplate
 import tools.forma.android.target.UtilTargetTemplate
 import tools.forma.android.target.WidgetTargetTemplate
+import tools.forma.android.target.ComposeWidgetTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
@@ -36,6 +37,8 @@ fun Project.uiLibrary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
+    /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
+    compose: Boolean = Forma.settings.compose,
 ): TargetBuilder {
     target.validate(UiLibraryTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
@@ -44,6 +47,7 @@ fun Project.uiLibrary(
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
+        compose = compose,
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
@@ -54,6 +58,7 @@ fun Project.uiLibrary(
         validator = validator(
             // Better to have ability to use widget while we experiment with dependency rules
             WidgetTargetTemplate,
+            ComposeWidgetTargetTemplate,
             UtilTargetTemplate,
             AndroidUtilTargetTemplate,
             ResourcesTargetTemplate

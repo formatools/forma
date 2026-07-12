@@ -2,6 +2,33 @@
 
 Newest entries first.
 
+## 2026-07-11 — F-013 Compose support (GH #96)
+
+- **Ticket:** F-013 → `done`
+- **Branch:** `forma/F-013-compose-support` (from `origin/v2`)
+- **Plugin / DSL:**
+  - `AndroidLibraryFeatureConfiguration.compose` + `AndroidBinaryFeatureConfiguration.compose`
+    → `buildFeatures.compose` + `composeOptions.kotlinCompilerExtensionVersion`
+  - Per-target `compose` flag (default = project `androidProjectConfiguration(compose=…)`)
+    on `impl`, `androidLibrary`, `androidUtil`, `androidApp`, `uiLibrary`, `androidBinary`
+  - New target **`composeWidget`** / suffix `compose-widget` (always Compose)
+  - Project settings: `composeCompilerVersion` (default **1.5.3** for Kotlin 1.9.10)
+  - Validators: `compose-widget` allowed from impl/app/binary/uiLibrary/widget/viewBinding/res;
+    widget ↔ compose-widget mutual deps (View + Compose coexist)
+- **Sample:**
+  - `application/common/greeting/compose-widget` with `@Composable GreetingCard`
+  - `binary` depends on it with `compose = true`
+  - `androidx.compose` catalog cluster (`transitiveDeps`) in build-dependencies
+  - Sample `compileSdk` **34** (Compose emoji2 AAR metadata); `targetSdk` remains 33
+- **Docs:** `docs/COMPOSE.md`; matrix/README/ARCHITECTURE/ENV/CI updated
+- **Verify (real tool output, OpenJDK 17 + SDK 34):**
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL**
+  - `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (2151 tasks)
+  - `:common-greeting-compose-widget:compileDebugKotlin` + `:binary:assembleDebug` green
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none
+- **Next step:** F-014 sample app gold-standard multi-feature structure
+
 ## 2026-07-11 — F-012 External deps catalog UX
 
 - **Ticket:** F-012 → `done`

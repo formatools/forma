@@ -17,6 +17,8 @@ data class AndroidBinaryFeatureConfiguration(
     val testInstrumentationRunnerClass: String,
     val consumerMinificationFiles: Set<String>,
     val manifestPlaceholders: Map<String, Any> = emptyMap(),
+    /** Enable Jetpack Compose for the application (APK) target. */
+    val compose: Boolean = false,
     val selfValidator: Validator = validator(BinaryTargetTemplate)
 )
 
@@ -44,6 +46,12 @@ fun androidBinaryFeatureDefinition(
 
             buildTypes.applyFrom(configuration.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
+
+            if (configuration.compose) {
+                buildFeatures.compose = true
+                composeOptions.kotlinCompilerExtensionVersion =
+                    formaConfiguration.composeCompilerVersion
+            }
         }
     }
 )

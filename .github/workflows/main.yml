@@ -70,14 +70,14 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      # Sample app: compileSdk/targetSdk 33 (see application/build.gradle.kts).
+      # Sample app: compileSdk 34 (Compose AAR metadata), targetSdk 33.
       # setup-android accepts licenses, installs cmdline-tools + listed packages,
       # and exports ANDROID_HOME / ANDROID_SDK_ROOT for AGP.
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
         with:
           # Space-separated sdkmanager package ids (semicolons inside package names).
-          packages: "platform-tools platforms;android-33 build-tools;33.0.2 build-tools;34.0.0"
+          packages: "platform-tools platforms;android-34 platforms;android-33 build-tools;33.0.2 build-tools;34.0.0"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Build application

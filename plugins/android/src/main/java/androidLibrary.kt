@@ -40,6 +40,8 @@ fun Project.androidLibrary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
+    /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
+    compose: Boolean = Forma.settings.compose,
 ): TargetBuilder {
     target.validate(LibraryTargetTemplate)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
@@ -48,6 +50,7 @@ fun Project.androidLibrary(
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
+        compose = compose,
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),

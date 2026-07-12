@@ -1,6 +1,7 @@
 # Worker host environment (macOS)
 
-Forma workers need **JDK 17+** and an **Android SDK** with platform 33 (sample app `compileSdk`/`targetSdk`).
+Forma workers need **JDK 17+** and an **Android SDK** with platform **34**
+(sample `compileSdk`; Compose AAR metadata) and optionally **33** (`targetSdk`).
 
 ## Quick start (this Mac)
 
@@ -8,7 +9,8 @@ Forma workers need **JDK 17+** and an **Android SDK** with platform 33 (sample a
 # Already installed on the Forma worker host (no sudo):
 #   brew install openjdk@17
 #   brew install --cask android-commandlinetools
-#   sdk packages: platforms;android-33, platform-tools, build-tools 33.0.2 + 34.0.0
+#   sdk packages: platforms;android-34, platforms;android-33, platform-tools,
+#                 build-tools 33.0.2 + 34.0.0
 
 source scripts/env-mac.sh
 
@@ -46,6 +48,7 @@ export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME
 
 yes | sdkmanager --licenses
 sdkmanager --install \
+  "platforms;android-34" \
   "platforms;android-33" \
   "platform-tools" \
   "build-tools;33.0.2" \
@@ -61,13 +64,14 @@ sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk \
   /Library/Java/JavaVirtualMachines/openjdk-17.jdk
 ```
 
-## Verified on 2026-07-10 (F-001) / re-verified 2026-07-11 (F-003)
+## Verified on 2026-07-10 (F-001) / re-verified 2026-07-11 (F-003, F-013)
 
 - `java` / `javac` 17.0.19 (Homebrew OpenJDK)
 - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (AGP compile dep **8.1.2**)
 - `includer/`: `./gradlew build` → **BUILD SUCCESSFUL**
 - `depgen/`: `./gradlew build` → **BUILD SUCCESSFUL**
-- `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (2080 tasks, AGP runtime 8.1.2, Android SDK 33)
+- `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (compileSdk **34**,
+  targetSdk 33, Compose compiler 1.5.3, 2151 tasks)
 - Gradle wrappers: plugins 8.3, application 8.4
 - Toolchain note: plugins compile AGP matches sample forced AGP (no 7.4.2 skew)
 
