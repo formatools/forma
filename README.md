@@ -199,6 +199,7 @@ forma-core API design: **F-020** ([`docs/forma-core-api.md`](docs/forma-core-api
 forma-core extraction (restriction engine + TargetType + Android matrix kit): **F-021** done (`plugins/core`).
 forma-core validation SPI + content rules (Gradle facade in `:validation`): **F-022** done.
 forma-core TargetRegistry + Android DSL consumers: **F-023** done.
+Publish coordinates for `tools.forma:core` (library) + facade deprecation policy: **F-024** done (see [`docs/PLUGIN-PUBLISH.md`](docs/PLUGIN-PUBLISH.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
