@@ -25,6 +25,8 @@ dependencies {
     implementation(project(":owners"))
     implementation(project(":config"))
     implementation(project(":deps"))
+    // F-021: core restriction + target types (pure engine); Android owns concrete type instances + matrix
+    implementation(project(":core"))
 }
 
 tasks.named<Task>("publishPlugins") {

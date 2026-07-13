@@ -195,8 +195,8 @@ Plugin Portal publish path: **F-016**
 ([`docs/PLUGIN-PUBLISH.md`](docs/PLUGIN-PUBLISH.md)).
 Configuration-time performance: **F-017**
 ([`docs/CONFIGURATION-PERFORMANCE.md`](docs/CONFIGURATION-PERFORMANCE.md)).
-forma-core API design (extraction next): **F-020**
-([`docs/forma-core-api.md`](docs/forma-core-api.md)).
+forma-core API design: **F-020** ([`docs/forma-core-api.md`](docs/forma-core-api.md)).
+forma-core extraction (restriction engine + TargetType + Android matrix kit): **F-021** done (`plugins/core`).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
