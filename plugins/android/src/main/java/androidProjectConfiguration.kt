@@ -8,6 +8,7 @@ import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import org.gradle.kotlin.dsl.repositories
 import org.gradle.plugin.use.PluginDependency
 import tools.forma.android.utils.register
+import tools.forma.android.target.registerAndroidDefaults
 import tools.forma.config.AndroidProjectSettings
 import tools.forma.config.FormaSettingsStore
 import tools.forma.config.PluginInfoStore
@@ -75,6 +76,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
         )
 
     Forma.store(configuration)
+    registerAndroidDefaults()
 }
 
 @Deprecated("Old approach to configuration, use ScriptHandlerScope Extension")
@@ -116,6 +118,7 @@ fun Project.androidProjectConfiguration(
         )
 
     Forma.store(configuration)
+    registerAndroidDefaults()
 }
 
 /** Compose Compiler matching Kotlin 1.9.10 (application Gradle 8.4 embedded Kotlin). */

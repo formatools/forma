@@ -2,13 +2,10 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.target.TestUtilTargetTemplate
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
-import tools.forma.validation.validate
-import tools.forma.validation.validator
 import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
@@ -16,6 +13,8 @@ import org.gradle.api.Project
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.FormaDependency
+import tools.forma.validation.asValidator
+import tools.forma.validation.validate
 
 /**
  * TODO
@@ -46,7 +45,7 @@ fun Project.androidUtil(
     disallowResources()
 
     //TODO unify with util, use androidJar dependency
-    target.validate(AndroidUtilTargetTemplate)
+    AndroidTargetRegistry.selfValidator(AndroidTargetTypes.androidUtil).asValidator().validate(target)
 
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
@@ -59,11 +58,7 @@ fun Project.androidUtil(
     )
 
     applyDependencies(
-        validator = validator(
-            AndroidUtilTargetTemplate,
-            TestUtilTargetTemplate,
-            ResourcesTargetTemplate
-        ),
+        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.androidUtil).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
         configurationFeatures = kaptConfigurationFeature()

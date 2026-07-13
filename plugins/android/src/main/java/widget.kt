@@ -1,22 +1,18 @@
+import org.gradle.api.Project
 import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.UtilTargetTemplate
-import tools.forma.android.target.WidgetTargetTemplate
-import tools.forma.android.target.ComposeWidgetTargetTemplate
-import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.owners.NoOwner
-import tools.forma.owners.Owner
-import tools.forma.validation.validator
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
-import org.gradle.api.Project
-import tools.forma.android.target.UiLibraryTargetTemplate
-import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
+import tools.forma.deps.core.applyDependencies
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
+import tools.forma.validation.asValidator
 import tools.forma.validation.validate
 
 // TODO only allow layouts and view classes
@@ -37,7 +33,7 @@ fun Project.widget(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    target.validate(WidgetTargetTemplate)
+    AndroidTargetRegistry.selfValidator(AndroidTargetTypes.widget).asValidator().validate(target)
 
     val featureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
@@ -52,14 +48,7 @@ fun Project.widget(
     )
 
     applyDependencies(
-        validator = validator(
-            UiLibraryTargetTemplate,
-            WidgetTargetTemplate,
-            ComposeWidgetTargetTemplate,
-            UtilTargetTemplate,
-            AndroidUtilTargetTemplate,
-            ResourcesTargetTemplate
-        ),
+        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.widget).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

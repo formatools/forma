@@ -3,22 +3,17 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.owners.NoOwner
-import tools.forma.owners.Owner
-import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.ApiTargetTemplate
-import tools.forma.android.target.LibraryTargetTemplate
-import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.target.ViewBindingTargetTemplate
-import tools.forma.android.target.WidgetTargetTemplate
-import tools.forma.android.target.ComposeWidgetTargetTemplate
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.validation.onlyAllowLayouts
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.applyDependencies
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
+import tools.forma.validation.asValidator
 import tools.forma.validation.validate
-import tools.forma.validation.validator
 
 /**
  * Android View Binding Target - View Binding layouts collection
@@ -40,7 +35,7 @@ fun Project.viewBinding(
 ) {
     onlyAllowLayouts()
 
-    target.validate(ViewBindingTargetTemplate)
+    AndroidTargetRegistry.selfValidator(AndroidTargetTypes.viewBinding).asValidator().validate(target)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         consumerMinificationFiles = consumerMinificationFiles,
@@ -51,14 +46,7 @@ fun Project.viewBinding(
         kotlinAndroidFeatureDefinition(),
     )
     applyDependencies(
-        validator = validator(
-            ApiTargetTemplate,
-            WidgetTargetTemplate,
-            ComposeWidgetTargetTemplate,
-            ResourcesTargetTemplate,
-            LibraryTargetTemplate,
-            AndroidUtilTargetTemplate,
-        ),
+        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.viewBinding).asValidator(),
         dependencies = dependencies
     )
 }

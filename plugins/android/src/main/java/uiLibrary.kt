@@ -4,22 +4,18 @@ import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.owners.NoOwner
-import tools.forma.owners.Owner
-import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.target.UiLibraryTargetTemplate
-import tools.forma.android.target.UtilTargetTemplate
-import tools.forma.android.target.WidgetTargetTemplate
-import tools.forma.android.target.ComposeWidgetTargetTemplate
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
+import tools.forma.validation.asValidator
 import tools.forma.validation.validate
-import tools.forma.validation.validator
 
 /**
  * Android UI Library target - this can be used to share common ui code for impl and widget target.
@@ -40,7 +36,7 @@ fun Project.uiLibrary(
     /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
     compose: Boolean = Forma.settings.compose,
 ): TargetBuilder {
-    target.validate(UiLibraryTargetTemplate)
+    AndroidTargetRegistry.selfValidator(AndroidTargetTypes.uiLibrary).asValidator().validate(target)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
@@ -55,14 +51,7 @@ fun Project.uiLibrary(
     )
 
     applyDependencies(
-        validator = validator(
-            // Better to have ability to use widget while we experiment with dependency rules
-            WidgetTargetTemplate,
-            ComposeWidgetTargetTemplate,
-            UtilTargetTemplate,
-            AndroidUtilTargetTemplate,
-            ResourcesTargetTemplate
-        ),
+        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.uiLibrary).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,

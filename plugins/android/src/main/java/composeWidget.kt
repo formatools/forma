@@ -3,21 +3,17 @@ import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.ComposeWidgetTargetTemplate
-import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.target.UiLibraryTargetTemplate
-import tools.forma.android.target.UtilTargetTemplate
-import tools.forma.android.target.WidgetTargetTemplate
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
+import tools.forma.android.visibility.Public
+import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
-import tools.forma.android.visibility.Public
-import tools.forma.android.visibility.Visibility
+import tools.forma.validation.asValidator
 import tools.forma.validation.validate
-import tools.forma.validation.validator
 
 /**
  * Compose UI component target (Jetpack Compose counterpart of [widget]).
@@ -37,7 +33,8 @@ fun Project.composeWidget(
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
-    target.validate(ComposeWidgetTargetTemplate)
+    val selfV = AndroidTargetRegistry.selfValidator(AndroidTargetTypes.composeWidget).asValidator()
+    selfV.validate(target)
 
     val featureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
@@ -45,7 +42,7 @@ fun Project.composeWidget(
         consumerMinificationFiles = consumerMinificationFiles,
         manifestPlaceholders = manifestPlaceholders,
         compose = true,
-        selfValidator = validator(ComposeWidgetTargetTemplate)
+        selfValidator = selfV
     )
 
     applyFeatures(
@@ -54,14 +51,7 @@ fun Project.composeWidget(
     )
 
     applyDependencies(
-        validator = validator(
-            UiLibraryTargetTemplate,
-            ComposeWidgetTargetTemplate,
-            WidgetTargetTemplate,
-            UtilTargetTemplate,
-            AndroidUtilTargetTemplate,
-            ResourcesTargetTemplate
-        ),
+        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.composeWidget).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies

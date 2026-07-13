@@ -6,8 +6,9 @@ plugins under `plugins/` and in [`ARCHITECTURE.md`](ARCHITECTURE.md) §6 +
 
 **Status:** accepted design. **Implemented so far:** F-021 (types +
 restriction graph + Android kit), **F-022** (validation SPI + content
-predicates in `plugins/core`; `:validation` is a Gradle facade). Registry /
-DSL consumption remains **F-023**.
+predicates in `plugins/core`; `:validation` is a Gradle facade), **F-023**
+(`TargetRegistry` + Android DSL consumers via `AndroidTargetRegistry`).
+Publishing coordinates remain **F-024**.
 
 ---
 
@@ -403,7 +404,7 @@ Bazel adapter (later): same registry + restriction graph; replace
 | **F-020** (this doc) | Public API design only |
 | **F-021** | Create `plugins/core` (or move packages); target types + **restriction graph** + wire Android matrix data; keep binary/API facades so sample builds |
 | **F-022** | **Done:** validation SPI, identity-cached factories, content predicates in `plugins/core`; Android helpers call core; `:validation` facade |
-| **F-023** | Android DSL uses registry; delete duplicated allow-lists from individual `*.kt` entrypoints where safe; sample green |
+| **F-023** | **Done:** Android DSL uses registry; duplicated allow-lists removed from entrypoints; sample green |
 | **F-024** | Publishing coordinates, README/Portal metadata, deprecate old plugin jars if merged |
 
 Do not skip to JVM targets (F-030) until F-023 is done.
@@ -415,7 +416,7 @@ Do not skip to JVM targets (F-030) until F-023 is done.
 **Must ship in forma-core v1**
 
 - [x] `TargetType`, `TargetRef`, `NameMatcher` / `SuffixNameMatcher` (F-021)
-- [ ] `TargetRegistry` + `TargetRegistration` + `DefaultTargetRegistry` (F-023)
+- [x] `TargetRegistry` + `TargetRegistration` + `DefaultTargetRegistry` (F-023)
 - [x] `RestrictionGraph` / `RestrictionRule` / `EdgeKind` (F-021)
 - [x] `TargetValidator`, `AcceptAny`, `dependencyTypeValidator`, `selfTypeValidator` (F-022)
 - [x] Content rule interfaces + `NoResourcesUnderMain` / `OnlyResourcesUnderMain` / `OnlyLayoutResources` (F-022)
