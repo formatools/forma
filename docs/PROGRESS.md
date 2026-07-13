@@ -26,9 +26,9 @@ Newest entries first.
   - `plugins/`: `./gradlew :android:publishPlugins --validate-only` → packaging tasks ran; failed only on missing `gradle.publish.key/secret` (explicitly acceptable per AC)
   - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (578 tasks)
 - **Grounded:** all commands executed; outputs captured; no invented green builds.
-- **Commits/PRs:** this run — commit a404c89 on `forma/F-024-publish-coordinates`; self-verification PASS; ready for `git push && gh pr create --base v2`
+- **Commits/PRs:** commit b215f01 on `forma/F-024-publish-coordinates`; PR https://github.com/formatools/forma/pull/167 (base v2); self-verification PASS
 - **Blockers:** none
-- **Next step:** push + PR base v2 (human or next worker); F-030 JVM targets
+- **Next step:** F-030 JVM targets (after PR merge)
 
 ## 2026-07-13 — F-023 Wire Android as first consumer of forma-core
 
