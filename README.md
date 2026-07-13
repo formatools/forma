@@ -47,6 +47,7 @@ systems like Buck and Bazel.
 4. [External deps catalogs](docs/DEPS-CATALOG.md) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
 5. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
 6. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
+7. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
 
 Configuration made easy:
 
@@ -194,6 +195,8 @@ Plugin Portal publish path: **F-016**
 ([`docs/PLUGIN-PUBLISH.md`](docs/PLUGIN-PUBLISH.md)).
 Configuration-time performance: **F-017**
 ([`docs/CONFIGURATION-PERFORMANCE.md`](docs/CONFIGURATION-PERFORMANCE.md)).
+forma-core API design (extraction next): **F-020**
+([`docs/forma-core-api.md`](docs/forma-core-api.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

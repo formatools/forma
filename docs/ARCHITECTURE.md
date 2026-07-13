@@ -315,10 +315,12 @@ Aligned with `docs/VISION.md`: core must not assume Android/AGP/Dagger.
 
 Suggested extraction order (tickets F-020…F-024):
 
-1. Document public API (`docs/forma-core-api.md`) — types, restriction engine, validator SPI, target registry.
-2. Move `:target` + pure validation + restriction tables into `forma-core`.
-3. Re-home `applyDependencies` project-validation path on core validators.
-4. Leave `:android` as the first platform package implementing templates + AGP features.
+1. Document public API — **done (F-020):** [`forma-core-api.md`](forma-core-api.md)
+   (types, restriction graph, validator SPI, target registry, coords preview,
+   `library` suffix decision).
+2. Move `:target` + pure validation + restriction tables into `forma-core` (F-021).
+3. Re-home `applyDependencies` project-validation path on core validators (F-022).
+4. Leave `:android` as the first platform package implementing templates + AGP features (F-023).
 5. Coordinates: e.g. `tools.forma:core` vs `tools.forma.android` (F-024).
 
 ---
@@ -333,7 +335,7 @@ Suggested extraction order (tickets F-020…F-024):
 | ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |
 | ~~Compose flag in settings, limited target support~~ → per-target flags + `composeWidget` | F-013 done |
 | ~~Missing Android getting-started tutorial~~ → [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) | F-015 done |
-| Shared `library` suffix for JVM vs Android library | F-020 |
+| Shared `library` suffix for JVM vs Android library | F-020 design: unique `TargetType.id`, shared suffix OK ([`forma-core-api.md`](forma-core-api.md) §7); optional rename later |
 | Plugin publish / Portal path | F-016 (`docs/PLUGIN-PUBLISH.md`; Portal org GH #133 is human) |
 | ~~Configuration-time cost (validators/deps/repos)~~ → [`docs/CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md) | F-017 done |
 

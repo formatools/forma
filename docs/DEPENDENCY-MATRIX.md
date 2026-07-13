@@ -59,7 +59,8 @@ From `plugins/android/.../AndroidTargets.kt`:
 **Collision note:** JVM `library` and Android `androidLibrary` share the same
 suffix `library` / `LibraryTargetTemplate`. The DSL functions differ (Kotlin
 JVM features vs AGP library features), but project-name validation cannot
-tell them apart. Follow-up: F-020 (forma-core registry design).
+tell them apart. **Design (F-020):** unique `TargetType.id` with shared
+suffix allowed for Gradle names — see [`forma-core-api.md`](forma-core-api.md) §7.
 
 README historically said `androidWidget` / `androidUtils` / `testUtils` /
 `utils` / `androidTestUtils` — the **code** entrypoints are `widget`,
