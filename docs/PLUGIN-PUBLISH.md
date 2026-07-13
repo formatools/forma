@@ -127,6 +127,67 @@ cd plugins
 ./gradlew :android:publishPlugins
 ```
 
+## Local publishing for testing (mavenLocal)
+
+Use this when you want to consume Forma from **another** Gradle project **without**
+`includeBuild("../plugins")` and **without** Portal credentials.
+
+### Publish
+
+```bash
+# From repo root (recommended wrapper):
+./scripts/publish-local.sh                 # version 0.1.3
+./scripts/publish-local.sh 0.1.3-LOCAL     # recommended for experiments
+
+# Or:
+cd plugins
+./gradlew publishAllToMavenLocal
+./gradlew publishAllToMavenLocal -PformaLocalVersion=0.1.3-LOCAL
+```
+
+What gets installed under `~/.m2/repository/tools/forma/`:
+
+| Artifact | Notes |
+|----------|--------|
+| `core` | JVM library (`tools.forma:core`) |
+| `android`, `target`, `validation`, `owners`, `config`, `deps` | plugin jars + Gradle plugin markers |
+
+`:core` is published first so `:android`’s Maven POM can resolve
+`tools.forma:core` from mavenLocal.
+
+**Do not** pass `-PformaLocalVersion` for real Portal releases — keep Portal
+on the plain `0.1.3` (or next release) version string.
+
+### Consume from a test project
+
+```kotlin
+// settings.gradle.kts
+pluginManagement {
+    repositories {
+        mavenLocal()
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+// build.gradle.kts or settings plugins {}
+plugins {
+    id("tools.forma.android") version "0.1.3-LOCAL"
+}
+```
+
+Also put `mavenLocal()` in `dependencyResolutionManagement.repositories` (or
+`buildscript.repositories` / project `repositories`) so `tools.forma:core`
+and sibling plugin jars resolve.
+
+### vs composite includeBuild
+
+| Mode | When |
+|------|------|
+| `includeBuild("../plugins")` | Day-to-day Forma development (sample `application/`) — no publish step |
+| `publishAllToMavenLocal` | External smoke tests, versioned consumer repros, AGP upgrade spikes |
+
 ## Consumer coordinates
 
 Unchanged for apps:
@@ -150,3 +211,4 @@ recommended path for Forma development (see
 | GH #132 | Target-shaped publish config (implemented) |
 | GH #133 | Shared Portal user (admin; documented, not automated) |
 | F-024 | Coordinate plan when `forma-core` is extracted (`tools.forma:core` vs android plugins) |
+| F-018 | Gradle/AGP modernization; use local publish for upgrade smoke tests |
