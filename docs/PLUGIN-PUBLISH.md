@@ -15,14 +15,83 @@ expected ownership model and credential flow so workers do not invent secrets.
 | `plugins/:owners` | `tools.forma.owners` | Ownership metadata |
 | `plugins/:config` | `tools.forma.config` | Settings store |
 | `plugins/:deps` | `tools.forma.deps` | Dep model + catalogs |
+| `plugins/:core` | (library, no plugin id) | `tools.forma:core` Maven GAV (jar + sources jar) |
 | `includer/` | `tools.forma.includer` | Separate build (own version) |
 | `depgen/` | `tools.forma.depgen` | Separate build |
 
 Current shared version for the `plugins/` multi-project: **`0.1.3`**
 (see `formaPluginConfiguration` in `plugins/build.gradle.kts`).
 
+Core and plugins share the version (overridable for local testing via `-PformaLocalVersion`).
+
 `:android`’s `publishPlugins` task depends on sibling `publishPlugins` so a
 single `:android:publishPlugins` publishes the whole set.
+
+## Coordinates (F-024)
+
+**`tools.forma:core`** is a **library** (plain Maven jar), **not** a Gradle plugin.
+Android consumers continue to use the unchanged plugin id `tools.forma.android`.
+
+### GAV and plugin ids
+
+| Artifact | Coordinates | Type | Notes |
+|----------|-------------|------|-------|
+| forma-core | `tools.forma:core:0.1.3` (+ `-sources`) | Maven library | Single jar. Contains `tools.forma.core.target`, `.restriction`, `.validation`. |
+| Android | `tools.forma.android` (Plugin Portal) | Gradle plugin | Primary entrypoint. Depends on core (transitive). |
+| Facades (compat) | `tools.forma.target`, `.validation`, `.deps`, `.config`, `.owners` | Gradle plugins (thin) | Remain published; delegate/re-export core. |
+
+Group `tools.forma`, version `0.1.3` (shared source of truth in root `formaPluginConfiguration`).
+
+### Consumers
+
+- **Normal Android apps** (recommended): use the plugin — no direct core dep needed.
+  ```kotlin
+  plugins {
+      id("tools.forma.android") version "0.1.3"
+  }
+  ```
+- **Pure engine / future JVM or Bazel** (F-030+): depend directly on the library
+  when writing adapters that do not need the Android DSL:
+  `implementation("tools.forma:core:0.1.3")`.
+  (A future `tools.forma.jvm` plugin would also pull core.)
+
+### How plugin POMs declare the core dependency
+
+- Build files declare `implementation(project(":core"))` (and sibling facades).
+- During `maven-publish` (via `com.gradle.plugin-publish` for plugins):
+  matching GAV project dependencies are rewritten as external
+  `tools.forma:core:0.1.3` (and peer plugins) in the published POM.
+- `publishAllToMavenLocal` explicitly depends on `:core:publishToMavenLocal`
+  first so local resolution succeeds for plugin POMs and markers.
+
+### Single-jar confirmation (F-024)
+
+`tools.forma:core` is published as **one jar** (plus sources). There is no
+`core` + `core-gradle` split for the initial extraction.
+
+### Owners status (F-024)
+
+`:owners` stays a **sibling published plugin** (thin facade over metadata types).
+No forced merge of sources into the core jar during F-024.
+
+### Deprecation policy for facade plugin ids (F-024)
+
+- `tools.forma.target`, `tools.forma.validation`, `.deps`, `.config`, `.owners`
+  **remain published and supported** as thin facades for the 0.1.x series
+  (current minor + at least one subsequent minor).
+- **No removal or breaking change** to these ids in 0.1.x.
+- Deprecation (docs + Portal metadata) will be introduced later — e.g. after
+  JVM targets land (F-030) or after consumers have had a full minor of dual
+  availability (`tools.forma.android` + direct core).
+- Primary documented path: `id("tools.forma.android")` for Android; direct
+  `tools.forma:core` for non-Android engine consumers.
+- Facades provide a safe compat window; existing builds using them will not
+  break in 0.1.x.
+
+See also:
+- [`docs/forma-core-api.md`](forma-core-api.md) (design + resolved open questions)
+- [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) §6 (extraction map updated for F-024)
+- Consumer usage stays `includeBuild` for development; mavenLocal for external repros.
 
 ## Forma-style publish configuration (GH #132)
 
@@ -210,5 +279,5 @@ recommended path for Forma development (see
 | F-016 | This doc + `formaPluginConfiguration` / `formaPublishedPlugin` |
 | GH #132 | Target-shaped publish config (implemented) |
 | GH #133 | Shared Portal user (admin; documented, not automated) |
-| F-024 | Coordinate plan when `forma-core` is extracted (`tools.forma:core` vs android plugins) |
+| F-024 | Publish coordinates, consumer docs, POM wiring, deprecation policy for `tools.forma:core` vs facades (implemented) |
 | F-018 | Gradle/AGP modernization; use local publish for upgrade smoke tests |

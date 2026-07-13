@@ -405,7 +405,7 @@ Bazel adapter (later): same registry + restriction graph; replace
 | **F-021** | Create `plugins/core` (or move packages); target types + **restriction graph** + wire Android matrix data; keep binary/API facades so sample builds |
 | **F-022** | **Done:** validation SPI, identity-cached factories, content predicates in `plugins/core`; Android helpers call core; `:validation` facade |
 | **F-023** | **Done:** Android DSL uses registry; duplicated allow-lists removed from entrypoints; sample green |
-| **F-024** | Publishing coordinates, README/Portal metadata, deprecate old plugin jars if merged |
+| **F-024** | Publishing coordinates (`tools.forma:core` library GAV + facade policy), consumer docs, POM dep wiring, deprecation plan (no removal in 0.1.x); single-jar + owners status documented |
 
 Do not skip to JVM targets (F-030) until F-023 is done.
 
@@ -527,15 +527,21 @@ an Android SDK.
 
 ---
 
-## 11. Open questions (resolve during F-021, not blockers for design accept)
+## 11. Open questions (resolved in F-024)
 
-1. Single jar `tools.forma:core` vs `core` + `core-gradle` split in the first
-   extraction PR — **default: single jar** with gradle package.
-2. Whether `:owners` merges into core jar or stays a one-class sibling — **default: merge**.
-3. Exact deprecation timeline for `tools.forma.target` / `.validation` plugin
-   ids on Portal — decide in F-024 with publish docs.
-4. Whether `EdgeKind.TEST` project validation should turn on with a flag —
-   default **off** (parity).
+1. **Single jar**: confirmed. `tools.forma:core` is one Maven artifact (jar + sources).
+   No `core-gradle` split.
+2. **Owners**: stays sibling published plugin for now (thin facade). No forced merge
+   into the core jar (documented in `docs/PLUGIN-PUBLISH.md`).
+3. **Deprecation timeline for facade ids** (`tools.forma.target`, `.validation`, `.deps`,
+   `.config`, `.owners`): remain published and supported through 0.1.x (current + at
+   least one more minor). No removal in 0.1.x. Deprecation signalled later (e.g. post
+   F-030 JVM or after documented dual-availability period). See full policy in
+   `docs/PLUGIN-PUBLISH.md` § Coordinates (F-024).
+4. `EdgeKind.TEST`: still deferred (parity with current behavior; off by default).
+
+F-024 also finalized publish coordinates, POM wiring, and consumer guidance
+(`tools.forma:core` library vs `tools.forma.android` plugin).
 
 ---
 

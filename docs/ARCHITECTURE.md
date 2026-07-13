@@ -328,7 +328,7 @@ Suggested extraction order (tickets F-020…F-024):
 3. Validation SPI + content predicates in core; `:validation` thin facade — **done (F-022)**.
 4. Wire Android DSL / registry as first consumer of core — **done (F-023)**
    (`TargetRegistry` + `AndroidTargetRegistry`; sample green).
-5. Coordinates: e.g. `tools.forma:core` vs `tools.forma.android` (F-024).
+5. Coordinates + publish finalization: `tools.forma:core` (library) vs `tools.forma.android` + facades (F-024 done — see `docs/PLUGIN-PUBLISH.md`).
 
 ---
 

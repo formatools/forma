@@ -34,7 +34,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-021 | done | Extract dependency-type / restriction engine into `forma-core` | `plugins/core` + TargetType/NameMatcher/RestrictionGraph + AndroidTargetTypes + AndroidRestrictionKit (distinct jvm.library vs android.library); facades preserved. Related GH #39 |
 | F-022 | done | Extract validation framework into `forma-core` | `plugins/core` TargetValidator + ContentRule; `:validation` facade; Android helpers call pure rules |
 | F-023 | done | Wire Android implementation as first consumer of forma-core | TargetRegistry + AndroidTargetRegistry; DSL uses registry validators; sample green |
-| F-024 | todo | Publish/coordinate coordinates: `tools.forma:core` vs android plugins | |
+| F-024 | done | Publish/coordinate coordinates: `tools.forma:core` vs android plugins | Coordinates, docs, mavenLocal + validate, sample green |
 
 ## P3 — JVM applications
 

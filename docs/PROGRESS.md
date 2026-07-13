@@ -2,6 +2,34 @@
 
 Newest entries first.
 
+## 2026-07-13 — F-024 Publish/coordinate coordinates: `tools.forma:core` vs android plugins
+
+- **Ticket:** F-024 → `done`
+- **Branch:** `forma/F-024-publish-coordinates` (from `origin/v2`)
+- **Skills/modes:** /goal + todo_write + direct implement (per user query); self-verify via spawned verifier subagent
+- **Docs (primary):**
+  - Added dedicated **Coordinates (F-024)** section to `docs/PLUGIN-PUBLISH.md`: GAV matrix, single-jar confirmation, `:owners` sibling status, POM wiring (project → external GAV), consumer guidance (android plugin vs pure core), deprecation policy (keep facades through 0.1.x, no removal).
+  - Updated table of published artifacts to include `:core`.
+  - Resolved open questions in `docs/forma-core-api.md` §11; updated extraction checklist + F-024 row.
+  - Updated `docs/ARCHITECTURE.md` step 5 extraction map.
+  - README Progress section + cross links.
+- **Publish wiring / metadata:**
+  - Hardened `plugins/core/build.gradle.kts`: added `pom { name, description, url, scm }` (matches forma config; visible in published core POM).
+  - `publishAllToMavenLocal` already orders core first (confirmed in execution).
+  - No changes to turn `:core` into a plugin; no plugin-publish applied to core.
+- **Verify (real output, OpenJDK 17 via env-mac.sh):**
+  - `plugins/`: `./gradlew :core:test` → **BUILD SUCCESSFUL**
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (68 tasks)
+  - `plugins/`: `./gradlew publishAllToMavenLocal -PformaLocalVersion=0.1.3-F024` → **BUILD SUCCESSFUL**
+  - `~/.m2/.../core/0.1.3-F024/` has `core-0.1.3-F024.jar` + `-sources.jar` + `.pom` (with metadata)
+  - android POM contains `<artifactId>core</artifactId><version>0.1.3-F024</version>` (project dep substituted)
+  - `plugins/`: `./gradlew :android:publishPlugins --validate-only` → packaging tasks ran; failed only on missing `gradle.publish.key/secret` (explicitly acceptable per AC)
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (578 tasks)
+- **Grounded:** all commands executed; outputs captured; no invented green builds.
+- **Commits/PRs:** this run — commit a404c89 on `forma/F-024-publish-coordinates`; self-verification PASS; ready for `git push && gh pr create --base v2`
+- **Blockers:** none
+- **Next step:** push + PR base v2 (human or next worker); F-030 JVM targets
+
 ## 2026-07-13 — F-023 Wire Android as first consumer of forma-core
 
 - **Ticket:** F-023 → `done`
