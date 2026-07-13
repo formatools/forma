@@ -1,10 +1,15 @@
 plugins {
     kotlin("jvm")
+    `maven-publish`
 }
 
-// Library (not a settings/application plugin). Use same group/version as plugins for the jar.
-group = "tools.forma"
-version = "0.1.3"
+// Library (not a Gradle plugin). Same group/version as plugins for mavenLocal + Portal later.
+group = rootProject.group
+version = rootProject.version
+
+java {
+    withSourcesJar()
+}
 
 dependencies {
     testImplementation(kotlin("test"))
@@ -12,4 +17,16 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+            // Explicit coordinates so consumers resolve tools.forma:core:<version>
+            groupId = project.group.toString()
+            artifactId = "core"
+            version = project.version.toString()
+        }
+    }
 }

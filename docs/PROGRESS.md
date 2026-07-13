@@ -2,6 +2,18 @@
 
 Newest entries first.
 
+## 2026-07-13 — Local maven publishing for plugin testing
+
+- **Scope:** tooling for F-018 AGP/Gradle smoke tests + external consumers
+- **Changes:**
+  - `plugins/core`: `maven-publish` → `tools.forma:core` (+ sources)
+  - `plugins/build.gradle.kts`: `publishAllToMavenLocal` aggregate; `-PformaLocalVersion=…`
+  - `scripts/publish-local.sh` helper
+  - `docs/PLUGIN-PUBLISH.md` § Local publishing
+- **Verify:** `./gradlew publishAllToMavenLocal -PformaLocalVersion=0.1.3-LOCAL` → **BUILD SUCCESSFUL**; artifacts under `~/.m2/repository/tools/forma/*`; android POM lists `tools.forma:core:0.1.3-LOCAL`
+- **Note:** sample `application/` still uses `includeBuild`; mavenLocal is for external test consumers
+- **Next:** commit with F-018 branch or standalone docs/tooling PR if desired
+
 ## 2026-07-13 — F-021 Extract dependency-type / restriction engine into forma-core
 
 - **Ticket:** F-021 → `done`
