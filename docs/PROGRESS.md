@@ -2,6 +2,27 @@
 
 Newest entries first.
 
+## 2026-07-13 — F-020 Design forma-core public API
+
+- **Ticket:** F-020 → `done`
+- **Branch:** `forma/F-020-forma-core-api` (from `origin/v2`)
+- **Docs (design only — no plugin code move):**
+  - Added `docs/forma-core-api.md`: goals/non-goals, package/coords preview
+    (`tools.forma:core`), `TargetType` / `TargetRef` / `NameMatcher`,
+    restriction graph + `EdgeKind`, validator SPI + content rules, target
+    registry, deps/settings split, owners, feature-definitions stay platform,
+    runtime sequence, F-021…F-024 mapping, v1 API checklist, **library suffix
+    collision decision** (unique type `id`, shared suffix + optional marker),
+    migration/compat, test strategy, open questions
+  - ARCHITECTURE §6 extraction order + §7 collision note → design doc
+  - README Getting started + Progress pointers; TICKETS status
+- **Code:** none (F-020 is design acceptance)
+- **Verify:** markdown + cross-links only (no Gradle required)
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none
+- **Next step:** F-021 Extract dependency-type / restriction engine into
+  `forma-core` (`plugins/core` + wire Android matrix data; sample stays green)
+
 ## 2026-07-12 — F-017 Configuration-time performance pass (GH #106, #42)
 
 - **Ticket:** F-017 → `done`

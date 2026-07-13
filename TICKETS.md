@@ -30,7 +30,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-020 | todo | Design forma-core public API (types, restrictions, validation, target registry) | Write `docs/forma-core-api.md` first |
+| F-020 | done | Design forma-core public API (types, restrictions, validation, target registry) | `docs/forma-core-api.md` — types, restriction graph, validator SPI, registry, coords, library-suffix decision |
 | F-021 | todo | Extract dependency-type / restriction engine into `forma-core` | Related GH #39, closed #34 |
 | F-022 | todo | Extract validation framework into `forma-core` | Keep Android validators as plugins |
 | F-023 | todo | Wire Android implementation as first consumer of forma-core | Sample still builds |
