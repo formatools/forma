@@ -2,6 +2,33 @@
 
 Newest entries first.
 
+## 2026-07-13 — F-021 Extract dependency-type / restriction engine into forma-core
+
+- **Ticket:** F-021 → `done`
+- **Branch:** `forma/F-021-forma-core-restriction` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (plan agent design → implement + goal + check); Hermes verified builds; matrix id split fix applied on disk after implement timeout
+- **New module:**
+  - `plugins/core/` pure JVM library (`tools.forma` / `0.1.3`), no AGP / no plugin-publish
+  - Auto-included via `tools.forma.includer`
+- **Core packages (`tools.forma.core.*`):**
+  - `target`: `TargetType`, `TargetRef`, `SimpleTargetType`, `targetType(...)`, `NameMatcher`, `SuffixNameMatcher`
+  - `restriction`: `EdgeKind`, `RestrictionRule`, `RestrictionGraph`, `MutableRestrictionGraph` (closed-world, id-keyed)
+- **Android wiring (platform owns types + matrix):**
+  - `AndroidTargetTypes`: stable ids (`android.api`, `android.impl`, `android.library`, **`jvm.library`**, `jvm.util`, …)
+  - `AndroidRestrictionKit.register` / `build()` from `docs/DEPENDENCY-MATRIX.md`; **impl ↛ impl**; JVM `library` vs `androidLibrary` rules not merged
+  - `:android` depends on `:core`
+- **Compat:** legacy `TargetTemplate` / `validator(...)` / DSL untouched (F-023 consumes graph)
+- **Tests:** `NameMatcherTest` + `RestrictionGraphTest` (impl rule + §7 suffix collision)
+- **Docs:** ARCHITECTURE graph/table/extraction; README Progress; TICKETS
+- **Verify (Hermes re-run, OpenJDK 17):**
+  - `plugins/`: `./gradlew :core:test` → **BUILD SUCCESSFUL**
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (67 tasks)
+  - `plugins/`: `./gradlew :android:compileKotlin` → **BUILD SUCCESSFUL**
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (578 tasks)
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none (Grok CLI auth needed env-parse fix in `~/.hermes/scripts/grok_build_exec.sh`; implement phase hit turn/timeout once but tree landed)
+- **Next step:** F-022 Extract validation framework into forma-core
+
 ## 2026-07-13 — F-020 Design forma-core public API
 
 - **Ticket:** F-020 → `done`
