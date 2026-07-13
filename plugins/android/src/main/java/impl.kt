@@ -4,23 +4,15 @@ import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.ApiTargetTemplate
-import tools.forma.android.target.ImplTargetTemplate
-import tools.forma.android.target.LibraryTargetTemplate
-import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.target.TestUtilTargetTemplate
-import tools.forma.android.target.UiLibraryTargetTemplate
-import tools.forma.android.target.UtilTargetTemplate
-import tools.forma.android.target.ViewBindingTargetTemplate
-import tools.forma.android.target.WidgetTargetTemplate
-import tools.forma.android.target.ComposeWidgetTargetTemplate
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
+import tools.forma.validation.asValidator
 import tools.forma.validation.validate
-import tools.forma.validation.validator
+
 
 /**
  * Feature **implementation** (Android library + optional view binding / kapt / Compose).
@@ -47,14 +39,15 @@ fun Project.impl(
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
 
-    target.validate(ImplTargetTemplate)
+    val selfV = AndroidTargetRegistry.selfValidator(AndroidTargetTypes.impl).asValidator()
+    selfV.validate(target)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
-        selfValidator = validator(ImplTargetTemplate),
+        selfValidator = selfV,
         viewBinding = viewBinding,
         compose = compose
     )
@@ -64,18 +57,7 @@ fun Project.impl(
     )
 
     applyDependencies(
-        validator = validator(
-            ApiTargetTemplate,
-            AndroidUtilTargetTemplate,
-            TestUtilTargetTemplate,
-            UtilTargetTemplate,
-            LibraryTargetTemplate,
-            UiLibraryTargetTemplate,
-            ResourcesTargetTemplate,
-            ViewBindingTargetTemplate,
-            WidgetTargetTemplate,
-            ComposeWidgetTargetTemplate,
-        ),
+        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.impl).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,

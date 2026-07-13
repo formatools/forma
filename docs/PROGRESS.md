@@ -2,6 +2,31 @@
 
 Newest entries first.
 
+## 2026-07-13 — F-023 Wire Android as first consumer of forma-core
+
+- **Ticket:** F-023 → `done`
+- **Branch:** `forma/F-023-android-registry` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design plan) then `--mode implement` (hit max-turns twice; tree completed by Hermes verify/docs)
+- **Core (`tools.forma.core.target`):**
+  - `TargetRegistration`, `TargetRegistry`, `DefaultTargetRegistry`
+  - `validatorFor` / `selfValidator` via core factories + registry-level caches
+  - `restrictionGraph()` rebuilt from registrations (replace semantics)
+  - Unit tests: `TargetRegistryTest` (9 tests, all green)
+- **Android consumer:**
+  - `AndroidTargetRegistry` + `registerAndroidDefaults()` (matrix + content-rule metadata)
+  - `androidProjectConfiguration` initializes registry after `Forma.store`
+  - All DSL entrypoints (`api`/`impl`/`library`/`androidLibrary`/…/app/binary/native) use registry validators
+  - **jvm.library** vs **android.library** distinguished for `library()` vs `androidLibrary()`
+- **Facade:** `TargetValidator.asValidator()` → legacy `Validator` / `ProjectValidationError`
+- **Docs:** forma-core-api checklist + status; ARCHITECTURE §6; README Progress; TICKETS
+- **Verify (OpenJDK 17 + env-mac.sh):**
+  - `plugins/`: `./gradlew :core:test` → **BUILD SUCCESSFUL** (`TargetRegistryTest` 9/9)
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (68 tasks)
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (578 tasks)
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none (Grok implement max-turns; code/docs finished under Hermes)
+- **Next step:** F-024 Publish/coordinate coordinates (`tools.forma:core` vs android plugins)
+
 ## 2026-07-13 — F-022 Extract validation framework into forma-core
 
 - **Ticket:** F-022 → `done`

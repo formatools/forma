@@ -33,7 +33,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-020 | done | Design forma-core public API (types, restrictions, validation, target registry) | `docs/forma-core-api.md` — types, restriction graph, validator SPI, registry, coords, library-suffix decision |
 | F-021 | done | Extract dependency-type / restriction engine into `forma-core` | `plugins/core` + TargetType/NameMatcher/RestrictionGraph + AndroidTargetTypes + AndroidRestrictionKit (distinct jvm.library vs android.library); facades preserved. Related GH #39 |
 | F-022 | done | Extract validation framework into `forma-core` | `plugins/core` TargetValidator + ContentRule; `:validation` facade; Android helpers call pure rules |
-| F-023 | todo | Wire Android implementation as first consumer of forma-core | Sample still builds |
+| F-023 | done | Wire Android implementation as first consumer of forma-core | TargetRegistry + AndroidTargetRegistry; DSL uses registry validators; sample green |
 | F-024 | todo | Publish/coordinate coordinates: `tools.forma:core` vs android plugins | |
 
 ## P3 — JVM applications

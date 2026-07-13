@@ -1,32 +1,22 @@
+import org.gradle.api.Project
 import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
+import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidUtilTargetTemplate
-import tools.forma.android.target.ApiTargetTemplate
-import tools.forma.android.target.ApplicationTargetTemplate
-import tools.forma.android.target.ImplTargetTemplate
-import tools.forma.android.target.LibraryTargetTemplate
-import tools.forma.android.target.ResourcesTargetTemplate
-import tools.forma.android.target.TestUtilTargetTemplate
-import tools.forma.android.target.UiLibraryTargetTemplate
-import tools.forma.android.target.UtilTargetTemplate
-import tools.forma.android.target.ViewBindingTargetTemplate
-import tools.forma.android.target.WidgetTargetTemplate
-import tools.forma.android.target.ComposeWidgetTargetTemplate
-import tools.forma.owners.NoOwner
-import tools.forma.owners.Owner
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
-import tools.forma.validation.validate
-import tools.forma.validation.validator
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
-import org.gradle.api.Project
-import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
+import tools.forma.validation.asValidator
+import tools.forma.validation.validate
 
 /**
  * Root Android application library (feature composition, not the APK entry).
@@ -52,13 +42,15 @@ fun Project.androidApp(
 
     disallowResources()
 
-    target.validate(ApplicationTargetTemplate)
+    val selfV = AndroidTargetRegistry.selfValidator(AndroidTargetTypes.app).asValidator()
+    selfV.validate(target)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,
         testInstrumentationRunner,
         consumerMinificationFiles,
         manifestPlaceholders,
+        selfValidator = selfV,
         compose = compose,
     )
     applyFeatures(
@@ -67,19 +59,7 @@ fun Project.androidApp(
     )
 
     applyDependencies(
-        validator = validator(
-            ApiTargetTemplate,
-            ImplTargetTemplate,
-            LibraryTargetTemplate,
-            UtilTargetTemplate,
-            AndroidUtilTargetTemplate,
-            TestUtilTargetTemplate,
-            ResourcesTargetTemplate,
-            ViewBindingTargetTemplate,
-            WidgetTargetTemplate,
-            ComposeWidgetTargetTemplate,
-            UiLibraryTargetTemplate,
-        ),
+        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.app).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,

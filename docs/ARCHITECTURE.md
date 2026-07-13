@@ -308,14 +308,14 @@ Aligned with `docs/VISION.md`: core must not assume Android/AGP/Dagger.
 
 | Concern | Current home | forma-core? | Notes |
 |---------|--------------|-------------|-------|
-| Target type identity (`TargetTemplate` / suffix) | `:target` + `:core` (F-021) | **Yes** | Parallel `TargetType` in core; templates kept for compat. Registry in F-023. |
+| Target type identity (`TargetTemplate` / suffix) | `:target` + `:core` (F-021) | **Yes** | Parallel `TargetType` in core; templates kept for compat. **Registry F-023 done.** |
 | Name + dep-type `Validator` | `:core` + `:validation` facade (F-022) | **Yes** | Core `TargetValidator` + factories; legacy API re-exports |
 | Content validators (`onlyAllowResources`, …) | core predicates + `:android` helpers (F-022) | **Split** | Pure `ContentRule` in core; Gradle listing + Android helpers in platform |
 | Dependency model + apply | `:deps` | **Mostly yes** | Strip AGP-ish config features; catalog generators may stay tooling |
 | Settings store | `:config` | **Split** | Generic `SettingsStore` / plugin registry → core; `AndroidProjectSettings` → android |
 | Owners | `:owners` | **Optional / yes** | Platform-agnostic metadata |
 | Feature definitions (AGP library/binary/native) | `:android` | **No** | Stay platform |
-| DSL entrypoints (`api`/`impl`/…) | `:android` | **No** (register *onto* core) | First consumer of core (F-023) |
+| DSL entrypoints (`api`/`impl`/…) | `:android` | **No** (register *onto* core) | First consumer of core — **F-023 done** (`AndroidTargetRegistry`) |
 | Includer / depgen | separate builds | **No** | Adjacent tooling |
 | build-dependencies catalogs | sample support | **No** | Demo-only; pattern informs F-012 |
 
@@ -326,7 +326,8 @@ Suggested extraction order (tickets F-020…F-024):
    `library` suffix decision).
 2. Create `plugins/core` + TargetType + RestrictionGraph + wire Android matrix from DEPENDENCY-MATRIX — **done (F-021)**.
 3. Validation SPI + content predicates in core; `:validation` thin facade — **done (F-022)**.
-4. Wire Android DSL / registry as first consumer of core (F-023); sample stays green.
+4. Wire Android DSL / registry as first consumer of core — **done (F-023)**
+   (`TargetRegistry` + `AndroidTargetRegistry`; sample green).
 5. Coordinates: e.g. `tools.forma:core` vs `tools.forma.android` (F-024).
 
 ---

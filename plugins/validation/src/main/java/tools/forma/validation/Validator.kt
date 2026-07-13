@@ -117,3 +117,20 @@ fun throwProjectDepsValidationError(
         """.trimIndent()
     )
 }
+
+/**
+ * Bridge from core [TargetValidator] (obtained via registry) to the legacy [Validator]
+ * interface consumed by [applyDependencies] and feature selfValidator slots.
+ *
+ * Wraps [FormaValidationException] as [ProjectValidationError] so existing callers,
+ * tests, and error shape expectations are unchanged.
+ */
+fun CoreValidator.asValidator(): Validator = object : Validator {
+    override fun validate(target: FormaTarget) {
+        try {
+            this@asValidator.validate(target)
+        } catch (ex: FormaValidationException) {
+            throw ProjectValidationError(ex.message ?: "Project ${target.name}: validation failed")
+        }
+    }
+}

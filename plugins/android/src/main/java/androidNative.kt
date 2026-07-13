@@ -1,16 +1,18 @@
 import org.gradle.api.Project
 import tools.forma.android.config.NdkAbi
 import tools.forma.android.config.NdkBuildSystem
-import tools.forma.owners.NoOwner
-import tools.forma.owners.Owner
-import tools.forma.android.target.NativeTarget
+import tools.forma.android.feature.AndroidNativeConfiguration
+import tools.forma.android.feature.androidNativeDefinition
+import tools.forma.android.feature.applyFeatures
+import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.target.AndroidTargetTypes
+import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
+import tools.forma.owners.NoOwner
+import tools.forma.owners.Owner
+import tools.forma.validation.asValidator
 import tools.forma.validation.validate
-import tools.forma.android.validation.disallowResources
-import tools.forma.android.feature.applyFeatures
-import tools.forma.android.feature.androidNativeDefinition
-import tools.forma.android.feature.AndroidNativeConfiguration
 
 fun Project.androidNative(
     packageName: String,
@@ -20,7 +22,7 @@ fun Project.androidNative(
     visibility: Visibility = Public
 ) {
     disallowResources()
-    target.validate(NativeTarget)
+    AndroidTargetRegistry.selfValidator(AndroidTargetTypes.native).asValidator().validate(target)
 
     val configuration = AndroidNativeConfiguration(
         packageName = packageName,
