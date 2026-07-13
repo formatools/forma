@@ -1,12 +1,13 @@
 # forma-core public API design (F-020)
 
-Design-only ticket. This document is the contract for extraction tickets
-**F-021…F-024**. It is grounded in the live plugins under `plugins/`
-(`:target`, `:validation`, `:deps`, `:config`, `:owners`, `:android`) and in
-[`ARCHITECTURE.md`](ARCHITECTURE.md) §6 + [`VISION.md`](VISION.md).
+Design ticket contract for extraction **F-021…F-024**. Grounded in the live
+plugins under `plugins/` and in [`ARCHITECTURE.md`](ARCHITECTURE.md) §6 +
+[`VISION.md`](VISION.md).
 
-**Status:** accepted design for workers. Code moves land in later tickets;
-do **not** treat this file as already-implemented packages.
+**Status:** accepted design. **Implemented so far:** F-021 (types +
+restriction graph + Android kit), **F-022** (validation SPI + content
+predicates in `plugins/core`; `:validation` is a Gradle facade). Registry /
+DSL consumption remains **F-023**.
 
 ---
 
@@ -401,7 +402,7 @@ Bazel adapter (later): same registry + restriction graph; replace
 |--------|--------|
 | **F-020** (this doc) | Public API design only |
 | **F-021** | Create `plugins/core` (or move packages); target types + **restriction graph** + wire Android matrix data; keep binary/API facades so sample builds |
-| **F-022** | Move validation SPI, default suffix validators, content predicates; Android content helpers call core |
+| **F-022** | **Done:** validation SPI, identity-cached factories, content predicates in `plugins/core`; Android helpers call core; `:validation` facade |
 | **F-023** | Android DSL uses registry; delete duplicated allow-lists from individual `*.kt` entrypoints where safe; sample green |
 | **F-024** | Publishing coordinates, README/Portal metadata, deprecate old plugin jars if merged |
 
@@ -413,15 +414,15 @@ Do not skip to JVM targets (F-030) until F-023 is done.
 
 **Must ship in forma-core v1**
 
-- [ ] `TargetType`, `TargetRef`, `NameMatcher` / `SuffixNameMatcher`
-- [ ] `TargetRegistry` + `TargetRegistration` + `DefaultTargetRegistry`
-- [ ] `RestrictionGraph` / `RestrictionRule` / `EdgeKind`
-- [ ] `TargetValidator`, `AcceptAny`, `dependencyTypeValidator`, `selfTypeValidator`
-- [ ] Content rule interfaces + `NoResourcesUnderMain` / `OnlyResourcesUnderMain`
-- [ ] Validation error type + message helpers (suffix lists)
+- [x] `TargetType`, `TargetRef`, `NameMatcher` / `SuffixNameMatcher` (F-021)
+- [ ] `TargetRegistry` + `TargetRegistration` + `DefaultTargetRegistry` (F-023)
+- [x] `RestrictionGraph` / `RestrictionRule` / `EdgeKind` (F-021)
+- [x] `TargetValidator`, `AcceptAny`, `dependencyTypeValidator`, `selfTypeValidator` (F-022)
+- [x] Content rule interfaces + `NoResourcesUnderMain` / `OnlyResourcesUnderMain` / `OnlyLayoutResources` (F-022)
+- [x] Validation error type + message helpers (suffix lists) — core `FormaValidationException`; facade keeps `ProjectValidationError` (F-022)
 - [ ] `SettingsStore`, `PluginBindingStore` (from today’s config interfaces)
 - [ ] Dependency model types needed for project-edge validation
-- [ ] Identity-cached validator factory (F-017 behavior)
+- [x] Identity-cached validator factory (F-017 behavior) (F-022)
 
 **Explicitly deferred**
 

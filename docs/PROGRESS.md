@@ -2,6 +2,30 @@
 
 Newest entries first.
 
+## 2026-07-13 — F-022 Extract validation framework into forma-core
+
+- **Ticket:** F-022 → `done`
+- **Branch:** `forma/F-022-validation-framework` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (plan design → implement; implement hit max-turns); Hermes finished docs, OnlyLayout empty-list parity, builds, commit/PR
+- **Core (`tools.forma.core.validation`):**
+  - `TargetValidator` SPI + `AcceptAny`
+  - `dependencyTypeValidator` / `selfTypeValidator` with **identity cache** (F-017)
+  - `FormaValidationException` (recognizable suffix messages)
+  - Pure `ContentRule` + `NoResourcesUnderMain` / `OnlyResourcesUnderMain` / `OnlyLayoutResources`
+  - Unit tests: `TargetValidatorTest`, `ContentRuleTest`
+- **Facades:**
+  - `:validation` `Validator`/`validator(TargetTemplate…)` → core; still throws `ProjectValidationError`
+  - `FormaTarget` implements `TargetRef`; `:target`/`:deps` depend on `:core`
+  - Android `commonValidators.kt` lists dirs via Gradle, checks via core rules
+- **Docs:** ARCHITECTURE graph/table/extraction; forma-core-api status + checklist; README Progress; TICKETS
+- **Verify (OpenJDK 17 + env-mac.sh):**
+  - `plugins/`: `./gradlew :core:test` → **BUILD SUCCESSFUL**
+  - `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (68 tasks)
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (578 tasks)
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none (Grok implement max-turns; tree completed by Hermes verify/docs)
+- **Next step:** F-023 Wire Android as first consumer of forma-core (registry / DSL)
+
 ## 2026-07-13 — Local maven publishing for plugin testing
 
 - **Scope:** tooling for F-018 AGP/Gradle smoke tests + external consumers
