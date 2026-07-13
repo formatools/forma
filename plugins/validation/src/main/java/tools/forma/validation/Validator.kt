@@ -4,6 +4,11 @@ import tools.forma.validation.error.ProjectValidationError
 import tools.forma.target.FormaTarget
 import tools.forma.target.TargetTemplate
 import org.gradle.api.Project
+import tools.forma.core.target.targetType
+import tools.forma.core.validation.FormaValidationException
+import tools.forma.core.validation.TargetValidator as CoreValidator
+import tools.forma.core.validation.dependencyTypeValidator as coreDependencyTypeValidator
+import java.util.concurrent.ConcurrentHashMap
 
 interface Validator {
     fun validate(target: FormaTarget)
@@ -24,49 +29,57 @@ fun FormaTarget.validate(target: TargetTemplate) {
 /**
  * Name-suffix validator for project dependency / self-type checks.
  *
- * Validators are **identity-cached** for a given set of [TargetTemplate] instances so
- * multi-module configuration does not allocate a fresh anonymous [Validator] (and
- * intermediate lists) on every `impl` / `api` / … call (F-017 / GH #106).
+ * Validators are **identity-cached** (F-017) for a given set of [TargetTemplate] instances.
+ * Thin facade over core `dependencyTypeValidator` (which also uses identity caching on TargetType).
+ * Legacy call sites and exception types (ProjectValidationError) are preserved exactly.
  */
 fun validator(vararg targets: TargetTemplate): Validator {
     if (targets.isEmpty()) return EmptyValidator
     if (targets.size == 1) {
         val only = targets[0]
-        return singleValidators.getOrPut(only) { SingleSuffixValidator(only) }
+        return singleValidators.getOrPut(only) { LegacySingleValidator(only) }
     }
-    // Identity-based key: TargetTemplate objects are singletons in Forma.
+    // Identity-based key using the original TargetTemplate objects (singletons).
     val key = targets.toList()
-    return multiValidators.getOrPut(key) { MultiSuffixValidator(targets.copyOf()) }
+    return multiValidators.getOrPut(key) { LegacyMultiValidator(targets.copyOf()) }
 }
 
-private val singleValidators = java.util.concurrent.ConcurrentHashMap<TargetTemplate, Validator>()
-private val multiValidators = java.util.concurrent.ConcurrentHashMap<List<TargetTemplate>, Validator>()
+private val singleValidators = ConcurrentHashMap<TargetTemplate, Validator>()
+private val multiValidators = ConcurrentHashMap<List<TargetTemplate>, Validator>()
 
-private class SingleSuffixValidator(
+/** Stable mapping from legacy template -> synthetic TargetType for core delegation + cache hits. */
+private val legacyTypeCache = ConcurrentHashMap<TargetTemplate, tools.forma.core.target.TargetType>()
+private fun legacyTypeFor(t: TargetTemplate): tools.forma.core.target.TargetType =
+    legacyTypeCache.getOrPut(t) { targetType("legacy.${t.suffix}", t.suffix) }
+
+private class LegacySingleValidator(
     private val template: TargetTemplate
 ) : Validator {
-    private val suffix: String = template.suffix
-    private val dashSuffix: String = "-$suffix"
+    private val coreType = legacyTypeFor(template)
+    private val coreV: CoreValidator = coreDependencyTypeValidator(listOf(coreType))
 
     override fun validate(target: FormaTarget) {
-        val name = target.name
-        if (name == suffix || name.endsWith(dashSuffix)) return
-        throwProjectValidationError(name, listOf(template))
+        try {
+            coreV.validate(target) // FormaTarget implements TargetRef
+        } catch (ex: FormaValidationException) {
+            // Preserve exact legacy exception type + message shape for all consumers
+            throwProjectValidationError(target.name, listOf(template))
+        }
     }
 }
 
-private class MultiSuffixValidator(
+private class LegacyMultiValidator(
     private val templates: Array<out TargetTemplate>
 ) : Validator {
-    private val suffixes: Array<String> = Array(templates.size) { templates[it].suffix }
-    private val dashSuffixes: Array<String> = Array(suffixes.size) { "-${suffixes[it]}" }
+    private val coreTypes = templates.map { legacyTypeFor(it) }
+    private val coreV: CoreValidator = coreDependencyTypeValidator(coreTypes)
 
     override fun validate(target: FormaTarget) {
-        val name = target.name
-        for (i in suffixes.indices) {
-            if (name == suffixes[i] || name.endsWith(dashSuffixes[i])) return
+        try {
+            coreV.validate(target)
+        } catch (ex: FormaValidationException) {
+            throwProjectValidationError(target.name, templates.asList())
         }
-        throwProjectValidationError(name, templates.asList())
     }
 }
 

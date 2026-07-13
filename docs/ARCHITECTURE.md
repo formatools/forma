@@ -70,17 +70,18 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
 
 ```
                     ┌────────────┐
-                    │    core    │  TargetType, NameMatcher, RestrictionGraph (F-021)
+                    │    core    │  TargetType, RestrictionGraph (F-021),
+                    │            │  TargetValidator + ContentRule (F-022)
                     └─────▲──────┘
                           │
                     ┌─────┴──────┐
-                    │   target   │  TargetTemplate, FormaTarget (parallel for compat)
+                    │   target   │  TargetTemplate; FormaTarget : TargetRef
                     └─────▲──────┘
                           │
               ┌───────────┼────────────┐
               │           │            │
         ┌─────┴─────┐ ┌───┴────┐       │
-        │validation │ │ owners │       │
+        │validation │ │ owners │       │  validation = Gradle facade over core
         └─────▲─────┘ └───▲────┘       │
               │           │            │
         ┌─────┴─────┐     │      ┌─────┴─────┐
@@ -90,19 +91,19 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
               └─────┬─────┴────────────┘
                     │
               ┌─────┴─────┐
-              │  android  │  user-facing DSL + AGP features (+ AndroidTargetTypes + matrix)
+              │  android  │  DSL + AGP + AndroidTargetTypes + matrix + content helpers
               └───────────┘
 ```
 
 | Module | Plugin id | Depends on | Responsibility |
 |--------|-----------|------------|----------------|
-| `:core` | (library, not plugin) | (none / gradleApi compileOnly if needed) | `TargetType` / `TargetRef`, `NameMatcher`/`SuffixNameMatcher`, `RestrictionGraph`/`MutableRestrictionGraph`, `EdgeKind`, `RestrictionRule`. Pure engine. |
-| `:target` | `tools.forma.target` | `gradleApi` | `TargetTemplate(suffix)`, `FormaTarget(project)` (compat facade; F-021 adds parallel core types) |
-| `:validation` | `tools.forma.validation` | `:target`, `gradleApi` | Name validators, content validators, `ProjectValidationError` (F-022 will migrate to core) |
+| `:core` | (library, not plugin) | (none) | Pure engine: `TargetType`/`TargetRef`, `NameMatcher`, `RestrictionGraph`, **`TargetValidator` / `dependencyTypeValidator` / `selfTypeValidator` / `AcceptAny`**, **`ContentRule` + No/OnlyResources/OnlyLayout**, `FormaValidationException`. Identity-cached factories (F-017). |
+| `:target` | `tools.forma.target` | `:core`, `gradleApi` | `TargetTemplate(suffix)`; `FormaTarget(project)` implements `TargetRef` |
+| `:validation` | `tools.forma.validation` | `:core`, `:target`, `gradleApi` | Thin Gradle facade: legacy `Validator`/`validator(TargetTemplate…)` → core; `ProjectValidationError`; `validateDirectoryContent` (FS listing) |
 | `:owners` | `tools.forma.owners` | `gradleApi` | `Owner` / `Person` / `Team` / `NoOwner` |
 | `:config` | `tools.forma.config` | `gradleApi` | `AndroidProjectSettings`, `FormaSettingsStore`, plugin/dep registration maps |
-| `:deps` | `tools.forma.deps` | `:validation`, `:target`, `:config`, kotlin-dsl | `FormaDependency` model, `applyDependencies`, version-catalog generators |
-| `:android` | `tools.forma.android` | `:core` + all of the above + **AGP** + Kotlin GP | Target DSL (`api`, `impl`, `androidLibrary`, …), feature appliers; owns `AndroidTargetTypes` + `AndroidRestrictionKit` (F-021) |
+| `:deps` | `tools.forma.deps` | `:core`, `:validation`, `:target`, `:config`, kotlin-dsl | `FormaDependency` model, `applyDependencies`, version-catalog generators |
+| `:android` | `tools.forma.android` | `:core` + all of the above + **AGP** + Kotlin GP | Target DSL; `AndroidTargetTypes` + `AndroidRestrictionKit` (F-021); content helpers call core `ContentRule` (F-022) |
 
 `:android` compiles against **AGP 8.1.2** (aligned with sample runtime force in
 `application/settings.gradle.kts` as of F-003). Keep `plugins/android` AGP
@@ -307,9 +308,9 @@ Aligned with `docs/VISION.md`: core must not assume Android/AGP/Dagger.
 
 | Concern | Current home | forma-core? | Notes |
 |---------|--------------|-------------|-------|
-| Target type identity (`TargetTemplate` / suffix) | `:target` + `:core` (F-021) | **Yes** | Parallel `TargetType` in core; templates kept for compat in F-021. Registry in F-022/F-023. |
-| Name + dep-type `Validator` | `:validation` | **Yes** | Keep framework; Android content rules as plugins |
-| Content validators (`onlyAllowResources`, …) | `:android` + `:validation` helpers | **Split** | Generic dir checks → core; Android paths → android plugin |
+| Target type identity (`TargetTemplate` / suffix) | `:target` + `:core` (F-021) | **Yes** | Parallel `TargetType` in core; templates kept for compat. Registry in F-023. |
+| Name + dep-type `Validator` | `:core` + `:validation` facade (F-022) | **Yes** | Core `TargetValidator` + factories; legacy API re-exports |
+| Content validators (`onlyAllowResources`, …) | core predicates + `:android` helpers (F-022) | **Split** | Pure `ContentRule` in core; Gradle listing + Android helpers in platform |
 | Dependency model + apply | `:deps` | **Mostly yes** | Strip AGP-ish config features; catalog generators may stay tooling |
 | Settings store | `:config` | **Split** | Generic `SettingsStore` / plugin registry → core; `AndroidProjectSettings` → android |
 | Owners | `:owners` | **Optional / yes** | Platform-agnostic metadata |
@@ -323,9 +324,9 @@ Suggested extraction order (tickets F-020…F-024):
 1. Document public API — **done (F-020):** [`forma-core-api.md`](forma-core-api.md)
    (types, restriction graph, validator SPI, target registry, coords preview,
    `library` suffix decision).
-2. Create `plugins/core` + TargetType + RestrictionGraph + wire Android matrix from DEPENDENCY-MATRIX (F-021). Parallel types + facades; full move later.
-3. Re-home `applyDependencies` project-validation path on core validators (F-022).
-4. Leave `:android` as the first platform package implementing templates + AGP features (F-023).
+2. Create `plugins/core` + TargetType + RestrictionGraph + wire Android matrix from DEPENDENCY-MATRIX — **done (F-021)**.
+3. Validation SPI + content predicates in core; `:validation` thin facade — **done (F-022)**.
+4. Wire Android DSL / registry as first consumer of core (F-023); sample stays green.
 5. Coordinates: e.g. `tools.forma:core` vs `tools.forma.android` (F-024).
 
 ---
