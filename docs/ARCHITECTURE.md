@@ -341,7 +341,7 @@ Suggested extraction order (tickets F-020…F-024):
    to Bazel labels/rules/visibility. See [`docs/BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md).
    Recommended location: new top-level module (e.g. `bazel-adapter/`) that depends
    only on published `tools.forma:core`. JVM kit first; Android follows same SPI.
-   Implementation spikes: F-041 (generate/check), F-042 (minimal sample).
+   Implementation spikes: F-041 (generate/check), F-042 (minimal sample landed — `bazel-sample/`).
 
 ---
 

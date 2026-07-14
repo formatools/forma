@@ -1,0 +1,16 @@
+# Hand-authored for F-042 minimal sample (mirrors JvmBazelAdapter conventions from F-041).
+# gradlePath equivalent: :feature:calculator:api  type=jvm.api
+
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "api",
+    srcs = glob(["src/main/kotlin/**/*.kt"]),
+    visibility = [
+        "//binary:__pkg__",
+        "//feature/calculator/impl:__pkg__",
+    ],
+    tags = [
+        "forma:type=jvm.api",
+    ],
+)

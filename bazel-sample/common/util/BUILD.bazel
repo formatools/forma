@@ -1,0 +1,17 @@
+# Hand-authored for F-042 minimal sample (mirrors JvmBazelAdapter conventions from F-041).
+# gradlePath equivalent: :common:util  type=jvm.util
+
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "util",
+    srcs = glob(["src/main/kotlin/**/*.kt"]),
+    visibility = [
+        "//binary:__pkg__",
+        "//feature/greeter/impl:__pkg__",
+        "//feature/calculator/impl:__pkg__",
+    ],
+    tags = [
+        "forma:type=jvm.util",
+    ],
+)

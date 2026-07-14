@@ -1,6 +1,6 @@
 # Bazel Adapter Design (F-040)
 
-**Status:** design accepted (F-040). **F-041 spike landed** (see [Spike results](#spike-results-f-041) below). F-042 (minimal sample) remains.
+**Status:** design accepted (F-040). **F-041 spike landed**. **F-042 minimal Bazel sample landed** (see [Sample results (F-042)](#sample-results-f-042) below).
 
 This document defines how forma-core concepts (TargetType, RestrictionGraph, TargetRegistry, validators) map onto Bazel so that later work can generate or validate BUILD files while preserving the same dependency discipline that Gradle platforms enforce today.
 
@@ -441,9 +441,56 @@ No Bazel binary required for the spike.
 ### Limitations (unchanged / deferred)
 - JVM kit only; no Android types; no external GAV → `maven_install`.
 - No live Gradle model export task.
-- No full Bazel workspace / `bazel build` (F-042).
+- No full Gradle→Bazel parity or generator integration (the sample is a hand-authored minimal tree).
 - `testDependencies` carried in model but not emitted as `kt_jvm_test` yet.
 - Example tree commits a subset of packages (binary + greeter); full set available via `runSample`.
 
+---
+
+## Sample results (F-042)
+
+**Landed on branch `forma/F-042-bazel-sample`.**
+
+A tiny, self-contained experimental workspace `bazel-sample/` was added. It is **not** a copy of the Gradle `jvm-application/` tree — only the same Kotlin sources + logic + forma matrix semantics.
+
+### Delivered
+| Piece | Location / detail |
+|-------|-------------------|
+| Workspace files | `.bazelversion` (7.4.1), `WORKSPACE` (http_archive), `.bazelrc` |
+| Two features | `feature/greeter/{api,impl}`, `feature/calculator/{api,impl}` |
+| Shared | `common/library`, `common/util` (test-util omitted for minimal) |
+| Composition root | `binary/` with `kt_jvm_binary` + `main_class` |
+| Sources | Exact packages/logic from `jvm-application/` under `tools.forma.jvm.sample.*` |
+| BUILD files | Load correct `kt_jvm_*`, labels `//pkg:leaf`, `tags = ["forma:type=..."]`, visibility per design, **no impl→impl** |
+| README | Full run instructions, matrix table, enforcement notes, cross links |
+
+### Verified commands (real output)
+```bash
+source scripts/env-mac.sh
+cd bazel-adapter && ./gradlew clean test   # BUILD SUCCESSFUL (adapter tests remain green)
+
+cd ../bazel-sample
+bazelisk build //...                         # Build completed successfully, 44 total actions
+bazelisk run //binary:binary
+# Hello, World! (2 + 3 = 5)
+# Bazel sample (forma concepts) build + run successful.
+```
+
+All 7 targets analyzed and built: 2 api + 2 impl + 2 common + 1 binary.
+
+### Key demonstrations
+- Cross-feature only through `api` (Main.kt imports only `*api.*` interfaces; impls implement them).
+- `impl` BUILDs contain **zero** references to other `.../impl:impl` targets.
+- Illegal case proven by adapter: `./gradlew test` in `bazel-adapter` exercises `modelWithIllegalImplToImpl` → `violations` reported via `RestrictionGraph.isAllowed`.
+- Visibility + tags match F-041 generator conventions (hand-authored to be equivalent).
+
+### Limitations (sample)
+- Experimental / non-production banner in README.
+- WORKSPACE (bzlmod MODULE attempt hit extension friction; documented).
+- No external deps, no tests, no Android.
+- Manual maintenance of BUILDs (no generator yet).
+
+F-042 acceptance criteria met: tiny tree, two features + shared + binary, BUILDs aligned with adapter, docs cross-links, real `bazel run` produces output, adapter tests green, TICKETS + PROGRESS updated.
+
 ### Next
-**F-042** — minimal Bazel sample workspace using generated or hand-authored BUILD files that exercise the same matrix (`bazel run //binary:binary`).
+F-042 landed (see Sample results below). Further Bazel work (full generator integration, Android, publish) would be future phases.
