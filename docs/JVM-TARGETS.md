@@ -109,6 +109,8 @@ compatibility is Java **11** (`JvmDefaults`).
 
 - [JVM getting-started tutorial](JVM-GETTING-STARTED.md) (F-032) — start here for a new pure-JVM project.
 
+Future: Bazel adapter (F-040 design accepted) will map these same six types and the restriction matrix to `kt_jvm_*` rules + visibility derived from the graph. See [`BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md). The JVM kit is the initial target set for the adapter.
+
 ## See also
 
 - [`JVM-SAMPLE.md`](JVM-SAMPLE.md) — multi-module sample layout + run

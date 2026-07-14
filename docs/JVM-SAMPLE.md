@@ -109,3 +109,4 @@ Full pure-JVM dependency matrix (including `binary`):
 - [`SAMPLE-APP.md`](SAMPLE-APP.md) — Android multi-feature analog
 - [`VISION.md`](VISION.md) — product sequencing (JVM after Android + core)
 - [JVM getting-started tutorial](JVM-GETTING-STARTED.md) (F-032)
+- Future Bazel sample (F-042) will mirror these concepts with `kt_jvm_library` / `kt_jvm_binary` (see [`BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md) for the mapping design).

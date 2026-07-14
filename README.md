@@ -51,6 +51,7 @@ systems like Buck and Bazel.
 8. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
 9. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
 10. [JVM sample application](docs/JVM-SAMPLE.md) — multi-module pure-JVM gold standard (`jvm-application/`, F-031)
+11. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
 
 Configuration made easy:
 
@@ -206,6 +207,7 @@ Publish coordinates for `tools.forma:core` (library) + facade deprecation policy
 Pure JVM target set (`tools.forma.jvm`, `JvmTargetRegistry`): **F-030** done (see [`docs/JVM-TARGETS.md`](docs/JVM-TARGETS.md)).
 JVM sample application + `binary` composition root: **F-031** done ([`docs/JVM-SAMPLE.md`](docs/JVM-SAMPLE.md), `jvm-application/`).
 JVM getting-started tutorial: **F-032** done ([`docs/JVM-GETTING-STARTED.md`](docs/JVM-GETTING-STARTED.md)).
+Bazel adapter mapping design (targets ↔ rules, visibility ↔ deps): **F-040** done (see [`docs/BAZEL-ADAPTER.md`](docs/BAZEL-ADAPTER.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
