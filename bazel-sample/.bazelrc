@@ -1,0 +1,4 @@
+# Experimental F-042 sample uses WORKSPACE + http_archive (bzlmod had extension friction).
+# Force WORKSPACE mode for reliability in this tiny tree.
+common --noenable_bzlmod
+build --test_output=errors

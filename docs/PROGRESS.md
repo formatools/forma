@@ -2,6 +2,34 @@
 
 Newest entries first.
 
+## 2026-07-14 — F-042 Minimal Bazel sample using forma-core concepts
+
+- **Ticket:** F-042 → `done`
+- **Branch:** `forma/F-042-bazel-sample` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design/plan completed; implement hit max-turns with tree on disk); Hermes finish path: verify builds, clean orphan lock/symlinks, gitignore, README layout fix, commit/PR
+- **Primary deliverable:**
+  - New **`bazel-sample/`** (experimental, non-production):
+    - `.bazelversion` (7.4.1), `WORKSPACE` (http_archive: rules_kotlin 1.9.0 + skylib 1.5.0 + rules_java 7.4.0), `.bazelrc` (`--noenable_bzlmod`)
+    - Two features (greeter + calculator) with `api`/`impl`, `common/library` + `common/util`, `binary` composition root
+    - Sources from `jvm-application/` (packages `tools.forma.jvm.sample.*`)
+    - `BUILD.bazel` hand-authored to F-041 conventions: `load("@rules_kotlin//kotlin:jvm.bzl", ...)`, `kt_jvm_library`/`kt_jvm_binary`, `//pkg:leaf` labels, `tags = ["forma:type=..."]`, narrow visibility, **zero impl→impl deps**
+  - `bazel-sample/README.md` (banner, prereqs, run commands, matrix, enforcement via adapter illegal fixture)
+  - Root `.gitignore` entries for Bazel output symlinks
+- **Cross-links & bookkeeping:**
+  - `docs/BAZEL-ADAPTER.md`: status + **Sample results (F-042)**
+  - `docs/JVM-SAMPLE.md`, `README.md`, `docs/ARCHITECTURE.md`, `TICKETS.md`
+- **Verify (Hermes re-run, OpenJDK 17 + env-mac.sh):**
+  - `bazel-adapter/`: `./gradlew test` → **BUILD SUCCESSFUL**
+  - `bazel-sample/`: `bazelisk build //...` → **Build completed successfully** (7 targets)
+  - `bazelisk run //binary:binary` →
+    ```
+    Hello, World! (2 + 3 = 5)
+    Bazel sample (forma concepts) build + run successful.
+    ```
+- **Grounded:** commands executed this run; no invented green builds
+- **Blockers:** none (WORKSPACE chosen after bzlmod friction; bazelisk via brew)
+- **Next step:** P4 Bazel phase complete for current ticket list; backlog only unless new tickets added
+
 ## 2026-07-14 — F-041 Spike: generate/check Bazel BUILD from forma model
 
 - **Ticket:** F-041 → `done`

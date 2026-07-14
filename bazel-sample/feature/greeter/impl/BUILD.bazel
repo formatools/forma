@@ -1,0 +1,20 @@
+# Hand-authored for F-042 minimal sample (mirrors JvmBazelAdapter conventions from F-041).
+# gradlePath equivalent: :feature:greeter:impl  type=jvm.impl
+
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "impl",
+    srcs = glob(["src/main/kotlin/**/*.kt"]),
+    deps = [
+        "//common/library:library",
+        "//common/util:util",
+        "//feature/greeter/api:api",
+    ],
+    visibility = [
+        "//binary:__pkg__",
+    ],
+    tags = [
+        "forma:type=jvm.impl",
+    ],
+)

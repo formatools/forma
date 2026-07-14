@@ -11,3 +11,10 @@ build
 *.iml
 .externalNativeBuild
 .cxx
+
+# Bazel (F-042 sample and any future workspaces)
+bazel-sample/bazel-*
+**/bazel-bin
+**/bazel-out
+**/bazel-testlogs
+**/.bazeliskrc
