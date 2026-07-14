@@ -18,6 +18,7 @@ that compose via `includeBuild`:
 |------|------|----------------|-------------------------|
 | `plugins/` | Forma Gradle plugins (main product) | 8.3 | Composite + Plugin Portal (`tools.forma.*`) |
 | `application/` | Sample Android product (gold standard) | 8.4 | Consumer only |
+| `jvm-application/` | Sample pure-JVM product (`tools.forma.jvm`) | 8.4 | Consumer only |
 | `includer/` | Settings plugin: auto-`include` subprojects | (own wrapper) | `tools.forma.includer` |
 | `depgen/` | Transitive-deps generation plugin | (own wrapper) | `tools.forma.depgen` (standalone) |
 | `build-settings/` | Shared settings conventions (repos) | — | `includeBuild` / convention plugins |
@@ -335,7 +336,7 @@ Suggested extraction order (tickets F-020…F-024):
 5. Coordinates + publish finalization: `tools.forma:core` (library) vs `tools.forma.android` + facades (F-024 done — see `docs/PLUGIN-PUBLISH.md`).
 6. JVM platform consumer of core — **done (F-030):** `plugins/jvm`, plugin id
    `tools.forma.jvm`, `JvmTargetRegistry` + matrix ([`JVM-TARGETS.md`](JVM-TARGETS.md)).
-   Sample JVM app is **F-031**.
+   Sample JVM app is **F-031** done (`jvm-application/`, `binary` composition root).
 
 ---
 
@@ -368,7 +369,7 @@ Suggested extraction order (tickets F-020…F-024):
 | External deps UX | `plugins/deps` catalog + `build-dependencies` |
 | Auto module discovery | `includer/` |
 | CI | `.github/workflows/main.yml` |
-| Sample structure | `application/feature/**`, `binary/` · [SAMPLE-APP.md](SAMPLE-APP.md) |
+| Sample structure | `application/feature/**`, `binary/` · [SAMPLE-APP.md](SAMPLE-APP.md); JVM: `jvm-application/` · [JVM-SAMPLE.md](JVM-SAMPLE.md) |
 
 ---
 

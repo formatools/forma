@@ -20,6 +20,7 @@ object JvmTargetRegistry : TargetRegistry by DefaultTargetRegistry()
  * - library  → util, test-util
  * - util     → util, library
  * - testUtil → test-util, util   (library allowed for test helpers that need prod contracts)
+ * - binary   → api, impl, library, util, test-util   (composition root for wiring multiple impls)
  *
  * No ContentRules attached for pure JVM (no Android resources concept).
  * Safe to call multiple times (re-register replaces).
@@ -64,6 +65,14 @@ fun registerJvmDefaults(registry: TargetRegistry = JvmTargetRegistry) {
         TargetRegistration(
             type = t.testUtil,
             allowedDependencies = setOf(t.testUtil, t.util, t.library)
+        )
+    )
+
+    // binary (composition root): wires api + multiple impls + shared library/util for a runnable JVM app
+    registry.register(
+        TargetRegistration(
+            type = t.binary,
+            allowedDependencies = setOf(t.api, t.impl, t.library, t.util, t.testUtil)
         )
     )
 }

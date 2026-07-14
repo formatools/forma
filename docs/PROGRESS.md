@@ -2,6 +2,31 @@
 
 Newest entries first.
 
+## 2026-07-13 — F-031 JVM sample application
+
+- **Ticket:** F-031 → `done`
+- **Branch:** `forma/F-031-jvm-sample` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design plan completed; implement hit max-turns with partial tree on disk); Hermes finished wiring, verify, docs, commit/PR
+- **Platform (`plugins/jvm`):**
+  - New type **`jvm.binary`** + `binary(...)` DSL (Kotlin JVM + Gradle `application` + `mainClass`)
+  - `registerJvmDefaults` composition-root row: binary → api/impl/library/util/test-util (no binary→binary)
+  - `impl` / `library` `testDependencies` widened to `FormaDependency` (project test-util)
+  - `JvmTargetRegistryTest` updated for six types + binary matrix/self-suffix
+- **Sample (`jvm-application/`):**
+  - Multi-module pure-JVM product: greeter + calculator features (api/impl), common library/util/test-util, binary composition root
+  - Composite: `includeBuild` plugins + includer + build-settings; `convention-dependencies` for project repos
+  - Explicit `import tools.forma.jvm.*` in module scripts (JVM DSL is packaged, not default package)
+  - Runnable: `./gradlew :binary:run` → `Hello, World! (2 + 3 = 5)`
+- **Docs:** `docs/JVM-SAMPLE.md`; JVM-TARGETS matrix + binary row; ARCHITECTURE layout; README Progress + getting-started link; TICKETS
+- **Verify (OpenJDK 17 + env-mac.sh):**
+  - `plugins/`: `./gradlew :core:test :jvm:test build` → **BUILD SUCCESSFUL** (earlier full build; re-run `:jvm:test` green)
+  - `jvm-application/`: `./gradlew build :binary:run` → **BUILD SUCCESSFUL** (run output as above)
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (578 tasks)
+- **Grounded:** all commands executed; no invented green builds.
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none (Grok implement max-turns; completed under Hermes)
+- **Next step:** F-032 Docs: JVM getting started
+
 ## 2026-07-13 — F-030 JVM target set on forma-core
 
 - **Ticket:** F-030 → `done`

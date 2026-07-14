@@ -3,7 +3,6 @@ package tools.forma.jvm
 import org.gradle.api.Project
 import tools.forma.deps.core.EmptyDependency
 import tools.forma.deps.core.FormaDependency
-import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.jvm.feature.applyKotlinJvm
 import tools.forma.jvm.target.JvmTargetRegistry
@@ -23,7 +22,7 @@ fun Project.library(
     packageName: String,
     dependencies: FormaDependency = EmptyDependency,
     owner: Owner = NoOwner,
-    testDependencies: NamedDependency = NamedDependency()
+    testDependencies: FormaDependency = EmptyDependency
 ) {
     registerJvmDefaults()
 

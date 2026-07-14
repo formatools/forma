@@ -26,4 +26,7 @@ object JvmTargetTypes {
 
     /** Test helpers (JVM). */
     val testUtil: TargetType = targetType("jvm.test-util", "test-util")
+
+    /** JVM binary / composition root (runnable app entrypoint). */
+    val binary: TargetType = targetType("jvm.binary", "binary")
 }
