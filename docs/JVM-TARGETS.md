@@ -107,7 +107,7 @@ compatibility is Java **11** (`JvmDefaults`).
 
 ## Next
 
-- **F-032** — JVM getting-started tutorial (point at this doc + sample).
+- [JVM getting-started tutorial](JVM-GETTING-STARTED.md) (F-032) — start here for a new pure-JVM project.
 
 ## See also
 

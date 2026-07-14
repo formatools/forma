@@ -2,6 +2,39 @@
 
 Newest entries first.
 
+## 2026-07-14 — F-032 JVM getting started tutorial
+
+- **Ticket:** F-032 → `done`
+- **Branch:** `forma/F-032-jvm-getting-started` (from `origin/v2`)
+- **Skills/modes:** /goal + todo_write + plan subagent + implement docs + self-verify via spawned verifier subagent
+- **Docs (primary):**
+  - New **`docs/JVM-GETTING-STARTED.md`** (410 lines, content-rich but focused) — polished tutorial so a developer with zero Forma experience reaches a working multi-module pure-JVM app. Mirrors structure/quality of Android [GETTING-STARTED.md](GETTING-STARTED.md):
+    - Mental model (targets, suffixes, `binary` composition root, `api`/`impl` features, catalogs)
+    - Prereqs: JDK 17+ only (**no Android SDK**), Gradle wrapper
+    - Path A: run `jvm-application/` sample (`./gradlew :binary:run`)
+    - Path B: greenfield — Portal + monorepo composite `settings.gradle.kts` (includer + `tools.forma.jvm`), root build note (no `androidProjectConfiguration`; matrix on first DSL use), minimal tree with `binary(..., mainClass = "...MainKt")` + one feature (`api`/`impl`) + `common/library`, **exact** `import tools.forma.jvm.*` snippets, build/run commands
+    - Target cheat sheet (JVM types only)
+    - Dependency rules of thumb + link to JVM-TARGETS
+    - Troubleshooting (validation names consumer/dep, missing import, mainClass naming)
+    - See also table
+  - Cross-links wired:
+    - `README.md` Getting started list (new JVM entry near top of JVM docs) + Progress section
+    - `docs/JVM-SAMPLE.md`: “F-032 next” → link to tutorial
+    - `docs/JVM-TARGETS.md`: “Next F-032” → link + context
+    - `docs/GETTING-STARTED.md`: brief “Looking for pure JVM?” pointer (top + See also table)
+    - `TICKETS.md`: F-032 `done`
+- **Verify (real output, OpenJDK 17 + env-mac.sh — docs-only change):**
+  - `jvm-application/`: `source scripts/env-mac.sh && ./gradlew :binary:run` → **success** (exit 0); captured:
+    ```
+    Hello, World! (2 + 3 = 5)
+    JVM sample (tools.forma.jvm) build + run successful.
+    ```
+  - `git status` clean before run; only doc files touched.
+- **Grounded:** all commands executed and outputs captured in session; no invented green builds or claims.
+- **Commits/PRs:** `e2126e5` on `forma/F-032-jvm-getting-started`; PR base `v2` (this run)
+- **Blockers:** none
+- **Next step:** F-040 (Bazel design) per TICKETS priority
+
 ## 2026-07-13 — F-031 JVM sample application
 
 - **Ticket:** F-031 → `done`
