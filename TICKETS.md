@@ -50,7 +50,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 |----|--------|-------|-------|
 | F-040 | done | Design Bazel adapter mapping (targets ↔ rules, visibility ↔ deps) | `docs/BAZEL-ADAPTER.md` + cross-links; commit 45674c7 |
 | F-041 | done | Spike: generate or check Bazel BUILD from forma declarations | `bazel-adapter/` generate+check via core RestrictionGraph; examples + tests green |
-| F-042 | todo | Minimal Bazel sample using forma-core concepts | |
+| F-042 | in_progress | Minimal Bazel sample using forma-core concepts | branch forma/F-042-bazel-sample |
 
 ## Backlog (lower priority / historical GitHub)
 
