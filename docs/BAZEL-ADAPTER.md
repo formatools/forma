@@ -1,6 +1,6 @@
 # Bazel Adapter Design (F-040)
 
-**Status:** design accepted (F-040). Implementation in F-041 (spike) and F-042 (minimal sample).
+**Status:** design accepted (F-040). **F-041 spike landed** (see [Spike results](#spike-results-f-041) below). F-042 (minimal sample) remains.
 
 This document defines how forma-core concepts (TargetType, RestrictionGraph, TargetRegistry, validators) map onto Bazel so that later work can generate or validate BUILD files while preserving the same dependency discipline that Gradle platforms enforce today.
 
@@ -406,4 +406,44 @@ Acceptance boundaries for F-042: the sample is small, self-contained, exercises 
 
 ---
 
-**Next after F-040:** F-041 (spike). The design is intentionally narrow so the spike can stay small and produce concrete artifacts (model + emitted BUILD fragments or check reports) that F-042 can consume.
+## Spike results (F-041)
+
+**Landed on branch `forma/F-041-bazel-spike`.** Top-level pure-Kotlin module `bazel-adapter/` depends only on `tools.forma:core` (composite `includeBuild("../plugins")` + dependency substitution). Core remains Bazel-free.
+
+### Delivered
+| Piece | Location |
+|-------|----------|
+| Portable model | `tools.forma.bazel.model.FormaProjectModel` + `TargetSnapshot` / `DepRef` |
+| Adapter API | `FormaToBazel` + `JvmBazelAdapter` (`generate` + `check`) |
+| JVM matrix (core-only) | Same six types + allow-lists as `registerJvmDefaults()` (duplicated in adapter; comment links `JvmTargetRegistry`) |
+| Fixture | `JvmApplicationFixture` — 8 targets mirroring `jvm-application/` edges |
+| Unit tests | `JvmBazelAdapterTest` — labels, tags, rule kinds, `impl ↛ impl`, illegal check, round-trip |
+| Example BUILD output | `bazel-adapter/examples/jvm-application-build/{binary,feature/greeter/{api,impl}}/BUILD.bazel` |
+| Driver | `./gradlew runSample` prints all packages + check summary |
+| Module README | `bazel-adapter/README.md` |
+
+### Commands verified (OpenJDK 17 + `scripts/env-mac.sh`)
+```bash
+cd bazel-adapter && ./gradlew test        # BUILD SUCCESSFUL
+cd bazel-adapter && ./gradlew runSample   # violations=0 warnings=0
+cd plugins && ./gradlew :core:test        # BUILD SUCCESSFUL (unchanged)
+```
+No Bazel binary required for the spike.
+
+### Decisions made during spike
+- **Composite substitution** for `tools.forma:core` → local `:core` (no mavenLocal required for day-to-day).
+- **Matrix duplication** in adapter vs depending on `:jvm` — chosen to keep classpath free of Kotlin Gradle Plugin / platform facades.
+- **Hand fixture** instead of Gradle export task (export deferred; fixture is enough for F-041 + F-042 seeds).
+- **Visibility:** reverse edges from declared legal consumers + `//visibility:public` for binary; check mode is the fidelity backstop.
+- **Check** validates model edges via `RestrictionGraph.isAllowed`; optional light scan of generated text for cross-impl labels. No full Starlark parser.
+- **Illegal edges:** generator filters them out of `deps`; `check` reports them as violations (e.g. greeter-impl → calculator-impl).
+
+### Limitations (unchanged / deferred)
+- JVM kit only; no Android types; no external GAV → `maven_install`.
+- No live Gradle model export task.
+- No full Bazel workspace / `bazel build` (F-042).
+- `testDependencies` carried in model but not emitted as `kt_jvm_test` yet.
+- Example tree commits a subset of packages (binary + greeter); full set available via `runSample`.
+
+### Next
+**F-042** — minimal Bazel sample workspace using generated or hand-authored BUILD files that exercise the same matrix (`bazel run //binary:binary`).

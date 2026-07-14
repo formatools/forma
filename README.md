@@ -52,6 +52,7 @@ systems like Buck and Bazel.
 9. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
 10. [JVM sample application](docs/JVM-SAMPLE.md) — multi-module pure-JVM gold standard (`jvm-application/`, F-031)
 11. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
+12. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
 
 Configuration made easy:
 
@@ -208,6 +209,7 @@ Pure JVM target set (`tools.forma.jvm`, `JvmTargetRegistry`): **F-030** done (se
 JVM sample application + `binary` composition root: **F-031** done ([`docs/JVM-SAMPLE.md`](docs/JVM-SAMPLE.md), `jvm-application/`).
 JVM getting-started tutorial: **F-032** done ([`docs/JVM-GETTING-STARTED.md`](docs/JVM-GETTING-STARTED.md)).
 Bazel adapter mapping design (targets ↔ rules, visibility ↔ deps): **F-040** done (see [`docs/BAZEL-ADAPTER.md`](docs/BAZEL-ADAPTER.md)).
+Bazel adapter spike (generate/check BUILD from portable model, JVM matrix): **F-041** done ([`bazel-adapter/`](bazel-adapter/), spike results in BAZEL-ADAPTER.md).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
