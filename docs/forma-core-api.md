@@ -12,6 +12,10 @@ predicates in `plugins/core`; `:validation` is a Gradle facade), **F-023**
 platform plugin `tools.forma.jvm` + `JvmTargetRegistry` — see
 [`JVM-TARGETS.md`](JVM-TARGETS.md)).
 
+**Bazel adapter design (F-040):** accepted. The adapter consumes forma-core
+concepts only (see [`docs/BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md)). Core stays
+free of Bazel dependencies. JVM kit is the initial target set.
+
 ---
 
 ## 1. Goals and non-goals
@@ -394,8 +398,9 @@ subproject build.gradle.kts: impl(...)
             optional plugin side-effect from PluginBindingStore
 ```
 
-Bazel adapter (later): same registry + restriction graph; replace
-`applyDependencies` with BUILD rule emission / check (F-040/F-041).
+Bazel adapter (F-040 design accepted, see [`BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md)):
+same registry + restriction graph; replace `applyDependencies` with BUILD
+rule emission / check (F-041/F-042). Adapter lives outside core.
 
 ---
 

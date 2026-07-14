@@ -48,7 +48,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-040 | todo | Design Bazel adapter mapping (targets ↔ rules, visibility ↔ deps) | |
+| F-040 | done | Design Bazel adapter mapping (targets ↔ rules, visibility ↔ deps) | `docs/BAZEL-ADAPTER.md` + cross-links |
 | F-041 | todo | Spike: generate or check Bazel BUILD from forma declarations | |
 | F-042 | todo | Minimal Bazel sample using forma-core concepts | |
 

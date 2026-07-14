@@ -337,6 +337,11 @@ Suggested extraction order (tickets F-020…F-024):
 6. JVM platform consumer of core — **done (F-030):** `plugins/jvm`, plugin id
    `tools.forma.jvm`, `JvmTargetRegistry` + matrix ([`JVM-TARGETS.md`](JVM-TARGETS.md)).
    Sample JVM app is **F-031** done (`jvm-application/`, `binary` composition root).
+7. Bazel adapter (design only, F-040): mapping of forma-core types + RestrictionGraph
+   to Bazel labels/rules/visibility. See [`docs/BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md).
+   Recommended location: new top-level module (e.g. `bazel-adapter/`) that depends
+   only on published `tools.forma:core`. JVM kit first; Android follows same SPI.
+   Implementation spikes: F-041 (generate/check), F-042 (minimal sample).
 
 ---
 

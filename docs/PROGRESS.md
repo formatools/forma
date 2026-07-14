@@ -2,6 +2,34 @@
 
 Newest entries first.
 
+## 2026-07-14 — F-040 Bazel adapter mapping design
+
+- **Ticket:** F-040 → `done`
+- **Branch:** `forma/F-040-bazel-adapter-design` (tracking `origin/v2`)
+- **Skills/modes:** /goal + todo_write + plan subagent + read sources + implement design doc + cross-links + self-verify via spawned verifier subagent
+- **Primary deliverable:**
+  - New **`docs/BAZEL-ADAPTER.md`** (408 lines) — complete design covering all 10 acceptance criteria:
+    - Goals/non-goals (JVM-first, adapter depends on core only)
+    - Concept mapping table (TargetType.id → tags, RestrictionGraph → visibility/deps/check, etc.)
+    - Label & package conventions derived from `jvm-application/` (Gradle `:` paths → `//feature/greeter/impl:impl`)
+    - Visibility strategy: hybrid (generate from graph + package groups + check backstop); explains preservation of `impl ↛ impl` and binary composition root
+    - JVM kit v1 rule table (`kt_jvm_library` / `kt_jvm_binary` + exports/visibility/tags)
+    - Adapter architecture: `FormaProjectModel` + `FormaToBazel` (generate/check); new top-level module recommended (depends on core only)
+    - Two modes (Generate + Check) with spike order recommendation (generate first for usable artifacts)
+    - F-042 minimal sample sketch (docs-only)
+    - Open questions (bzlmod, model export, rules source, etc.)
+    - Ordered implementation plan linking F-041/F-042 boundaries
+- **Cross-links added:**
+  - `docs/VISION.md`: Bazel sequencing bullet → BAZEL-ADAPTER.md
+  - `docs/forma-core-api.md`: F-040 status note + runtime collaboration update
+  - `docs/ARCHITECTURE.md`: extraction map entry + adapter location recommendation
+  - `README.md`: docs index + Progress section entry
+  - `docs/JVM-TARGETS.md` + `docs/JVM-SAMPLE.md`: "Future Bazel" notes
+- **Tickets:** `TICKETS.md` F-040 set to `done`; F-041/F-042 remain `todo`
+- **Verify:** all required source files read before writing (VISION, forma-core-api, JVM-TARGETS, JVM-SAMPLE, ARCHITECTURE, DEPENDENCY-MATRIX, core target/restriction/validation sources, JvmTargetRegistry + test, jvm-application/ build files + layout). No code changes; no build executed (pure design). Doc length 408 lines (<1000). Branch not force-pushed.
+- **Blockers:** none
+- **Next step:** F-041 (Spike: generate or check Bazel BUILD from forma declarations)
+
 ## 2026-07-14 — F-032 JVM getting started tutorial
 
 - **Ticket:** F-032 → `done`
