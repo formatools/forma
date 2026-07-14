@@ -2,6 +2,31 @@
 
 Newest entries first.
 
+## 2026-07-14 — F-041 Spike: generate/check Bazel BUILD from forma model
+
+- **Ticket:** F-041 → `done`
+- **Branch:** `forma/F-041-bazel-spike` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design/plan completed; implement hit max-turns with tree on disk); Hermes finished verify, docs, bookkeeping, PR
+- **Deliverable (`bazel-adapter/` top-level):**
+  - Pure Kotlin module; production dep **only** `tools.forma:core` via composite + dependency substitution
+  - `FormaProjectModel` / `TargetSnapshot` / `DepRef` portable snapshot (no Gradle Project APIs)
+  - `FormaToBazel` + `JvmBazelAdapter`: `generate()` → package dir → `BUILD.bazel` text; `check()` → violations via core `RestrictionGraph.isAllowed`
+  - JVM 6-type matrix re-registered with core `SimpleTargetType` + `DefaultTargetRegistry` (kept in sync with `JvmTargetRegistry` by comment)
+  - Labels: `:feature:greeter:impl` → `//feature/greeter/impl:impl`; tags `forma:type=…`; `kt_jvm_library` / `kt_jvm_binary` + `main_class`
+  - Fixture from `jvm-application/` (8 targets); illegal impl→impl variant for check tests
+  - Unit tests (labels, no cross-impl deps, check clean/illegal, round-trip, srcs/tags)
+  - Committed examples under `examples/jvm-application-build/`; `./gradlew runSample` driver
+  - `bazel-adapter/README.md`; **Spike results (F-041)** section in `docs/BAZEL-ADAPTER.md`; README Progress + docs index
+- **Verify (real output, OpenJDK 17 + env-mac.sh):**
+  - `bazel-adapter/`: `./gradlew test` → **BUILD SUCCESSFUL**
+  - `bazel-adapter/`: `./gradlew runSample` → **BUILD SUCCESSFUL**; `violations=0 warnings=0`
+  - `plugins/`: `./gradlew :core:test` → **BUILD SUCCESSFUL**
+  - Core unchanged / Bazel-free
+- **Grounded:** all commands executed this run; no invented green builds; no Bazel binary required
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none (Grok implement max-turns; completed under Hermes finish path)
+- **Next step:** F-042 Minimal Bazel sample using forma-core concepts
+
 ## 2026-07-14 — F-040 Bazel adapter mapping design
 
 - **Ticket:** F-040 → `done`
