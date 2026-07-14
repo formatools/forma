@@ -40,7 +40,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-030 | todo | JVM target set on forma-core (`library`, `api`, `impl`, `utils`, tests) | |
+| F-030 | done | JVM target set on forma-core (`library`, `api`, `impl`, `utils`, tests) | `plugins/jvm` + `tools.forma.jvm`; `docs/JVM-TARGETS.md` |
 | F-031 | todo | JVM sample application | |
 | F-032 | todo | Docs: JVM getting started | |
 

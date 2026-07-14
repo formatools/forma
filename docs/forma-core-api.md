@@ -7,8 +7,10 @@ plugins under `plugins/` and in [`ARCHITECTURE.md`](ARCHITECTURE.md) §6 +
 **Status:** accepted design. **Implemented so far:** F-021 (types +
 restriction graph + Android kit), **F-022** (validation SPI + content
 predicates in `plugins/core`; `:validation` is a Gradle facade), **F-023**
-(`TargetRegistry` + Android DSL consumers via `AndroidTargetRegistry`).
-Publishing coordinates remain **F-024**.
+(`TargetRegistry` + Android DSL consumers via `AndroidTargetRegistry`),
+**F-024** (publish coordinates for `tools.forma:core`), **F-030** (pure JVM
+platform plugin `tools.forma.jvm` + `JvmTargetRegistry` — see
+[`JVM-TARGETS.md`](JVM-TARGETS.md)).
 
 ---
 

@@ -2,6 +2,29 @@
 
 Newest entries first.
 
+## 2026-07-13 — F-030 JVM target set on forma-core
+
+- **Ticket:** F-030 → `done`
+- **Branch:** `forma/F-030-jvm-targets` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design plan completed; implement hit max-turns with partial tree); Hermes finished tests, docs, verify, commit/PR
+- **Platform (`plugins/jvm`):**
+  - Plugin id **`tools.forma.jvm`** via `formaPublishedPlugin(name = "jvm")` + empty Settings `FormaPlugin`
+  - **No AGP**; depends on `:core`, `:deps`, `:validation`, `:target`, `:owners` + embedded Kotlin GP
+  - `JvmTargetTypes`: `jvm.api`, `jvm.impl`, `jvm.library`, `jvm.util`, `jvm.test-util`
+  - `JvmTargetRegistry` + `registerJvmDefaults()` matrix (impl↛impl; api→api/library; library→util/test-util; util→util/library; test-util→test-util/util/library)
+  - DSL under package `tools.forma.jvm`: `api` / `impl` / `library` / `util` / `testUtil`
+  - Minimal `applyKotlinJvm()` (Java 11) without `AndroidProjectSettings`
+- **Tests:** `JvmTargetRegistryTest` (matrix, self-suffix, identity cache)
+- **Docs:** `docs/JVM-TARGETS.md`; ARCHITECTURE module graph; PLUGIN-PUBLISH table; README Progress; forma-core-api status
+- **Verify (OpenJDK 17 + env-mac.sh):**
+  - `plugins/`: `./gradlew :core:test :jvm:test build` → **BUILD SUCCESSFUL** (78 tasks; `JvmTargetRegistryTest` 5/5)
+  - Plugin descriptor `tools.forma.jvm` → `tools.forma.jvm.plugin.FormaPlugin`
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (578 tasks)
+- **Grounded:** all commands executed; no invented green builds.
+- **Commits/PRs:** this run — push + PR base `v2`
+- **Blockers:** none (Grok implement max-turns; completed under Hermes)
+- **Next step:** F-031 JVM sample application
+
 ## 2026-07-13 — F-024 Publish/coordinate coordinates: `tools.forma:core` vs android plugins
 
 - **Ticket:** F-024 → `done`
