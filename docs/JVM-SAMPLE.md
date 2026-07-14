@@ -108,4 +108,4 @@ Full pure-JVM dependency matrix (including `binary`):
 - [`JVM-TARGETS.md`](JVM-TARGETS.md) — types + matrix
 - [`SAMPLE-APP.md`](SAMPLE-APP.md) — Android multi-feature analog
 - [`VISION.md`](VISION.md) — product sequencing (JVM after Android + core)
-- F-032 — fuller JVM getting-started tutorial (next)
+- [JVM getting-started tutorial](JVM-GETTING-STARTED.md) (F-032)

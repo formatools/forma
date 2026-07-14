@@ -9,6 +9,8 @@ visibility validation** for you.
 This tutorial gets you from zero to a working multi-target Android app. For the
 full multi-feature reference layout, see [SAMPLE-APP.md](SAMPLE-APP.md).
 
+**Looking for pure JVM?** See the parallel [JVM getting-started tutorial](JVM-GETTING-STARTED.md) (no Android SDK required).
+
 ---
 
 ## 1. Mental model (5 minutes)
@@ -426,6 +428,7 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | [ENV.md](ENV.md) | JDK / SDK bootstrap |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Monorepo + plugin module graph |
 | [VISION.md](VISION.md) | forma-core → JVM → Bazel roadmap |
+| [JVM-GETTING-STARTED.md](JVM-GETTING-STARTED.md) | Pure JVM parallel tutorial (F-032) |
 
 ---
 

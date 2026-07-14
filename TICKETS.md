@@ -42,7 +42,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 |----|--------|-------|-------|
 | F-030 | done | JVM target set on forma-core (`library`, `api`, `impl`, `utils`, tests) | `plugins/jvm` + `tools.forma.jvm`; `docs/JVM-TARGETS.md` |
 | F-031 | done | JVM sample application | `jvm-application/` + `binary` DSL; docs/JVM-SAMPLE.md |
-| F-032 | todo | Docs: JVM getting started | |
+| F-032 | done | Docs: JVM getting started | `docs/JVM-GETTING-STARTED.md` + cross-links; see PROGRESS |
 
 ## P4 — Bazel
 

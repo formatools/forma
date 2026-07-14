@@ -42,14 +42,15 @@ systems like Buck and Bazel.
 **New to Forma?** Start here:
 
 1. [**Android project tutorial**](docs/GETTING-STARTED.md) — mental model, run the sample, greenfield skeleton, target cheat sheet (F-015 / GH #53)
-2. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
-3. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
-4. [External deps catalogs](docs/DEPS-CATALOG.md) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
-5. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
-6. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
-7. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
-8. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
-9. [JVM sample application](docs/JVM-SAMPLE.md) — multi-module pure-JVM gold standard (`jvm-application/`, F-031)
+2. [**JVM getting started**](docs/JVM-GETTING-STARTED.md) — pure JVM tutorial, run the sample, greenfield skeleton with `binary`, `api`/`impl`, target cheat sheet (F-032)
+3. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
+4. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
+5. [External deps catalogs](docs/DEPS-CATALOG.md) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
+6. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
+7. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
+8. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
+9. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
+10. [JVM sample application](docs/JVM-SAMPLE.md) — multi-module pure-JVM gold standard (`jvm-application/`, F-031)
 
 Configuration made easy:
 
@@ -204,6 +205,7 @@ forma-core TargetRegistry + Android DSL consumers: **F-023** done.
 Publish coordinates for `tools.forma:core` (library) + facade deprecation policy: **F-024** done (see [`docs/PLUGIN-PUBLISH.md`](docs/PLUGIN-PUBLISH.md)).
 Pure JVM target set (`tools.forma.jvm`, `JvmTargetRegistry`): **F-030** done (see [`docs/JVM-TARGETS.md`](docs/JVM-TARGETS.md)).
 JVM sample application + `binary` composition root: **F-031** done ([`docs/JVM-SAMPLE.md`](docs/JVM-SAMPLE.md), `jvm-application/`).
+JVM getting-started tutorial: **F-032** done ([`docs/JVM-GETTING-STARTED.md`](docs/JVM-GETTING-STARTED.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
