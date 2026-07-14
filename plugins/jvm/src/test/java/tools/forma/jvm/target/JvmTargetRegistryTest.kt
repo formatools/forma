@@ -24,14 +24,15 @@ class JvmTargetRegistryTest {
     }
 
     @Test
-    fun `all five jvm types are registered by id`() {
+    fun `all six jvm types are registered by id`() {
         val t = JvmTargetTypes
         assertEquals(t.api, JvmTargetRegistry.get("jvm.api"))
         assertEquals(t.impl, JvmTargetRegistry.get("jvm.impl"))
         assertEquals(t.library, JvmTargetRegistry.get("jvm.library"))
         assertEquals(t.util, JvmTargetRegistry.get("jvm.util"))
         assertEquals(t.testUtil, JvmTargetRegistry.get("jvm.test-util"))
-        assertEquals(5, JvmTargetRegistry.all().size)
+        assertEquals(t.binary, JvmTargetRegistry.get("jvm.binary"))
+        assertEquals(6, JvmTargetRegistry.all().size)
     }
 
     @Test
@@ -71,6 +72,14 @@ class JvmTargetRegistryTest {
         assertTrue(g.isAllowed(t.testUtil, t.library))
         assertFalse(g.isAllowed(t.testUtil, t.api))
         assertFalse(g.isAllowed(t.testUtil, t.impl))
+
+        // binary (composition root): may consume impls + api + shared; no binary→binary
+        assertTrue(g.isAllowed(t.binary, t.api))
+        assertTrue(g.isAllowed(t.binary, t.impl))
+        assertTrue(g.isAllowed(t.binary, t.library))
+        assertTrue(g.isAllowed(t.binary, t.util))
+        assertTrue(g.isAllowed(t.binary, t.testUtil))
+        assertFalse(g.isAllowed(t.binary, t.binary))
     }
 
     @Test
@@ -103,6 +112,8 @@ class JvmTargetRegistryTest {
         JvmTargetRegistry.selfValidator(t.library).validate(TestRef("common-library"))
         JvmTargetRegistry.selfValidator(t.util).validate(TestRef("network-util"))
         JvmTargetRegistry.selfValidator(t.testUtil).validate(TestRef("shared-test-util"))
+        JvmTargetRegistry.selfValidator(t.binary).validate(TestRef("binary"))
+        JvmTargetRegistry.selfValidator(t.binary).validate(TestRef("app-binary"))
     }
 
     @Test

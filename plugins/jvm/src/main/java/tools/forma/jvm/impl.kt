@@ -3,7 +3,6 @@ package tools.forma.jvm
 import org.gradle.api.Project
 import tools.forma.deps.core.EmptyDependency
 import tools.forma.deps.core.FormaDependency
-import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.jvm.feature.applyKotlinJvm
 import tools.forma.jvm.target.JvmTargetRegistry
@@ -18,12 +17,12 @@ import tools.forma.validation.asValidator
  * Dagger2-friendly boundaries:
  * - May depend on `api`, `library`, `util`, `test-util`.
  * - **Must not** depend on other `impl` modules.
- *   Composition of impls happens at a binary / app root (later F-031).
+ *   Composition of impls happens at a binary root (`binary(...)`, F-031).
  */
 fun Project.impl(
     packageName: String,
     dependencies: FormaDependency = EmptyDependency,
-    testDependencies: NamedDependency = NamedDependency()
+    testDependencies: FormaDependency = EmptyDependency
 ) {
     registerJvmDefaults()
 
