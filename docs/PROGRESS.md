@@ -27,6 +27,7 @@ Newest entries first.
   - `docs/JVM-TARGETS.md` + `docs/JVM-SAMPLE.md`: "Future Bazel" notes
 - **Tickets:** `TICKETS.md` F-040 set to `done`; F-041/F-042 remain `todo`
 - **Verify:** all required source files read before writing (VISION, forma-core-api, JVM-TARGETS, JVM-SAMPLE, ARCHITECTURE, DEPENDENCY-MATRIX, core target/restriction/validation sources, JvmTargetRegistry + test, jvm-application/ build files + layout). No code changes; no build executed (pure design). Doc length 408 lines (<1000). Branch not force-pushed.
+- **Commits/PRs:** `45674c7` "F-040: design Bazel adapter mapping" on `forma/F-040-bazel-adapter-design`. (PR against v2 to be handled by orchestrator per session instructions.)
 - **Blockers:** none
 - **Next step:** F-041 (Spike: generate or check Bazel BUILD from forma declarations)
 
