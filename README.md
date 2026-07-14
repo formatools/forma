@@ -48,6 +48,7 @@ systems like Buck and Bazel.
 5. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
 6. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
 7. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
+8. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
 
 Configuration made easy:
 
@@ -200,6 +201,7 @@ forma-core extraction (restriction engine + TargetType + Android matrix kit): **
 forma-core validation SPI + content rules (Gradle facade in `:validation`): **F-022** done.
 forma-core TargetRegistry + Android DSL consumers: **F-023** done.
 Publish coordinates for `tools.forma:core` (library) + facade deprecation policy: **F-024** done (see [`docs/PLUGIN-PUBLISH.md`](docs/PLUGIN-PUBLISH.md)).
+Pure JVM target set (`tools.forma.jvm`, `JvmTargetRegistry`): **F-030** done (see [`docs/JVM-TARGETS.md`](docs/JVM-TARGETS.md)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

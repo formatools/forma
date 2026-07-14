@@ -9,7 +9,8 @@ expected ownership model and credential flow so workers do not invent secrets.
 
 | Project | Plugin id | Notes |
 |---------|-----------|--------|
-| `plugins/:android` | `tools.forma.android` | Main product entrypoint |
+| `plugins/:android` | `tools.forma.android` | Main Android product entrypoint |
+| `plugins/:jvm` | `tools.forma.jvm` | Pure JVM platform (F-030); no AGP |
 | `plugins/:target` | `tools.forma.target` | Target identity |
 | `plugins/:validation` | `tools.forma.validation` | Validators |
 | `plugins/:owners` | `tools.forma.owners` | Ownership metadata |
@@ -37,7 +38,8 @@ Android consumers continue to use the unchanged plugin id `tools.forma.android`.
 | Artifact | Coordinates | Type | Notes |
 |----------|-------------|------|-------|
 | forma-core | `tools.forma:core:0.1.3` (+ `-sources`) | Maven library | Single jar. Contains `tools.forma.core.target`, `.restriction`, `.validation`. |
-| Android | `tools.forma.android` (Plugin Portal) | Gradle plugin | Primary entrypoint. Depends on core (transitive). |
+| Android | `tools.forma.android` (Plugin Portal) | Gradle plugin | Primary Android entrypoint. Depends on core (transitive). |
+| JVM | `tools.forma.jvm` (Plugin Portal) | Gradle plugin | Pure JVM targets (F-030). Depends on core (transitive); **no AGP**. See [`JVM-TARGETS.md`](JVM-TARGETS.md). |
 | Facades (compat) | `tools.forma.target`, `.validation`, `.deps`, `.config`, `.owners` | Gradle plugins (thin) | Remain published; delegate/re-export core. |
 
 Group `tools.forma`, version `0.1.3` (shared source of truth in root `formaPluginConfiguration`).
@@ -50,10 +52,16 @@ Group `tools.forma`, version `0.1.3` (shared source of truth in root `formaPlugi
       id("tools.forma.android") version "0.1.3"
   }
   ```
-- **Pure engine / future JVM or Bazel** (F-030+): depend directly on the library
-  when writing adapters that do not need the Android DSL:
+- **Pure JVM apps** (F-030): use the JVM plugin (no AGP):
+  ```kotlin
+  plugins {
+      id("tools.forma.jvm") version "0.1.3"
+  }
+  ```
+  DSL lives in package `tools.forma.jvm` — see [`JVM-TARGETS.md`](JVM-TARGETS.md).
+- **Pure engine / Bazel adapters**: depend directly on the library when writing
+  adapters that do not need a platform DSL:
   `implementation("tools.forma:core:0.1.3")`.
-  (A future `tools.forma.jvm` plugin would also pull core.)
 
 ### How plugin POMs declare the core dependency
 

@@ -60,7 +60,7 @@ that compose via `includeBuild`:
 
 - `pluginManagement { includeBuild("../build-settings") }`
 - `tools.forma.includer` **0.2.0** from Portal (not local includer composite)
-- Includer discovers `:android`, `:config`, `:core`, `:deps`, `:owners`, `:target`, `:validation` (F-021 added `:core`)
+- Includer discovers `:android`, `:config`, `:core`, `:deps`, `:jvm`, `:owners`, `:target`, `:validation` (F-021 `:core`; F-030 `:jvm`)
 
 ---
 
@@ -90,9 +90,12 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
               │           │            │
               └─────┬─────┴────────────┘
                     │
-              ┌─────┴─────┐
-              │  android  │  DSL + AGP + AndroidTargetTypes + matrix + content helpers
-              └───────────┘
+        ┌───────────┴───────────┐
+        │                       │
+  ┌─────┴─────┐           ┌─────┴─────┐
+  │  android  │           │    jvm    │  F-030 pure JVM DSL + JvmTargetRegistry
+  │  DSL+AGP  │           │  no AGP   │  (parallel platform consumer of core)
+  └───────────┘           └───────────┘
 ```
 
 | Module | Plugin id | Depends on | Responsibility |
@@ -104,6 +107,7 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
 | `:config` | `tools.forma.config` | `gradleApi` | `AndroidProjectSettings`, `FormaSettingsStore`, plugin/dep registration maps |
 | `:deps` | `tools.forma.deps` | `:core`, `:validation`, `:target`, `:config`, kotlin-dsl | `FormaDependency` model, `applyDependencies`, version-catalog generators |
 | `:android` | `tools.forma.android` | `:core` + all of the above + **AGP** + Kotlin GP | Target DSL; `AndroidTargetTypes` + `AndroidRestrictionKit` (F-021); content helpers call core `ContentRule` (F-022) |
+| `:jvm` | `tools.forma.jvm` | `:core`, `:deps`, `:validation`, `:target`, `:owners` + Kotlin GP (**no AGP**) | Pure JVM DSL (`api`/`impl`/`library`/`util`/`testUtil` in package `tools.forma.jvm`); `JvmTargetTypes` + `JvmTargetRegistry` (F-030) |
 
 `:android` compiles against **AGP 8.1.2** (aligned with sample runtime force in
 `application/settings.gradle.kts` as of F-003). Keep `plugins/android` AGP
@@ -315,7 +319,7 @@ Aligned with `docs/VISION.md`: core must not assume Android/AGP/Dagger.
 | Settings store | `:config` | **Split** | Generic `SettingsStore` / plugin registry → core; `AndroidProjectSettings` → android |
 | Owners | `:owners` | **Optional / yes** | Platform-agnostic metadata |
 | Feature definitions (AGP library/binary/native) | `:android` | **No** | Stay platform |
-| DSL entrypoints (`api`/`impl`/…) | `:android` | **No** (register *onto* core) | First consumer of core — **F-023 done** (`AndroidTargetRegistry`) |
+| DSL entrypoints (`api`/`impl`/…) | `:android` + `:jvm` | **No** (register *onto* core) | Android first consumer — **F-023**; pure JVM plugin — **F-030** (`JvmTargetRegistry`) |
 | Includer / depgen | separate builds | **No** | Adjacent tooling |
 | build-dependencies catalogs | sample support | **No** | Demo-only; pattern informs F-012 |
 
@@ -329,6 +333,9 @@ Suggested extraction order (tickets F-020…F-024):
 4. Wire Android DSL / registry as first consumer of core — **done (F-023)**
    (`TargetRegistry` + `AndroidTargetRegistry`; sample green).
 5. Coordinates + publish finalization: `tools.forma:core` (library) vs `tools.forma.android` + facades (F-024 done — see `docs/PLUGIN-PUBLISH.md`).
+6. JVM platform consumer of core — **done (F-030):** `plugins/jvm`, plugin id
+   `tools.forma.jvm`, `JvmTargetRegistry` + matrix ([`JVM-TARGETS.md`](JVM-TARGETS.md)).
+   Sample JVM app is **F-031**.
 
 ---
 
@@ -354,8 +361,9 @@ Suggested extraction order (tickets F-020…F-024):
 |------|------------|
 | New user / first project | [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) |
 | Configuration-time performance | [`docs/CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md) |
-| New target type | `AndroidTargets.kt` + new DSL file under `plugins/android/src/main/java/` + validator list |
-| Tighten dep rules | `validator(...)` in that DSL file; update this doc §2.2 |
+| New Android target type | `AndroidTargetTypes` + DSL under `plugins/android/` + `registerAndroidDefaults` |
+| New JVM target type | `JvmTargetTypes` + DSL under `plugins/jvm/` + `registerJvmDefaults` ([`JVM-TARGETS.md`](JVM-TARGETS.md)) |
+| Tighten dep rules | platform registry allow-lists; update DEPENDENCY-MATRIX / JVM-TARGETS |
 | Global SDK/AGP defaults | `androidProjectConfiguration` + sample `application/build.gradle.kts` |
 | External deps UX | `plugins/deps` catalog + `build-dependencies` |
 | Auto module discovery | `includer/` |
