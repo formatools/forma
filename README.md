@@ -54,6 +54,7 @@ systems like Buck and Bazel.
 11. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
 12. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
 13. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
+14. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050)
 
 Configuration made easy:
 
@@ -212,6 +213,7 @@ JVM getting-started tutorial: **F-032** done ([`docs/JVM-GETTING-STARTED.md`](do
 Bazel adapter mapping design (targets ↔ rules, visibility ↔ deps): **F-040** done (see [`docs/BAZEL-ADAPTER.md`](docs/BAZEL-ADAPTER.md)).
 Bazel adapter spike (generate/check BUILD from portable model, JVM matrix): **F-041** done ([`bazel-adapter/`](bazel-adapter/), spike results in BAZEL-ADAPTER.md).
 Minimal Bazel sample workspace (two features + library/util + binary, real `bazelisk build` + `run`): **F-042** done (see [`bazel-sample/`](bazel-sample/) + BAZEL-ADAPTER.md).
+Progressive examples + agent skills (all supported features): **F-050** done ([`docs/PROGRESSIVE-EXAMPLES.md`](docs/PROGRESSIVE-EXAMPLES.md), [`examples/`](examples/)).
 
 Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

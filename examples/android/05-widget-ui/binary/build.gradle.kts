@@ -1,0 +1,12 @@
+androidBinary(
+    packageName = "tools.forma.examples.android.widgetui",
+    versionCode = 1,
+    versionName = "0.1.0",
+    dependencies = deps(
+        target(":root-app"),
+        target(":feature:hello:api"),
+        target(":feature:hello:impl"),
+        target(":common:banner:widget"),
+        target(":common:ui:ui-library")
+    )
+)

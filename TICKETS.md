@@ -52,6 +52,12 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-041 | done | Spike: generate or check Bazel BUILD from forma declarations | `bazel-adapter/` generate+check via core RestrictionGraph; examples + tests green |
 | F-042 | done | Minimal Bazel sample using forma-core concepts | `bazel-sample/` + real `bazelisk build`/`run` + docs; see PROGRESS |
 
+## P5 — Progressive examples + agent skills
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-050 | done | Progressive examples + agent skills for all supported features | `examples/{jvm,android}/*` + `examples/agent-skills/` + `docs/PROGRESSIVE-EXAMPLES.md`; JVM build+run and Android assembleDebug verified |
+
 ## Backlog (lower priority / historical GitHub)
 
 Keep for reference; do not start unless higher tickets done or user prioritizes:

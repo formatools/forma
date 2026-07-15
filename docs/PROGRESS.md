@@ -2,6 +2,25 @@
 
 Newest entries first.
 
+## 2026-07-15 — F-050 Progressive examples + agent skills
+
+- **Ticket:** F-050 → `done`
+- **Branch:** `forma/F-050-progressive-examples-skills` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design + partial implement, max-turns); Hermes finish path completed Android ladder, skills, docs, verify, PR
+- **Deliverable:**
+  - `examples/jvm/01-hello-binary` … `05-test-util` — full JVM target set progressive ladder
+  - `examples/android/01-hello-apk` … `09-test-utils` — full Android target set + catalogs + compose + test utils
+  - `examples/agent-skills/` — overview, android/jvm targets, matrix, catalogs, compose, includer, layout, bazel
+  - `docs/PROGRESSIVE-EXAMPLES.md` + `examples/README.md` curriculum + feature coverage matrix
+  - Cross-links: README, GETTING-STARTED, JVM-GETTING-STARTED
+- **Verify (real host, OpenJDK 17 + `scripts/env-mac.sh`):**
+  - All JVM steps: `./gradlew build` + `:binary:run` → **OK**
+  - All Android steps: `:binary:assembleDebug` → **OK**
+  - Android 09: `:feature-hello-impl:testDebugUnitTest` → **OK**
+- **Notes:** `deps()` is non-transitive — Compose/JUnit examples use `transitiveDeps(...)`. Teaching apps use framework `Activity` (not AppCompat) to keep transitive surface small.
+- **Blockers:** none
+- **Next step:** backlog / new tickets as prioritized
+
 ## 2026-07-15 — Ticket queue empty; close done GitHub issues
 
 - **Ticket:** none open in P0–P4 (`TICKETS.md` all `done` through F-042)

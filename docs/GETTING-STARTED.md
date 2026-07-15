@@ -429,6 +429,7 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Monorepo + plugin module graph |
 | [VISION.md](VISION.md) | forma-core → JVM → Bazel roadmap |
 | [JVM-GETTING-STARTED.md](JVM-GETTING-STARTED.md) | Pure JVM parallel tutorial (F-032) |
+| [PROGRESSIVE-EXAMPLES.md](PROGRESSIVE-EXAMPLES.md) | Feature-by-feature ladders + agent skills (F-050) |
 
 ---
 
