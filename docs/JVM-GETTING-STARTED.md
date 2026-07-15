@@ -390,6 +390,7 @@ See the Android parallel: [GETTING-STARTED.md](GETTING-STARTED.md).
 | [JVM-SAMPLE.md](JVM-SAMPLE.md) | Multi-feature pure-JVM gold standard layout + run |
 | [JVM-TARGETS.md](JVM-TARGETS.md) | All JVM target types + full dependency matrix |
 | [GETTING-STARTED.md](GETTING-STARTED.md) | Android parallel tutorial |
+| [PROGRESSIVE-EXAMPLES.md](PROGRESSIVE-EXAMPLES.md) | Feature-by-feature ladders + agent skills (F-050) |
 | [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) | Full matrix (includes JVM rows) |
 | [DEPS-CATALOG.md](DEPS-CATALOG.md) | External catalogs (`library`, `bundle`, `plugin`) |
 | [ENV.md](ENV.md) | JDK bootstrap |
