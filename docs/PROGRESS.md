@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-15 — 4h worker: empty queue + CI re-run
+
+- **Ticket:** none — `TICKETS.md` all `done` through F-050 (P0–P5 complete)
+- **Branch:** `forma/docs-progress-empty-queue` from `origin/v2` @ `9386b64`
+- **Skills/modes:** Hermes orchestrator only (no Grok Build — nothing to implement)
+- **Actions:**
+  - Confirmed workdir `/Users/claw/work/forma`, remote `formatools/forma`, on `v2`
+  - No open PRs; no `todo`/`in_progress` tickets
+  - Re-ran failed post-merge GHA [29417713674](https://github.com/formatools/forma/actions/runs/29417713674) (Application only; prior failure was transient Gradle zip `Connection reset`)
+  - Open backlog GH issues left untouched (need explicit promote into `TICKETS.md`)
+- **Blockers:** prioritized queue empty — need new F-xxx tickets or user-promoted backlog item
+- **Next step:** user adds next-phase tickets (e.g. polish, publish Portal #133, or backlog promotions)
+
+## 2026-07-15 — Daily report note (CI)
+
+- **Ticket:** none (queue empty; F-050 already `done` on `v2` @ `9386b64`)
+- **Fact:** PR #175 checks on the feature branch were **SUCCESS** (Plugins/Includer/Depgen/Application). Post-merge `push` to `v2` run [29417713674](https://github.com/formatools/forma/actions/runs/29417713674) **failed** Application only: transient `java.net.SocketException: Connection reset` while downloading `gradle-8.4-bin.zip` — not a product build failure. Other jobs on that run succeeded.
+- **Open PRs:** none (base v2 or master). `v2` is **33 commits ahead** of `master`.
+- **Next:** user adds new F-xxx tickets or promotes backlog; optional re-run failed GHA workflow if a green tip signal is desired.
+
 ## 2026-07-15 — F-050 Progressive examples + agent skills
 
 - **Ticket:** F-050 → `done`
