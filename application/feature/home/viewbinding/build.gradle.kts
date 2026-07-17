@@ -7,8 +7,8 @@ viewBinding(
         androidx.appcompat,
         androidx.constraintlayout
     ) + deps(
-        target(":core:navigation:library"),
-        target(":core:mvvm:library"),
+        target(":core:navigation:res"),
+        target(":core:mvvm:ui-library"),
         target(":core:theme:res"),
         target(":feature:home:res"),
     )

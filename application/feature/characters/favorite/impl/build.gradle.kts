@@ -23,11 +23,11 @@ impl(
         target(":feature:characters:favorite:res"),
         target(":feature:characters:favorite:viewbinding"),
 
-        target(":core:di:library"),
+        target(":core:di:android-util"),
         target(":core:theme:android-util"),
-        target(":core:mvvm:library"),
+        target(":core:mvvm:ui-library"),
         target(":core:network:library"),
-        target(":core:navigation:library"),
+        target(":core:navigation:res"),
 
         target(":common:util"),
         target(":common:extensions:android-util"),

@@ -20,8 +20,8 @@ androidApp(
                 target(":feature:characters:core:impl"),
                 target(":feature:characters:favorite:api"),
                 target(":feature:characters:favorite:impl"),
-                target(":core:di:library"),
-                target(":core:navigation:library"),
+                target(":core:di:android-util"),
+                target(":core:navigation:res"),
                 target(":core:theme:android-util"),
                 target(":core:network:library"),
                 target(":common:util")

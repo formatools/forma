@@ -1,7 +1,7 @@
 # Getting started — Android project with Forma (F-015 / GH #53)
 
 Forma is a **meta build system** for Android (Gradle plugin). You declare
-**targets** with typed, single-method builders (`api`, `impl`, `androidLibrary`,
+**targets** with typed, single-method builders (`api`, `impl`, `androidUtil`, `uiLibrary`,
 …) instead of hand-wiring AGP plugins, source sets, and ad-hoc dependency
 rules. Forma applies plugins, shared Android settings, and **dependency
 visibility validation** for you.
@@ -292,7 +292,7 @@ dependency**, and the allowed set — fix the edge, don’t weaken the graph.
 | `viewBinding` | `viewbinding` | Layout XML (+ light binding-facing types) |
 | `widget` | `widget` | Custom Views |
 | `composeWidget` | `compose-widget` | Compose UI components (always Compose) |
-| `androidLibrary` | `library` | Shared Android library (not a feature impl) |
+| ~~`androidLibrary`~~ | `library` | **Deprecated** — use role-specific targets ([deprecation guide](ANDROID-LIBRARY-DEPRECATION.md)) |
 | `library` | `library` | Shared pure JVM library |
 | `uiLibrary` | `ui-library` | Shared UI building blocks for widgets |
 | `util` / `androidUtil` / `testUtil` | `util` / `android-util` / `test-util` | Small helpers |
@@ -339,13 +339,14 @@ validator intent (F-011).
 
 1. **`impl` → `impl` is forbidden.** Cross-feature collaboration goes through
    `api` (or shared `core` libraries).
-2. **`androidLibrary` cannot depend on `impl`.** Shared libs depend on contracts,
-   not feature implementations.
+2. **Do not use deprecated `androidLibrary`.** Prefer `androidUtil` / `uiLibrary` /
+   `androidRes` / `viewBinding` so the graph stays flat and role-typed
+   ([ANDROID-LIBRARY-DEPRECATION.md](ANDROID-LIBRARY-DEPRECATION.md)).
 3. **`api` cannot contain `res/`.** Put resources in `androidRes` / `viewBinding`.
 4. **`androidRes` only allows `res/` content** under `src/main`.
 5. **`viewBinding` only allows layout resource types.**
 6. **Name your folder / project so the suffix matches the DSL** (`…/impl` →
-   `impl { }`, not `androidLibrary`).
+   `impl { }`, not a generic library target).
 7. **Align `packageName` with source roots** (`tools.forma.sample…` in the sample).
 
 If you fight the matrix, usually the **type** is wrong — not the tool.

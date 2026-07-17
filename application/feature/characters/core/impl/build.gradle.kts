@@ -7,9 +7,9 @@ impl(
     ) + deps(
         target(":feature:characters:core:api"),
 
-        target(":core:di:library"),
+        target(":core:di:android-util"),
         target(":core:theme:android-util"),
-        target(":core:mvvm:library"),
+        target(":core:mvvm:ui-library"),
         target(":core:network:library"),
 
         target(":common:extensions:util"),

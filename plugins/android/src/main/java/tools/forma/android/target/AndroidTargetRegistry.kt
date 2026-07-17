@@ -82,11 +82,11 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // androidUtil
+    // androidUtil — may wrap pure JVM libraries; still no res content
     registry.register(
         TargetRegistration(
             type = t.androidUtil,
-            allowedDependencies = setOf(t.androidUtil, t.testUtil, t.res),
+            allowedDependencies = setOf(t.androidUtil, t.testUtil, t.res, t.library),
             contentRules = noRes
         )
     )
@@ -133,11 +133,13 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // viewBinding
+    // viewBinding — may use shared UI bases (ui-library) after androidLibrary deprecation
     registry.register(
         TargetRegistration(
             type = t.viewBinding,
-            allowedDependencies = setOf(t.api, t.widget, t.composeWidget, t.res, t.library, t.androidUtil),
+            allowedDependencies = setOf(
+                t.api, t.widget, t.composeWidget, t.res, t.library, t.androidUtil, t.uiLibrary
+            ),
             contentRules = onlyLayouts
         )
     )

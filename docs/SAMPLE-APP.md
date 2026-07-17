@@ -16,9 +16,9 @@ application/
 ├── root-res/                    androidRes      (launcher, app nav host layout)
 ├── toggle-widget/               widget          (theme toggle action view)
 ├── core/
-│   ├── di/library               androidLibrary  (Dagger scopes / base component)
-│   ├── mvvm/library             androidLibrary  (ViewModel helpers, adapters)
-│   ├── navigation/library       androidLibrary  (feature nav graphs + safe-args)
+│   ├── di/android-util          androidUtil     (Dagger scopes / base component)
+│   ├── mvvm/ui-library          uiLibrary       (ViewModel helpers, adapters)
+│   ├── navigation/res           androidRes      (feature nav graphs + safe-args)
 │   ├── network/library          library (JVM)   (Retrofit / Config / NetworkState)
 │   └── theme/{android-util,res}
 ├── common/
@@ -96,7 +96,7 @@ root-app hosts SampleApp DI:
 
 home/impl hosts bottom navigation:
   navigation_characters_list_graph + navigation_character_favorite_graph
-  (from core/navigation/library)
+  (from core/navigation/res)
 ```
 
 ## Build

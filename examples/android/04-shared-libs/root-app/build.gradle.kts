@@ -5,6 +5,6 @@ androidApp(
         target(":feature:hello:api"),
         target(":feature:hello:impl"),
         target(":common:library"),
-        target(":core:platform:library")
+        target(":core:platform:android-util")
     )
 )

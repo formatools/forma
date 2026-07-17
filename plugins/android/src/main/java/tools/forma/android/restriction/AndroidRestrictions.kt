@@ -66,8 +66,8 @@ object AndroidRestrictionKit {
         // util (JVM): util + library
         graph.allow(t.util, t.util, t.library)
 
-        // androidUtil
-        graph.allow(t.androidUtil, t.androidUtil, t.testUtil, t.res)
+        // androidUtil — may depend on pure JVM library (helpers wrapping shared code)
+        graph.allow(t.androidUtil, t.androidUtil, t.testUtil, t.res, t.library)
 
         // testUtil
         graph.allow(t.testUtil, t.testUtil, t.util)
@@ -84,8 +84,11 @@ object AndroidRestrictionKit {
         // composeWidget (symmetric with widget for coexistence)
         graph.allow(t.composeWidget, t.uiLibrary, t.composeWidget, t.widget, t.util, t.androidUtil, t.res)
 
-        // viewBinding
-        graph.allow(t.viewBinding, t.api, t.widget, t.composeWidget, t.res, t.library, t.androidUtil)
+        // viewBinding — ui-library allowed so shared UI bases are not stuffed into androidLibrary
+        graph.allow(
+            t.viewBinding,
+            t.api, t.widget, t.composeWidget, t.res, t.library, t.androidUtil, t.uiLibrary
+        )
 
         // androidApp (composition root)
         graph.allow(

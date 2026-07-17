@@ -22,8 +22,8 @@ androidBinary(
         target(":common:extensions:android-util"),
 //        target(":common:util-native"),
         target(":common:greeting:compose-widget"),
-        target(":core:mvvm:library"),
-        target(":core:di:library")
+        target(":core:mvvm:ui-library"),
+        target(":core:di:android-util")
     )
 )
 // TODO: enable when create crashlytics project

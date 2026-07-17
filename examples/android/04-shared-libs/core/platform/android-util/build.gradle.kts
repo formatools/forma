@@ -1,4 +1,4 @@
-androidLibrary(
+androidUtil(
     packageName = "tools.forma.examples.android.shared.core.platform.library",
     dependencies = deps(
         target(":common:library"),

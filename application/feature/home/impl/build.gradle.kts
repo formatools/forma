@@ -16,10 +16,10 @@ impl(
                 target(":feature:home:api"),
                 target(":feature:home:res"),
                 target(":feature:home:viewbinding"),
-                target(":core:di:library"),
+                target(":core:di:android-util"),
                 target(":core:theme:android-util"),
-                target(":core:mvvm:library"),
-                target(":core:navigation:library"),
+                target(":core:mvvm:ui-library"),
+                target(":core:navigation:res"),
                 target(":common:extensions:android-util"),
             )
 )

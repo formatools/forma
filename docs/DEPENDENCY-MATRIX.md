@@ -8,7 +8,7 @@ Source of truth for **F-010**. Every rule below is taken from the live
 When validators change, update **this file first**, then the README summary
 matrix. Do not invent rules from aspirational docs.
 
-Last verified: **2026-07-11** against `v2` tip + F-013 Compose support.
+Last verified: **2026-07-16** against `v2` + F-060 androidLibrary deprecation migration.
 
 ---
 
@@ -41,7 +41,7 @@ From `plugins/android/.../AndroidTargets.kt`:
 |----------------|-----------------|-------------|
 | `androidBinary` | `BinaryTargetTemplate` | `binary` |
 | `androidApp` | `ApplicationTargetTemplate` | `app` |
-| `androidLibrary` | `LibraryTargetTemplate` | `library` |
+| `androidLibrary` (**deprecated**) | `LibraryTargetTemplate` | `library` |
 | `library` (JVM) | `LibraryTargetTemplate` | `library` |
 | `uiLibrary` | `UiLibraryTargetTemplate` | `ui-library` |
 | `androidNative` | `NativeTarget` | `native` |
@@ -78,16 +78,16 @@ these suffixes (or are unrestricted if `EmptyValidator`).
 | `api` | `api.kt` | `validator(api, library)` | `api`, `library` |
 | `impl` | `impl.kt` | `validator(api, android-util, test-util, util, library, ui-library, res, viewbinding, widget, compose-widget)` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` |
 | `library` (JVM) | `library.kt` | `validator(util, test-util)` | `util`, `test-util` |
-| `androidLibrary` | `androidLibrary.kt` | `validator(library, util, android-util, test-util, res, api)` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
+| `androidLibrary` (**deprecated**) | `androidLibrary.kt` | `validator(library, util, android-util, test-util, res, api)` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
 | `uiLibrary` | `uiLibrary.kt` | `validator(widget, compose-widget, util, android-util, res)` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util.kt` | `validator(util, library)` | `util`, `library` |
-| `androidUtil` | `androidUtil.kt` | `validator(android-util, test-util, res)` | `android-util`, `test-util`, `res` |
+| `androidUtil` | `androidUtil.kt` | `validator(android-util, test-util, res, library)` | `android-util`, `test-util`, `res`, `library` |
 | `testUtil` | `testUtil.kt` | `validator(test-util, util)` | `test-util`, `util` |
 | `androidTestUtil` | `androidTestUtil.kt` | `validator(android-test-util, test-util)` | `android-test-util`, `test-util` |
 | `androidRes` | `androidRes.kt` | `validator(res, widget, compose-widget)` | `res`, `widget`, `compose-widget` |
 | `widget` | `widget.kt` | `validator(ui-library, widget, compose-widget, util, android-util, res)` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `composeWidget` | `composeWidget.kt` | `validator(ui-library, compose-widget, widget, util, android-util, res)` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` |
-| `viewBinding` | `viewBinding.kt` | `validator(api, widget, compose-widget, res, library, android-util)` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util` |
+| `viewBinding` | `viewBinding.kt` | `validator(api, widget, compose-widget, res, library, android-util, ui-library)` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util`, `ui-library` |
 | `androidApp` | `androidApp.kt` | `validator(api, impl, library, util, android-util, test-util, res, viewbinding, widget, compose-widget, ui-library)` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
 | `androidBinary` | `androidBinary.kt` | `validator(app, api, impl, library, util, android-util, test-util, res, viewbinding, widget, compose-widget, ui-library)` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
 | `androidNative` | `androidNative.kt` | *(no `applyDependencies`)* | *no project-dep validation* |
@@ -105,6 +105,9 @@ These follow from the table (not from separate deny-lists):
 - **`util` cannot depend on `api` / `impl`** — same intent as library.
 - **`androidLibrary` cannot depend on `impl` / widgets / viewbinding** —
   shared libs may use `api` contracts only (F-011).
+- **`androidLibrary` is deprecated (F-060)** — temporary generic escape hatch; prefer `androidUtil` / `uiLibrary` / `androidRes` / `viewBinding` / `impl` / JVM `library`. See [`ANDROID-LIBRARY-DEPRECATION.md`](ANDROID-LIBRARY-DEPRECATION.md).
+- **`viewBinding` may depend on `ui-library`** — shared UI bases without generic library (F-061).
+- **`androidUtil` may depend on JVM `library`** — Android helpers wrapping pure JVM code (F-061).
 - **`androidApp` / `androidBinary` cannot depend on other `binary`** —
   single APK composition root (F-011; `app` may not depend on `app`/`binary`).
 - **Circular-ish UI graph is intentional while experimental:** `uiLibrary`
@@ -160,13 +163,13 @@ Rows = **consumer**. Columns = **dependency type (suffix)**.
 | **androidLibrary** | Y | — | Y | — | Y | Y | Y | — | Y | — | — | — | — | — | — |
 | **uiLibrary** | — | — | — | — | Y | — | Y | — | Y | — | Y | Y | — | — | — |
 | **util** | — | — | Y | — | Y | — | — | — | — | — | — | — | — | — | — |
-| **androidUtil** | — | — | — | — | — | Y | Y | — | Y | — | — | — | — | — | — |
+| **androidUtil** | — | — | Y | — | — | Y | Y | — | Y | — | — | — | — | — | — |
 | **testUtil** | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — | — |
 | **androidTestUtil** | — | — | — | — | — | Y | — | Y | — | — | — | — | — | — | — |
 | **androidRes** | — | — | — | — | — | — | — | — | Y | — | Y | Y | — | — | — |
 | **widget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | Y | — | — | — |
 | **composeWidget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | Y | — | — | — |
-| **viewBinding** | Y | — | Y | — | — | — | Y | — | Y | — | Y | Y | — | — | — |
+| **viewBinding** | Y | — | Y | Y | — | — | Y | — | Y | — | Y | Y | — | — | — |
 | **androidApp** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — | — |
 | **androidBinary** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | Y | — | — |
 | **androidNative** | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |

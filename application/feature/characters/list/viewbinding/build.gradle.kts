@@ -12,6 +12,6 @@ viewBinding(
 
         target(":core:theme:res"),
         target(":core:network:library"),
-        target(":core:mvvm:library"),
+        target(":core:mvvm:ui-library"),
     )
 )

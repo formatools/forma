@@ -5,6 +5,6 @@ impl(
         target(":common:library"),
         target(":common:util"),
         target(":common:android-util"),
-        target(":core:platform:library")
+        target(":core:platform:android-util")
     )
 )
