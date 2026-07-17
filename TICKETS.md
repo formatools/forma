@@ -69,7 +69,7 @@ encourages dumping mixed concerns into one bucket. Prefer specific targets.
 | F-060 | done | Deprecate `androidLibrary` + document flat-structure policy | `@Deprecated` on DSL; VISION + `docs/ANDROID-LIBRARY-DEPRECATION.md`; matrix/README |
 | F-061 | done | Migrate `application/` sample off `androidLibrary` | di→`androidUtil`, mvvm→`uiLibrary`, navigation→`androidRes`; path renames |
 | F-062 | done | Reimplement progressive examples / skills without `androidLibrary` | `examples/android/04` + agent skills + README curriculum |
-| F-063 | todo | Hard-remove `androidLibrary` target (after consumers migrated) | Drop registry type / docs row once no in-repo callers |
+| F-063 | done | Hard-remove `androidLibrary` target (after consumers migrated) | DSL + `android.library` type/registry/restrictions removed; JVM `library` + AGP feature helper kept; matrix/docs updated |
 
 ## Backlog (lower priority / historical GitHub)
 

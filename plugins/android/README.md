@@ -10,11 +10,11 @@ The androidApp target is used to configure Android applications. It contains cod
 
 An androidApp cannot depend on androidBinary. The app target should only provide high-level application configurations, components, and resources. Depending on androidBinary could tightly couple the app code to distribution details like signing, ProGuard, versioning etc. Isolating androidApp allows changing distribution methods without impacting Application code.
 
-### androidLibrary (deprecated)
-**Do not use for new modules.** Generic AGP-library escape hatch that undermines
-Forma's flat, role-typed graph. Prefer `androidUtil`, `uiLibrary`, `androidRes`,
+### androidLibrary (removed F-063)
+**Gone.** The generic AGP-library escape hatch was hard-removed so Forma can keep a
+flat, role-typed graph. Use `androidUtil`, `uiLibrary`, `androidRes`,
 `viewBinding`, `widget`, or `impl`. See `docs/ANDROID-LIBRARY-DEPRECATION.md`.
-Still present until hard-removal (F-063).
+The internal `androidLibraryFeatureDefinition` helper (AGP plugin wiring) remains.
 
 ### androidWidget
 The androidWidget target provides reusable UI components that can be shared between apps. These contain layout XML, drawables, custom views, composables, etc. that abstract UI elements away from app code.

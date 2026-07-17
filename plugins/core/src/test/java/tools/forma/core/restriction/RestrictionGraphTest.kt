@@ -15,6 +15,8 @@ class RestrictionGraphTest {
     private val res = targetType("android.res", "res")
 
     // Simulate shared suffix collision per forma-core-api §7 (different ids, same suffix)
+    // Note: these are synthetic TargetTypes for core engine testing only.
+    // The live `android.library` type was removed in F-063; only `jvm.library` remains for "library" suffix in product.
     private val jvmLibrary = targetType("jvm.library", "library")
     private val androidLibrary = targetType("android.library", "library")
 
@@ -72,7 +74,7 @@ class RestrictionGraphTest {
         val candidates = listOf(jvmLibrary, androidLibrary).filter { it.nameSuffix == "library" }
 
         val allowedByName = candidates.any { g.isAllowed(impl, it) }
-        // Since androidLibrary is allowed, name "core-library" should be accepted under collision rule
+        // Since (synthetic) androidLibrary type is allowed in this test graph, name "core-library" should be accepted under collision rule
         assertTrue(allowedByName)
 
         // If neither is allowed, deny
@@ -106,6 +108,7 @@ class RestrictionGraphTest {
         // Documents F-021 fix: separate ids (jvm.library vs android.library) for same suffix
         // ensures graph.allow() for one does not merge into the other (see DEPENDENCY-MATRIX
         // and forma-core-api.md §7). Uses synthetic types (core test stays independent of android kit).
+        // The real android.library consumer registration was removed in F-063.
         val jvmLib = targetType("jvm.library", "library")
         val androidLib = targetType("android.library", "library")
         val jvmUtil = targetType("jvm.util", "util")
@@ -118,7 +121,8 @@ class RestrictionGraphTest {
         // JVM library matrix (per library.kt + DEPENDENCY-MATRIX)
         g.allow(jvmLib, jvmUtil, testUtilT)
 
-        // androidLibrary matrix (per androidLibrary.kt + DEPENDENCY-MATRIX)
+        // Historical androidLibrary matrix (per removed androidLibrary.kt + DEPENDENCY-MATRIX at time of F-063)
+        // Kept here as synthetic to exercise forma-core suffix-collision engine (distinct ids, same suffix).
         g.allow(androidLib, androidLib, jvmUtil, androidUtil, testUtilT, resT, api)
 
         // Verify distinct rules (no accidental merge from duplicate consumer id)

@@ -13,11 +13,11 @@ Forma exists to **protect a flat, role-typed module graph**. Each target type is
 - **Prefer the most specific target** that matches the module’s job.
 - **Composition of features** happens only at `androidApp` / `androidBinary`
   (and JVM `binary`) — never by stacking feature `impl`s on each other.
-- **Generic escape hatches fight the product.** `androidLibrary` is **deprecated**
-  (F-060+): it collides with JVM `library` on the `library` suffix and invites
-  mixed DI/UI/res dumps that the matrix cannot reason about. Migrate to
-  role-specific targets (see [`GETTING-STARTED.md`](GETTING-STARTED.md) cheat
-  sheet and F-060 notes in `PROGRESS.md`).
+- **Generic escape hatches fight the product.** `androidLibrary` was **removed**
+  (F-063): it collided with JVM `library` on the `library` suffix and invited
+  mixed DI/UI/res dumps that the matrix cannot reason about. Use role-specific
+  targets only (see [`GETTING-STARTED.md`](GETTING-STARTED.md) and
+  [`ANDROID-LIBRARY-DEPRECATION.md`](ANDROID-LIBRARY-DEPRECATION.md)).
 
 ## Architectural split
 
@@ -39,7 +39,7 @@ Concrete stacks built **on** forma-core:
 1. **Android** — role-typed target set (`api`, `impl`, `androidUtil`, `uiLibrary`,
    `androidRes`, `viewBinding`, `androidBinary`, …) with a strict dependency
    matrix; Dagger2-friendly `api`/`impl` conventions; external deps catalog
-   patterns. (`androidLibrary` deprecated — do not teach it as the default.)
+   patterns. (`androidLibrary` removed in F-063 — do not teach or reintroduce it.)
 2. **JVM** — pure JVM targets and samples reusing the same restriction model.
 3. **Bazel** — later adapter that reuses forma-core concepts (types + restrictions) rather than forking the rules engine.
 

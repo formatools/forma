@@ -1,12 +1,12 @@
 # 04 — shared-libs (Android)
 
-**Goal:** Shared pure-JVM and Android libraries outside features — **role-typed**, no generic `androidLibrary`.
+**Goal:** Shared pure-JVM and Android libraries outside features — **role-typed**, no generic `androidLibrary` (removed F-063).
 
 ## Features introduced
 - `library` (JVM)
 - `util` (JVM helpers)
 - `androidUtil` (Android helpers, no res/)
-- (intentionally **no** `androidLibrary` — deprecated; see `docs/ANDROID-LIBRARY-DEPRECATION.md`)
+- (intentionally **no** `androidLibrary` — removed; see `docs/ANDROID-LIBRARY-DEPRECATION.md`)
 
 ## Layout
 - `common/library` — pure JVM

@@ -1,25 +1,22 @@
-# Deprecating `androidLibrary` (F-060+)
+# `androidLibrary` removed (F-063)
 
-## Why
+`androidLibrary` (the generic AGP library DSL target with type id `android.library`
+and `library` suffix) has been **hard-removed** in F-063.
 
-`androidLibrary` is a **generic AGP library** target. It was a temporary way to
-host “shared Android code that isn’t a feature `impl`.” That works against
-Forma’s goal: **keep structure flat and role-typed**.
+It was a temporary escape hatch that worked against Forma’s core principle:
+**keep the dependency graph flat and role-typed**.
 
-Problems:
+## Why it existed and why it is gone
 
-1. **Suffix collision** with JVM `library` (`library` name suffix / historical
-   `LibraryTargetTemplate`) — validators resolve deps by suffix and cannot tell
-   JVM vs Android library modules apart reliably.
-2. **Mixed concerns** — sample historically stuffed DI scopes, MVVM/UI bases, and
-   navigation XML into the same target kind.
-3. **Weak teaching signal** — newcomers reach for `androidLibrary` instead of the
-   target that matches the module’s job.
+- Shared the `library` suffix with JVM `library()` (validator collision).
+- Encouraged dumping unrelated concerns into one bucket.
+- Weak teaching signal — people reached for the generic target instead of the
+  role that matched the module.
 
-## Replacement map
+## Replacements (use these)
 
-| If the module is… | Use instead | Suffix |
-|-------------------|-------------|--------|
+| If the module is… | Use | Suffix |
+|-------------------|-----|--------|
 | Pure JVM shared code | `library` | `library` |
 | Small Android helpers, **no** `res/` | `androidUtil` | `android-util` |
 | Shared UI bases for `impl` / `widget` | `uiLibrary` | `ui-library` |
@@ -30,7 +27,7 @@ Problems:
 | Feature implementation | `impl` | `impl` |
 | Feature contracts | `api` | `api` |
 
-## Sample migration (F-061)
+## Historical migrations (F-061 / F-062)
 
 | Old path | Old DSL | New path | New DSL |
 |----------|---------|----------|---------|
@@ -38,22 +35,20 @@ Problems:
 | `core/mvvm/library` | `androidLibrary` | `core/mvvm/ui-library` | `uiLibrary` |
 | `core/navigation/library` | `androidLibrary` | `core/navigation/res` | `androidRes` |
 
-Kotlin **packages** may keep historical `.library` segments to limit churn;
-**project path / suffix** is what Forma validates.
-
-## Matrix tweaks paired with migration
-
-- `viewBinding` may depend on `ui-library` (shared UI bases without generic library).
-- `androidUtil` may depend on JVM `library` (Android helpers wrapping pure JVM code).
+Kotlin packages may retain historical `.library` segments; the **project name suffix**
+is what the validators enforce.
 
 ## Lifecycle
 
-| Ticket | Intent |
+| Ticket | Status |
 |--------|--------|
-| **F-060** | `@Deprecated` on DSL + docs/vision |
-| **F-061** | `application/` sample migrated |
-| **F-062** | Progressive examples + agent skills teach replacements |
-| **F-063** | Hard-remove target type / registry entry when nothing in-repo calls it |
+| F-060 | Deprecated DSL + docs |
+| F-061 | Migrated `application/` sample |
+| F-062 | Migrated examples + agent skills |
+| F-063 | Hard-removed DSL entry, type registration, restriction rules, and docs |
 
-Until F-063, `androidLibrary { }` still configures modules but should not appear
-in new code or tutorials.
+**`androidLibrary { }` no longer exists.** Use the role-specific targets above.
+The internal `androidLibraryFeatureDefinition` helper (AGP `com.android.library`
+wiring) remains for use by `impl`, `uiLibrary`, etc. — it is not a public DSL target.
+
+See also [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) (collision note updated).

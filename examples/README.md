@@ -30,7 +30,7 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | 01 | `android/01-hello-apk` | `androidProjectConfiguration`, `androidBinary`, `androidApp`, `androidRes` |
 | 02 | `android/02-feature-api-impl` | `api`, `impl` |
 | 03 | `android/03-res-viewbinding` | feature `androidRes`, `viewBinding` |
-| 04 | `android/04-shared-libs` | `library`, `util`, `androidUtil` (no deprecated `androidLibrary`) |
+| 04 | `android/04-shared-libs` | `library`, `util`, `androidUtil` (no removed `androidLibrary`) |
 | 05 | `android/05-widget-ui` | `widget`, `uiLibrary` |
 | 06 | `android/06-compose` | `compose` flags, `composeWidget` |
 | 07 | `android/07-multi-feature` | two features at composition root |

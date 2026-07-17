@@ -444,14 +444,18 @@ Do not skip to JVM targets (F-030) until F-023 is done.
 
 ## 7. Design decision: `library` suffix collision
 
-**Problem:** JVM `library { }` and Android `androidLibrary { }` both use
-`LibraryTargetTemplate` / suffix `library`. Name validation and dependency
-allow-lists **cannot distinguish** them today
+**Historical problem (pre-F-063):** JVM `library { }` and Android `androidLibrary { }`
+both used `LibraryTargetTemplate` / suffix `library`. Name validation and dependency
+allow-lists could not distinguish them
 ([`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) collision note).
+
+**Product resolution (F-063):** `androidLibrary` was hard-removed. Only JVM
+`library` (`jvm.library`) remains as a live consumer of the `library` suffix.
+The engine design below still applies for any future shared-suffix cases.
 
 **Decision for forma-core:**
 
-1. Every `TargetType` has a **unique `id`** (`jvm.library` vs `android.library`)
+1. Every `TargetType` has a **unique `id`** (`jvm.library` vs historical `android.library`)
    even when `nameSuffix` is shared.
 2. Restriction rules key off **`TargetType` identity / id**, not suffix alone.
 3. **Default name matching remains suffix-based** for Gradle project names so
@@ -465,7 +469,7 @@ allow-lists **cannot distinguish** them today
      ambiguity.
 5. Optional later hardening (not F-020): rename Android library suffix to
    `android-library` or require path conventions — product change, needs its
-   own ticket after core lands.
+   own ticket after core lands. (Superseded for androidLibrary by F-063 removal.)
 
 This unblocks registry design without forcing a breaking sample rename in
 F-021.

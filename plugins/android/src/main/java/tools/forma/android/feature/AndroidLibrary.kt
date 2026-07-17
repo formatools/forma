@@ -21,6 +21,11 @@ class AndroidLibraryFeatureConfiguration(
     val selfValidator: Validator = validator(LibraryTargetTemplate)
 )
 
+/**
+ * AGP feature wiring for the `com.android.library` plugin.
+ * Applied by role-specific targets (impl, uiLibrary, androidUtil, viewBinding, widget, ...).
+ * This is **not** the removed `androidLibrary` DSL target (F-063).
+ */
 fun androidLibraryFeatureDefinition(
     featureConfiguration: AndroidLibraryFeatureConfiguration
 ) = FeatureDefinition(

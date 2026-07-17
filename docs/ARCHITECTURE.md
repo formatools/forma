@@ -131,7 +131,7 @@ Defined in `plugins/android/.../AndroidTargets.kt`:
 |--------|--------|---------------------|
 | `BinaryTargetTemplate` | `binary` | `androidBinary` |
 | `ApplicationTargetTemplate` | `app` | `androidApp` |
-| `LibraryTargetTemplate` | `library` | `library` (JVM); deprecated `androidLibrary` shares suffix |
+| `LibraryTargetTemplate` | `library` | `library` (JVM only after F-063) |
 | `UiLibraryTargetTemplate` | `ui-library` | `uiLibrary` |
 | `NativeTarget` | `native` | `androidNative` |
 | `UtilTargetTemplate` | `util` | `util` |
@@ -158,7 +158,6 @@ when validators change.
 | `api` | `api`, `library` | no `res/` under `src/main` |
 | `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` | — |
 | `library` (JVM) | `util`, `test-util` | — |
-| `androidLibrary` (deprecated) | `library`, `util`, `android-util`, `test-util`, `res`, `api` | — |
 | `uiLibrary` | `widget`, `compose-widget`, `util`, `android-util`, `res` | — |
 | `util` | `util`, `library` | no `res/` |
 | `androidUtil` | `android-util`, `test-util`, `res`, `library` | no `res/` |
@@ -176,7 +175,7 @@ Notes for later tickets:
 
 - `impl` cannot depend on other `impl` (Dagger-friendly) — enforced; F-011.
 - `androidApp` / `androidBinary` use restricted composition-root lists — F-011 done.
-- `androidLibrary` **deprecated** (F-060+); JVM `library` keeps the `library` suffix — see [`ANDROID-LIBRARY-DEPRECATION.md`](ANDROID-LIBRARY-DEPRECATION.md).
+- `androidLibrary` **removed** (F-063); only JVM `library` uses the `library` suffix — see [`ANDROID-LIBRARY-DEPRECATION.md`](ANDROID-LIBRARY-DEPRECATION.md).
 
 ### 2.3 Feature stack (Android module)
 
@@ -350,7 +349,7 @@ Suggested extraction order (tickets F-020…F-024):
 | Item | Ticket |
 |------|--------|
 | ~~README dependency matrix ≠ live validators~~ → [`docs/DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) | F-010 done |
-| ~~`EmptyValidator` on app/binary/androidLibrary~~ (composition-root + library allowlists) | F-011 done |
+| ~~`EmptyValidator` on app/binary/(historical androidLibrary)~~ (composition-root + library allowlists) | F-011 done; androidLibrary removed F-063 |
 | ~~AGP 7.4.2 compile vs 8.1.2 runtime~~ (aligned 8.1.2) | F-003 done |
 | ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |
 | ~~Compose flag in settings, limited target support~~ → per-target flags + `composeWidget` | F-013 done |

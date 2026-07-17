@@ -43,7 +43,7 @@ definitions, skip empty repo blocks), not as a claim of a fixed wall-clock %.
 
 ## What costs configuration time in Forma
 
-1. **Per-target work** — every `api` / `impl` / `androidLibrary` / … call:
+1. **Per-target work** — every `api` / `impl` / `androidUtil` / … call:
    - suffix validation for self + each project dependency
    - AGP / Kotlin plugin apply + extension configuration
    - dependency registration (`applyDependencies`)
