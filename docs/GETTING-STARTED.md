@@ -292,7 +292,7 @@ dependency**, and the allowed set — fix the edge, don’t weaken the graph.
 | `viewBinding` | `viewbinding` | Layout XML (+ light binding-facing types) |
 | `widget` | `widget` | Custom Views |
 | `composeWidget` | `compose-widget` | Compose UI components (always Compose) |
-| ~~`androidLibrary`~~ | `library` | **Deprecated** — use role-specific targets ([deprecation guide](ANDROID-LIBRARY-DEPRECATION.md)) |
+| ~~`androidLibrary`~~ | — | **Removed (F-063)** — use role-specific targets ([guide](ANDROID-LIBRARY-DEPRECATION.md)) |
 | `library` | `library` | Shared pure JVM library |
 | `uiLibrary` | `ui-library` | Shared UI building blocks for widgets |
 | `util` / `androidUtil` / `testUtil` | `util` / `android-util` / `test-util` | Small helpers |
@@ -339,7 +339,7 @@ validator intent (F-011).
 
 1. **`impl` → `impl` is forbidden.** Cross-feature collaboration goes through
    `api` (or shared `core` libraries).
-2. **Do not use deprecated `androidLibrary`.** Prefer `androidUtil` / `uiLibrary` /
+2. **`androidLibrary` is gone (F-063).** Prefer `androidUtil` / `uiLibrary` /
    `androidRes` / `viewBinding` so the graph stays flat and role-typed
    ([ANDROID-LIBRARY-DEPRECATION.md](ANDROID-LIBRARY-DEPRECATION.md)).
 3. **`api` cannot contain `res/`.** Put resources in `androidRes` / `viewBinding`.

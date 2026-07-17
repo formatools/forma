@@ -8,7 +8,7 @@ Source of truth for **F-010**. Every rule below is taken from the live
 When validators change, update **this file first**, then the README summary
 matrix. Do not invent rules from aspirational docs.
 
-Last verified: **2026-07-16** against `v2` + F-060 androidLibrary deprecation migration.
+Last verified: **2026-07-17** against `v2` + F-063 hard-remove of `androidLibrary`.
 
 ---
 
@@ -41,7 +41,6 @@ From `plugins/android/.../AndroidTargets.kt`:
 |----------------|-----------------|-------------|
 | `androidBinary` | `BinaryTargetTemplate` | `binary` |
 | `androidApp` | `ApplicationTargetTemplate` | `app` |
-| `androidLibrary` (**deprecated**) | `LibraryTargetTemplate` | `library` |
 | `library` (JVM) | `LibraryTargetTemplate` | `library` |
 | `uiLibrary` | `UiLibraryTargetTemplate` | `ui-library` |
 | `androidNative` | `NativeTarget` | `native` |
@@ -56,11 +55,12 @@ From `plugins/android/.../AndroidTargets.kt`:
 | `widget` | `WidgetTargetTemplate` | `widget` |
 | `composeWidget` | `ComposeWidgetTargetTemplate` | `compose-widget` |
 
-**Collision note:** JVM `library` and Android `androidLibrary` share the same
-suffix `library` / `LibraryTargetTemplate`. The DSL functions differ (Kotlin
-JVM features vs AGP library features), but project-name validation cannot
-tell them apart. **Design (F-020):** unique `TargetType.id` with shared
-suffix allowed for Gradle names — see [`forma-core-api.md`](forma-core-api.md) §7.
+**Collision note:** Only JVM `library` uses the `library` suffix (F-063).
+Historical `androidLibrary` (also using `library` suffix via `LibraryTargetTemplate`)
+was removed after F-060–F-062 migration to role-specific targets (`androidUtil`,
+`uiLibrary`, `androidRes`, `viewBinding`, `impl`). Validators still match by
+suffix, so `*-library` JVM modules are accepted where `library` is allowed.
+See [`forma-core-api.md`](forma-core-api.md) §7 for the engine design.
 
 README historically said `androidWidget` / `androidUtils` / `testUtils` /
 `utils` / `androidTestUtils` — the **code** entrypoints are `widget`,
@@ -78,7 +78,6 @@ these suffixes (or are unrestricted if `EmptyValidator`).
 | `api` | `api.kt` | `validator(api, library)` | `api`, `library` |
 | `impl` | `impl.kt` | `validator(api, android-util, test-util, util, library, ui-library, res, viewbinding, widget, compose-widget)` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` |
 | `library` (JVM) | `library.kt` | `validator(util, test-util)` | `util`, `test-util` |
-| `androidLibrary` (**deprecated**) | `androidLibrary.kt` | `validator(library, util, android-util, test-util, res, api)` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
 | `uiLibrary` | `uiLibrary.kt` | `validator(widget, compose-widget, util, android-util, res)` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util.kt` | `validator(util, library)` | `util`, `library` |
 | `androidUtil` | `androidUtil.kt` | `validator(android-util, test-util, res, library)` | `android-util`, `test-util`, `res`, `library` |
@@ -103,9 +102,6 @@ These follow from the table (not from separate deny-lists):
 - **`library` (JVM) cannot depend on `api` / `impl`** — comment in code:
   “Can't depend on api\impl”.
 - **`util` cannot depend on `api` / `impl`** — same intent as library.
-- **`androidLibrary` cannot depend on `impl` / widgets / viewbinding** —
-  shared libs may use `api` contracts only (F-011).
-- **`androidLibrary` is deprecated (F-060)** — temporary generic escape hatch; prefer `androidUtil` / `uiLibrary` / `androidRes` / `viewBinding` / `impl` / JVM `library`. See [`ANDROID-LIBRARY-DEPRECATION.md`](ANDROID-LIBRARY-DEPRECATION.md).
 - **`viewBinding` may depend on `ui-library`** — shared UI bases without generic library (F-061).
 - **`androidUtil` may depend on JVM `library`** — Android helpers wrapping pure JVM code (F-061).
 - **`androidApp` / `androidBinary` cannot depend on other `binary`** —
@@ -117,7 +113,7 @@ These follow from the table (not from separate deny-lists):
 
 ### Compose flags (not project-dep rules)
 
-Separate from suffix validation: `impl`, `androidLibrary`, `androidUtil`,
+Separate from suffix validation: `impl`, `androidUtil`,
 `androidApp`, `uiLibrary`, and `androidBinary` accept `compose: Boolean`
 (default = project `androidProjectConfiguration(compose=…)`).
 `composeWidget` **always** enables Compose. See [`COMPOSE.md`](COMPOSE.md).
@@ -160,7 +156,6 @@ Rows = **consumer**. Columns = **dependency type (suffix)**.
 | **api** | Y | — | Y | — | — | — | — | — | — | — | — | — | — | — | — |
 | **impl** | Y | — | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — | — |
 | **library** (JVM) | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — | — |
-| **androidLibrary** | Y | — | Y | — | Y | Y | Y | — | Y | — | — | — | — | — | — |
 | **uiLibrary** | — | — | — | — | Y | — | Y | — | Y | — | Y | Y | — | — | — |
 | **util** | — | — | Y | — | Y | — | — | — | — | — | — | — | — | — | — |
 | **androidUtil** | — | — | Y | — | — | Y | Y | — | Y | — | — | — | — | — | — |
@@ -184,13 +179,12 @@ allowed list (e.g. `api`→`api` **Y**, `impl`→`impl` **—**, `widget`→`wid
 
 The historical README table used columns as *consumers* and rows as
 *dependencies*, mixed aspirational edges, and omitted several types
-(`uiLibrary`, `viewBinding`, `library` JVM vs `androidLibrary`, `native`).
+(`uiLibrary`, `viewBinding`, `library` JVM, `native`).
 
 Notable mismatches fixed by treating **this document** as truth:
 
 | Topic | Old README implication | Live code |
 |-------|------------------------|-----------|
-| `androidLibrary` project deps | selective ✅/❌ grid | **restricted** (no `impl`/widget/viewbinding) after F-011 |
 | `androidApp` / `androidBinary` project deps | selective grid | **restricted** composition-root lists after F-011 |
 | `impl` → `impl` | ❌ (agrees) | not in allowed list |
 | `api` → `library` | not clearly shown | **allowed** |

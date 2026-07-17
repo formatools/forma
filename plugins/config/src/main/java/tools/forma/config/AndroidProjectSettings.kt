@@ -30,8 +30,8 @@ data class AndroidProjectSettings(
     val repositories: RepositoryHandler.() -> Unit,
     /**
      * Project-wide default for per-target `compose` flags
-     * (`impl`, `androidLibrary`, `androidUtil`, `androidApp`, `uiLibrary`,
-     * `androidBinary`). Individual targets may still pass `compose = true/false`
+     * (`impl`, `androidUtil`, `androidApp`, `uiLibrary`, `androidBinary`).
+     * Individual targets may still pass `compose = true/false`
      * to override. Does **not** auto-enable `composeWidget` modules (those always
      * enable Compose themselves).
      */

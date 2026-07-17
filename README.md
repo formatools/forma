@@ -89,7 +89,7 @@ buildscript {
 ```
 
 Your kotlin android library (role-specific — prefer `androidUtil` / `uiLibrary` /
-`impl` over deprecated `androidLibrary`)
+`impl`; generic `androidLibrary` was removed in F-063)
 
 ``` gradle
 // Single method, type-safe creation of your target
@@ -147,7 +147,6 @@ project-dep type checks + content layout rules from live validators
 |:----------------------:|:-----------:|:-------:|:----------:|
 | `androidBinary` | ✅ | Generate single APK | name + no `res/`; composition-root project-dep list |
 | `androidApp` | ✅ | Application / root Android library | name + no `res/`; composition-root project-dep list |
-| `androidLibrary` | ⚠️ deprecated | Generic Android lib escape hatch — **do not use** | see [`docs/ANDROID-LIBRARY-DEPRECATION.md`](docs/ANDROID-LIBRARY-DEPRECATION.md) |
 | `uiLibrary` | ✅ | Shared UI library for impl/widget | project-dep list |
 | `widget` | ✅ | Custom View / UI component | project-dep list |
 | `composeWidget` | ✅ | Compose UI component | always Compose + project-dep list |
@@ -157,7 +156,7 @@ project-dep type checks + content layout rules from live validators
 | `androidUtil` | ✅ | Android library extensions | no `res/` + project-dep list |
 | `testUtil` | ✅ | Shared code for unit tests | no `res/` + project-dep list |
 | `util` | ✅ | JVM library extensions | no `res/` + project-dep list |
-| `library` | ✅ | JVM library | project-dep list (shares `library` suffix with `androidLibrary`) |
+| `library` | ✅ | JVM library | project-dep list (only owner of `library` suffix after F-063) |
 | `api` | ✅ | Feature external APIs | no `res/` + project-dep list |
 | `impl` | ✅ | Feature implementation | project-dep list (**no** other `impl`) |
 | `androidNative` | ✅ | NDK / native | no `res/`; no project-dep validation yet |
@@ -174,7 +173,6 @@ That document is generated from each target’s
 | `api` | `api`, `library` |
 | `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` |
 | `library` (JVM) | `util`, `test-util` |
-| `androidLibrary` (deprecated) | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
 | `uiLibrary` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util`, `library` |
 | `androidUtil` | `android-util`, `test-util`, `res`, `library` |

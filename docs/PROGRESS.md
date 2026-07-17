@@ -2,6 +2,25 @@
 
 Newest entries first.
 
+## 2026-07-17 — F-063: hard-remove `androidLibrary`
+
+- **Ticket:** F-063 → `done` (P6 flat-structure complete)
+- **Branch:** `forma/F-063-hard-remove-androidLibrary` from `origin/v2` @ `773d061`
+- **Skills/modes:** Grok Build `--mode full` (design + implement hit max-turns with tree on disk); Hermes finish path: remaining docs, TICKETS/PROGRESS, verify, PR
+- **Code:**
+  - Deleted `plugins/android/src/main/java/androidLibrary.kt` (public DSL)
+  - Removed `AndroidTargetTypes.library` (`android.library`)
+  - Dropped registry consumer registration + restriction-graph consumer rules
+  - Rewrote allow-lists (`api`/`impl`/`util`/`androidUtil`/`viewBinding`/`app`/`binary`) to depend on `jvmLibrary` (same `library` suffix)
+  - Kept `androidLibraryFeatureDefinition` (AGP wiring for impl/uiLibrary/etc.) + JVM `library()`
+  - Core unit tests still use synthetic `android.library` types for suffix-collision engine docs
+- **Docs:** DEPENDENCY-MATRIX (first), ANDROID-LIBRARY-DEPRECATION lifecycle, README, ARCHITECTURE, VISION, GETTING-STARTED, COMPOSE, CONFIGURATION-PERFORMANCE, progressive examples + agent skills, plugins/android README
+- **Verify (real host, OpenJDK via `scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2157 tasks)
+- **Blockers:** none
+- **Next:** prioritized queue empty again unless user adds F-xxx or promotes backlog (e.g. #110, #97, #88, #82, Portal #133)
+
 ## 2026-07-16 — F-060/061/062: deprecate androidLibrary, flatten sample + examples
 
 - **Tickets:** F-060, F-061, F-062 → `done`; F-063 hard-remove remains `todo`

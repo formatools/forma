@@ -14,7 +14,6 @@ description: Project-dep allowlists and how to fix validator failures.
 | `api` | `api`, `library` |
 | `impl` | api, utils, library, ui-library, res, viewbinding, widget, compose-widget — **not** other `impl` |
 | `androidApp` / `androidBinary` | api, impl, shared UI/libs (composition roots) |
-| ~~`androidLibrary`~~ | **deprecated** — prefer androidUtil/uiLibrary/androidRes |
 | `androidUtil` | android-util, test-util, res, **library** (JVM) |
 | `uiLibrary` | widget, compose-widget, util, android-util, res |
 

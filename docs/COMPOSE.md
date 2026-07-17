@@ -22,7 +22,7 @@ androidProjectConfiguration(
 
 | Setting | Role |
 |---------|------|
-| `compose` | Default value for per-target `compose = …` parameters on `impl`, `androidUtil`, `androidApp`, `uiLibrary`, `androidBinary` (deprecated `androidLibrary` still accepts it). |
+| `compose` | Default value for per-target `compose = …` parameters on `impl`, `androidUtil`, `androidApp`, `uiLibrary`, `androidBinary`. |
 | `composeCompilerVersion` | Written to AGP `composeOptions.kotlinCompilerExtensionVersion` when Compose is enabled. |
 
 `composeWidget` modules **always** enable Compose; they ignore the project default

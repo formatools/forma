@@ -12,6 +12,8 @@ import tools.forma.core.validation.OnlyResourcesUnderMain
  * Initialized explicitly via [registerAndroidDefaults] from [androidProjectConfiguration].
  *
  * DSL entrypoints obtain self + dependency validators from here (no more hand-written allow-lists).
+ * Note: the historical `androidLibrary` target (android.library) was hard-removed in F-063.
+ * Only JVM `library` (jvm.library) now uses the `library` suffix.
  */
 object AndroidTargetRegistry : TargetRegistry by DefaultTargetRegistry()
 
@@ -33,7 +35,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
     registry.register(
         TargetRegistration(
             type = t.api,
-            allowedDependencies = setOf(t.api, t.library),
+            allowedDependencies = setOf(t.api, t.jvmLibrary),
             contentRules = noRes
         )
     )
@@ -43,7 +45,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         TargetRegistration(
             type = t.impl,
             allowedDependencies = setOf(
-                t.api, t.androidUtil, t.testUtil, t.util, t.library,
+                t.api, t.androidUtil, t.testUtil, t.util, t.jvmLibrary,
                 t.uiLibrary, t.res, t.viewBinding, t.widget, t.composeWidget
             )
         )
@@ -54,14 +56,6 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         TargetRegistration(
             type = t.jvmLibrary,
             allowedDependencies = setOf(t.util, t.testUtil)
-        )
-    )
-
-    // androidLibrary consumer (distinct id from jvmLibrary)
-    registry.register(
-        TargetRegistration(
-            type = t.library,
-            allowedDependencies = setOf(t.library, t.util, t.androidUtil, t.testUtil, t.res, t.api)
         )
     )
 
@@ -77,7 +71,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
     registry.register(
         TargetRegistration(
             type = t.util,
-            allowedDependencies = setOf(t.util, t.library),
+            allowedDependencies = setOf(t.util, t.jvmLibrary),
             contentRules = noRes
         )
     )
@@ -86,7 +80,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
     registry.register(
         TargetRegistration(
             type = t.androidUtil,
-            allowedDependencies = setOf(t.androidUtil, t.testUtil, t.res, t.library),
+            allowedDependencies = setOf(t.androidUtil, t.testUtil, t.res, t.jvmLibrary),
             contentRules = noRes
         )
     )
@@ -133,12 +127,12 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // viewBinding — may use shared UI bases (ui-library) after androidLibrary deprecation
+    // viewBinding — may use shared UI bases (ui-library)
     registry.register(
         TargetRegistration(
             type = t.viewBinding,
             allowedDependencies = setOf(
-                t.api, t.widget, t.composeWidget, t.res, t.library, t.androidUtil, t.uiLibrary
+                t.api, t.widget, t.composeWidget, t.res, t.jvmLibrary, t.androidUtil, t.uiLibrary
             ),
             contentRules = onlyLayouts
         )
@@ -149,7 +143,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         TargetRegistration(
             type = t.app,
             allowedDependencies = setOf(
-                t.api, t.impl, t.library, t.util, t.androidUtil, t.testUtil, t.res,
+                t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
                 t.viewBinding, t.widget, t.composeWidget, t.uiLibrary
             ),
             contentRules = noRes
@@ -161,7 +155,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         TargetRegistration(
             type = t.binary,
             allowedDependencies = setOf(
-                t.app, t.api, t.impl, t.library, t.util, t.androidUtil, t.testUtil, t.res,
+                t.app, t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
                 t.viewBinding, t.widget, t.composeWidget, t.uiLibrary
             ),
             contentRules = noRes
