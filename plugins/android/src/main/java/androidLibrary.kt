@@ -18,13 +18,25 @@ import tools.forma.validation.asValidator
 import tools.forma.validation.validate
 
 /**
- * Shared Android library (not a feature [impl]).
+ * **Deprecated.** Generic Android library target — a temporary escape hatch that
+ * flattens Forma's typed structure back into "just an Android library".
  *
- * Dagger-friendly: may depend on other libraries/utils/res and feature [api]
- * contracts, but **not** on [impl] (implementations are composed only at
- * [androidApp] / [androidBinary]). Also disallows widgets/viewbinding as
- * project deps (use dedicated targets).
+ * Prefer a **role-specific** target so the dependency matrix can protect a flat
+ * graph:
+ * - shared Android helpers (no `res/`) → [androidUtil]
+ * - shared UI bases for impl/widget → [uiLibrary]
+ * - resources only → [androidRes]
+ * - layouts only → [viewBinding]
+ * - feature UI/DI → [impl]
+ * - pure JVM → [library]
+ *
+ * Remains functional until hard-removal (F-063) so existing consumers can migrate.
  */
+@Deprecated(
+    message = "androidLibrary is a temporary generic escape hatch. Use androidUtil, " +
+        "uiLibrary, androidRes, viewBinding, impl, or library so Forma can keep structure flat.",
+    replaceWith = ReplaceWith("androidUtil(packageName, owner, visibility, dependencies, testDependencies, compose)")
+)
 fun Project.androidLibrary(
     packageName: String,
     owner: Owner = NoOwner,

@@ -131,7 +131,7 @@ Defined in `plugins/android/.../AndroidTargets.kt`:
 |--------|--------|---------------------|
 | `BinaryTargetTemplate` | `binary` | `androidBinary` |
 | `ApplicationTargetTemplate` | `app` | `androidApp` |
-| `LibraryTargetTemplate` | `library` | `androidLibrary` **and** `library` (JVM) |
+| `LibraryTargetTemplate` | `library` | `library` (JVM); deprecated `androidLibrary` shares suffix |
 | `UiLibraryTargetTemplate` | `ui-library` | `uiLibrary` |
 | `NativeTarget` | `native` | `androidNative` |
 | `UtilTargetTemplate` | `util` | `util` |
@@ -158,16 +158,16 @@ when validators change.
 | `api` | `api`, `library` | no `res/` under `src/main` |
 | `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` | — |
 | `library` (JVM) | `util`, `test-util` | — |
-| `androidLibrary` | `library`, `util`, `android-util`, `test-util`, `res`, `api` | — |
+| `androidLibrary` (deprecated) | `library`, `util`, `android-util`, `test-util`, `res`, `api` | — |
 | `uiLibrary` | `widget`, `compose-widget`, `util`, `android-util`, `res` | — |
 | `util` | `util`, `library` | no `res/` |
-| `androidUtil` | `android-util`, `test-util`, `res` | no `res/` |
+| `androidUtil` | `android-util`, `test-util`, `res`, `library` | no `res/` |
 | `testUtil` | `test-util`, `util` | no `res/` |
 | `androidTestUtil` | `android-test-util`, `test-util` | — |
 | `androidRes` | `res`, `widget`, `compose-widget` | **only** `res/` under `src/main` |
 | `widget` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` | — |
 | `composeWidget` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` | always Compose |
-| `viewBinding` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util` | only `layout*` under `src/main/res` |
+| `viewBinding` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util`, `ui-library` | only `layout*` under `src/main/res` |
 | `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` | no `res/` |
 | `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` | no `res/` |
 | `androidNative` | (no `applyDependencies` in current code) | no `res/` |
@@ -175,8 +175,8 @@ when validators change.
 Notes for later tickets:
 
 - `impl` cannot depend on other `impl` (Dagger-friendly) — enforced; F-011.
-- `androidLibrary` / `androidApp` / `androidBinary` use restricted project-dep lists — F-011 done.
-- JVM `library` and Android `androidLibrary` share `LibraryTargetTemplate` suffix `library` — naming collision risk for forma-core registry design (F-020).
+- `androidApp` / `androidBinary` use restricted composition-root lists — F-011 done.
+- `androidLibrary` **deprecated** (F-060+); JVM `library` keeps the `library` suffix — see [`ANDROID-LIBRARY-DEPRECATION.md`](ANDROID-LIBRARY-DEPRECATION.md).
 
 ### 2.3 Feature stack (Android module)
 
@@ -225,9 +225,9 @@ application/
 ├── root-res/               androidRes
 ├── toggle-widget/          widget
 ├── core/
-│   ├── di/library          androidLibrary
-│   ├── mvvm/library        androidLibrary
-│   ├── navigation/library  androidLibrary
+│   ├── di/android-util     androidUtil
+│   ├── mvvm/ui-library     uiLibrary
+│   ├── navigation/res      androidRes
 │   ├── network/library     library (JVM)
 │   └── theme/{android-util,res}
 ├── common/

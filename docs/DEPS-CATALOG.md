@@ -73,7 +73,7 @@ you need to inspect catalog contents.
 ### Using catalog deps in targets
 
 ```kotlin
-androidLibrary(
+impl(
     packageName = "…",
     dependencies = deps(
         libs.jakewhartonTimber,

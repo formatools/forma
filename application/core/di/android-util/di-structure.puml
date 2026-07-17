@@ -1,7 +1,7 @@
 @startuml
 
 together {
-    package ":core:di:library" {
+    package ":core:di:android-util" {
         class BaseModule {
             + providesContext(app: Application): Context
         }
@@ -71,7 +71,7 @@ package ":app" {
 ":app" ..> ":root" : deps
 ":app" ..> ":feature:home:api" : deps
 ":app" ..> ":feature:home:impl" : deps
-":app" ..> ":core:di:library" : deps
+":app" ..> ":core:di:android-util" : deps
 
 
 @enduml

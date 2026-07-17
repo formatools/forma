@@ -1,5 +1,5 @@
-// TODO Change module type from `androidLibary` to `databinding`
-androidLibrary(
+// Shared MVVM / ViewBinding UI bases — typed as uiLibrary (not generic androidLibrary).
+uiLibrary(
     packageName = "tools.forma.sample.core.mvvm.library",
 
     dependencies = deps(
@@ -12,7 +12,7 @@ androidLibrary(
         androidx.paging,
         viewbinding.viewBinding,
         google.dagger,
-    )+ deps(
+    ) + deps(
         libs.jakewhartonTimber,
     ),
 

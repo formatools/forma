@@ -10,10 +10,11 @@ The androidApp target is used to configure Android applications. It contains cod
 
 An androidApp cannot depend on androidBinary. The app target should only provide high-level application configurations, components, and resources. Depending on androidBinary could tightly couple the app code to distribution details like signing, ProGuard, versioning etc. Isolating androidApp allows changing distribution methods without impacting Application code.
 
-### androidLibrary
-The androidLibrary target defines reusable components and code modules for Android. It contains business logic, data layers, UI widgets, custom views, etc that can be consumed by multiple androidApps or other libraries.
-
-An androidLibrary is allowed to depend on other androidLibraries, androidWidgets, and androidUtils. This allows building up a graph of modular, decoupled libraries with clean APIs. However, androidLibrary cannot depend directly on androidApp or androidBinary targets. This prevents libraries from making assumptions about higher level application code, or leaking implementation details through the public API. Keeping the library layer decoupled maximizes reusability across different apps.
+### androidLibrary (deprecated)
+**Do not use for new modules.** Generic AGP-library escape hatch that undermines
+Forma's flat, role-typed graph. Prefer `androidUtil`, `uiLibrary`, `androidRes`,
+`viewBinding`, `widget`, or `impl`. See `docs/ANDROID-LIBRARY-DEPRECATION.md`.
+Still present until hard-removal (F-063).
 
 ### androidWidget
 The androidWidget target provides reusable UI components that can be shared between apps. These contain layout XML, drawables, custom views, composables, etc. that abstract UI elements away from app code.
@@ -43,7 +44,7 @@ An impl can only depend on its own api target. This enforces a 1:1 relationship 
 ### androidUtil
 The androidUtil target provides Android-specific utilities and platform extensions. These contain code to wrap Android SDK APIs, system services, device integrations, aar libraries etc.
 
-androidUtils can be used by androidLibrary, androidWidget, androidApp, impl.
+androidUtils can be used by uiLibrary, widget, androidApp, impl.
 
 ### util
 The util target provides general-purpose utility code not specific to Android. This includes data types, helpers, extensions, algorithms, etc. Usable across multiple platforms.

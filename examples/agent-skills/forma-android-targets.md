@@ -18,7 +18,7 @@ Plugin: `tools.forma.android`. Register happens on first DSL use via `AndroidTar
 | `library` | `library` | pure JVM library | 04 |
 | `util` | `util` | no res/ | 04 |
 | `androidUtil` | `android-util` | no res/ | 04 |
-| `androidLibrary` | `library` | Android lib; **no** `impl` deps | 04 |
+| ~~`androidLibrary`~~ | `library` | **Deprecated** — do not use | — |
 | `widget` | `widget` | Custom View | 05 |
 | `uiLibrary` | `ui-library` | shared UI blocks | 05 |
 | `composeWidget` | `compose-widget` | always Compose | 06 |
@@ -37,7 +37,7 @@ impl(packageName = "…", dependencies = deps(target(":feature:x:api")))
 viewBinding(packageName = "…", dependencies = deps(target(":feature:x:res")))
 widget(packageName = "…")
 composeWidget(packageName = "…", dependencies = deps(/* compose GAVs */))
-androidLibrary(packageName = "…")
+// androidLibrary(…) // DEPRECATED — use androidUtil / uiLibrary / androidRes / …
 androidUtil(packageName = "…")
 util(packageName = "…")
 library(packageName = "…")
@@ -50,6 +50,6 @@ androidTestUtil(packageName = "…")
 
 - `impl` → `impl`
 - `api` shipping `res/`
-- `androidLibrary` → `impl`
+- deprecated `androidLibrary` (use role-specific targets)
 - Wrong suffix for DSL
 - Relying on transitive feature wiring instead of listing api+impl on roots

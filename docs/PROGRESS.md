@@ -2,6 +2,24 @@
 
 Newest entries first.
 
+## 2026-07-16 — F-060/061/062: deprecate androidLibrary, flatten sample + examples
+
+- **Tickets:** F-060, F-061, F-062 → `done`; F-063 hard-remove remains `todo`
+- **Branch:** `forma/F-060-deprecate-androidLibrary`
+- **Product direction (user):** `androidLibrary` is a temporary hack; Forma should protect a **flat, role-typed** structure — reimplement examples without it.
+- **Code:**
+  - `@Deprecated` on `Project.androidLibrary` with replacement guidance
+  - `androidRes` now returns `TargetBuilder` (safe-args / plugins parity)
+  - Matrix: `viewBinding` → `ui-library`; `androidUtil` → JVM `library`
+  - Sample renames: `core/di/android-util`, `core/mvvm/ui-library`, `core/navigation/res`
+  - Example 04: `core/platform/android-util` (no `androidLibrary`)
+- **Docs:** `docs/ANDROID-LIBRARY-DEPRECATION.md`, VISION flat-structure principle, DEPENDENCY-MATRIX, README, GETTING-STARTED, SAMPLE-APP, ARCHITECTURE, COMPOSE, DEPS-CATALOG, progressive examples + agent skills
+- **Verify (real host):**
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL**
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2157 tasks)
+  - `examples/android/04-shared-libs ./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL**
+- **Next:** F-063 hard-remove when ready; optional package renames off historical `.library` segments
+
 ## 2026-07-15 — 4h worker: empty queue + CI re-run
 
 - **Ticket:** none — `TICKETS.md` all `done` through F-050 (P0–P5 complete)

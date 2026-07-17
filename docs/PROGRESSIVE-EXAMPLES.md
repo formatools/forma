@@ -23,7 +23,7 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | `api` / `impl` | 02 | 02 | platform skills + matrix |
 | `viewBinding` | 03 | — | forma-android-targets |
 | `library` / `util` | 04 | 03 | platform skills |
-| `androidUtil` / `androidLibrary` | 04 | — | forma-android-targets |
+| `androidUtil` (not deprecated `androidLibrary`) | 04 | — | forma-android-targets |
 | `widget` / `uiLibrary` | 05 | — | forma-android-targets |
 | Compose + `composeWidget` | 06 | — | forma-compose |
 | Multi-feature composition | 07 | 04 | forma-project-layout |

@@ -88,13 +88,14 @@ buildscript {
 }
 ```
 
-Your kotlin android library
+Your kotlin android library (role-specific — prefer `androidUtil` / `uiLibrary` /
+`impl` over deprecated `androidLibrary`)
 
 ``` gradle
 // Single method, type-safe creation of your target
 // Plugins applied automatically
 // Project configuration shared between targets
-androidLibrary(
+androidUtil(
     // Mandatory, visible from build configuration
     packageName = "tools.forma.sample.example",
     // External dependencies declaration, one universal syntax
@@ -103,15 +104,11 @@ androidLibrary(
         androidx.appcompat,
     ) + deps(
         // Internal project dependencies, declared separately from externals
-        project(":demo-library")
+        project(":demo-android-util")
     ),
     // Test dependencies declaration
     testDependencies = deps(
         test.junit
-    ),
-    // Android test dependencies declaration
-    androidTestDependencies = deps(
-        test.espresso
     )
 )
 ```
@@ -150,7 +147,7 @@ project-dep type checks + content layout rules from live validators
 |:----------------------:|:-----------:|:-------:|:----------:|
 | `androidBinary` | ✅ | Generate single APK | name + no `res/`; composition-root project-dep list |
 | `androidApp` | ✅ | Application / root Android library | name + no `res/`; composition-root project-dep list |
-| `androidLibrary` | ✅ | Android library | name + project-dep list (**no** `impl`) |
+| `androidLibrary` | ⚠️ deprecated | Generic Android lib escape hatch — **do not use** | see [`docs/ANDROID-LIBRARY-DEPRECATION.md`](docs/ANDROID-LIBRARY-DEPRECATION.md) |
 | `uiLibrary` | ✅ | Shared UI library for impl/widget | project-dep list |
 | `widget` | ✅ | Custom View / UI component | project-dep list |
 | `composeWidget` | ✅ | Compose UI component | always Compose + project-dep list |
@@ -177,16 +174,16 @@ That document is generated from each target’s
 | `api` | `api`, `library` |
 | `impl` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` |
 | `library` (JVM) | `util`, `test-util` |
-| `androidLibrary` | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
+| `androidLibrary` (deprecated) | `library`, `util`, `android-util`, `test-util`, `res`, `api` |
 | `uiLibrary` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util`, `library` |
-| `androidUtil` | `android-util`, `test-util`, `res` |
+| `androidUtil` | `android-util`, `test-util`, `res`, `library` |
 | `testUtil` | `test-util`, `util` |
 | `androidTestUtil` | `android-test-util`, `test-util` |
 | `androidRes` | `res`, `widget`, `compose-widget` |
 | `widget` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `composeWidget` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` |
-| `viewBinding` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util` |
+| `viewBinding` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util`, `ui-library` |
 | `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
 | `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
 | `androidNative` | *(no project-dep check)* |

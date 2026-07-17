@@ -15,4 +15,4 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
 ```
 
 ## Next
-04 adds shared `library` / `util` / `androidUtil` / `androidLibrary`.
+04 adds shared `library` / `util` / `androidUtil` (no deprecated `androidLibrary`).

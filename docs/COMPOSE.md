@@ -22,7 +22,7 @@ androidProjectConfiguration(
 
 | Setting | Role |
 |---------|------|
-| `compose` | Default value for per-target `compose = …` parameters on `impl`, `androidLibrary`, `androidUtil`, `androidApp`, `uiLibrary`, `androidBinary`. |
+| `compose` | Default value for per-target `compose = …` parameters on `impl`, `androidUtil`, `androidApp`, `uiLibrary`, `androidBinary` (deprecated `androidLibrary` still accepts it). |
 | `composeCompilerVersion` | Written to AGP `composeOptions.kotlinCompilerExtensionVersion` when Compose is enabled. |
 
 `composeWidget` modules **always** enable Compose; they ignore the project default
@@ -37,7 +37,7 @@ impl(
     dependencies = deps(/* … */),
 )
 
-androidLibrary(
+uiLibrary(
     packageName = "com.example.shared.ui.library",
     compose = true,
 )

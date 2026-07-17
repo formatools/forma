@@ -22,7 +22,7 @@ fun Project.androidRes(
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
-) {
+): TargetBuilder {
 
     onlyAllowResources()
 
@@ -40,4 +40,6 @@ fun Project.androidRes(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.res).asValidator(),
         dependencies = dependencies
     )
+
+    return TargetBuilder(this)
 }

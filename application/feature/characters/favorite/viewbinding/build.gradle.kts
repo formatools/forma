@@ -10,8 +10,8 @@ viewBinding(
         target(":feature:characters:favorite:api"),
         target(":feature:characters:favorite:res"),
 
-        target(":core:navigation:library"),
-        target(":core:mvvm:library"),
+        target(":core:navigation:res"),
+        target(":core:mvvm:ui-library"),
         target(":core:theme:res")
     )
 )

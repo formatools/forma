@@ -58,6 +58,19 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 |----|--------|-------|-------|
 | F-050 | done | Progressive examples + agent skills for all supported features | `examples/{jvm,android}/*` + `examples/agent-skills/` + `docs/PROGRESSIVE-EXAMPLES.md`; JVM build+run and Android assembleDebug verified |
 
+## P6 — Flat structure (deprecate generic androidLibrary)
+
+Forma’s job is to **keep the graph flat and role-typed**. `androidLibrary` was a
+temporary generic AGP-library escape hatch (shared suffix with JVM `library`) that
+encourages dumping mixed concerns into one bucket. Prefer specific targets.
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-060 | done | Deprecate `androidLibrary` + document flat-structure policy | `@Deprecated` on DSL; VISION + `docs/ANDROID-LIBRARY-DEPRECATION.md`; matrix/README |
+| F-061 | done | Migrate `application/` sample off `androidLibrary` | di→`androidUtil`, mvvm→`uiLibrary`, navigation→`androidRes`; path renames |
+| F-062 | done | Reimplement progressive examples / skills without `androidLibrary` | `examples/android/04` + agent skills + README curriculum |
+| F-063 | todo | Hard-remove `androidLibrary` target (after consumers migrated) | Drop registry type / docs row once no in-repo callers |
+
 ## Backlog (lower priority / historical GitHub)
 
 Keep for reference; do not start unless higher tickets done or user prioritizes:
