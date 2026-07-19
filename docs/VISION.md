@@ -4,6 +4,34 @@
 
 Make **Forma** a working product for **Android** first, then adapt the same approach for **JVM applications**, then for **Bazel**.
 
+## Root principles (product axioms)
+
+These are the bar for every API and implementation change. Inferable from the
+README meta-build pitch; stated here so they cannot drift.
+
+1. **Bazel-like rules** — Configure behavior **once** on the target type (rule).
+   Call sites use a **minimal set of static attributes** (package, deps, declared
+   rule fields). Using a type always gets that type’s behavior (plugins, features,
+   content rules, matrix). No per-module tool shopping.
+2. **One global way** — Built to scale to very large orgs (thousands of developers).
+   There is **one** supported way to express a given concern, **global for the
+   entire project**. Extensibility means extending the shared type/config system,
+   not inventing module-local Gradle dialects.
+3. **Everything is explicit** — Structure and boundaries are declared, not implied
+   by hidden convention soup. Tradeoff: more configuration at the **type / project**
+   layer. Remedy: **tooling** so large-scale changes stay easy and reliable
+   (check / generate / migrate — includer, depgen, adapters, future fleet tools).
+
+### Consequences (do not treat as separate products)
+
+- **Flat, role-typed graph** — most specific role; no generic buckets (`androidLibrary` removed).
+- **Composition only at roots** — `androidApp` / `androidBinary` / JVM `binary`; `impl` ↛ `impl`.
+- **Closed dependency matrix** — allow-listed project edges only.
+- **Portable forma-core** — types, restrictions, validation, registry; platforms adapt.
+- **External plugins** — type-owned, auto-apply; see [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md).
+
+Implementation debt vs these axioms is tracked under **P7–P8** in `TICKETS.md`.
+
 ## Core product principle — keep structure flat
 
 Forma exists to **protect a flat, role-typed module graph**. Each target type is a
@@ -51,6 +79,7 @@ Concrete stacks built **on** forma-core:
 4. **Bazel** — design + implement adapter once core is stable (see [`docs/BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md) for the F-040 mapping design).
 5. **Flat-structure hardening** — deprecate/remove generic targets that undermine role typing (P6 / F-060+).
 6. **Uniform target plugins** — Bazel-like: plugin on the **target type**, auto-apply on every call site; call sites are attributes-only; deprecate chain `withPlugin` (P7 / F-070+; [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)).
+7. **Principle-alignment implementation** — close remaining gaps vs root principles (P8 / F-080+).
 
 ## Working principles
 

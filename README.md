@@ -18,6 +18,12 @@ structured, type-safe and guided way to declare your project structure. Distribu
 developers to shift focus from `Build Configuration` to `Project Structure Declaration`, abstracting away build
 configuration complexity.
 
+**Root principles** (full text: [`docs/VISION.md`](docs/VISION.md)):
+
+1. **Bazel-like rules** — configure once on the target type; call sites use a minimal set of static attributes; type behavior auto-applies.
+2. **One global way** — one supported approach per concern for the whole project (built for large orgs).
+3. **Explicit structure + tooling** — declare boundaries openly; tooling makes fleet-wide change reliable.
+
 - You don't need to be a gradle expert anymore
 - Get rid of project configuration bad practices
 - Type-safe, single method configuration for your targets, no room for error
@@ -25,7 +31,7 @@ configuration complexity.
 - Target types - enforce scalable project structure
 - High-performance builds: Gradle best practices are applied automatically
 - Dependencies framework - helps developers to understand and deal with transitive dependencies hell
-- Extensible - be the expert when you need to!
+- Extensible via the **shared type/config system** (not per-module Gradle dialects)
 - And much more...
 
 ⚠️ We are using `target` term to express application components(e.g. modules or projects, depending in the context)

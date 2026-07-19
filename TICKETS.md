@@ -4,6 +4,16 @@ Status legend: `todo` | `in_progress` | `blocked` | `done`
 
 Update this file when picking or finishing work. Cron workers must pick the **highest priority open ticket** that is not blocked.
 
+## Root goals (implementation bar)
+
+Every open ticket below must move the product toward:
+
+1. **Bazel-like rules** — configure once on the type; call sites = minimal static attrs; type behavior auto-applies.
+2. **One global way** — single supported approach per concern, project-wide (scale to large orgs).
+3. **Explicit structure + tooling** — declare boundaries openly; invest in check/generate/migrate so fleet changes stay reliable.
+
+Canonical write-up: `docs/VISION.md` § Root principles. Plugins design: `docs/TARGET-PLUGINS.md`.
+
 ## P0 — Bootstrap (Android product baseline)
 
 | ID | Status | Title | Notes |
@@ -72,20 +82,33 @@ encourages dumping mixed concerns into one bucket. Prefer specific targets.
 | F-062 | done | Reimplement progressive examples / skills without `androidLibrary` | `examples/android/04` + agent skills + README curriculum |
 | F-063 | done | Hard-remove `androidLibrary` target (after consumers migrated) | DSL + `android.library` type/registry/restrictions removed; JVM `library` + AGP feature helper kept; matrix/docs updated |
 
-## P7 — Target plugins API (uniform external plugins)
+## P7 — Target plugins (type-owned, auto-apply)
 
-Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with a
-**Bazel-like** model: plugin identity on the **target type** (static extend of
-pre-defined types **or** derived custom type); call sites are attributes-only and
-**auto-apply** type plugins. Design: `docs/TARGET-PLUGINS.md`. GH #36.
-**Not** free-form plugin ids or per-callsite `pluginConfig(binding)`.
+Close the biggest call-site / multi-way gap: chain `withPlugin`. Design:
+`docs/TARGET-PLUGINS.md`. Serves root goals **1** (Bazel call sites) and **2**
+(one way: type owns plugin). GH #36 → F-073.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` — Bazel north star; type owns plugin; call sites auto-apply; config = rule attrs / type-associated config only. Rejected free-form lists **and** call-site binding re-selection |
-| F-071 | todo | Type→plugin registry + auto-apply in DSLs; `targetPlugin` / `deriveTargetType` hooks | No call-site plugin ids; unit tests prove auto-apply |
-| F-072 | todo | Path B sample migration (e.g. `navigationRes`); deprecate `TargetBuilder` / `PluginWrapper` | Bazel-flat call sites; zero `.withPlugin` |
-| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | §3 Bazel mapping in user docs |
+| F-070 | done | Design type-owned plugins API | Bazel north star; type owns plugin; auto-apply; reject free-form lists + call-site binding re-selection |
+| F-071 | todo | **Implement** type→plugin registry + auto-apply; `targetPlugin` / `deriveTargetType` | Unit tests: type with plugin applies with **zero** call-site plugin API; plugins build green; shims OK |
+| F-072 | todo | Migrate sample to derived types (e.g. `navigationRes`); hard-deprecate chain | Zero `.withPlugin` in tree; `TargetBuilder`/`PluginWrapper` `@Deprecated` or removed; application green |
+| F-073 | todo | User docs + progressive example + agent skill; close GH #36 | Call sites attributes-only; registration/type layer documented |
+
+## P8 — Principle alignment (implementation matches goals)
+
+Close remaining gaps where code/docs still allow **multiple ways**, **fat call
+sites**, or **missing fleet tooling**. **F-071 remains the top coding priority**
+(P7 before deeper P8 unless a ticket is pure docs).
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-080 | done | Codify root principles in product docs | `VISION.md` § Root principles + README + `AGENTS.md` + GETTING-STARTED; board P8 added |
+| F-081 | todo | Call-site surface audit: `Unit` returns, no builder chains, minimal attrs | All Android/JVM target DSLs return `Unit`; remove `TargetBuilder` after F-072; inventory optional call-site flags (`compose`, `viewBinding`, …) — keep only as declared rule attrs with **project-global defaults**, not ad-hoc structure |
+| F-082 | todo | One global configuration path | Remove/finish-kill deprecated `Project.androidProjectConfiguration`; document `extraPlugins` as **classpath only** (not per-module apply); single settings/store story |
+| F-083 | todo | One project-global external-deps convention | House style: version catalog **or** typed catalogs as the sample+docs standard; other path = advanced/legacy note, not dual happy path (`DEPS-CATALOG.md`) |
+| F-084 | todo | Fleet tooling for explicit graphs (check / generate / migrate) | Principle 3 at scale: tighten includer/depgen/bazel-check; design+spike migrate helpers for renames/type changes; related GH **#54**. Reliable large refactors without hand-editing thousands of modules |
+| F-085 | todo | Full-tree principle audit: sample + examples + agent skills | After F-072/F-081: no chain APIs, no dual styles taught, call sites minimal; fix stragglers |
 
 ## Backlog (lower priority / historical GitHub)
 
@@ -96,14 +119,15 @@ Keep for reference; do not start unless higher tickets done or user prioritizes:
 - GH #88 BuildFeatures support
 - GH #82 Version code/name in binary
 - GH #77 transitiveDeps extension
-- GH #54 Generate target structure from minimal config
+- GH #54 Generate target structure from minimal config → **theme under F-084**
 - GH #51 Support build types
 - GH #46 New navigation system
 - GH #44/#43 Hybrid targets/config examples
-- GH #36 Docs for external plugins → **P7 / F-070–F-073** (`docs/TARGET-PLUGINS.md`)
-- GH #126 Target features configuration options
+- GH #36 Docs for external plugins → **P7 / F-070–F-073**
+- GH #126 Target features configuration options → consider under **F-081**
 - GH #111 Gradle project as buildscript classpath
 - GH #103 Java 8+ API on Android API ≤26
+- **F-019** AGP 9 / absolute-latest AndroidX — **explicit OK only** (not on board until requested)
 
 ## How workers update this file
 
