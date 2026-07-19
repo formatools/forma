@@ -11,6 +11,7 @@ import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
+import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.validation.asValidator
 import tools.forma.validation.validate
 
@@ -33,4 +34,5 @@ fun Project.androidNative(
     applyFeatures(
         androidNativeDefinition(configuration)
     )
+    applyTargetPlugins(AndroidTargetTypes.native)
 }

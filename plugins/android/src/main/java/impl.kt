@@ -10,6 +10,7 @@ import tools.forma.android.utils.BuildConfiguration
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.validation.asValidator
 import tools.forma.validation.validate
 
@@ -55,6 +56,7 @@ fun Project.impl(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
         kotlinAndroidFeatureDefinition()
     )
+    applyTargetPlugins(AndroidTargetTypes.impl)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.impl).asValidator(),

@@ -3,9 +3,16 @@ package tools.forma.android.target
 import tools.forma.core.target.DefaultTargetRegistry
 import tools.forma.core.target.TargetRegistration
 import tools.forma.core.target.TargetRegistry
+import tools.forma.core.target.TargetType
 import tools.forma.core.validation.NoResourcesUnderMain
 import tools.forma.core.validation.OnlyLayoutResources
 import tools.forma.core.validation.OnlyResourcesUnderMain
+import tools.forma.deps.core.EmptyDependency
+import tools.forma.deps.core.FormaDependency
+import tools.forma.deps.core.TargetPluginSpec
+import tools.forma.deps.core.deriveTargetType as deriveTargetTypeWithCoreRegistry
+import tools.forma.deps.core.registerTargetPlugin as registerTargetPluginGlobal
+import tools.forma.deps.core.targetPlugin as targetPluginFactory
 
 /**
  * Singleton registry for Android platform target types.
@@ -171,3 +178,34 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 }
+
+/**
+ * Path A convenience for Android: register plugins against a pre-defined AndroidTargetType.
+ * Delegates to the shared (global) plugin registry.
+ */
+fun registerTargetPlugin(targetType: TargetType, vararg plugins: TargetPluginSpec) {
+    registerTargetPluginGlobal(targetType, *plugins)
+}
+
+/** Factory re-export for convenience in android scripts. */
+fun targetPlugin(id: String, dependencies: FormaDependency = EmptyDependency): TargetPluginSpec =
+    targetPluginFactory(id, dependencies)
+
+/**
+ * Path B for Android: derive a new TargetType from a base Android type.
+ * Clones allowedDependencies + contentRules into AndroidTargetRegistry under new id.
+ * Attaches plugins so applyTargetPlugins will pick them up for this derived kind.
+ */
+fun deriveTargetType(
+    id: String,
+    base: TargetType,
+    nameSuffix: String = base.nameSuffix,
+    plugins: List<TargetPluginSpec> = emptyList()
+): TargetType = deriveTargetTypeWithCoreRegistry(
+    id = id,
+    base = base,
+    nameSuffix = nameSuffix,
+    plugins = plugins,
+    coreRegistry = AndroidTargetRegistry
+)
+
