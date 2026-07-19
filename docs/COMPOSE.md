@@ -97,8 +97,11 @@ Full matrix: [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md).
 
 ## Compiler / Kotlin pairing
 
-Default `composeCompilerVersion = "2.0.21"` matches Kotlin **1.9.22** (Gradle 8.7
-embedded Kotlin used by the sample). If you bump Kotlin, update
+Default `composeCompilerVersion = "2.0.21"` matches Kotlin **2.0.21** (Gradle
+**8.14.5** embedded Kotlin used by the sample). On Kotlin **2.0+**, Forma also
+applies the **Compose Compiler Gradle plugin** when `compose = true` (the
+`composeCompilerVersion` value remains the paired compiler coordinate for AGP
+`composeOptions` / tooling). If you bump Kotlin, update
 `composeCompilerVersion` using the
 [Compose Compiler compatibility map](https://developer.android.com/jetpack/androidx/releases/compose-kotlin).
 

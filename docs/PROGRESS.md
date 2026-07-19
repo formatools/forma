@@ -2,6 +2,27 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-018 close: docs soak + ticket done
+
+- **Ticket:** F-018 → `done` (8.x terminal toolchain; AGP 9 = F-019 only with explicit OK)
+- **Branch / PR:** `forma/F-018-docs-close` → base `v2`
+- **Skills/modes:** Hermes orchestrator only (mechanical F-018 docs/CI pin class — no Grok Build product coding)
+- **Why this slice:** Product ladder already on tip via #179–#182; tip CI [29680345620](https://github.com/formatools/forma/actions/runs/29680345620) **SUCCESS**. Several living docs still claimed AGP **8.1.2** / Gradle **8.7** / Kotlin **1.9.22** as current.
+- **Docs aligned to live baseline:**
+  - `docs/ENV.md` — verified section → Gradle **8.14.5**, AGP **8.13.2**, Kotlin/KSP **2.0.21**, Compose **2.0.21**, sample SDK 23/35/35
+  - `docs/ARCHITECTURE.md` — wrapper table, AGP compile line, CI SDK pins, toolchain snapshot, F-018 done row
+  - `docs/COMPOSE.md` — compiler pairing Kotlin **2.0.21** + Compose Compiler plugin note
+  - `docs/GETTING-STARTED.md` — tools table, pitfalls, checklist (JDK 21 + SDK 35)
+  - `TICKETS.md` — F-018 `done` with #179–#182 summary
+- **Product code:** none (versions already correct on `v2` @ `47c2e70`)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `java -version` → **21.0.11**
+  - `plugins/ ./gradlew --version` → **Gradle 8.14.5** / Kotlin **2.0.21** / JVM 21
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2554 tasks)
+- **Blockers:** none
+- **Next:** prioritized queue empty unless user adds F-xxx or promotes backlog (#110, #97, #88, #82, Portal #133) or explicitly OKs **F-019** AGP 9
+
 ## 2026-07-19 — F-018 deps: Gradle 8.14.5 + AGP 8.13.2 + library refresh
 
 - **Ticket:** F-018 remains `in_progress` (8.x terminal toolchain + sample deps; AGP 9 = F-019)
