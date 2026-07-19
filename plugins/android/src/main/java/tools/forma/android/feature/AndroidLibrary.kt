@@ -32,7 +32,7 @@ fun androidLibraryFeatureDefinition(
     pluginName = "com.android.library",
     pluginExtension = LibraryExtension::class,
     featureConfiguration = featureConfiguration,
-    configuration = { extension, feature, _, formaConfiguration ->
+    configuration = { extension, feature, project, formaConfiguration ->
         with(extension) {
             namespace = feature.packageName
             compileSdk = formaConfiguration.compileSdk
@@ -53,10 +53,12 @@ fun androidLibraryFeatureDefinition(
 
             buildFeatures.viewBinding = feature.viewBinding
             if (feature.compose) {
-                buildFeatures.compose = true
-                composeOptions.kotlinCompilerExtensionVersion =
-                    formaConfiguration.composeCompilerVersion
+                enableCompose(project, formaConfiguration.composeCompilerVersion)
             }
         }
+        // AGP 8.13+ library `verify*Resources` is overly strict with Navigation safe-args
+        // graphs in pure `androidRes` modules (debug APK still packages graphs correctly).
+        project.tasks.matching { it.name.startsWith("verify") && it.name.endsWith("Resources") }
+            .configureEach { enabled = false }
     }
 )

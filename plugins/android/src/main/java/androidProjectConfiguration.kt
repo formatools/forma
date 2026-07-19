@@ -48,6 +48,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
         this, extraPlugins
                 // Add Correct AGP version to build classpath
                 + "com.android.tools.build:gradle:$agpVersion"
+                // Kotlin 2.0+ Compose Compiler Gradle plugin (required when compose is enabled)
+                + "org.jetbrains.kotlin:compose-compiler-gradle-plugin:$kotlinVersion"
     )
 
     /** Default Android project clean task implementation */
@@ -121,8 +123,8 @@ fun Project.androidProjectConfiguration(
     registerAndroidDefaults()
 }
 
-/** Compose Compiler matching Kotlin 1.9.22 (Gradle 8.7 embedded Kotlin). */
-const val DEFAULT_COMPOSE_COMPILER_VERSION = "1.5.10"
+/** Compose Compiler matching Kotlin 2.0.21 (Gradle 8.14.5 embedded Kotlin). */
+const val DEFAULT_COMPOSE_COMPILER_VERSION = "2.0.21"
 
 val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpathDeps ->
     // TODO pass repositories configuration

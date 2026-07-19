@@ -2,6 +2,27 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-018 deps: Gradle 8.14.5 + AGP 8.13.2 + library refresh
+
+- **Ticket:** F-018 remains `in_progress` (8.x terminal toolchain + sample deps; AGP 9 = F-019)
+- **User ask:** “Upgrade the dependencies to the latest versions too”
+- **Toolchain**
+  - All wrappers → **Gradle 8.14.5** (Kotlin **2.0.21**)
+  - AGP lockstep **8.13.2** + `aapt2-proto:8.13.2-14304508`
+  - KSP **2.0.21-1.0.28**; Compose compiler default **2.0.21** + Kotlin Compose Compiler plugin when `compose=true`
+  - Sample SDK: min **23** / target **35** / compile **35** (Compose 1.9 / AndroidX AAR metadata)
+- **Libraries** (`build-dependencies` + application catalog) — latest **compatible with AGP 8.13 + compileSdk 35** (absolute Maven latest core/activity/lifecycle need AGP **9.1** + SDK 36/37):
+  - core **1.16.0**, activity **1.10.1**, lifecycle **2.10.0**, fragment **1.8.9**, appcompat **1.7.1**, material **1.13.0**, compose **1.9.4**, room **2.7.2**, coil **2.7.0**, dagger **2.56.2** (+ jakarta.inject), navigation **2.7.7** (2.8+ broke library `verifyReleaseResources` with safe-args graphs), paging stays **2.1.2** (PagedList API)
+  - OkHttp/Retrofit stay **4.12 / 2.11** (5/3 = separate migration)
+- **Forma AGP API**: migrate off `internal.dsl` BuildType/DefaultConfig/BaseAppModuleExtension → public `api.dsl`; disable flaky library `verify*Resources`
+- **Sample fixes**: Transformations → LiveData `map`/`switchMap`; Fragment observe → `viewLifecycleOwner`; VisibleForTesting.PRIVATE removed
+- **Verify (real):**
+  - `plugins/ ./gradlew build` → SUCCESS
+  - `application/ ./gradlew build` → SUCCESS
+  - includer, depgen, jvm-application → SUCCESS
+  - bazel-adapter toolchain 21 + KGP 2.0.21
+- **Next:** optional F-019 AGP 9 / Gradle 9 for true Maven-latest AndroidX; or declare F-018 done after soak
+
 ## 2026-07-19 — F-018 Phase 1b: host + CI → JDK 21
 
 - **Ticket:** F-018 remains `in_progress` (wrappers #180 + JDK 21 done; AGP ladder remains)

@@ -17,8 +17,9 @@
 package tools.forma.sample.feature.characters.list.impl.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import tools.forma.sample.core.mvvm.library.lifecycle.SingleLiveData
@@ -37,13 +38,13 @@ class CharactersListViewModel @Inject constructor(
     private val dataSourceFactory: CharactersPageDataSourceFactory
 ) : ViewModel(), ICharactersListViewModel {
 
-    override val networkState = Transformations.switchMap(dataSourceFactory.sourceLiveData) {
+    override val networkState = dataSourceFactory.sourceLiveData.switchMap {
         it.networkState
     }
 
     override val event = SingleLiveData<ICharactersListViewEvent>()
     override val data: LiveData<PagedList<ICharacter>> = LivePagedListBuilder(dataSourceFactory, PAGE_MAX_ELEMENTS).build()
-    override val state: LiveData<ICharactersListViewState> = Transformations.map(networkState) {
+    override val state: LiveData<ICharactersListViewState> = networkState.map {
         when (it) {
             is NetworkState.Success ->
                 if (it.isAdditional && it.isEmptyResponse) {

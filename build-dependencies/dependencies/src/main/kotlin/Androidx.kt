@@ -37,6 +37,9 @@ object androidx {
     private val lifecycle_viewmodel_ktx = deps(
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}".dep,
         "androidx.lifecycle:lifecycle-viewmodel:${versions.androidx.lifecycle}".dep,
+        "androidx.lifecycle:lifecycle-livedata:${versions.androidx.lifecycle}".dep,
+        "androidx.lifecycle:lifecycle-livedata-ktx:${versions.androidx.lifecycle}".dep,
+        "androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}".dep,
         kotlinx.coroutines_android
     )
 
@@ -253,7 +256,6 @@ object androidx {
     )
     val constraintlayout = deps(
         "androidx.constraintlayout:constraintlayout:${versions.androidx.constraintlayout}".dep,
-        "androidx.constraintlayout:constraintlayout-solver:${versions.androidx.constraintlayout}".dep,
         appcompat,
         core
     )
@@ -300,7 +302,7 @@ object androidx {
     /**
      * Jetpack Compose runtime + UI + foundation + material (pinned versions).
      * Pair with `compose = true` / `composeWidget` targets (F-013).
-     * Versions match Compose Compiler 1.5.3 / Kotlin 1.9.10.
+     * Versions match Compose Compiler **2.0.21** / Kotlin **2.0.21** (Gradle 8.14.5).
      * Uses [transitiveDeps] so Compose UI unit/graphics transitively resolve.
      * Does not include activity-compose (pulls emoji2 requiring compileSdk 34);
      * add that separately when hosting Compose in Activities on SDK 34+.

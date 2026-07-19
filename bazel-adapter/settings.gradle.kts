@@ -8,9 +8,9 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
-    // Use same Kotlin as the main build (embedded in Gradle 8.3 env)
+    // Match Gradle 8.14.5 embedded Kotlin
     plugins {
-        id("org.jetbrains.kotlin.jvm") version "1.9.0"
+        id("org.jetbrains.kotlin.jvm") version "2.0.21"
     }
 }
 

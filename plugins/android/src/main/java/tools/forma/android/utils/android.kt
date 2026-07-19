@@ -1,10 +1,12 @@
 package tools.forma.android.utils
 
-import com.android.build.gradle.internal.CompileOptions
-import com.android.build.gradle.internal.dsl.BuildType
-import com.android.build.gradle.internal.dsl.DefaultConfig
-import tools.forma.config.AndroidProjectSettings
+import com.android.build.api.dsl.ApplicationDefaultConfig
+import com.android.build.api.dsl.BuildType
+import com.android.build.api.dsl.CompileOptions
+import com.android.build.api.dsl.DefaultConfig
+import com.android.build.api.dsl.LibraryDefaultConfig
 import org.gradle.api.NamedDomainObjectContainer
+import tools.forma.config.AndroidProjectSettings
 
 data class BuildConfiguration(
     val buildTypes: Map<String, BuildType.() -> Unit> = emptyMap()
@@ -23,11 +25,19 @@ internal fun DefaultConfig.applyFrom(
     manifestPlaceholders: Map<String, Any>
 ) {
     minSdk = androidProjectSettings.minSdk
-    targetSdk = androidProjectSettings.targetSdk
+    when (this) {
+        is ApplicationDefaultConfig -> targetSdk = androidProjectSettings.targetSdk
+        is LibraryDefaultConfig -> {
+            @Suppress("DEPRECATION")
+            targetSdk = androidProjectSettings.targetSdk
+            if (consumerMinificationFiles.isNotEmpty()) {
+                consumerProguardFiles(*consumerMinificationFiles.toTypedArray())
+            }
+        }
+    }
 
     testInstrumentationRunner = testInstrumentationRunnerClass
-    consumerProguardFiles(*consumerMinificationFiles.toTypedArray())
-    manifestPlaceholders(manifestPlaceholders)
+    addManifestPlaceholders(manifestPlaceholders)
 
     vectorDrawables.useSupportLibrary = androidProjectSettings.vectorDrawablesUseSupportLibrary
 }
@@ -37,8 +47,10 @@ internal fun CompileOptions.applyFrom(config: AndroidProjectSettings) {
     targetCompatibility = config.javaVersionCompatibility
 }
 
-internal fun NamedDomainObjectContainer<BuildType>.applyFrom(config: BuildConfiguration) {
+@Suppress("UNCHECKED_CAST")
+internal fun NamedDomainObjectContainer<*>.applyFrom(config: BuildConfiguration) {
     config.buildTypes.forEach { (name, lambda) ->
-        lambda(getByName(name))
+        val buildType = getByName(name) as BuildType
+        lambda(buildType)
     }
 }

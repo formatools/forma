@@ -2,7 +2,7 @@
 
 package tools.forma.android.feature
 
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.android.build.api.dsl.ApplicationExtension
 import tools.forma.android.target.BinaryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
@@ -26,9 +26,9 @@ fun androidBinaryFeatureDefinition(
     featureConfiguration: AndroidBinaryFeatureConfiguration
 ) = FeatureDefinition(
     pluginName = "com.android.application",
-    pluginExtension = BaseAppModuleExtension::class,
+    pluginExtension = ApplicationExtension::class,
     featureConfiguration = featureConfiguration,
-    configuration = { extension, configuration, _, formaConfiguration ->
+    configuration = { extension, configuration, project, formaConfiguration ->
         with(extension) {
             namespace = configuration.packageName
             compileSdk = formaConfiguration.compileSdk
@@ -48,9 +48,7 @@ fun androidBinaryFeatureDefinition(
             compileOptions.applyFrom(formaConfiguration)
 
             if (configuration.compose) {
-                buildFeatures.compose = true
-                composeOptions.kotlinCompilerExtensionVersion =
-                    formaConfiguration.composeCompilerVersion
+                enableCompose(project, formaConfiguration.composeCompilerVersion)
             }
         }
     }

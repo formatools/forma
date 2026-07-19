@@ -18,31 +18,37 @@ pluginManagement {
 
 buildscript {
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
         configurations.all {
             resolutionStrategy {
                 force(
-                    "com.android.tools.build:bundletool:1.15.5",
-                    "com.google.guava:guava:31.1-jre",
-                    "org.ow2.asm:asm:9.2",
-                    "org.ow2.asm:asm-commons:9.2",
-                    "org.ow2.asm:asm-util:9.2",
-                    "com.google.code.gson:gson:2.8.9",
-                    "org.apache.httpcomponents:httpclient:4.5.13",
-                    "org.apache.httpcomponents:httpcore:4.4.15",
-                    "com.google.protobuf:protobuf-java:3.19.2",
-                    "com.google.protobuf:protobuf-java-util:3.19.2",
-                    "org.checkerframework:checker-qual:3.12.0",
-                    "com.google.errorprone:error_prone_annotations:2.11.0",
-                    "commons-codec:commons-codec:1.15",
-                    "com.android.tools.build:aapt2-proto:8.1.2-10154469",
-                    // Gradle 8.7 embeds Kotlin 1.9.22 — force stdlib family lockstep under failOnVersionConflict
+                    "com.android.tools.build:bundletool:1.18.3",
+                    "com.google.guava:guava:33.3.1-jre",
+                    "org.ow2.asm:asm:9.7.1",
+                    "org.ow2.asm:asm-commons:9.7.1",
+                    "org.ow2.asm:asm-util:9.7.1",
+                    "org.ow2.asm:asm-tree:9.7.1",
+                    "org.ow2.asm:asm-analysis:9.7.1",
+                    "com.google.code.gson:gson:2.13.2",
+                    "com.google.j2objc:j2objc-annotations:3.0.0",
+                    "org.apache.httpcomponents:httpclient:4.5.14",
+                    "org.apache.httpcomponents:httpcore:4.4.16",
+                    "com.google.protobuf:protobuf-java:3.25.5",
+                    "com.google.protobuf:protobuf-java-util:3.25.5",
+                    "org.checkerframework:checker-qual:3.43.0",
+                    "com.google.errorprone:error_prone_annotations:2.28.0",
+                    "commons-codec:commons-codec:1.17.1",
+                    "com.android.tools.build:aapt2-proto:8.13.2-14304508",
+                    // Gradle 8.14.5 embeds Kotlin 2.0.21 — force stdlib family lockstep under failOnVersionConflict
                     "org.jetbrains.kotlin:kotlin-stdlib:$embeddedKotlinVersion",
                     "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$embeddedKotlinVersion",
                     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$embeddedKotlinVersion",
                     "org.jetbrains.kotlin:kotlin-stdlib-common:$embeddedKotlinVersion",
                     "org.jetbrains.kotlin:kotlin-reflect:$embeddedKotlinVersion",
-                    "com.android.tools.build:gradle:8.1.2",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2",
+                    "com.android.tools.build:gradle:8.13.2",
                     "org.jetbrains.kotlin:kotlin-gradle-plugin:$embeddedKotlinVersion",
                     "com.squareup:javapoet:1.13.0"
                 )
@@ -57,7 +63,7 @@ plugins {
     id("convention-dependencies")
     id("tools.forma.includer")
     id("tools.forma.android")
-    id("com.gradle.enterprise") version ("3.15")
+    id("com.gradle.enterprise") version ("3.19.2")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -66,9 +72,9 @@ includer { arbitraryBuildScriptNames = true }
 
 rootProject.name = "application"
 
-val coilVersion = "2.1.0"
-val sqliteVersion = "2.2.0"
-val roomVersion = "2.5.1"
+val coilVersion = "2.7.0"
+val sqliteVersion = "2.5.1"
+val roomVersion = "2.7.2"
 
 val ksp = CustomConfiguration("ksp")
 
@@ -91,12 +97,12 @@ projectDependencies(
         "androidx.room:room-common:$roomVersion",
     ),
     plugin("tools.forma.demo:dependencies", "0.0.1"),
-    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.7.4"),
-    plugin("com.google.firebase:firebase-crashlytics-gradle", "2.9.9"),
+    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.7.7"),
+    plugin("com.google.firebase:firebase-crashlytics-gradle", "3.0.7"),
     plugin(
         id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
-        // Gradle 8.7 embedded Kotlin is 1.9.22; KSP line starts at 1.9.22-1.0.16 (1.0.13 does not exist)
-        version = "1.9.22-1.0.16",
+        // Gradle 8.14.5 embeds Kotlin 2.0.21; KSP must match
+        version = "2.0.21-1.0.28",
         configuration = ksp,
         "androidx.room:room-compiler:$roomVersion"
     )

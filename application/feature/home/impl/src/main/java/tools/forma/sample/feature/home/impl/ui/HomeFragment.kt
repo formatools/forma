@@ -111,7 +111,7 @@ class HomeFragment : BaseViewBindingFragment(tools.forma.sample.feature.home.vie
     }
 
     private fun startStateObserver() {
-        viewModel.state.observe(this) {
+        viewModel.state.observe(viewLifecycleOwner) {
             viewBinding.appBarLayout.isVisible = it.isNavigationScreen()
             viewBinding.bottomNavigation.isVisible = it.isNavigationScreen()
         }
