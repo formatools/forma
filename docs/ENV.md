@@ -71,8 +71,8 @@ sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk \
 - `includer/`: `./gradlew build` → **BUILD SUCCESSFUL**
 - `depgen/`: `./gradlew build` → **BUILD SUCCESSFUL**
 - `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (compileSdk **34**,
-  targetSdk 33, Compose compiler 1.5.3, 2151 tasks)
-- Gradle wrappers: plugins 8.3, application 8.4
+  targetSdk 33, Compose compiler **1.5.10** / Kotlin **1.9.22**, F-018)
+- Gradle wrappers: **8.7** (all roots; was 8.3/8.4 split)
 - Toolchain note: plugins compile AGP matches sample forced AGP (no 7.4.2 skew)
 
 ## Shell profile

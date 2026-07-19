@@ -16,9 +16,9 @@ that compose via `includeBuild`:
 
 | Path | Role | Gradle wrapper | Publishes / consumed as |
 |------|------|----------------|-------------------------|
-| `plugins/` | Forma Gradle plugins (main product) | 8.3 | Composite + Plugin Portal (`tools.forma.*`) |
-| `application/` | Sample Android product (gold standard) | 8.4 | Consumer only |
-| `jvm-application/` | Sample pure-JVM product (`tools.forma.jvm`) | 8.4 | Consumer only |
+| `plugins/` | Forma Gradle plugins (main product) | 8.7 | Composite + Plugin Portal (`tools.forma.*`) |
+| `application/` | Sample Android product (gold standard) | 8.7 | Consumer only |
+| `jvm-application/` | Sample pure-JVM product (`tools.forma.jvm`) | 8.7 | Consumer only |
 | `includer/` | Settings plugin: auto-`include` subprojects | (own wrapper) | `tools.forma.includer` |
 | `depgen/` | Transitive-deps generation plugin | (own wrapper) | `tools.forma.depgen` (standalone) |
 | `build-settings/` | Shared settings conventions (repos) | — | `includeBuild` / convention plugins |
@@ -296,7 +296,7 @@ keys) or full Portal publish via secrets; deeper Gradle remote cache.
 | Component | Declared / observed |
 |-----------|---------------------|
 | JDK | 17 (all CI jobs Temurin; host OpenJDK 17 via Homebrew) |
-| Gradle | plugins 8.3, application 8.4 |
+| Gradle | **8.7** (all wrappers; F-018 Phase 1) |
 | AGP | **8.1.2** sample runtime + plugins compile (aligned F-003) |
 | Kotlin | embeddedKotlin from Gradle distribution |
 | Android SDK | sample compileSdk **34** / target 33; host platforms 34+33 + build-tools 33/34 |

@@ -121,8 +121,8 @@ fun Project.androidProjectConfiguration(
     registerAndroidDefaults()
 }
 
-/** Compose Compiler matching Kotlin 1.9.10 (application Gradle 8.4 embedded Kotlin). */
-const val DEFAULT_COMPOSE_COMPILER_VERSION = "1.5.3"
+/** Compose Compiler matching Kotlin 1.9.22 (Gradle 8.7 embedded Kotlin). */
+const val DEFAULT_COMPOSE_COMPILER_VERSION = "1.5.10"
 
 val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpathDeps ->
     // TODO pass repositories configuration

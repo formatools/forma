@@ -16,7 +16,7 @@ androidProjectConfiguration(
     compileSdk = 34,
     agpVersion = "8.1.2",
     compose = false, // default for per-target flags
-    composeCompilerVersion = "1.5.3", // must match Kotlin (1.9.10 → 1.5.3)
+    composeCompilerVersion = "1.5.10", // must match Kotlin (1.9.22 → 1.5.10)
 )
 ```
 
@@ -97,7 +97,7 @@ Full matrix: [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md).
 
 ## Compiler / Kotlin pairing
 
-Default `composeCompilerVersion = "1.5.3"` matches Kotlin **1.9.10** (Gradle 8.4
+Default `composeCompilerVersion = "1.5.10"` matches Kotlin **1.9.22** (Gradle 8.7
 embedded Kotlin used by the sample). If you bump Kotlin, update
 `composeCompilerVersion` using the
 [Compose Compiler compatibility map](https://developer.android.com/jetpack/androidx/releases/compose-kotlin).
