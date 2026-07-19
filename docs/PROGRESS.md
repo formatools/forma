@@ -2,23 +2,31 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-070 revised again: Bazel-like call sites
+
+- **Ticket:** F-070 design correction (PR #185 update)
+- **User correction:** first Path A example was wrong — extending a target type with a plugin must **auto-apply on every call site**; config should look almost like **Bazel** in Gradle files. No per-callsite `pluginConfig(binding)`.
+- **Model:**
+  - Type/rule owns plugin identity
+  - Call sites = attributes only (`navigationRes(packageName=…, dependencies=…)`)
+  - Path A = static extend pre-defined type (global for that type)
+  - Path B = derived type (preferred when only some modules need the plugin)
+  - Complex config = rule attrs or one type-associated config arg — never plugin ids
+- **Docs:** rewrite [`docs/TARGET-PLUGINS.md`](TARGET-PLUGINS.md)
+- **Next:** F-071 type→plugin registry + auto-apply
+
 ## 2026-07-19 — F-070 revised: reject free-form plugins lists
 
 - **Ticket:** F-070 remains `done` (design corrected); F-071…F-073 notes updated
 - **User correction:** free-form `plugins = plugins(plugin("id")…)` on every target is **exactly what to avoid**
-- **Correct model:**
-  - **Path A** — pre-defined types: **static** `registerTargetPlugin` → optional uniform **`pluginConfig`** on target def
-  - **Path B** — **custom target type** owns plugin identity → same optional **`pluginConfig`**
-- **Docs:** full rewrite of [`docs/TARGET-PLUGINS.md`](TARGET-PLUGINS.md); TICKETS P7 notes aligned
+- **Note:** intermediate draft still had call-site binding selection — superseded by Bazel auto-apply revision above
 - **Product code:** none
-- **Next:** F-071 implement registration + `pluginConfig` wiring
 
 ## 2026-07-19 — F-070: target plugins API design
 
 - **Ticket:** F-070 → `done` (design only); **F-071…F-073** `todo` on board (P7)
-- **User ask:** design proper APIs for plugins support; deprecate existing mechanism; uniform plugin configs per target definition
-- **Branch / PR:** #184 → `v2` (initial write; **superseded by revision** — see entry above)
-- **Note:** first draft incorrectly proposed free-form `plugins =` lists; corrected after user feedback
+- **Branch / PR:** #184 → `v2` (initial write; superseded)
+- **Note:** first draft free-form `plugins =` lists — wrong
 - **Product code:** none this slice
 - **Blockers:** none
 

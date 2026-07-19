@@ -74,18 +74,18 @@ encourages dumping mixed concerns into one bucket. Prefer specific targets.
 
 ## P7 — Target plugins API (uniform external plugins)
 
-Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with:
-**static plugin registration** (pre-defined types) or **plugin on custom target
-type**, plus a uniform optional **`pluginConfig`** on target definitions.
-Design: `docs/TARGET-PLUGINS.md`. Closes the product gap behind GH #36.
-**Not** free-form plugin id lists on every target.
+Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with a
+**Bazel-like** model: plugin identity on the **target type** (static extend of
+pre-defined types **or** derived custom type); call sites are attributes-only and
+**auto-apply** type plugins. Design: `docs/TARGET-PLUGINS.md`. GH #36.
+**Not** free-form plugin ids or per-callsite `pluginConfig(binding)`.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` **revised**: Path A static `registerTargetPlugin` + optional `pluginConfig` on pre-defined types; Path B plugin identity on **custom target type** + same config arg. **Rejected** free-form `plugins = plugins(plugin(id)…)` lists. Deprecate chain `withPlugin` |
-| F-071 | todo | Implement `PluginBinding` / `registerTargetPlugin` / `TargetPluginConfig` + wire `pluginConfig` on all Android/JVM pre-defined DSLs | No raw plugin ids on targets; unit tests; shims keep sample green |
-| F-072 | todo | Custom target types with type-owned plugins; migrate sample; deprecate `TargetBuilder` / `PluginWrapper` | safe-args ± binary; Path A and/or B |
-| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | Document Paths A/B only |
+| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` — Bazel north star; type owns plugin; call sites auto-apply; config = rule attrs / type-associated config only. Rejected free-form lists **and** call-site binding re-selection |
+| F-071 | todo | Type→plugin registry + auto-apply in DSLs; `targetPlugin` / `deriveTargetType` hooks | No call-site plugin ids; unit tests prove auto-apply |
+| F-072 | todo | Path B sample migration (e.g. `navigationRes`); deprecate `TargetBuilder` / `PluginWrapper` | Bazel-flat call sites; zero `.withPlugin` |
+| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | §3 Bazel mapping in user docs |
 
 ## Backlog (lower priority / historical GitHub)
 

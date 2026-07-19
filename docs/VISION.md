@@ -50,7 +50,7 @@ Concrete stacks built **on** forma-core:
 3. **JVM implementation** — prove core is portable.
 4. **Bazel** — design + implement adapter once core is stable (see [`docs/BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md) for the F-040 mapping design).
 5. **Flat-structure hardening** — deprecate/remove generic targets that undermine role typing (P6 / F-060+).
-6. **Uniform target plugins** — external Gradle plugins via **static registration** (pre-defined types) or **plugin on custom target type**, plus optional uniform `pluginConfig` on target definitions; deprecate chain `withPlugin`; **no** free-form plugin id lists (P7 / F-070+; [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)).
+6. **Uniform target plugins** — Bazel-like: plugin on the **target type**, auto-apply on every call site; call sites are attributes-only; deprecate chain `withPlugin` (P7 / F-070+; [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)).
 
 ## Working principles
 
