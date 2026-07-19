@@ -1,316 +1,281 @@
 # Target plugins API design (F-070)
 
-Design contract for **uniform external Gradle plugin support on Forma
-targets**. Grounded in live code under `plugins/android` + `plugins/deps`, the
-sample `application/`, and open GH **#36** (docs for external plugins).
+Design contract for **external Gradle plugin support on Forma targets**.
 
-**Status:** accepted design (this document). **Implementation:** F-071…F-073.
+**North star:** call sites should feel like **Bazel `BUILD` rules** — declare the
+target kind + attributes. Plugin identity is part of the **rule / target type**,
+not restated on every module. Extending a type with a plugin **auto-applies** that
+plugin on every call site of that type.
 
-**Related:** [`DEPS-CATALOG.md`](DEPS-CATALOG.md) (settings `plugin()` +
-dependency-driven apply), [`ARCHITECTURE.md`](ARCHITECTURE.md),
-[`forma-core-api.md`](forma-core-api.md).
+**Status:** accepted design (3rd revision).  
+**Implementation:** F-071…F-073.
+
+**Related:** [`DEPS-CATALOG.md`](DEPS-CATALOG.md), [`ARCHITECTURE.md`](ARCHITECTURE.md),
+[`forma-core-api.md`](forma-core-api.md), `TargetRegistry` / `TargetRegistration`.
 
 ---
 
 ## 1. Problem
 
-Today external plugins are bolted on through **three overlapping paths**:
-
-| Path | Where | Used for |
-|------|--------|----------|
-| **A. Chain API** | `TargetBuilder.withPlugin` / `withPlugins` + `PluginWrapper` | Safe-args on `androidRes`; commented Crashlytics/Google Services on `androidBinary` |
-| **B. Dependency-driven** | Catalog `plugin(…, configuration, companionLibs)` + `applyDependencies` | KSP when a target depends on a processor registered with `CustomConfiguration("ksp")` |
-| **C. Built-in features** | `FeatureDefinition` / `applyFeatures` | AGP, Kotlin Android, kapt-on-demand, Compose compiler |
-
-Path **A** is the user-facing “external plugins” story and is broken as a product API:
-
-1. **Not uniform.** Only some DSLs return `TargetBuilder`
-   (`androidRes`, `uiLibrary`, `androidBinary`). `impl`, `api`, `widget`,
-   `androidApp`, JVM targets, etc. return `Unit` — no chain, no plugins.
-2. **Not part of the target definition.** Plugins are a post-hoc
-   `.withPlugin(…)` after the target call, so configuration is split across
-   two syntactic sites and easy to miss in reviews/examples.
-3. **`PluginWrapper` is a second mini-DSL** (id + deps + typed extension)
-   living in sample `build-dependencies` (`Plugins.kt`) rather than a first-class
-   Forma target parameter.
-4. **Docs never shipped** (GH #36) because there is no single story to document.
-5. Paths **B** and **C** are the right *mechanisms* for their jobs; they must
-   stay, but **must not** be confused with explicit target plugins.
-
----
-
-## 2. Goals and non-goals
-
-### Goals
-
-1. **One uniform plugins argument** on every Forma target definition
-   (Android + JVM), same shape everywhere.
-2. **Simple cases** express plugins **inside** the target call (no chain).
-3. **Complex cases** use the **same single argument** with richer
-   `PluginSpec` values (typed extension config + optional companion deps) —
-   **not** a new target type by default.
-4. **Deprecate** `TargetBuilder.withPlugin` / `withPlugins` and the
-   chain-return pattern as the supported plugins UX.
-5. Keep **dependency-driven** catalog plugins (KSP/processors) and
-   **built-in features** (AGP/Kotlin/Compose) as separate, documented modes.
-6. Preserve type-safe extension configuration where Gradle extensions exist
-   (today’s `pluginConfiguration<CrashlyticsExtension> { … }` capability).
-
-### Non-goals
-
-| Concern | Decision |
-|---------|----------|
-| New target types per popular plugin (e.g. `safeArgsRes`) | **Out** unless the plugin changes the *role* of the module enough to deserve a `TargetType` (see §6) |
-| Replacing `FeatureDefinition` for AGP/Kotlin | **Out** — platform features stay internal |
-| Replacing catalog `plugin()` + companion-lib apply | **Out** — path B stays for processor-style plugins |
-| Plugin Portal / classpath resolution redesign | **Out** — consumers still put plugin markers on `buildscript` / `pluginManagement` as today |
-| Arbitrary multi-step configuration builders beyond one plugins arg | **Out** for v1 — prefer recipes in shared modules |
-
----
-
-## 3. Conceptual model — three plugin modes
-
-Document and implement these as **distinct modes**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ Mode 1 — Platform features (internal)                       │
-│   applyFeatures(AGP, kotlin-android, compose compiler, …)   │
-│   Not user-facing “plugins = …”                             │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│ Mode 2 — Dependency-driven (catalog)                        │
-│   settings: plugin(id, version, CustomConfiguration, libs)  │
-│   target: dependencies = deps(libs.roomCompiler)            │
-│   → apply plugin + wire config when dep is consumed         │
-│   See DEPS-CATALOG.md                                       │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│ Mode 3 — Target-declared plugins (THIS DESIGN)              │
-│   target(…, plugins = plugins(…))                           │
-│   Explicit apply + optional extension config + optional deps│
-│   Safe-args, Google Services, Crashlytics, detekt, …        │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**Rule of thumb for authors**
-
-| Situation | Mode |
-|-----------|------|
-| Always-on platform capability for this target kind | Mode 1 (Forma owns it) |
-| “If I depend on this artifact, apply its plugin” | Mode 2 (catalog) |
-| “This module needs plugin X regardless of a single lib” | Mode 3 (target `plugins`) |
-
----
-
-## 4. Proposed public API
-
-### 4.1 Single argument on every target
-
-Every user-facing target DSL gains:
+Today external plugins are bolted on via a **chain API** at each module:
 
 ```kotlin
-plugins: TargetPlugins = emptyPlugins()
+androidRes(…).withPlugin(Plugins.navigationSafeArgs)
+// androidBinary(…).withPlugins(Plugins.googleServices, Plugins.crashlytics())
 ```
 
-**Examples — simple (id only)**
+That is the opposite of Bazel:
+
+| Bazel | Forma today (broken) |
+|-------|----------------------|
+| Rule definition owns toolchains / aspects / implicit deps | Each `build.gradle.kts` re-selects plugins |
+| `BUILD` file only sets **attributes** | `.withPlugin` after the target call |
+| Using `my_rule(...)` always gets the rule’s behavior | Easy to forget safe-args on one res module |
+
+Also: only some DSLs return `TargetBuilder`; docs (GH #36) never shipped.
+
+Catalog dependency-driven apply (KSP) and internal `FeatureDefinition` (AGP /
+Kotlin / Compose) stay separate.
+
+---
+
+## 2. Design principle
+
+> **The target type (rule) owns the plugin. Call sites never pass plugin ids.**
+>
+> Extending a type with a plugin **automatically applies** it on **every** call
+> site of that type — Bazel semantics in Gradle files.
+
+| Layer | Owns | Analogy |
+|-------|------|---------|
+| **Type / rule registration** | Plugin identity (+ optional default config schema) | `rule()` / macro definition in `.bzl` |
+| **Target definition** (`build.gradle.kts`) | Attributes only: package, deps, flags, optional **plugin config attrs** | `BUILD` target |
+
+### Rejected shapes
 
 ```kotlin
+// REJECTED — free-form plugin list on every module
+androidRes(..., plugins = plugins(plugin("some.id")))
+
+// REJECTED — re-state binding at every call site (still not Bazel)
+androidRes(..., pluginConfig = pluginConfig(navigationSafeArgs))
+
+// REJECTED — chain API
+androidRes(...).withPlugin(Plugins.navigationSafeArgs)
+```
+
+---
+
+## 3. Bazel → Forma mapping
+
+```text
+Bazel                              Forma (Gradle KTS)
+─────────────────────────────      ──────────────────────────────────────────
+load(":defs.bzl", "nav_res")       // type registered once (settings / buildSrc / included build)
+nav_res(                           navigationRes(          // or generated DSL name
+    name = "navigation",               // project name = directory (includer)
+    package_name = "...",              packageName = "...",
+    deps = ["//lib:nav"],              dependencies = deps(...),
+)                                  )
+```
+
+Plugin `androidx.navigation.safeargs.kotlin` is attached when **`navigationRes`**
+(the rule/type) is defined — not when each target is written.
+
+```text
+Bazel                              Forma
+─────────────────────────────      ──────────────────────────────────────────
+firebase_android_binary(           firebaseBinary(
+    name = "app",                      packageName = "...",
+    mapping_file_upload = False,       versionCode = 1,
+    ...                                versionName = "0.0.1",
+)                                      mappingFileUploadEnabled = false, // attr
+                                       dependencies = deps(...),
+                                   )
+```
+
+Config looks like **rule attributes**, not a separate plugin DSL bolted on the side.
+
+---
+
+## 4. Two registration paths
+
+Both paths put plugin identity on the **type**. Neither puts plugin ids on call sites.
+
+### Path A — Extend a **pre-defined** target type (static API)
+
+Use when many/all modules of an existing kind should carry a plugin, or when you
+want a thin alias over a built-in kind without a new suffix.
+
+```kotlin
+// Registered once (settings / androidProjectConfiguration / platform bootstrap)
+// Conceptual API — names finalized in F-071
+
+registerTargetPlugin(
+    // which pre-defined type is being extended
+    targetType = AndroidTargetTypes.res,
+    pluginId = "androidx.navigation.safeargs.kotlin",
+)
+
+// From this point, EVERY androidRes(...) call site auto-applies safe-args.
 androidRes(
     packageName = "tools.forma.sample.core.navigation.library",
     dependencies = deps(androidx.navigation),
-    plugins = plugins(
-        "androidx.navigation.safeargs.kotlin",
-    ),
-)
+) // ← no plugin mention; type already carries it
 ```
 
-**Examples — complex (typed config + companion deps) still one arg**
+**Caution:** Path A is global for that pre-defined type in the registry scope.
+If only *some* res modules need safe-args, use **Path B** (derived type) so
+plain `androidRes` stays clean.
+
+Static API responsibilities:
+
+- Associate `pluginId` (+ optional companion deps, extension class) with a
+  `TargetType` already in `TargetRegistry`
+- Optional: default attribute values / schema for plugin config
+- Idempotent apply at configuration time for every project that uses that type’s DSL
+
+### Path B — **Custom / derived target type** (preferred for selective use)
+
+Use when the plugin defines a **reusable kind** of module (Bazel: new rule or
+macro wrapping a base rule).
 
 ```kotlin
-androidBinary(
-    packageName = "tools.forma.sample.app",
-    versionCode = 1,
-    versionName = "0.0.1",
-    dependencies = deps(/* … */),
-    plugins = plugins(
-        "com.google.gms.google-services",
-        plugin(
-            id = "com.google.firebase.crashlytics",
-            dependencies = google.firebase,
-        ) {
-            // CrashlyticsExtension receiver
-            mappingFileUploadEnabled = false
-        },
-    ),
-)
-```
-
-**Shared recipes** (optional, still produce `PluginSpec` for the same arg):
-
-```kotlin
-// build-dependencies or app-owned module — not a second apply path
-object AppPlugins {
-    val navigationSafeArgs = plugin("androidx.navigation.safeargs.kotlin")
-    val googleServices = plugin("com.google.gms.google-services")
-    fun crashlytics(mappingFileUploadEnabled: Boolean = false) =
-        plugin("com.google.firebase.crashlytics", dependencies = google.firebase) {
-            this.mappingFileUploadEnabled = mappingFileUploadEnabled
-        }
-}
-
-androidBinary(
-    /* … */,
-    plugins = plugins(AppPlugins.googleServices, AppPlugins.crashlytics()),
-)
-```
-
-### 4.2 Types (plugins `:deps` or thin `:android` re-export)
-
-Package suggestion: `tools.forma.deps.core` (next to today’s `PluginWrapper`)
-with facades if needed.
-
-```kotlin
-/** Ordered list of external plugins to apply on a target. */
-class TargetPlugins internal constructor(
-    val specs: List<PluginSpec>,
-) {
-    companion object {
-        val Empty: TargetPlugins = TargetPlugins(emptyList())
-    }
-}
-
-fun emptyPlugins(): TargetPlugins = TargetPlugins.Empty
-
-fun plugins(vararg specs: PluginSpec): TargetPlugins =
-    TargetPlugins(specs.toList())
-
-/** Convenience: bare plugin ids. */
-fun plugins(vararg ids: String): TargetPlugins =
-    TargetPlugins(ids.map { PluginSpec(id = it) })
-
-/**
- * One external plugin application.
- *
- * @param id Gradle plugin id (already on classpath / pluginManagement)
- * @param dependencies optional deps applied with EmptyValidator (same as today)
- * @param configure optional extension configuration; null = apply only
- */
-class PluginSpec internal constructor(
-    val id: String,
-    val dependencies: FormaDependency = emptyDependency(),
-    val configure: ((Project) -> Unit)? = null,
+// defs — once
+val navigationSafeArgs = targetPlugin(
+    id = "androidx.navigation.safeargs.kotlin",
 )
 
-/** Apply-only plugin. */
-fun plugin(id: String, dependencies: FormaDependency = emptyDependency()): PluginSpec =
-    PluginSpec(id = id, dependencies = dependencies)
+val navigationRes = deriveTargetType(
+    id = "sample.navigation-res",
+    base = AndroidTargetTypes.res,       // matrix, content rules, AGP library features
+    nameSuffix = "res",                  // or "navigation-res" if isolation desired
+    plugins = listOf(navigationSafeArgs),
+)
 
-/**
- * Type-safe extension configuration.
- * Replaces pluginConfiguration + PluginWrapper construction.
- */
-inline fun <reified E : Any> plugin(
-    id: String,
+// Optional: expose a DSL entrypoint bound to that type
+fun Project.navigationRes(
+    packageName: String,
     dependencies: FormaDependency = emptyDependency(),
-    noinline configure: E.() -> Unit,
-): PluginSpec = PluginSpec(
-    id = id,
+    // plugin-specific attrs only if needed — see §5
+) = androidTarget(
+    type = navigationRes,
+    packageName = packageName,
     dependencies = dependencies,
-    configure = { project ->
-        configure(project.the(E::class))
-    },
 )
 ```
 
-**Overload note:** `plugins("a", "b")` (strings) and `plugins(spec1, spec2)`
-must not collide awkwardly. Prefer:
-
-- `plugins(vararg specs: PluginSpec)` as the primary API
-- `plugin("id")` always returns `PluginSpec`
-- optional `plugins(ids: Iterable<String>)` if bare strings are desired without
-  `plugin()` wrappers
-
-Recommended call style in docs/examples:
+**Every** `navigationRes { … }` call site auto-applies safe-args. Call sites stay
+Bazel-flat:
 
 ```kotlin
-plugins = plugins(
-    plugin("androidx.navigation.safeargs.kotlin"),
+// application/core/navigation/res/build.gradle.kts
+navigationRes(
+    packageName = "tools.forma.sample.core.navigation.library",
+    dependencies = deps(androidx.navigation),
 )
 ```
 
-Bare-string sugar is nice-to-have, not required for F-071.
-
-### 4.3 Apply semantics
-
-Internal helper (platform-agnostic enough for Android + JVM):
-
-```kotlin
-fun Project.applyTargetPlugins(plugins: TargetPlugins) {
-    val applied = linkedSetOf<String>()
-    for (spec in plugins.specs) {
-        check(applied.add(spec.id)) {
-            "Duplicate target plugin '${spec.id}' on project '$path'"
-        }
-        apply(plugin = spec.id)
-        spec.configure?.invoke(this)
-        if (spec.dependencies !== EmptyDependency) {
-            applyDependencies(
-                validator = EmptyValidator,
-                dependencies = spec.dependencies,
-                repositoriesConfiguration = EmptyRepositoriesConfiguration,
-            )
-        }
-    }
-}
-```
-
-**Ordering**
-
-1. Self-name / content validation  
-2. `applyFeatures` (Mode 1)  
-3. `applyTargetPlugins` (Mode 3)  
-4. `applyDependencies` (Mode 2 side effects + normal deps)
-
-Rationale: feature plugins establish the project kind; external plugins often
-expect AGP/Kotlin already applied (safe-args, Crashlytics).
-
-**Idempotency:** Mode 2 may also `apply(plugin = …)`. Use Gradle’s natural
-“already applied” behavior and/or a small per-project applied-id set shared
-with `applyDependencies` if double-apply proves noisy. Do **not** invent a
-global plugin registry in v1 beyond what’s needed for clear errors.
-
-### 4.4 DSL surface changes
-
-| Today | After F-071 |
-|-------|-------------|
-| `fun Project.impl(…): Unit` | `fun Project.impl(…, plugins: TargetPlugins = emptyPlugins())` |
-| `fun Project.androidRes(…): TargetBuilder` | `fun Project.androidRes(…, plugins: TargetPlugins = emptyPlugins())` — return type **Unit** (or deprecated `TargetBuilder` shim) |
-| Same for all Android + JVM targets | Same `plugins` param |
-
-**Return type policy**
-
-- Preferred end state: all target DSLs return **`Unit`**.
-- Migration: keep returning `@Deprecated TargetBuilder` that only supports
-  deprecated `withPlugin` forwarding to the same apply path for one minor
-  (0.1.x), then hard-remove in the next breaking window (aligned with other
-  DSL breaks).
+No `.withPlugin`, no `pluginConfig = pluginConfig(binding)`.
 
 ---
 
-## 5. Deprecation plan
+## 5. Plugin config = rule attributes (uniform, optional)
 
-### 5.1 API to deprecate (F-072)
+When a plugin needs per-target settings (Crashlytics mapping upload, etc.):
 
-| Symbol | Replacement |
-|--------|-------------|
-| `TargetBuilder.withPlugin` | `plugins = plugins(…)` on the target |
-| `TargetBuilder.withPlugins` | same |
-| Public construction of `PluginWrapper` | `plugin(…)` / `PluginSpec` |
-| `pluginConfiguration { }` as user API | folded into `plugin(id) { }` |
-| Sample `Plugins.kt` using `PluginWrapper` | rewrite to `PluginSpec` recipes |
+1. **Simple / no knobs** — type has the plugin; call site has **zero** plugin surface.
+2. **Complex** — either:
+   - **Derived type** with extra attributes on that type’s DSL (Bazel rule attrs), or
+   - **Single optional config arg** on that type’s DSL whose shape is defined with
+     the type (not a free-form plugin id list)
 
-### 5.2 Migration map (sample)
+```kotlin
+// Type definition owns plugin + config schema
+val crashlytics = targetPlugin(
+    id = "com.google.firebase.crashlytics",
+    extensionClass = CrashlyticsExtension::class,
+    dependencies = google.firebase,
+)
+val googleServices = targetPlugin(id = "com.google.gms.google-services")
+
+val firebaseBinary = deriveTargetType(
+    id = "sample.firebase-binary",
+    base = AndroidTargetTypes.binary,
+    plugins = listOf(googleServices, crashlytics),
+    // schema: which attrs map into plugin extensions
+)
+
+// Call site — Bazel-like attributes only
+firebaseBinary(
+    packageName = "tools.forma.sample.app",
+    versionCode = 1,
+    versionName = "0.0.1",
+    mappingFileUploadEnabled = false, // rule attr → CrashlyticsExtension
+    dependencies = deps(/* … */),
+)
+```
+
+**Uniform config model (implementation detail):** types may accept one optional
+`pluginConfig: T? = null` where `T` is a **type-associated** config data class —
+not `List<PluginId>`. Prefer first-class named attrs on the DSL when there are
+few knobs (more Bazel-like).
+
+```kotlin
+// Acceptable single-arg form when attrs would explode the signature
+firebaseBinary(
+    packageName = "…",
+    versionCode = 1,
+    versionName = "0.0.1",
+    dependencies = deps(/* … */),
+    pluginConfig = CrashlyticsConfig(mappingFileUploadEnabled = false),
+)
+```
+
+Still: **no plugin ids at the call site.** Config type is fixed by the rule.
+
+---
+
+## 6. Runtime sequence (Bazel “rule implementation”)
+
+For a project using type `T`:
+
+```
+1. Resolve TargetRegistration for T (suffix, allow-list, content rules)
+2. Self-validate project name; run content rules
+3. applyFeatures — platform FeatureDefinitions for base kind (AGP, Kotlin, …)
+4. apply type-owned external plugins   ← automatic from type; never from call-site ids
+5. apply plugin config attributes (if any) onto plugin extensions
+6. applyDependencies (catalog Mode-2 side effects may still apply KSP, etc.)
+```
+
+Extending the type updates step 4 for **all** existing and future call sites.
+
+---
+
+## 7. Pre-defined DSLs after this work
+
+Built-in entrypoints (`impl`, `api`, `androidRes`, `androidBinary`, …):
+
+- Return **`Unit`** (no `TargetBuilder` chain).
+- Do **not** grow a `plugins = …` parameter.
+- If Path A registered plugins on their `TargetType`, those apply automatically
+  inside the DSL implementation via registry lookup.
+- Optional plugin-related **attributes** only appear on **derived** DSLs (Path B)
+  or on a pre-defined DSL if Path A attached a config schema (rare).
+
+---
+
+## 8. Deprecation
+
+| Remove / deprecate | Replacement |
+|--------------------|-------------|
+| `TargetBuilder.withPlugin` / `withPlugins` | Type-owned plugins (Path A or B) |
+| Public `PluginWrapper` + sample `Plugins.kt` apply API | `targetPlugin` + `deriveTargetType` / `registerTargetPlugin` |
+| Call-site plugin id lists / binding re-selection | Impossible in the new API |
+| `TargetBuilder` return values for chaining | `Unit` + temporary deprecated shim |
+
+**Sample migration**
 
 ```kotlin
 // BEFORE
@@ -319,94 +284,33 @@ androidRes(
     dependencies = deps(androidx.navigation),
 ).withPlugin(Plugins.navigationSafeArgs)
 
-// AFTER
+// AFTER — Path B (typical)
+navigationRes(
+    packageName = "…",
+    dependencies = deps(androidx.navigation),
+)
+
+// AFTER — Path A only if ALL androidRes modules should get safe-args
+// registerTargetPlugin(AndroidTargetTypes.res, safeArgs) once, then:
 androidRes(
     packageName = "…",
     dependencies = deps(androidx.navigation),
-    plugins = plugins(plugin("androidx.navigation.safeargs.kotlin")),
-    // or plugins(AppPlugins.navigationSafeArgs)
 )
 ```
 
 ```kotlin
 // BEFORE
-androidBinary(… )
-    .withPlugins(Plugins.googleServices, Plugins.crashlytics())
+androidBinary(…).withPlugins(Plugins.googleServices, Plugins.crashlytics())
 
 // AFTER
-androidBinary(
-    …,
-    plugins = plugins(
-        plugin("com.google.gms.google-services"),
-        plugin("com.google.firebase.crashlytics", dependencies = google.firebase) {
-            mappingFileUploadEnabled = false
-        },
-    ),
+firebaseBinary(
+    packageName = "…",
+    versionCode = 1,
+    versionName = "0.0.1",
+    mappingFileUploadEnabled = false,
+    dependencies = deps(/* … */),
 )
 ```
-
-### 5.3 Compatibility shims
-
-```kotlin
-@Deprecated(
-    message = "Pass plugins = plugins(…) on the target definition instead",
-    replaceWith = ReplaceWith("/* move PluginWrapper into target plugins = */"),
-)
-class TargetBuilder(/* … */) {
-    @Deprecated("…")
-    fun withPlugin(pluginWrapper: PluginWrapper<*>): TargetBuilder { /* apply */ }
-}
-```
-
-Convert `PluginWrapper` → internal adapter that builds `PluginSpec` once, or
-mark `PluginWrapper` itself `@Deprecated` and implement `invoke` via
-`applyTargetPlugins`.
-
----
-
-## 6. When (not) to add a separate target type
-
-User guidance: **prefer single-arg config**. Separate `TargetType` only if:
-
-1. The plugin **changes the role / content rules / dependency matrix** of the
-   module (new suffix, new allow-list), **and**
-2. That role is common enough to teach in the progressive ladder, **and**
-3. A boolean/plugins arg would **lie** about what the module is.
-
-Examples:
-
-| Case | Decision |
-|------|----------|
-| Navigation safe-args on a res module | **plugins arg** on `androidRes` |
-| Crashlytics on binary | **plugins arg** on `androidBinary` |
-| Detekt / Spotless on any module | **plugins arg** (or root convention — not Forma target type) |
-| Hypothetical “proto codegen library” with unique deps matrix | **consider new target type** in a later ticket |
-
-Do **not** mint `safeArgsAndroidRes` etc. in F-071–F-073.
-
----
-
-## 7. Relationship to forma-core
-
-- `TargetPlugins` / `PluginSpec` are **Gradle-facing** (need `Project.apply`,
-  extensions). They live in **`:deps`** (or platform plugins), **not** in pure
-  `tools.forma:core`.
-- Core remains free of AGP and of “which Google plugin ids exist.”
-- Bazel adapter does not need Mode 3 parity in v1; document as Gradle-only.
-
----
-
-## 8. Docs and examples (F-073 / closes GH #36)
-
-Ship as part of implementation, not a separate everlasting backlog item:
-
-1. This design → short user guide section in `GETTING-STARTED.md` + dedicated
-   “External plugins” page (can rename/trim this file to user voice once
-   implemented).
-2. `DEPS-CATALOG.md` — explicit “Mode 2 vs Mode 3” cross-link.
-3. Progressive example step (Android ladder) showing safe-args via `plugins =`.
-4. Agent skill blurb under `examples/agent-skills/`.
-5. Close GH **#36** when user docs land on `v2`.
 
 ---
 
@@ -414,42 +318,57 @@ Ship as part of implementation, not a separate everlasting backlog item:
 
 | ID | Scope | Acceptance |
 |----|--------|------------|
-| **F-070** | This design doc + tickets | Merged on `v2`; no product code required |
-| **F-071** | `TargetPlugins` / `PluginSpec` / `plugin()` / `applyTargetPlugins`; add `plugins` param to **all** Android + JVM target DSLs; apply after features | `plugins/` build green; unit tests for duplicate-id + empty path; sample still builds (may still use shim) |
-| **F-072** | Migrate sample + `Plugins.kt` to new API; `@Deprecated` on `TargetBuilder` / `PluginWrapper` chain; binary Crashlytics TODO becomes real `plugins =` **or** stays commented but in new shape | `application/` green; no `.withPlugin` call sites in tree except tests for deprecation if any |
-| **F-073** | User docs + progressive example + agent skill; close GH #36 | Docs-only PR ok if code already on `v2` |
+| **F-070** | This design | Merged on `v2` |
+| **F-071** | `targetPlugin`, type→plugin registry, auto-apply in pre-defined DSLs (Path A lookup), `deriveTargetType` core hooks | unit tests: type with plugin applies without call-site API; plugins build green |
+| **F-072** | Path B DSL helpers; migrate sample navigation (+ optional firebase binary type); deprecate `TargetBuilder` / `PluginWrapper` | application green; **zero** `.withPlugin` call sites; call sites Bazel-flat |
+| **F-073** | Docs + progressive example + agent skill; close GH #36 | examples match §3 mapping |
 
 ---
 
-## 10. Rejected alternatives
+## 10. Rejected alternatives (history)
 
 | Alternative | Why rejected |
 |-------------|--------------|
-| Keep chain-only, return `TargetBuilder` from every DSL | Still splits definition; teaches a builder pattern Forma otherwise avoids |
-| Plugins only via catalog Mode 2 | Safe-args / Google Services are not “consume this one lib” |
-| Separate target type per plugin | Explodes the matrix; fights flat role model |
-| Multi-arg `plugin1=`, `plugin2=` or free lambda `plugins { }` block on Project | Harder to share recipes; single `TargetPlugins` value is copyable and testable |
-| Configure plugins only in `androidProjectConfiguration` | Wrong scope — plugins are per-module |
+| Free-form `plugins = plugins(plugin("id")…)` on every target | Unstructured; anti-Bazel |
+| Call-site `pluginConfig = pluginConfig(registeredBinding)` | Still re-selects plugins per module; first “Path A” example was **wrong** |
+| Chain `TargetBuilder.withPlugin` | Split definition; inconsistent returns |
+| New forever built-in core DSL per vendor plugin | Prefer consumer Path B derived types |
+| Catalog-only | Safe-args / GMS are not companion-lib driven |
 
 ---
 
-## 11. Open questions (resolve during F-071 if needed)
+## 11. forma-core vs Gradle layer
 
-1. **Duplicate apply** with Mode 2: warn vs silent — default silent (Gradle-safe).
-2. **String vs PluginDependency** from version catalog (`libs.plugins.*`):
-   nice follow-up to accept `Provider<PluginDependency>` in `plugin(…)`; not
-   required for first slice if ids remain strings (classpath already resolved).
-3. **Owner/visibility params** unused on some targets today — out of scope;
-   don’t block plugins work on cleanup.
+| Concept | Layer |
+|---------|--------|
+| `TargetType`, allow-lists, content rules, registry | `tools.forma:core` |
+| Type → external plugin bindings, auto-apply, config→extension | Gradle `:deps` / platform plugins |
+| Derived type = core registration + plugin list | Platform registration API |
+
+Core does not hard-code AndroidX/Google plugin ids.
 
 ---
 
-## 12. Summary
+## 12. Open questions (F-071)
 
-**Deprecate** chain-based `TargetBuilder` plugin support.  
-**Standardize** on `plugins: TargetPlugins` as a **single argument of every
-target definition**.  
-**Simple** = list of plugin ids/specs in that arg.  
-**Complex** = same arg with typed `plugin(id) { extension… }` + optional deps.  
-**Separate target types** only when the plugin creates a new *role*, not for
-wiring convenience.
+1. **Path A scope** — settings-wide vs project hierarchy. Lean: same scope as
+   `TargetRegistry` / `androidProjectConfiguration`.
+2. **Suffix** for derived types — share `res` vs `navigation-res`. Document
+   tradeoff; sample may keep `res` suffix with distinct type id.
+3. **Config wiring** — named DSL attrs vs single `pluginConfig: T`. Prefer named
+   attrs when ≤3 knobs; single typed config arg otherwise.
+4. **Multiple plugins on one type** — ordered list on the type (GMS then
+   Crashlytics); call site still silent.
+
+---
+
+## 13. Summary
+
+| | |
+|--|--|
+| **Model** | Bazel rules in Gradle files |
+| **Plugin identity** | On the **target type** (static extend pre-defined **or** derived type) |
+| **Call site** | Attributes only — **auto-apply** type plugins every time |
+| **Config** | Rule attributes or one type-associated config arg — **never** plugin ids |
+| **Deprecate** | `.withPlugin` / `PluginWrapper` chain |
+| **Never** | Per-module plugin shopping lists or re-binding at each target |

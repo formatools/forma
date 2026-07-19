@@ -74,16 +74,18 @@ encourages dumping mixed concerns into one bucket. Prefer specific targets.
 
 ## P7 — Target plugins API (uniform external plugins)
 
-Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with a **single
-`plugins` argument on every target definition**. Design: `docs/TARGET-PLUGINS.md`.
-Closes the product gap behind GH #36.
+Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with a
+**Bazel-like** model: plugin identity on the **target type** (static extend of
+pre-defined types **or** derived custom type); call sites are attributes-only and
+**auto-apply** type plugins. Design: `docs/TARGET-PLUGINS.md`. GH #36.
+**Not** free-form plugin ids or per-callsite `pluginConfig(binding)`.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` — Mode 1/2/3 model; `TargetPlugins` / `plugin()`; deprecate chain API; no separate target types by default |
-| F-071 | todo | Implement `TargetPlugins` + wire `plugins` on all Android/JVM target DSLs | `applyTargetPlugins` after features; unit tests; shims keep sample green |
-| F-072 | todo | Migrate sample off `withPlugin`; deprecate `TargetBuilder` / `PluginWrapper` | `Plugins.kt` → `PluginSpec` recipes; binary/safe-args call sites |
-| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | GETTING-STARTED + DEPS-CATALOG Mode 2 vs 3; ladder step |
+| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` — Bazel north star; type owns plugin; call sites auto-apply; config = rule attrs / type-associated config only. Rejected free-form lists **and** call-site binding re-selection |
+| F-071 | todo | Type→plugin registry + auto-apply in DSLs; `targetPlugin` / `deriveTargetType` hooks | No call-site plugin ids; unit tests prove auto-apply |
+| F-072 | todo | Path B sample migration (e.g. `navigationRes`); deprecate `TargetBuilder` / `PluginWrapper` | Bazel-flat call sites; zero `.withPlugin` |
+| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | §3 Bazel mapping in user docs |
 
 ## Backlog (lower priority / historical GitHub)
 
