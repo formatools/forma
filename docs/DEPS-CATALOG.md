@@ -146,5 +146,5 @@ for the androidx/google surface used across features.
 - Architecture map: [`ARCHITECTURE.md`](ARCHITECTURE.md) §2.4
 - Sample settings: `application/settings.gradle.kts`
 - Sample typed catalogs: `build-dependencies/dependencies/src/main/kotlin/`
-- **Target-declared plugins** (safe-args, Crashlytics, …) are a separate mode from
-  catalog companion-lib apply — design: [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md) (F-070+)
+- **Target external plugins** — static registration or custom target type + optional
+  `pluginConfig` (not free-form id lists): [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md) (F-070+)

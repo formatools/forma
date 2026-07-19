@@ -2,21 +2,24 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-070 revised: reject free-form plugins lists
+
+- **Ticket:** F-070 remains `done` (design corrected); F-071…F-073 notes updated
+- **User correction:** free-form `plugins = plugins(plugin("id")…)` on every target is **exactly what to avoid**
+- **Correct model:**
+  - **Path A** — pre-defined types: **static** `registerTargetPlugin` → optional uniform **`pluginConfig`** on target def
+  - **Path B** — **custom target type** owns plugin identity → same optional **`pluginConfig`**
+- **Docs:** full rewrite of [`docs/TARGET-PLUGINS.md`](TARGET-PLUGINS.md); TICKETS P7 notes aligned
+- **Product code:** none
+- **Next:** F-071 implement registration + `pluginConfig` wiring
+
 ## 2026-07-19 — F-070: target plugins API design
 
 - **Ticket:** F-070 → `done` (design only); **F-071…F-073** `todo` on board (P7)
-- **User ask:** design proper APIs for plugins support; deprecate existing mechanism; uniform plugin configs per target definition; simple = part of target def; complex = single arg config (prefer over new target types)
-- **Branch / PR:** `forma/F-070-target-plugins-design` → base `v2`
-- **Skills/modes:** Hermes design/docs (no Grok Build product coding this slice)
-- **Design:** [`docs/TARGET-PLUGINS.md`](TARGET-PLUGINS.md)
-  - **Mode 1** platform features (`FeatureDefinition`) — unchanged
-  - **Mode 2** catalog dependency-driven plugins (KSP) — unchanged; see DEPS-CATALOG
-  - **Mode 3** target-declared `plugins: TargetPlugins` on **every** target DSL
-  - Deprecate `TargetBuilder.withPlugin` / `withPlugins` + public `PluginWrapper` UX
-  - Complex config stays one arg: `plugin(id) { Extension.… }` + optional deps
-  - Separate target type only when plugin creates a new *role* (not for safe-args/Crashlytics)
+- **User ask:** design proper APIs for plugins support; deprecate existing mechanism; uniform plugin configs per target definition
+- **Branch / PR:** #184 → `v2` (initial write; **superseded by revision** — see entry above)
+- **Note:** first draft incorrectly proposed free-form `plugins =` lists; corrected after user feedback
 - **Product code:** none this slice
-- **Next:** F-071 implement + wire DSLs
 - **Blockers:** none
 
 ## 2026-07-19 — F-018 close: docs soak + ticket done

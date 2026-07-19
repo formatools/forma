@@ -74,16 +74,18 @@ encourages dumping mixed concerns into one bucket. Prefer specific targets.
 
 ## P7 — Target plugins API (uniform external plugins)
 
-Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with a **single
-`plugins` argument on every target definition**. Design: `docs/TARGET-PLUGINS.md`.
-Closes the product gap behind GH #36.
+Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with:
+**static plugin registration** (pre-defined types) or **plugin on custom target
+type**, plus a uniform optional **`pluginConfig`** on target definitions.
+Design: `docs/TARGET-PLUGINS.md`. Closes the product gap behind GH #36.
+**Not** free-form plugin id lists on every target.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` — Mode 1/2/3 model; `TargetPlugins` / `plugin()`; deprecate chain API; no separate target types by default |
-| F-071 | todo | Implement `TargetPlugins` + wire `plugins` on all Android/JVM target DSLs | `applyTargetPlugins` after features; unit tests; shims keep sample green |
-| F-072 | todo | Migrate sample off `withPlugin`; deprecate `TargetBuilder` / `PluginWrapper` | `Plugins.kt` → `PluginSpec` recipes; binary/safe-args call sites |
-| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | GETTING-STARTED + DEPS-CATALOG Mode 2 vs 3; ladder step |
+| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` **revised**: Path A static `registerTargetPlugin` + optional `pluginConfig` on pre-defined types; Path B plugin identity on **custom target type** + same config arg. **Rejected** free-form `plugins = plugins(plugin(id)…)` lists. Deprecate chain `withPlugin` |
+| F-071 | todo | Implement `PluginBinding` / `registerTargetPlugin` / `TargetPluginConfig` + wire `pluginConfig` on all Android/JVM pre-defined DSLs | No raw plugin ids on targets; unit tests; shims keep sample green |
+| F-072 | todo | Custom target types with type-owned plugins; migrate sample; deprecate `TargetBuilder` / `PluginWrapper` | safe-args ± binary; Path A and/or B |
+| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | Document Paths A/B only |
 
 ## Backlog (lower priority / historical GitHub)
 
