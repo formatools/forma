@@ -12,6 +12,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-002 | done | Audit build graph: plugins, sample app, CI workflows | Map modules → forma-core candidates; capture in `docs/ARCHITECTURE.md` |
 | F-003 | done | Get plugins + sample `application/` building on modern toolchain | Plugins compile AGP 8.1.2 matches sample; Gradle 8.3 (plugins) / 8.4 (app); host builds green |
 | F-004 | done | CI green on GitHub Actions for plugins + application | Temurin 17 all jobs + Android SDK 33 for app; PR #153 GHA green |
+| F-018 | todo | JDK 21 + Gradle/AGP staged modernization | **User-prioritized 2026-07-19.** Host/CI → **JDK 21** (latest practical LTS; AGP still docs min/default **17** even on 9.2). Requires Gradle **≥8.5** first (wrappers today 8.3/8.4). Then AGP ladder 8.5→8.7→8.13; AGP 9 = optional F-019. Plan: `~/.hermes/plans/2026-07-13_024508-forma-gradle-agp-upgrade.md` |
 
 ## P1 — Android working product
 
