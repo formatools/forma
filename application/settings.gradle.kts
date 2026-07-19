@@ -36,7 +36,12 @@ buildscript {
                     "com.google.errorprone:error_prone_annotations:2.11.0",
                     "commons-codec:commons-codec:1.15",
                     "com.android.tools.build:aapt2-proto:8.1.2-10154469",
+                    // Gradle 8.7 embeds Kotlin 1.9.22 — force stdlib family lockstep under failOnVersionConflict
+                    "org.jetbrains.kotlin:kotlin-stdlib:$embeddedKotlinVersion",
+                    "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$embeddedKotlinVersion",
                     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$embeddedKotlinVersion",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:$embeddedKotlinVersion",
+                    "org.jetbrains.kotlin:kotlin-reflect:$embeddedKotlinVersion",
                     "com.android.tools.build:gradle:8.1.2",
                     "org.jetbrains.kotlin:kotlin-gradle-plugin:$embeddedKotlinVersion",
                     "com.squareup:javapoet:1.13.0"
@@ -90,7 +95,8 @@ projectDependencies(
     plugin("com.google.firebase:firebase-crashlytics-gradle", "2.9.9"),
     plugin(
         id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
-        version = "$embeddedKotlinVersion-1.0.13",
+        // Gradle 8.7 embedded Kotlin is 1.9.22; KSP line starts at 1.9.22-1.0.16 (1.0.13 does not exist)
+        version = "1.9.22-1.0.16",
         configuration = ksp,
         "androidx.room:room-compiler:$roomVersion"
     )

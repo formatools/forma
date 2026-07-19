@@ -6,6 +6,6 @@ buildscript {
         compileSdk = 34,
         agpVersion = "8.1.2",
         compose = true,
-        composeCompilerVersion = "1.5.3",
+        composeCompilerVersion = "1.5.10",
     )
 }
