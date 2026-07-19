@@ -6,6 +6,10 @@ Forma is a **meta build system** for Android (Gradle plugin). You declare
 rules. Forma applies plugins, shared Android settings, and **dependency
 visibility validation** for you.
 
+**Root principles** (see [`VISION.md`](VISION.md)): (1) Bazel-like rules — configure
+once on the type, minimal call-site attrs; (2) one global way project-wide; (3)
+explicit structure, with tooling for large-scale change.
+
 This tutorial gets you from zero to a working multi-target Android app. For the
 full multi-feature reference layout, see [SAMPLE-APP.md](SAMPLE-APP.md).
 

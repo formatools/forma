@@ -6,6 +6,24 @@ Repo: `formatools/forma` (local: `/Users/claw/work/forma`)
 
 Ship Forma as a **working Android product**, then **forma-core** extraction, then **JVM**, then **Bazel**. Full vision: `docs/VISION.md`. Prioritized work: `TICKETS.md`.
 
+## Root principles (axioms — do not re-litigate)
+
+Full text: `docs/VISION.md` § Root principles.
+
+1. **Bazel-like rules** — configure once on the type; call sites = minimal static attrs; type behavior **auto-applies**.
+2. **One global way** — one supported approach per concern, project-wide (scale to large orgs). Extensibility = extend shared types/config, not module-local Gradle.
+3. **Explicit structure + tooling** — declare boundaries; invest in check/generate/migrate for fleet changes.
+
+### Consequences
+
+- Flat, role-typed graph; no generic buckets (`androidLibrary` removed).
+- Composition only at `androidApp` / `androidBinary` / JVM `binary`; `impl` ↛ `impl`.
+- Closed dependency matrix (`docs/DEPENDENCY-MATRIX.md`).
+- External plugins type-owned (`docs/TARGET-PLUGINS.md`); never `.withPlugin` / free-form plugin id lists.
+- Portable forma-core; platforms adapt.
+
+**Reject without discussion:** per-module plugin shopping, builder chains for identity, dual happy paths for the same concern, unrestricted deps, restoring `androidLibrary`.
+
 ## Hard rules
 
 1. Work **only** from `TICKETS.md` priority order. Pick the top `todo` / continue `in_progress` ticket.

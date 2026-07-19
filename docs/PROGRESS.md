@@ -2,6 +2,21 @@
 
 Newest entries first.
 
+## 2026-07-19 — P8 board: principle-alignment tickets + F-080 docs
+
+- **User ask:** create tickets to update implementation to match Forma goals (3 root principles)
+- **Tickets added (P8):**
+  - **F-080** `done` — codify principles in VISION/README/AGENTS/GETTING-STARTED
+  - **F-081** call-site surface audit (Unit returns, minimal attrs)
+  - **F-082** one global configuration path
+  - **F-083** one external-deps house style
+  - **F-084** fleet tooling check/generate/migrate (GH #54 theme)
+  - **F-085** full-tree sample/examples/skills audit
+- **P7 unchanged priority:** **F-071** still top coding ticket (type-owned plugins)
+- **TICKETS.md** top section = root goals bar for all workers
+- **Product code:** none this slice
+- **Next:** F-071 implement
+
 ## 2026-07-19 — F-070 revised again: Bazel-like call sites
 
 - **Ticket:** F-070 design correction (PR #185 update)
