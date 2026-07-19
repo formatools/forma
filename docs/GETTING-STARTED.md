@@ -39,10 +39,10 @@ structure and boundaries, not business logic.
 
 | Tool | Version / notes |
 |------|-----------------|
-| JDK | **17+** |
+| JDK | **21** build/daemon (F-018); app language level unchanged |
 | Android SDK | Platform **34** (`compileSdk`; required for modern Compose AARs), **33** useful for `targetSdk` |
 | Build tools | 33.0.2 / 34.0.0 as used by the sample |
-| Gradle | Use the wrapper in the project (`./gradlew`); sample uses **8.4**, plugins build **8.3** |
+| Gradle | Use the wrapper in the project (`./gradlew`); **8.7** all roots |
 
 Worker / macOS install steps: [ENV.md](ENV.md) (`source scripts/env-mac.sh`).
 

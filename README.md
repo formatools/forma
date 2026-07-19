@@ -115,7 +115,7 @@ androidUtil(
 
 ## Development environment
 
-Worker / contributor host setup (JDK 17+, Android SDK platform **34** for
+Worker / contributor host setup (JDK **21** build JVM, Android SDK platform **34** for
 `compileSdk`, 33 still useful for target): see [`docs/ENV.md`](docs/ENV.md) and
 `source scripts/env-mac.sh`.
 

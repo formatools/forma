@@ -15,7 +15,7 @@ Ship Forma as a **working Android product**, then **forma-core** extraction, the
 5. Do **not** create new cron jobs from a cron run.
 6. Do **not** force-push `master` or `v2` on upstream. Prefer branch + PR to `formatools/forma` (or stepango fork if permissions require).
 7. Ground reports in tool output (builds, git, gh). Never invent green builds.
-8. If JDK/Android SDK missing, work F-001 first (install Temurin 17+ via brew/sdkman; document exact commands in PROGRESS).
+8. If JDK/Android SDK missing, bootstrap first (`brew install openjdk@21` + `source scripts/env-mac.sh`; document exact commands in PROGRESS).
 9. **Base of operations is `v2`** (not `master`). Feature branches and PRs target `v2`. Promote `v2` → `master` only when the user asks or CI is ready for public default.
 
 ## Git workflow

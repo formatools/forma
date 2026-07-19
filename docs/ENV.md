@@ -1,13 +1,16 @@
 # Worker host environment (macOS)
 
-Forma workers need **JDK 17+** and an **Android SDK** with platform **34**
-(sample `compileSdk`; Compose AAR metadata) and optionally **33** (`targetSdk`).
+Forma workers need **JDK 21** (build/daemon JVM; F-018) and an **Android SDK**
+with platform **34** (sample `compileSdk`; Compose AAR metadata) and optionally
+**33** (`targetSdk`). Android app language level / `jvmTarget` stays at the
+project’s configured `JavaVersion` (sample default still 1.8) — raising bytecode
+is a separate decision from the daemon JDK.
 
 ## Quick start (this Mac)
 
 ```bash
 # Already installed on the Forma worker host (no sudo):
-#   brew install openjdk@17
+#   brew install openjdk@21
 #   brew install --cask android-commandlinetools
 #   sdk packages: platforms;android-34, platforms;android-33, platform-tools,
 #                 build-tools 33.0.2 + 34.0.0
@@ -18,8 +21,9 @@ source scripts/env-mac.sh
 printf 'sdk.dir=%s\n' "$ANDROID_HOME" > application/local.properties
 
 # Verify
-java -version
-cd plugins && ./gradlew build
+java -version   # expect 21.x
+cd plugins && ./gradlew --version   # Gradle 8.7 + JVM 21
+cd ../plugins && ./gradlew build
 cd ../application && ./gradlew build
 cd ../includer && ./gradlew build
 cd ../depgen && ./gradlew build
@@ -29,19 +33,27 @@ cd ../depgen && ./gradlew build
 
 | Tool | Location |
 |------|----------|
-| JDK 17 | `/usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home` |
+| JDK 21 (Intel Homebrew) | `/usr/local/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home` |
+| JDK 21 (Apple Silicon) | `/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home` |
 | Android SDK root | `/usr/local/share/android-commandlinetools` |
 | cmdline-tools | `$ANDROID_HOME/cmdline-tools/latest` |
 
-`openjdk@17` is Homebrew **keg-only** (not on system `PATH` until you export `JAVA_HOME`). Prefer it over `brew install --cask temurin@17`, which requires **sudo** for the `.pkg` installer and fails in non-interactive cron.
+`scripts/env-mac.sh` probes both Homebrew prefixes. `openjdk@21` is Homebrew
+**keg-only** (not on system `PATH` until you export `JAVA_HOME`). Prefer it over
+`brew install --cask temurin@21`, which requires **sudo** for the `.pkg`
+installer and fails in non-interactive cron.
 
 ## One-time install (fresh machine)
 
 ```bash
-brew install openjdk@17
+brew install openjdk@21
 brew install --cask android-commandlinetools
 
-export JAVA_HOME="/usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
+# Intel:
+export JAVA_HOME="/usr/local/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+# Apple Silicon:
+# export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+
 export ANDROID_HOME="/usr/local/share/android-commandlinetools"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
 export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
@@ -60,21 +72,24 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > application/local.properties
 Optional system-wide JVM registration (needs sudo, not required for Gradle):
 
 ```bash
-sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk \
-  /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+sudo ln -sfn /usr/local/opt/openjdk@21/libexec/openjdk.jdk \
+  /Library/Java/JavaVirtualMachines/openjdk-21.jdk
 ```
 
-## Verified on 2026-07-10 (F-001) / re-verified 2026-07-11 (F-003, F-013)
+## Verified on 2026-07-19 (F-018 Phase 1 + JDK 21)
 
-- `java` / `javac` 17.0.19 (Homebrew OpenJDK)
-- `plugins/`: `./gradlew build` → **BUILD SUCCESSFUL** (AGP compile dep **8.1.2**)
-- `includer/`: `./gradlew build` → **BUILD SUCCESSFUL**
-- `depgen/`: `./gradlew build` → **BUILD SUCCESSFUL**
-- `application/`: `./gradlew build` → **BUILD SUCCESSFUL** (compileSdk **34**,
-  targetSdk 33, Compose compiler **1.5.10** / Kotlin **1.9.22**, F-018)
-- Gradle wrappers: **8.7** (all roots; was 8.3/8.4 split)
+- `java` / `javac` **21.x** (Homebrew OpenJDK 21) via `scripts/env-mac.sh`
+- Gradle wrappers: **8.7** (all roots; was 8.3/8.4 split — PR #180)
+- Compose compiler default **1.5.10** (Kotlin **1.9.22** / Gradle 8.7 embedded)
+- AGP still **8.1.2** (Phase 2+ climb is later F-018 work)
+- CI: Temurin **21** all jobs (`.github/workflows/main.yml`)
 - Toolchain note: plugins compile AGP matches sample forced AGP (no 7.4.2 skew)
+
+See `docs/PROGRESS.md` for the latest host build tails.
 
 ## Shell profile
 
-`~/.zshrc` on the worker exports `JAVA_HOME` / `ANDROID_HOME` so interactive shells pick them up. Cron / Hermes sessions should still `source scripts/env-mac.sh` (or set the same vars) because non-interactive jobs may not load `.zshrc`.
+`~/.zshrc` on the worker should export `JAVA_HOME` / `ANDROID_HOME` so interactive
+shells pick them up (prefer openjdk@21). Cron / Hermes sessions should still
+`source scripts/env-mac.sh` (or set the same vars) because non-interactive jobs
+may not load `.zshrc`.

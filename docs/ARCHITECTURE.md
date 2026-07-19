@@ -271,17 +271,17 @@ Display name **CI** (`on: push`, `pull_request`, `workflow_dispatch`).
 
 | Job | Directory | Java | Notes |
 |-----|-----------|------|-------|
-| `build_application` | `application/` | Temurin **17** | `android-actions/setup-android@v3` (SDK 33 + build-tools 33/34); `./gradlew build --stacktrace --console=plain` |
-| `build_plugins` | `plugins/` | Temurin **17** | `./gradlew build --stacktrace --console=plain` |
-| `build_includer` | `includer/` | Temurin **17** | same |
-| `build_depgen` | `depgen/` | Temurin **17** | same |
+| `build_application` | `application/` | Temurin **21** | `android-actions/setup-android@v3` (SDK 33 + build-tools 33/34); `./gradlew build --stacktrace --console=plain` |
+| `build_plugins` | `plugins/` | Temurin **21** | `./gradlew build --stacktrace --console=plain` |
+| `build_includer` | `includer/` | Temurin **21** | same |
+| `build_depgen` | `depgen/` | Temurin **21** | same |
 
 Concurrency group `ci-${{ github.workflow }}-${{ github.ref }}` cancels in-progress runs on the same ref.
 
-F-004 fixes applied (2026-07-11):
+CI pins (evolved F-004 → F-018):
 
-1. **All jobs** pin Temurin 17 via `actions/setup-java@v4`.
-2. **Application** installs Android SDK packages matching sample `compileSdk` 33.
+1. **All jobs** pin Temurin **21** via `actions/setup-java@v4` (was 17; requires Gradle ≥8.5 — wrappers are **8.7**).
+2. **Application** installs Android SDK packages matching sample `compileSdk` 34 / target 33.
 3. README badge → `formatools/forma` + `actions/workflows/main.yml/badge.svg`.
 4. Gradle setup via `gradle/actions/setup-gradle@v4` (successor of `gradle-build-action`).
 5. Dropped unconditional `--scan` (no build-scan account coupling in CI).
@@ -295,10 +295,11 @@ keys) or full Portal publish via secrets; deeper Gradle remote cache.
 
 | Component | Declared / observed |
 |-----------|---------------------|
-| JDK | 17 (all CI jobs Temurin; host OpenJDK 17 via Homebrew) |
-| Gradle | **8.7** (all wrappers; F-018 Phase 1) |
-| AGP | **8.1.2** sample runtime + plugins compile (aligned F-003) |
-| Kotlin | embeddedKotlin from Gradle distribution |
+| JDK (daemon / CI) | **21** (CI Temurin 21; host OpenJDK 21 via Homebrew `openjdk@21`) |
+| App bytecode / `jvmTarget` | unchanged (sample default `JavaVersion.VERSION_1_8`) — not raised with daemon JDK |
+| Gradle | **8.7** (all wrappers; F-018 Phase 1 / PR #180) |
+| AGP | **8.1.2** sample runtime + plugins compile (aligned F-003; AGP ladder = later F-018) |
+| Kotlin | embeddedKotlin from Gradle 8.7 (**1.9.22**); Compose compiler default **1.5.10** |
 | Android SDK | sample compileSdk **34** / target 33; host platforms 34+33 + build-tools 33/34 |
 | Forma version | 0.1.3 |
 
