@@ -40,9 +40,10 @@ structure and boundaries, not business logic.
 | Tool | Version / notes |
 |------|-----------------|
 | JDK | **21** build/daemon (F-018); app language level unchanged |
-| Android SDK | Platform **34** (`compileSdk`; required for modern Compose AARs), **33** useful for `targetSdk` |
+| Android SDK | Platform **35** (`compileSdk` / modern Compose + AndroidX AARs); **34**/**33** still useful |
 | Build tools | 33.0.2 / 34.0.0 as used by the sample |
-| Gradle | Use the wrapper in the project (`./gradlew`); **8.7** all roots |
+| Gradle | Use the wrapper in the project (`./gradlew`); **8.14.5** all roots |
+| AGP | **8.13.2** (keep consumer `agpVersion` aligned with plugin compile AGP) |
 
 Worker / macOS install steps: [ENV.md](ENV.md) (`source scripts/env-mac.sh`).
 
@@ -408,13 +409,13 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 
 | Symptom | Likely cause |
 |---------|----------------|
-| “Java not found” / old JDK | Use JDK 17+; export `JAVA_HOME` ([ENV.md](ENV.md)) |
-| SDK / `compileSdk` errors | Install platform 34; set `local.properties` `sdk.dir` |
+| “Java not found” / old JDK | Use JDK 21 (or 17+ min); export `JAVA_HOME` ([ENV.md](ENV.md)) |
+| SDK / `compileSdk` errors | Install platform **35**; set `local.properties` `sdk.dir` |
 | Project not included | Missing `build.gradle.kts`, or nested `settings.gradle.kts` blocked Includer |
 | Illegal project dependency | Matrix violation — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) |
 | Empty / wrong package | `packageName` ≠ directory under `src/main/java` |
 | Compose compiler mismatch | Align `composeCompilerVersion` with Kotlin (sample: 2.0.21 ↔ 2.0.21) |
-| AGP resolution conflicts | Align consumer `agpVersion` with plugin AGP line (**8.1.2** today) |
+| AGP resolution conflicts | Align consumer `agpVersion` with plugin AGP line (**8.13.2** today) |
 
 ---
 
@@ -442,4 +443,4 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 - [ ] No `impl` → `impl` edges
 - [ ] Composition roots list feature entrypoints explicitly
 - [ ] External versions live in a catalog, not copy-pasted GAVs in every target
-- [ ] `./gradlew :binary:assembleDebug` succeeds on a clean machine with JDK 17 + SDK 34
+- [ ] `./gradlew :binary:assembleDebug` succeeds on a clean machine with JDK 21 + SDK 35

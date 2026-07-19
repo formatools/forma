@@ -76,14 +76,16 @@ sudo ln -sfn /usr/local/opt/openjdk@21/libexec/openjdk.jdk \
   /Library/Java/JavaVirtualMachines/openjdk-21.jdk
 ```
 
-## Verified on 2026-07-19 (F-018 Phase 1 + JDK 21)
+## Verified on 2026-07-19 (F-018 complete — 8.x terminal)
 
 - `java` / `javac` **21.x** (Homebrew OpenJDK 21) via `scripts/env-mac.sh`
-- Gradle wrappers: **8.7** (all roots; was 8.3/8.4 split — PR #180)
-- Compose compiler default **2.0.21** (Kotlin **2.0.21** / Gradle 8.14.5 embedded)
-- AGP still **8.1.2** (Phase 2+ climb is later F-018 work)
+- Gradle wrappers: **8.14.5** (all roots; unified via #180 then #182)
+- AGP **8.13.2** lockstep (`plugins/android` compile + sample `agpVersion`)
+- Kotlin **2.0.21** (Gradle embedded); KSP **2.0.21-1.0.28**
+- Compose compiler default **2.0.21** (+ Kotlin Compose Compiler plugin when `compose=true`)
+- Sample SDK: min **23** / target **35** / compile **35** (install platform 35 for full sample builds; 34/33 still useful)
 - CI: Temurin **21** all jobs (`.github/workflows/main.yml`)
-- Toolchain note: plugins compile AGP matches sample forced AGP (no 7.4.2 skew)
+- AGP 9 / Gradle 9 / absolute-latest AndroidX = **F-019** only with explicit OK
 
 See `docs/PROGRESS.md` for the latest host build tails.
 

@@ -12,7 +12,7 @@ Update this file when picking or finishing work. Cron workers must pick the **hi
 | F-002 | done | Audit build graph: plugins, sample app, CI workflows | Map modules → forma-core candidates; capture in `docs/ARCHITECTURE.md` |
 | F-003 | done | Get plugins + sample `application/` building on modern toolchain | Plugins compile AGP 8.1.2 matches sample; Gradle 8.3 (plugins) / 8.4 (app); host builds green |
 | F-004 | done | CI green on GitHub Actions for plugins + application | Temurin 17 all jobs + Android SDK 33 for app; PR #153 GHA green |
-| F-018 | in_progress | JDK 21 + Gradle/AGP staged modernization | **2026-07-19 deps PR:** Gradle **8.14.5**, AGP **8.13.2**, Kotlin **2.0.21**, KSP **2.0.21-1.0.28**, Compose **1.9.4**/compiler **2.0.21**, sample libs modernized (AGP-8.13/SDK-35 ceiling). JDK 21 host/CI already. AGP 9 = F-019. |
+| F-018 | done | JDK 21 + Gradle/AGP staged modernization | **Shipped on `v2`:** Gradle **8.14.5**, AGP **8.13.2**, Kotlin **2.0.21**, KSP **2.0.21-1.0.28**, Compose **1.9.4**/compiler **2.0.21**, JDK **21** host/CI, sample SDK min23/target35/compile35 + deps at AGP-8.13 ceiling. PRs **#179–#182**. AGP 9 / absolute-latest AndroidX = **F-019** (explicit OK only). |
 
 ## P1 — Android working product
 
