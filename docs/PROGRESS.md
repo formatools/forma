@@ -2,6 +2,22 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-018 scheduled (JDK 21 + toolchain ladder)
+
+- **Ticket:** F-018 → `todo` (inserted under P0 by user request: “Schedule JDK upgrade for the latest supported by AGP”)
+- **Facts (official):**
+  - AGP **8.1.2** (current Forma) through **9.2.x**: compatibility tables list JDK **min 17 / default 17**
+  - Gradle **8.3/8.4** (current wrappers): run JVM up through **20**; **JDK 21 requires Gradle ≥8.5**
+  - Current Gradle line supports run JVMs through **26** (9.4+); not a target until AGP 9 / Gradle 9 (F-019)
+- **Decision:** upgrade host + CI build JDK to **21** (current LTS above 17 that AGP runs on once Gradle is new enough). Keep Android `source`/`target` / toolchain language at **17** unless a later phase deliberately raises bytecode level.
+- **Ship order (one phase per PR preferred):**
+  1. Unify wrappers → **Gradle 8.7** (enables JDK 21 daemon)
+  2. Host `scripts/env-mac.sh` + docs + CI `actions/setup-java` → **Temurin/OpenJDK 21**
+  3. AGP lockstep **8.5.2** → later **8.7** → **8.13** (existing plan phases 2–4)
+  4. Do **not** start AGP 9 without explicit OK (F-019)
+- **Not done this note:** no Gradle/JDK install yet — queue + schedule only
+- **Next:** worker implements Phase 1 (Gradle 8.7) then JDK 21 host/CI on same or follow-up PR
+
 ## 2026-07-17 — F-063: hard-remove `androidLibrary`
 
 - **Ticket:** F-063 → `done` (P6 flat-structure complete)
