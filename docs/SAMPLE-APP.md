@@ -108,7 +108,8 @@ cd application && ./gradlew build
 ```
 
 Toolchain: AGP **8.1.2**, compileSdk **34**, targetSdk **33**, Gradle **8.7**,
-JDK **17**. See [ENV.md](ENV.md), [COMPOSE.md](COMPOSE.md), [ARCHITECTURE.md](ARCHITECTURE.md).
+build JDK **21** (app language level unchanged). See [ENV.md](ENV.md),
+[COMPOSE.md](COMPOSE.md), [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## What “gold standard” means here
 

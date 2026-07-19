@@ -2,20 +2,41 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-018 Phase 1b: host + CI → JDK 21
+
+- **Ticket:** F-018 remains `in_progress` (wrappers #180 + JDK 21 done; AGP ladder remains)
+- **Branch / PR:** `forma/F-018-jdk21` → new PR base `v2` (Phase 1 already on tip via #180)
+- **Host:** `brew install openjdk@21` → OpenJDK **21.0.11** at `/usr/local/opt/openjdk@21/...`
+- **Code / config:**
+  - `scripts/env-mac.sh` default `JAVA_HOME` → openjdk@21 (probes `/usr/local` + `/opt/homebrew`)
+  - `.github/workflows/main.yml` all jobs Temurin **17 → 21**
+  - Docs: `ENV.md`, `ARCHITECTURE.md` CI/toolchain snapshot, `SAMPLE-APP.md`, `GETTING-STARTED.md`, `README.md`, `AGENTS.md`
+  - App bytecode / `jvmTarget` **not** raised (sample still `JavaVersion.VERSION_1_8`)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `java -version` → **21.0.11** (Homebrew)
+  - `plugins/ ./gradlew --version` → **Gradle 8.7** + **JVM 21.0.11** + Kotlin 1.9.22
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (89 tasks)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2203 tasks, 4m16s)
+  - `includer/ ./gradlew build` → **BUILD SUCCESSFUL**
+  - `depgen/ ./gradlew build` → **BUILD SUCCESSFUL**
+- **Not in this slice:** AGP still **8.1.2** (Phase 2 = 8.5.2+); no F-019
+- **Next:** AGP lockstep 8.5.2 (separate PR preferred)
+
 ## 2026-07-19 — F-018 Phase 1: unify Gradle wrappers → 8.7
 
 - **Ticket:** F-018 → `in_progress` (Phase 1 shipped; JDK 21 + AGP climb remain)
+- **PR:** #180 merged to `v2` (`7464d3e`)
 - **Why delayed:** Jul 12 session wrote the plan + asked priority buttons instead of implementing; F-018 was not on `TICKETS.md` until 2026-07-19, so 4h workers continued forma-core/Bazel/flat-structure. User call-out: do the work, don't re-plan.
 - **Code:**
   - All `gradle-wrapper.properties` (plugins, application, includer, depgen, jvm-application, bazel-adapter, examples/*, build-*, root) → **Gradle 8.7**
   - `application/settings.gradle.kts`: force full kotlin-stdlib family to `$embeddedKotlinVersion` (1.9.22) under `failOnVersionConflict`; KSP **1.9.22-1.0.16** (1.0.18 caused kapt↔ksp task cycle)
   - Default Compose compiler **1.5.3 → 1.5.10** (Kotlin 1.9.22 map); example 06-compose aligned
-- **Verify (real, OpenJDK 17 + env-mac.sh):**
+- **Verify (real, OpenJDK 17 at Phase 1 commit; re-verified on 21 in Phase 1b):**
   - `plugins/ ./gradlew --version` → **8.7** / Kotlin 1.9.22
   - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL**
   - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2203 tasks)
   - `includer`, `depgen`, `bazel-adapter`, `jvm-application` builds → **BUILD SUCCESSFUL**
-- **Next:** F-018 Phase 1b host/CI JDK 21; Phase 2 AGP 8.5.2 lockstep
+- **Next:** F-018 Phase 1b host/CI JDK 21 (this run); Phase 2 AGP 8.5.2 lockstep
 
 ## 2026-07-19 — F-018 scheduled (JDK 21 + toolchain ladder)
 
