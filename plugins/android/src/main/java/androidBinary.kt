@@ -8,6 +8,7 @@ import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.validation.disallowResources
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.validation.asValidator
@@ -60,6 +61,7 @@ fun Project.androidBinary(
     applyFeatures(
         androidBinaryFeatureDefinition(binaryFeatureConfiguration)
     )
+    applyTargetPlugins(AndroidTargetTypes.binary)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.binary).asValidator(),

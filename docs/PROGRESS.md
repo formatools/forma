@@ -2,6 +2,23 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-071: type-owned target plugins registry + auto-apply
+
+- **Ticket:** F-071 → `done`
+- **Branch / PR:** `forma/F-071-target-plugins` → base `v2`
+- **Skills/modes:** Grok Build `--mode full` (design + partial implement, max-turns); Hermes finish path: compile fixes, unit tests, remaining DSL verify, bookkeeping
+- **Code:**
+  - `plugins/deps`: `TargetPluginSpec` / `targetPlugin`, `TargetPluginRegistryApi` + `DefaultTargetPluginRegistry` + global `TargetPluginRegistry`, `registerTargetPlugin` (Path A), `deriveTargetType` (Path B, optional core registry clone), `Project.applyTargetPlugins`
+  - `plugins/android`: re-exports on `AndroidTargetRegistry`; **all** Android target DSLs call `applyTargetPlugins(type)` after `applyFeatures`, before `applyDependencies`
+  - Unit tests: `TargetPluginRegistryTest` (ordered register/dedupe, Path A global bind, Path B clone + plugins, empty unbound)
+  - Legacy `TargetBuilder` / `PluginWrapper` / sample `.withPlugin` **untouched** (F-072)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew :deps:test :android:compileKotlin` → SUCCESS
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew help` → **BUILD SUCCESSFUL** (legacy path still configures)
+- **Blockers:** none
+- **Next:** F-072 migrate sample to derived types (e.g. `navigationRes`); hard-deprecate `TargetBuilder` / `.withPlugin`
+
 ## 2026-07-19 — P8 board: principle-alignment tickets + F-080 docs
 
 - **User ask:** create tickets to update implementation to match Forma goals (3 root principles)

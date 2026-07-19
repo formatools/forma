@@ -10,6 +10,7 @@ import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.core.FormaDependency
 import tools.forma.validation.asValidator
 import tools.forma.validation.validate
@@ -29,6 +30,7 @@ fun Project.androidTestUtil(
         androidLibraryFeatureDefinition(androidFeatureConfig),
         kotlinAndroidFeatureDefinition()
     )
+    applyTargetPlugins(AndroidTargetTypes.androidTestUtil)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.androidTestUtil).asValidator(),

@@ -9,6 +9,7 @@ import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
 import tools.forma.android.feature.kaptConfigurationFeature
 import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.validation.asValidator
@@ -29,6 +30,7 @@ fun Project.library(
     applyFeatures(
         kotlinFeatureDefinition()
     )
+    applyTargetPlugins(AndroidTargetTypes.jvmLibrary)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.jvmLibrary).asValidator(),

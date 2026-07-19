@@ -13,6 +13,7 @@ import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.validation.asValidator
@@ -57,6 +58,7 @@ fun Project.androidApp(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
         kotlinAndroidFeatureDefinition()
     )
+    applyTargetPlugins(AndroidTargetTypes.app)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.app).asValidator(),
