@@ -18,7 +18,7 @@ tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
 dependencies {
     // Compile against the same AGP line the sample forces at runtime (see application/settings.gradle.kts).
     // Keep this in lockstep with androidProjectConfiguration(agpVersion=…) consumers (F-003).
-    implementation("com.android.tools.build:gradle:8.1.2")
+    implementation("com.android.tools.build:gradle:8.13.2")
     implementation(embeddedKotlin("gradle-plugin"))
     implementation(project(":target"))
     implementation(project(":validation"))

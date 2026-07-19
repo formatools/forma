@@ -258,7 +258,7 @@ Root configuration (`application/build.gradle.kts`):
 ```kotlin
 androidProjectConfiguration(
   minSdk = 21, targetSdk = 33, compileSdk = 34,
-  agpVersion = "8.1.2",
+  agpVersion = "8.13.2",
   extraPlugins = [ demo deps, KSP, nav safe-args, crashlytics ]
 )
 ```
@@ -297,10 +297,10 @@ keys) or full Portal publish via secrets; deeper Gradle remote cache.
 |-----------|---------------------|
 | JDK (daemon / CI) | **21** (CI Temurin 21; host OpenJDK 21 via Homebrew `openjdk@21`) |
 | App bytecode / `jvmTarget` | unchanged (sample default `JavaVersion.VERSION_1_8`) — not raised with daemon JDK |
-| Gradle | **8.7** (all wrappers; F-018 Phase 1 / PR #180) |
+| Gradle | **8.14.5** (all wrappers; F-018 deps bump / PR #180) |
 | AGP | **8.1.2** sample runtime + plugins compile (aligned F-003; AGP ladder = later F-018) |
 | Kotlin | embeddedKotlin from Gradle 8.7 (**1.9.22**); Compose compiler default **1.5.10** |
-| Android SDK | sample compileSdk **34** / target 33; host platforms 34+33 + build-tools 33/34 |
+| Android SDK | sample compileSdk **35** / target 33; host platforms 34+33 + build-tools 33/34 |
 | Forma version | 0.1.3 |
 
 Host bootstrap details: `docs/ENV.md`, `scripts/env-mac.sh` (F-001).

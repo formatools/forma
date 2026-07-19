@@ -1,11 +1,11 @@
 buildscript {
     androidProjectConfiguration(
         project = rootProject,
-        minSdk = 21,
-        targetSdk = 33,
-        compileSdk = 34,
-        agpVersion = "8.1.2",
+        minSdk = 23,
+        targetSdk = 35,
+        compileSdk = 35,
+        agpVersion = "8.13.2",
         compose = true,
-        composeCompilerVersion = "1.5.10",
+        composeCompilerVersion = "2.0.21",
     )
 }

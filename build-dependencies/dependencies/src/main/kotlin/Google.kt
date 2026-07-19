@@ -1,10 +1,12 @@
 object google {
     val inject = "javax.inject:javax.inject:1".dep
+    val jakartaInject = "jakarta.inject:jakarta.inject-api:2.0.1".dep
 
     val material = deps(
         "com.google.android.material:material:${versions.google.material}".dep,
         androidx.appcompat,
         androidx.cardview,
+        androidx.constraintlayout,
         androidx.core,
         androidx.annotation,
         androidx.legacy_ui,
@@ -15,6 +17,7 @@ object google {
 
     val dagger = deps(
         google.inject,
+        google.jakartaInject,
         "com.google.dagger:dagger:${versions.google.dagger}".dep,
         "com.google.dagger:dagger-compiler:${versions.google.dagger}".kapt
     )
@@ -27,6 +30,6 @@ object google {
         "com.google.code.gson:gson:${versions.google.gson}".dep
     )
 
-    val firebase = transitivePlatform("com.google.firebase:firebase-bom:26.1.0")
+    val firebase = transitivePlatform("com.google.firebase:firebase-bom:33.16.0")
 
 }

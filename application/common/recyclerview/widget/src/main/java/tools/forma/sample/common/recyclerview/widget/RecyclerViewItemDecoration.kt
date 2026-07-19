@@ -19,14 +19,13 @@ package tools.forma.sample.common.recyclerview.widget
 import android.graphics.Rect
 import android.view.View
 import androidx.annotation.VisibleForTesting
-import androidx.annotation.VisibleForTesting.PRIVATE
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.ceil
 
 class RecyclerViewItemDecoration(
-    @get:VisibleForTesting(otherwise = PRIVATE)
+    @get:VisibleForTesting(otherwise = VisibleForTesting.NONE)
     internal val spacingPx: Int
 ) : RecyclerView.ItemDecoration() {
 

@@ -18,8 +18,6 @@ package tools.forma.sample.core.mvvm.library.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
-import androidx.annotation.VisibleForTesting.PRIVATE
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -33,7 +31,6 @@ abstract class BasePagedListAdapter<T : Any>(
     override fun areContentsTheSame(old: T, new: T): Boolean = contentsSame(old, new)
 }) {
 
-    @VisibleForTesting(otherwise = PRIVATE)
     internal var recyclerView: RecyclerView? = null
 
     init {

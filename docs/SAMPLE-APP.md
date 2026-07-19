@@ -107,7 +107,7 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > application/local.properties
 cd application && ./gradlew build
 ```
 
-Toolchain: AGP **8.1.2**, compileSdk **34**, targetSdk **33**, Gradle **8.7**,
+Toolchain: AGP **8.13.2**, compileSdk **35**, targetSdk **35**, Gradle **8.14.5**,
 build JDK **21** (app language level unchanged). See [ENV.md](ENV.md),
 [COMPOSE.md](COMPOSE.md), [ARCHITECTURE.md](ARCHITECTURE.md).
 

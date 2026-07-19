@@ -47,8 +47,11 @@ if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
   return 1 2>/dev/null || exit 1
 fi
 
+if [[ ! -d "$ANDROID_HOME/platforms/android-35" ]]; then
+  echo "env-mac.sh: warning: Android platform 35 missing under $ANDROID_HOME (sample compileSdk)" >&2
+fi
 if [[ ! -d "$ANDROID_HOME/platforms/android-34" ]]; then
-  echo "env-mac.sh: warning: Android platform 34 missing under $ANDROID_HOME (sample compileSdk)" >&2
+  echo "env-mac.sh: warning: Android platform 34 missing under $ANDROID_HOME" >&2
 fi
 if [[ ! -d "$ANDROID_HOME/platforms/android-33" ]]; then
   echo "env-mac.sh: warning: Android platform 33 missing under $ANDROID_HOME" >&2

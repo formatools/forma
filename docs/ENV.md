@@ -22,7 +22,7 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > application/local.properties
 
 # Verify
 java -version   # expect 21.x
-cd plugins && ./gradlew --version   # Gradle 8.7 + JVM 21
+cd plugins && ./gradlew --version   # Gradle 8.14.5 + JVM 21
 cd ../plugins && ./gradlew build
 cd ../application && ./gradlew build
 cd ../includer && ./gradlew build
@@ -80,7 +80,7 @@ sudo ln -sfn /usr/local/opt/openjdk@21/libexec/openjdk.jdk \
 
 - `java` / `javac` **21.x** (Homebrew OpenJDK 21) via `scripts/env-mac.sh`
 - Gradle wrappers: **8.7** (all roots; was 8.3/8.4 split — PR #180)
-- Compose compiler default **1.5.10** (Kotlin **1.9.22** / Gradle 8.7 embedded)
+- Compose compiler default **2.0.21** (Kotlin **2.0.21** / Gradle 8.14.5 embedded)
 - AGP still **8.1.2** (Phase 2+ climb is later F-018 work)
 - CI: Temurin **21** all jobs (`.github/workflows/main.yml`)
 - Toolchain note: plugins compile AGP matches sample forced AGP (no 7.4.2 skew)

@@ -37,7 +37,7 @@ class CharacterFavoriteViewModel @Inject constructor(
         get() = _data
 
     override val state: LiveData<ICharacterFavoriteViewState>
-        get() = Transformations.map(_data) {
+        get() = _data.map {
             if (it.isEmpty()) {
                 Empty
             } else {

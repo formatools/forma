@@ -160,9 +160,9 @@ buildscript {
         minSdk = 21,
         targetSdk = 33,
         compileSdk = 34,          // 34 if you use modern Compose transitive AARs
-        agpVersion = "8.1.2",     // keep aligned with plugin compile AGP
+        agpVersion = "8.13.2",     // keep aligned with plugin compile AGP
         // compose = false,       // project default for per-target compose flags
-        // composeCompilerVersion = "1.5.10", // match your Kotlin (1.9.22 → 1.5.10)
+        // composeCompilerVersion = "2.0.21", // match your Kotlin (2.0.21 → 2.0.21)
         extraPlugins = listOf(
             // optional: navigation safe-args, KSP, crashlytics, …
         ),
@@ -413,7 +413,7 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | Project not included | Missing `build.gradle.kts`, or nested `settings.gradle.kts` blocked Includer |
 | Illegal project dependency | Matrix violation — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) |
 | Empty / wrong package | `packageName` ≠ directory under `src/main/java` |
-| Compose compiler mismatch | Align `composeCompilerVersion` with Kotlin (sample: 1.5.10 ↔ 1.9.22) |
+| Compose compiler mismatch | Align `composeCompilerVersion` with Kotlin (sample: 2.0.21 ↔ 2.0.21) |
 | AGP resolution conflicts | Align consumer `agpVersion` with plugin AGP line (**8.1.2** today) |
 
 ---
