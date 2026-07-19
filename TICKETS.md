@@ -72,6 +72,19 @@ encourages dumping mixed concerns into one bucket. Prefer specific targets.
 | F-062 | done | Reimplement progressive examples / skills without `androidLibrary` | `examples/android/04` + agent skills + README curriculum |
 | F-063 | done | Hard-remove `androidLibrary` target (after consumers migrated) | DSL + `android.library` type/registry/restrictions removed; JVM `library` + AGP feature helper kept; matrix/docs updated |
 
+## P7 — Target plugins API (uniform external plugins)
+
+Replace chain-based `TargetBuilder.withPlugin` / `PluginWrapper` with a **single
+`plugins` argument on every target definition**. Design: `docs/TARGET-PLUGINS.md`.
+Closes the product gap behind GH #36.
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-070 | done | Design uniform target plugins API + deprecation plan | `docs/TARGET-PLUGINS.md` — Mode 1/2/3 model; `TargetPlugins` / `plugin()`; deprecate chain API; no separate target types by default |
+| F-071 | todo | Implement `TargetPlugins` + wire `plugins` on all Android/JVM target DSLs | `applyTargetPlugins` after features; unit tests; shims keep sample green |
+| F-072 | todo | Migrate sample off `withPlugin`; deprecate `TargetBuilder` / `PluginWrapper` | `Plugins.kt` → `PluginSpec` recipes; binary/safe-args call sites |
+| F-073 | todo | Docs + progressive example + agent skill; close GH #36 | GETTING-STARTED + DEPS-CATALOG Mode 2 vs 3; ladder step |
+
 ## Backlog (lower priority / historical GitHub)
 
 Keep for reference; do not start unless higher tickets done or user prioritizes:
@@ -85,7 +98,7 @@ Keep for reference; do not start unless higher tickets done or user prioritizes:
 - GH #51 Support build types
 - GH #46 New navigation system
 - GH #44/#43 Hybrid targets/config examples
-- GH #36 Docs for external plugins
+- GH #36 Docs for external plugins → **P7 / F-070–F-073** (`docs/TARGET-PLUGINS.md`)
 - GH #126 Target features configuration options
 - GH #111 Gradle project as buildscript classpath
 - GH #103 Java 8+ API on Android API ≤26
