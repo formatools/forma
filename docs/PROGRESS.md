@@ -2,6 +2,23 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-070: target plugins API design
+
+- **Ticket:** F-070 → `done` (design only); **F-071…F-073** `todo` on board (P7)
+- **User ask:** design proper APIs for plugins support; deprecate existing mechanism; uniform plugin configs per target definition; simple = part of target def; complex = single arg config (prefer over new target types)
+- **Branch / PR:** `forma/F-070-target-plugins-design` → base `v2`
+- **Skills/modes:** Hermes design/docs (no Grok Build product coding this slice)
+- **Design:** [`docs/TARGET-PLUGINS.md`](TARGET-PLUGINS.md)
+  - **Mode 1** platform features (`FeatureDefinition`) — unchanged
+  - **Mode 2** catalog dependency-driven plugins (KSP) — unchanged; see DEPS-CATALOG
+  - **Mode 3** target-declared `plugins: TargetPlugins` on **every** target DSL
+  - Deprecate `TargetBuilder.withPlugin` / `withPlugins` + public `PluginWrapper` UX
+  - Complex config stays one arg: `plugin(id) { Extension.… }` + optional deps
+  - Separate target type only when plugin creates a new *role* (not for safe-args/Crashlytics)
+- **Product code:** none this slice
+- **Next:** F-071 implement + wire DSLs
+- **Blockers:** none
+
 ## 2026-07-19 — F-018 close: docs soak + ticket done
 
 - **Ticket:** F-018 → `done` (8.x terminal toolchain; AGP 9 = F-019 only with explicit OK)
