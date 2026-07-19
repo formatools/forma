@@ -92,7 +92,7 @@ Close the biggest call-site / multi-way gap: chain `withPlugin`. Design:
 |----|--------|-------|-------|
 | F-070 | done | Design type-owned plugins API | Bazel north star; type owns plugin; auto-apply; reject free-form lists + call-site binding re-selection |
 | F-071 | done | **Implement** type→plugin registry + auto-apply; `targetPlugin` / `deriveTargetType` | `TargetPluginSpec` + registry + Path A/B; `applyTargetPlugins` on all Android DSLs; unit tests; plugins build green; legacy shims kept for F-072 |
-| F-072 | in_progress | Migrate sample to derived types (e.g. `navigationRes`); hard-deprecate chain | Zero `.withPlugin` in tree; `TargetBuilder`/`PluginWrapper` `@Deprecated` or removed; application green |
+| F-072 | done | Migrate sample to derived types (e.g. `navigationRes`); hard-deprecate chain | Path B `navigationRes` in build-dependencies; `resourcesTarget` helper; Unit returns on androidRes/binary/uiLibrary; `TargetBuilder`/`PluginWrapper`/`Plugins` `@Deprecated`; zero active `.withPlugin`; application build green |
 | F-073 | todo | User docs + progressive example + agent skill; close GH #36 | Call sites attributes-only; registration/type layer documented |
 
 ## P8 — Principle alignment (implementation matches goals)

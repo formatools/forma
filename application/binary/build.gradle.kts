@@ -27,4 +27,4 @@ androidBinary(
     )
 )
 // TODO: enable when create crashlytics project
-//    .withPlugins(Plugins.googleServices, Plugins.crashlytics())
+// (would be a derived firebaseBinary type per Path B, not .withPlugins chain)
