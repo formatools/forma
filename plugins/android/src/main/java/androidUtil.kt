@@ -10,7 +10,7 @@ import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
-import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.android.feature.processorConfigurationFeatures
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.core.FormaDependency
@@ -63,6 +63,6 @@ fun Project.androidUtil(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.androidUtil).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        configurationFeatures = kaptConfigurationFeature()
+        configurationFeatures = processorConfigurationFeatures()
     )
 }

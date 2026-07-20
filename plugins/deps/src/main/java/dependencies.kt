@@ -14,6 +14,7 @@ import tools.forma.deps.core.FileSpec
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.Implementation
 import tools.forma.deps.core.Kapt
+import tools.forma.deps.core.Ksp
 import tools.forma.deps.core.MixedDependency
 import tools.forma.deps.core.NameSpec
 import tools.forma.deps.core.NamedDependency
@@ -226,6 +227,9 @@ fun deps(vararg dependencies: TargetDependency): TargetDependency {
 fun kapt(vararg names: String): NamedDependency =
     NamedDependency(names.map { NameSpec(it, Kapt, true) })
 
+fun ksp(vararg names: String): NamedDependency =
+    NamedDependency(names.map { NameSpec(it, Ksp, true) })
+
 fun String.dep(configuration: CustomConfiguration, transitive: Boolean = true) =
     NamedDependency(listOf(NameSpec(this, configuration, transitive)))
 
@@ -234,6 +238,9 @@ val String.dep: NamedDependency
 
 val String.kapt: NamedDependency
     get() = kapt(this)
+
+val String.ksp: NamedDependency
+    get() = ksp(this)
 
 val Project.target: FormaTarget
     get() = FormaTarget(this)

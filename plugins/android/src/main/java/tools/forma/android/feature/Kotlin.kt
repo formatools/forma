@@ -5,13 +5,13 @@ import kapt
 import tools.forma.config.AndroidProjectSettings
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.tasks.compile.JavaCompile
 import tools.forma.deps.core.ConfigurationType
 import tools.forma.deps.core.Kapt
+import tools.forma.deps.core.Ksp
 
 private fun defaultConfiguration(project: Project, androidProjectSettings: AndroidProjectSettings) {
     val jvm = androidProjectSettings.javaVersionCompatibility.toString()
@@ -29,16 +29,17 @@ private val sharedFeatureConfiguration:
     { _, _, project, configuration -> defaultConfiguration(project, configuration) }
 
 /**
- * F-019 Phase 1: keep `kotlin-android` + kapt under
- * `android.builtInKotlin=false` + `android.newDsl=false`.
- * Phase 2: built-in Kotlin + migrate kapt→KSP (Dagger) and drop these plugins.
+ * AGP 9 built-in Kotlin: do **not** apply `kotlin-android`.
+ * Only wires Java/Kotlin jvmTarget from project settings (F-086).
  */
 private val kotlinAndroidFeatureDefinitionInstance =
-    FeatureDefinition(
-        pluginName = "kotlin-android",
-        pluginExtension = KotlinAndroidProjectExtension::class,
+    FeatureDefinition<Unit, Unit>(
+        pluginName = "",
+        pluginExtension = null,
         featureConfiguration = Unit,
-        configuration = sharedFeatureConfiguration
+        configuration = { _, _, project, configuration ->
+            defaultConfiguration(project, configuration)
+        }
     )
 
 /** Cached — same definition for every pure-JVM target (F-017). */
@@ -50,6 +51,7 @@ private val kotlinFeatureDefinitionInstance =
         configuration = sharedFeatureConfiguration
     )
 
+/** Legacy kapt path — still supported if a target declares `.kapt` deps. */
 private val kotlinKaptFeatureDefinitionInstance =
     FeatureDefinition(
         pluginName = "kotlin-kapt",
@@ -61,17 +63,29 @@ private val kotlinKaptFeatureDefinitionInstance =
 
 fun kotlinFeatureDefinition() = kotlinFeatureDefinitionInstance
 
+/** Config-only under AGP 9 built-in Kotlin (no `kotlin-android` plugin). */
 fun kotlinAndroidFeatureDefinition() = kotlinAndroidFeatureDefinitionInstance
 
 fun kotlinKaptFeatureDefinition() = kotlinKaptFeatureDefinitionInstance
 
 /**
- * Lazy kapt plugin application when a target declares kapt deps.
- * Map is small and shared; the lambda closes over the [Project] receiver.
+ * Lazy processor plugins when a target declares kapt/ksp deps.
+ * - [Ksp] → apply `com.google.devtools.ksp` (preferred; F-086)
+ * - [Kapt] → apply `kotlin-kapt` (legacy; incompatible with built-in Kotlin)
  */
-fun Project.kaptConfigurationFeature(): Map<ConfigurationType, () -> Unit> =
+fun Project.processorConfigurationFeatures(): Map<ConfigurationType, () -> Unit> =
     mapOf(
+        Ksp to {
+            if (!pluginManager.hasPlugin("com.google.devtools.ksp")) {
+                pluginManager.apply("com.google.devtools.ksp")
+            }
+        },
         Kapt to {
             applyFeatures(kotlinKaptFeatureDefinition())
         }
     )
+
+/** @deprecated Use [processorConfigurationFeatures] (includes KSP). */
+@Deprecated("Use processorConfigurationFeatures()", ReplaceWith("processorConfigurationFeatures()"))
+fun Project.kaptConfigurationFeature(): Map<ConfigurationType, () -> Unit> =
+    processorConfigurationFeatures()

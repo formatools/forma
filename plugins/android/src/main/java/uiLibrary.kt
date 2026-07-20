@@ -2,7 +2,7 @@ import org.gradle.api.Project
 import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
 import tools.forma.android.feature.androidLibraryFeatureDefinition
 import tools.forma.android.feature.applyFeatures
-import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.android.feature.processorConfigurationFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
@@ -57,7 +57,7 @@ fun Project.uiLibrary(
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        configurationFeatures = kaptConfigurationFeature()
+        configurationFeatures = processorConfigurationFeatures()
     )
 }
 

@@ -2,6 +2,23 @@
 
 Newest entries first.
 
+## 2026-07-20 — F-086: kapt → KSP + AGP built-in Kotlin
+
+- **Ticket:** F-086 → `done`
+- **Branch:** `forma/F-086-ksp-migration` (from origin/v2)
+- **User OK:** “Schedule Migration to ksp” (topic 136)
+- **Forma engine:**
+  - `ConfigurationType.Ksp` + `ksp()` / `String.ksp` + `DependencyHandler.ksp`
+  - `processorConfigurationFeatures()` auto-applies `com.google.devtools.ksp` (or legacy kapt)
+  - Android targets use AGP **built-in Kotlin** (no `kotlin-android` plugin)
+- **Sample:**
+  - `google.dagger` → `dagger-compiler` on **ksp** (was kapt)
+  - Drop `android.builtInKotlin=false` / `android.newDsl=false`
+  - Navigation **2.9.8** + safe-args plugin **2.9.8** (AGP 9 new DSL via `com.android.base` / AndroidComponentsExtension)
+- **Verify:** plugins + application (2322 tasks) + jvm-application **BUILD SUCCESSFUL**
+- **Next:** F-083
+
+
 ## 2026-07-20 — F-019: Gradle 9.6.1 + Kotlin 2.3.21 + AGP 9.3.0
 
 - **Ticket:** F-019 → `done` (Phase 1)
