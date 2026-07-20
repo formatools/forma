@@ -41,7 +41,7 @@ fun Project.androidBinary(
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
     compose: Boolean = Forma.settings.compose,
-): TargetBuilder {
+) {
 
     disallowResources()
 
@@ -67,6 +67,5 @@ fun Project.androidBinary(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.binary).asValidator(),
         dependencies = dependencies
     )
-
-    return TargetBuilder(this)
+    // Unit return (no TargetBuilder chain after F-072)
 }

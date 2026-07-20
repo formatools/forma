@@ -1,47 +1,26 @@
 import org.gradle.api.Project
-import tools.forma.android.feature.AndroidLibraryFeatureConfiguration
-import tools.forma.android.feature.androidLibraryFeatureDefinition
-import tools.forma.android.feature.applyFeatures
-import tools.forma.android.feature.kotlinAndroidFeatureDefinition
-import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
-import tools.forma.android.validation.onlyAllowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
-import tools.forma.deps.core.applyDependencies
-import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
-import tools.forma.validation.asValidator
-import tools.forma.validation.validate
 
-// Only resources allowed
+// Only resources allowed. Pre-defined `res` type — no external plugins by default.
+// For safe-args / selective plugins, use a Path B derived type (see docs/TARGET-PLUGINS.md).
 fun Project.androidRes(
     packageName: String,
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
     manifestPlaceholders: Map<String, Any> = emptyMap()
-): TargetBuilder {
-
-    onlyAllowResources()
-
-    AndroidTargetRegistry.selfValidator(AndroidTargetTypes.res).asValidator().validate(target)
-    val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
+) {
+    resourcesTarget(
+        type = AndroidTargetTypes.res,
         packageName = packageName,
-        manifestPlaceholders = manifestPlaceholders
+        owner = owner,
+        visibility = visibility,
+        dependencies = dependencies,
+        manifestPlaceholders = manifestPlaceholders,
     )
-    applyFeatures(
-        androidLibraryFeatureDefinition(libraryFeatureConfiguration),
-        kotlinAndroidFeatureDefinition()
-    )
-    applyTargetPlugins(AndroidTargetTypes.res)
-
-    applyDependencies(
-        validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.res).asValidator(),
-        dependencies = dependencies
-    )
-
-    return TargetBuilder(this)
 }

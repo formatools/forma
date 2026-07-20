@@ -2,6 +2,24 @@
 
 Newest entries first.
 
+## 2026-07-19 — F-072: navigationRes Path B + deprecate withPlugin chain
+
+- **Ticket:** F-072 → `done`
+- **Branch / PR:** `forma/F-072-navigation-res` → base `v2`
+- **Skills/modes:** Grok Build `--mode full` (design + implement max-turns); Hermes finish path: `resourcesTarget` helper, core classpath fix, verify builds, bookkeeping
+- **Code:**
+  - `plugins/android`: `resourcesTarget(type, …)` shared res wiring; `androidRes` / `androidBinary` / `uiLibrary` return **Unit**; `TargetBuilder` `@Deprecated`
+  - `plugins/deps`: `PluginWrapper` `@Deprecated`
+  - `build-dependencies`: `NavigationRes.kt` — `deriveTargetType(sample.navigation-res, base=res, suffix=res)` + `navigationRes(...)` DSL; deps on `tools.forma:android` + `:core`; legacy `Plugins` object `@Deprecated`
+  - Sample: `application/core/navigation/res` → `navigationRes(...)` (no plugin ids); binary comment updated (no chain)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew :deps:test :android:compileKotlin build` → **BUILD SUCCESSFUL**
+  - `application/ ./gradlew :core-navigation-res:compileDebugKotlin` → **SUCCESS** including `generateSafeArgsDebug` (type-owned safe-args applied)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2554 tasks)
+  - `rg` active `.withPlugin` call sites → **none** (only deprecation messages / TestKit `withPluginClasspath`)
+- **Blockers:** none
+- **Next:** F-073 user docs + progressive example + agent skill; close GH #36
+
 ## 2026-07-19 — F-071: type-owned target plugins registry + auto-apply
 
 - **Ticket:** F-071 → `done`

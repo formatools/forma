@@ -7,8 +7,8 @@ target kind + attributes. Plugin identity is part of the **rule / target type**,
 not restated on every module. Extending a type with a plugin **auto-applies** that
 plugin on every call site of that type.
 
-**Status:** F-070 design accepted (3rd revision). **F-071 implemented** (type→plugin registry + auto-apply).  
-**Remaining:** F-072 sample migrate / deprecate chain · F-073 docs / GH #36.
+**Status:** F-070 design accepted · **F-071** registry + auto-apply · **F-072** sample `navigationRes` Path B + chain `@Deprecated`.  
+**Remaining:** F-073 docs / progressive example / GH #36.
 
 **Related:** [`DEPS-CATALOG.md`](DEPS-CATALOG.md), [`ARCHITECTURE.md`](ARCHITECTURE.md),
 [`forma-core-api.md`](forma-core-api.md), `TargetRegistry` / `TargetRegistration`.

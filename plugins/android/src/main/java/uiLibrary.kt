@@ -36,7 +36,7 @@ fun Project.uiLibrary(
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
     compose: Boolean = Forma.settings.compose,
-): TargetBuilder {
+) {
     AndroidTargetRegistry.selfValidator(AndroidTargetTypes.uiLibrary).asValidator().validate(target)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
@@ -59,7 +59,6 @@ fun Project.uiLibrary(
         androidTestDependencies = androidTestDependencies,
         configurationFeatures = kaptConfigurationFeature()
     )
-
-    return TargetBuilder(this)
+    // Unit return (no TargetBuilder chain after F-072)
 }
 
