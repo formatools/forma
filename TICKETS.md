@@ -98,13 +98,13 @@ Close the biggest call-site / multi-way gap: chain `withPlugin`. Design:
 ## P8 — Principle alignment (implementation matches goals)
 
 Close remaining gaps where code/docs still allow **multiple ways**, **fat call
-sites**, or **missing fleet tooling**. **F-071 remains the top coding priority**
-(P7 before deeper P8 unless a ticket is pure docs).
+sites**, or **missing fleet tooling**. P7 (F-070–F-073) and F-081 are **done**;
+next coding priority is **F-082**.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
 | F-080 | done | Codify root principles in product docs | `VISION.md` § Root principles + README + `AGENTS.md` + GETTING-STARTED; board P8 added |
-| F-081 | todo | Call-site surface audit: `Unit` returns, no builder chains, minimal attrs | All Android/JVM target DSLs return `Unit`; remove `TargetBuilder` after F-072; inventory optional call-site flags (`compose`, `viewBinding`, …) — keep only as declared rule attrs with **project-global defaults**, not ad-hoc structure |
+| F-081 | done | Call-site surface audit: `Unit` returns, no builder chains, minimal attrs | Hard-removed `TargetBuilder` / `PluginWrapper` / sample `Plugins` + chain-only `PluginConfiguration`; all Android/JVM DSLs already `Unit`; `docs/CALL-SITE-SURFACE.md` flag inventory (`compose` → project-global default, `viewBinding` on impl + dedicated type) |
 | F-082 | todo | One global configuration path | Remove/finish-kill deprecated `Project.androidProjectConfiguration`; document `extraPlugins` as **classpath only** (not per-module apply); single settings/store story |
 | F-083 | todo | One project-global external-deps convention | House style: version catalog **or** typed catalogs as the sample+docs standard; other path = advanced/legacy note, not dual happy path (`DEPS-CATALOG.md`) |
 | F-084 | todo | Fleet tooling for explicit graphs (check / generate / migrate) | Principle 3 at scale: tighten includer/depgen/bazel-check; design+spike migrate helpers for renames/type changes; related GH **#54**. Reliable large refactors without hand-editing thousands of modules |

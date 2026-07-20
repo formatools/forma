@@ -59,6 +59,5 @@ fun Project.uiLibrary(
         androidTestDependencies = androidTestDependencies,
         configurationFeatures = kaptConfigurationFeature()
     )
-    // Unit return (no TargetBuilder chain after F-072)
 }
 
