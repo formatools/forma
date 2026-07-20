@@ -8,9 +8,9 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
-    // Match Gradle 8.14.5 embedded Kotlin
+    // Match Gradle 9.6.1 embedded Kotlin
     plugins {
-        id("org.jetbrains.kotlin.jvm") version "2.0.21"
+        id("org.jetbrains.kotlin.jvm") version "2.3.21"
     }
 }
 

@@ -40,7 +40,7 @@ data class AndroidProjectSettings(
      * Jetpack Compose compiler extension version applied when a target enables
      * Compose (`composeOptions.kotlinCompilerExtensionVersion`). Must match the
      * Kotlin version used by the project (see Compose Compiler compatibility map).
-     * Default `2.0.21` pairs with Kotlin **2.0.21** (Gradle 8.14.5 embedded Kotlin used
+     * Default `2.3.21` pairs with Kotlin **2.3.21** (Gradle 9.6.1 embedded Kotlin used
      * by the sample application). Override when bumping Kotlin.
      */
     val composeCompilerVersion: String,

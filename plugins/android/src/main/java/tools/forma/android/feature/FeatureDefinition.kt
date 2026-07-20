@@ -11,8 +11,13 @@ import org.gradle.kotlin.dsl.the
 import tools.forma.deps.core.addDependencyTo
 
 data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
+    /** Gradle plugin id to apply. Blank = no plugin (e.g. AGP 9 built-in Kotlin config-only). */
     val pluginName: String,
-    val pluginExtension: KClass<Extension>,
+    /**
+     * Extension type looked up via `project.the`. Null when [pluginName] is blank / no extension
+     * (then [configuration] receives [Unit] cast to [Extension]).
+     */
+    val pluginExtension: KClass<Extension>? = null,
     val featureConfiguration: FeatureConfiguration,
     val defaultDependencies: NamedDependency = emptyDependency(),
     /**
@@ -23,18 +28,25 @@ data class FeatureDefinition<Extension : Any, FeatureConfiguration : Any>(
     val androidProjectSettings: AndroidProjectSettings? = null,
     val configuration: (Extension, FeatureConfiguration, Project, AndroidProjectSettings) -> Unit
 ) {
-    fun applyConfiguration(project: Project) = configuration(
-        project.the(pluginExtension),
-        featureConfiguration,
-        project,
-        androidProjectSettings ?: Forma.settings
-    )
+    @Suppress("UNCHECKED_CAST")
+    fun applyConfiguration(project: Project) {
+        val settings = androidProjectSettings ?: Forma.settings
+        val extension: Extension =
+            if (pluginExtension != null) {
+                project.the(pluginExtension)
+            } else {
+                Unit as Extension
+            }
+        configuration(extension, featureConfiguration, project, settings)
+    }
 }
 
 fun Project.applyFeatures(
     vararg features: FeatureDefinition<*, *>
 ) = features.forEach { definition ->
-    apply(plugin = definition.pluginName)
+    if (definition.pluginName.isNotBlank()) {
+        apply(plugin = definition.pluginName)
+    }
     definition.applyConfiguration(this)
     val defaults = definition.defaultDependencies.names
     if (defaults.isNotEmpty()) {

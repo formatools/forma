@@ -14,9 +14,9 @@ androidProjectConfiguration(
     targetSdk = 33,
     // compileSdk 34 when using modern Compose transitive AARs
     compileSdk = 34,
-    agpVersion = "8.13.2",
+    agpVersion = "9.3.0",
     compose = false, // default for per-target flags
-    composeCompilerVersion = "2.0.21", // must match Kotlin (2.0.21 → 2.0.21)
+    composeCompilerVersion = "2.3.21", // must match Kotlin (2.3.21 → 2.3.21)
 )
 ```
 
@@ -97,8 +97,8 @@ Full matrix: [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md).
 
 ## Compiler / Kotlin pairing
 
-Default `composeCompilerVersion = "2.0.21"` matches Kotlin **2.0.21** (Gradle
-**8.14.5** embedded Kotlin used by the sample). On Kotlin **2.0+**, Forma also
+Default `composeCompilerVersion = "2.3.21"` matches Kotlin **2.3.21** (Gradle
+**9.6.1** embedded Kotlin used by the sample). On Kotlin **2.0+**, Forma also
 applies the **Compose Compiler Gradle plugin** when `compose = true` (the
 `composeCompilerVersion` value remains the paired compiler coordinate for AGP
 `composeOptions` / tooling). If you bump Kotlin, update

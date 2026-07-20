@@ -302,7 +302,7 @@ object androidx {
     /**
      * Jetpack Compose runtime + UI + foundation + material (pinned versions).
      * Pair with `compose = true` / `composeWidget` targets (F-013).
-     * Versions match Compose Compiler **2.0.21** / Kotlin **2.0.21** (Gradle 8.14.5).
+     * Versions match Compose Compiler **2.3.21** / Kotlin **2.3.21** (Gradle 9.6.1).
      * Uses [transitiveDeps] so Compose UI unit/graphics transitively resolve.
      * Does not include activity-compose (pulls emoji2 requiring compileSdk 34);
      * add that separately when hosting Compose in Activities on SDK 34+.

@@ -1,8 +1,7 @@
 package tools.forma.android.feature
 
 import androidJunitRunner
-import com.android.build.gradle.LibraryExtension
-import org.gradle.kotlin.dsl.get
+import com.android.build.api.dsl.LibraryExtension
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.applyFrom
@@ -44,9 +43,9 @@ fun androidLibraryFeatureDefinition(
                 feature.manifestPlaceholders
             )
 
-            sourceSets["main"].java.srcDirs("src/main/kotlin")
-            sourceSets["test"].java.srcDirs("src/test/kotlin")
-            sourceSets["androidTest"].java.srcDirs("src/androidTest/kotlin")
+            sourceSets.getByName("main").java.srcDir("src/main/kotlin")
+            sourceSets.getByName("test").java.srcDir("src/test/kotlin")
+            sourceSets.getByName("androidTest").java.srcDir("src/androidTest/kotlin")
 
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
@@ -56,7 +55,7 @@ fun androidLibraryFeatureDefinition(
                 enableCompose(project, formaConfiguration.composeCompilerVersion)
             }
         }
-        // AGP 8.13+ library `verify*Resources` is overly strict with Navigation safe-args
+        // AGP library `verify*Resources` is overly strict with Navigation safe-args
         // graphs in pure `androidRes` modules (debug APK still packages graphs correctly).
         project.tasks.matching { it.name.startsWith("verify") && it.name.endsWith("Resources") }
             .configureEach { enabled = false }

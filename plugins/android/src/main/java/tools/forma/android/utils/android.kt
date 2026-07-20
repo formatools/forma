@@ -28,8 +28,7 @@ internal fun DefaultConfig.applyFrom(
     when (this) {
         is ApplicationDefaultConfig -> targetSdk = androidProjectSettings.targetSdk
         is LibraryDefaultConfig -> {
-            @Suppress("DEPRECATION")
-            targetSdk = androidProjectSettings.targetSdk
+            // AGP 9: libraries no longer expose targetSdk on LibraryDefaultConfig
             if (consumerMinificationFiles.isNotEmpty()) {
                 consumerProguardFiles(*consumerMinificationFiles.toTypedArray())
             }

@@ -22,7 +22,7 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > application/local.properties
 
 # Verify
 java -version   # expect 21.x
-cd plugins && ./gradlew --version   # Gradle 8.14.5 + JVM 21
+cd plugins && ./gradlew --version   # Gradle 9.6.1 + JVM 21
 cd ../plugins && ./gradlew build
 cd ../application && ./gradlew build
 cd ../includer && ./gradlew build
@@ -76,16 +76,16 @@ sudo ln -sfn /usr/local/opt/openjdk@21/libexec/openjdk.jdk \
   /Library/Java/JavaVirtualMachines/openjdk-21.jdk
 ```
 
-## Verified on 2026-07-19 (F-018 complete — 8.x terminal)
+## Verified on 2026-07-20 (F-019 Phase 1 — Gradle 9 + Kotlin 2.3 + AGP 9)
 
 - `java` / `javac` **21.x** (Homebrew OpenJDK 21) via `scripts/env-mac.sh`
-- Gradle wrappers: **8.14.5** (all roots; unified via #180 then #182)
-- AGP **8.13.2** lockstep (`plugins/android` compile + sample `agpVersion`)
-- Kotlin **2.0.21** (Gradle embedded); KSP **2.0.21-1.0.28**
-- Compose compiler default **2.0.21** (+ Kotlin Compose Compiler plugin when `compose=true`)
+- Gradle wrappers: **9.6.1** (all roots; F-019)
+- AGP **9.3.0** lockstep (`plugins/android` compile + sample `agpVersion`)
+- Kotlin **2.3.21** (Gradle embedded); KSP **2.3.10**
+- Compose compiler default **2.3.21** (+ Kotlin Compose Compiler plugin when `compose=true`)
 - Sample SDK: min **23** / target **35** / compile **35** (install platform 35 for full sample builds; 34/33 still useful)
 - CI: Temurin **21** all jobs (`.github/workflows/main.yml`)
-- AGP 9 / Gradle 9 / absolute-latest AndroidX = **F-019** only with explicit OK
+- F-019 in progress: Gradle 9.6.1 + Kotlin 2.3.21 + AGP 9.3.0
 
 See `docs/PROGRESS.md` for the latest host build tails.
 

@@ -27,6 +27,7 @@ import tools.forma.sample.core.di.library.BaseComponentProvider
 import tools.forma.sample.core.mvvm.library.ui.BaseViewBindingFragment
 import tools.forma.sample.core.mvvm.library.viewModels
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
+import tools.forma.sample.feature.characters.favorite.impl.presentation.CharacterFavoriteViewModel
 import tools.forma.sample.feature.characters.favorite.viewbinding.presentation.ICharacterFavoriteViewModel
 import tools.forma.sample.feature.characters.favorite.viewbinding.presentation.ICharacterFavoriteViewState
 import tools.forma.sample.feature.characters.favorite.impl.R
@@ -39,7 +40,7 @@ class CharacterFavoriteFragment : BaseViewBindingFragment(
     layoutId = tools.forma.sample.feature.characters.favorite.viewbinding.R.layout.fragment_character_favorite_list
 ) {
 
-    private val viewModel: ICharacterFavoriteViewModel by viewModels()
+    private val viewModel: ICharacterFavoriteViewModel by viewModels<CharacterFavoriteViewModel>()
     private val viewBinding: FragmentCharacterFavoriteListBinding by viewBinding(FragmentCharacterFavoriteListBinding::bind)
 
     private val viewAdapter = CharacterFavoriteAdapter()

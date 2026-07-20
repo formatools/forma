@@ -4,6 +4,7 @@ import deps
 import kapt
 import tools.forma.config.AndroidProjectSettings
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
@@ -13,12 +14,13 @@ import tools.forma.deps.core.ConfigurationType
 import tools.forma.deps.core.Kapt
 
 private fun defaultConfiguration(project: Project, androidProjectSettings: AndroidProjectSettings) {
+    val jvm = androidProjectSettings.javaVersionCompatibility.toString()
     project.tasks.withType(JavaCompile::class.java).configureEach {
-        targetCompatibility = androidProjectSettings.javaVersionCompatibility.toString()
-        sourceCompatibility = androidProjectSettings.javaVersionCompatibility.toString()
+        targetCompatibility = jvm
+        sourceCompatibility = jvm
     }
     project.tasks.withType(KotlinCompile::class.java).configureEach {
-        kotlinOptions.jvmTarget = androidProjectSettings.javaVersionCompatibility.toString()
+        compilerOptions.jvmTarget.set(JvmTarget.fromTarget(jvm))
     }
 }
 
@@ -26,20 +28,24 @@ private val sharedFeatureConfiguration:
     (Any, Any, Project, AndroidProjectSettings) -> Unit =
     { _, _, project, configuration -> defaultConfiguration(project, configuration) }
 
+/**
+ * F-019 Phase 1: keep `kotlin-android` + kapt under
+ * `android.builtInKotlin=false` + `android.newDsl=false`.
+ * Phase 2: built-in Kotlin + migrate kapt→KSP (Dagger) and drop these plugins.
+ */
+private val kotlinAndroidFeatureDefinitionInstance =
+    FeatureDefinition(
+        pluginName = "kotlin-android",
+        pluginExtension = KotlinAndroidProjectExtension::class,
+        featureConfiguration = Unit,
+        configuration = sharedFeatureConfiguration
+    )
+
 /** Cached — same definition for every pure-JVM target (F-017). */
 private val kotlinFeatureDefinitionInstance =
     FeatureDefinition(
         pluginName = "kotlin",
         pluginExtension = KotlinJvmProjectExtension::class,
-        featureConfiguration = Unit,
-        configuration = sharedFeatureConfiguration
-    )
-
-/** Cached — same definition for every Android library / widget target (F-017). */
-private val kotlinAndroidFeatureDefinitionInstance =
-    FeatureDefinition(
-        pluginName = "kotlin-android",
-        pluginExtension = KotlinAndroidProjectExtension::class,
         featureConfiguration = Unit,
         configuration = sharedFeatureConfiguration
     )

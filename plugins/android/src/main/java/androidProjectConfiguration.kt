@@ -26,7 +26,7 @@ import tools.forma.config.SettingsStore
  *         minSdk = 23,
  *         targetSdk = 35,
  *         compileSdk = 35,
- *         agpVersion = "8.13.2",
+ *         agpVersion = "9.3.0",
  *         // ...
  *     )
  * }
@@ -119,8 +119,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     registerAndroidDefaults()
 }
 
-/** Compose Compiler matching Kotlin 2.0.21 (Gradle 8.14.5 embedded Kotlin). */
-const val DEFAULT_COMPOSE_COMPILER_VERSION = "2.0.21"
+/** Compose Compiler matching Kotlin 2.3.21 (Gradle 9.6.1 embedded Kotlin). */
+const val DEFAULT_COMPOSE_COMPILER_VERSION = "2.3.21"
 
 val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpathDeps ->
     // TODO pass repositories configuration

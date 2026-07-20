@@ -4,6 +4,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.apply
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
@@ -32,6 +33,6 @@ fun Project.applyKotlinJvm() {
     }
 
     tasks.withType(KotlinCompile::class.java).configureEach {
-        kotlinOptions.jvmTarget = jvmTarget
+        compilerOptions.jvmTarget.set(JvmTarget.fromTarget(jvmTarget))
     }
 }

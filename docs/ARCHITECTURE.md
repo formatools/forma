@@ -16,11 +16,11 @@ that compose via `includeBuild`:
 
 | Path | Role | Gradle wrapper | Publishes / consumed as |
 |------|------|----------------|-------------------------|
-| `plugins/` | Forma Gradle plugins (main product) | 8.14.5 | Composite + Plugin Portal (`tools.forma.*`) |
-| `application/` | Sample Android product (gold standard) | 8.14.5 | Consumer only |
-| `jvm-application/` | Sample pure-JVM product (`tools.forma.jvm`) | 8.14.5 | Consumer only |
-| `includer/` | Settings plugin: auto-`include` subprojects | 8.14.5 | `tools.forma.includer` |
-| `depgen/` | Transitive-deps generation plugin | 8.14.5 | `tools.forma.depgen` (standalone) |
+| `plugins/` | Forma Gradle plugins (main product) | 9.6.1 | Composite + Plugin Portal (`tools.forma.*`) |
+| `application/` | Sample Android product (gold standard) | 9.6.1 | Consumer only |
+| `jvm-application/` | Sample pure-JVM product (`tools.forma.jvm`) | 9.6.1 | Consumer only |
+| `includer/` | Settings plugin: auto-`include` subprojects | 9.6.1 | `tools.forma.includer` |
+| `depgen/` | Transitive-deps generation plugin | 9.6.1 | `tools.forma.depgen` (standalone) |
 | `build-settings/` | Shared settings conventions (repos) | — | `includeBuild` / convention plugins |
 | `build-dependencies/` | Typed external dep catalogs for sample | — | `includeBuild` as `tools.forma.demo:dependencies` |
 | `docs/`, `scripts/` | Worker/env docs (not Gradle) | — | — |
@@ -55,7 +55,7 @@ that compose via `includeBuild`:
 - `includeBuild("../build-settings")`, `../plugins`, `../includer`
 - Settings plugins: `convention-dependencies`, `tools.forma.includer`, `tools.forma.android`, Gradle Enterprise
 - `includeBuild("../build-dependencies")` for demo catalog
-- Heavy `buildscript` resolution forces (AGP **8.13.2**, bundletool, asm, guava, …)
+- Heavy `buildscript` resolution forces (AGP **9.3.0**, bundletool, asm, guava, …)
 
 **Plugins build** (`plugins/settings.gradle.kts`):
 
@@ -110,7 +110,7 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
 | `:android` | `tools.forma.android` | `:core` + all of the above + **AGP** + Kotlin GP | Target DSL; `AndroidTargetTypes` + `AndroidRestrictionKit` (F-021); content helpers call core `ContentRule` (F-022) |
 | `:jvm` | `tools.forma.jvm` | `:core`, `:deps`, `:validation`, `:target`, `:owners` + Kotlin GP (**no AGP**) | Pure JVM DSL (`api`/`impl`/`library`/`util`/`testUtil` in package `tools.forma.jvm`); `JvmTargetTypes` + `JvmTargetRegistry` (F-030) |
 
-`:android` compiles against **AGP 8.13.2** (aligned with sample
+`:android` compiles against **AGP 9.3.0** (aligned with sample
 `androidProjectConfiguration(agpVersion = …)` — F-018 / #182). Keep
 `plugins/android` AGP compile dep and consumer `agpVersion` in lockstep.
 AGP 9 is **F-019** only with explicit OK.
@@ -265,7 +265,7 @@ buildscript {
         minSdk = 23,
         targetSdk = 35,
         compileSdk = 35,
-        agpVersion = "8.13.2",
+        agpVersion = "9.3.0",
         extraPlugins = listOf(
             // classpath only — see PROJECT-CONFIGURATION.md + TARGET-PLUGINS.md
             libs.plugins.toolsFormaDemoDependencies,
@@ -293,7 +293,7 @@ Concurrency group `ci-${{ github.workflow }}-${{ github.ref }}` cancels in-progr
 
 CI pins (evolved F-004 → F-018):
 
-1. **All jobs** pin Temurin **21** via `actions/setup-java@v4` (was 17; requires Gradle ≥8.5 — wrappers are **8.14.5**).
+1. **All jobs** pin Temurin **21** via `actions/setup-java@v4` (was 17; requires Gradle ≥8.5 — wrappers are **9.6.1**).
 2. **Application** installs Android SDK packages matching sample `compileSdk` **35** / target **35**.
 3. README badge → `formatools/forma` + `actions/workflows/main.yml/badge.svg`.
 4. Gradle setup via `gradle/actions/setup-gradle@v4` (successor of `gradle-build-action`).
@@ -310,9 +310,9 @@ keys) or full Portal publish via secrets; deeper Gradle remote cache.
 |-----------|---------------------|
 | JDK (daemon / CI) | **21** (CI Temurin 21; host OpenJDK 21 via Homebrew `openjdk@21`) |
 | App bytecode / `jvmTarget` | unchanged (sample default `JavaVersion.VERSION_1_8`) — not raised with daemon JDK |
-| Gradle | **8.14.5** (all wrappers; F-018 #180→#182) |
-| AGP | **8.13.2** sample runtime + plugins compile (F-018 / #182) |
-| Kotlin | embeddedKotlin from Gradle 8.14.5 (**2.0.21**); KSP **2.0.21-1.0.28**; Compose compiler default **2.0.21** |
+| Gradle | **9.6.1** (all wrappers; F-019) |
+| AGP | **9.3.0** sample runtime + plugins compile (F-019) |
+| Kotlin | embeddedKotlin from Gradle 9.6.1 (**2.3.21**); KSP **2.3.10**; Compose compiler default **2.3.21** |
 | Android SDK | sample min **23** / target **35** / compile **35**; host platforms 35+34+33 + build-tools 33/34 |
 | Forma version | 0.1.3 |
 
@@ -365,7 +365,7 @@ Suggested extraction order (tickets F-020…F-024):
 | ~~README dependency matrix ≠ live validators~~ → [`docs/DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) | F-010 done |
 | ~~`EmptyValidator` on app/binary/(historical androidLibrary)~~ (composition-root + library allowlists) | F-011 done; androidLibrary removed F-063 |
 | ~~AGP 7.4.2 compile vs 8.1.2 runtime~~ (aligned 8.1.2) | F-003 done |
-| ~~F-018 8.x ladder~~ (JDK 21, Gradle 8.14.5, AGP 8.13.2, deps) | F-018 done (#179–#182); AGP 9 = F-019 |
+| ~~F-018 8.x ladder~~ (JDK 21, Gradle 9.6.1, AGP 9.3.0, deps) | F-018 done (#179–#182); F-019 in progress (9.x) |
 | ~~CI missing SDK + Java on some jobs~~ (GHA green on PR #153) | F-004 done |
 | ~~Compose flag in settings, limited target support~~ → per-target flags + `composeWidget` | F-013 done |
 | ~~Missing Android getting-started tutorial~~ → [`docs/GETTING-STARTED.md`](GETTING-STARTED.md) | F-015 done |
