@@ -25,7 +25,7 @@ full multi-feature reference layout, see [SAMPLE-APP.md](SAMPLE-APP.md).
 | **Suffix** | Folder / project name ending that encodes type (`…-impl`, `…-api`, `…-res`, `binary`, …). Validators use suffixes. |
 | **Composition root** | `androidApp` and/or `androidBinary` — where feature graphs are wired (Dagger-friendly). |
 | **Feature slice** | Typical feature folder: `api` + `impl` + `res` + `viewbinding`. |
-| **Catalogs** | External deps declared once (`projectDependencies` / typed catalogs), consumed via `deps(...)`. |
+| **Catalogs** | External deps declared once via house-style `projectDependencies` (`libs.*`), consumed with `deps(...)`. Typed objects = advanced only — [DEPS-CATALOG.md](DEPS-CATALOG.md). |
 
 **What Forma does for each target**
 
@@ -248,19 +248,21 @@ androidBinary(
 androidApp(
     packageName = "com.example.myapp.root",
     dependencies = deps(
-        androidx.core_ktx,   // when using typed demo catalogs; or libs.* / bare deps
-        androidx.appcompat,
-        google.material,
+        libs.androidxCoreKtx,   // house style: projectDependencies → libs.*
+        libs.androidxAppcompat,
+        libs.material,
     ) + deps(
         target(":root-res"),
     ),
 )
 ```
 
-> **Note on external catalogs:** the sample uses both typed catalogs under
-> `build-dependencies/` (`androidx.*`, `google.*`) and settings
-> `projectDependencies` (`libs.*`). A Portal-only app can start with
-> `projectDependencies` only — see [DEPS-CATALOG.md](DEPS-CATALOG.md).
+> **External deps house style (F-083):** use settings
+> `projectDependencies` → `libs.*` for all new modules
+> ([DEPS-CATALOG.md](DEPS-CATALOG.md)). The gold-standard sample still uses
+> **advanced** typed catalogs under `build-dependencies/` (`androidx.*`,
+> `google.*`) for its large shared graph — that is optional scale, not a second
+> happy path. Portal / greenfield apps should stay on `projectDependencies` only.
 
 **`feature/hello/api/build.gradle.kts`** — JVM contracts only (no `res/`):
 
@@ -335,19 +337,22 @@ Compose flags: [COMPOSE.md](COMPOSE.md).
 
 ```kotlin
 dependencies = deps(
-    libs.jakewhartonTimber,   // from projectDependencies catalog
+    libs.jakewhartonTimber,   // house style: projectDependencies catalog
     libs.bundles.room,
-    // or typed catalog objects in the sample: androidx.appcompat, google.dagger
+    libs.androidxAppcompat,
 )
 ```
 
 Combine groups with `+`:
 
 ```kotlin
-dependencies = deps(androidx.core_ktx, google.material) +
+dependencies = deps(libs.androidxCoreKtx, libs.material) +
     deps(libs.jakewhartonTimber) +
     deps(target(":feature:hello:api"))
 ```
+
+> Advanced only: the sample’s typed objects (`androidx.core_ktx`, `google.dagger`)
+> remain valid where that pattern is already in use — see DEPS-CATALOG §2.
 
 ### Project / internal
 

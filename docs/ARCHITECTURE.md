@@ -200,9 +200,10 @@ compatibility). See [`COMPOSE.md`](COMPOSE.md) for F-013 usage.
   side-effects from catalog registrations, sets transitive flags
 - Catalog: `projectDependencies` / `library` / `bundle` / `plugin` in settings
   (`tools.forma.deps.catalog`) + pure name generators + GAV validation
-  (user guide: [`DEPS-CATALOG.md`](DEPS-CATALOG.md))
-- Sample also uses hand-written catalogs in `build-dependencies/dependencies`
-  (`Androidx`, `Google`, `Test`, …)
+  (**house style** — user guide: [`DEPS-CATALOG.md`](DEPS-CATALOG.md))
+- Sample also uses **advanced** hand-written typed catalogs in
+  `build-dependencies/dependencies` (`Androidx`, `Google`, `Test`, …) for large
+  nested graphs — not a second default happy path (F-083)
 
 ### 2.5 Includer
 

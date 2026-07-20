@@ -27,7 +27,7 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | `widget` / `uiLibrary` | 05 | — | forma-android-targets |
 | Compose + `composeWidget` | 06 | — | forma-compose |
 | Multi-feature composition | 07 | 04 | forma-project-layout |
-| `projectDependencies` catalogs | 08 | — | forma-deps-catalog |
+| `projectDependencies` catalogs (**house style**) | 08 | — | forma-deps-catalog |
 | `testUtil` | 09 | 05 | platform skills |
 | `androidTestUtil` | 09 | — | forma-android-targets |
 | Type-owned target plugins (`navigationRes` Path B) | 10 | — | forma-target-plugins |

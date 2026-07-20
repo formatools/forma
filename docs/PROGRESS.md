@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-20 — F-083: one external-deps house style
+
+- **Ticket:** F-083 → `done`
+- **Branch:** `forma/F-083-external-deps-convention` (from origin/v2)
+- **Skills/modes:** Grok Build `--mode full` design 503 + implement timeout (no tree changes); Hermes finish path for docs/convention slice (F-083 is house-style docs class)
+- **Decision (locked):**
+  - **House style:** `projectDependencies` → `libs.*` + `deps(...)`
+  - **Advanced only:** typed `build-dependencies/` objects (`androidx.*`, `google.*`) for large nested non-transitive graphs
+  - Not dual happy paths; sample may still mix at monorepo scale
+- **Docs / teaching:**
+  - Rewrote `docs/DEPS-CATALOG.md` (house style §1, advanced §2)
+  - README, GETTING-STARTED, JVM-GETTING-STARTED, CALL-SITE-SURFACE, ARCHITECTURE §2.4, PROGRESSIVE-EXAMPLES
+  - Agent skill `forma-deps-catalog` + `examples/android/08-deps-catalog/README.md`
+  - Light KDoc on `Settings.projectDependencies`; sample settings comment
+- **Out of scope (intentional):** mass-migrate sample modules off typed catalogs
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2322 tasks)
+  - `examples/android/08-deps-catalog ./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (128 tasks)
+- **Blockers:** none
+- **Next:** F-084 fleet tooling (check/generate/migrate)
+
 ## 2026-07-20 — F-086: kapt → KSP + AGP built-in Kotlin
 
 - **Ticket:** F-086 → `done`

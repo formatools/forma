@@ -96,7 +96,8 @@ val roomVersion = "2.7.2"
 
 val ksp = CustomConfiguration("ksp")
 
-// Version catalog UX: bare GAV, library(name=…), bundle, plugin — see docs/DEPS-CATALOG.md
+// House style external deps (F-083): bare GAV, library(name=…), bundle, plugin — docs/DEPS-CATALOG.md
+// Sample still uses advanced typed catalogs (build-dependencies/) for androidx/google graphs.
 projectDependencies(
     "libs",
     "com.jakewharton.timber:timber:5.0.1",
