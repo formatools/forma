@@ -19,7 +19,7 @@ the full multi-feature reference layout, see [JVM-SAMPLE.md](JVM-SAMPLE.md).
 | **Suffix** | Folder / project name ending that encodes type (`…-impl`, `…-api`, `binary`, …). Validators use suffixes. |
 | **Composition root** | `binary` — where feature graphs are wired (entry point for `main`). |
 | **Feature slice** | Typical feature folder: `api` + `impl`. |
-| **Catalogs** | External deps declared once (`projectDependencies` / typed catalogs), consumed via `deps(...)`. |
+| **Catalogs** | External deps declared once via house-style `projectDependencies` (`libs.*`), consumed with `deps(...)`. Typed catalogs = advanced — [DEPS-CATALOG.md](DEPS-CATALOG.md). |
 
 **What Forma does for each target**
 
@@ -127,7 +127,7 @@ includer {
 
 rootProject.name = "my-jvm-app"
 
-// Optional: settings-level version catalog — see docs/DEPS-CATALOG.md
+// House style external deps — see docs/DEPS-CATALOG.md
 // projectDependencies("libs", "com.squareup.okhttp3:okhttp:4.12.0", …)
 ```
 

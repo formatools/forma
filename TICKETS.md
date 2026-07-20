@@ -100,15 +100,15 @@ Close the biggest call-site / multi-way gap: chain `withPlugin`. Design:
 ## P8 — Principle alignment (implementation matches goals)
 
 Close remaining gaps where code/docs still allow **multiple ways**, **fat call
-sites**, or **missing fleet tooling**. P7 (F-070–F-073) and F-081–F-082 are **done**; **F-019 Phase 1 done**.
-**Next coding:** **F-083**
+sites**, or **missing fleet tooling**. P7 (F-070–F-073) and F-081–F-083 are **done**; **F-019 Phase 1 done**.
+**Next coding:** **F-084**
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
 | F-080 | done | Codify root principles in product docs | `VISION.md` § Root principles + README + `AGENTS.md` + GETTING-STARTED; board P8 added |
 | F-081 | done | Call-site surface audit: `Unit` returns, no builder chains, minimal attrs | Hard-removed `TargetBuilder` / `PluginWrapper` / sample `Plugins` + chain-only `PluginConfiguration`; all Android/JVM DSLs already `Unit`; `docs/CALL-SITE-SURFACE.md` flag inventory (`compose` → project-global default, `viewBinding` on impl + dedicated type) |
 | F-082 | done | One global configuration path | Hard-removed `Project.androidProjectConfiguration`; `ScriptHandlerScope` form is the single API; `extraPlugins` documented classpath-only; new `PROJECT-CONFIGURATION.md` + cross-links; builds green |
-| F-083 | todo | One project-global external-deps convention | House style: version catalog **or** typed catalogs as the sample+docs standard; other path = advanced/legacy note, not dual happy path (`DEPS-CATALOG.md`) |
+| F-083 | done | One project-global external-deps convention | **House style = `projectDependencies` → `libs.*`**. Typed `build-dependencies/` catalogs = advanced/sample-scale only (not dual happy path). `DEPS-CATALOG.md` + README/GETTING-STARTED/agent skill/08 README |
 | F-084 | todo | Fleet tooling for explicit graphs (check / generate / migrate) | Principle 3 at scale: tighten includer/depgen/bazel-check; design+spike migrate helpers for renames/type changes; related GH **#54**. Reliable large refactors without hand-editing thousands of modules |
 | F-085 | todo | Full-tree principle audit: sample + examples + agent skills | After F-072/F-081: no chain APIs, no dual styles taught, call sites minimal; fix stragglers |
 

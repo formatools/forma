@@ -12,6 +12,11 @@ import tools.forma.deps.core.NamedDependency
 /**
  * Declares a Gradle version catalog from Forma settings.
  *
+ * **House style (F-083):** this is the single supported happy path for external
+ * third-party deps. Consume via `libs.*` + `deps(...)`. Typed Kotlin catalog
+ * objects (`build-dependencies/` pattern) are advanced/sample-scale only —
+ * see `docs/DEPS-CATALOG.md`.
+ *
  * Supported entries:
  * - bare `String` coordinates → library with [defaultNameGenerator]
  * - [LibraryDep] via [library] → library with optional explicit name

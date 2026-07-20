@@ -129,9 +129,11 @@ Worker / contributor host setup (JDK **21** build JVM, Android SDK platform **34
 
 ## External dependency catalogs
 
-Declare third-party libraries and plugins once in `settings.gradle.kts` with
-`projectDependencies` (version catalog), or use typed Kotlin catalogs
-(`build-dependencies/` pattern). Full guide: [`docs/DEPS-CATALOG.md`](docs/DEPS-CATALOG.md).
+**House style:** declare third-party libraries and plugins once in
+`settings.gradle.kts` with `projectDependencies` (version catalog) and consume
+`libs.*` via `deps(...)`. Typed Kotlin catalogs (`build-dependencies/` pattern)
+are an **advanced** sample-scale option, not a second default. Full guide:
+[`docs/DEPS-CATALOG.md`](docs/DEPS-CATALOG.md).
 
 ```gradle
 // settings.gradle.kts
