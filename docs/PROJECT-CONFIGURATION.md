@@ -1,0 +1,90 @@
+# Project configuration (F-082)
+
+**One global configuration path only.**
+
+Forma has a single supported entry point for Android project-wide settings and classpath:
+
+```kotlin
+// root build.gradle.kts
+buildscript {
+    androidProjectConfiguration(
+        project = rootProject,
+        minSdk = 23,
+        targetSdk = 35,
+        compileSdk = 35,
+        agpVersion = "8.13.2",
+        // compose = false,
+        // composeCompilerVersion = "2.0.21",
+        extraPlugins = listOf(
+            // jars / Provider<PluginDependency> for the *buildscript classpath only*
+            libs.plugins.navigationSafeArgs,
+            // ...
+        )
+    )
+}
+```
+
+This is the **only** supported way to configure an Android Forma project.
+
+## What `androidProjectConfiguration` does
+
+- **Classpath**: Adds the requested AGP version, the Kotlin Compose compiler Gradle plugin (when relevant), and any `extraPlugins` entries to the root **buildscript classpath**.
+- **Settings store**: Creates an `AndroidProjectSettings` and writes it via `Forma.store(...)`, which delegates to the singleton `FormaSettingsStore`.
+- **Target registry**: Calls `registerAndroidDefaults()` so that all Android target types + restriction matrix + content rules are available to DSL call sites.
+- **Convenience**: Registers a conventional root `clean` task.
+
+Downstream targets and features read global values (SDK versions, `compose` default, `kotlinVersion`, `agpVersion`, etc.) from `Forma.settings` (or the delegated store surfaces). The store is initialized exactly once from the root `buildscript` block.
+
+## What it does **not** do
+
+- `extraPlugins` (and catalog `plugin(...)` entries) are **classpath only**. They put Gradle plugin jars on the buildscript classpath. They do **not** apply any plugin to your modules.
+- Applying plugins to targets is handled exclusively by the **type-owned plugin registry**:
+  - Register once with `targetPlugin(...)` + `deriveTargetType(...)` (Path B, preferred) or `registerTargetPlugin(...)` (Path A).
+  - The registry auto-applies on matching DSL calls.
+  - See [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md).
+
+There is no per-module `withPlugin`, no free-form `plugins =` lists, and no second configuration path.
+
+## Removed (F-082)
+
+The deprecated `Project.androidProjectConfiguration(...)` receiver overload has been **hard-removed**.
+
+- It was the "call configuration from any module" dual happy path.
+- All live call sites already used the `ScriptHandlerScope` form inside root `buildscript { }`.
+- Do not attempt to configure from arbitrary `Project` scopes. Configuration belongs at the root buildscript level.
+
+## The single settings / store story
+
+| Piece | Location | Role |
+|-------|----------|------|
+| `androidProjectConfiguration(...)` (ScriptHandlerScope) | `plugins/android/.../androidProjectConfiguration.kt` | The one public API; called from root `buildscript` |
+| `AndroidProjectSettings` | `plugins/config/.../AndroidProjectSettings.kt` | Immutable data class holding SDKs, versions, compose default, repos, etc. |
+| `FormaSettingsStore` | `plugins/config/.../AndroidProjectSettings.kt` (as `object`) | The backing singleton store (`SettingsStore<T>` + `PluginInfoStore`) |
+| `Forma` (singleton accessor) | `plugins/android/.../androidProjectConfiguration.kt` | `object Forma : SettingsStore<...> by FormaSettingsStore, ...` — primary reader surface (`Forma.settings`) |
+| `registerAndroidDefaults()` | `plugins/android/.../AndroidTargetRegistry.kt` | Populates `AndroidTargetRegistry` (target types + matrix) |
+
+Readers (feature wiring, dependency helpers, target DSLs) obtain values through `Forma.settings` after the root configuration has run. The store is the single source of truth for the project-global Android configuration.
+
+## Cross references
+
+- [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md) — classpath (`extraPlugins`) vs. type-owned apply
+- [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) — F-081 / F-082 surface rules (no chains, minimal attrs, global config)
+- [`GETTING-STARTED.md`](GETTING-STARTED.md) — tutorial usage + checklist
+- [`COMPOSE.md`](COMPOSE.md) — `compose` + `composeCompilerVersion` details
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) — plugin module layout and store
+- [`VISION.md`](VISION.md) — root principles (one global way)
+- Sample: `application/build.gradle.kts`
+- Progressive example 10: `examples/android/10-target-plugins`
+
+## Checklist — correct global configuration
+
+- [ ] Exactly one `androidProjectConfiguration(...)` call in the **root** `buildscript { }`
+- [ ] `project = rootProject` (or equivalent root)
+- [ ] `extraPlugins` only for classpath jars (see TARGET-PLUGINS for how to actually apply)
+- [ ] No calls to any `Project.androidProjectConfiguration` form (removed)
+- [ ] Child targets rely on `Forma.settings` / per-target overrides only
+- [ ] Type-owned plugins used for external plugin application (no ad-hoc apply)
+
+---
+
+F-082 completes the "one global way" cleanup for project configuration (paired with F-081 call-site surface work).

@@ -7,7 +7,7 @@ target kind + attributes. Plugin identity is part of the **rule / target type**,
 not restated on every module. Extending a type with a plugin **auto-applies** that
 plugin on every call site of that type.
 
-**Status:** F-070–F-073 **shipped** on `v2`. Registry + auto-apply · sample `navigationRes` Path B · user docs + progressive example `examples/android/10-target-plugins` + agent skill `forma-target-plugins` · GH #36 closed. **F-081:** chain API **hard-removed** (`TargetBuilder` / `PluginWrapper` / sample `Plugins`) — see [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md).
+**Status:** F-070–F-073 **shipped** on `v2`. Registry + auto-apply · sample `navigationRes` Path B · user docs + progressive example `examples/android/10-target-plugins` + agent skill `forma-target-plugins` · GH #36 closed. **F-081:** chain API **hard-removed**. **F-082:** single `androidProjectConfiguration` path (classpath-only `extraPlugins`) — see [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) and [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md).
 
 **Related:** [`DEPS-CATALOG.md`](DEPS-CATALOG.md), [`ARCHITECTURE.md`](ARCHITECTURE.md),
 [`forma-core-api.md`](forma-core-api.md), `TargetRegistry` / `TargetRegistration`.
@@ -16,6 +16,7 @@ plugin on every call site of that type.
 ## Quick start (users)
 
 1. Put the Gradle plugin jar on the **classpath** (`extraPlugins` / catalog `plugin(...)`).
+   See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) — `extraPlugins` is buildscript-classpath only.
 2. Bind the plugin to a **type** once:
    - **Path B (typical):** `targetPlugin` + `deriveTargetType` + thin DSL (see sample `NavigationRes.kt` / example `forma-defs/`).
    - **Path A:** `registerTargetPlugin(AndroidTargetTypes.res, …)` only if *every* module of that kind should get it.
@@ -23,6 +24,8 @@ plugin on every call site of that type.
 
 Hands-on: [`examples/android/10-target-plugins`](../examples/android/10-target-plugins).  
 Agent skill: [`forma-target-plugins`](../examples/agent-skills/forma-target-plugins.md).
+
+Global configuration lives at root `buildscript { androidProjectConfiguration(...) }` (F-082).
 
 ---
 

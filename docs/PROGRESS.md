@@ -2,6 +2,29 @@
 
 Newest entries first.
 
+## 2026-07-20 — F-082: One global configuration path
+
+- **Ticket:** F-082 → `done`
+- **Branch:** `forma/F-082-global-config-path` (from origin/v2)
+- **Skills/modes:** /goal + todo_write + explore before edits; product code first (compile green) then docs; self-verify planned with /check-work
+- **Code:**
+  - Hard-removed `fun Project.androidProjectConfiguration(...)` (and its dead params `dataBinding`/`validateManifestPackages`/`generateMissedManifests`) from `plugins/android/src/main/java/androidProjectConfiguration.kt`
+  - Replaced imprecise KDoc; `ScriptHandlerScope.androidProjectConfiguration` now clearly documents: single supported path, `extraPlugins` = **buildscript classpath only**, points to `TARGET-PLUGINS.md` for apply, `Forma`/`FormaSettingsStore`/`AndroidProjectSettings` store story, "do not call from arbitrary Project scopes"
+  - No remaining references or call sites to the removed overload (verified by grep)
+- **Docs:**
+  - New `docs/PROJECT-CONFIGURATION.md` — one path, what the call does (classpath + store + registry), what it does not (apply), removed overload, single settings/store story table, pointers + checklist
+  - README: added classpath-only comment on `extraPlugins` sample
+  - CALL-SITE-SURFACE.md: marked F-082 done + link to PROJECT-CONFIGURATION
+  - GETTING-STARTED.md: link to new doc; clarified store behavior
+  - ARCHITECTURE.md: updated root config snippet with `project=`, `buildscript`, classpath note
+  - TARGET-PLUGINS.md: reinforced classpath story + cross link
+- **No dual path** in examples/agent-skills (scanned; all usage already correct `buildscript` form; no "old approach" language)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew build --console=plain` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew build --console=plain` → **BUILD SUCCESSFUL** (2554 tasks, 3m56s)
+- **Blockers:** none
+- **Next:** F-083 one external-deps house style
+
 ## 2026-07-20 — F-081: call-site surface audit + hard-remove chain API
 
 - **Ticket:** F-081 → `done`
