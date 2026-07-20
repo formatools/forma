@@ -19,7 +19,7 @@ object google {
         google.inject,
         google.jakartaInject,
         "com.google.dagger:dagger:${versions.google.dagger}".dep,
-        "com.google.dagger:dagger-compiler:${versions.google.dagger}".kapt
+        "com.google.dagger:dagger-compiler:${versions.google.dagger}".ksp
     )
 
     val play = deps(

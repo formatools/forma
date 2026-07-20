@@ -9,7 +9,7 @@ androidApp(
             androidx.navigation,
             androidx.vectordrawable,
             google.material,
-            // Kapt enabled based on provided dep
+            // KSP enabled based on provided dep (F-086)
             google.dagger,
             google.play,
         ) +

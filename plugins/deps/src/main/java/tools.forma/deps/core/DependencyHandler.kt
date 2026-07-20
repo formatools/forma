@@ -25,6 +25,10 @@ import org.gradle.kotlin.dsl.create
 fun DependencyHandler.kapt(dependencyNotation: String): Dependency? =
     add("kapt", dependencyNotation)
 
+/** Adds a dependency to the `ksp` configuration. */
+fun DependencyHandler.ksp(dependencyNotation: String): Dependency? =
+    add("ksp", dependencyNotation)
+
 fun DependencyHandler.addDependencyTo(
     configurationName: String,
     dependencyNotation: String,

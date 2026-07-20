@@ -85,7 +85,7 @@ sudo ln -sfn /usr/local/opt/openjdk@21/libexec/openjdk.jdk \
 - Compose compiler default **2.3.21** (+ Kotlin Compose Compiler plugin when `compose=true`)
 - Sample SDK: min **23** / target **35** / compile **35** (install platform 35 for full sample builds; 34/33 still useful)
 - CI: Temurin **21** all jobs (`.github/workflows/main.yml`)
-- F-019 in progress: Gradle 9.6.1 + Kotlin 2.3.21 + AGP 9.3.0
+- F-019 Phase 1 + F-086 ksp/built-in Kotlin done
 
 See `docs/PROGRESS.md` for the latest host build tails.
 

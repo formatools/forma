@@ -31,7 +31,7 @@ object versions {
         const val loader = "1.1.0"
         const val localbroadcastmanager = "1.0.0"
         // Sample uses paging 2.x APIs (PagedList / PageKeyedDataSource) — do not jump to 3.x
-        const val navigation = "2.7.7"
+        const val navigation = "2.9.8"
         const val savedstate = "1.3.1"
         const val slidingpanelayout = "1.2.0"
         const val swiperefreshlayout = "1.2.0"

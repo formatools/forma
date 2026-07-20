@@ -18,7 +18,7 @@ pluginManagement {
 
 buildscript {
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.9.8")
         configurations.all {
             resolutionStrategy {
                 force(
@@ -115,7 +115,7 @@ projectDependencies(
         "androidx.room:room-common:$roomVersion",
     ),
     plugin("tools.forma.demo:dependencies", "0.0.1"),
-    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.7.7"),
+    plugin("androidx.navigation:navigation-safe-args-gradle-plugin", "2.9.8"),
     plugin("com.google.firebase:firebase-crashlytics-gradle", "3.0.7"),
     plugin(
         id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",

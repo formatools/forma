@@ -7,7 +7,7 @@ import tools.forma.owners.Owner
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import org.gradle.api.Project
-import tools.forma.android.feature.kaptConfigurationFeature
+import tools.forma.android.feature.processorConfigurationFeatures
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.core.FormaDependency
@@ -36,6 +36,6 @@ fun Project.library(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.jvmLibrary).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        configurationFeatures = kaptConfigurationFeature()
+        configurationFeatures = processorConfigurationFeatures()
     )
 }

@@ -27,6 +27,11 @@ object Kapt : ConfigurationType {
     override val name: String = "kapt"
 }
 
+/** Kotlin Symbol Processing configuration (`ksp`). Prefer over [Kapt] for new code (F-086). */
+object Ksp : ConfigurationType {
+    override val name: String = "ksp"
+}
+
 @JvmInline value class CustomConfiguration(override val name: String) : ConfigurationType
 
 sealed class DepSpec(val config: ConfigurationType)
