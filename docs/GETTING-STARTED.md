@@ -182,7 +182,7 @@ these values automatically.
 
 ### External Gradle plugins (safe-args, Firebase, …)
 
-**Do not** call `.withPlugin` on targets (deprecated). Plugin identity belongs on
+**Do not** call `.withPlugin` on targets (**removed** in F-081). Plugin identity belongs on
 the **target type**:
 
 | Path | Use when |
@@ -190,7 +190,8 @@ the **target type**:
 | **B** `deriveTargetType` + thin DSL (e.g. `navigationRes`) | Only some modules need the plugin (**preferred**) |
 | **A** `registerTargetPlugin(predefinedType, …)` | Every module of that kind should get the plugin |
 
-Call sites stay attributes-only. Full contract: [TARGET-PLUGINS.md](TARGET-PLUGINS.md).
+Call sites stay attributes-only (`Unit` return). Full contract: [TARGET-PLUGINS.md](TARGET-PLUGINS.md).
+DSL / flag inventory: [CALL-SITE-SURFACE.md](CALL-SITE-SURFACE.md).
 Hands-on: [examples/android/10-target-plugins](../examples/android/10-target-plugins).
 Sample: `application/core/navigation/res` + `build-dependencies/.../NavigationRes.kt`.
 

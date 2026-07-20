@@ -70,7 +70,7 @@ resourcesTarget(type = …, packageName = …, …)
 
 ## Forbidden
 
-- `.withPlugin` / `.withPlugins` / `TargetBuilder` chains (deprecated F-072)
+- `.withPlugin` / `.withPlugins` / `TargetBuilder` chains (**removed** F-081; use type-owned plugins)
 - Free-form `plugins = plugins(plugin("id"))` on targets
 - Call-site `pluginConfig(binding)` that re-selects plugins
 - New forever core DSL per vendor plugin when Path B derived type is enough

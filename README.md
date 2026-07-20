@@ -51,7 +51,7 @@ systems like Buck and Bazel.
 2. [**JVM getting started**](docs/JVM-GETTING-STARTED.md) — pure JVM tutorial, run the sample, greenfield skeleton with `binary`, `api`/`impl`, target cheat sheet (F-032)
 3. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
 4. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
-5. [External deps catalogs](docs/DEPS-CATALOG.md) · [Target plugins](docs/TARGET-PLUGINS.md) (type-owned, Bazel-like; example `examples/android/10-target-plugins`) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
+5. [External deps catalogs](docs/DEPS-CATALOG.md) · [Target plugins](docs/TARGET-PLUGINS.md) (type-owned, Bazel-like; example `examples/android/10-target-plugins`) · [Call-site surface](docs/CALL-SITE-SURFACE.md) (Unit DSLs + flag inventory) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
 6. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
 7. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
 8. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)

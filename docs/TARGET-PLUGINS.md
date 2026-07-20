@@ -7,7 +7,7 @@ target kind + attributes. Plugin identity is part of the **rule / target type**,
 not restated on every module. Extending a type with a plugin **auto-applies** that
 plugin on every call site of that type.
 
-**Status:** F-070–F-073 **shipped** on `v2`. Registry + auto-apply · sample `navigationRes` Path B · chain `@Deprecated` · user docs + progressive example `examples/android/10-target-plugins` + agent skill `forma-target-plugins` · GH #36 closable.
+**Status:** F-070–F-073 **shipped** on `v2`. Registry + auto-apply · sample `navigationRes` Path B · user docs + progressive example `examples/android/10-target-plugins` + agent skill `forma-target-plugins` · GH #36 closed. **F-081:** chain API **hard-removed** (`TargetBuilder` / `PluginWrapper` / sample `Plugins`) — see [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md).
 
 **Related:** [`DEPS-CATALOG.md`](DEPS-CATALOG.md), [`ARCHITECTURE.md`](ARCHITECTURE.md),
 [`forma-core-api.md`](forma-core-api.md), `TargetRegistry` / `TargetRegistration`.
@@ -277,14 +277,16 @@ Built-in entrypoints (`impl`, `api`, `androidRes`, `androidBinary`, …):
 
 ---
 
-## 8. Deprecation
+## 8. Deprecation → removal (F-072 / F-081)
 
-| Remove / deprecate | Replacement |
-|--------------------|-------------|
+| Removed (F-081) | Replacement |
+|-----------------|-------------|
 | `TargetBuilder.withPlugin` / `withPlugins` | Type-owned plugins (Path A or B) |
-| Public `PluginWrapper` + sample `Plugins.kt` apply API | `targetPlugin` + `deriveTargetType` / `registerTargetPlugin` |
+| Public `PluginWrapper` + sample `Plugins.kt` | `targetPlugin` + `deriveTargetType` / `registerTargetPlugin` |
 | Call-site plugin id lists / binding re-selection | Impossible in the new API |
-| `TargetBuilder` return values for chaining | `Unit` + temporary deprecated shim |
+| Non-`Unit` builder returns | All target DSLs return **`Unit`** |
+
+Call-site attribute inventory: [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md).
 
 **Sample migration**
 
@@ -381,5 +383,5 @@ Core does not hard-code AndroidX/Google plugin ids.
 | **Plugin identity** | On the **target type** (static extend pre-defined **or** derived type) |
 | **Call site** | Attributes only — **auto-apply** type plugins every time |
 | **Config** | Rule attributes or one type-associated config arg — **never** plugin ids |
-| **Deprecate** | `.withPlugin` / `PluginWrapper` chain |
+| **Removed (F-081)** | `.withPlugin` / `PluginWrapper` / sample `Plugins` chain |
 | **Never** | Per-module plugin shopping lists or re-binding at each target |

@@ -67,5 +67,4 @@ fun Project.androidBinary(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.binary).asValidator(),
         dependencies = dependencies
     )
-    // Unit return (no TargetBuilder chain after F-072)
 }

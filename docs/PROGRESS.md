@@ -2,6 +2,27 @@
 
 Newest entries first.
 
+## 2026-07-20 — F-081: call-site surface audit + hard-remove chain API
+
+- **Ticket:** F-081 → `done`
+- **Branch / PR:** `forma/F-081-call-site-surface` → base `v2`
+- **Skills/modes:** Grok Build `--mode full` failed (design 503 + implement timeout/max-turns, no tree changes); Hermes finish path for mechanical removal + docs inventory
+- **Code removed:**
+  - `plugins/android/.../TargetBuilder.kt`
+  - `plugins/deps/.../PluginWrapper.kt`
+  - `plugins/deps/.../PluginConfiguration.kt` (chain-only; distinct from config-store `PluginConfiguration`)
+  - `build-dependencies/.../Plugins.kt` + unused `firebase-crashlytics-gradle` compile dep
+- **Docs:**
+  - New `docs/CALL-SITE-SURFACE.md` — Android/JVM DSL table, `compose`/`viewBinding` flag policy, removed APIs
+  - `TARGET-PLUGINS.md` / GETTING-STARTED / README / agent skill: chain **removed** (not merely deprecated)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2554 tasks)
+  - `jvm-application/ ./gradlew build` → **BUILD SUCCESSFUL** (61 tasks)
+  - No production `TargetBuilder` / `PluginWrapper` sources remain
+- **Blockers:** none
+- **Next:** F-082 one global configuration path
+
 ## 2026-07-20 — F-073: target plugins user docs + progressive example + agent skill
 
 - **Ticket:** F-073 → `done`
