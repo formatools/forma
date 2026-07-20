@@ -14,20 +14,58 @@ import tools.forma.config.FormaSettingsStore
 import tools.forma.config.PluginInfoStore
 import tools.forma.config.SettingsStore
 
-// TODO: add docs for every fun param
 /**
- * Configures common values for whole forma modules.
+ * The **single supported entry point** for Android project-wide configuration in Forma.
  *
- * @param minSdk is min android sdk
- * @param targetSdk is target android sdk
- * @param compileSdk SDK version used to compile Android App
- * @param repositories is a function that configures repositories for project
- * @param javaVersionCompatibility is a java version that will be used for targetCompatibility and
- *   sourceCompatibility versions
- * @param mandatoryOwners is a flag that enables mandatory owners for all modules
+ * Call this exactly once from the **root** `build.gradle.kts` inside a `buildscript { }` block:
+ *
+ * ```kotlin
+ * buildscript {
+ *     androidProjectConfiguration(
+ *         project = rootProject,
+ *         minSdk = 23,
+ *         targetSdk = 35,
+ *         compileSdk = 35,
+ *         agpVersion = "8.13.2",
+ *         // ...
+ *     )
+ * }
+ * ```
+ *
+ * What it does:
+ * - Puts AGP + (when relevant) the Kotlin Compose compiler Gradle plugin on the **buildscript classpath**.
+ * - Adds any `extraPlugins` **jars / providers to the buildscript classpath only**.
+ * - Stores [AndroidProjectSettings] via [Forma.store] (delegates to [FormaSettingsStore]).
+ *   Downstream targets read global values from `Forma.settings`.
+ * - Registers default Android target types and restriction matrix via [registerAndroidDefaults].
+ * - Registers a conventional root `clean` task.
+ *
+ * **extraPlugins**:
+ * Jars (or `Provider<PluginDependency>`) listed here are added to the root **buildscript classpath**.
+ * They do **NOT** cause any plugin to be applied to modules.
+ * To actually apply an external Gradle plugin to targets, register it against a target type
+ * using the type-owned plugin APIs and let the registry auto-apply it:
+ * see [docs/TARGET-PLUGINS.md](TARGET-PLUGINS.md) (`targetPlugin`, `deriveTargetType`,
+ * `registerTargetPlugin`, Path A vs Path B).
+ *
+ * This is the **only** supported project configuration path. The previous `Project` receiver
+ * overload has been removed (F-082). Do not call configuration from arbitrary `Project` scopes.
+ *
+ * @param project the root project (typically `rootProject`); used to register the clean task.
+ * @param minSdk minimum Android SDK
+ * @param targetSdk target Android SDK
+ * @param compileSdk SDK version used to compile Android targets
+ * @param kotlinVersion Kotlin version (defaults to Gradle's embeddedKotlinVersion)
+ * @param agpVersion Android Gradle Plugin version to place on the buildscript classpath
+ * @param repositories optional block to configure repositories (applied in buildscript context)
  * @param compose project-wide default for per-target Compose flags (see [AndroidProjectSettings.compose])
  * @param composeCompilerVersion Compose compiler extension version for AGP `composeOptions`
- * @param extraPlugins is a list of extra plugins that will be applied to project
+ *   (must match the Kotlin version used)
+ * @param javaVersionCompatibility Java language level for source/target compatibility
+ * @param mandatoryOwners when true, all targets require an owner declaration
+ * @param vectorDrawablesUseSupportLibrary passed through to Android vector drawable config
+ * @param extraPlugins list of extra artifacts / plugin providers to add to the **buildscript classpath only**.
+ *   See "Classpath vs apply" in TARGET-PLUGINS.md.
  */
 fun ScriptHandlerScope.androidProjectConfiguration(
     project: Project,
@@ -81,48 +119,6 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     registerAndroidDefaults()
 }
 
-@Deprecated("Old approach to configuration, use ScriptHandlerScope Extension")
-fun Project.androidProjectConfiguration(
-    minSdk: Int,
-    targetSdk: Int,
-    compileSdk: Int,
-    kotlinVersion: String,
-    agpVersion: String,
-    repositories: RepositoryHandler.() -> Unit = {},
-    dataBinding: Boolean = false,
-    validateManifestPackages: Boolean = false,
-    generateMissedManifests: Boolean = false,
-    javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
-    mandatoryOwners: Boolean = false,
-    compose: Boolean = false,
-    composeCompilerVersion: String = DEFAULT_COMPOSE_COMPILER_VERSION,
-    vectorDrawablesUseSupportLibrary: Boolean = true,
-) {
-
-    /** Default Android project clean task implementation */
-    tasks.register("clean", Delete::class) { delete(project.layout.buildDirectory) }
-
-    val configuration =
-        AndroidProjectSettings(
-            minSdk = minSdk,
-            targetSdk = targetSdk,
-            compileSdk = compileSdk,
-            // we don't need check properties for exist, we read it successfully in forma
-            // configuration
-            kotlinVersion = kotlinVersion,
-            agpVersion = agpVersion,
-            repositories = repositories,
-            javaVersionCompatibility = javaVersionCompatibility,
-            mandatoryOwners = mandatoryOwners,
-            compose = compose,
-            composeCompilerVersion = composeCompilerVersion,
-            vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary
-        )
-
-    Forma.store(configuration)
-    registerAndroidDefaults()
-}
-
 /** Compose Compiler matching Kotlin 2.0.21 (Gradle 8.14.5 embedded Kotlin). */
 const val DEFAULT_COMPOSE_COMPILER_VERSION = "2.0.21"
 
@@ -146,7 +142,16 @@ val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpa
     }
 }
 
-/** Singleton project configuration store TODO remove */
+/**
+ * Singleton accessor for stored project configuration.
+ *
+ * Delegates to [FormaSettingsStore] (which holds the single [AndroidProjectSettings] instance
+ * written by [androidProjectConfiguration]).
+ *
+ * Downstream code and targets obtain values via `Forma.settings` (or the delegated
+ * `SettingsStore` / `PluginInfoStore` surfaces). There is exactly one global configuration
+ * story: root `buildscript { androidProjectConfiguration(...) }` → store → readers.
+ */
 object Forma :
     SettingsStore<AndroidProjectSettings> by FormaSettingsStore,
     PluginInfoStore by FormaSettingsStore

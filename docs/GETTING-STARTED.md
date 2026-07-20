@@ -176,9 +176,11 @@ buildscript {
 }
 ```
 
-This stores shared Android settings, puts AGP (and optional **plugin jars**) on
-the buildscript classpath, and registers a root `clean` task. Child targets read
-these values automatically.
+This stores shared Android settings (`AndroidProjectSettings` via `Forma` / `FormaSettingsStore`),
+puts AGP + optional plugin jars on the **buildscript classpath only**, and registers a root
+`clean` task. Child targets read values from `Forma.settings`.
+
+See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) for the single-path + store story.
 
 ### External Gradle plugins (safe-args, Firebase, …)
 
@@ -451,6 +453,7 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) | Allowed project-dep edges (code truth) |
 | [DEPS-CATALOG.md](DEPS-CATALOG.md) | External catalogs (`library`, `bundle`, `plugin`) |
 | [COMPOSE.md](COMPOSE.md) | Compose flags + `composeWidget` |
+| [PROJECT-CONFIGURATION.md](PROJECT-CONFIGURATION.md) | One global config path + settings store (F-082) |
 | [ENV.md](ENV.md) | JDK / SDK bootstrap |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Monorepo + plugin module graph |
 | [VISION.md](VISION.md) | forma-core → JVM → Bazel roadmap |

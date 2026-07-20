@@ -86,6 +86,8 @@ buildscript {
         targetSdk = 33,
         compileSdk = 34,
         agpVersion = "8.13.2",
+        // extraPlugins = buildscript classpath only (jars for AGP, safe-args, etc.).
+        // Actual plugin apply to targets is type-owned — see docs/TARGET-PLUGINS.md.
         extraPlugins = listOf(
             "androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4",
             "com.google.firebase:firebase-crashlytics-gradle:2.9.9",

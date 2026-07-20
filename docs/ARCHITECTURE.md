@@ -257,11 +257,23 @@ Wiring pattern:
 Root configuration (`application/build.gradle.kts`):
 
 ```kotlin
-androidProjectConfiguration(
-  minSdk = 21, targetSdk = 33, compileSdk = 34,
-  agpVersion = "8.13.2",
-  extraPlugins = [ demo deps, KSP, nav safe-args, crashlytics ]
-)
+// ScriptHandlerScope form inside buildscript { } is the single supported path (F-082).
+// extraPlugins puts jars on the buildscript classpath only.
+buildscript {
+    androidProjectConfiguration(
+        project = rootProject,
+        minSdk = 23,
+        targetSdk = 35,
+        compileSdk = 35,
+        agpVersion = "8.13.2",
+        extraPlugins = listOf(
+            // classpath only — see PROJECT-CONFIGURATION.md + TARGET-PLUGINS.md
+            libs.plugins.toolsFormaDemoDependencies,
+            libs.plugins.navigationSafeArgs,
+            // ...
+        )
+    )
+}
 ```
 
 ---

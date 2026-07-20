@@ -90,6 +90,6 @@ parameters beside them.
 - Principles: [VISION.md](VISION.md) § Root principles  
 - Matrix: [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md)  
 - Plugins: [TARGET-PLUGINS.md](TARGET-PLUGINS.md)  
-- Global config cleanup (single settings path): **F-082**  
+- Global config (one path + store story): [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) (F-082)
 - House style for external deps catalogs: **F-083**  
 - Full-tree teaching audit: **F-085**
