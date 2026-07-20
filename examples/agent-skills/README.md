@@ -10,6 +10,7 @@ matrix rules, and progressive example pointers.
 | [forma-jvm-targets](forma-jvm-targets.md) | Pure JVM targets |
 | [forma-dependency-matrix](forma-dependency-matrix.md) | Dependency / visibility errors |
 | [forma-deps-catalog](forma-deps-catalog.md) | External deps / catalogs |
+| [forma-target-plugins](forma-target-plugins.md) | External plugins on types (Path A/B); never `.withPlugin` |
 | [forma-compose](forma-compose.md) | Jetpack Compose |
 | [forma-includer-settings](forma-includer-settings.md) | settings.gradle / includer / composite |
 | [forma-project-layout](forma-project-layout.md) | Feature folders, packages, composition roots |

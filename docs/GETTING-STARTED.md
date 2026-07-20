@@ -168,15 +168,34 @@ buildscript {
         agpVersion = "8.13.2",     // keep aligned with plugin compile AGP
         // compose = false,       // project default for per-target compose flags
         // composeCompilerVersion = "2.0.21", // match your Kotlin (2.0.21 → 2.0.21)
+        // Classpath only — does NOT apply plugins to modules. See TARGET-PLUGINS.md.
         extraPlugins = listOf(
-            // optional: navigation safe-args, KSP, crashlytics, …
+            // e.g. libs.plugins.navigationSafeArgs (jar on buildscript classpath)
         ),
     )
 }
 ```
 
-This stores shared Android settings, puts AGP on the buildscript classpath, and
-registers a root `clean` task. Child targets read these values automatically.
+This stores shared Android settings, puts AGP (and optional **plugin jars**) on
+the buildscript classpath, and registers a root `clean` task. Child targets read
+these values automatically.
+
+### External Gradle plugins (safe-args, Firebase, …)
+
+**Do not** call `.withPlugin` on targets (deprecated). Plugin identity belongs on
+the **target type**:
+
+| Path | Use when |
+|------|----------|
+| **B** `deriveTargetType` + thin DSL (e.g. `navigationRes`) | Only some modules need the plugin (**preferred**) |
+| **A** `registerTargetPlugin(predefinedType, …)` | Every module of that kind should get the plugin |
+
+Call sites stay attributes-only. Full contract: [TARGET-PLUGINS.md](TARGET-PLUGINS.md).
+Hands-on: [examples/android/10-target-plugins](../examples/android/10-target-plugins).
+Sample: `application/core/navigation/res` + `build-dependencies/.../NavigationRes.kt`.
+
+`extraPlugins` / catalog `plugin(...)` = **classpath**. Type-owned registry =
+**apply** on the right targets.
 
 Useful `gradle.properties` (sample-aligned):
 

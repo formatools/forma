@@ -34,3 +34,5 @@ shared configuration, and a **dependency restriction graph**.
 - `docs/GETTING-STARTED.md` / `docs/JVM-GETTING-STARTED.md`
 - `docs/PROGRESSIVE-EXAMPLES.md`
 - `docs/COMPOSE.md`, `docs/DEPS-CATALOG.md`
+
+- **External plugins:** type-owned (Path A/B) — skill `forma-target-plugins`, docs `TARGET-PLUGINS.md`, example `android/10-target-plugins`.

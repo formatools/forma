@@ -18,7 +18,7 @@ application/
 ├── core/
 │   ├── di/android-util          androidUtil     (Dagger scopes / base component)
 │   ├── mvvm/ui-library          uiLibrary       (ViewModel helpers, adapters)
-│   ├── navigation/res           androidRes      (feature nav graphs + safe-args)
+│   ├── navigation/res           navigationRes   (Path B derived type — nav graphs + type-owned safe-args)
 │   ├── network/library          library (JVM)   (Retrofit / Config / NetworkState)
 │   └── theme/{android-util,res}
 ├── common/
@@ -122,3 +122,11 @@ build JDK **21** (app language level unchanged). See [ENV.md](ENV.md),
 
 Not in scope for F-014: full navigation redesign (GH #46), publish path (F-016).
 Configuration-time performance: [CONFIGURATION-PERFORMANCE.md](CONFIGURATION-PERFORMANCE.md) (F-017).
+
+## Type-owned plugins (navigation)
+
+`core/navigation/res` uses Path B **`navigationRes(...)`** (defined in
+`build-dependencies/.../NavigationRes.kt`), not plain `androidRes` + `.withPlugin`.
+Safe-args is owned by the derived type and auto-applies. See
+[TARGET-PLUGINS.md](TARGET-PLUGINS.md) and progressive example
+`examples/android/10-target-plugins/`.
