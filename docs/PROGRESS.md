@@ -2,6 +2,35 @@
 
 Newest entries first.
 
+## 2026-07-20 — F-019: Gradle 9.6.1 + Kotlin 2.3.21 + AGP 9.3.0
+
+- **Ticket:** F-019 → `done` (Phase 1)
+- **Branch:** `forma/F-019-gradle9-kotlin` (from origin/v2)
+- **User OK:** explicit “Schedule Kotlin and Gradle 9 upgrade” (topic 136)
+- **Pins:**
+  - All **24** wrappers → Gradle **9.6.1** (embedded Kotlin **2.3.21**)
+  - AGP lockstep **9.3.0** (`plugins/android` + sample `agpVersion` + forces)
+  - aapt2-proto **9.3.0-15703166**; KSP **2.3.10**; Compose compiler default **2.3.21**
+  - Dagger **2.60.1** (Kotlin metadata 2.3 support)
+- **Forma / Gradle 9 API:**
+  - `ProjectDependency.dependencyProject` removed → resolve via `path` + `Project.target(ProjectDependency)`
+  - `String.capitalized()` → `replaceFirstChar` titlecase
+  - `kotlinOptions.jvmTarget` → `compilerOptions.jvmTarget` + `JvmTarget.fromTarget`
+  - Drop `-Xcontext-receivers` (superseded in Kotlin 2.3)
+  - AGP public DSL: `com.android.build.api.dsl.LibraryExtension` / `CommonExtension` (no type args); libraries no longer set `targetSdk`
+  - Sample: explicit `viewModels<CharacterFavoriteViewModel>()` (Kotlin 2.3 reified intersection error)
+- **AGP 9 consumer flags (Phase 1):** `android.builtInKotlin=false` + `android.newDsl=false` while sample still uses **kapt**/Dagger. Phase 2 = built-in Kotlin + kapt→KSP.
+- **Other:** includer TestKit JVM **17** + foojay-resolver **1.0.0**
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL**
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2363 tasks)
+  - `jvm-application/ ./gradlew build` → **BUILD SUCCESSFUL**
+  - `includer/ ./gradlew build` → **BUILD SUCCESSFUL**
+  - `depgen/ ./gradlew build` → **BUILD SUCCESSFUL**
+  - `plugins/ ./gradlew --version` → Gradle **9.6.1** / Kotlin **2.3.21** / JVM 21
+- **Blockers:** none for Phase 1
+- **Next:** F-083 external-deps house style; F-019 Phase 2 (built-in Kotlin + KSP) when prioritized
+
 ## 2026-07-20 — F-082: One global configuration path
 
 - **Ticket:** F-082 → `done`

@@ -22,7 +22,8 @@ Canonical write-up: `docs/VISION.md` § Root principles. Plugins design: `docs/T
 | F-002 | done | Audit build graph: plugins, sample app, CI workflows | Map modules → forma-core candidates; capture in `docs/ARCHITECTURE.md` |
 | F-003 | done | Get plugins + sample `application/` building on modern toolchain | Plugins compile AGP 8.1.2 matches sample; Gradle 8.3 (plugins) / 8.4 (app); host builds green |
 | F-004 | done | CI green on GitHub Actions for plugins + application | Temurin 17 all jobs + Android SDK 33 for app; PR #153 GHA green |
-| F-018 | done | JDK 21 + Gradle/AGP staged modernization | **Shipped on `v2`:** Gradle **8.14.5**, AGP **8.13.2**, Kotlin **2.0.21**, KSP **2.0.21-1.0.28**, Compose **1.9.4**/compiler **2.0.21**, JDK **21** host/CI, sample SDK min23/target35/compile35 + deps at AGP-8.13 ceiling. PRs **#179–#182**. AGP 9 / absolute-latest AndroidX = **F-019** (explicit OK only). |
+| F-018 | done | JDK 21 + Gradle/AGP staged modernization | **Shipped on `v2`:** Gradle **8.14.5**, AGP **8.13.2**, Kotlin **2.0.21**, KSP **2.0.21-1.0.28**, Compose **1.9.4**/compiler **2.0.21**, JDK **21** host/CI, sample SDK min23/target35/compile35 + deps at AGP-8.13 ceiling. PRs **#179–#182**. Superseded by **F-019** for 9.x. |
+| F-019 | done | Gradle 9 + Kotlin 2.3 + AGP 9 toolchain | **Shipped Phase 1:** Gradle **9.6.1** (embedded Kotlin **2.3.21**), AGP **9.3.0**, KSP **2.3.10**, Compose compiler **2.3.21**, aapt2-proto **9.3.0-15703166**, Dagger **2.60.1**. Sample uses `android.builtInKotlin=false` + `android.newDsl=false` (kapt/Dagger still). **Phase 2 backlog:** built-in Kotlin + kapt→KSP + AndroidX ceiling. |
 
 ## P1 — Android working product
 
@@ -98,8 +99,8 @@ Close the biggest call-site / multi-way gap: chain `withPlugin`. Design:
 ## P8 — Principle alignment (implementation matches goals)
 
 Close remaining gaps where code/docs still allow **multiple ways**, **fat call
-sites**, or **missing fleet tooling**. P7 (F-070–F-073) and F-081–F-082 are **done**;
-next coding priority is **F-083**.
+sites**, or **missing fleet tooling**. P7 (F-070–F-073) and F-081–F-082 are **done**; **F-019 Phase 1 done**.
+**Next coding:** **F-083**.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
@@ -127,7 +128,7 @@ Keep for reference; do not start unless higher tickets done or user prioritizes:
 - GH #126 Target features configuration options → consider under **F-081**
 - GH #111 Gradle project as buildscript classpath
 - GH #103 Java 8+ API on Android API ≤26
-- **F-019** AGP 9 / absolute-latest AndroidX — **explicit OK only** (not on board until requested)
+- F-019 Phase 2: AGP built-in Kotlin migration + absolute-latest AndroidX / compileSdk bump (after Phase 1 green)
 
 ## How workers update this file
 

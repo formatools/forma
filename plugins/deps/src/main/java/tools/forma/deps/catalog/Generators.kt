@@ -71,7 +71,11 @@ internal fun generateName(
             .asSequence()
             .filter { it.isNotBlank() && it !in filteredTokens }
             .distinct()
-            .joinToString("") { it.capitalized() }
+            .joinToString("") { token ->
+                token.replaceFirstChar { ch ->
+                    if (ch.isLowerCase()) ch.titlecase(Locale.getDefault()) else ch.toString()
+                }
+            }
             .let { raw -> raw.replaceFirstChar { it.lowercase(Locale.getDefault()) } }
 
     require(name.isNotBlank()) {

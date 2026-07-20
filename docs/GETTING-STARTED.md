@@ -46,8 +46,8 @@ structure and boundaries, not business logic.
 | JDK | **21** build/daemon (F-018); app language level unchanged |
 | Android SDK | Platform **35** (`compileSdk` / modern Compose + AndroidX AARs); **34**/**33** still useful |
 | Build tools | 33.0.2 / 34.0.0 as used by the sample |
-| Gradle | Use the wrapper in the project (`./gradlew`); **8.14.5** all roots |
-| AGP | **8.13.2** (keep consumer `agpVersion` aligned with plugin compile AGP) |
+| Gradle | Use the wrapper in the project (`./gradlew`); **9.6.1** all roots |
+| AGP | **9.3.0** (keep consumer `agpVersion` aligned with plugin compile AGP) |
 
 Worker / macOS install steps: [ENV.md](ENV.md) (`source scripts/env-mac.sh`).
 
@@ -165,9 +165,9 @@ buildscript {
         minSdk = 21,
         targetSdk = 33,
         compileSdk = 34,          // 34 if you use modern Compose transitive AARs
-        agpVersion = "8.13.2",     // keep aligned with plugin compile AGP
+        agpVersion = "9.3.0",     // keep aligned with plugin compile AGP
         // compose = false,       // project default for per-target compose flags
-        // composeCompilerVersion = "2.0.21", // match your Kotlin (2.0.21 → 2.0.21)
+        // composeCompilerVersion = "2.3.21", // match your Kotlin (2.3.21 → 2.3.21)
         // Classpath only — does NOT apply plugins to modules. See TARGET-PLUGINS.md.
         extraPlugins = listOf(
             // e.g. libs.plugins.navigationSafeArgs (jar on buildscript classpath)
@@ -440,8 +440,8 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | Project not included | Missing `build.gradle.kts`, or nested `settings.gradle.kts` blocked Includer |
 | Illegal project dependency | Matrix violation — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) |
 | Empty / wrong package | `packageName` ≠ directory under `src/main/java` |
-| Compose compiler mismatch | Align `composeCompilerVersion` with Kotlin (sample: 2.0.21 ↔ 2.0.21) |
-| AGP resolution conflicts | Align consumer `agpVersion` with plugin AGP line (**8.13.2** today) |
+| Compose compiler mismatch | Align `composeCompilerVersion` with Kotlin (sample: 2.3.21 ↔ 2.3.21) |
+| AGP resolution conflicts | Align consumer `agpVersion` with plugin AGP line (**9.3.0** today) |
 
 ---
 

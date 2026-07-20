@@ -2,7 +2,7 @@
 package tools.forma.android.feature
 
 import androidJunitRunner
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import tools.forma.android.config.*
 import tools.forma.android.target.NativeTarget
 import tools.forma.android.utils.applyFrom

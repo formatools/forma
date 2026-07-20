@@ -11,14 +11,14 @@ formaPublishedPlugin(name = "android")
 
 tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
     compilerOptions {
-        freeCompilerArgs.add("-Xcontext-receivers")
+        // context receivers removed in Kotlin 2.3 (superseded by context parameters)
     }
 }
 
 dependencies {
     // Compile against the same AGP line the sample forces at runtime (see application/settings.gradle.kts).
     // Keep this in lockstep with androidProjectConfiguration(agpVersion=…) consumers (F-003).
-    implementation("com.android.tools.build:gradle:8.13.2")
+    implementation("com.android.tools.build:gradle:9.3.0")
     implementation(embeddedKotlin("gradle-plugin"))
     implementation(project(":target"))
     implementation(project(":validation"))

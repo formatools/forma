@@ -3,7 +3,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
-import org.gradle.api.internal.catalog.DelegatingProjectDependency
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.provider.Provider
 import tools.forma.config.FormaSettingsStore
 import tools.forma.deps.core.CustomConfiguration
@@ -189,8 +189,9 @@ fun deps(vararg dependencies: NamedDependency): NamedDependency {
     return NamedDependency(out)
 }
 
-fun deps(vararg projects: DelegatingProjectDependency) =
-    projects.map { TargetSpec(target(it)) }.let(::TargetDependency)
+/** Typesafe project accessors / [ProjectDependency] → target deps (Gradle 9: path only, no dependencyProject). */
+fun Project.deps(vararg projects: ProjectDependency): TargetDependency =
+    TargetDependency(projects.map { TargetSpec(target(it)) })
 
 fun deps(vararg dependencies: Provider<*>): NamedDependency {
     if (dependencies.isEmpty()) return NamedDependency()
@@ -240,5 +241,9 @@ val Project.target: FormaTarget
 fun Project.target(name: String): FormaTarget =
     project(":" + name.substring(1).replace(":", "-")).target
 
-fun target(projectDependency: DelegatingProjectDependency): FormaTarget =
-    projectDependency.dependencyProject.target
+/**
+ * Resolve a [ProjectDependency] (including typesafe project accessors) to a [FormaTarget].
+ * Gradle 9 removed [ProjectDependency]→Project (`dependencyProject`); use [ProjectDependency.getPath].
+ */
+fun Project.target(projectDependency: ProjectDependency): FormaTarget =
+    project(projectDependency.path).target

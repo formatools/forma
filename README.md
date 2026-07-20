@@ -85,7 +85,7 @@ buildscript {
         minSdk = 21,
         targetSdk = 33,
         compileSdk = 34,
-        agpVersion = "8.13.2",
+        agpVersion = "9.3.0",
         // extraPlugins = buildscript classpath only (jars for AGP, safe-args, etc.).
         // Actual plugin apply to targets is type-owned — see docs/TARGET-PLUGINS.md.
         extraPlugins = listOf(

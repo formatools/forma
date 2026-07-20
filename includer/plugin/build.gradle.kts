@@ -12,7 +12,8 @@ repositories {
     mavenCentral()
 }
 
-val javaLanguageVersion = JavaLanguageVersion.of(11)
+// Gradle 9 requires JVM 17+ for the daemon (TestKit functional tests).
+val javaLanguageVersion = JavaLanguageVersion.of(17)
 kotlin {
     jvmToolchain {
         languageVersion.set(javaLanguageVersion)

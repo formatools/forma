@@ -2,13 +2,13 @@ object versions {
     const val coil = "2.7.0"
 
     object jetbrains {
-        // Last line friendly with Kotlin 2.0.21 + AndroidX caps below
+        // Last line friendly with Kotlin 2.3.21 + AndroidX caps below
         const val coroutines = "1.10.2"
     }
 
     object androidx {
-        // Caps: latest that stay on AGP 8.13 + compileSdk 35
-        // (core 1.17+/activity 1.12+/lifecycle-compose 2.11+ need AGP 9.1 + SDK 36/37)
+        // Caps: latest that stay on AGP 9.3 + compileSdk 35
+        // (core 1.17+/activity 1.12+/lifecycle-compose 2.11+ may need higher SDK / AGP line)
         const val activity = "1.10.1"
         const val annotation = "1.9.1"
         const val arch = "2.2.0"
@@ -43,13 +43,13 @@ object versions {
         const val vectordrawable = "1.2.0"
         const val versionedparcelable = "1.2.1"
         const val viewpager = "1.1.0"
-        // Compose 1.9.x works with AGP 8.6+ / compileSdk 35 / Kotlin 2.0.21
+        // Compose 1.9.x works with AGP 9.3 + compileSdk 35 + Kotlin 2.3.21
         const val compose = "1.9.4"
     }
 
     object google {
         const val material = "1.13.0"
-        const val dagger = "2.56.2"
+        const val dagger = "2.60.1"
         const val play_core = "1.10.3"
         const val gson = "2.13.2"
     }

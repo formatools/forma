@@ -11,12 +11,12 @@ internal fun Project.applyKotlinComposeCompilerPlugin() {
 /**
  * Turn on Compose for an AGP module extension and apply the Kotlin Compose Compiler plugin.
  */
-internal fun CommonExtension<*, *, *, *, *, *>.enableCompose(
+internal fun CommonExtension.enableCompose(
     project: Project,
     composeCompilerVersion: String,
 ) {
     project.applyKotlinComposeCompilerPlugin()
     buildFeatures.compose = true
-    // Legacy pin — still accepted by AGP 8.x alongside the Compose Compiler plugin
+    // Legacy pin — still accepted alongside the Compose Compiler plugin
     composeOptions.kotlinCompilerExtensionVersion = composeCompilerVersion
 }
