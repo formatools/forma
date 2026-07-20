@@ -2,6 +2,32 @@
 
 Newest entries first.
 
+## 2026-07-20 — F-073: target plugins user docs + progressive example + agent skill
+
+- **Ticket:** F-073 → `done`
+- **Branch / PR:** `forma/F-073-target-plugins-docs` → base `v2`
+- **Skills/modes:** Grok Build unavailable (503 + max-turns on stale F-072 plan); Hermes implement docs/example slice directly (F-073 is docs/example class)
+- **Docs / teaching:**
+  - `docs/TARGET-PLUGINS.md` — status F-070–F-073 shipped + **Quick start (users)**
+  - `docs/GETTING-STARTED.md` — external plugins section; `extraPlugins` = classpath only
+  - `docs/SAMPLE-APP.md` — `navigation/res` is Path B `navigationRes`
+  - `docs/PROGRESSIVE-EXAMPLES.md` + `examples/README.md` — Android step **10**
+  - Root `README.md` — target plugins link points at shipped how-to + example
+- **Progressive example:** `examples/android/10-target-plugins/`
+  - Local `forma-defs/` included build: `targetPlugin` + `deriveTargetType` + `navigationRes` DSL
+  - Call site `feature/hello/res` uses `navigationRes(...)` (no plugin ids)
+  - `root-res` stays plain `androidRes` (contrast)
+  - Classpath: catalog `plugin(...)` + `extraPlugins` for forma-defs + safe-args
+- **Agent skill:** `examples/agent-skills/forma-target-plugins.md` + README/overview/android-targets pointers
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `examples/android/10-target-plugins ./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL**
+  - `:feature-hello-res` runs safe-args / navigation resource processing (type-owned plugin applied)
+  - `plugins/ ./gradlew :deps:test :android:compileKotlin` → run in same session
+- **GH #36:** close with comment pointing at docs + example
+- **Blockers:** none
+- **Next:** F-081 call-site surface audit (P8)
+
+
 ## 2026-07-19 — F-072: navigationRes Path B + deprecate withPlugin chain
 
 - **Ticket:** F-072 → `done`

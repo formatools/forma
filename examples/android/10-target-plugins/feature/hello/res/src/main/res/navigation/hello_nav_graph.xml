@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Minimal graph so type-owned safe-args has work to do (F-073). -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/hello_nav_graph"
+    app:startDestination="@+id/hello_fragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/hello_fragment"
+        android:name="tools.forma.examples.android.targetplugins.feature.hello.impl.HelloFragment"
+        android:label="Hello" />
+</navigation>

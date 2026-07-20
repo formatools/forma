@@ -7,11 +7,22 @@ target kind + attributes. Plugin identity is part of the **rule / target type**,
 not restated on every module. Extending a type with a plugin **auto-applies** that
 plugin on every call site of that type.
 
-**Status:** F-070 design accepted · **F-071** registry + auto-apply · **F-072** sample `navigationRes` Path B + chain `@Deprecated`.  
-**Remaining:** F-073 docs / progressive example / GH #36.
+**Status:** F-070–F-073 **shipped** on `v2`. Registry + auto-apply · sample `navigationRes` Path B · chain `@Deprecated` · user docs + progressive example `examples/android/10-target-plugins` + agent skill `forma-target-plugins` · GH #36 closable.
 
 **Related:** [`DEPS-CATALOG.md`](DEPS-CATALOG.md), [`ARCHITECTURE.md`](ARCHITECTURE.md),
 [`forma-core-api.md`](forma-core-api.md), `TargetRegistry` / `TargetRegistration`.
+
+
+## Quick start (users)
+
+1. Put the Gradle plugin jar on the **classpath** (`extraPlugins` / catalog `plugin(...)`).
+2. Bind the plugin to a **type** once:
+   - **Path B (typical):** `targetPlugin` + `deriveTargetType` + thin DSL (see sample `NavigationRes.kt` / example `forma-defs/`).
+   - **Path A:** `registerTargetPlugin(AndroidTargetTypes.res, …)` only if *every* module of that kind should get it.
+3. Call sites set **attributes only** — never plugin ids, never `.withPlugin`.
+
+Hands-on: [`examples/android/10-target-plugins`](../examples/android/10-target-plugins).  
+Agent skill: [`forma-target-plugins`](../examples/agent-skills/forma-target-plugins.md).
 
 ---
 
@@ -321,7 +332,7 @@ firebaseBinary(
 | **F-070** | This design | Merged on `v2` |
 | **F-071** | `targetPlugin`, type→plugin registry, auto-apply in pre-defined DSLs (Path A lookup), `deriveTargetType` core hooks | unit tests: type with plugin applies without call-site API; plugins build green |
 | **F-072** | Path B DSL helpers; migrate sample navigation (+ optional firebase binary type); deprecate `TargetBuilder` / `PluginWrapper` | application green; **zero** `.withPlugin` call sites; call sites Bazel-flat |
-| **F-073** | Docs + progressive example + agent skill; close GH #36 | examples match §3 mapping |
+| **F-073** | Docs + progressive example + agent skill; close GH #36 | **done** — `docs/TARGET-PLUGINS.md` how-to, `examples/android/10-target-plugins`, `forma-target-plugins` skill |
 
 ---
 

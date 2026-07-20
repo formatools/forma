@@ -30,6 +30,7 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | `projectDependencies` catalogs | 08 | — | forma-deps-catalog |
 | `testUtil` | 09 | 05 | platform skills |
 | `androidTestUtil` | 09 | — | forma-android-targets |
+| Type-owned target plugins (`navigationRes` Path B) | 10 | — | forma-target-plugins |
 | `androidNative` | skill/docs | — | forma-android-targets |
 | Bazel adapter / sample | skill | skill | forma-bazel |
 

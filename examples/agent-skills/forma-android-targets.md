@@ -14,6 +14,7 @@ Plugin: `tools.forma.android`. Register happens on first DSL use via `AndroidTar
 | `api` | `api` | no `res/` | 02+ |
 | `impl` | `impl` | Android feature impl | 02+ |
 | `androidRes` | `res` | **only** `res/` under src/main | 01, 03 |
+| `navigationRes` (Path B sample/example) | `res` (typical) | same as res + type-owned safe-args | 10 |
 | `viewBinding` | `viewbinding` | **only** `layout*` under res | 03 |
 | `library` | `library` | pure JVM library | 04 |
 | `util` | `util` | no res/ | 04 |
@@ -47,6 +48,7 @@ androidTestUtil(packageName = "…")
 
 ## Forbidden
 
+- `.withPlugin` / free-form plugin id lists — use type-owned plugins (see forma-target-plugins)
 - `impl` → `impl`
 - `api` shipping `res/`
 - removed `androidLibrary` (use role-specific targets; F-063)
