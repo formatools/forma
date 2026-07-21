@@ -14,6 +14,7 @@ matrix rules, and progressive example pointers.
 | [forma-compose](forma-compose.md) | Jetpack Compose |
 | [forma-includer-settings](forma-includer-settings.md) | settings.gradle / includer / composite |
 | [forma-project-layout](forma-project-layout.md) | Feature folders, packages, composition roots |
+| [forma-fleet-tooling](forma-fleet-tooling.md) | check/generate/migrate layout + path forms (F-084) |
 | [forma-bazel](forma-bazel.md) | Bazel adapter / sample |
 
 **Hard rules agents must never violate**

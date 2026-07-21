@@ -4,7 +4,7 @@ Living map of the monorepo build graph, plugin modules, sample app, CI, and
 what should become **forma-core**. Source of truth for F-002; update when the
 graph changes.
 
-Last audited: **2026-07-19** (F-018 8.x terminal toolchain on `v2`).
+Last audited: **2026-07-20** (F-084 fleet toolkit in `tools.forma.core.fleet`; toolchain Gradle 9.6.1).
 
 ---
 
