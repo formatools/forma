@@ -24,6 +24,7 @@ Newest entries first.
 - **Verify (real host, `source scripts/env-mac.sh`):**
   - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
   - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2322 tasks)
+- **CI note:** first tip Application job failed installing non-existent `platforms;android-37` — fixed in follow-up (install `android-37.0` + symlink `android-37`)
 - **Blockers:** none
 - **Next:** F-088 fleet tooling phase 2
 

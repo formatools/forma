@@ -78,8 +78,18 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           # Space-separated sdkmanager package ids (semicolons inside package names).
-          # platforms;android-37 may resolve as android-37.0 on newer cmdline-tools — install both forms when available.
-          packages: "platform-tools platforms;android-37.0 platforms;android-37 platforms;android-36 platforms;android-35 build-tools;37.0.0 build-tools;36.0.0 build-tools;35.0.0"
+          # API 37 package id is platforms;android-37.0 (not platforms;android-37).
+          packages: "platform-tools platforms;android-37.0 platforms;android-36 platforms;android-35 build-tools;37.0.0 build-tools;36.0.0 build-tools;35.0.0"
+      - name: Symlink android-37 platform dir for AGP
+        # AGP resolves compileSdk=37 as $ANDROID_HOME/platforms/android-37
+        run: |
+          set -euo pipefail
+          sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
+          test -n "$sdk"
+          if [[ -d "$sdk/platforms/android-37.0" && ! -e "$sdk/platforms/android-37" ]]; then
+            ln -s android-37.0 "$sdk/platforms/android-37"
+          fi
+          ls -la "$sdk/platforms"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Build application
