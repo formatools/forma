@@ -1,10 +1,11 @@
 # Worker host environment (macOS)
 
-Forma workers need **JDK 21** (build/daemon JVM; F-018) and an **Android SDK**
-with platform **34** (sample `compileSdk`; Compose AAR metadata) and optionally
-**33** (`targetSdk`). Android app language level / `jvmTarget` stays at the
-project’s configured `JavaVersion` (sample default still 1.8) — raising bytecode
-is a separate decision from the daemon JDK.
+Forma workers need **JDK 21** (build/daemon JVM; F-018/F-019) and an **Android SDK**
+with platform **37** (sample `compileSdk` / `targetSdk` after F-087; AndroidX core
+1.19 AAR metadata). Platforms **36**/**35** remain useful for intermediate ceilings.
+Android app language level / `jvmTarget` stays at the project’s configured
+`JavaVersion` (sample default still 1.8) — raising bytecode is a separate decision
+from the daemon JDK.
 
 ## Quick start (this Mac)
 
@@ -12,8 +13,8 @@ is a separate decision from the daemon JDK.
 # Already installed on the Forma worker host (no sudo):
 #   brew install openjdk@21
 #   brew install --cask android-commandlinetools
-#   sdk packages: platforms;android-34, platforms;android-33, platform-tools,
-#                 build-tools 33.0.2 + 34.0.0
+#   sdk packages: platforms android-37.0 (+ symlink android-37), 36, 35, …
+#                 build-tools 37/36/35, platform-tools
 
 source scripts/env-mac.sh
 
@@ -60,11 +61,15 @@ export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME
 
 yes | sdkmanager --licenses
 sdkmanager --install \
-  "platforms;android-34" \
-  "platforms;android-33" \
+  "platforms;android-37.0" \
+  "platforms;android-36" \
+  "platforms;android-35" \
   "platform-tools" \
-  "build-tools;33.0.2" \
-  "build-tools;34.0.0"
+  "build-tools;37.0.0" \
+  "build-tools;36.0.0" \
+  "build-tools;35.0.0"
+# AGP resolves compileSdk=37 as platforms/android-37
+ln -sfn android-37.0 "$ANDROID_HOME/platforms/android-37"
 
 printf 'sdk.dir=%s\n' "$ANDROID_HOME" > application/local.properties
 ```
@@ -76,16 +81,17 @@ sudo ln -sfn /usr/local/opt/openjdk@21/libexec/openjdk.jdk \
   /Library/Java/JavaVirtualMachines/openjdk-21.jdk
 ```
 
-## Verified on 2026-07-20 (F-019 Phase 1 — Gradle 9 + Kotlin 2.3 + AGP 9)
+## Verified on 2026-07-21 (F-087 — AndroidX / SDK ceiling)
 
 - `java` / `javac` **21.x** (Homebrew OpenJDK 21) via `scripts/env-mac.sh`
 - Gradle wrappers: **9.6.1** (all roots; F-019)
 - AGP **9.3.0** lockstep (`plugins/android` compile + sample `agpVersion`)
 - Kotlin **2.3.21** (Gradle embedded); KSP **2.3.10**
-- Compose compiler default **2.3.21** (+ Kotlin Compose Compiler plugin when `compose=true`)
-- Sample SDK: min **23** / target **35** / compile **35** (install platform 35 for full sample builds; 34/33 still useful)
-- CI: Temurin **21** all jobs (`.github/workflows/main.yml`)
-- F-019 Phase 1 + F-086 ksp/built-in Kotlin done
+- Compose UI **1.11.4** / compiler **2.3.21** (+ Kotlin Compose Compiler plugin when `compose=true`)
+- Sample SDK: min **23** / target **37** / compile **37** (platform package `android-37.0`, AGP dir `android-37`)
+- AndroidX ceiling (stable, AAR-probed): core **1.19.0**, activity **1.13.0**, lifecycle **2.11.0**, room **2.8.4**, material **1.14.0**; paging **2.1.2** kept (API rewrite separate)
+- CI: Temurin **21** + platforms 37/36/35 (`.github/workflows/main.yml`)
+- F-019 Phase 1 + F-086 ksp/built-in Kotlin + F-087 ceiling
 
 See `docs/PROGRESS.md` for the latest host build tails.
 

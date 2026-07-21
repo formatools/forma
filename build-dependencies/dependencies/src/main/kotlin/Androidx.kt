@@ -87,6 +87,12 @@ object androidx {
         core
     )
 
+    private val navigationevent = deps(
+        "androidx.navigationevent:navigationevent:${versions.androidx.navigationevent}".dep,
+        annotation,
+        core
+    )
+
     private val activity = deps(
         "androidx.activity:activity:${versions.androidx.activity}".dep,
         annotation,
@@ -94,6 +100,7 @@ object androidx {
         lifecycle_runtime,
         lifecycle_viewmodel_ktx,
         lifecycle_viewmodel_savedstate,
+        navigationevent,
         savedstate
     )
 

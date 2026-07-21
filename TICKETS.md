@@ -118,7 +118,7 @@ Promoted from daily next-actions / historical GH. Workers pick top `todo` in ord
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-087 | todo | AndroidX / SDK ceiling after AGP 9 | Raise sample `compileSdk`/`targetSdk` as needed; bump AndroidX (core/activity/lifecycle/compose/…) to latest **compatible** with AGP **9.3** (probe AAR `minCompileSdk` / `minAndroidGradlePluginVersion`). Update catalogs + forces in `application/settings.gradle.kts`. Verify plugins + application + CI. Refs: F-019 note, companion dep ceiling. |
+| F-087 | done | AndroidX / SDK ceiling after AGP 9 | compile/target **37**; core **1.19.0**, activity **1.13.0**, lifecycle **2.11.0**, compose **1.11.4**, room **2.8.4**, material **1.14.0**; JVM **11**; navigationevent on activity graph; paging **2.1.2** kept. Host+CI platform 37. |
 | F-088 | todo | Fleet tooling phase 2 (F-084 follow-ups) | From `docs/FLEET-TOOLING.md`: Gradle `formaLayoutCheck` / `formaLayoutGenerate` tasks (thin shells over core); optional config-time packageName dir hook; bulk generate driver for includer graph. Defer AST migrate / depgen resurrection unless unblocked in-slice. Close GH **#54** if generate path is user-complete. |
 | F-089 | todo | Navigation task cache broken | GH **#110** — fix navigation/safe-args related task cache so config/build cache is correct; reproduce from issue screenshots; add regression note or test if feasible; plugins+app green. |
 | F-090 | todo | Exclude modules from dependency validation | GH **#97** — allow-list / opt-out for forked-in libraries (ExoPlayer-class cases) without weakening default matrix. One global configuration path (not per-call-site escape hatch spam). Docs + sample or unit coverage. |

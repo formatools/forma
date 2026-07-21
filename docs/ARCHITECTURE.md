@@ -264,8 +264,8 @@ buildscript {
     androidProjectConfiguration(
         project = rootProject,
         minSdk = 23,
-        targetSdk = 35,
-        compileSdk = 35,
+        targetSdk = 37,
+        compileSdk = 37,
         agpVersion = "9.3.0",
         extraPlugins = listOf(
             // classpath only — see PROJECT-CONFIGURATION.md + TARGET-PLUGINS.md
@@ -295,7 +295,7 @@ Concurrency group `ci-${{ github.workflow }}-${{ github.ref }}` cancels in-progr
 CI pins (evolved F-004 → F-018):
 
 1. **All jobs** pin Temurin **21** via `actions/setup-java@v4` (was 17; requires Gradle ≥8.5 — wrappers are **9.6.1**).
-2. **Application** installs Android SDK packages matching sample `compileSdk` **35** / target **35**.
+2. **Application** installs Android SDK packages matching sample `compileSdk` **37** / target **37**.
 3. README badge → `formatools/forma` + `actions/workflows/main.yml/badge.svg`.
 4. Gradle setup via `gradle/actions/setup-gradle@v4` (successor of `gradle-build-action`).
 5. Dropped unconditional `--scan` (no build-scan account coupling in CI).
@@ -313,8 +313,9 @@ keys) or full Portal publish via secrets; deeper Gradle remote cache.
 | App bytecode / `jvmTarget` | unchanged (sample default `JavaVersion.VERSION_1_8`) — not raised with daemon JDK |
 | Gradle | **9.6.1** (all wrappers; F-019) |
 | AGP | **9.3.0** sample runtime + plugins compile (F-019) |
-| Kotlin | embeddedKotlin from Gradle 9.6.1 (**2.3.21**); KSP **2.3.10**; Compose compiler default **2.3.21** |
-| Android SDK | sample min **23** / target **35** / compile **35**; host platforms 35+34+33 + build-tools 33/34 |
+| Kotlin | embeddedKotlin from Gradle 9.6.1 (**2.3.21**); KSP **2.3.10**; Compose UI **1.11.4** / compiler default **2.3.21** |
+| Android SDK | sample min **23** / target **37** / compile **37** (F-087); host platforms 37+36+35 + build-tools 37/36/35 |
+| AndroidX ceiling | core **1.19.0**, activity **1.13.0**, lifecycle **2.11.0**, room **2.8.4**, material **1.14.0** (paging **2.1.2** kept) |
 | Forma version | 0.1.3 |
 
 Host bootstrap details: `docs/ENV.md`, `scripts/env-mac.sh` (F-001).
