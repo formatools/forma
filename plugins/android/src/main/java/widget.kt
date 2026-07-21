@@ -11,6 +11,7 @@ import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
+import tools.forma.deps.fleet.registerFormaLayout
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.validation.asValidator
@@ -35,6 +36,7 @@ fun Project.widget(
     manifestPlaceholders: Map<String, Any> = emptyMap()
 ) {
     AndroidTargetRegistry.selfValidator(AndroidTargetTypes.widget).asValidator().validate(target)
+    registerFormaLayout(packageName)
 
     val featureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName = packageName,

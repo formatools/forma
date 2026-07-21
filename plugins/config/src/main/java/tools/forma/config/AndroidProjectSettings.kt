@@ -46,7 +46,16 @@ data class AndroidProjectSettings(
     val composeCompilerVersion: String,
     val vectorDrawablesUseSupportLibrary: Boolean,
     val javaVersionCompatibility: JavaVersion, // Java/Kotlin configuration
-    val mandatoryOwners: Boolean
+    val mandatoryOwners: Boolean,
+    /**
+     * When true, each target that registers `packageName` layout metadata fails at
+     * **configuration time** if `src/main/{kotlin|java}/<package>` is missing under the
+     * module (F-088). Default **false** so greenfield / sample trees are not forced to
+     * scaffold dirs before first generate. Prefer explicit tasks `formaLayoutCheck` /
+     * `formaLayoutGenerate` (and root `*All` variants) for the happy path; turn this on
+     * in CI or local strict mode only.
+     */
+    val checkPackageLayoutAtConfiguration: Boolean = false,
 )
 
 /**

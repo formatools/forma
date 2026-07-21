@@ -9,7 +9,7 @@ visibility validation** for you.
 **Root principles** (see [`VISION.md`](VISION.md)): (1) Bazel-like rules — configure
 once on the type, minimal call-site attrs; (2) one global way project-wide; (3)
 explicit structure, with tooling for large-scale change
-([`FLEET-TOOLING.md`](FLEET-TOOLING.md) — check / generate / migrate).
+([`FLEET-TOOLING.md`](FLEET-TOOLING.md) — `formaLayoutCheck` / `formaLayoutGenerate` + core APIs).
 
 This tutorial gets you from zero to a working multi-target Android app. For the
 full multi-feature reference layout, see [SAMPLE-APP.md](SAMPLE-APP.md).
@@ -297,6 +297,8 @@ impl(
 ```
 
 Put Kotlin under `src/main/java/<package-as-dirs>/…` matching `packageName`.
+Scaffold missing package trees with `./gradlew :module:formaLayoutGenerate` or root
+`formaLayoutGenerateAll` (see [FLEET-TOOLING.md](FLEET-TOOLING.md)).
 
 ### 4.4 Build
 
@@ -445,7 +447,7 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | SDK / `compileSdk` errors | Install platform **37** (`platforms;android-37.0` + `android-37` symlink); set `local.properties` `sdk.dir` |
 | Project not included | Missing `build.gradle.kts`, or nested `settings.gradle.kts` blocked Includer |
 | Illegal project dependency | Matrix violation — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) |
-| Empty / wrong package | `packageName` ≠ directory under `src/main/java` |
+| Empty / wrong package | `packageName` ≠ directory under `src/main/java` — run `formaLayoutCheck` / `formaLayoutGenerate` |
 | Compose compiler mismatch | Align `composeCompilerVersion` with Kotlin (sample: 2.3.21 ↔ 2.3.21) |
 | AGP resolution conflicts | Align consumer `agpVersion` with plugin AGP line (**9.3.0** today) |
 

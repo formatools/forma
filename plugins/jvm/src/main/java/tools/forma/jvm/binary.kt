@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.configure
 import tools.forma.deps.core.EmptyDependency
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.applyDependencies
+import tools.forma.deps.fleet.registerFormaLayout
 import tools.forma.jvm.feature.applyKotlinJvm
 import tools.forma.jvm.target.JvmTargetRegistry
 import tools.forma.jvm.target.JvmTargetTypes
@@ -35,6 +36,7 @@ fun Project.binary(
 
     JvmTargetRegistry.selfValidator(JvmTargetTypes.binary).asValidator()
         .validate(FormaTarget(this))
+    registerFormaLayout(packageName)
 
     applyKotlinJvm()
     apply(plugin = "application")
