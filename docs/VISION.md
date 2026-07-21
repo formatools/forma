@@ -20,7 +20,7 @@ README meta-build pitch; stated here so they cannot drift.
 3. **Everything is explicit** — Structure and boundaries are declared, not implied
    by hidden convention soup. Tradeoff: more configuration at the **type / project**
    layer. Remedy: **tooling** so large-scale changes stay easy and reliable
-   (check / generate / migrate — includer, depgen, adapters, future fleet tools).
+   (check / generate / migrate — includer, adapters, [`FLEET-TOOLING.md`](FLEET-TOOLING.md)).
 
 ### Consequences (do not treat as separate products)
 

@@ -32,7 +32,8 @@ publishing {
                 name.set("forma-core")
                 description.set(
                     "Forma core library (not a Gradle plugin): TargetType, RestrictionGraph, " +
-                        "TargetValidator / ContentRule, TargetRegistry. Co-versioned with tools.forma.* plugins."
+                        "TargetValidator / ContentRule, TargetRegistry, fleet check/generate/migrate helpers. " +
+                        "Co-versioned with tools.forma.* plugins."
                 )
                 url.set("https://forma.tools/")
                 scm {

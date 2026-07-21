@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-20 — F-084: fleet tooling check/generate/migrate v1
+
+- **Ticket:** F-084 → `done` (v1 toolkit; follow-ups listed in `docs/FLEET-TOOLING.md`)
+- **Branch:** `forma/F-084-fleet-tooling` (from origin/v2)
+- **Skills/modes:** Grok Build `--mode full` design 503 + implement hang (no tree changes); Hermes finish path for pure-core + docs slice
+- **Code (`plugins/core` `tools.forma.core.fleet`):**
+  - `PackageLayout` / `SourceLanguage` — packageName → `src/main/{kotlin|java}/…`
+  - `ProjectPathForms` — includer `:feature-home-impl` ↔ Forma `:feature:home:impl`
+  - `LayoutGenerator` plan/apply (GH #54) + optional `.gitkeep`
+  - `LayoutChecker` — missing package dir violations
+  - `MigratePlanner` — path rename + suggested reference rewrites (not AST)
+  - Unit tests: `FleetToolkitTest` (GH #54 package, idempotent apply, path forms, migrate)
+- **Docs / teaching:**
+  - New `docs/FLEET-TOOLING.md` (modes, tool map, API, follow-ups)
+  - VISION principle 3 link; README + GETTING-STARTED; ARCHITECTURE audit stamp
+  - Agent skill `forma-fleet-tooling` + skills README + PROGRESSIVE-EXAMPLES row
+- **Out of scope (documented follow-ups):** Gradle tasks, AST migrate, depgen finish, config-time package hook
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew :core:test build` → **BUILD SUCCESSFUL** (78 tasks; core fleet unit tests green)
+- **Blockers:** none for v1
+- **Next:** F-085 full-tree principle audit
+
 ## 2026-07-20 — F-083: one external-deps house style
 
 - **Ticket:** F-083 → `done`
