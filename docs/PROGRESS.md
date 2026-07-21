@@ -2,6 +2,20 @@
 
 Newest entries first.
 
+## 2026-07-21 — Promote backlog → P9 (Stepan)
+
+- **Action:** User: “Promote all 6 tickets” on empty-board daily next-actions
+- **Mapped next-actions → board (expanded GH bundle into discrete tickets):**
+  1. AndroidX ceiling → **F-087** `todo`
+  2. F-084 follow-ups → **F-088** `todo`
+  3. Historical GH → **F-089** #110, **F-090** #97, **F-091** #88, **F-092** #82 `todo`; **F-094** #133 `blocked` (Portal human admin)
+  4. Legacy `.kapt` removal → **F-093** `todo`
+  5. Pause/stretch 4h worker → **not a product ticket** (board no longer empty; leave cron as-is)
+  6. `v2`→`master` → **not done** (git promote stays explicit; this change only fills `TICKETS.md`)
+- **Files:** `TICKETS.md` new **P9**; backlog lines struck through → F-xxx
+- **Next worker pickup:** **F-087** (AndroidX / SDK ceiling)
+- **Blockers:** none for coding queue; F-094 waits on Portal credentials
+
 ## 2026-07-21 — F-085: full-tree principle audit
 
 - **Ticket:** F-085 → `done`

@@ -23,8 +23,8 @@ Canonical write-up: `docs/VISION.md` § Root principles. Plugins design: `docs/T
 | F-003 | done | Get plugins + sample `application/` building on modern toolchain | Plugins compile AGP 8.1.2 matches sample; Gradle 8.3 (plugins) / 8.4 (app); host builds green |
 | F-004 | done | CI green on GitHub Actions for plugins + application | Temurin 17 all jobs + Android SDK 33 for app; PR #153 GHA green |
 | F-018 | done | JDK 21 + Gradle/AGP staged modernization | **Shipped on `v2`:** Gradle **8.14.5**, AGP **8.13.2**, Kotlin **2.0.21**, KSP **2.0.21-1.0.28**, Compose **1.9.4**/compiler **2.0.21**, JDK **21** host/CI, sample SDK min23/target35/compile35 + deps at AGP-8.13 ceiling. PRs **#179–#182**. Superseded by **F-019** for 9.x. |
-| F-019 | done | Gradle 9 + Kotlin 2.3 + AGP 9 toolchain | Phase 1 done (9.6.1 / 2.3.21 / AGP 9.3.0). **F-086** = kapt→KSP + built-in Kotlin. AndroidX ceiling still optional follow-up. |
-| F-086 | done | Migrate kapt → KSP + AGP built-in Kotlin | First-class `Ksp` + `String.ksp`; `processorConfigurationFeatures()`; sample Dagger on **ksp**; drop F-019 kapt bridge flags; legacy `.kapt` kept. |
+| F-019 | done | Gradle 9 + Kotlin 2.3 + AGP 9 toolchain | Phase 1 done (9.6.1 / 2.3.21 / AGP 9.3.0). **F-086** = kapt→KSP + built-in Kotlin. AndroidX ceiling → **F-087**. |
+| F-086 | done | Migrate kapt → KSP + AGP built-in Kotlin | First-class `Ksp` + `String.ksp`; `processorConfigurationFeatures()`; sample Dagger on **ksp**; drop F-019 kapt bridge flags; legacy `.kapt` kept until **F-093**. |
 
 ## P1 — Android working product
 
@@ -101,7 +101,6 @@ Close the biggest call-site / multi-way gap: chain `withPlugin`. Design:
 
 Close remaining gaps where code/docs still allow **multiple ways**, **fat call
 sites**, or **missing fleet tooling**. **P7 + P8 (F-070–F-085) done**; **F-019 Phase 1 done**.
-**Next coding:** board empty for product principles — promote backlog (AndroidX ceiling, GH issues) or new F-xxx only on user request.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
@@ -109,28 +108,46 @@ sites**, or **missing fleet tooling**. **P7 + P8 (F-070–F-085) done**; **F-019
 | F-081 | done | Call-site surface audit: `Unit` returns, no builder chains, minimal attrs | Hard-removed `TargetBuilder` / `PluginWrapper` / sample `Plugins` + chain-only `PluginConfiguration`; all Android/JVM DSLs already `Unit`; `docs/CALL-SITE-SURFACE.md` flag inventory (`compose` → project-global default, `viewBinding` on impl + dedicated type) |
 | F-082 | done | One global configuration path | Hard-removed `Project.androidProjectConfiguration`; `ScriptHandlerScope` form is the single API; `extraPlugins` documented classpath-only; new `PROJECT-CONFIGURATION.md` + cross-links; builds green |
 | F-083 | done | One project-global external-deps convention | **House style = `projectDependencies` → `libs.*`**. Typed `build-dependencies/` catalogs = advanced/sample-scale only (not dual happy path). `DEPS-CATALOG.md` + README/GETTING-STARTED/agent skill/08 README |
-| F-084 | done | Fleet tooling for explicit graphs (check / generate / migrate) | **v1 in `tools.forma.core.fleet`:** `LayoutChecker` / `LayoutGenerator` / `MigratePlanner` / path forms; `docs/FLEET-TOOLING.md` + agent skill; GH **#54** package→dir covered. Follow-ups: Gradle tasks, AST migrate, depgen — listed in FLEET-TOOLING.md |
+| F-084 | done | Fleet tooling for explicit graphs (check / generate / migrate) | **v1 in `tools.forma.core.fleet`:** `LayoutChecker` / `LayoutGenerator` / `MigratePlanner` / path forms; `docs/FLEET-TOOLING.md` + agent skill; GH **#54** package→dir covered. Phase 2 follow-ups → **F-088** |
 | F-085 | done | Full-tree principle audit: sample + examples + agent skills | `docs/PRINCIPLE-AUDIT.md`; teaching stragglers fixed (removed-not-deprecated chain wording); zero live chain/`androidLibrary`/dual-path happy paths |
+
+## P9 — Promoted backlog (2026-07-21 Stepan)
+
+Promoted from daily next-actions / historical GH. Workers pick top `todo` in order.
+**Not promoted as product tickets:** pause/stretch 4h worker (ops); `v2`→`master` (explicit git promote only).
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-087 | todo | AndroidX / SDK ceiling after AGP 9 | Raise sample `compileSdk`/`targetSdk` as needed; bump AndroidX (core/activity/lifecycle/compose/…) to latest **compatible** with AGP **9.3** (probe AAR `minCompileSdk` / `minAndroidGradlePluginVersion`). Update catalogs + forces in `application/settings.gradle.kts`. Verify plugins + application + CI. Refs: F-019 note, companion dep ceiling. |
+| F-088 | todo | Fleet tooling phase 2 (F-084 follow-ups) | From `docs/FLEET-TOOLING.md`: Gradle `formaLayoutCheck` / `formaLayoutGenerate` tasks (thin shells over core); optional config-time packageName dir hook; bulk generate driver for includer graph. Defer AST migrate / depgen resurrection unless unblocked in-slice. Close GH **#54** if generate path is user-complete. |
+| F-089 | todo | Navigation task cache broken | GH **#110** — fix navigation/safe-args related task cache so config/build cache is correct; reproduce from issue screenshots; add regression note or test if feasible; plugins+app green. |
+| F-090 | todo | Exclude modules from dependency validation | GH **#97** — allow-list / opt-out for forked-in libraries (ExoPlayer-class cases) without weakening default matrix. One global configuration path (not per-call-site escape hatch spam). Docs + sample or unit coverage. |
+| F-091 | todo | BuildFeatures under Forma | GH **#88** — map AGP `BuildFeatures` into Forma (default off where safe); single configuration path aligned with type=rule + project-global defaults; document in CALL-SITE / PROJECT-CONFIGURATION. Do not reintroduce fat call-site plugin shopping. |
+| F-092 | todo | versionCode / versionName on binary (and app) | GH **#82** — move version identity off global-only `FormaConfiguration`; set on `androidBinary` / `androidApp` as call-site attrs (Gradle limits acknowledged). Sample uses new API; docs. |
+| F-093 | todo | Remove legacy `.kapt` once unused | After F-086 sample is KSP-only: hard-remove or hard-deprecate `String.kapt` / `kapt()` / `Kapt` configuration path if no in-repo consumers; keep only if a documented external-compat shim is still required. Grep tree + tests + DEPS docs. |
+| F-094 | blocked | Gradle Plugin Portal Forma org/user | GH **#133** — human/admin: create shared Portal user/org and credentials for team publish. Worker cannot finish without Stepan Portal access. Track only; see `docs/PLUGIN-PUBLISH.md`. |
 
 ## Backlog (lower priority / historical GitHub)
 
 Keep for reference; do not start unless higher tickets done or user prioritizes:
 
-- GH #110 Navigation task cache broken
-- GH #97 Excluded from dependency validation
-- GH #88 BuildFeatures support
-- GH #82 Version code/name in binary
+- ~~GH #110 Navigation task cache broken~~ → **F-089**
+- ~~GH #97 Excluded from dependency validation~~ → **F-090**
+- ~~GH #88 BuildFeatures support~~ → **F-091**
+- ~~GH #82 Version code/name in binary~~ → **F-092**
+- ~~GH #133 Portal Forma user~~ → **F-094** (blocked on human admin)
+- ~~F-019 AndroidX ceiling~~ → **F-087**
+- ~~Legacy `.kapt` removal~~ → **F-093**
+- ~~F-084 Gradle-task follow-ups~~ → **F-088**
 - GH #77 transitiveDeps extension
-- GH #54 Generate target structure from minimal config → **theme under F-084**
+- GH #54 Generate target structure from minimal config → **theme under F-084 / F-088**
 - GH #51 Support build types
 - GH #46 New navigation system
 - GH #44/#43 Hybrid targets/config examples
 - GH #36 Docs for external plugins → **P7 / F-070–F-073**
-- GH #126 Target features configuration options → consider under **F-081**
+- GH #126 Target features configuration options → consider under **F-081** / **F-091**
 - GH #111 Gradle project as buildscript classpath
 - GH #103 Java 8+ API on Android API ≤26
-- F-019 AndroidX ceiling / compileSdk bump (after F-086)
-- Legacy `.kapt` removal once no consumers remain
 
 ## How workers update this file
 
