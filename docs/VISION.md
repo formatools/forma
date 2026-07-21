@@ -77,9 +77,9 @@ Concrete stacks built **on** forma-core:
 2. **Extract forma-core** — peel framework concerns out of the Android plugin while Android keeps working.
 3. **JVM implementation** — prove core is portable.
 4. **Bazel** — design + implement adapter once core is stable (see [`docs/BAZEL-ADAPTER.md`](BAZEL-ADAPTER.md) for the F-040 mapping design).
-5. **Flat-structure hardening** — deprecate/remove generic targets that undermine role typing (P6 / F-060+).
-6. **Uniform target plugins** — Bazel-like: plugin on the **target type**, auto-apply on every call site; call sites are attributes-only; deprecate chain `withPlugin` (P7 / F-070+; [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)).
-7. **Principle-alignment implementation** — close remaining gaps vs root principles (P8 / F-080+).
+5. **Flat-structure hardening** — remove generic targets that undermine role typing (P6 / F-060–F-063; `androidLibrary` gone).
+6. **Uniform target plugins** — Bazel-like: plugin on the **target type**, auto-apply on every call site; call sites are attributes-only; chain `withPlugin` **removed** (P7 / F-070–F-073 + F-081; [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)).
+7. **Principle-alignment implementation** — close remaining gaps vs root principles (P8 / F-080–F-085; audit: [`PRINCIPLE-AUDIT.md`](PRINCIPLE-AUDIT.md)).
 
 ## Working principles
 

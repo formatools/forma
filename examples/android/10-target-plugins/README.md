@@ -37,7 +37,7 @@ navigationRes(
 safe-args to *every* `androidRes(...)`. Prefer Path B when only some res modules need the plugin.
 
 ## Forbidden
-- `.withPlugin(...)` / `.withPlugins(...)` chains (deprecated)
+- `.withPlugin(...)` / `.withPlugins(...)` / `TargetBuilder` chains (**removed** F-081)
 - Free-form `plugins = plugins(plugin("id"))` on targets
 - Re-selecting plugin bindings at each call site
 
@@ -52,8 +52,10 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
 
 ## Docs
 - Design + API: [`docs/TARGET-PLUGINS.md`](../../../docs/TARGET-PLUGINS.md)
+- Call-site contract: [`docs/CALL-SITE-SURFACE.md`](../../../docs/CALL-SITE-SURFACE.md)
 - Agent skill: [`examples/agent-skills/forma-target-plugins.md`](../../agent-skills/forma-target-plugins.md)
 - Gold-standard sample: `application/core/navigation/res` + `build-dependencies/.../NavigationRes.kt`
+- Full-tree audit: [`docs/PRINCIPLE-AUDIT.md`](../../../docs/PRINCIPLE-AUDIT.md) (F-085)
 
 ## Next
-P8 principle-alignment tickets (F-081+). Ladder complete for P7 plugins.
+Ladder complete for target plugins. See [`docs/PROGRESSIVE-EXAMPLES.md`](../../../docs/PROGRESSIVE-EXAMPLES.md).

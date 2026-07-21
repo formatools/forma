@@ -24,3 +24,6 @@ matrix rules, and progressive example pointers.
 3. Suffix of project name must match DSL (`…/impl` → `impl { }`)
 4. `packageName` must match source root path
 5. Do not weaken validators to “make it build”
+6. No `.withPlugin` / free-form plugin id lists / restored `androidLibrary`
+7. One global way per concern — house-style deps = `projectDependencies` → `libs.*`; type owns plugins
+8. Call sites = attributes only (`docs/CALL-SITE-SURFACE.md`); see `docs/PRINCIPLE-AUDIT.md`

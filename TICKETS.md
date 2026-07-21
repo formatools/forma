@@ -100,8 +100,8 @@ Close the biggest call-site / multi-way gap: chain `withPlugin`. Design:
 ## P8 — Principle alignment (implementation matches goals)
 
 Close remaining gaps where code/docs still allow **multiple ways**, **fat call
-sites**, or **missing fleet tooling**. P7 (F-070–F-073) and F-081–F-084 are **done**; **F-019 Phase 1 done**.
-**Next coding:** **F-085**
+sites**, or **missing fleet tooling**. **P7 + P8 (F-070–F-085) done**; **F-019 Phase 1 done**.
+**Next coding:** board empty for product principles — promote backlog (AndroidX ceiling, GH issues) or new F-xxx only on user request.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
@@ -110,7 +110,7 @@ sites**, or **missing fleet tooling**. P7 (F-070–F-073) and F-081–F-084 are 
 | F-082 | done | One global configuration path | Hard-removed `Project.androidProjectConfiguration`; `ScriptHandlerScope` form is the single API; `extraPlugins` documented classpath-only; new `PROJECT-CONFIGURATION.md` + cross-links; builds green |
 | F-083 | done | One project-global external-deps convention | **House style = `projectDependencies` → `libs.*`**. Typed `build-dependencies/` catalogs = advanced/sample-scale only (not dual happy path). `DEPS-CATALOG.md` + README/GETTING-STARTED/agent skill/08 README |
 | F-084 | done | Fleet tooling for explicit graphs (check / generate / migrate) | **v1 in `tools.forma.core.fleet`:** `LayoutChecker` / `LayoutGenerator` / `MigratePlanner` / path forms; `docs/FLEET-TOOLING.md` + agent skill; GH **#54** package→dir covered. Follow-ups: Gradle tasks, AST migrate, depgen — listed in FLEET-TOOLING.md |
-| F-085 | todo | Full-tree principle audit: sample + examples + agent skills | After F-072/F-081: no chain APIs, no dual styles taught, call sites minimal; fix stragglers |
+| F-085 | done | Full-tree principle audit: sample + examples + agent skills | `docs/PRINCIPLE-AUDIT.md`; teaching stragglers fixed (removed-not-deprecated chain wording); zero live chain/`androidLibrary`/dual-path happy paths |
 
 ## Backlog (lower priority / historical GitHub)
 
