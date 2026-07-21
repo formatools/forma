@@ -2,6 +2,31 @@
 
 Newest entries first.
 
+## 2026-07-21 — F-087: AndroidX / SDK ceiling
+
+- **Ticket:** F-087 → `done`
+- **Branch:** `forma/F-087-androidx-ceiling` (from origin/v2)
+- **Skills/modes:** Hermes toolchain finish path (F-018 class); AAR metadata probe before pins
+- **SDK:** sample min **23** / target **37** / compile **37**
+  - Host: installed `platforms;android-36`, `platforms;android-37.0`, build-tools 36/37; symlink `platforms/android-37` → `android-37.0` (AGP dir name)
+  - CI: `.github/workflows/main.yml` packages 37.0/37/36/35 + build-tools 37/36/35
+- **AndroidX / related (stable, AAR-probed):**
+  - core **1.19.0** (minCompileSdk 37, minAGP 9.1) · activity **1.13.0** · lifecycle **2.11.0**
+  - compose **1.11.4** · room **2.8.4** · sqlite **2.7.0** · material **1.14.0**
+  - annotation **1.10.0** · collection **1.6.0** · savedstate **1.5.0** · transition **1.7.0**
+  - navigationevent **1.1.2** added under activity graph (DialogFragment / ComponentActivity surface)
+  - appcompat **1.7.1**, fragment **1.8.9**, navigation **2.9.8** (latest stable; alphas skipped)
+  - **paging 2.1.2 kept** (sample PagedList APIs — 3.x = separate rewrite)
+- **Bytecode:** `javaVersionCompatibility = JavaVersion.VERSION_11` (navigation 2.9 JVM11 cannot inline into 1.8)
+- **Examples:** all `examples/android/*` compile/target 37; compose demo pins → 1.11.4
+- **Docs:** ENV, ARCHITECTURE, GETTING-STARTED, SAMPLE-APP toolchain stamps
+- **Out of scope:** OkHttp 5 / Retrofit 3; paging 3; alpha appcompat/fragment/navigation/compose
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2322 tasks)
+- **Blockers:** none
+- **Next:** F-088 fleet tooling phase 2
+
 ## 2026-07-21 — Promote backlog → P9 (Stepan)
 
 - **Action:** User: “Promote all 6 tickets” on empty-board daily next-actions

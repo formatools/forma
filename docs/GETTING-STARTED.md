@@ -45,7 +45,7 @@ structure and boundaries, not business logic.
 | Tool | Version / notes |
 |------|-----------------|
 | JDK | **21** build/daemon (F-018); app language level unchanged |
-| Android SDK | Platform **35** (`compileSdk` / modern Compose + AndroidX AARs); **34**/**33** still useful |
+| Android SDK | Platform **37** (`compileSdk` / modern Compose + AndroidX AARs); **36**/**35** still useful |
 | Build tools | 33.0.2 / 34.0.0 as used by the sample |
 | Gradle | Use the wrapper in the project (`./gradlew`); **9.6.1** all roots |
 | AGP | **9.3.0** (keep consumer `agpVersion` aligned with plugin compile AGP) |
@@ -442,7 +442,7 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | Symptom | Likely cause |
 |---------|----------------|
 | “Java not found” / old JDK | Use JDK 21 (or 17+ min); export `JAVA_HOME` ([ENV.md](ENV.md)) |
-| SDK / `compileSdk` errors | Install platform **35**; set `local.properties` `sdk.dir` |
+| SDK / `compileSdk` errors | Install platform **37** (`platforms;android-37.0` + `android-37` symlink); set `local.properties` `sdk.dir` |
 | Project not included | Missing `build.gradle.kts`, or nested `settings.gradle.kts` blocked Includer |
 | Illegal project dependency | Matrix violation — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) |
 | Empty / wrong package | `packageName` ≠ directory under `src/main/java` |

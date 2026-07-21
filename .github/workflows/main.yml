@@ -71,14 +71,15 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
-      # Sample app: compileSdk 35 (Compose 1.11 / modern AndroidX), targetSdk 35, minSdk 23.
+      # Sample app: compileSdk/targetSdk 37 (F-087 AndroidX ceiling; core 1.19), minSdk 23.
       # setup-android accepts licenses, installs cmdline-tools + listed packages,
       # and exports ANDROID_HOME / ANDROID_SDK_ROOT for AGP.
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
         with:
           # Space-separated sdkmanager package ids (semicolons inside package names).
-          packages: "platform-tools platforms;android-35 platforms;android-34 platforms;android-33 build-tools;35.0.0 build-tools;34.0.0"
+          # platforms;android-37 may resolve as android-37.0 on newer cmdline-tools — install both forms when available.
+          packages: "platform-tools platforms;android-37.0 platforms;android-37 platforms;android-36 platforms;android-35 build-tools;37.0.0 build-tools;36.0.0 build-tools;35.0.0"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Build application

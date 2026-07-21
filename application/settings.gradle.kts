@@ -91,8 +91,8 @@ includer { arbitraryBuildScriptNames = true }
 rootProject.name = "application"
 
 val coilVersion = "2.7.0"
-val sqliteVersion = "2.5.1"
-val roomVersion = "2.7.2"
+val sqliteVersion = "2.7.0"
+val roomVersion = "2.8.4"
 
 val ksp = CustomConfiguration("ksp")
 
