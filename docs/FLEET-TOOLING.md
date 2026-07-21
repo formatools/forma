@@ -114,7 +114,7 @@ the product surface so agents and future tasks share one implementation.
 - Unit tests including GH #54 package example
 - Cross-links from README / VISION / GETTING-STARTED
 
-**Follow-ups (not blocking F-084 done)**
+**Follow-ups (not blocking F-084 done)** — board: **F-088**
 
 - Gradle `formaLayoutCheck` / `formaLayoutGenerate` tasks on Android/JVM platforms
 - Optional configuration-time hook: fail if `packageName` dir missing (opt-in)
