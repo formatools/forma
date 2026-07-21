@@ -14,9 +14,9 @@ shared configuration, and a **dependency restriction graph**.
 
 | Plugin id | Module | Sample | Progressive ladder |
 |-----------|--------|--------|--------------------|
-| `tools.forma.android` | `plugins/android` | `application/` | `examples/android/01`…`09` |
+| `tools.forma.android` | `plugins/android` | `application/` | `examples/android/01`…`10` |
 | `tools.forma.jvm` | `plugins/jvm` | `jvm-application/` | `examples/jvm/01`…`05` |
-| `tools.forma:core` | `plugins/core` | — | restriction engine |
+| `tools.forma:core` | `plugins/core` | — | restriction engine + fleet toolkit |
 | Bazel adapter | `bazel-adapter/` | `bazel-sample/` | skill `forma-bazel` |
 
 ## Learning order for agents
@@ -24,15 +24,24 @@ shared configuration, and a **dependency restriction graph**.
 1. This overview + `forma-includer-settings` + `forma-project-layout`
 2. Platform targets (`forma-android-targets` or `forma-jvm-targets`)
 3. `forma-dependency-matrix` before multi-module wiring
-4. `forma-deps-catalog` / `forma-compose` as needed
-5. Walk progressive examples in order; copy the **smallest** step that has the feature
+4. `forma-deps-catalog` (house style) / `forma-compose` as needed
+5. `forma-target-plugins` before any third-party Gradle plugin
+6. `forma-fleet-tooling` when scaffolding/renaming packages at scale
+7. Walk progressive examples in order; copy the **smallest** step that has the feature
 
 ## Docs of record
 
+- `docs/VISION.md` — root principles
 - `docs/DEPENDENCY-MATRIX.md` — live validator truth (Android)
 - `docs/JVM-TARGETS.md` — JVM matrix
 - `docs/GETTING-STARTED.md` / `docs/JVM-GETTING-STARTED.md`
 - `docs/PROGRESSIVE-EXAMPLES.md`
-- `docs/COMPOSE.md`, `docs/DEPS-CATALOG.md`
+- `docs/CALL-SITE-SURFACE.md` — Unit DSLs, flags, removed chain API
+- `docs/PROJECT-CONFIGURATION.md` — single `androidProjectConfiguration` path
+- `docs/DEPS-CATALOG.md` — house style `projectDependencies`
+- `docs/TARGET-PLUGINS.md` — type-owned plugins (Path A/B)
+- `docs/FLEET-TOOLING.md` — check/generate/migrate
+- `docs/COMPOSE.md`
+- `docs/PRINCIPLE-AUDIT.md` — full-tree teaching audit (F-085)
 
-- **External plugins:** type-owned (Path A/B) — skill `forma-target-plugins`, docs `TARGET-PLUGINS.md`, example `android/10-target-plugins`.
+**External plugins:** type-owned (Path A/B) — skill `forma-target-plugins`, example `android/10-target-plugins`. Never `.withPlugin`.

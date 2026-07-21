@@ -39,7 +39,15 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 
 See [examples/README.md](../examples/README.md).
 
+## Principle alignment
+
+Teaching ladder + agent skills were audited against root principles in
+[PRINCIPLE-AUDIT.md](PRINCIPLE-AUDIT.md) (F-085). Do not reintroduce chain APIs,
+dual happy paths, or removed `androidLibrary` into examples or skills.
+
 ## Relationship to gold standards
 
 Progressive examples are **minimal**. Patterns for real apps (navigation, Dagger,
 network) live in `application/` and are documented in SAMPLE-APP / GETTING-STARTED.
+Sample-scale typed `build-dependencies/` catalogs are **advanced**, not a second
+default (see [DEPS-CATALOG.md](DEPS-CATALOG.md)).

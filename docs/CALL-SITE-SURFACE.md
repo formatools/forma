@@ -92,4 +92,4 @@ parameters beside them.
 - Plugins: [TARGET-PLUGINS.md](TARGET-PLUGINS.md)  
 - Global config (one path + store story): [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) (F-082)
 - External deps house style: [`DEPS-CATALOG.md`](DEPS-CATALOG.md) (**F-083** — `projectDependencies` happy path; typed catalogs advanced)
-- Full-tree teaching audit: **F-085**
+- Full-tree teaching audit: [`PRINCIPLE-AUDIT.md`](PRINCIPLE-AUDIT.md) (**F-085**)

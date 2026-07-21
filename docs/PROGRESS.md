@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-21 — F-085: full-tree principle audit
+
+- **Ticket:** F-085 → `done`
+- **Branch:** `forma/F-085-principle-audit` (from origin/v2 @ `36d52ba`)
+- **Skills/modes:** Grok Build `--mode full` design **503** + implement **timeout** (no tree changes); Hermes finish path for docs/teaching audit (F-085 class)
+- **Audit record:** new `docs/PRINCIPLE-AUDIT.md` (checklist, findings A1–A7, non-issues, re-audit recipe)
+- **Live code:** zero production `.withPlugin` / `TargetBuilder` / `PluginWrapper` / `androidLibrary` / free-form `plugins=` — sample uses Path B `navigationRes`; root config is single `buildscript` path
+- **Teaching fixes:**
+  - `examples/android/10-target-plugins/README.md` — chain API **removed** (was “deprecated”); audit/CALL-SITE links
+  - `docs/VISION.md` sequencing — P6–P8 marked complete; withPlugin **removed**
+  - `docs/TARGET-PLUGINS.md` F-072 row notes F-081 hard-remove
+  - Agent skills: `forma-overview` (ladder 01…10 + P8 docs), hard rules 6–8, `forma-compose` house-style note
+  - Cross-links: README, PROGRESSIVE-EXAMPLES, CALL-SITE-SURFACE
+- **Out of scope (documented):** sample mass-migrate off typed catalogs; optional `firebaseBinary`; F-084 Gradle-task follow-ups; AndroidX ceiling
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew build` → **BUILD SUCCESSFUL** (2322 tasks)
+- **Blockers:** none
+- **Next:** P8 complete — empty product board; promote backlog only on user request
+
 ## 2026-07-20 — F-084: fleet tooling check/generate/migrate v1
 
 - **Ticket:** F-084 → `done` (v1 toolkit; follow-ups listed in `docs/FLEET-TOOLING.md`)

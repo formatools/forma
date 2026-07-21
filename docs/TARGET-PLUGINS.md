@@ -336,7 +336,7 @@ firebaseBinary(
 |----|--------|------------|
 | **F-070** | This design | Merged on `v2` |
 | **F-071** | `targetPlugin`, type→plugin registry, auto-apply in pre-defined DSLs (Path A lookup), `deriveTargetType` core hooks | unit tests: type with plugin applies without call-site API; plugins build green |
-| **F-072** | Path B DSL helpers; migrate sample navigation (+ optional firebase binary type); deprecate `TargetBuilder` / `PluginWrapper` | application green; **zero** `.withPlugin` call sites; call sites Bazel-flat |
+| **F-072** | Path B DSL helpers; migrate sample navigation (+ optional firebase binary type); hard-deprecate then **F-081 remove** `TargetBuilder` / `PluginWrapper` | application green; **zero** `.withPlugin` call sites; call sites Bazel-flat |
 | **F-073** | Docs + progressive example + agent skill; close GH #36 | **done** — `docs/TARGET-PLUGINS.md` how-to, `examples/android/10-target-plugins`, `forma-target-plugins` skill |
 
 ---
