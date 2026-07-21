@@ -12,6 +12,7 @@ import tools.forma.android.visibility.Visibility
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.deps.core.applyTargetPlugins
+import tools.forma.deps.fleet.registerFormaLayout
 import tools.forma.validation.asValidator
 import tools.forma.validation.validate
 
@@ -24,6 +25,7 @@ fun Project.androidNative(
 ) {
     disallowResources()
     AndroidTargetRegistry.selfValidator(AndroidTargetTypes.native).asValidator().validate(target)
+    registerFormaLayout(packageName)
 
     val configuration = AndroidNativeConfiguration(
         packageName = packageName,

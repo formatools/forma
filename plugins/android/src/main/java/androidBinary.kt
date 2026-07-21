@@ -9,6 +9,7 @@ import tools.forma.android.validation.disallowResources
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
+import tools.forma.deps.fleet.registerFormaLayout
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.validation.asValidator
@@ -47,6 +48,8 @@ fun Project.androidBinary(
 
     val selfV = AndroidTargetRegistry.selfValidator(AndroidTargetTypes.binary).asValidator()
     selfV.validate(target)
+    // applicationId / namespace; composition root often has only a manifest.
+    registerFormaLayout(packageName, requirePackageSourceDir = false)
     val binaryFeatureConfiguration = AndroidBinaryFeatureConfiguration(
         packageName,
         versionCode,

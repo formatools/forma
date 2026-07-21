@@ -11,6 +11,7 @@ import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
+import tools.forma.deps.fleet.registerFormaLayout
 import tools.forma.validation.asValidator
 import tools.forma.validation.validate
 
@@ -42,6 +43,7 @@ fun Project.impl(
 
     val selfV = AndroidTargetRegistry.selfValidator(AndroidTargetTypes.impl).asValidator()
     selfV.validate(target)
+    registerFormaLayout(packageName)
     val libraryFeatureConfiguration = AndroidLibraryFeatureConfiguration(
         packageName,
         buildConfiguration,

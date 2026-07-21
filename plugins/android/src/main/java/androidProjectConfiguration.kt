@@ -13,6 +13,7 @@ import tools.forma.config.AndroidProjectSettings
 import tools.forma.config.FormaSettingsStore
 import tools.forma.config.PluginInfoStore
 import tools.forma.config.SettingsStore
+import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
 
 /**
  * The **single supported entry point** for Android project-wide configuration in Forma.
@@ -64,6 +65,9 @@ import tools.forma.config.SettingsStore
  * @param javaVersionCompatibility Java language level for source/target compatibility
  * @param mandatoryOwners when true, all targets require an owner declaration
  * @param vectorDrawablesUseSupportLibrary passed through to Android vector drawable config
+ * @param checkPackageLayoutAtConfiguration when true, fail configuration if a target's
+ *   `packageName` source dir is missing (default false; see [AndroidProjectSettings] and
+ *   docs/FLEET-TOOLING.md). Generate via `formaLayoutGenerate` / `formaLayoutGenerateAll`.
  * @param extraPlugins list of extra artifacts / plugin providers to add to the **buildscript classpath only**.
  *   See "Classpath vs apply" in TARGET-PLUGINS.md.
  */
@@ -80,6 +84,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     javaVersionCompatibility: JavaVersion = JavaVersion.VERSION_1_8, // Java/Kotlin configuration
     mandatoryOwners: Boolean = false,
     vectorDrawablesUseSupportLibrary: Boolean = false,
+    checkPackageLayoutAtConfiguration: Boolean = false,
     extraPlugins: List<Any> = emptyList()
 ) {
     buildScriptConfiguration(
@@ -96,6 +101,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             "clean",
             Delete::class
         ) { delete(layout.buildDirectory) }
+        // Root bulk layout tasks (F-088); per-target tasks wire dependsOn when DSLs register.
+        ensureFormaLayoutRootTasks()
     }
 
     val configuration =
@@ -112,7 +119,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             mandatoryOwners = mandatoryOwners,
             compose = compose,
             composeCompilerVersion = composeCompilerVersion,
-            vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary
+            vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary,
+            checkPackageLayoutAtConfiguration = checkPackageLayoutAtConfiguration,
         )
 
     Forma.store(configuration)

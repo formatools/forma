@@ -11,6 +11,7 @@ import org.gradle.api.Project
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.core.FormaDependency
+import tools.forma.deps.fleet.registerFormaLayout
 import tools.forma.validation.asValidator
 import tools.forma.validation.validate
 
@@ -41,6 +42,7 @@ fun Project.util(
     disallowResources()
 
     AndroidTargetRegistry.selfValidator(AndroidTargetTypes.util).asValidator().validate(target)
+    registerFormaLayout(packageName)
 
     applyFeatures(
         kotlinFeatureDefinition()

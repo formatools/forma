@@ -2,6 +2,29 @@
 
 Newest entries first.
 
+## 2026-07-21 — F-088: Fleet tooling phase 2
+
+- **Ticket:** F-088 → `done`
+- **Branch:** `forma/F-088-fleet-phase2` (from origin/v2 @ 4fe663a)
+- **Actions:**
+  - Shared Gradle helper `tools.forma.deps.fleet` (`FormaLayoutExtension`, `registerFormaLayout`, root `ensureFormaLayoutRootTasks`)
+  - Per-project tasks `formaLayoutCheck` / `formaLayoutGenerate` (thin shells over core `LayoutChecker` / `LayoutGenerator`)
+  - Root aggregates `formaLayoutCheckAll` / `formaLayoutGenerateAll` (`dependsOn` registered subprojects)
+  - Wired into **all** Android + JVM target DSLs that take `packageName`
+  - Opt-in `AndroidProjectSettings.checkPackageLayoutAtConfiguration` (default **false**); set via `androidProjectConfiguration(...)`; pure JVM skips when settings unset
+  - Check accepts either `src/main/java` or `src/main/kotlin` package trees (sample uses java root)
+  - `requirePackageSourceDir = false` for `resourcesTarget` / `viewBinding` / `androidBinary` (AGP identity only — avoids checkAll fail + bulk-generate pollution on res)
+  - Docs: `docs/FLEET-TOOLING.md` phase-2 shipped; agent skill task usage; README + GETTING-STARTED cross-links
+  - **Deferred (documented):** AST migrate rewrite, depgen resurrection
+  - **GH #54:** generate path is user-complete via Gradle tasks + docs — leave note for Hermes to close (not closed from this CLI)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/ ./gradlew :core:test build` → **BUILD SUCCESSFUL** (78 tasks)
+  - `application/ ./gradlew help :feature-home-api:formaLayoutCheck formaLayoutCheckAll --no-configuration-cache` → **BUILD SUCCESSFUL** (82 tasks)
+  - Sample does **not** set `checkPackageLayoutAtConfiguration`
+  - Accidental res kotlin trees from an intermediate `generateAll` run were cleaned (`git clean`); generate now skips AGP-identity targets
+- **Blockers:** none
+- **Next:** F-089 Navigation task cache broken (GH #110)
+
 ## 2026-07-21 — F-087: AndroidX / SDK ceiling
 
 - **Ticket:** F-087 → `done`
