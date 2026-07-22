@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-22 — Plugins JaCoCo + happy-path ≥60% gate
+
+- **Branch:** `forma/test-coverage-jacoco` (from origin/v2)
+- **Ask:** run full test suite, enable coverage, ensure ≥60% happy-path coverage
+- **Actions:**
+  - JaCoCo 0.8.13 on `plugins/` subprojects (`formaCoverage.kt` in buildSrc)
+  - Per-module `jacocoTestReport` finalized from `test`
+  - Aggregate `jacocoRootReport` (core/config/deps/jvm)
+  - **Happy-path** report + verification: pure engine/catalog/registry/config model
+    classes only (see `docs/TEST-COVERAGE.md`); LINE **COVEREDRATIO ≥ 0.60**
+  - Wired into root `check` (so `./gradlew build` / CI Plugins job enforce)
+  - Extra pure unit tests: `DepsModelAndPluginHappyPathTest`, `CatalogFactoriesTest`
+  - CI comment on Plugins job; README link
+- **Full test suite (host, real runs):**
+  - `plugins/`: `./gradlew cleanTest test jacocoHappyPathCoverageVerification jacocoRootReport` → **BUILD SUCCESSFUL**
+  - Happy-path LINE **~95.7%** (branch ~79%, instruction ~88%) — above 60%
+  - `includer/`: test + functionalTest → SUCCESS
+  - `depgen/`: test + functionalTest → SUCCESS
+  - `bazel-adapter/`: test → SUCCESS
+- **Blockers:** none
+- **Next:** board top `todo` (unchanged by this infra slice)
+
 ## 2026-07-22 — F-091: BuildFeatures under Forma (GH #88)
 
 - **Ticket:** F-091 → `done`

@@ -61,6 +61,7 @@ systems like Buck and Bazel.
 12. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
 13. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
 14. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050)
+15. [**Test coverage**](docs/TEST-COVERAGE.md) — JaCoCo on `plugins/`, happy-path LINE ≥60% gate
 
 Configuration made easy:
 
