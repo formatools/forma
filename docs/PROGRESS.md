@@ -2,6 +2,30 @@
 
 Newest entries first.
 
+## 2026-07-22 — F-089: Navigation Safe Args task cache (GH #110)
+
+- **Ticket:** F-089 → `done`
+- **Branch:** `forma/F-089-nav-task-cache` (from origin/v2 @ 246b6f4)
+- **Skills/modes:** Hermes investigation + docs (no product DSL change required)
+- **Issue read:** GH #110 screenshots (Develocity exp3 different project locations) —
+  `ArgumentsGenerationTask.navigationFiles` absolute-path normalization broke
+  cross-checkout build-cache reuse on old Safe Args / AGP 7.x era.
+- **Bytecode check:** `navigation-safe-args-gradle-plugin` **2.7.4 / 2.7.7 / 2.8.9 / 2.9.8**
+  all annotate `getNavigationFiles()` with `@PathSensitive(RELATIVE)` + `@CacheableTask`.
+  Sample already pins **2.9.8** + Path B `navigationRes`.
+- **Reproduce/verify (real host, `source scripts/env-mac.sh`):**
+  - Two git worktrees + shared local build-cache dir:
+    `:core-navigation-res:generateSafeArgsDebug` key
+    `328f4fa9dc90662111aac019e754a4da` → second location **FROM-CACHE**
+  - Main tree: clean → **FROM-CACHE**; warm → **UP-TO-DATE**
+  - `--configuration-cache` run **BUILD SUCCESSFUL** (task executes; CC reuse may
+    still miss on composite inputs — out of #110 absolute-path scope)
+- **Code changes:** none in plugins (fix is dependency-era + pin). Docs only:
+  `docs/CONFIGURATION-PERFORMANCE.md` Safe Args cache section; board/PROGRESS.
+- **GH #110:** close when this PR merges (comment with verify summary).
+- **Blockers:** none
+- **Next:** F-090 Exclude modules from dependency validation (GH #97)
+
 ## 2026-07-21 — F-088: Fleet tooling phase 2
 
 - **Ticket:** F-088 → `done`
