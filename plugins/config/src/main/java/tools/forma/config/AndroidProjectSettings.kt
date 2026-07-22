@@ -5,10 +5,6 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.provider.Provider
 import org.gradle.plugin.use.PluginDependency
 
-/**
- * Limitations:
- * No BuildConfig Support
- */
 // TODO use jacoco by default
 // TODO publishing
 // TODO owners
@@ -34,6 +30,9 @@ data class AndroidProjectSettings(
      * Individual targets may still pass `compose = true/false`
      * to override. Does **not** auto-enable `composeWidget` modules (those always
      * enable Compose themselves).
+     *
+     * Kept top-level (not nested under [buildFeatures]) so there is one documented
+     * happy path for the Compose project default — see F-091 / [FormaBuildFeatures].
      */
     val compose: Boolean,
     /**
@@ -69,6 +68,13 @@ data class AndroidProjectSettings(
      * Default empty — strict matrix unchanged.
      */
     val dependencyValidationExclusions: Set<String> = emptySet(),
+    /**
+     * Project-global AGP [FormaBuildFeatures] defaults (F-091 / GH #88).
+     * All flags default **false**. Applied explicitly on every Android library/app
+     * target so AGP cannot silently enable unwanted features. Compose project default
+     * stays on [compose] (not nested here).
+     */
+    val buildFeatures: FormaBuildFeatures = FormaBuildFeatures(),
 )
 
 /**

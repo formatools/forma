@@ -50,10 +50,13 @@ fun androidLibraryFeatureDefinition(
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
 
-            buildFeatures.viewBinding = feature.viewBinding
-            if (feature.compose) {
-                enableCompose(project, formaConfiguration.composeCompilerVersion)
-            }
+            applyFormaBuildFeatures(
+                project = project,
+                defaults = formaConfiguration.buildFeatures,
+                composeCompilerVersion = formaConfiguration.composeCompilerVersion,
+                viewBinding = feature.viewBinding,
+                compose = feature.compose,
+            )
         }
         // AGP library `verify*Resources` is overly strict with Navigation safe-args
         // graphs in pure `androidRes` modules (debug APK still packages graphs correctly).

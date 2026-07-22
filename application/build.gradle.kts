@@ -15,6 +15,10 @@ buildscript {
         // dependencyValidationExclusions = setOf(
         //     ":third-party:exoplayer:library-core",
         // ),
+        // F-091 / GH #88: AGP BuildFeatures — all default off. Opt in intentionally, e.g.:
+        // buildFeatures = tools.forma.config.FormaBuildFeatures(
+        //     buildConfig = true,
+        // ),
         extraPlugins =
             listOf(
                 libs.plugins.toolsFormaDemoDependencies,
