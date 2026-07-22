@@ -9,6 +9,12 @@ import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
 
+/**
+ * AGP application feature config for [androidBinary].
+ *
+ * [versionCode] / [versionName] are **per-binary** (F-092) — never read from
+ * project-global [tools.forma.config.AndroidProjectSettings].
+ */
 data class AndroidBinaryFeatureConfiguration(
     val packageName: String,
     val versionCode: Int,

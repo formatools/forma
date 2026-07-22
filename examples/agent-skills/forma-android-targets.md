@@ -29,7 +29,9 @@ Plugin: `tools.forma.android`. Register happens on first DSL use via `AndroidTar
 ## Minimal skeletons
 
 ```kotlin
+// versionCode/versionName required on every binary (F-092) — not project-global
 androidBinary(packageName = "…", versionCode = 1, versionName = "0.1.0", dependencies = deps(target(":root-app")))
+// androidApp = library composition shell — no versionCode/versionName
 androidApp(packageName = "…", dependencies = deps("androidx.appcompat:appcompat:1.6.1") + deps(target(":root-res")))
 androidRes(packageName = "…")
 api(packageName = "…")
@@ -54,3 +56,4 @@ androidTestUtil(packageName = "…")
 - removed `androidLibrary` (use role-specific targets; F-063)
 - Wrong suffix for DSL
 - Relying on transitive feature wiring instead of listing api+impl on roots
+- Putting `versionCode`/`versionName` on `androidApp` or `androidProjectConfiguration` — only on `androidBinary`

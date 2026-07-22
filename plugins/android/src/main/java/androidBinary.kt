@@ -22,8 +22,18 @@ import tools.forma.validation.validate
  * [api]/[impl], and shared libraries/utils. Project-dep types are restricted
  * (no longer [tools.forma.validation.EmptyValidator]).
  *
- * @param packageName Application package name, used for publishing
+ * **Version identity (F-092 / GH #82):** [versionCode] and [versionName] are
+ * **required call-site attributes** on each binary. They are **not** project-global
+ * (`AndroidProjectSettings` / `androidProjectConfiguration`) so a monorepo can ship
+ * multiple APKs with independent versions. [androidApp] is an AGP library
+ * (composition shell), not an APK — it does not take version attrs (Gradle/AGP
+ * only materialize `defaultConfig.versionCode`/`versionName` on
+ * `com.android.application`).
+ *
+ * @param packageName Application package name / `applicationId` + namespace
  * @param owner owner of the target, team responsible for maintenance
+ * @param versionCode Android `versionCode` for this APK (required; per-binary)
+ * @param versionName Android `versionName` for this APK (required; per-binary)
  * @param dependencies list of external and project dependencies for the target
  * @param buildConfiguration Android Gradle Plugin configuration DSL
  * @param testInstrumentationRunner class name used for instrumentation tests execution
