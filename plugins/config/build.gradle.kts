@@ -7,4 +7,11 @@ formaPublishedPlugin(name = "config")
 
 dependencies {
     implementation(gradleApi())
+
+    testImplementation(kotlin("test"))
 }
+
+tasks.test {
+    useJUnitPlatform()
+}
+

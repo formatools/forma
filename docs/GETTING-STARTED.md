@@ -435,7 +435,11 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 - Prefer small targets; keep feature folders consistent.
 - Put shared non-feature code under `core/` or `common/` (see sample).
 - When a validator fails, fix the dependency edge or re-slice the target —
-  don’t disable validation.
+  don’t disable validation. For **forked-in** third-party modules only, use
+  project-global `dependencyValidationExclusions` on `androidProjectConfiguration`
+  (F-090) — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) and
+  [PROJECT-CONFIGURATION.md](PROJECT-CONFIGURATION.md). Never use that list to
+  bypass first-party matrix rules (e.g. `impl`↛`impl`).
 
 ---
 
@@ -446,7 +450,7 @@ Details: [COMPOSE.md](COMPOSE.md). Sample:
 | “Java not found” / old JDK | Use JDK 21 (or 17+ min); export `JAVA_HOME` ([ENV.md](ENV.md)) |
 | SDK / `compileSdk` errors | Install platform **37** (`platforms;android-37.0` + `android-37` symlink); set `local.properties` `sdk.dir` |
 | Project not included | Missing `build.gradle.kts`, or nested `settings.gradle.kts` blocked Includer |
-| Illegal project dependency | Matrix violation — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md) |
+| Illegal project dependency | Matrix violation — see [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md). Forked vendor modules: global `dependencyValidationExclusions` only (F-090) |
 | Empty / wrong package | `packageName` ≠ directory under `src/main/java` — run `formaLayoutCheck` / `formaLayoutGenerate` |
 | Compose compiler mismatch | Align `composeCompilerVersion` with Kotlin (sample: 2.3.21 ↔ 2.3.21) |
 | AGP resolution conflicts | Align consumer `agpVersion` with plugin AGP line (**9.3.0** today) |

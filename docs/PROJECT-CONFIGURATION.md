@@ -15,6 +15,11 @@ buildscript {
         agpVersion = "9.3.0",
         // compose = false,
         // composeCompilerVersion = "2.3.21",
+        // F-090: skip project-dep suffix checks only for listed forked-in modules
+        // dependencyValidationExclusions = setOf(
+        //     ":third-party:exoplayer:library-core",
+        //     "forked-media-engine",
+        // ),
         extraPlugins = listOf(
             // jars / Provider<PluginDependency> for the *buildscript classpath only*
             libs.plugins.navigationSafeArgs,
@@ -34,6 +39,29 @@ This is the **only** supported way to configure an Android Forma project.
 - **Convenience**: Registers a conventional root `clean` task.
 
 Downstream targets and features read global values (SDK versions, `compose` default, `kotlinVersion`, `agpVersion`, etc.) from `Forma.settings` (or the delegated store surfaces). The store is initialized exactly once from the root `buildscript` block.
+
+### `dependencyValidationExclusions` (F-090 / GH #97)
+
+| | |
+|--|--|
+| **Type** | `Set<String>` (default `emptySet()`) |
+| **Set on** | Root `androidProjectConfiguration(...)` only |
+| **Stored as** | `AndroidProjectSettings.dependencyValidationExclusions` |
+| **Read by** | `applyDependencies` via `FormaSettingsStore.isExcludedFromDependencyValidation` |
+
+Lists Gradle **project paths** and/or **project names** that skip **project-dependency
+type/suffix validation** when they appear as a dependency of a Forma target.
+
+**Intended use:** monorepo-vendored forks (ExoPlayer-class) that do not use Forma
+name suffixes.
+
+**Not for:** bypassing the matrix between first-party Forma modules (e.g. `impl`→`impl`).
+There is no per-module / per-call-site `skipValidation` flag — one global allow-list only.
+
+**Matching:** exact path (e.g. `:third-party:exoplayer:library-core`) or exact name.
+Does **not** disable self-type validation on Forma DSL entry points.
+
+See [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) § Dependency validation exclusions.
 
 ## What it does **not** do
 
@@ -84,6 +112,7 @@ Readers (feature wiring, dependency helpers, target DSLs) obtain values through 
 - [ ] No calls to any `Project.androidProjectConfiguration` form (removed)
 - [ ] Child targets rely on `Forma.settings` / per-target overrides only
 - [ ] Type-owned plugins used for external plugin application (no ad-hoc apply)
+- [ ] Forked third-party modules (if any) listed once in `dependencyValidationExclusions` — never per-call-site skips
 
 ---
 

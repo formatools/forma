@@ -40,9 +40,18 @@ fun Project.applyDependencies(
     val hasPluginDeps = FormaSettingsStore.dependencyPlugins.isNotEmpty()
 
     dependencies {
+        // F-090: skip project-dep suffix validation only for globally excluded modules
+        // (forked third-party trees). Self-type validation on DSL entry stays enforced.
         val projectAction: (TargetSpec) -> Unit = {
-            validator.validate(it.target)
-            add(it.config.name, it.target.project)
+            val depProject = it.target.project
+            if (!FormaSettingsStore.isExcludedFromDependencyValidation(
+                    projectName = depProject.name,
+                    projectPath = depProject.path,
+                )
+            ) {
+                validator.validate(it.target)
+            }
+            add(it.config.name, depProject)
         }
         dependencies.forEach(
             { spec ->

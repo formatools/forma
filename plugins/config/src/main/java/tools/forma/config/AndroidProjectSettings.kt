@@ -56,7 +56,36 @@ data class AndroidProjectSettings(
      * in CI or local strict mode only.
      */
     val checkPackageLayoutAtConfiguration: Boolean = false,
+    /**
+     * Project paths or names that skip **project-dependency type/suffix validation**
+     * when they appear as a dependency of a Forma target (F-090 / GH #97).
+     *
+     * Use for forked-in third-party trees (e.g. ExoPlayer) that live in the monorepo
+     * but do not follow Forma target suffixes. Does **not** disable self-type validation
+     * on Forma DSL modules and does **not** change the default dependency matrix.
+     *
+     * Match by Gradle project path (e.g. `:third-party:exoplayer:library-core`) and/or
+     * project name. Exact match only (see [matchesDependencyValidationExclusion]).
+     * Default empty — strict matrix unchanged.
+     */
+    val dependencyValidationExclusions: Set<String> = emptySet(),
 )
+
+/**
+ * Exact-match check for [AndroidProjectSettings.dependencyValidationExclusions].
+ *
+ * @param projectName Gradle [org.gradle.api.Project.getName]
+ * @param projectPath Gradle [org.gradle.api.Project.getPath] (e.g. `:foo:bar`)
+ * @param exclusions allow-list from project settings; empty ⇒ never excluded
+ */
+fun matchesDependencyValidationExclusion(
+    projectName: String,
+    projectPath: String,
+    exclusions: Set<String>,
+): Boolean {
+    if (exclusions.isEmpty()) return false
+    return projectName in exclusions || projectPath in exclusions
+}
 
 /**
  * Singleton project configuration store, used by internal plugins
@@ -68,6 +97,32 @@ object FormaSettingsStore : SettingsStore<AndroidProjectSettings>, PluginInfoSto
     override fun store(configuration: AndroidProjectSettings) {
         _settings = configuration
     }
+
+    /**
+     * Whether settings have been written by [store] (false on JVM-only paths that never
+     * call `androidProjectConfiguration`).
+     */
+    val isSettingsStored: Boolean
+        get() = this::_settings.isInitialized
+
+    /**
+     * [AndroidProjectSettings.dependencyValidationExclusions] when settings exist;
+     * empty set otherwise (null-safe — does not throw).
+     */
+    fun dependencyValidationExclusionsOrEmpty(): Set<String> =
+        if (isSettingsStored) _settings.dependencyValidationExclusions else emptySet()
+
+    /**
+     * True when [projectName] or [projectPath] is listed in
+     * [AndroidProjectSettings.dependencyValidationExclusions].
+     * Safe when settings were never stored (treats as no exclusions).
+     */
+    fun isExcludedFromDependencyValidation(projectName: String, projectPath: String): Boolean =
+        matchesDependencyValidationExclusion(
+            projectName = projectName,
+            projectPath = projectPath,
+            exclusions = dependencyValidationExclusionsOrEmpty(),
+        )
 
     override val plugins: MutableMap<Provider<PluginDependency>, PluginConfiguration> = mutableMapOf()
     override val dependencyPlugins: MutableMap<String, PluginConfiguration> = mutableMapOf()

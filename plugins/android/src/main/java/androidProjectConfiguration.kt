@@ -68,6 +68,11 @@ import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
  * @param checkPackageLayoutAtConfiguration when true, fail configuration if a target's
  *   `packageName` source dir is missing (default false; see [AndroidProjectSettings] and
  *   docs/FLEET-TOOLING.md). Generate via `formaLayoutGenerate` / `formaLayoutGenerateAll`.
+ * @param dependencyValidationExclusions project paths and/or names that skip **project-
+ *   dependency** suffix validation when depended on by a Forma target (F-090 / GH #97).
+ *   For forked-in third-party trees that do not use Forma suffixes. Does not weaken the
+ *   default matrix for non-listed modules and does not skip self-type validation on DSL
+ *   targets. Default empty. See [AndroidProjectSettings.dependencyValidationExclusions].
  * @param extraPlugins list of extra artifacts / plugin providers to add to the **buildscript classpath only**.
  *   See "Classpath vs apply" in TARGET-PLUGINS.md.
  */
@@ -85,6 +90,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     mandatoryOwners: Boolean = false,
     vectorDrawablesUseSupportLibrary: Boolean = false,
     checkPackageLayoutAtConfiguration: Boolean = false,
+    dependencyValidationExclusions: Set<String> = emptySet(),
     extraPlugins: List<Any> = emptyList()
 ) {
     buildScriptConfiguration(
@@ -121,6 +127,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             composeCompilerVersion = composeCompilerVersion,
             vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary,
             checkPackageLayoutAtConfiguration = checkPackageLayoutAtConfiguration,
+            dependencyValidationExclusions = dependencyValidationExclusions,
         )
 
     Forma.store(configuration)
