@@ -106,6 +106,10 @@ resolved values so AGP platform defaults cannot silently turn features on.
   - Register once with `targetPlugin(...)` + `deriveTargetType(...)` (Path B, preferred) or `registerTargetPlugin(...)` (Path A).
   - The registry auto-applies on matching DSL calls.
   - See [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md).
+- **APK `versionCode` / `versionName`** — not project-global (F-092 / GH #82). Set them as
+  **required** attrs on each `androidBinary { … }` call site. `androidApp` is a library
+  composition shell and does not take version attrs. See
+  [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) § APK version identity.
 
 There is no per-module `withPlugin`, no free-form `plugins =` lists, and no second configuration path.
 

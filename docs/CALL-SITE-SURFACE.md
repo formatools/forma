@@ -29,8 +29,8 @@ All return **`Unit`**.
 |-----|---------------|---------------|--------|
 | `api` | `api` | `packageName`, `dependencies` | JVM contracts; no Android UI |
 | `impl` | `impl` | deps, **`viewBinding`**, **`compose`**, test runners, `buildConfiguration` | Feature impl; no → other `impl` |
-| `androidApp` | `app` | deps, **`compose`**, `buildConfiguration`, … | Composition library (not APK) |
-| `androidBinary` | `binary` | `versionCode`/`Name`, deps, **`compose`**, … | APK composition root |
+| `androidApp` | `app` | deps, **`compose`**, `buildConfiguration`, … | Composition **library** (not APK) — **no** `versionCode`/`Name` |
+| `androidBinary` | `binary` | **`versionCode`/`versionName` (required)**, deps, **`compose`**, … | APK composition root; version identity is **per-binary only** (F-092) |
 | `library` | `library` | deps (pure JVM inside Android plugin) | Distinct from removed `androidLibrary` |
 | `util` | `util` | deps | JVM helpers |
 | `androidUtil` | `android-util` | deps, **`compose`** | Android helpers, no res content |
@@ -76,6 +76,21 @@ Other common attrs (`testInstrumentationRunner`, `buildConfiguration`,
 `consumerMinificationFiles`, `manifestPlaceholders`, `owner`, `visibility`) are
 instance knobs with empty/public defaults — keep them; do not grow plugin-id
 parameters beside them.
+
+## APK version identity (F-092 / GH #82)
+
+| Concern | Owner | Notes |
+|---------|--------|--------|
+| `versionCode` / `versionName` | **`androidBinary` call site only** (required attrs) | Wired to AGP `ApplicationExtension.defaultConfig` |
+| Project-global version | **None** | Not on `androidProjectConfiguration` / `AndroidProjectSettings` |
+| `androidApp` version attrs | **None** | `androidApp` is `com.android.library` (DI/feature shell); APK identity lives on binary |
+
+**Why:** monorepos often ship multiple APKs with independent versions. Global-only
+version forced every binary to share one code/name. There is no default and no
+override ladder — each binary declares both attrs explicitly.
+
+**Gradle limit:** `versionCode`/`versionName` apply to application modules. Putting
+them on library-shaped `androidApp` would not produce a second APK version surface.
 
 ## AGP BuildFeatures (F-091 / GH #88)
 

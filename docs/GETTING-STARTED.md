@@ -233,6 +233,7 @@ my-app/
 ```kotlin
 androidBinary(
     packageName = "com.example.myapp",
+    // F-092: version identity is per-binary (not androidProjectConfiguration)
     versionCode = 1,
     versionName = "0.1.0",
     dependencies = deps(
@@ -242,6 +243,9 @@ androidBinary(
     ),
 )
 ```
+
+Add another `androidBinary` module if you ship a second APK — give it its own
+`versionCode` / `versionName`. Do not put version attrs on `androidApp` (library shell).
 
 **`root-app/build.gradle.kts`**:
 

@@ -26,6 +26,10 @@ import tools.forma.validation.validate
  * Project-deps allowlist is Dagger2-friendly: may wire feature [api]/[impl],
  * shared libraries/utils, and UI building blocks. Cannot depend on other `app`
  * or `binary` targets (composition stays single-rooted via [androidBinary]).
+ *
+ * **Not an APK:** this target uses AGP `com.android.library`. Do **not** put
+ * `versionCode` / `versionName` here — set them on [androidBinary] (F-092 / GH #82).
+ * Multiple binaries in one project each carry their own version identity.
  */
 fun Project.androidApp(
     packageName: String,

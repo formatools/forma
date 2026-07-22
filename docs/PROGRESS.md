@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-22 — F-092: versionCode / versionName on binary (GH #82)
+
+- **Ticket:** F-092 → `done`
+- **Branch:** `forma/F-092-version-on-binary` (from origin/v2 @ c345f10)
+- **Skills/modes:** Hermes finish path (API already shipped; docs/KDoc + board close). No Grok Build — product surface pre-existed.
+- **Finding:** Issue #82 (2021) asked to move version off global `FormaConfiguration`. Current tree already:
+  - requires `versionCode`/`versionName` on `androidBinary` (no defaults)
+  - applies them only via `AndroidBinaryFeatureConfiguration` → AGP `ApplicationExtension.defaultConfig`
+  - has **zero** version fields on `AndroidProjectSettings` / `androidProjectConfiguration`
+  - sample `application/binary` + all `examples/android/*/binary` use call-site attrs
+  - `androidApp` is `com.android.library` composition shell — version attrs would not be an APK surface (Gradle limit acknowledged in ticket)
+- **This slice:**
+  - KDoc on `androidBinary` / `androidApp` / `AndroidBinaryFeatureConfiguration` (F-092 contract)
+  - Docs: `CALL-SITE-SURFACE.md` § APK version identity; `PROJECT-CONFIGURATION.md` “does not”; GETTING-STARTED multi-APK note; agent skill forbidden list
+  - Board: F-092 `done`
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :android:compileKotlin build --no-daemon` → **BUILD SUCCESSFUL** in 17s (86 tasks)
+  - `application/`: `./gradlew :binary:assembleDebug --no-daemon` → **BUILD SUCCESSFUL** in 1m58s (599 tasks)
+- **GH #82:** close when this PR merges
+- **Blockers:** none
+- **Next:** F-093 Remove legacy `.kapt` once unused
+
 ## 2026-07-22 — Plugins JaCoCo + happy-path ≥60% gate
 
 - **Branch:** `forma/test-coverage-jacoco` (from origin/v2)
