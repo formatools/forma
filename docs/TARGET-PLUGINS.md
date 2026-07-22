@@ -192,6 +192,12 @@ navigationRes(
 
 No `.withPlugin`, no `pluginConfig = pluginConfig(binding)`.
 
+**Build cache (F-089 / GH #110):** keep
+`navigation-safe-args-gradle-plugin` on a line where
+`ArgumentsGenerationTask.navigationFiles` is `@PathSensitive(RELATIVE)`
+(sample **2.9.8**). See [`CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md)
+§ Navigation Safe Args task cache — do not paper over with call-site plugin APIs.
+
 ---
 
 ## 5. Plugin config = rule attributes (uniform, optional)
