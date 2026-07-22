@@ -1,6 +1,7 @@
 plugins {
     `kotlin-dsl-base`
     id("com.gradle.plugin-publish") version "1.2.1" apply false
+    jacoco
 }
 
 // Shared Plugin Portal metadata for all subprojects (F-016 / GH #132).
@@ -18,6 +19,13 @@ formaPluginConfiguration {
     description = "Best way to structure your Gradle Project"
     tags = listOf("kotlin", "android", "structure", "target", "rules", "project")
 }
+
+// Jacoco reports on unit-tested modules + LINE ≥60% gate on happy-path class set.
+// See formaCoverage.kt and docs/TEST-COVERAGE.md.
+subprojects {
+    configureFormaCoverage()
+}
+registerFormaAggregateCoverageReport()
 
 /**
  * Publish every plugin module + :core to ~/.m2/repository for consumer testing

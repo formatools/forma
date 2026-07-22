@@ -27,6 +27,8 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
       - name: Build plugins
         working-directory: plugins
+        # `build` → `check` → jacocoHappyPathCoverageVerification (LINE ≥60% happy-path).
+        # Reports: build/reports/jacoco/jacocoHappyPathReport/
         run: ./gradlew build --stacktrace --console=plain
 
   build_includer:
