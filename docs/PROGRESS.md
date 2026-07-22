@@ -2,6 +2,30 @@
 
 Newest entries first.
 
+## 2026-07-22 — F-091: BuildFeatures under Forma (GH #88)
+
+- **Ticket:** F-091 → `done`
+- **Branch:** `forma/F-091-build-features` (from origin/v2 @ cb65049)
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after implement timeout on app verify
+- **Design (shipped):**
+  - Layer ownership: type owns always-on (`viewBinding` / `composeWidget`); project owns fleet AGP flags; minimal call-site attrs only (`compose`, `impl.viewBinding`)
+  - Nested `FormaBuildFeatures` for non-Compose flags (all default **false**); Compose stays top-level `compose` / `composeCompilerVersion` (one happy path)
+  - No per-flag call-site shopping; no `renderScript`; dataBinding not auto-coupled to viewBinding
+- **Code:**
+  - `plugins/config` `FormaBuildFeatures` + `resolveWith` → `ResolvedFormaBuildFeatures`; unit tests
+  - `AndroidProjectSettings.buildFeatures`; removed “No BuildConfig Support” limitation
+  - `androidProjectConfiguration(buildFeatures = …)` store wiring
+  - `BuildFeaturesSupport.applyFormaBuildFeatures` — explicit write of every supported flag; `dataBinding` via `LibraryBuildFeatures` / `ApplicationBuildFeatures` (AGP 9); compose via `enableCompose` or forced false
+  - Wired into library + binary feature definitions; binary viewBinding = project default only
+  - `impl(viewBinding=)` default now `Forma.settings.buildFeatures.viewBinding`
+- **Docs:** `CALL-SITE-SURFACE.md` inventory; `PROJECT-CONFIGURATION.md` § buildFeatures; `COMPOSE.md` cross-link; sample commented example
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :config:test :android:compileKotlin build --no-daemon` → **BUILD SUCCESSFUL** (80 tasks)
+  - `application/`: `./gradlew help` + `assembleDebug --no-daemon` → **BUILD SUCCESSFUL** in 2m4s (896 tasks)
+- **Blockers:** none
+- **Next:** F-092 versionCode / versionName on binary (and app) (GH #82)
+- **GH #88:** close when this PR merges
+
 ## 2026-07-22 — F-090: Exclude modules from dependency validation (GH #97)
 
 - **Ticket:** F-090 → `done`

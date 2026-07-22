@@ -25,6 +25,9 @@ import tools.forma.validation.validate
  * - **Must not** depend on other `impl` modules — feature graphs compose only
  *   at [androidApp] / [androidBinary] so implementations stay independent.
  *
+ * @param viewBinding enable View Binding for this feature impl; defaults to project-wide
+ *   [androidProjectConfiguration] `buildFeatures.viewBinding`. Layouts-only modules should
+ *   use the dedicated `viewBinding` target type instead (always on).
  * @param compose enable Jetpack Compose for this target; defaults to project-wide
  *   [androidProjectConfiguration] `compose` flag.
  */
@@ -33,7 +36,7 @@ fun Project.impl(
     dependencies: FormaDependency = emptyDependency(),
     testDependencies: NamedDependency = emptyDependency(),
     androidTestDependencies: NamedDependency = emptyDependency(),
-    viewBinding: Boolean = false,
+    viewBinding: Boolean = Forma.settings.buildFeatures.viewBinding,
     compose: Boolean = Forma.settings.compose,
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),

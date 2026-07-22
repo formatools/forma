@@ -28,6 +28,12 @@ androidProjectConfiguration(
 `composeWidget` modules **always** enable Compose; they ignore the project default
 (they do not need `compose = true`).
 
+**F-091 note:** Compose stays a **top-level** `androidProjectConfiguration` parameter.
+Other AGP `BuildFeatures` flags (`buildConfig`, `aidl`, …) live under nested
+`buildFeatures = FormaBuildFeatures(...)`. Do not set Compose via that nested
+object — one happy path only. See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md)
+§ `buildFeatures`.
+
 ## Per-target `compose` flag
 
 ```kotlin

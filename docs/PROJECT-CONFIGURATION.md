@@ -15,6 +15,11 @@ buildscript {
         agpVersion = "9.3.0",
         // compose = false,
         // composeCompilerVersion = "2.3.21",
+        // F-091 / GH #88: AGP BuildFeatures — all default off; opt in intentionally
+        // buildFeatures = FormaBuildFeatures(
+        //     buildConfig = true,
+        //     // viewBinding = true, // default for impl(viewBinding=…) only
+        // ),
         // F-090: skip project-dep suffix checks only for listed forked-in modules
         // dependencyValidationExclusions = setOf(
         //     ":third-party:exoplayer:library-core",
@@ -63,6 +68,37 @@ Does **not** disable self-type validation on Forma DSL entry points.
 
 See [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) § Dependency validation exclusions.
 
+### `buildFeatures` (F-091 / GH #88)
+
+| | |
+|--|--|
+| **Type** | `FormaBuildFeatures` (default `FormaBuildFeatures()` — **all flags false**) |
+| **Set on** | Root `androidProjectConfiguration(...)` only |
+| **Stored as** | `AndroidProjectSettings.buildFeatures` |
+| **Read by** | Android library + binary feature definitions (central apply helper) |
+
+Maps AGP public `BuildFeatures` flags into Forma with **defaults off** where safe:
+
+| Flag | In `FormaBuildFeatures` | Notes |
+|------|-------------------------|--------|
+| `aidl` | yes | Project-global only |
+| `buildConfig` | yes | Project-global; enables `BuildConfig` generation fleet-wide when true |
+| `dataBinding` | yes | Project-global; AGP 9 exposes this on library/app feature subtypes; does not auto-enable `viewBinding` |
+| `prefab` | yes | Project-global |
+| `resValues` | yes | Project-global |
+| `shaders` | yes | Project-global |
+| `viewBinding` | yes | Default for `impl(viewBinding=…)`; **`viewBinding` target type always on** |
+| `compose` | **no** — use top-level `compose` | One happy path for Compose project default |
+| `renderScript` | not mapped | Deprecated/removed in modern AGP |
+
+Every Android library/app target **explicitly sets** each supported flag from the
+resolved values so AGP platform defaults cannot silently turn features on.
+
+**Compose relationship:** keep using top-level `compose = true/false` and
+`composeCompilerVersion`. Do not put a second Compose default inside
+`FormaBuildFeatures`. See [`COMPOSE.md`](COMPOSE.md) and
+[`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) § BuildFeatures.
+
 ## What it does **not** do
 
 - `extraPlugins` (and catalog `plugin(...)` entries) are **classpath only**. They put Gradle plugin jars on the buildscript classpath. They do **not** apply any plugin to your modules.
@@ -86,7 +122,8 @@ The deprecated `Project.androidProjectConfiguration(...)` receiver overload has 
 | Piece | Location | Role |
 |-------|----------|------|
 | `androidProjectConfiguration(...)` (ScriptHandlerScope) | `plugins/android/.../androidProjectConfiguration.kt` | The one public API; called from root `buildscript` |
-| `AndroidProjectSettings` | `plugins/config/.../AndroidProjectSettings.kt` | Immutable data class holding SDKs, versions, compose default, repos, etc. |
+| `AndroidProjectSettings` | `plugins/config/.../AndroidProjectSettings.kt` | Immutable data class holding SDKs, versions, compose default, `buildFeatures`, repos, etc. |
+| `FormaBuildFeatures` | `plugins/config/.../FormaBuildFeatures.kt` | Nested AGP BuildFeatures defaults (all off); pure data + resolve helper |
 | `FormaSettingsStore` | `plugins/config/.../AndroidProjectSettings.kt` (as `object`) | The backing singleton store (`SettingsStore<T>` + `PluginInfoStore`) |
 | `Forma` (singleton accessor) | `plugins/android/.../androidProjectConfiguration.kt` | `object Forma : SettingsStore<...> by FormaSettingsStore, ...` — primary reader surface (`Forma.settings`) |
 | `registerAndroidDefaults()` | `plugins/android/.../AndroidTargetRegistry.kt` | Populates `AndroidTargetRegistry` (target types + matrix) |

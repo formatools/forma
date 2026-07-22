@@ -47,9 +47,14 @@ fun androidBinaryFeatureDefinition(
             buildTypes.applyFrom(configuration.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
 
-            if (configuration.compose) {
-                enableCompose(project, formaConfiguration.composeCompilerVersion)
-            }
+            applyFormaBuildFeatures(
+                project = project,
+                defaults = formaConfiguration.buildFeatures,
+                composeCompilerVersion = formaConfiguration.composeCompilerVersion,
+                // No binary call-site attr — fleet-wide project default only (F-091).
+                viewBinding = formaConfiguration.buildFeatures.viewBinding,
+                compose = configuration.compose,
+            )
         }
     }
 )

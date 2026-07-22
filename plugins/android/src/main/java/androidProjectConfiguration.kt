@@ -10,6 +10,7 @@ import org.gradle.plugin.use.PluginDependency
 import tools.forma.android.utils.register
 import tools.forma.android.target.registerAndroidDefaults
 import tools.forma.config.AndroidProjectSettings
+import tools.forma.config.FormaBuildFeatures
 import tools.forma.config.FormaSettingsStore
 import tools.forma.config.PluginInfoStore
 import tools.forma.config.SettingsStore
@@ -59,7 +60,8 @@ import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
  * @param kotlinVersion Kotlin version (defaults to Gradle's embeddedKotlinVersion)
  * @param agpVersion Android Gradle Plugin version to place on the buildscript classpath
  * @param repositories optional block to configure repositories (applied in buildscript context)
- * @param compose project-wide default for per-target Compose flags (see [AndroidProjectSettings.compose])
+ * @param compose project-wide default for per-target Compose flags (see [AndroidProjectSettings.compose]).
+ *   Kept top-level — do **not** nest Compose under [buildFeatures] (one happy path for Compose default).
  * @param composeCompilerVersion Compose compiler extension version for AGP `composeOptions`
  *   (must match the Kotlin version used)
  * @param javaVersionCompatibility Java language level for source/target compatibility
@@ -73,6 +75,9 @@ import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
  *   For forked-in third-party trees that do not use Forma suffixes. Does not weaken the
  *   default matrix for non-listed modules and does not skip self-type validation on DSL
  *   targets. Default empty. See [AndroidProjectSettings.dependencyValidationExclusions].
+ * @param buildFeatures project-global AGP BuildFeatures defaults (F-091 / GH #88). All flags
+ *   default **false**. Nested object for non-Compose flags (+ optional `viewBinding` default
+ *   for `impl`). Compose stays on [compose] above. See [FormaBuildFeatures].
  * @param extraPlugins list of extra artifacts / plugin providers to add to the **buildscript classpath only**.
  *   See "Classpath vs apply" in TARGET-PLUGINS.md.
  */
@@ -91,6 +96,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     vectorDrawablesUseSupportLibrary: Boolean = false,
     checkPackageLayoutAtConfiguration: Boolean = false,
     dependencyValidationExclusions: Set<String> = emptySet(),
+    buildFeatures: FormaBuildFeatures = FormaBuildFeatures(),
     extraPlugins: List<Any> = emptyList()
 ) {
     buildScriptConfiguration(
@@ -128,6 +134,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             vectorDrawablesUseSupportLibrary = vectorDrawablesUseSupportLibrary,
             checkPackageLayoutAtConfiguration = checkPackageLayoutAtConfiguration,
             dependencyValidationExclusions = dependencyValidationExclusions,
+            buildFeatures = buildFeatures,
         )
 
     Forma.store(configuration)
