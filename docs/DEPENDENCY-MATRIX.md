@@ -33,6 +33,51 @@ suffix (`ApiTargetTemplate("api")`).
 
 ---
 
+## Dependency validation exclusions (F-090 / GH #97)
+
+Sometimes a monorepo vendors a **forked third-party tree** (ExoPlayer-class
+cases) whose module names do **not** follow Forma suffixes. Those modules
+must be dependable from Forma targets without weakening the default matrix
+for first-party code.
+
+**One global configuration path only** — set once on root
+`androidProjectConfiguration`:
+
+```kotlin
+buildscript {
+    androidProjectConfiguration(
+        project = rootProject,
+        // ...
+        dependencyValidationExclusions = setOf(
+            ":third-party:exoplayer:library-core", // Gradle project path
+            "forked-media-engine",                  // or exact project name
+        ),
+    )
+}
+```
+
+| Skips | Does **not** skip |
+|-------|-------------------|
+| Project-dependency **type/suffix** validation when the **dependency** project is listed | Self-type validation on Forma DSL modules (`target.validate(...)`) |
+| | The default allow-list matrix for any **non-listed** dependency |
+| | Content layout rules (`disallowResources`, etc.) |
+
+**Matching:** exact Gradle project **path** (e.g. `:third-party:exoplayer:library-core`)
+and/or exact project **name**. No prefix/glob matching.
+
+**When to use:** forked-in libraries that live in the composite build but are
+not Forma targets.
+
+**When not to use:** never to bypass `impl`↛`impl` (or any other matrix edge)
+between first-party Forma modules. Fix the graph or re-slice targets instead.
+There is **no** per-call-site `skipValidation` flag.
+
+Implementation: `FormaSettingsStore.isExcludedFromDependencyValidation` gated
+inside `applyDependencies` `projectAction`. Default exclusions = empty (strict
+matrix unchanged). See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md).
+
+---
+
 ## Target templates (suffixes)
 
 From `plugins/android/.../AndroidTargets.kt`:

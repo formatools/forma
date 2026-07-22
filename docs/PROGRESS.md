@@ -2,6 +2,30 @@
 
 Newest entries first.
 
+## 2026-07-22 — F-090: Exclude modules from dependency validation (GH #97)
+
+- **Ticket:** F-090 → `done`
+- **Branch:** `forma/F-090-validation-exclusions` (from origin/v2)
+- **Actions:**
+  - API: `dependencyValidationExclusions: Set<String> = emptySet()` on
+    `AndroidProjectSettings` + root `androidProjectConfiguration(...)`
+  - Matcher: exact Gradle project path and/or name
+    (`matchesDependencyValidationExclusion`); store helpers null-safe when
+    settings never written (`FormaSettingsStore.isExcludedFromDependencyValidation`)
+  - `applyDependencies` `projectAction` skips suffix `validator.validate` only for
+    excluded dependency projects; still adds the edge. Self-type DSL validation
+    unchanged. Test/androidTest project deps still unvalidated (pre-existing).
+  - Unit tests: `:config` matcher/store; `:deps` apply-gate exclude vs non-exclude
+  - Docs: `DEPENDENCY-MATRIX.md` exclusions section; `PROJECT-CONFIGURATION.md`
+    parameter; GETTING-STARTED cross-links; sample `application/build.gradle.kts`
+    commented example
+- **Verify (real tool output, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :core:test :validation:test :deps:test :config:test build --no-daemon` → **BUILD SUCCESSFUL** in 26s (80 tasks)
+  - `application/`: `./gradlew help --no-daemon` + `./gradlew assembleDebug --no-daemon` → **BUILD SUCCESSFUL** in 1m46s (896 tasks)
+- **Blockers:** none
+- **Next:** F-091 BuildFeatures configuration (GH #88)
+- **Commits:** local on `forma/F-090-validation-exclusions` (orchestrator opens PR)
+
 ## 2026-07-22 — F-089: Navigation Safe Args task cache (GH #110)
 
 - **Ticket:** F-089 → `done`

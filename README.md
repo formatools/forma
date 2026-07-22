@@ -176,7 +176,11 @@ project-dep type checks + content layout rules from live validators
 **Canonical reference (code truth):** [`docs/DEPENDENCY-MATRIX.md`](docs/DEPENDENCY-MATRIX.md).
 
 That document is generated from each target’s
-`applyDependencies(validator = …)` call and content helpers. Summary:
+`applyDependencies(validator = …)` call and content helpers. Forked-in vendor
+modules (no Forma suffixes): optional project-global
+`dependencyValidationExclusions` on `androidProjectConfiguration` only
+([F-090](docs/DEPENDENCY-MATRIX.md#dependency-validation-exclusions-f-090--gh-97)) —
+never a per-call-site escape hatch. Summary:
 
 | Consumer | May depend on project suffixes… |
 |----------|----------------------------------|
