@@ -108,6 +108,9 @@ custom configuration automatically.
 
 ### Plugin + processor wiring
 
+**Annotation processing happy path is KSP only** (`String.ksp` / `ksp()` / `Ksp`).
+Legacy `.kapt` / `kotlin-kapt` was hard-removed in F-093 — there is no dual path.
+
 ```kotlin
 plugin(
     id = "com.google.devtools.ksp:symbol-processing-gradle-plugin",
@@ -115,10 +118,14 @@ plugin(
     configuration = CustomConfiguration("ksp"),
     "androidx.room:room-compiler:2.5.1" // registered on the `ksp` configuration
 )
+
+// Or at the call site with the typed DSL:
+dependencies = deps("com.google.dagger:dagger-compiler:…".ksp)
 ```
 
-At dependency application time, consuming the room-compiler coordinate applies the KSP
-plugin once and adds the processor with `isTransitive = true`.
+At dependency application time, consuming a `.ksp` coordinate applies
+`com.google.devtools.ksp` once via `processorConfigurationFeatures()` and adds the
+processor with `isTransitive = true`.
 
 ---
 

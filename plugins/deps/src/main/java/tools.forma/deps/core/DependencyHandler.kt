@@ -15,16 +15,6 @@ import org.gradle.kotlin.dsl.accessors.runtime.addExternalModuleDependencyTo
 import org.gradle.kotlin.dsl.add
 import org.gradle.kotlin.dsl.create
 
-/**
- * Adds a dependency to the `kapt` configuration.
- *
- * @param dependencyNotation name of dependency to add at specific configuration
- *
- * @return the dependency
- */
-fun DependencyHandler.kapt(dependencyNotation: String): Dependency? =
-    add("kapt", dependencyNotation)
-
 /** Adds a dependency to the `ksp` configuration. */
 fun DependencyHandler.ksp(dependencyNotation: String): Dependency? =
     add("ksp", dependencyNotation)

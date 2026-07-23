@@ -17,7 +17,7 @@ import tools.forma.validation.validate
 
 
 /**
- * Feature **implementation** (Android library + optional view binding / kapt / Compose).
+ * Feature **implementation** (Android library + optional view binding / KSP / Compose).
  *
  * Dagger2-friendly boundaries:
  * - **May** depend on feature `api` contracts, shared libraries/utils, and UI

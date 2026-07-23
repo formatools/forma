@@ -53,7 +53,6 @@ internal val happyPathClassIncludes =
         "**/tools/forma/deps/core/CompileOnly*",
         "**/tools/forma/deps/core/RuntimeOnly*",
         "**/tools/forma/deps/core/AnnotationProcessor*",
-        "**/tools/forma/deps/core/Kapt*",
         "**/tools/forma/deps/core/Ksp*",
         "**/tools/forma/deps/core/DepSpec*",
         "**/tools/forma/deps/core/TargetSpec*",

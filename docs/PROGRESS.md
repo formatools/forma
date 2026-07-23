@@ -2,6 +2,22 @@
 
 Newest entries first.
 
+## 2026-07-22 — F-093: hard-remove legacy kapt (KSP-only)
+
+- **Ticket:** F-093 → `done`
+- **Branch:** `forma/F-093-remove-kapt` (from `origin/v2`)
+- **Actions:**
+  - Removed public DSL: `fun kapt` / `String.kapt` (`dependencies.kt`), `DependencyHandler.kapt`
+  - Removed `object Kapt` from `ConfigurationType.kt`
+  - Removed `kotlinKaptFeatureDefinition` / `Kapt` branch / deprecated `kaptConfigurationFeature` from `Kotlin.kt`; `processorConfigurationFeatures()` is KSP-only
+  - Tests: drop Kapt assertion; add `ksp` helper coverage
+  - JaCoCo: drop dead `Kapt*` include
+  - Docs: DEPS-CATALOG, CONFIGURATION-PERFORMANCE, ARCHITECTURE, forma-core-api, PRINCIPLE-AUDIT, impl KDoc; TICKETS F-093 done
+- **Verify:** (this run) plugins `test jacocoHappyPathCoverageVerification build`; application `:binary:assembleDebug`
+- **Commits/PRs:** commit on branch; Hermes may open PR
+- **Blockers:** none
+- **Next step:** F-094 (blocked Portal) or next open P8/backlog ticket
+
 ## 2026-07-22 — F-092: versionCode / versionName on binary (GH #82)
 
 - **Ticket:** F-092 → `done`
