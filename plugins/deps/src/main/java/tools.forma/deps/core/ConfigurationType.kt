@@ -23,11 +23,7 @@ object AnnotationProcessor : ConfigurationType {
     override val name: String = "annotationProcessor"
 }
 
-object Kapt : ConfigurationType {
-    override val name: String = "kapt"
-}
-
-/** Kotlin Symbol Processing configuration (`ksp`). Prefer over [Kapt] for new code (F-086). */
+/** Kotlin Symbol Processing configuration (`ksp`). Sole annotation-processing path (F-093). */
 object Ksp : ConfigurationType {
     override val name: String = "ksp"
 }

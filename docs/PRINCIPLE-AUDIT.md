@@ -98,7 +98,7 @@ Not opened as new product tickets here (board empty after F-085; promote only on
 - Optional Path B `firebaseBinary` for Crashlytics/GMS apply (sample currently classpath + comment)
 - F-084 follow-ups (Gradle tasks, AST migrate) — listed in FLEET-TOOLING.md
 - F-019 AndroidX absolute ceiling / compileSdk chase
-- Legacy `.kapt` API removal once no consumers
+- ~~Legacy `.kapt` API removal once no consumers~~ → **F-093** done (KSP-only)
 - Backlog GH issues (#110, #97, #88, #82, …)
 
 ## Re-audit recipe

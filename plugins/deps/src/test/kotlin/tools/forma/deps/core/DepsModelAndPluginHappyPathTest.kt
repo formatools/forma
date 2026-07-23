@@ -5,6 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
+import ksp
 import tools.forma.core.target.targetType
 
 /**
@@ -19,9 +20,19 @@ class DepsModelAndPluginHappyPathTest {
         assertEquals("compileOnly", CompileOnly.name)
         assertEquals("runtimeOnly", RuntimeOnly.name)
         assertEquals("annotationProcessor", AnnotationProcessor.name)
-        assertEquals("kapt", Kapt.name)
         assertEquals("ksp", Ksp.name)
         assertEquals("ksp", CustomConfiguration("ksp").name)
+    }
+
+    @Test
+    fun `ksp helpers place specs on Ksp configuration`() {
+        val viaFun = ksp("g:processor:1")
+        val viaExt = "g:processor:1".ksp
+        assertEquals(1, viaFun.names.size)
+        assertEquals(Ksp, viaFun.names.single().config)
+        assertTrue(viaFun.names.single().transitive)
+        assertEquals("g:processor:1", viaFun.names.single().name)
+        assertEquals(Ksp, viaExt.names.single().config)
     }
 
     @Test

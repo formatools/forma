@@ -39,7 +39,7 @@ free of Bazel dependencies. JVM kit is the initial target set.
 
 | Concern | Stays in |
 |---------|----------|
-| AGP / Kotlin Android / Compose / kapt feature appliers | `:android` (or future platform plugins) |
+| AGP / Kotlin Android / Compose / KSP feature appliers | `:android` (or future platform plugins) |
 | User-facing Gradle DSL entrypoints (`fun Project.impl(…)`) | platform plugins |
 | Plugin Portal publish DSL (`formaPluginConfiguration`) | `plugins/buildSrc` |
 | Includer / depgen | separate builds |
@@ -328,7 +328,7 @@ fun Project.impl(/* platform params */) {
 | Type | Notes |
 |------|--------|
 | `FormaDependency` sealed hierarchy | `Empty`, `Named`, `Target`, `File`, `Platform`, `Mixed` |
-| `DepSpec` / `ConfigurationType` | `Implementation`, `Kapt`, `CustomConfiguration`, … |
+| `DepSpec` / `ConfigurationType` | `Implementation`, `Ksp`, `CustomConfiguration`, … |
 | `deps(…)`, `plus`, `forEach` | pure merge helpers (F-017 hot path) |
 | Project-edge validation hook | call `TargetValidator` before adding project dep |
 

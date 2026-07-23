@@ -185,7 +185,7 @@ Under `tools.forma.android.feature`:
 - `FeatureDefinition` + `applyFeatures`
 - `androidLibraryFeatureDefinition` / `androidBinaryFeatureDefinition` / `androidNativeDefinition`
 - Kotlin JVM vs Kotlin Android feature definitions
-- `kaptConfigurationFeature` (auto when kapt-ish deps present)
+- `processorConfigurationFeatures` (auto-applies KSP when `.ksp` deps present)
 
 Configuration singleton: `Forma` object delegates to `FormaSettingsStore`
 (`AndroidProjectSettings`: min/target/compile SDK, AGP/Kotlin versions, repos,

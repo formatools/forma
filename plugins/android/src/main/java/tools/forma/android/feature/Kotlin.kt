@@ -1,16 +1,12 @@
 package tools.forma.android.feature
 
-import deps
-import kapt
 import tools.forma.config.AndroidProjectSettings
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.tasks.compile.JavaCompile
 import tools.forma.deps.core.ConfigurationType
-import tools.forma.deps.core.Kapt
 import tools.forma.deps.core.Ksp
 
 private fun defaultConfiguration(project: Project, androidProjectSettings: AndroidProjectSettings) {
@@ -51,27 +47,14 @@ private val kotlinFeatureDefinitionInstance =
         configuration = sharedFeatureConfiguration
     )
 
-/** Legacy kapt path — still supported if a target declares `.kapt` deps. */
-private val kotlinKaptFeatureDefinitionInstance =
-    FeatureDefinition(
-        pluginName = "kotlin-kapt",
-        pluginExtension = KaptExtension::class,
-        featureConfiguration = Unit,
-        defaultDependencies = deps("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0".kapt),
-        configuration = sharedFeatureConfiguration
-    )
-
 fun kotlinFeatureDefinition() = kotlinFeatureDefinitionInstance
 
 /** Config-only under AGP 9 built-in Kotlin (no `kotlin-android` plugin). */
 fun kotlinAndroidFeatureDefinition() = kotlinAndroidFeatureDefinitionInstance
 
-fun kotlinKaptFeatureDefinition() = kotlinKaptFeatureDefinitionInstance
-
 /**
- * Lazy processor plugins when a target declares kapt/ksp deps.
- * - [Ksp] → apply `com.google.devtools.ksp` (preferred; F-086)
- * - [Kapt] → apply `kotlin-kapt` (legacy; incompatible with built-in Kotlin)
+ * Lazy processor plugins when a target declares KSP deps.
+ * - [Ksp] → apply `com.google.devtools.ksp` (sole annotation-processing path; F-093)
  */
 fun Project.processorConfigurationFeatures(): Map<ConfigurationType, () -> Unit> =
     mapOf(
@@ -80,12 +63,4 @@ fun Project.processorConfigurationFeatures(): Map<ConfigurationType, () -> Unit>
                 pluginManager.apply("com.google.devtools.ksp")
             }
         },
-        Kapt to {
-            applyFeatures(kotlinKaptFeatureDefinition())
-        }
     )
-
-/** @deprecated Use [processorConfigurationFeatures] (includes KSP). */
-@Deprecated("Use processorConfigurationFeatures()", ReplaceWith("processorConfigurationFeatures()"))
-fun Project.kaptConfigurationFeature(): Map<ConfigurationType, () -> Unit> =
-    processorConfigurationFeatures()

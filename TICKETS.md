@@ -24,7 +24,7 @@ Canonical write-up: `docs/VISION.md` § Root principles. Plugins design: `docs/T
 | F-004 | done | CI green on GitHub Actions for plugins + application | Temurin 17 all jobs + Android SDK 33 for app; PR #153 GHA green |
 | F-018 | done | JDK 21 + Gradle/AGP staged modernization | **Shipped on `v2`:** Gradle **8.14.5**, AGP **8.13.2**, Kotlin **2.0.21**, KSP **2.0.21-1.0.28**, Compose **1.9.4**/compiler **2.0.21**, JDK **21** host/CI, sample SDK min23/target35/compile35 + deps at AGP-8.13 ceiling. PRs **#179–#182**. Superseded by **F-019** for 9.x. |
 | F-019 | done | Gradle 9 + Kotlin 2.3 + AGP 9 toolchain | Phase 1 done (9.6.1 / 2.3.21 / AGP 9.3.0). **F-086** = kapt→KSP + built-in Kotlin. AndroidX ceiling → **F-087**. |
-| F-086 | done | Migrate kapt → KSP + AGP built-in Kotlin | First-class `Ksp` + `String.ksp`; `processorConfigurationFeatures()`; sample Dagger on **ksp**; drop F-019 kapt bridge flags; legacy `.kapt` kept until **F-093**. |
+| F-086 | done | Migrate kapt → KSP + AGP built-in Kotlin | First-class `Ksp` + `String.ksp`; `processorConfigurationFeatures()`; sample Dagger on **ksp**; drop F-019 kapt bridge flags; legacy `.kapt` removed in **F-093**. |
 
 ## P1 — Android working product
 
@@ -124,7 +124,7 @@ Promoted from daily next-actions / historical GH. Workers pick top `todo` in ord
 | F-090 | done | Exclude modules from dependency validation | GH **#97** — `dependencyValidationExclusions` on root `androidProjectConfiguration` / `AndroidProjectSettings`; `applyDependencies` skips project-dep suffix validation for exact path/name matches only. Self-type validation unchanged. Unit tests in `:config` + `:deps`; matrix + PROJECT-CONFIGURATION docs. |
 | F-091 | done | BuildFeatures under Forma | GH **#88** — `FormaBuildFeatures` project-global (defaults **off**); central apply on library+binary; type-owned viewBinding/composeWidget + minimal `impl`/`compose` attrs; docs CALL-SITE + PROJECT-CONFIGURATION. |
 | F-092 | done | versionCode / versionName on binary (and app) | GH **#82** — **done:** required `versionCode`/`versionName` on `androidBinary` only (wired to AGP `defaultConfig`); **not** on `AndroidProjectSettings` / `androidProjectConfiguration`; `androidApp` stays library shell (no version attrs — Gradle app-module limit). Sample + examples already use call-site API; docs/KDoc locked. |
-| F-093 | todo | Remove legacy `.kapt` once unused | After F-086 sample is KSP-only: hard-remove or hard-deprecate `String.kapt` / `kapt()` / `Kapt` configuration path if no in-repo consumers; keep only if a documented external-compat shim is still required. Grep tree + tests + DEPS docs. |
+| F-093 | done | Remove legacy `.kapt` once unused | **KSP-only:** hard-removed `String.kapt` / `kapt()` / `object Kapt` / `kotlin-kapt` auto-apply / `kaptConfigurationFeature`. Zero in-repo consumers after F-086; no external-compat shim. |
 | F-094 | blocked | Gradle Plugin Portal Forma org/user | GH **#133** — human/admin: create shared Portal user/org and credentials for team publish. Worker cannot finish without Stepan Portal access. Track only; see `docs/PLUGIN-PUBLISH.md`. |
 
 ## Backlog (lower priority / historical GitHub)

@@ -64,7 +64,7 @@ definitions, skip empty repo blocks), not as a claim of a fixed wall-clock %.
 | Area | Change |
 |------|--------|
 | `validator(...)` | Identity-cache single- and multi-suffix validators; hot path uses precomputed `endsWith` strings, no intermediate `map`/`contains` lists |
-| `kotlinFeatureDefinition` / `kotlinAndroidFeatureDefinition` / kapt | Singleton `FeatureDefinition` instances; read live `Forma.settings` at apply time |
+| `kotlinFeatureDefinition` / `kotlinAndroidFeatureDefinition` / KSP processor | Singleton `FeatureDefinition` instances; read live `Forma.settings` at apply time |
 | `applyDependencies` | Skip `repositories {}` when config is the empty sentinel; skip entire `dependencies {}` block when all three dep args are `EmptyDependency`; skip plugin lookup when no plugin deps registered |
 | `deps` / `FormaDependency.plus` | Prefer typed fields over `filterIsInstance`; pre-size / single-pass merges; indexed `forEach` over specs |
 | Catalog generators | `filteredTokens` is a `Set` for O(1) membership |
