@@ -31,6 +31,7 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | `testUtil` | 09 | 05 | platform skills |
 | `androidTestUtil` | 09 | — | forma-android-targets |
 | Type-owned target plugins (`navigationRes` Path B) | 10 | — | forma-target-plugins |
+| Metro DI (`metroImpl` / `metroApp`, Path A on impl/app) | 11 | — | forma-target-plugins |
 | Fleet check/generate/migrate (`tools.forma.core.fleet`) | docs | docs | forma-fleet-tooling |
 | `androidNative` | skill/docs | — | forma-android-targets |
 | Bazel adapter / sample | skill | skill | forma-bazel |
@@ -49,5 +50,8 @@ dual happy paths, or removed `androidLibrary` into examples or skills.
 
 Progressive examples are **minimal**. Patterns for real apps (navigation, Dagger,
 network) live in `application/` and are documented in SAMPLE-APP / GETTING-STARTED.
+Metro as an alternate compile-time DI stack is taught in
+[`examples/android/11-metro-di`](../examples/android/11-metro-di) (type-owned plugin;
+not a second sample-app rewrite).
 Sample-scale typed `build-dependencies/` catalogs are **advanced**, not a second
 default (see [DEPS-CATALOG.md](DEPS-CATALOG.md)).

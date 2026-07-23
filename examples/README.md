@@ -9,7 +9,7 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | Track | Path | Steps |
 |-------|------|-------|
 | JVM | [`jvm/`](jvm/) | 01 hello-binary → 05 test-util |
-| Android | [`android/`](android/) | 01 hello-apk → 10 target-plugins |
+| Android | [`android/`](android/) | 01 hello-apk → 11 metro-di |
 | Agent skills | [`agent-skills/`](agent-skills/) | SKILL docs for coding agents |
 | User index | [`docs/PROGRESSIVE-EXAMPLES.md`](../docs/PROGRESSIVE-EXAMPLES.md) | narrative + feature coverage matrix |
 
@@ -37,6 +37,7 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | 08 | `android/08-deps-catalog` | `projectDependencies` / `library` / `bundle` / `plugin` |
 | 09 | `android/09-test-utils` | `testUtil`, `androidTestUtil` (+ `androidNative` docs) |
 | 10 | `android/10-target-plugins` | Path B `navigationRes`, type-owned safe-args, `extraPlugins` classpath |
+| 11 | `android/11-metro-di` | Path A Metro on `impl`/`app` + `metroImpl`/`metroApp` DSLs, compile-time DI |
 
 Bazel is covered by agent skill + existing [`bazel-adapter/`](../bazel-adapter/) and [`bazel-sample/`](../bazel-sample/) (not duplicated here).
 

@@ -2,6 +2,21 @@
 
 Newest entries first.
 
+## 2026-07-23 — F-095: progressive example Metro DI
+
+- **Ticket:** F-095 → `done`
+- **Branch:** `forma/F-095-metro-di-example` (from `origin/v2`)
+- **Actions:**
+  - New ladder step `examples/android/11-metro-di`
+  - Path A: `registerTargetPlugin` Metro (`dev.zacsweers.metro` **1.3.2**) on `impl` + `app`
+  - Thin DSLs `metroImpl` / `metroApp` (attributes-only call sites)
+  - Mini graph: `@Inject` feature impl + `@DependencyGraph` / `createGraph` at root-app
+  - Docs: PROGRESSIVE-EXAMPLES, examples README, TARGET-PLUGINS quick start, agent skills, root README
+  - JVM **11** on example (`javaVersionCompatibility`) for Metro runtime
+- **Verify:** `examples/android/11-metro-di ./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL**
+- **Blockers:** none (F-094 Portal still human-blocked)
+- **Next step:** idle board may `[SILENT]` unless new tickets
+
 ## 2026-07-22 — F-093: hard-remove legacy kapt (KSP-only)
 
 - **Ticket:** F-093 → `done`
