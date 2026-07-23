@@ -22,7 +22,8 @@ plugin on every call site of that type.
    - **Path A:** `registerTargetPlugin(AndroidTargetTypes.res, …)` only if *every* module of that kind should get it.
 3. Call sites set **attributes only** — never plugin ids, never `.withPlugin`.
 
-Hands-on: [`examples/android/10-target-plugins`](../examples/android/10-target-plugins).  
+Hands-on: [`examples/android/10-target-plugins`](../examples/android/10-target-plugins)
+(safe-args) · [`examples/android/11-metro-di`](../examples/android/11-metro-di) (Metro DI).  
 Agent skill: [`forma-target-plugins`](../examples/agent-skills/forma-target-plugins.md).
 
 Global configuration lives at root `buildscript { androidProjectConfiguration(...) }` (F-082).

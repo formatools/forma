@@ -44,4 +44,4 @@ shared configuration, and a **dependency restriction graph**.
 - `docs/COMPOSE.md`
 - `docs/PRINCIPLE-AUDIT.md` — full-tree teaching audit (F-085)
 
-**External plugins:** type-owned (Path A/B) — skill `forma-target-plugins`, example `android/10-target-plugins`. Never `.withPlugin`.
+**External plugins:** type-owned (Path A/B) — skill `forma-target-plugins`, examples `android/10-target-plugins` (safe-args) and `android/11-metro-di` (Metro DI). Never `.withPlugin`.

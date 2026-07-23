@@ -5,12 +5,14 @@ description: Type-owned external Gradle plugins (Path A/B). Call sites attribute
 
 # Target plugins (agent skill)
 
-External Gradle plugins (safe-args, GMS, Crashlytics, …) are **owned by the target type**,
-not selected per module. Design: `docs/TARGET-PLUGINS.md`. Progressive step:
-`examples/android/10-target-plugins/`. Sample: `build-dependencies/.../NavigationRes.kt`.
+External Gradle plugins (safe-args, GMS, Crashlytics, Metro, …) are **owned by the target type**,
+not selected per module. Design: `docs/TARGET-PLUGINS.md`. Progressive steps:
+`examples/android/10-target-plugins/` (safe-args Path B) ·
+`examples/android/11-metro-di/` (Metro DI Path A + named DSLs).
+Sample: `build-dependencies/.../NavigationRes.kt`.
 
 ## When to load
-- Adding Navigation safe-args, Firebase, or any third-party Gradle plugin to a Forma target
+- Adding Navigation safe-args, Firebase, Metro, or any third-party Gradle plugin to a Forma target
 - Reviewing PRs that introduce `.withPlugin`, `plugins = plugins(…)`, or free-form plugin ids on DSL calls
 - Scaffolding a derived type (Path B) or extending a pre-defined type (Path A)
 

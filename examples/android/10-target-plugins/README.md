@@ -58,4 +58,5 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
 - Full-tree audit: [`docs/PRINCIPLE-AUDIT.md`](../../../docs/PRINCIPLE-AUDIT.md) (F-085)
 
 ## Next
-Ladder complete for target plugins. See [`docs/PROGRESSIVE-EXAMPLES.md`](../../../docs/PROGRESSIVE-EXAMPLES.md).
+11 wires the same Path B pattern for [Metro](https://zacsweers.github.io/metro/latest/) DI
+(`examples/android/11-metro-di`). See [`docs/PROGRESSIVE-EXAMPLES.md`](../../../docs/PROGRESSIVE-EXAMPLES.md).

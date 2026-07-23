@@ -126,6 +126,7 @@ Promoted from daily next-actions / historical GH. Workers pick top `todo` in ord
 | F-092 | done | versionCode / versionName on binary (and app) | GH **#82** — **done:** required `versionCode`/`versionName` on `androidBinary` only (wired to AGP `defaultConfig`); **not** on `AndroidProjectSettings` / `androidProjectConfiguration`; `androidApp` stays library shell (no version attrs — Gradle app-module limit). Sample + examples already use call-site API; docs/KDoc locked. |
 | F-093 | done | Remove legacy `.kapt` once unused | **KSP-only:** hard-removed `String.kapt` / `kapt()` / `object Kapt` / `kotlin-kapt` auto-apply / `kaptConfigurationFeature`. Zero in-repo consumers after F-086; no external-compat shim. |
 | F-094 | blocked | Gradle Plugin Portal Forma org/user | GH **#133** — human/admin: create shared Portal user/org and credentials for team publish. Worker cannot finish without Stepan Portal access. Track only; see `docs/PLUGIN-PUBLISH.md`. |
+| F-095 | done | Progressive example: Metro DI framework | `examples/android/11-metro-di` — Path A Metro on impl/app + `metroImpl`/`metroApp` DSLs + mini `@DependencyGraph`; docs ladder; assembleDebug green. |
 
 ## Backlog (lower priority / historical GitHub)
 
