@@ -128,6 +128,24 @@ Promoted from daily next-actions / historical GH. Workers pick top `todo` in ord
 | F-094 | blocked | Gradle Plugin Portal Forma org/user | GH **#133** — human/admin: create shared Portal user/org and credentials for team publish. Worker cannot finish without Stepan Portal access. Track only; see `docs/PLUGIN-PUBLISH.md`. |
 | F-095 | done | Progressive example: Metro DI framework | `examples/android/11-metro-di` — Path A Metro on impl/app + `metroImpl`/`metroApp` DSLs + mini `@DependencyGraph`; docs ladder; assembleDebug green. |
 
+## P10 — Promoted backlog (2026-07-24 Stepan)
+
+Promoted from empty-queue daily candidates + remaining open historical GH.
+Workers pick top `todo` in order. **Still not product tickets:** pause/stretch 4h
+worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `blocked`.
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-096 | todo | `String.transitiveDep` catalog parity | GH **#77** — add `val String.transitiveDep` (and/or `transitiveDeps`) matching `String.dep` / `String.ksp` so catalog libs declare transitive deps uniformly. `transitiveDeps(...)` already exists; missing single-string property form. Docs + unit test; DEPS-CATALOG note. |
+| F-097 | todo | Finish build types: signing configs | GH **#51** — checklist mostly done (DSL/`BuildConfiguration`/`BuildType` lambdas, proguard, build fields). **Remaining:** first-class **signing configs** on `androidBinary` (one global way; attrs on binary only — not per-library shopping). Docs + sample/example if safe dummy keystore pattern; no secrets in repo. |
+| F-098 | todo | Core library desugaring (Java 8+ APIs) | GH **#103** — project-global desugar path for lower `minSdk` that needs `coreLibraryDesugaring` (Android Java 8+ library desugaring). One way on `androidProjectConfiguration` / settings; wire AGP `compileOptions.isCoreLibraryDesugaringEnabled` + desugar dep; docs ENV/GETTING-STARTED; verify on sample or progressive example. |
+| F-099 | todo | Target-feature configuration options | GH **#126** — design+thin slice: conditional / flagged deps and feature toggles (e.g. AP vs reflect DI) without dual happy paths. Prefer **type/rule or single global configuration** over call-site plugin shopping. Outcome may be design doc + smallest useful API; reject free-form per-module plugin lists. |
+| F-100 | todo | Gradle project on buildscript classpath | GH **#111** — investigate allowing a Gradle **project** (composite/included build) as `extraPlugins` / buildscript classpath source alongside Maven coords. Design note first if API shape unclear; keep `extraPlugins` = classpath only (F-082). Implement only if clean with AGP 9 / Gradle 9. |
+| F-101 | todo | Close `target(...)` deps API (audit) | GH **#56** — **likely largely done:** `Project.target` / `target(name)` / `target(ProjectDependency)` + `deps(vararg FormaTarget)` used across sample. Audit docs/DEPS-CATALOG/CALL-SITE; close issue or ship any missing notation/docs; do not reintroduce raw `project()` as happy path. |
+| F-102 | todo | Navigation abstraction (sample + optional targets) | GH **#46** — reduce Jetpack Navigation codegen bleed across features. **Design first** (doc): presentation-layer nav ports vs Navigation Component; optional Forma nav targets only if type=rule fits. Prefer progressive example / sample refactor slice over new forever DSL. Large — split follow-ups if needed. |
+| F-103 | todo | Hybrid targets example (flat dir / api+impl co-location) | GH **#44** — teaching example: simplified flat layout (api/impl/stub mental model, easy multi-module nav). May use includer layout + progressive example; align with F-084/F-088 fleet layout. No restore of `androidLibrary`. |
+| F-104 | todo | Hybrid configuration / stub targets for IDE sync | GH **#43** — stub targets + deps API so IDE sync can swap `impl`→`stub` (compileOnly/runtimeOnly pattern) via **one project-global flag**, not per-module hacks. Design+spike; depend on F-101/`target` APIs. Keep matrix truth. |
+
 ## Backlog (lower priority / historical GitHub)
 
 Keep for reference; do not start unless higher tickets done or user prioritizes:
@@ -140,15 +158,18 @@ Keep for reference; do not start unless higher tickets done or user prioritizes:
 - ~~F-019 AndroidX ceiling~~ → **F-087**
 - ~~Legacy `.kapt` removal~~ → **F-093**
 - ~~F-084 Gradle-task follow-ups~~ → **F-088**
-- GH #77 transitiveDeps extension
+- ~~GH #77 transitiveDeps extension~~ → **F-096**
 - GH #54 Generate target structure from minimal config → **theme under F-084 / F-088**
-- GH #51 Support build types
-- GH #46 New navigation system
-- GH #44/#43 Hybrid targets/config examples
+- ~~GH #51 Support build types~~ → **F-097**
+- ~~GH #46 New navigation system~~ → **F-102**
+- ~~GH #44 Hybrid targets example~~ → **F-103**
+- ~~GH #43 Hybrid configuration example~~ → **F-104**
 - GH #36 Docs for external plugins → **P7 / F-070–F-073**
-- GH #126 Target features configuration options → consider under **F-081** / **F-091**
-- GH #111 Gradle project as buildscript classpath
-- GH #103 Java 8+ API on Android API ≤26
+- ~~GH #126 Target features configuration options~~ → **F-099**
+- ~~GH #111 Gradle project as buildscript classpath~~ → **F-100**
+- ~~GH #103 Java 8+ API on Android API ≤26~~ → **F-098**
+- ~~GH #56 Implement targets deps APIs~~ → **F-101**
+- GH #48 Clean sample architecture (domain use cases) — sample quality only; not meta-build; leave unpromoted unless prioritized
 
 ## How workers update this file
 
