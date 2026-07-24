@@ -2,6 +2,24 @@
 
 Newest entries first.
 
+## 2026-07-24 — Promote backlog → P10 (Stepan)
+
+- **Action:** User: “Promote the tickets” (empty coding queue; only F-094 blocked)
+- **Mapped open GH → board (new **P10**):**
+  1. **F-096** GH #77 `String.transitiveDep` catalog parity → `todo`
+  2. **F-097** GH #51 finish build types (signing configs) → `todo`
+  3. **F-098** GH #103 core library desugaring → `todo`
+  4. **F-099** GH #126 target-feature configuration options → `todo`
+  5. **F-100** GH #111 Gradle project on buildscript classpath → `todo`
+  6. **F-101** GH #56 `target(...)` deps API audit/close → `todo`
+  7. **F-102** GH #46 navigation abstraction → `todo` (design-first, large)
+  8. **F-103** GH #44 hybrid targets example → `todo`
+  9. **F-104** GH #43 hybrid configuration / stub targets → `todo`
+- **Not promoted:** GH #48 sample domain cleanup (not meta-build); F-094 remains `blocked`; `v2`→`master` not requested; 4h cron left running (board no longer empty)
+- **Files:** `TICKETS.md` **P10** + backlog strikes; this PROGRESS entry; skill board snapshot
+- **Next worker pickup:** **F-096**
+- **Blockers:** none for coding queue
+
 ## 2026-07-23 — F-095: progressive example Metro DI
 
 - **Ticket:** F-095 → `done`
