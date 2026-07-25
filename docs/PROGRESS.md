@@ -2,6 +2,24 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-105: Kotlin Multiplatform design (plan + board)
+
+- **Ticket:** F-105 → `done` (implement F-106…F-110)
+- **Branch:** `forma/F-105-kmp-design` (from `origin/v2`)
+- **User ask:** Plan and add Kotlin multiplatform support for Gradle (Claw topic 136)
+- **Design:** [`docs/KMP-TARGETS.md`](KMP-TARGETS.md)
+  - New platform plugin `tools.forma.kmp` (parallel to `tools.forma.jvm`)
+  - Types: `kmp-api` / `kmp-library` / `kmp-util` / `kmp-test-util` (suffix-prefixed; no collision with `api`/`library`)
+  - v1 platforms: **jvm + android** only; project-global `kmpProjectConfiguration`; type owns MPP plugin
+  - Rejected: call-site `kotlin { targets { } }`, plugin shopping, restoring `androidLibrary`, `kmpImpl`/`kmpBinary` in v1
+  - Composition roots remain Android/JVM; Android/JVM registries gain consumer edges in F-108
+  - Ticket map F-106 skeleton → F-107 apply/DSL → F-108 matrices → F-109 example → F-110 docs
+- **Board:** `TICKETS.md` **P11**; VISION platform list + sequencing §8; ARCHITECTURE `:kmp` row; README link
+- **Impl plan (workspace):** `.hermes/plans/2026-07-25_092348-kmp-multiplatform.md` (local Hermes; design of record is `docs/KMP-TARGETS.md`)
+- **Code:** docs/board only this slice (no plugin module yet)
+- **Verify:** n/a product build (design)
+- **Next step:** **F-106** `:kmp` module + `KmpTargetRegistry` unit tests (Grok Build / implement PR)
+
 ## 2026-07-25 — F-099: project-global feature flags + conditional deps (GH #126)
 
 - **Ticket:** F-099 → `done` (GH #126)

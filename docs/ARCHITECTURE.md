@@ -61,7 +61,7 @@ that compose via `includeBuild`:
 
 - `pluginManagement { includeBuild("../build-settings") }`
 - `tools.forma.includer` **0.2.0** from Portal (not local includer composite)
-- Includer discovers `:android`, `:config`, `:core`, `:deps`, `:jvm`, `:owners`, `:target`, `:validation` (F-021 `:core`; F-030 `:jvm`)
+- Includer discovers `:android`, `:config`, `:core`, `:deps`, `:jvm`, `:owners`, `:target`, `:validation` (F-021 `:core`; F-030 `:jvm`); **`:kmp` planned F-106** (F-105 design)
 
 ---
 
@@ -91,12 +91,12 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
               │           │            │
               └─────┬─────┴────────────┘
                     │
-        ┌───────────┴───────────┐
-        │                       │
-  ┌─────┴─────┐           ┌─────┴─────┐
-  │  android  │           │    jvm    │  F-030 pure JVM DSL + JvmTargetRegistry
-  │  DSL+AGP  │           │  no AGP   │  (parallel platform consumer of core)
-  └───────────┘           └───────────┘
+        ┌───────────┼───────────────────┐
+        │           │                   │
+  ┌─────┴─────┐ ┌───┴────┐        ┌─────┴─────┐
+  │  android  │ │  jvm   │        │    kmp    │  F-105 design; F-106+ module
+  │  DSL+AGP  │ │ no AGP │        │  MPP DSL  │  (tools.forma.kmp)
+  └───────────┘ └────────┘        └───────────┘
 ```
 
 | Module | Plugin id | Depends on | Responsibility |
@@ -109,6 +109,7 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
 | `:deps` | `tools.forma.deps` | `:core`, `:validation`, `:target`, `:config`, kotlin-dsl | `FormaDependency` model, `applyDependencies`, version-catalog generators |
 | `:android` | `tools.forma.android` | `:core` + all of the above + **AGP** + Kotlin GP | Target DSL; `AndroidTargetTypes` + `AndroidRestrictionKit` (F-021); content helpers call core `ContentRule` (F-022) |
 | `:jvm` | `tools.forma.jvm` | `:core`, `:deps`, `:validation`, `:target`, `:owners` + Kotlin GP (**no AGP**) | Pure JVM DSL (`api`/`impl`/`library`/`util`/`testUtil` in package `tools.forma.jvm`); `JvmTargetTypes` + `JvmTargetRegistry` (F-030) |
+| `:kmp` | `tools.forma.kmp` | `:core`, `:deps`, `:validation`, `:target`, `:owners` + Kotlin MPP GP (**no** hard dep on `:android`; AGP coords as needed for androidTarget) | **Planned F-106+** — KMP DSL (`kmpLibrary` / `kmpApi` / …); `KmpTargetTypes` + `KmpTargetRegistry`; design [`KMP-TARGETS.md`](KMP-TARGETS.md) (F-105) |
 
 `:android` compiles against **AGP 9.3.0** (aligned with sample
 `androidProjectConfiguration(agpVersion = …)` — F-018 / #182). Keep

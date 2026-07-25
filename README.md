@@ -57,11 +57,12 @@ systems like Buck and Bazel.
 8. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
 9. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
 10. [JVM sample application](docs/JVM-SAMPLE.md) — multi-module pure-JVM gold standard (`jvm-application/`, F-031)
-11. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
-12. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
-13. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
-14. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050)
-15. [**Test coverage**](docs/TEST-COVERAGE.md) — JaCoCo on `plugins/`, happy-path LINE ≥60% gate
+11. [**Kotlin Multiplatform design**](docs/KMP-TARGETS.md) — `tools.forma.kmp` types, matrix, no call-site target shopping (F-105; implement F-106…F-110)
+12. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
+13. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
+14. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
+15. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050)
+16. [**Test coverage**](docs/TEST-COVERAGE.md) — JaCoCo on `plugins/`, happy-path LINE ≥60% gate
 
 Configuration made easy:
 
