@@ -232,6 +232,10 @@ fun String.dep(configuration: CustomConfiguration, transitive: Boolean = true) =
 val String.dep: NamedDependency
     get() = deps(this)
 
+/** Single-string transitive named dep (parity with [String.dep]; multi via [transitiveDeps]). */
+val String.transitiveDep: NamedDependency
+    get() = transitiveDeps(this)
+
 val String.ksp: NamedDependency
     get() = ksp(this)
 
