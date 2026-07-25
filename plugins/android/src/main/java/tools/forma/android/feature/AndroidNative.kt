@@ -5,6 +5,7 @@ import androidJunitRunner
 import com.android.build.api.dsl.LibraryExtension
 import tools.forma.android.config.*
 import tools.forma.android.target.NativeTarget
+import tools.forma.android.utils.applyCoreLibraryDesugaring
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
@@ -22,7 +23,7 @@ fun androidNativeDefinition(
     pluginName = "com.android.library",
     pluginExtension = LibraryExtension::class,
     featureConfiguration = configuration,
-    configuration = { extension, _, _, formaConfiguration ->
+    configuration = { extension, _, project, formaConfiguration ->
         with(extension) {
             namespace = configuration.packageName
             compileSdk = formaConfiguration.compileSdk
@@ -52,6 +53,7 @@ fun androidNativeDefinition(
             }
 
             compileOptions.applyFrom(formaConfiguration)
+            applyCoreLibraryDesugaring(project, formaConfiguration)
         }
     }
 )

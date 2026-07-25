@@ -6,7 +6,9 @@ import com.android.build.api.dsl.CompileOptions
 import com.android.build.api.dsl.DefaultConfig
 import com.android.build.api.dsl.LibraryDefaultConfig
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.Project
 import tools.forma.config.AndroidProjectSettings
+import tools.forma.config.coreLibraryDesugaringDependencyOrNull
 
 /**
  * Shared build-type configuration for Android library and application targets.
@@ -52,6 +54,19 @@ internal fun DefaultConfig.applyFrom(
 internal fun CompileOptions.applyFrom(config: AndroidProjectSettings) {
     sourceCompatibility = config.javaVersionCompatibility
     targetCompatibility = config.javaVersionCompatibility
+    isCoreLibraryDesugaringEnabled = config.coreLibraryDesugaring
+}
+
+/**
+ * When [AndroidProjectSettings.coreLibraryDesugaring] is true, add the desugar JDK libs
+ * artifact to AGP's `coreLibraryDesugaring` configuration (F-098 / GH #103).
+ * No-op when disabled — does not add a dependency.
+ *
+ * Call from every Android AGP feature definition after [CompileOptions.applyFrom].
+ */
+internal fun applyCoreLibraryDesugaring(project: Project, settings: AndroidProjectSettings) {
+    val dependency = coreLibraryDesugaringDependencyOrNull(settings) ?: return
+    project.dependencies.add("coreLibraryDesugaring", dependency)
 }
 
 @Suppress("UNCHECKED_CAST")

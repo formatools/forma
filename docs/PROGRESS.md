@@ -2,6 +2,27 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-098: project-global core library desugaring (GH #103)
+
+- **Ticket:** F-098 → `done` (GH #103)
+- **Branch:** `forma/F-098-core-library-desugaring` (from `origin/v2` @ 3193ef8)
+- **Design:** one fleet path on `androidProjectConfiguration` / `AndroidProjectSettings` only — no call-site desugar flags (same tier as `javaVersionCompatibility` / `buildFeatures`).
+- **Code:**
+  - `AndroidProjectSettings.coreLibraryDesugaring` (default false) + `coreLibraryDesugaringDependency` (default `com.android.tools:desugar_jdk_libs:2.1.5`)
+  - `DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY` + pure `coreLibraryDesugaringDependencyOrNull`
+  - DSL params on `androidProjectConfiguration`
+  - `CompileOptions.applyFrom` sets `isCoreLibraryDesugaringEnabled`
+  - Shared `applyCoreLibraryDesugaring(project, settings)` from library + binary + native feature definitions
+  - Sample: commented enable example next to `buildFeatures` (default remains off)
+- **Tests:** `:config` `CoreLibraryDesugaringTest`; `:android` `CoreLibraryDesugaringApplyTest`
+- **Docs:** PROJECT-CONFIGURATION § coreLibraryDesugaring; CALL-SITE-SURFACE rejected call-site + section; GETTING-STARTED pointer
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :config:test :android:test test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** in 1m5s (config 5 new desugar tests; android 11 tests incl. 4 desugar)
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** in 2m10s (default desugar off)
+- **Commits/PRs:** this branch; Hermes PR/merge; close GH #103 when merged
+- **Blockers:** none
+- **Next step:** F-099 (target-feature configuration options)
+
 ## 2026-07-24 — F-097: signing configs on androidBinary (GH #51)
 
 - **Ticket:** F-097 → `done` (GH #51 remaining checkbox)

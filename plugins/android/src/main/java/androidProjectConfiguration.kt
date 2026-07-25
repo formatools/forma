@@ -10,6 +10,7 @@ import org.gradle.plugin.use.PluginDependency
 import tools.forma.android.utils.register
 import tools.forma.android.target.registerAndroidDefaults
 import tools.forma.config.AndroidProjectSettings
+import tools.forma.config.DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY
 import tools.forma.config.FormaBuildFeatures
 import tools.forma.config.FormaSettingsStore
 import tools.forma.config.PluginInfoStore
@@ -78,6 +79,14 @@ import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
  * @param buildFeatures project-global AGP BuildFeatures defaults (F-091 / GH #88). All flags
  *   default **false**. Nested object for non-Compose flags (+ optional `viewBinding` default
  *   for `impl`). Compose stays on [compose] above. See [FormaBuildFeatures].
+ * @param coreLibraryDesugaring when true, enable AGP core library desugaring fleet-wide
+ *   (F-098 / GH #103) so lower `minSdk` modules can use Java 8+ library APIs via desugar.
+ *   Default **false**. Sets `compileOptions.isCoreLibraryDesugaringEnabled` and adds the
+ *   desugar JDK libs dependency on every Android library/binary/native target.
+ *   **Not** a per-module call-site flag — one project-global path only.
+ * @param coreLibraryDesugaringDependency Maven coordinate for desugar JDK libs when
+ *   [coreLibraryDesugaring] is true. Default [DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY].
+ *   Stored when off but not applied until the flag is true.
  * @param extraPlugins list of extra artifacts / plugin providers to add to the **buildscript classpath only**.
  *   See "Classpath vs apply" in TARGET-PLUGINS.md.
  */
@@ -97,6 +106,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     checkPackageLayoutAtConfiguration: Boolean = false,
     dependencyValidationExclusions: Set<String> = emptySet(),
     buildFeatures: FormaBuildFeatures = FormaBuildFeatures(),
+    coreLibraryDesugaring: Boolean = false,
+    coreLibraryDesugaringDependency: String = DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY,
     extraPlugins: List<Any> = emptyList()
 ) {
     buildScriptConfiguration(
@@ -135,6 +146,8 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             checkPackageLayoutAtConfiguration = checkPackageLayoutAtConfiguration,
             dependencyValidationExclusions = dependencyValidationExclusions,
             buildFeatures = buildFeatures,
+            coreLibraryDesugaring = coreLibraryDesugaring,
+            coreLibraryDesugaringDependency = coreLibraryDesugaringDependency,
         )
 
     Forma.store(configuration)

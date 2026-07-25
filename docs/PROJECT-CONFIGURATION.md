@@ -20,6 +20,9 @@ buildscript {
         //     buildConfig = true,
         //     // viewBinding = true, // default for impl(viewBinding=…) only
         // ),
+        // F-098 / GH #103: core library desugaring (Java 8+ APIs on lower minSdk)
+        // coreLibraryDesugaring = true,
+        // coreLibraryDesugaringDependency = "com.android.tools:desugar_jdk_libs:2.1.5", // optional
         // F-090: skip project-dep suffix checks only for listed forked-in modules
         // dependencyValidationExclusions = setOf(
         //     ":third-party:exoplayer:library-core",
@@ -99,6 +102,43 @@ resolved values so AGP platform defaults cannot silently turn features on.
 `FormaBuildFeatures`. See [`COMPOSE.md`](COMPOSE.md) and
 [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) § BuildFeatures.
 
+### `coreLibraryDesugaring` (F-098 / GH #103)
+
+| | |
+|--|--|
+| **Type** | `Boolean` (default **false**) + optional `String` dependency coordinate |
+| **Set on** | Root `androidProjectConfiguration(...)` only |
+| **Stored as** | `AndroidProjectSettings.coreLibraryDesugaring` / `.coreLibraryDesugaringDependency` |
+| **Read by** | Android library + binary + native feature definitions (shared apply helper) |
+
+Enables [AGP core library desugaring](https://developer.android.com/studio/write/java8-support#library-desugaring)
+fleet-wide so modules with a lower `minSdk` can use Java 8+ **library** APIs
+(`java.time`, streams extras, etc.) rewritten by the desugar toolchain.
+
+When **true**, every Android AGP target (library, binary, native) gets:
+
+1. `compileOptions.isCoreLibraryDesugaringEnabled = true` (via `CompileOptions.applyFrom`)
+2. A dependency on the `coreLibraryDesugaring` configuration using
+   `coreLibraryDesugaringDependency` (default
+   `com.android.tools:desugar_jdk_libs:2.1.5` —
+   [`DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY`](../plugins/config/src/main/java/tools/forma/config/AndroidProjectSettings.kt))
+
+When **false** (default): flag stays off and **no** desugar dependency is auto-added.
+The dependency string may still be stored for overrides but is not applied.
+
+**Not a call-site flag.** Do not invent `desugar=` / `coreLibraryDesugaring=` on
+`impl` / `androidBinary` / etc. Fleet concern — same tier as `javaVersionCompatibility`
+and `buildFeatures`. See [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md).
+
+```kotlin
+androidProjectConfiguration(
+    // ...
+    coreLibraryDesugaring = true,
+    // optional pin override:
+    // coreLibraryDesugaringDependency = "com.android.tools:desugar_jdk_libs:2.1.5",
+)
+```
+
 ## What it does **not** do
 
 - `extraPlugins` (and catalog `plugin(...)` entries) are **classpath only**. They put Gradle plugin jars on the buildscript classpath. They do **not** apply any plugin to your modules.
@@ -129,8 +169,9 @@ The deprecated `Project.androidProjectConfiguration(...)` receiver overload has 
 | Piece | Location | Role |
 |-------|----------|------|
 | `androidProjectConfiguration(...)` (ScriptHandlerScope) | `plugins/android/.../androidProjectConfiguration.kt` | The one public API; called from root `buildscript` |
-| `AndroidProjectSettings` | `plugins/config/.../AndroidProjectSettings.kt` | Immutable data class holding SDKs, versions, compose default, `buildFeatures`, repos, etc. |
+| `AndroidProjectSettings` | `plugins/config/.../AndroidProjectSettings.kt` | Immutable data class holding SDKs, versions, compose default, `buildFeatures`, core library desugaring, repos, etc. |
 | `FormaBuildFeatures` | `plugins/config/.../FormaBuildFeatures.kt` | Nested AGP BuildFeatures defaults (all off); pure data + resolve helper |
+| `DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY` | `plugins/config/.../AndroidProjectSettings.kt` | Default `desugar_jdk_libs` GAV pin (F-098) |
 | `FormaSettingsStore` | `plugins/config/.../AndroidProjectSettings.kt` (as `object`) | The backing singleton store (`SettingsStore<T>` + `PluginInfoStore`) |
 | `Forma` (singleton accessor) | `plugins/android/.../androidProjectConfiguration.kt` | `object Forma : SettingsStore<...> by FormaSettingsStore, ...` — primary reader surface (`Forma.settings`) |
 | `registerAndroidDefaults()` | `plugins/android/.../AndroidTargetRegistry.kt` | Populates `AndroidTargetRegistry` (target types + matrix) |
