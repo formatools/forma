@@ -146,26 +146,40 @@ suffix-based).
 
 | Platform | Kotlin target | Android wiring |
 |----------|---------------|----------------|
-| **JVM** | `jvm()` | n/a |
-| **Android** | `androidTarget()` (or current Kotlin 2.3 / AGP 9 recommended API) | **Android KMP Library** plugin path preferred: `com.android.kotlin.multiplatform.library` when supported by pinned AGP; fallback documented in F-107 if spike forces classic `com.android.library` + KMP |
+| **JVM** | `jvm()` with `compilerOptions.jvmTarget` from settings (default `"11"`) | n/a |
+| **Android** | Target created by AGP KMP library plugin (extension on `kotlin { }`) | **Shipped (F-107 spike):** `com.android.kotlin.multiplatform.library` |
+
+#### Android plugin id — F-107 spike result (AGP 9.3.0 / Kotlin 2.3.21)
+
+| Choice | Value |
+|--------|--------|
+| **Plugin id (apply)** | `com.android.kotlin.multiplatform.library` |
+| **Implementation class** | `com.android.build.gradle.api.KotlinMultiplatformAndroidPlugin` |
+| **Classpath coordinate** | `com.android.tools.build:gradle:<agpVersion>` (same as `androidProjectConfiguration`) |
+| **Confirmed in** | AGP 9.3.0 jar `META-INF/gradle-plugins/com.android.kotlin.multiplatform.library.properties` |
+| **Classic fallback** | **Not used.** `com.android.library` + `androidTarget()` is rejected for the happy path. |
+| **Extension on `kotlin { }`** | Prefer name `android`, then `androidLibrary` (AGP registers both eras; Forma configures via extension lookup + reflective `namespace` / `compileSdk` / `minSdk`) |
+| **SDK source of truth** | `androidProjectConfiguration` → `AndroidProjectSettings` (minSdk / compileSdk). Android platform without Android settings → fail-fast at KMP DSL apply. |
+| **`:kmp` → `:android`** | **Forbidden.** Applicator uses string plugin ids + reflection; `compileOnly` AGP only. |
 
 **Single project-global default** (both on):
 
 ```kotlin
-// Conceptual — names finalized in F-106/F-107
-kmpProjectConfiguration(
-    project = rootProject,
-    // Platforms are NOT optional per module in the happy path:
-    platforms = KmpPlatforms(jvm = true, android = true),
-    // Android SDK / JVM target pulled from existing AndroidProjectSettings when android platform on,
-    // or minimal kmp-local mirrors when used from a pure KMP+JVM tree without full Android plugin.
-    jvmTarget = "11",
-)
+// Root buildscript — ScriptHandlerScope (parallel to androidProjectConfiguration)
+buildscript {
+    androidProjectConfiguration(project = rootProject, agpVersion = "9.3.0", /* … */)
+    kmpProjectConfiguration(
+        project = rootProject,
+        // Platforms are NOT optional per module in the happy path:
+        platforms = KmpPlatforms(jvm = true, android = true), // defaults
+        jvmTarget = "11",
+    )
+}
 ```
 
 **One global way:** every built-in KMP type receives the same platform set from
 `kmpProjectConfiguration` (or defaults if configuration is implicit on first DSL use — parity with
-`registerJvmDefaults()`).
+`registerJvmDefaults()`). Pure KMP+JVM trees: `platforms = KmpPlatforms(jvm = true, android = false)`.
 
 **Path B later (not v1):** `deriveTargetType` + `iosSharedLibrary` that adds iOS platforms on a
 **derived type** only — still no per-call-site target list.
@@ -390,10 +404,10 @@ feature/hello/impl/          # existing android impl
 | CI without Android SDK for pure KMP tests | Keep `:kmp` unit tests pure; example with Android stays in `examples/kmp` job or application job |
 | Expect/actual overuse | Docs: prefer common expect-free design; actuals only at platform edges |
 
-**Open (resolve during F-107 spike, not by inventing a second happy path):**
+**Open / resolved:**
 
-1. Exact Android plugin id for KMP library under AGP 9.3 (`com.android.kotlin.multiplatform.library` vs classic).
-2. Whether `androidDependencies` / `jvmDependencies` attrs ship in F-107 or wait until a consumer needs them.
+1. ~~Exact Android plugin id for KMP library under AGP 9.3~~ → **Resolved F-107:** `com.android.kotlin.multiplatform.library` (see §4.3).
+2. Whether `androidDependencies` / `jvmDependencies` attrs ship in F-107 or wait until a consumer needs them → **Deferred** (KDoc on `kmpLibrary`; commonMain/commonTest only in v1).
 3. CI matrix row for `examples/kmp` (extend main workflow vs document manual-only until F-109).
 
 ---

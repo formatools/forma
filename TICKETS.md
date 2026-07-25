@@ -157,7 +157,7 @@ composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 |----|--------|-------|-------|
 | F-105 | done | Design KMP targets + matrix + plugin shape | `docs/KMP-TARGETS.md` — types `kmp-api`/`kmp-library`/`kmp-util`/`kmp-test-util`; `kmpProjectConfiguration`; rejected free-form `kotlin { targets }`; VISION/ARCHITECTURE/README pointers |
 | F-106 | done | `:kmp` plugin skeleton + `KmpTargetRegistry` matrix tests | Module `plugins/kmp`, plugin id `tools.forma.kmp`, types + `registerKmpDefaults`, 5 unit tests; jacoco happy-path includes `kmp/target/**`; no public DSL until F-107 |
-| F-107 | todo | Apply kotlin-multiplatform + `kmpLibrary` DSL | Feature applicator jvm+android; deps via commonMain path; spike Android KMP library plugin id under AGP 9.3; `kmpProjectConfiguration` |
+| F-107 | done | Apply kotlin-multiplatform + `kmpLibrary` DSL | `kmpProjectConfiguration` + feature applicator (`com.android.kotlin.multiplatform.library` + jvm); `kmpLibrary`/`kmpApi`/`kmpUtil`/`kmpTestUtil`; commonMain deps; unit tests; plugins jacoco green |
 | F-108 | todo | Android/JVM consumer matrix edges → kmp.* | Extend `AndroidTargetRegistry` + `JvmTargetRegistry`; update `DEPENDENCY-MATRIX.md` from code; avoid `:kmp`→`:android` cycle |
 | F-109 | todo | Progressive example `examples/kmp/01-shared-library` | Shared `kmp-library` + JVM (and optional Android) consumer; green documented Gradle tasks |
 | F-110 | todo | KMP user docs + agent skill + curriculum | `KMP-GETTING-STARTED.md`, `examples/agent-skills/forma-kmp-targets.md`, PROGRESSIVE-EXAMPLES ladder, README |

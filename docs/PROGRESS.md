@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-107: kmpLibrary DSL + multiplatform apply + kmpProjectConfiguration
+
+- **Ticket:** F-107 → `done` (next F-108 consumer matrix edges)
+- **Branch:** `forma/F-107-kmp-apply` (from `origin/v2` @ F-106)
+- **Code (`plugins/kmp/`):**
+  - `kmpProjectConfiguration` (`ScriptHandlerScope`) — registers `registerKmpDefaults()`, stores `KmpProjectSettings` (platforms jvm+android default **true**, jvmTarget `"11"`), puts Kotlin MPP (+ AGP when android) on **buildscript classpath only**
+  - Feature applicator `applyKotlinMultiplatform` — applies `org.jetbrains.kotlin.multiplatform`; when android: `com.android.kotlin.multiplatform.library` + reflective namespace/compileSdk/minSdk from `AndroidProjectSettings`; jvm() + jvmTarget; fail-fast if android on without `androidProjectConfiguration`
+  - `applyKmpDependencies` — commonMain / commonTest via Kotlin source-set API + same project-dep validators as `applyDependencies`
+  - Public DSL: `kmpLibrary` / `kmpApi` / `kmpUtil` / `kmpTestUtil` (Unit return, attributes only; layout with `requirePackageSourceDir=false` for commonMain until F-109)
+  - **No** `:kmp` → `:android` (cycle rule); `implementation(project(":config"))` + `compileOnly` AGP only
+  - Unit tests: settings store (4) + feature resolution/plugin ids (6) + existing registry (5) = **15**
+  - Jacoco happy-path includes `kmp/settings/**` + `KmpPluginIds*` / `KmpFeatureResolution*` (not Project apply paths)
+- **Android plugin spike (AGP 9.3.0):** **preferred path works** — plugin id `com.android.kotlin.multiplatform.library` present in AGP jar; classic `com.android.library` fallback **not** used. Documented in `docs/KMP-TARGETS.md` §4.3.
+- **Open decision #2:** `androidDependencies` / `jvmDependencies` attrs **deferred** (KDoc on DSL).
+- **Docs:** KMP-TARGETS §4.3 spike result; TICKETS F-107 done
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :kmp:test` → **BUILD SUCCESSFUL** — 15 tests, 0 failures
+  - `plugins/`: `./gradlew test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL**
+- **Next step:** F-108 — Android/JVM registry consumer edges → kmp.*
+
 ## 2026-07-25 — F-106: `:kmp` plugin skeleton + KmpTargetRegistry
 
 - **Ticket:** F-106 → `done` (next F-107 apply/DSL)

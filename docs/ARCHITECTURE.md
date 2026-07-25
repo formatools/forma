@@ -94,7 +94,7 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
         ┌───────────┼───────────────────┐
         │           │                   │
   ┌─────┴─────┐ ┌───┴────┐        ┌─────┴─────┐
-  │  android  │ │  jvm   │        │    kmp    │  F-106 registry; F-107+ MPP DSL
+  │  android  │ │  jvm   │        │    kmp    │  F-107 kmpLibrary + MPP apply
   │  DSL+AGP  │ │ no AGP │        │  MPP     │  (tools.forma.kmp)
   └───────────┘ └────────┘        └───────────┘
 ```
@@ -109,7 +109,7 @@ Group/version (root `plugins/build.gradle.kts`): **`tools.forma` / `0.1.3`**.
 | `:deps` | `tools.forma.deps` | `:core`, `:validation`, `:target`, `:config`, kotlin-dsl | `FormaDependency` model, `applyDependencies`, version-catalog generators |
 | `:android` | `tools.forma.android` | `:core` + all of the above + **AGP** + Kotlin GP | Target DSL; `AndroidTargetTypes` + `AndroidRestrictionKit` (F-021); content helpers call core `ContentRule` (F-022) |
 | `:jvm` | `tools.forma.jvm` | `:core`, `:deps`, `:validation`, `:target`, `:owners` + Kotlin GP (**no AGP**) | Pure JVM DSL (`api`/`impl`/`library`/`util`/`testUtil` in package `tools.forma.jvm`); `JvmTargetTypes` + `JvmTargetRegistry` (F-030) |
-| `:kmp` | `tools.forma.kmp` | `:core`, `:deps`, `:validation`, `:target`, `:owners` + Kotlin GP (**no** hard dep on `:android`) | **F-106:** `KmpTargetTypes` + `KmpTargetRegistry` + empty Settings plugin; DSL/MPP apply → F-107 ([`KMP-TARGETS.md`](KMP-TARGETS.md)) |
+| `:kmp` | `tools.forma.kmp` | `:core`, `:deps`, `:config`, `:validation`, `:target`, `:owners` + Kotlin GP; `compileOnly` AGP (**no** `:android`) | **F-107:** `kmpProjectConfiguration` + `kmpLibrary`/`kmpApi`/`kmpUtil`/`kmpTestUtil`; MPP + `com.android.kotlin.multiplatform.library`; commonMain deps ([`KMP-TARGETS.md`](KMP-TARGETS.md)) |
 
 `:android` compiles against **AGP 9.3.0** (aligned with sample
 `androidProjectConfiguration(agpVersion = …)` — F-018 / #182). Keep
