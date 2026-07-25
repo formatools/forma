@@ -69,7 +69,11 @@ Concrete stacks built **on** forma-core:
    matrix; Dagger2-friendly `api`/`impl` conventions; external deps catalog
    patterns. (`androidLibrary` removed in F-063 — do not teach or reintroduce it.)
 2. **JVM** — pure JVM targets and samples reusing the same restriction model.
-3. **Bazel** — later adapter that reuses forma-core concepts (types + restrictions) rather than forking the rules engine.
+3. **Kotlin Multiplatform (KMP)** — shared `kmp-api` / `kmp-library` / `kmp-util`
+   roles via `tools.forma.kmp`; type-owned `kotlin-multiplatform`; v1 platforms
+   **jvm + android** only; composition stays at Android/JVM roots. Design:
+   [`KMP-TARGETS.md`](KMP-TARGETS.md) (F-105+).
+4. **Bazel** — later adapter that reuses forma-core concepts (types + restrictions) rather than forking the rules engine.
 
 ## Sequencing
 
@@ -80,6 +84,7 @@ Concrete stacks built **on** forma-core:
 5. **Flat-structure hardening** — remove generic targets that undermine role typing (P6 / F-060–F-063; `androidLibrary` gone).
 6. **Uniform target plugins** — Bazel-like: plugin on the **target type**, auto-apply on every call site; call sites are attributes-only; chain `withPlugin` **removed** (P7 / F-070–F-073 + F-081; [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)).
 7. **Principle-alignment implementation** — close remaining gaps vs root principles (P8 / F-080–F-085; audit: [`PRINCIPLE-AUDIT.md`](PRINCIPLE-AUDIT.md)).
+8. **Kotlin Multiplatform** — third Gradle platform on forma-core (`tools.forma.kmp`); design F-105 ([`KMP-TARGETS.md`](KMP-TARGETS.md)); implement F-106…F-110 (jvm+android shared libraries first; no per-module target shopping).
 
 ## Working principles
 
