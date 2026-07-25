@@ -80,6 +80,8 @@ class JvmTargetRegistryTest {
         assertTrue(g.isAllowed(t.binary, t.util))
         assertTrue(g.isAllowed(t.binary, t.testUtil))
         assertFalse(g.isAllowed(t.binary, t.binary))
+
+        // F-108 kmp edges covered in JvmTargetRegistryKmpEdgesTest
     }
 
     @Test

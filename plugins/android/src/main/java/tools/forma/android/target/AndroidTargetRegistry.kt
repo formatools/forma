@@ -13,6 +13,7 @@ import tools.forma.deps.core.TargetPluginSpec
 import tools.forma.deps.core.deriveTargetType as deriveTargetTypeWithCoreRegistry
 import tools.forma.deps.core.registerTargetPlugin as registerTargetPluginGlobal
 import tools.forma.deps.core.targetPlugin as targetPluginFactory
+import tools.forma.kmp.target.KmpTargetTypes
 
 /**
  * Singleton registry for Android platform target types.
@@ -21,6 +22,13 @@ import tools.forma.deps.core.targetPlugin as targetPluginFactory
  * DSL entrypoints obtain self + dependency validators from here (no more hand-written allow-lists).
  * Note: the historical `androidLibrary` target (android.library) was hard-removed in F-063.
  * Only JVM `library` (jvm.library) now uses the `library` suffix.
+ *
+ * F-108 KMP consumer edges (docs/KMP-TARGETS.md §6.2) — Android → kmp only; never kmp → android:
+ * - api            → kmp.api
+ * - impl           → kmp.api, kmp.library, kmp.util
+ * - androidUtil    → kmp.library, kmp.util
+ * - app / binary   → kmp.api, kmp.library, kmp.util
+ * UI leaves (widget/composeWidget/res/viewBinding/uiLibrary/androidTestUtil) have **no** kmp edges.
  */
 object AndroidTargetRegistry : TargetRegistry by DefaultTargetRegistry()
 
@@ -34,26 +42,28 @@ object AndroidTargetRegistry : TargetRegistry by DefaultTargetRegistry()
  */
 fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
     val t = AndroidTargetTypes
+    val k = KmpTargetTypes
     val noRes = listOf(NoResourcesUnderMain)
     val onlyRes = listOf(OnlyResourcesUnderMain)
     val onlyLayouts = listOf(OnlyLayoutResources)
 
-    // api: api + jvm library (JVM contract layer)
+    // api: api + jvm library + kmp.api contracts (no kmp.library — keep api thin)
     registry.register(
         TargetRegistration(
             type = t.api,
-            allowedDependencies = setOf(t.api, t.jvmLibrary),
+            allowedDependencies = setOf(t.api, t.jvmLibrary, k.api),
             contentRules = noRes
         )
     )
 
-    // impl: api + utils + libraries + ui blocks; **no impl**
+    // impl: api + utils + libraries + ui blocks + shared KMP; **no impl**
     registry.register(
         TargetRegistration(
             type = t.impl,
             allowedDependencies = setOf(
                 t.api, t.androidUtil, t.testUtil, t.util, t.jvmLibrary,
-                t.uiLibrary, t.res, t.viewBinding, t.widget, t.composeWidget
+                t.uiLibrary, t.res, t.viewBinding, t.widget, t.composeWidget,
+                k.api, k.library, k.util,
             )
         )
     )
@@ -66,7 +76,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // uiLibrary
+    // uiLibrary — no KMP edges (design §6.2 UI leaves)
     registry.register(
         TargetRegistration(
             type = t.uiLibrary,
@@ -83,11 +93,14 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // androidUtil — may wrap pure JVM libraries; still no res content
+    // androidUtil — may wrap pure JVM libraries + shared KMP library/util; still no res content
     registry.register(
         TargetRegistration(
             type = t.androidUtil,
-            allowedDependencies = setOf(t.androidUtil, t.testUtil, t.res, t.jvmLibrary),
+            allowedDependencies = setOf(
+                t.androidUtil, t.testUtil, t.res, t.jvmLibrary,
+                k.library, k.util,
+            ),
             contentRules = noRes
         )
     )
@@ -101,7 +114,7 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // androidTestUtil
+    // androidTestUtil — no KMP edges (v1 §6.2)
     registry.register(
         TargetRegistration(
             type = t.androidTestUtil,
@@ -145,25 +158,27 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // androidApp (composition root)
+    // androidApp (composition root) + shared KMP stack
     registry.register(
         TargetRegistration(
             type = t.app,
             allowedDependencies = setOf(
                 t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
-                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary
+                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary,
+                k.api, k.library, k.util,
             ),
             contentRules = noRes
         )
     )
 
-    // androidBinary (composition root)
+    // androidBinary (composition root) + shared KMP stack
     registry.register(
         TargetRegistration(
             type = t.binary,
             allowedDependencies = setOf(
                 t.app, t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
-                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary
+                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary,
+                k.api, k.library, k.util,
             ),
             contentRules = noRes
         )

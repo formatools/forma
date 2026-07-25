@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-108: Android/JVM consumer matrix edges → kmp.*
+
+- **Ticket:** F-108 → `done` (next F-109 progressive KMP example)
+- **Branch:** `forma/F-108-kmp-consumer-matrix` (from `origin/v2` @ F-107)
+- **Code:**
+  - `plugins/android` + `plugins/jvm`: `implementation(project(":kmp"))` (import `KmpTargetTypes`); publishPlugins chains `:kmp:publishPlugins`
+  - **No** `:kmp` → `:android` / `:jvm` (cycle rule unchanged)
+  - `AndroidTargetRegistry`: api→kmp.api; impl/app/binary→kmp.api+library+util; androidUtil→kmp.library+util; UI leaves unchanged
+  - `JvmTargetRegistry`: api→kmp.api; impl/binary→kmp.api+library+util; library/util→kmp.library+util; testUtil no kmp
+  - Unit tests: `AndroidTargetRegistryKmpEdgesTest`, `JvmTargetRegistryKmpEdgesTest` (graph + validator)
+  - Jacoco: add `kmp` to `coverageReportModules` so F-106/F-107 happy-path includes actually contribute exec data
+- **Suffix overlap (known limitation):** `*-kmp-library` ends with `-library`, so SuffixNameMatcher may accept kmp-named projects via unprefixed library/api/util allow-lists even when graph denies the kmp type pair (e.g. api↛kmp.library). Design truth = restrictionGraph `isAllowed`; longest-suffix matcher out of scope.
+- **Docs:** `DEPENDENCY-MATRIX.md` § Android/JVM → KMP; `KMP-TARGETS.md` §6.2 marked implemented; TICKETS F-108 done
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :android:test :jvm:test :kmp:test` → **BUILD SUCCESSFUL** (53s)
+  - `plugins/`: `./gradlew test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** (22s)
+  - `:kmp` compileClasspath has **no** `project :android` / `project :jvm` (cycle rule OK)
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after CLI timeout on jacoco
+- **Next step:** F-109 — progressive example `examples/kmp/01-shared-library`
+
 ## 2026-07-25 — F-107: kmpLibrary DSL + multiplatform apply + kmpProjectConfiguration
 
 - **Ticket:** F-107 → `done` (next F-108 consumer matrix edges)

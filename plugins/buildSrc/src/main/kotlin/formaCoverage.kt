@@ -19,7 +19,7 @@ import java.util.concurrent.Callable
  * Modules that run unit tests and contribute to Jacoco reports.
  * Platform facades without unit suites (android/target/…) are sample-build covered.
  */
-internal val coverageReportModules = setOf("core", "config", "deps", "jvm")
+internal val coverageReportModules = setOf("core", "config", "deps", "jvm", "kmp")
 
 /**
  * Minimum LINE covered ratio for the **happy-path** class set (see
