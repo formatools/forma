@@ -2,6 +2,20 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-106: `:kmp` plugin skeleton + KmpTargetRegistry
+
+- **Ticket:** F-106 → `done` (next F-107 apply/DSL)
+- **Branch:** `forma/F-106-kmp-skeleton` (from `origin/v2` @ F-105)
+- **Code:**
+  - `plugins/kmp/` — `tools.forma.kmp` Settings plugin (empty apply), `KmpTargetTypes`, `KmpTargetRegistry` / `registerKmpDefaults` (matrix from KMP-TARGETS §6.1)
+  - Unit tests: `KmpTargetRegistryTest` (5) — register, matrix allow/deny, validator suffixes, selfValidator kmp-prefix, identity cache
+  - Jacoco happy-path includes `**/tools/forma/kmp/target/**`
+- **Docs:** ARCHITECTURE `:kmp` row live; TICKETS F-106 done
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :kmp:test` → **BUILD SUCCESSFUL** — 5 tests, 0 failures
+  - `plugins/`: `./gradlew test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL**
+- **Next step:** F-107 — kotlin-multiplatform apply + `kmpLibrary` DSL + `kmpProjectConfiguration`
+
 ## 2026-07-25 — F-105: Kotlin Multiplatform design (plan + board)
 
 - **Ticket:** F-105 → `done` (implement F-106…F-110)
