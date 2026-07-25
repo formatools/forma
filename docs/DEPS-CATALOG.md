@@ -172,7 +172,8 @@ step 08 introduces catalogs.
 | `plugin` / `PluginDep` | same | Plugin + optional config/libs |
 | `defaultNameGenerator` / `pluginNameGenerator` | same | Pure name helpers (overridable) |
 | `parseGroupArtifactVersion` | same | GAV validation |
-| `deps` / `String.dep` / `Provider.dep` | root (`dependencies.kt`) | Bridge into `FormaDependency` |
+| `deps` / `String.dep` / `Provider.dep` | root (`dependencies.kt`) | Bridge into `FormaDependency` (named deps default **non-transitive**) |
+| `transitiveDeps` / `String.transitiveDep` | root (`dependencies.kt`) | Same bridge with **transitive** named deps (`String.transitiveDep` = single-string parity with `String.dep`) |
 | `applyDependencies` | `tools.forma.deps.core` | Wire deps + plugin side effects |
 
 ---
@@ -184,9 +185,10 @@ step 08 introduces catalogs.
    feature targets.
 2. **Prefer `library(…, name = …)`** for public-facing short names you will type often.
 3. **Use `bundle`** when several artifacts always travel together (Room, Coil).
-4. **Keep transitive control intentional** — bare catalog `deps(libs.foo)` follows Forma's
-   default non-transitive named-deps path unless a plugin registration forces transitive.
-   Use `transitiveDeps(...)` when Maven transitively is required.
+4. **Keep transitive control intentional** — bare catalog `deps(libs.foo)` / `"g:a:v".dep`
+   follow Forma's default **non-transitive** named-deps path unless a plugin registration
+   forces transitive. Use `"g:a:v".transitiveDep` (single) or `transitiveDeps(...)` (multi)
+   when Maven transitively is required.
 5. **Invalid GAV fails fast** — `group:artifact:version` only; two or four segments throw
    a clear `IllegalArgumentException` at configuration time.
 6. **Plugins vs apply** — catalog `plugin(...)` + `extraPlugins` put jars on the

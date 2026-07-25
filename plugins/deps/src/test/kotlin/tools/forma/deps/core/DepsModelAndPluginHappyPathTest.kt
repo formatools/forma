@@ -5,8 +5,11 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
+import dep
 import ksp
 import tools.forma.core.target.targetType
+import transitiveDep
+import transitiveDeps
 
 /**
  * Happy-path unit coverage for pure deps model + type-owned plugin registry helpers
@@ -22,6 +25,29 @@ class DepsModelAndPluginHappyPathTest {
         assertEquals("annotationProcessor", AnnotationProcessor.name)
         assertEquals("ksp", Ksp.name)
         assertEquals("ksp", CustomConfiguration("ksp").name)
+    }
+
+    @Test
+    fun `String dep is non-transitive Implementation and preserves GAV`() {
+        val viaProp = "g:a:1".dep
+        val spec = viaProp.names.single()
+        assertEquals("g:a:1", spec.name)
+        assertEquals(Implementation, spec.config)
+        assertEquals(false, spec.transitive)
+    }
+
+    @Test
+    fun `String transitiveDep is transitive Implementation and preserves GAV`() {
+        val viaProp = "g:a:1".transitiveDep
+        val viaFun = transitiveDeps("g:a:1")
+        val propSpec = viaProp.names.single()
+        val funSpec = viaFun.names.single()
+        assertEquals("g:a:1", propSpec.name)
+        assertEquals(Implementation, propSpec.config)
+        assertTrue(propSpec.transitive)
+        assertEquals(funSpec.name, propSpec.name)
+        assertEquals(funSpec.config, propSpec.config)
+        assertEquals(funSpec.transitive, propSpec.transitive)
     }
 
     @Test

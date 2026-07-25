@@ -2,6 +2,20 @@
 
 Newest entries first.
 
+## 2026-07-24 — F-096: String.transitiveDep catalog parity
+
+- **Ticket:** F-096 → `done` (GH #77)
+- **Branch:** `forma/F-096-transitive-dep` (from `origin/v2`)
+- **Actions:**
+  - Added `val String.transitiveDep: NamedDependency get() = transitiveDeps(this)` in `plugins/deps/src/main/java/dependencies.kt` (parity with `String.dep`)
+  - Unit tests in `DepsModelAndPluginHappyPathTest`: `.dep` non-transitive Implementation; `.transitiveDep` transitive Implementation + GAV; property matches `transitiveDeps(...)`
+  - `docs/DEPS-CATALOG.md`: API table row + practical tip for transitive control
+  - `TICKETS.md` F-096 → `done`
+- **Verify (real):** `plugins/` `./gradlew :deps:test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL**; `./gradlew build` → **BUILD SUCCESSFUL**
+- **Commits/PRs:** this branch; Hermes PR/merge
+- **Blockers:** none
+- **Next step:** F-097 (finish build types: signing configs)
+
 ## 2026-07-24 — Promote backlog → P10 (Stepan)
 
 - **Action:** User: “Promote the tickets” (empty coding queue; only F-094 blocked)
