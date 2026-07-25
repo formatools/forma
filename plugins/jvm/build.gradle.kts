@@ -25,6 +25,8 @@ dependencies {
     implementation(project(":validation"))
     implementation(project(":target"))
     implementation(project(":owners"))
+    // F-108: consumer matrix edges → kmp.* (import KmpTargetTypes; :kmp must NOT depend on :jvm)
+    implementation(project(":kmp"))
 
     testImplementation(kotlin("test"))
 }
@@ -34,6 +36,6 @@ tasks.test {
 }
 
 tasks.named<Task>("publishPlugins") {
-    // If/when wiring a root publish that chains jvm too, list deps here.
-    // For F-030 slice, standalone :jvm:publishPlugins works for validation.
+    // Publish KMP first when chaining jvm (F-108 embeds KmpTargetTypes).
+    dependsOn(":kmp:publishPlugins")
 }

@@ -27,6 +27,8 @@ dependencies {
     implementation(project(":deps"))
     // F-021: core restriction + target types (pure engine); Android owns concrete type instances + matrix
     implementation(project(":core"))
+    // F-108: consumer matrix edges → kmp.* (import KmpTargetTypes; :kmp must NOT depend on :android)
+    implementation(project(":kmp"))
 
     // F-097: pure model tests (FormaSigningConfig / buildTypeSigning resolver)
     testImplementation(kotlin("test"))
@@ -43,5 +45,6 @@ tasks.named<Task>("publishPlugins") {
         ":owners:publishPlugins",
         ":config:publishPlugins",
         ":deps:publishPlugins",
+        ":kmp:publishPlugins",
     )
 }

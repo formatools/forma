@@ -270,7 +270,9 @@ shallow; composition of **features** still happens at Android/JVM roots.
 
 ### 6.2 Android / JVM → KMP (consumer edges)
 
-Extend existing registries (F-108):
+**Implemented (F-108):** edges live in `AndroidTargetRegistry` /
+`JvmTargetRegistry` via `KmpTargetTypes`. Code-truth tables:
+[`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) § Android/JVM → KMP.
 
 | Consumer | May depend on KMP |
 |----------|-------------------|
@@ -282,7 +284,7 @@ Extend existing registries (F-108):
 | `jvm.impl` / `jvm.binary` | `kmp.api`, `kmp.library`, `kmp.util` |
 | `jvm.library` / `jvm.util` | `kmp.library`, `kmp.util` (optional; prefer depending upward only if needed) |
 
-Update [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md) **when code lands** (code truth rule).
+Plugin graph: `:android` / `:jvm` → `:kmp` allowed; reverse **forbidden** (no cycle).
 
 ### 6.3 How Gradle edges resolve
 

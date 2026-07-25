@@ -8,7 +8,9 @@ Source of truth for **F-010**. Every rule below is taken from the live
 When validators change, update **this file first**, then the README summary
 matrix. Do not invent rules from aspirational docs.
 
-Last verified: **2026-07-17** against `v2` + F-063 hard-remove of `androidLibrary`.
+Last verified: **2026-07-25** against `v2` + F-108 Android/JVM → KMP consumer edges
+(registries in `AndroidTargetRegistry` / `JvmTargetRegistry`; KMP internal matrix in
+[`KMP-TARGETS.md`](KMP-TARGETS.md) §6.1).
 
 ---
 
@@ -120,20 +122,20 @@ these suffixes (or are unrestricted if `EmptyValidator`).
 
 | Consumer DSL | Source file | Project-dep validator | Allowed dependency suffixes |
 |--------------|-------------|------------------------|-----------------------------|
-| `api` | `api.kt` | `validator(api, library)` | `api`, `library` |
-| `impl` | `impl.kt` | `validator(api, android-util, test-util, util, library, ui-library, res, viewbinding, widget, compose-widget)` | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget` |
+| `api` | `api.kt` | registry: api, library, **kmp-api** | `api`, `library`, `kmp-api` |
+| `impl` | `impl.kt` | registry + **kmp-api, kmp-library, kmp-util** | `api`, `android-util`, `test-util`, `util`, `library`, `ui-library`, `res`, `viewbinding`, `widget`, `compose-widget`, `kmp-api`, `kmp-library`, `kmp-util` |
 | `library` (JVM) | `library.kt` | `validator(util, test-util)` | `util`, `test-util` |
 | `uiLibrary` | `uiLibrary.kt` | `validator(widget, compose-widget, util, android-util, res)` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util.kt` | `validator(util, library)` | `util`, `library` |
-| `androidUtil` | `androidUtil.kt` | `validator(android-util, test-util, res, library)` | `android-util`, `test-util`, `res`, `library` |
+| `androidUtil` | `androidUtil.kt` | registry + **kmp-library, kmp-util** | `android-util`, `test-util`, `res`, `library`, `kmp-library`, `kmp-util` |
 | `testUtil` | `testUtil.kt` | `validator(test-util, util)` | `test-util`, `util` |
 | `androidTestUtil` | `androidTestUtil.kt` | `validator(android-test-util, test-util)` | `android-test-util`, `test-util` |
 | `androidRes` | `androidRes.kt` | `validator(res, widget, compose-widget)` | `res`, `widget`, `compose-widget` |
 | `widget` | `widget.kt` | `validator(ui-library, widget, compose-widget, util, android-util, res)` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `composeWidget` | `composeWidget.kt` | `validator(ui-library, compose-widget, widget, util, android-util, res)` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` |
 | `viewBinding` | `viewBinding.kt` | `validator(api, widget, compose-widget, res, library, android-util, ui-library)` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util`, `ui-library` |
-| `androidApp` | `androidApp.kt` | `validator(api, impl, library, util, android-util, test-util, res, viewbinding, widget, compose-widget, ui-library)` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
-| `androidBinary` | `androidBinary.kt` | `validator(app, api, impl, library, util, android-util, test-util, res, viewbinding, widget, compose-widget, ui-library)` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
+| `androidApp` | `androidApp.kt` | registry + **kmp-api, kmp-library, kmp-util** | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `kmp-api`, `kmp-library`, `kmp-util` |
+| `androidBinary` | `androidBinary.kt` | registry + **kmp-api, kmp-library, kmp-util** | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `kmp-api`, `kmp-library`, `kmp-util` |
 | `androidNative` | `androidNative.kt` | *(no `applyDependencies`)* | *no project-dep validation* |
 
 ### Explicit non-edges (important product rules)
@@ -155,6 +157,12 @@ These follow from the table (not from separate deny-lists):
   may depend on `widget` / `compose-widget`, and `widget` / `compose-widget`
   may depend on `ui-library` and on each other so View + Compose can coexist
   (F-013 / GH #96).
+- **No KMP → Android / JVM** — `KmpTargetRegistry` does not list android/jvm types
+  (F-105/F-108 cycle rule). Direction is Android/JVM → KMP only.
+- **No kmp edges on UI leaves** — widget / composeWidget / res / viewBinding /
+  uiLibrary / androidTestUtil do not gain kmp.* (design §6.2).
+- **No `kmp-test-util` on Android/JVM consumers in v1** — reserved for KMP test
+  helpers; may land later with an explicit ticket.
 
 ### Compose flags (not project-dep rules)
 
@@ -220,6 +228,58 @@ allowed list (e.g. `api`→`api` **Y**, `impl`→`impl` **—**, `widget`→`wid
 
 ---
 
+## Android / JVM → KMP consumer edges (F-108)
+
+Code truth: `AndroidTargetRegistry` + `JvmTargetRegistry` import
+`KmpTargetTypes` (`implementation(project(":kmp"))`). Internal KMP→KMP matrix:
+[`KMP-TARGETS.md`](KMP-TARGETS.md) §6.1 (`KmpTargetRegistry`).
+
+| Consumer | May depend on KMP (type ids) |
+|----------|------------------------------|
+| `android.api` | `kmp.api` only |
+| `android.impl` | `kmp.api`, `kmp.library`, `kmp.util` |
+| `android.android-util` | `kmp.library`, `kmp.util` |
+| `android.app` / `android.binary` | `kmp.api`, `kmp.library`, `kmp.util` |
+| `jvm.api` | `kmp.api` |
+| `jvm.impl` / `jvm.binary` | `kmp.api`, `kmp.library`, `kmp.util` |
+| `jvm.library` / `jvm.util` | `kmp.library`, `kmp.util` |
+
+**Not listed (no kmp edges):** Android UI leaves + `androidTestUtil` / `testUtil`;
+JVM `test-util`. **`kmp-test-util`** is not on any Android/JVM consumer in v1.
+
+**Plugin graph:** `:android` and `:jvm` may depend on `:kmp`. `:kmp` must **not**
+`implementation(project(":android"))` or `:jvm` (cycle rule).
+
+**Suffix overlap (known limitation):** `SuffixNameMatcher` matches
+`project.endsWith("-$suffix")`. Names like `shared-kmp-library` also end with
+`-library`, so a consumer that already allows `library` accepts them via the
+unprefixed suffix even when the **graph** denies `kmp.library` (e.g. `api` →
+`kmp.library` is `isAllowed=false`, but validator may still accept the name via
+`library`). Authoritative design checks use restriction-graph type pairs; a
+longest-suffix matcher is out of scope for F-108.
+
+Compact KMP columns (Android consumers that gain edges):
+
+| Consumer ↓ \ KMP → | kmp-api | kmp-library | kmp-util | kmp-test-util |
+|--------------------|---------|-------------|----------|---------------|
+| **api** | Y | — | — | — |
+| **impl** | Y | Y | Y | — |
+| **androidUtil** | — | Y | Y | — |
+| **androidApp** | Y | Y | Y | — |
+| **androidBinary** | Y | Y | Y | — |
+| other Android rows | — | — | — | — |
+
+| Consumer ↓ \ KMP → | kmp-api | kmp-library | kmp-util | kmp-test-util |
+|--------------------|---------|-------------|----------|---------------|
+| **jvm.api** | Y | — | — | — |
+| **jvm.impl** | Y | Y | Y | — |
+| **jvm.binary** | Y | Y | Y | — |
+| **jvm.library** | — | Y | Y | — |
+| **jvm.util** | — | Y | Y | — |
+| **jvm.test-util** | — | — | — | — |
+
+---
+
 ## README matrix vs code (divergences)
 
 The historical README table used columns as *consumers* and rows as
@@ -265,4 +325,5 @@ Tightening unrestricted entry targets landed in **F-011**.
 4. Note the change in `docs/PROGRESS.md` / ticket notes when user-facing.
 
 Related tickets: **F-013** (Compose), **F-012** (deps catalog UX), **F-020**
-(forma-core type registry / shared `library` suffix).
+(forma-core type registry / shared `library` suffix), **F-108** (Android/JVM →
+KMP consumer edges).
