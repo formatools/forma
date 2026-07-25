@@ -8,6 +8,14 @@ import com.android.build.api.dsl.LibraryDefaultConfig
 import org.gradle.api.NamedDomainObjectContainer
 import tools.forma.config.AndroidProjectSettings
 
+/**
+ * Shared build-type configuration for Android library and application targets.
+ *
+ * **Signing configs are not here** (F-097): APK signing is owned by [androidBinary]
+ * via dedicated `signingConfigs` / `buildTypeSigning` attrs so library DSLs cannot
+ * grow a parallel shopping API. Build-type lambdas may still set minify, proguard,
+ * buildConfigField, etc.
+ */
 data class BuildConfiguration(
     val buildTypes: Map<String, BuildType.() -> Unit> = emptyMap()
 )

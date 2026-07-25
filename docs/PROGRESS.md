@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-24 — F-097: signing configs on androidBinary (GH #51)
+
+- **Ticket:** F-097 → `done` (GH #51 remaining checkbox)
+- **Branch:** `forma/F-097-signing-configs` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after CLI timeout on app assemble
+- **Design:** binary-only attrs (mirror F-092). Keep `BuildConfiguration` = build-types only. New `FormaSigningConfig` + `signingConfigs` / `buildTypeSigning` on `androidBinary` → AGP application containers only. Name→name bridge because `BuildType.() -> Unit` cannot see application `signingConfig`.
+- **Code:**
+  - `plugins/android/.../FormaSigningConfig.kt` — model, `toAppliedFields`, `resolveBuildTypeSigningPairs`, `applySigningConfigs`, `applyBuildTypeSigning`
+  - `AndroidBinaryFeatureConfiguration` + `androidBinary` public attrs; apply order in `androidBinaryFeatureDefinition`
+  - `:android` unit tests (7) via `kotlin("test")` + JUnit Platform
+  - Sample: committed dummy `application/binary/demo-release.keystore` (password `android`); `release` → `demoRelease`; minify off on release
+- **Docs:** CALL-SITE-SURFACE § APK signing; PROJECT-CONFIGURATION “does not”; GETTING-STARTED pointer; KDoc on binary
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :android:cleanTest :android:test` → **BUILD SUCCESSFUL** (7 tests)
+  - `plugins/`: `./gradlew test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL**
+  - `application/`: `./gradlew :binary:clean :binary:assembleDebug :binary:assembleRelease` → **BUILD SUCCESSFUL** (2m8s)
+- **Commits/PRs:** this branch; Hermes PR/merge; close GH #51 when merged
+- **Blockers:** none (F-094 Portal still human-blocked)
+- **Next step:** F-098 (core library desugaring)
+
 ## 2026-07-24 — F-096: String.transitiveDep catalog parity
 
 - **Ticket:** F-096 → `done` (GH #77)

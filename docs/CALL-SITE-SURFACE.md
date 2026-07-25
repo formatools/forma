@@ -30,7 +30,7 @@ All return **`Unit`**.
 | `api` | `api` | `packageName`, `dependencies` | JVM contracts; no Android UI |
 | `impl` | `impl` | deps, **`viewBinding`**, **`compose`**, test runners, `buildConfiguration` | Feature impl; no → other `impl` |
 | `androidApp` | `app` | deps, **`compose`**, `buildConfiguration`, … | Composition **library** (not APK) — **no** `versionCode`/`Name` |
-| `androidBinary` | `binary` | **`versionCode`/`versionName` (required)**, deps, **`compose`**, … | APK composition root; version identity is **per-binary only** (F-092) |
+| `androidBinary` | `binary` | **`versionCode`/`versionName` (required)**, deps, **`compose`**, **`signingConfigs` / `buildTypeSigning`**, … | APK composition root; version + signing are **per-binary only** (F-092 / F-097) |
 | `library` | `library` | deps (pure JVM inside Android plugin) | Distinct from removed `androidLibrary` |
 | `util` | `util` | deps | JVM helpers |
 | `androidUtil` | `android-util` | deps, **`compose`** | Android helpers, no res content |
@@ -91,6 +91,59 @@ override ladder — each binary declares both attrs explicitly.
 
 **Gradle limit:** `versionCode`/`versionName` apply to application modules. Putting
 them on library-shaped `androidApp` would not produce a second APK version surface.
+
+## APK signing (F-097 / GH #51)
+
+| Concern | Owner | Notes |
+|---------|--------|--------|
+| Named signing configs | **`androidBinary` call site only** (`signingConfigs: Map<String, FormaSigningConfig>`) | Wired to AGP `ApplicationExtension.signingConfigs` |
+| Build type → signing | **`androidBinary` `buildTypeSigning`** (build type name → config name) | Applied after both containers exist |
+| Library / `androidApp` signing API | **None** | No per-`impl` / `uiLibrary` shopping; APK signing is composition-root only |
+| Raw `android { signingConfigs { … } }` | **Rejected as happy path** | Escape hatch only; do not teach dual paths |
+
+**Why binary-only:** same rationale as version identity — only `com.android.application`
+materializes installable APK signing. Library shells (`androidApp`, `impl`, …) stay
+free of release-keystore concerns.
+
+**Call-site shape:**
+
+```kotlin
+import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.utils.FormaSigningConfig
+
+androidBinary(
+    packageName = "com.example.app",
+    versionCode = 1,
+    versionName = "0.1.0",
+    signingConfigs = mapOf(
+        "demoRelease" to FormaSigningConfig(
+            storeFile = file("demo-release.keystore"),
+            storePassword = "android",       // dummy / CI only — never real secrets in git
+            keyAlias = "androiddebugkey",
+            keyPassword = "android",
+        ),
+    ),
+    buildTypeSigning = mapOf(
+        "release" to "demoRelease",
+        // debug → AGP default debug signing when omitted
+    ),
+    buildConfiguration = BuildConfiguration(
+        buildTypes = mapOf(
+            "release" to { isMinifyEnabled = false },
+        ),
+    ),
+    dependencies = deps(/* … */),
+)
+```
+
+**Secrets:** commit only clearly-fake demo keystores (see sample
+`application/binary/demo-release.keystore`). Production paths/passwords come from
+env or `gradle.properties` (local, gitignored) — never from the repo. `assembleDebug`
+must stay green without secrets (omit `buildTypeSigning` for `debug` or leave AGP
+default).
+
+**Not in scope:** product flavors, Play App Signing backend integration, library
+AAR signing APIs.
 
 ## AGP BuildFeatures (F-091 / GH #88)
 
