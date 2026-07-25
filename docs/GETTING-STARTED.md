@@ -236,6 +236,9 @@ androidBinary(
     // F-092: version identity is per-binary (not androidProjectConfiguration)
     versionCode = 1,
     versionName = "0.1.0",
+    // F-097: optional APK signing — binary only; see CALL-SITE-SURFACE § APK signing
+    // signingConfigs = mapOf("demoRelease" to FormaSigningConfig(...)),
+    // buildTypeSigning = mapOf("release" to "demoRelease"),
     dependencies = deps(
         target(":root-app"),
         target(":feature:hello:api"),
@@ -246,6 +249,8 @@ androidBinary(
 
 Add another `androidBinary` module if you ship a second APK — give it its own
 `versionCode` / `versionName`. Do not put version attrs on `androidApp` (library shell).
+Signing configs are likewise **binary-only** (F-097); debug builds need no custom
+signing. Full example: sample `application/binary/`.
 
 **`root-app/build.gradle.kts`**:
 

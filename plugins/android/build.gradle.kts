@@ -27,6 +27,13 @@ dependencies {
     implementation(project(":deps"))
     // F-021: core restriction + target types (pure engine); Android owns concrete type instances + matrix
     implementation(project(":core"))
+
+    // F-097: pure model tests (FormaSigningConfig / buildTypeSigning resolver)
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 tasks.named<Task>("publishPlugins") {

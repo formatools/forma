@@ -110,6 +110,9 @@ resolved values so AGP platform defaults cannot silently turn features on.
   **required** attrs on each `androidBinary { … }` call site. `androidApp` is a library
   composition shell and does not take version attrs. See
   [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) § APK version identity.
+- **APK signing configs** — not project-global (F-097 / GH #51). Named
+  `FormaSigningConfig` entries and `buildTypeSigning` live on each `androidBinary`
+  only. See [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) § APK signing.
 
 There is no per-module `withPlugin`, no free-form `plugins =` lists, and no second configuration path.
 
