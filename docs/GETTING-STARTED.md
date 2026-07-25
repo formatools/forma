@@ -170,6 +170,7 @@ buildscript {
         // compose = false,       // project default for per-target compose flags
         // composeCompilerVersion = "2.3.21", // match your Kotlin (2.3.21 → 2.3.21)
         // coreLibraryDesugaring = true, // F-098: Java 8+ library APIs on lower minSdk (project-global)
+        // featureFlags = FormaFeatureFlags("daggerReflect" to true), // F-099: product flags + depsIf/depsUnless
         // Classpath only — does NOT apply plugins to modules. See TARGET-PLUGINS.md.
         extraPlugins = listOf(
             // e.g. libs.plugins.navigationSafeArgs (jar on buildscript classpath)
@@ -183,7 +184,8 @@ puts AGP + optional plugin jars on the **buildscript classpath only**, and regis
 `clean` task. Child targets read values from `Forma.settings`.
 
 See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) for the single-path + store story
-(including optional **core library desugaring** for Java 8+ APIs on lower `minSdk` — F-098).
+(including optional **core library desugaring** for Java 8+ APIs on lower `minSdk` — F-098,
+and **feature flags** + conditional deps — F-099 / [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md)).
 
 ### External Gradle plugins (safe-args, Firebase, …)
 

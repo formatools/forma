@@ -189,6 +189,57 @@ fun deps(vararg dependencies: NamedDependency): NamedDependency {
     return NamedDependency(out)
 }
 
+/**
+ * Gate every name spec in this [NamedDependency] on project-global feature flag [flag]
+ * (F-099 / GH #126). Resolution happens at [tools.forma.deps.core.applyDependencies]
+ * time via [tools.forma.deps.core.resolveFeatureFlags] — the flag value is **not**
+ * frozen when this helper runs.
+ *
+ * @param flag name declared in `androidProjectConfiguration(featureFlags = …)`
+ * @param enabled expected flag value (default `true` = include when flag is on)
+ */
+fun NamedDependency.whenFlag(flag: String, enabled: Boolean = true): NamedDependency =
+    NamedDependency(
+        names.map { spec ->
+            NameSpec(
+                name = spec.name,
+                config = spec.config,
+                transitive = spec.transitive,
+                featureFlag = flag,
+                featureFlagExpected = enabled,
+            )
+        }
+    )
+
+/**
+ * Include [dependencies] only when project-global flag [flag] equals [enabled]
+ * (default: flag on). Compose with [deps]:
+ *
+ * ```kotlin
+ * dependencies = deps(
+ *     "g:always:1".dep,
+ *     depsIf("daggerReflect", "com.jakewharton.dagger:dagger-reflect:…".dep),
+ *     depsUnless("daggerReflect", "com.google.dagger:dagger:…".dep),
+ *     depsUnless("daggerReflect", "com.google.dagger:dagger-compiler:…".ksp),
+ * )
+ * ```
+ *
+ * Flag values are read at [tools.forma.deps.core.applyDependencies] time from
+ * `Forma.settings.featureFlags` / [tools.forma.config.FormaSettingsStore.featureFlagsOrEmpty].
+ */
+fun depsIf(
+    flag: String,
+    vararg dependencies: NamedDependency,
+    enabled: Boolean = true,
+): NamedDependency = deps(*dependencies).whenFlag(flag, enabled)
+
+/**
+ * Include [dependencies] only when project-global flag [flag] is **off**
+ * (unknown flags count as off — see [tools.forma.config.FormaFeatureFlags]).
+ */
+fun depsUnless(flag: String, vararg dependencies: NamedDependency): NamedDependency =
+    deps(*dependencies).whenFlag(flag, enabled = false)
+
 /** Typesafe project accessors / [ProjectDependency] → target deps (Gradle 9: path only, no dependencyProject). */
 fun Project.deps(vararg projects: ProjectDependency): TargetDependency =
     TargetDependency(projects.map { TargetSpec(target(it)) })

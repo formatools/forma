@@ -12,6 +12,7 @@ import tools.forma.android.target.registerAndroidDefaults
 import tools.forma.config.AndroidProjectSettings
 import tools.forma.config.DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY
 import tools.forma.config.FormaBuildFeatures
+import tools.forma.config.FormaFeatureFlags
 import tools.forma.config.FormaSettingsStore
 import tools.forma.config.PluginInfoStore
 import tools.forma.config.SettingsStore
@@ -87,6 +88,10 @@ import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
  * @param coreLibraryDesugaringDependency Maven coordinate for desugar JDK libs when
  *   [coreLibraryDesugaring] is true. Default [DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY].
  *   Stored when off but not applied until the flag is true.
+ * @param featureFlags project-global named product flags (F-099 / GH #126). Default empty
+ *   (unknown names read as **false**). Conditional deps (`depsIf` / `depsUnless`) resolve
+ *   against these at apply time. **Not** [FormaBuildFeatures] and **not** plugin shopping —
+ *   see [FormaFeatureFlags] and docs/TARGET-FEATURE-OPTIONS.md.
  * @param extraPlugins list of extra artifacts / plugin providers to add to the **buildscript classpath only**.
  *   See "Classpath vs apply" in TARGET-PLUGINS.md.
  */
@@ -108,6 +113,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
     buildFeatures: FormaBuildFeatures = FormaBuildFeatures(),
     coreLibraryDesugaring: Boolean = false,
     coreLibraryDesugaringDependency: String = DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY,
+    featureFlags: FormaFeatureFlags = FormaFeatureFlags.EMPTY,
     extraPlugins: List<Any> = emptyList()
 ) {
     buildScriptConfiguration(
@@ -148,6 +154,7 @@ fun ScriptHandlerScope.androidProjectConfiguration(
             buildFeatures = buildFeatures,
             coreLibraryDesugaring = coreLibraryDesugaring,
             coreLibraryDesugaringDependency = coreLibraryDesugaringDependency,
+            featureFlags = featureFlags,
         )
 
     Forma.store(configuration)

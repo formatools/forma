@@ -23,6 +23,10 @@ buildscript {
         // F-098 / GH #103: core library desugaring (Java 8+ APIs on lower minSdk)
         // coreLibraryDesugaring = true,
         // coreLibraryDesugaringDependency = "com.android.tools:desugar_jdk_libs:2.1.5", // optional
+        // F-099 / GH #126: project-global product feature flags (not AGP BuildFeatures)
+        // featureFlags = tools.forma.config.FormaFeatureFlags(
+        //     "daggerReflect" to true,
+        // ),
         // F-090: skip project-dep suffix checks only for listed forked-in modules
         // dependencyValidationExclusions = setOf(
         //     ":third-party:exoplayer:library-core",
@@ -139,6 +143,46 @@ androidProjectConfiguration(
 )
 ```
 
+### `featureFlags` (F-099 / GH #126)
+
+| | |
+|--|--|
+| **Type** | `FormaFeatureFlags` (default empty — unknown names read as **false**) |
+| **Set on** | Root `androidProjectConfiguration(...)` only |
+| **Stored as** | `AndroidProjectSettings.featureFlags` |
+| **Read by** | `applyDependencies` (conditional deps); optional `Forma.settings.featureFlags[…]` |
+
+Project-global **named boolean product flags** for conditional dependencies and
+shared behavior toggles (e.g. AP/KSP Dagger vs dagger-reflect). **Not** AGP
+`BuildFeatures` ([FormaBuildFeatures](#buildfeatures-f-091--gh-88) is a different
+concern). **Not** per-module plugin shopping.
+
+```kotlin
+androidProjectConfiguration(
+    // ...
+    featureFlags = FormaFeatureFlags(
+        "daggerReflect" to true,
+    ),
+)
+```
+
+Conditional deps at target call sites:
+
+```kotlin
+dependencies = deps(
+    "com.google.dagger:dagger:2.48".dep,
+    depsIf("daggerReflect", "com.jakewharton.dagger:dagger-reflect:…".dep),
+    depsUnless("daggerReflect", "com.google.dagger:dagger-compiler:…".ksp),
+)
+```
+
+Resolution runs at **apply** time against the store (not when the helper is built).
+Unknown flag names are **false** (`get` / `isEnabled`); use `require(name)` only when
+a missing declaration must fail configuration.
+
+Full design, rejected alternatives, and DI recipe:
+[`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
+
 ## What it does **not** do
 
 - `extraPlugins` (and catalog `plugin(...)` entries) are **classpath only**. They put Gradle plugin jars on the buildscript classpath. They do **not** apply any plugin to your modules.
@@ -169,8 +213,9 @@ The deprecated `Project.androidProjectConfiguration(...)` receiver overload has 
 | Piece | Location | Role |
 |-------|----------|------|
 | `androidProjectConfiguration(...)` (ScriptHandlerScope) | `plugins/android/.../androidProjectConfiguration.kt` | The one public API; called from root `buildscript` |
-| `AndroidProjectSettings` | `plugins/config/.../AndroidProjectSettings.kt` | Immutable data class holding SDKs, versions, compose default, `buildFeatures`, core library desugaring, repos, etc. |
+| `AndroidProjectSettings` | `plugins/config/.../AndroidProjectSettings.kt` | Immutable data class holding SDKs, versions, compose default, `buildFeatures`, `featureFlags`, core library desugaring, repos, etc. |
 | `FormaBuildFeatures` | `plugins/config/.../FormaBuildFeatures.kt` | Nested AGP BuildFeatures defaults (all off); pure data + resolve helper |
+| `FormaFeatureFlags` | `plugins/config/.../FormaFeatureFlags.kt` | Project-global named product flags (F-099); empty ⇒ unknown = false |
 | `DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY` | `plugins/config/.../AndroidProjectSettings.kt` | Default `desugar_jdk_libs` GAV pin (F-098) |
 | `FormaSettingsStore` | `plugins/config/.../AndroidProjectSettings.kt` (as `object`) | The backing singleton store (`SettingsStore<T>` + `PluginInfoStore`) |
 | `Forma` (singleton accessor) | `plugins/android/.../androidProjectConfiguration.kt` | `object Forma : SettingsStore<...> by FormaSettingsStore, ...` — primary reader surface (`Forma.settings`) |
@@ -186,6 +231,7 @@ Readers (feature wiring, dependency helpers, target DSLs) obtain values through 
 - [`COMPOSE.md`](COMPOSE.md) — `compose` + `composeCompilerVersion` details
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) — plugin module layout and store
 - [`VISION.md`](VISION.md) — root principles (one global way)
+- [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md) — product feature flags + conditional deps (F-099)
 - Sample: `application/build.gradle.kts`
 - Progressive example 10: `examples/android/10-target-plugins`
 

@@ -42,6 +42,7 @@ internal val happyPathClassIncludes =
         "**/tools/forma/core/**",
         "**/tools/forma/config/AndroidProjectSettings*",
         "**/tools/forma/config/FormaBuildFeatures*",
+        "**/tools/forma/config/FormaFeatureFlags*",
         "**/tools/forma/config/FormaSettingsStore*",
         "**/tools/forma/config/DependencyValidation*",
         "**/tools/forma/deps/catalog/Generators*",
@@ -66,6 +67,8 @@ internal val happyPathClassIncludes =
         "**/tools/forma/deps/core/TargetDependency*",
         "**/tools/forma/deps/core/FileDependency*",
         "**/tools/forma/deps/core/MixedDependency*",
+        // F-099 pure conditional-deps resolver (applyDependencies stays out of gate)
+        "**/tools/forma/deps/core/ConditionalDependency*",
         "**/tools/forma/jvm/target/**",
     )
 

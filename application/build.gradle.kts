@@ -23,6 +23,12 @@ buildscript {
         // Project-global only — not a per-module call-site flag. Default off (sample minSdk 23).
         // coreLibraryDesugaring = true,
         // coreLibraryDesugaringDependency = "com.android.tools:desugar_jdk_libs:2.1.5", // optional override
+        // F-099 / GH #126: project-global product feature flags (not AGP BuildFeatures).
+        // Conditional deps: depsIf("daggerReflect", …) / depsUnless("daggerReflect", …).
+        // See docs/TARGET-FEATURE-OPTIONS.md. Sample keeps default empty (all unknown = false).
+        // featureFlags = tools.forma.config.FormaFeatureFlags(
+        //     "daggerReflect" to true,
+        // ),
         extraPlugins =
             listOf(
                 libs.plugins.toolsFormaDemoDependencies,

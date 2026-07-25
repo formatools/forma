@@ -91,6 +91,16 @@ data class AndroidProjectSettings(
      * Default [DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY].
      */
     val coreLibraryDesugaringDependency: String = DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY,
+    /**
+     * Project-global named product feature flags (F-099 / GH #126).
+     * Default empty — unknown flag names read as **false**.
+     * Set from root `androidProjectConfiguration(featureFlags = …)`.
+     * Conditional deps (`depsIf` / `depsUnless`) resolve against this map at apply time.
+     *
+     * **Not** [FormaBuildFeatures] (AGP BuildFeatures). **Not** per-module plugin shopping.
+     * See `docs/TARGET-FEATURE-OPTIONS.md`.
+     */
+    val featureFlags: FormaFeatureFlags = FormaFeatureFlags.EMPTY,
 )
 
 /**
@@ -161,6 +171,13 @@ object FormaSettingsStore : SettingsStore<AndroidProjectSettings>, PluginInfoSto
             projectPath = projectPath,
             exclusions = dependencyValidationExclusionsOrEmpty(),
         )
+
+    /**
+     * [AndroidProjectSettings.featureFlags] when settings exist; empty flags otherwise
+     * (null-safe — does not throw; unknown names remain false).
+     */
+    fun featureFlagsOrEmpty(): FormaFeatureFlags =
+        if (isSettingsStored) _settings.featureFlags else FormaFeatureFlags.EMPTY
 
     override val plugins: MutableMap<Provider<PluginDependency>, PluginConfiguration> = mutableMapOf()
     override val dependencyPlugins: MutableMap<String, PluginConfiguration> = mutableMapOf()
