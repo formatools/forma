@@ -149,14 +149,14 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 ## P11 — Kotlin Multiplatform (Stepan 2026-07-25)
 
 Third Gradle platform on forma-core (`tools.forma.kmp`). **Design:** [`docs/KMP-TARGETS.md`](docs/KMP-TARGETS.md).
-**User priority (2026-07-25):** implement **F-106** next (before F-100…F-104) unless a hotfix blocks.
+**User priority (2026-07-25):** implement **F-107** next (before F-100…F-104) unless a hotfix blocks.
 v1 = **jvm + android** shared libraries only; type-owned MPP; **no** per-module target shopping;
 composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
 | F-105 | done | Design KMP targets + matrix + plugin shape | `docs/KMP-TARGETS.md` — types `kmp-api`/`kmp-library`/`kmp-util`/`kmp-test-util`; `kmpProjectConfiguration`; rejected free-form `kotlin { targets }`; VISION/ARCHITECTURE/README pointers |
-| F-106 | todo | `:kmp` plugin skeleton + `KmpTargetRegistry` matrix tests | Module `plugins/kmp`, plugin id `tools.forma.kmp`, types + `registerKmpDefaults`, unit tests; no half-working public DSL until F-107 |
+| F-106 | done | `:kmp` plugin skeleton + `KmpTargetRegistry` matrix tests | Module `plugins/kmp`, plugin id `tools.forma.kmp`, types + `registerKmpDefaults`, 5 unit tests; jacoco happy-path includes `kmp/target/**`; no public DSL until F-107 |
 | F-107 | todo | Apply kotlin-multiplatform + `kmpLibrary` DSL | Feature applicator jvm+android; deps via commonMain path; spike Android KMP library plugin id under AGP 9.3; `kmpProjectConfiguration` |
 | F-108 | todo | Android/JVM consumer matrix edges → kmp.* | Extend `AndroidTargetRegistry` + `JvmTargetRegistry`; update `DEPENDENCY-MATRIX.md` from code; avoid `:kmp`→`:android` cycle |
 | F-109 | todo | Progressive example `examples/kmp/01-shared-library` | Shared `kmp-library` + JVM (and optional Android) consumer; green documented Gradle tasks |

@@ -70,6 +70,8 @@ internal val happyPathClassIncludes =
         // F-099 pure conditional-deps resolver (applyDependencies stays out of gate)
         "**/tools/forma/deps/core/ConditionalDependency*",
         "**/tools/forma/jvm/target/**",
+        // F-106 KMP registry (MPP apply paths stay out until TestKit)
+        "**/tools/forma/kmp/target/**",
     )
 
 /** Apply Jacoco reporting to a plugins subproject (when it has Java + tests). */
