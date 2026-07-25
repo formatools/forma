@@ -174,7 +174,9 @@ step 08 introduces catalogs.
 | `parseGroupArtifactVersion` | same | GAV validation |
 | `deps` / `String.dep` / `Provider.dep` | root (`dependencies.kt`) | Bridge into `FormaDependency` (named deps default **non-transitive**) |
 | `transitiveDeps` / `String.transitiveDep` | root (`dependencies.kt`) | Same bridge with **transitive** named deps (`String.transitiveDep` = single-string parity with `String.dep`) |
-| `applyDependencies` | `tools.forma.deps.core` | Wire deps + plugin side effects |
+| `depsIf` / `depsUnless` / `NamedDependency.whenFlag` | root (`dependencies.kt`) | **F-099** — gate named deps on project-global `FormaFeatureFlags`; resolved at `applyDependencies` time (not construction). Unknown flag = false |
+| `resolveFeatureFlags` | `tools.forma.deps.core` | Pure filter of flag-gated `NameSpec`s (unit-tested) |
+| `applyDependencies` | `tools.forma.deps.core` | Wire deps + plugin side effects (+ F-099 flag resolution) |
 
 ---
 
@@ -194,6 +196,10 @@ step 08 introduces catalogs.
 6. **Plugins vs apply** — catalog `plugin(...)` + `extraPlugins` put jars on the
    **buildscript classpath only**. Type-owned apply is separate
    ([TARGET-PLUGINS.md](TARGET-PLUGINS.md)).
+7. **Conditional deps (F-099)** — declare flags once on
+   `androidProjectConfiguration(featureFlags = …)`; use `depsIf` / `depsUnless` at
+   call sites. Do **not** shop plugins with flags or add per-module Booleans for
+   every product toggle. See [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
 
 ---
 
@@ -207,3 +213,4 @@ step 08 introduces catalogs.
 - **Target external plugins** — type owns plugin, call sites auto-apply:
   [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)
 - Call-site surface: [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md)
+- Product feature flags + conditional deps: [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md)

@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-099: project-global feature flags + conditional deps (GH #126)
+
+- **Ticket:** F-099 → `done` (GH #126)
+- **Branch:** `forma/F-099-target-feature-options` (from `origin/v2`)
+- **Design:** `docs/TARGET-FEATURE-OPTIONS.md` — project-global named boolean flags only; flags select deps/behavior not plugin identity; binary-linked config deferred; rejects `.withPlugin` / per-module flag shopping / free-form Gradle as happy path.
+- **Code:**
+  - `FormaFeatureFlags` (pure) + `AndroidProjectSettings.featureFlags` + `FormaSettingsStore.featureFlagsOrEmpty()`
+  - `androidProjectConfiguration(featureFlags = …)`
+  - `NameSpec.featureFlag` / `featureFlagExpected`; `depsIf` / `depsUnless` / `NamedDependency.whenFlag`
+  - Pure `resolveFeatureFlags` in `ConditionalDependency.kt`; wired in `applyDependencies` at apply time
+  - Sample: commented `featureFlags` example in `application/build.gradle.kts` (default empty)
+  - Jacoco happy-path includes `FormaFeatureFlags*` + `ConditionalDependency*`
+- **Tests:** `:config` `FormaFeatureFlagsTest`; `:deps` `ConditionalDependencyTest` (DI swap recipe on/off/unknown)
+- **Docs:** TARGET-FEATURE-OPTIONS; PROJECT-CONFIGURATION § featureFlags; CALL-SITE-SURFACE § product flags; DEPS-CATALOG API rows; GETTING-STARTED pointer
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after CLI timeout on app assemble
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :config:test :deps:test test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** in 9s
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** in 10s (599 tasks, up-to-date)
+- **Commits/PRs:** this branch; Hermes PR/merge; close GH #126 when merged
+- **Blockers:** none (F-094 Portal still human-blocked)
+- **Next step:** F-100 (Gradle project on buildscript classpath)
+
 ## 2026-07-25 — F-098: project-global core library desugaring (GH #103)
 
 - **Ticket:** F-098 → `done` (GH #103)

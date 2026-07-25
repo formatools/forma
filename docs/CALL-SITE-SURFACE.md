@@ -12,8 +12,8 @@ settings), not on a builder chain after the call.
 | Layer | Owns |
 |-------|------|
 | Target **type** / rule | Plugins, content rules, matrix row, always-on features for that role |
-| Project configuration | Global defaults (`Forma.settings.compose`, `Forma.settings.buildFeatures`, `coreLibraryDesugaring`, SDK, etc.) |
-| Call site (`build.gradle.kts`) | Instance attrs only: `packageName`, deps, version, optional rule flags |
+| Project configuration | Global defaults (`Forma.settings.compose`, `Forma.settings.buildFeatures`, `Forma.settings.featureFlags`, `coreLibraryDesugaring`, SDK, etc.) |
+| Call site (`build.gradle.kts`) | Instance attrs only: `packageName`, deps (incl. conditional), version, optional rule flags |
 
 **Rejected at call sites**
 
@@ -21,6 +21,7 @@ settings), not on a builder chain after the call.
 - Free-form `plugins = plugins(plugin("id"))` lists
 - Re-selecting plugin bindings per module
 - Per-module `coreLibraryDesugaring` / desugar dependency shopping (F-098 — project-global only)
+- Per-module product-flag Booleans for every toggle (F-099 — declare once in `featureFlags`)
 
 ## Android target DSLs (`tools.forma.android`)
 
@@ -189,6 +190,35 @@ When enabled, library + binary + native feature wiring sets
 configuration. Default **off** (sample stays green without the extra artifact).
 
 See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) § `coreLibraryDesugaring`.
+
+## Product feature flags + conditional deps (F-099 / GH #126)
+
+Named **product** toggles (DI mode, optional stacks) are **project-global only**.
+They are **not** AGP `BuildFeatures` and **not** a second path to apply plugins.
+
+| Concern | Owner | Notes |
+|---------|--------|--------|
+| Flag declarations | **Project only** | `androidProjectConfiguration(featureFlags = FormaFeatureFlags(...))` |
+| Read | `Forma.settings.featureFlags["name"]` | Unknown names → **false** |
+| Conditional named deps | Call-site helpers | `depsIf` / `depsUnless` / `NamedDependency.whenFlag` |
+| Plugin identity shopping gated by flags | **Rejected** | Type-owned plugins stay type-owned ([TARGET-PLUGINS.md](TARGET-PLUGINS.md)) |
+| Per-`impl` Boolean for each product flag | **Rejected** | Fat call sites; dual path |
+
+```kotlin
+// root — declare once
+featureFlags = FormaFeatureFlags("daggerReflect" to true)
+
+// target — same graph shape everywhere; resolution at apply time
+dependencies = deps(
+    "com.google.dagger:dagger:…".dep,
+    depsIf("daggerReflect", "com.jakewharton.dagger:dagger-reflect:…".dep),
+    depsUnless("daggerReflect", "com.google.dagger:dagger-compiler:…".ksp),
+)
+```
+
+Helpers **tag** specs; `applyDependencies` resolves against the store. Do not teach
+raw `if (project.hasProperty)` Gradle as the happy path. Full design + rejected
+alternatives: [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
 
 ## Removed (F-081)
 

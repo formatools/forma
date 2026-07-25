@@ -35,6 +35,22 @@ fun Project.applyDependencies(
         return
     }
 
+    // F-099: resolve feature-flag-gated named deps against project-global flags at apply
+    // time (not when depsIf/depsUnless was called). Unknown flags = false.
+    val featureFlags = FormaSettingsStore.featureFlagsOrEmpty()
+    val resolvedDependencies = dependencies.resolveFeatureFlags(featureFlags)
+    val resolvedTestDependencies = testDependencies.resolveFeatureFlags(featureFlags)
+    val resolvedAndroidTestDependencies =
+        androidTestDependencies.resolveFeatureFlags(featureFlags)
+
+    if (
+        resolvedDependencies === EmptyDependency &&
+            resolvedTestDependencies === EmptyDependency &&
+            resolvedAndroidTestDependencies === EmptyDependency
+    ) {
+        return
+    }
+
     // Prevent same plugin to be applied twice
     val appliedPlugins = mutableSetOf<String>()
     val hasPluginDeps = FormaSettingsStore.dependencyPlugins.isNotEmpty()
@@ -53,7 +69,7 @@ fun Project.applyDependencies(
             }
             add(it.config.name, depProject)
         }
-        dependencies.forEach(
+        resolvedDependencies.forEach(
             { spec ->
                 val plugin =
                     if (hasPluginDeps) FormaSettingsStore.pluginFor(spec.name) else null
@@ -74,15 +90,15 @@ fun Project.applyDependencies(
             { add(it.config.name, files(it.file)) },
             { addDependencyTo(it.config.name, platform(it.name)) { isTransitive = it.transitive } }
         )
-        if (testDependencies !== EmptyDependency) {
-            testDependencies.forEach(
+        if (resolvedTestDependencies !== EmptyDependency) {
+            resolvedTestDependencies.forEach(
                 { addDependencyTo("testImplementation", it.name) { isTransitive = it.transitive } },
                 { add("testImplementation", it.target.project) },
                 { add("testImplementation", files(it.file)) }
             )
         }
-        if (androidTestDependencies !== EmptyDependency) {
-            androidTestDependencies.forEach(
+        if (resolvedAndroidTestDependencies !== EmptyDependency) {
+            resolvedAndroidTestDependencies.forEach(
                 {
                     addDependencyTo("androidTestImplementation", it.name) {
                         isTransitive = it.transitive

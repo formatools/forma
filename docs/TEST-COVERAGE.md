@@ -32,7 +32,7 @@ Pure, unit-tested engine surface (no AGP TestKit / `Project` apply paths):
 | Area | Classes |
 |------|---------|
 | **forma-core** | all `tools.forma.core.**` |
-| **config model** | `AndroidProjectSettings`, `FormaBuildFeatures`, `FormaSettingsStore`, dependency-validation helpers |
+| **config model** | `AndroidProjectSettings`, `FormaBuildFeatures`, `FormaFeatureFlags`, `FormaSettingsStore`, dependency-validation helpers |
 | **deps pure** | catalog `Generators*`, `TargetPlugin*` registry, configuration/dep model types |
 | **jvm targets** | `tools.forma.jvm.target.**` |
 
