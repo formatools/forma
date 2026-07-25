@@ -7,6 +7,7 @@ import tools.forma.android.target.BinaryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.android.utils.FormaSigningConfig
 import tools.forma.android.utils.applyBuildTypeSigning
+import tools.forma.android.utils.applyCoreLibraryDesugaring
 import tools.forma.android.utils.applyFrom
 import tools.forma.android.utils.applySigningConfigs
 import tools.forma.validation.Validator
@@ -73,6 +74,7 @@ fun androidBinaryFeatureDefinition(
                 buildTypeSigning = configuration.buildTypeSigning,
             )
             compileOptions.applyFrom(formaConfiguration)
+            applyCoreLibraryDesugaring(project, formaConfiguration)
 
             applyFormaBuildFeatures(
                 project = project,

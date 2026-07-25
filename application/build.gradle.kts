@@ -19,6 +19,10 @@ buildscript {
         // buildFeatures = tools.forma.config.FormaBuildFeatures(
         //     buildConfig = true,
         // ),
+        // F-098 / GH #103: AGP core library desugaring (Java 8+ APIs on lower minSdk).
+        // Project-global only — not a per-module call-site flag. Default off (sample minSdk 23).
+        // coreLibraryDesugaring = true,
+        // coreLibraryDesugaringDependency = "com.android.tools:desugar_jdk_libs:2.1.5", // optional override
         extraPlugins =
             listOf(
                 libs.plugins.toolsFormaDemoDependencies,

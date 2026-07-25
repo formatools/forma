@@ -75,7 +75,39 @@ data class AndroidProjectSettings(
      * stays on [compose] (not nested here).
      */
     val buildFeatures: FormaBuildFeatures = FormaBuildFeatures(),
+    /**
+     * When true, enable AGP core library desugaring fleet-wide (F-098 / GH #103).
+     * Default **false**. Wired via `compileOptions.isCoreLibraryDesugaringEnabled` and
+     * a `coreLibraryDesugaring` dependency on every Android library/binary/native target.
+     * Set from root `androidProjectConfiguration(coreLibraryDesugaring = …)`.
+     * See [DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY].
+     *
+     * **Not** a per-module call-site flag — one project-global path only.
+     */
+    val coreLibraryDesugaring: Boolean = false,
+    /**
+     * Maven coordinate for the desugar JDK libs artifact when [coreLibraryDesugaring] is true.
+     * Stored even when desugaring is off, but **not** applied until the flag is true.
+     * Default [DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY].
+     */
+    val coreLibraryDesugaringDependency: String = DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY,
 )
+
+/**
+ * Default pin for AGP core library desugaring (`com.android.tools:desugar_jdk_libs`).
+ * Latest stable 2.x on Google Maven as of F-098 (2.1.5). Override via
+ * `androidProjectConfiguration(coreLibraryDesugaringDependency = …)` when needed.
+ */
+const val DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY: String =
+    "com.android.tools:desugar_jdk_libs:2.1.5"
+
+/**
+ * Maven coordinate for the AGP `coreLibraryDesugaring` configuration when
+ * [AndroidProjectSettings.coreLibraryDesugaring] is true; `null` when disabled
+ * (do not add a dependency).
+ */
+fun coreLibraryDesugaringDependencyOrNull(settings: AndroidProjectSettings): String? =
+    if (settings.coreLibraryDesugaring) settings.coreLibraryDesugaringDependency else null
 
 /**
  * Exact-match check for [AndroidProjectSettings.dependencyValidationExclusions].

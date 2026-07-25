@@ -12,7 +12,7 @@ settings), not on a builder chain after the call.
 | Layer | Owns |
 |-------|------|
 | Target **type** / rule | Plugins, content rules, matrix row, always-on features for that role |
-| Project configuration | Global defaults (`Forma.settings.compose`, `Forma.settings.buildFeatures`, SDK, etc.) |
+| Project configuration | Global defaults (`Forma.settings.compose`, `Forma.settings.buildFeatures`, `coreLibraryDesugaring`, SDK, etc.) |
 | Call site (`build.gradle.kts`) | Instance attrs only: `packageName`, deps, version, optional rule flags |
 
 **Rejected at call sites**
@@ -20,6 +20,7 @@ settings), not on a builder chain after the call.
 - Builder returns / `.withPlugin` / `.withPlugins`
 - Free-form `plugins = plugins(plugin("id"))` lists
 - Re-selecting plugin bindings per module
+- Per-module `coreLibraryDesugaring` / desugar dependency shopping (F-098 — project-global only)
 
 ## Android target DSLs (`tools.forma.android`)
 
@@ -174,6 +175,20 @@ documented attr later — not free-form plugin/feature shopping.
 **dataBinding** often pairs with view binding in app code; Forma does **not**
 auto-enable one when the other is on — set both explicitly if both are required.
 `renderScript` is not mapped (removed/deprecated in modern AGP).
+
+## Core library desugaring (F-098 / GH #103)
+
+| Concern | Owner | Notes |
+|---------|--------|--------|
+| `coreLibraryDesugaring` | **Project only** | `androidProjectConfiguration(coreLibraryDesugaring = true)` |
+| `coreLibraryDesugaringDependency` | **Project only** | Optional GAV override; default `desugar_jdk_libs:2.1.5` |
+| Call-site `desugar=` / per-module flag | **None** | Rejected — fleet concern like `javaVersionCompatibility` |
+
+When enabled, library + binary + native feature wiring sets
+`compileOptions.isCoreLibraryDesugaringEnabled` and adds the desugar dependency
+configuration. Default **off** (sample stays green without the extra artifact).
+
+See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) § `coreLibraryDesugaring`.
 
 ## Removed (F-081)
 

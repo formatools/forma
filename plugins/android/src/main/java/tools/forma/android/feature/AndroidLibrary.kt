@@ -4,6 +4,7 @@ import androidJunitRunner
 import com.android.build.api.dsl.LibraryExtension
 import tools.forma.android.target.LibraryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.utils.applyCoreLibraryDesugaring
 import tools.forma.android.utils.applyFrom
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
@@ -49,6 +50,7 @@ fun androidLibraryFeatureDefinition(
 
             buildTypes.applyFrom(feature.buildConfiguration)
             compileOptions.applyFrom(formaConfiguration)
+            applyCoreLibraryDesugaring(project, formaConfiguration)
 
             applyFormaBuildFeatures(
                 project = project,

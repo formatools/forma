@@ -169,6 +169,7 @@ buildscript {
         agpVersion = "9.3.0",     // keep aligned with plugin compile AGP
         // compose = false,       // project default for per-target compose flags
         // composeCompilerVersion = "2.3.21", // match your Kotlin (2.3.21 → 2.3.21)
+        // coreLibraryDesugaring = true, // F-098: Java 8+ library APIs on lower minSdk (project-global)
         // Classpath only — does NOT apply plugins to modules. See TARGET-PLUGINS.md.
         extraPlugins = listOf(
             // e.g. libs.plugins.navigationSafeArgs (jar on buildscript classpath)
@@ -181,7 +182,8 @@ This stores shared Android settings (`AndroidProjectSettings` via `Forma` / `For
 puts AGP + optional plugin jars on the **buildscript classpath only**, and registers a root
 `clean` task. Child targets read values from `Forma.settings`.
 
-See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) for the single-path + store story.
+See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) for the single-path + store story
+(including optional **core library desugaring** for Java 8+ APIs on lower `minSdk` — F-098).
 
 ### External Gradle plugins (safe-args, Firebase, …)
 
