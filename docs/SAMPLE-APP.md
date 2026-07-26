@@ -123,10 +123,16 @@ build JDK **21** (app language level unchanged). See [ENV.md](ENV.md),
 Not in scope for F-014: full navigation redesign (GH #46), publish path (F-016).
 Configuration-time performance: [CONFIGURATION-PERFORMANCE.md](CONFIGURATION-PERFORMANCE.md) (F-017).
 
+**Navigation abstraction (F-102 / GH #46):** design is in
+[NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md) — presentation-layer ports
+so feature `impl`/ViewModels do not take Jetpack Navigation / Safe Args codegen;
+graphs stay on `navigationRes`. Sample refactor = **F-111**; progressive example
+= **F-112**. This gold-standard tree still shows today’s bleed until F-111 lands.
+
 ## Type-owned plugins (navigation)
 
 `core/navigation/res` uses Path B **`navigationRes(...)`** (defined in
 `build-dependencies/.../NavigationRes.kt`), not plain `androidRes` + `.withPlugin`.
 Safe-args is owned by the derived type and auto-applies. See
-[TARGET-PLUGINS.md](TARGET-PLUGINS.md) and progressive example
-`examples/android/10-target-plugins/`.
+[TARGET-PLUGINS.md](TARGET-PLUGINS.md), [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md)
+(Layer B), and progressive example `examples/android/10-target-plugins/`.

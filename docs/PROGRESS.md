@@ -2,6 +2,20 @@
 
 Newest entries first.
 
+## 2026-07-26 — F-102: Navigation abstraction design (GH #46)
+
+- **Ticket:** F-102 → `done` (design bar only). Implement follow-ups **F-111** (sample ports + root adapter), **F-112** (`examples/android/12-navigation-ports`).
+- **Branch:** `forma/F-102-navigation-abstraction` (from `origin/v2`)
+- **Docs:**
+  - Canonical [`docs/NAVIGATION-ABSTRACTION.md`](NAVIGATION-ABSTRACTION.md) — problem (sample bleed: `findNavController`, Safe Args `*Directions`, graph R.ids, multi-backstack helpers in feature impl/VM); Layer A presentation ports vs Layer B existing Path B `navigationRes` only; v1 = keep Jetpack Navigation behind composition-root adapter; reject engine router DSL / Cicerone-in-Forma / plugin shopping / impl→impl / dual happy paths / restoring `androidLibrary`; ticket map + DoD for F-111/F-112; refs F-089 cache + TARGET-PLUGINS
+  - Cross-links: README doc index; SAMPLE-APP; PROGRESSIVE-EXAMPLES (row 12 reserved); ARCHITECTURE (tree + follow-ups + quick ref); TARGET-PLUGINS Path B blurb
+- **Board:** TICKETS F-102 `done`; added F-111 + F-112 `todo` after F-102; P11 header + backlog GH #46 note
+- **Code:** none (docs + board only — no sample rewrite, no plugin DSL)
+- **Verify:** docs-only slice; no Gradle run required. Spot-check: design doc present; F-111/F-112 on board; no `plugins/` engine changes
+- **Skills/modes:** Grok Build implement phase (design-first); `/check-work` after commit
+- **Not in this slice:** F-111/F-112 code; matrix/validator changes; Forma router framework; F-103/F-104
+- **Next step:** F-111 or F-112 per NAVIGATION-ABSTRACTION §6 (prefer F-112 first if sample refactor is large)
+
 ## 2026-07-26 — F-101: Close `target(...)` deps API audit (GH #56)
 
 - **Ticket:** F-101 → `done` (GH #56 closable)
