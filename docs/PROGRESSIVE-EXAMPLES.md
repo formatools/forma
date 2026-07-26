@@ -33,7 +33,7 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | `androidTestUtil` | 09 (androidTest uses helpers) | — | — | forma-android-targets |
 | Type-owned target plugins (`navigationRes` Path B) | 10 | — | — | forma-target-plugins |
 | Metro DI (`metroImpl` / `metroApp`, Path A on impl/app) | 11 | — | — | forma-target-plugins |
-| Navigation ports (presentation ports + adapter; Jetpack behind root) | **12** (F-112 todo) | — | — | — (design: [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md)) |
+| Navigation ports (presentation ports + adapter; Jetpack behind root) | **12** | — | — | forma-android-targets + [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md) |
 | `androidNative` + JNI via `androidUtil` | **13** | — | — | forma-android-targets |
 | Google Firebase (Crashlytics + Analytics, Path A `firebaseBinary`) | **14** | — | — | forma-target-plugins + [GOOGLE-LIBRARIES.md](GOOGLE-LIBRARIES.md) |
 | `kmpLibrary` + `kmpProjectConfiguration` | — | — | 01 | forma-kmp-targets |
@@ -59,7 +59,8 @@ Metro as an alternate compile-time DI stack is taught in
 [`examples/android/11-metro-di`](../examples/android/11-metro-di) (type-owned plugin;
 not a second sample-app rewrite).
 **Navigation ports** (keep Jetpack/Safe Args out of feature `impl`) are designed in
-[NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md); ladder step **12** and sample
-refactor are **F-112** / **F-111** (not shipped in the F-102 design slice).
+[NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md); ladder step
+[`examples/android/12-navigation-ports`](../examples/android/12-navigation-ports)
+(**F-112**) teaches the pattern; gold-sample migration is **F-111**.
 Sample-scale typed `build-dependencies/` catalogs are **advanced**, not a second
 default (see [DEPS-CATALOG.md](DEPS-CATALOG.md)).

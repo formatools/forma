@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tiny two-destination graph. Safe Args codegen is type-owned via navigationRes. -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/list_fragment">
+
+    <fragment
+        android:id="@+id/list_fragment"
+        android:name="tools.forma.examples.android.navports.feature.list.impl.ListFragment"
+        android:label="List">
+        <action
+            android:id="@+id/action_list_to_detail"
+            app:destination="@id/detail_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="tools.forma.examples.android.navports.feature.detail.impl.DetailFragment"
+        android:label="Detail">
+        <argument
+            android:name="itemId"
+            app:argType="long" />
+    </fragment>
+</navigation>

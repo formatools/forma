@@ -47,3 +47,4 @@ shared configuration, and a **dependency restriction graph**.
 - `docs/PRINCIPLE-AUDIT.md` — full-tree teaching audit (F-085)
 
 **External plugins:** type-owned (Path A/B) — skill `forma-target-plugins`, examples `android/10-target-plugins` (safe-args) and `android/11-metro-di` (Metro DI). Never `.withPlugin`.
+**Navigation ports:** keep Jetpack/Safe Args out of feature `impl` — example `android/12-navigation-ports` + `docs/NAVIGATION-ABSTRACTION.md` (F-112; sample migration F-111).

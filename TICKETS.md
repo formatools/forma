@@ -144,7 +144,7 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 | F-101 | done | Close `target(...)` deps API (audit) | GH **#56** **closable** — **done:** pure `ProjectPathForms.gradleProjectPathFromFormaTarget` + unit tests; `Project.target(String)` wired through it; docs DEPS-CATALOG §3 Project/target deps + CALL-SITE-SURFACE + GETTING-STARTED + README `target` example. Happy path = colon Forma paths + typesafe accessors; raw `project()` rejected; slash notation deferred #57. |
 | F-102 | done | Navigation abstraction design | GH **#46** — **done (design):** [`docs/NAVIGATION-ABSTRACTION.md`](docs/NAVIGATION-ABSTRACTION.md) — Layer A presentation ports (no androidx.navigation in feature impl/VM) vs Layer B existing Path B `navigationRes` only; v1 = Jetpack behind root adapter; reject engine router DSL / plugin shopping / impl→impl / dual happy paths. Implement split: **F-111** sample, **F-112** progressive example. |
 | F-111 | todo | Sample navigation ports + root adapter | GH **#46** implement — apply F-102 design to `application/`: Navigator/destinations (or equiv) without Nav in feature `impl`/VM; adapter at composition root owns NavController + Safe Args; keep `navigationRes`; strip feature→`core/navigation/res` where practical. No Forma engine DSL. |
-| F-112 | todo | Progressive example: navigation ports | GH **#46** teach — `examples/android/12-navigation-ports` per F-102 §4.4; ladder + README; minimal graph; ports vs adapter vs `navigationRes`. Prefer before or with F-111. |
+| F-112 | done | Progressive example: navigation ports | GH **#46** teach — `examples/android/12-navigation-ports` per F-102 §4.4; ladder + README; minimal graph; ports vs adapter vs `navigationRes`. Prefer before or with F-111. |
 | F-103 | todo | Hybrid targets example (flat dir / api+impl co-location) | GH **#44** — teaching example: simplified flat layout (api/impl/stub mental model, easy multi-module nav). May use includer layout + progressive example; align with F-084/F-088 fleet layout. No restore of `androidLibrary`. |
 | F-104 | todo | Hybrid configuration / stub targets for IDE sync | GH **#43** — stub targets + deps API so IDE sync can swap `impl`→`stub` (compileOnly/runtimeOnly pattern) via **one project-global flag**, not per-module hacks. Design+spike; depend on F-101/`target` APIs. Keep matrix truth. |
 | F-113 | done | Android first-party library examples complete | Close ladder gaps: real `androidTestUtil` usage in 09; `androidNative` step **13** + matrix edges (`androidUtil`/`app`/`binary`→`native`); `test*`/`androidTest*` deps = `FormaDependency` so project targets work; docs/skills/matrix aligned. |
@@ -153,7 +153,7 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 ## P11 — Kotlin Multiplatform (Stepan 2026-07-25)
 
 Third Gradle platform on forma-core (`tools.forma.kmp`). **Design:** [`docs/KMP-TARGETS.md`](docs/KMP-TARGETS.md).
-**P11 v1 complete (F-105…F-110).** **F-100…F-102 done** (F-102 = navigation design only). Next board priority is **P10** top `todo` (**F-111** sample nav ports, then **F-112** / **F-103**…) unless
+**P11 v1 complete (F-105…F-110).** **F-100…F-102 done** (F-102 = navigation design only). **F-112 done** (progressive nav ports). Next board priority is **P10** top `todo` (**F-111** sample nav ports, then **F-103**…) unless
 Stepan reprioritizes. v1 = **jvm + android** shared libraries only; type-owned MPP; **no** per-module
 target shopping; composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 

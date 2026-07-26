@@ -127,7 +127,8 @@ Configuration-time performance: [CONFIGURATION-PERFORMANCE.md](CONFIGURATION-PER
 [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md) — presentation-layer ports
 so feature `impl`/ViewModels do not take Jetpack Navigation / Safe Args codegen;
 graphs stay on `navigationRes`. Sample refactor = **F-111**; progressive example
-= **F-112**. This gold-standard tree still shows today’s bleed until F-111 lands.
+[`examples/android/12-navigation-ports`](../examples/android/12-navigation-ports)
+(**F-112**, shipped). This gold-standard tree still shows today’s bleed until F-111 lands.
 
 ## Type-owned plugins (navigation)
 
