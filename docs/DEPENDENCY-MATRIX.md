@@ -127,16 +127,16 @@ these suffixes (or are unrestricted if `EmptyValidator`).
 | `library` (JVM) | `library.kt` | `validator(util, test-util)` | `util`, `test-util` |
 | `uiLibrary` | `uiLibrary.kt` | `validator(widget, compose-widget, util, android-util, res)` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util.kt` | `validator(util, library)` | `util`, `library` |
-| `androidUtil` | `androidUtil.kt` | registry + **kmp-library, kmp-util** | `android-util`, `test-util`, `res`, `library`, `kmp-library`, `kmp-util` |
+| `androidUtil` | `androidUtil.kt` | registry + **kmp-library, kmp-util** + **native** | `android-util`, `test-util`, `res`, `library`, `native`, `kmp-library`, `kmp-util` |
 | `testUtil` | `testUtil.kt` | `validator(test-util, util)` | `test-util`, `util` |
 | `androidTestUtil` | `androidTestUtil.kt` | `validator(android-test-util, test-util)` | `android-test-util`, `test-util` |
 | `androidRes` | `androidRes.kt` | `validator(res, widget, compose-widget)` | `res`, `widget`, `compose-widget` |
 | `widget` | `widget.kt` | `validator(ui-library, widget, compose-widget, util, android-util, res)` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `composeWidget` | `composeWidget.kt` | `validator(ui-library, compose-widget, widget, util, android-util, res)` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` |
 | `viewBinding` | `viewBinding.kt` | `validator(api, widget, compose-widget, res, library, android-util, ui-library)` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util`, `ui-library` |
-| `androidApp` | `androidApp.kt` | registry + **kmp-api, kmp-library, kmp-util** | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `kmp-api`, `kmp-library`, `kmp-util` |
-| `androidBinary` | `androidBinary.kt` | registry + **kmp-api, kmp-library, kmp-util** | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `kmp-api`, `kmp-library`, `kmp-util` |
-| `androidNative` | `androidNative.kt` | *(no `applyDependencies`)* | *no project-dep validation* |
+| `androidApp` | `androidApp.kt` | registry + **kmp-*** + **native** | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `native`, `kmp-api`, `kmp-library`, `kmp-util` |
+| `androidBinary` | `androidBinary.kt` | registry + **kmp-*** + **native** | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `native`, `kmp-api`, `kmp-library`, `kmp-util` |
+| `androidNative` | `androidNative.kt` | leaf (empty allow list) | *no first-party project deps* |
 
 ### Explicit non-edges (important product rules)
 
@@ -153,6 +153,11 @@ These follow from the table (not from separate deny-lists):
 - **`androidUtil` may depend on JVM `library`** — Android helpers wrapping pure JVM code (F-061).
 - **`androidApp` / `androidBinary` cannot depend on other `binary`** —
   single APK composition root (F-011; `app` may not depend on `app`/`binary`).
+- **`androidUtil` / composition roots may depend on `native`** — JNI façade
+  on `androidUtil`; packaging at `androidApp` / `androidBinary` (F-113).
+  Prefer not teaching `impl` → `native` (no edge).
+- **`androidNative` is a leaf** — empty first-party allow list (C/C++ + system
+  libs only; no `applyDependencies` on the DSL today).
 - **Circular-ish UI graph is intentional while experimental:** `uiLibrary`
   may depend on `widget` / `compose-widget`, and `widget` / `compose-widget`
   may depend on `ui-library` and on each other so View + Compose can coexist
@@ -200,7 +205,7 @@ Legend:
 - **Y** — allowed by non-empty `validator(...)` list
 - **\*** — `EmptyValidator` / no project-dep check (anything goes)
 - **—** — not allowed by the live validator list
-- **n/a** — `androidNative` has no `applyDependencies`
+- **leaf** — `androidNative` has empty first-party allow list (no project deps)
 
 Rows = **consumer**. Columns = **dependency type (suffix)**.
 
@@ -211,16 +216,16 @@ Rows = **consumer**. Columns = **dependency type (suffix)**.
 | **library** (JVM) | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — | — |
 | **uiLibrary** | — | — | — | — | Y | — | Y | — | Y | — | Y | Y | — | — | — |
 | **util** | — | — | Y | — | Y | — | — | — | — | — | — | — | — | — | — |
-| **androidUtil** | — | — | Y | — | — | Y | Y | — | Y | — | — | — | — | — | — |
+| **androidUtil** | — | — | Y | — | — | Y | Y | — | Y | — | — | — | — | — | Y |
 | **testUtil** | — | — | — | — | Y | Y | — | — | — | — | — | — | — | — | — |
 | **androidTestUtil** | — | — | — | — | — | Y | — | Y | — | — | — | — | — | — | — |
 | **androidRes** | — | — | — | — | — | — | — | — | Y | — | Y | Y | — | — | — |
 | **widget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | Y | — | — | — |
 | **composeWidget** | — | — | — | Y | Y | — | Y | — | Y | — | Y | Y | — | — | — |
 | **viewBinding** | Y | — | Y | Y | — | — | Y | — | Y | — | Y | Y | — | — | — |
-| **androidApp** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — | — |
-| **androidBinary** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | Y | — | — |
-| **androidNative** | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| **androidApp** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | — | — | Y |
+| **androidBinary** | Y | Y | Y | Y | Y | Y | Y | — | Y | Y | Y | Y | Y | — | Y |
+| **androidNative** | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf | leaf |
 
 Self-deps: a type may depend on itself only if its own suffix is in its
 allowed list (e.g. `api`→`api` **Y**, `impl`→`impl` **—**, `widget`→`widget`

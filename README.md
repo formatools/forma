@@ -172,7 +172,7 @@ project-dep type checks + content layout rules from live validators
 | `library` | ✅ | JVM library | project-dep list (only owner of `library` suffix after F-063) |
 | `api` | ✅ | Feature external APIs | no `res/` + project-dep list |
 | `impl` | ✅ | Feature implementation | project-dep list (**no** other `impl`) |
-| `androidNative` | ✅ | NDK / native | no `res/`; no project-dep validation yet |
+| `androidNative` | ✅ | NDK / native | no `res/`; leaf (no first-party deps); consumers: `androidUtil` / `app` / `binary` |
 
 ## Dependency matrix
 
@@ -192,16 +192,16 @@ never a per-call-site escape hatch. Summary:
 | `library` (JVM) | `util`, `test-util` |
 | `uiLibrary` | `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `util` | `util`, `library` |
-| `androidUtil` | `android-util`, `test-util`, `res`, `library` |
+| `androidUtil` | `android-util`, `test-util`, `res`, `library`, `native` |
 | `testUtil` | `test-util`, `util` |
 | `androidTestUtil` | `android-test-util`, `test-util` |
 | `androidRes` | `res`, `widget`, `compose-widget` |
 | `widget` | `ui-library`, `widget`, `compose-widget`, `util`, `android-util`, `res` |
 | `composeWidget` | `ui-library`, `compose-widget`, `widget`, `util`, `android-util`, `res` |
 | `viewBinding` | `api`, `widget`, `compose-widget`, `res`, `library`, `android-util`, `ui-library` |
-| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
-| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library` |
-| `androidNative` | *(no project-dep check)* |
+| `androidApp` | `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `native` |
+| `androidBinary` | `app`, `api`, `impl`, `library`, `util`, `android-util`, `test-util`, `res`, `viewbinding`, `widget`, `compose-widget`, `ui-library`, `native` |
+| `androidNative` | *(leaf — no first-party project deps)* |
 
 Dagger2-friendly `api`/`impl` + composition roots: **F-011** (landed).
 Jetpack Compose: per-target `compose` flag + `composeWidget` — **F-013**

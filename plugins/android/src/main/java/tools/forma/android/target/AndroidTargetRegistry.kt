@@ -93,12 +93,12 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // androidUtil — may wrap pure JVM libraries + shared KMP library/util; still no res content
+    // androidUtil — may wrap pure JVM libraries + native (.so) + shared KMP library/util; still no res content
     registry.register(
         TargetRegistration(
             type = t.androidUtil,
             allowedDependencies = setOf(
-                t.androidUtil, t.testUtil, t.res, t.jvmLibrary,
+                t.androidUtil, t.testUtil, t.res, t.jvmLibrary, t.native,
                 k.library, k.util,
             ),
             contentRules = noRes
@@ -158,33 +158,33 @@ fun registerAndroidDefaults(registry: TargetRegistry = AndroidTargetRegistry) {
         )
     )
 
-    // androidApp (composition root) + shared KMP stack
+    // androidApp (composition root) + shared KMP stack + optional native packaging
     registry.register(
         TargetRegistration(
             type = t.app,
             allowedDependencies = setOf(
                 t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
-                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary,
+                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary, t.native,
                 k.api, k.library, k.util,
             ),
             contentRules = noRes
         )
     )
 
-    // androidBinary (composition root) + shared KMP stack
+    // androidBinary (composition root) + shared KMP stack + optional native packaging
     registry.register(
         TargetRegistration(
             type = t.binary,
             allowedDependencies = setOf(
                 t.app, t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
-                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary,
+                t.viewBinding, t.widget, t.composeWidget, t.uiLibrary, t.native,
                 k.api, k.library, k.util,
             ),
             contentRules = noRes
         )
     )
 
-    // native: no project-dep validation today
+    // native: NDK leaf — no first-party project deps (C/C++ + system libs only)
     registry.register(
         TargetRegistration(
             type = t.native,

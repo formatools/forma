@@ -42,7 +42,7 @@ All return **`Unit`**.
 | `widget` | `widget` | deps, test runners | View UI components |
 | `composeWidget` | `compose-widget` | deps, test runners | **Type owns** Compose on |
 | `uiLibrary` | `ui-library` | deps, **`compose`**, `buildConfiguration` | Shared UI bases |
-| `androidNative` | `native` | `buildSystem`, `abi`, … | NDK |
+| `androidNative` | `native` | `buildSystem`, `abi`, … | NDK leaf; consumers `androidUtil`/`app`/`binary` |
 | Path B derived (e.g. `navigationRes`) | often shared suffix | same as base + type-owned plugins | Consumer-defined; see TARGET-PLUGINS |
 
 Internal helper `resourcesTarget(type, …)` backs `androidRes` and derived res DSLs —

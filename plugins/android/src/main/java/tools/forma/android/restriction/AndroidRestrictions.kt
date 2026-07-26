@@ -66,8 +66,8 @@ object AndroidRestrictionKit {
         // util (JVM): util + jvm library
         graph.allow(t.util, t.util, t.jvmLibrary)
 
-        // androidUtil — may depend on pure JVM library (helpers wrapping shared code)
-        graph.allow(t.androidUtil, t.androidUtil, t.testUtil, t.res, t.jvmLibrary)
+        // androidUtil — JVM library + native (.so) wrappers (JNI bindings)
+        graph.allow(t.androidUtil, t.androidUtil, t.testUtil, t.res, t.jvmLibrary, t.native)
 
         // testUtil
         graph.allow(t.testUtil, t.testUtil, t.util)
@@ -90,22 +90,21 @@ object AndroidRestrictionKit {
             t.api, t.widget, t.composeWidget, t.res, t.jvmLibrary, t.androidUtil, t.uiLibrary
         )
 
-        // androidApp (composition root)
+        // androidApp (composition root) — may package native AARs
         graph.allow(
             t.app,
             t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
-            t.viewBinding, t.widget, t.composeWidget, t.uiLibrary
+            t.viewBinding, t.widget, t.composeWidget, t.uiLibrary, t.native
         )
 
-        // androidBinary (composition root)
+        // androidBinary (composition root) — may package native AARs
         graph.allow(
             t.binary,
             t.app, t.api, t.impl, t.jvmLibrary, t.util, t.androidUtil, t.testUtil, t.res,
-            t.viewBinding, t.widget, t.composeWidget, t.uiLibrary
+            t.viewBinding, t.widget, t.composeWidget, t.uiLibrary, t.native
         )
 
-        // native: no project dep validation currently (per matrix)
-        // no allow() calls for native → empty = deny all project targets
+        // native: leaf — no first-party project deps (empty allow list)
     }
 
     /** Convenience: build a fresh graph pre-populated with Android rules. */
