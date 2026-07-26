@@ -1,15 +1,14 @@
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
-import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Delete
 import org.gradle.kotlin.dsl.ScriptHandlerScope
 import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import org.gradle.kotlin.dsl.repositories
-import org.gradle.plugin.use.PluginDependency
 import tools.forma.android.utils.register
 import tools.forma.android.target.registerAndroidDefaults
 import tools.forma.config.AndroidProjectSettings
+import tools.forma.config.BuildscriptClasspath
 import tools.forma.config.DEFAULT_CORE_LIBRARY_DESUGARING_DEPENDENCY
 import tools.forma.config.FormaBuildFeatures
 import tools.forma.config.FormaFeatureFlags
@@ -44,9 +43,17 @@ import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
  * - Registers default Android target types and restriction matrix via [registerAndroidDefaults].
  * - Registers a conventional root `clean` task.
  *
- * **extraPlugins**:
- * Jars (or `Provider<PluginDependency>`) listed here are added to the root **buildscript classpath**.
+ * **extraPlugins** (buildscript **classpath only** — F-082 / F-100):
+ * Supported entries are classified by [BuildscriptClasspath.resolve]:
+ * - String GAV (`"group:artifact:version"`)
+ * - catalog `plugin(...)` → `Provider<PluginDependency>`
+ * - bare `PluginDependency`, `File` / `FileCollection`, external module deps
+ *
  * They do **NOT** cause any plugin to be applied to modules.
+ * **Same-build `project(":…")` is not supported** on the root buildscript classpath
+ * (Gradle limitation). Local convention plugins: `includeBuild` + catalog plugin GAV —
+ * see [docs/BUILDSCRIPT-PROJECT-CLASSPATH.md](BUILDSCRIPT-PROJECT-CLASSPATH.md).
+ *
  * To actually apply an external Gradle plugin to targets, register it against a target type
  * using the type-owned plugin APIs and let the registry auto-apply it:
  * see [docs/TARGET-PLUGINS.md](TARGET-PLUGINS.md) (`targetPlugin`, `deriveTargetType`,
@@ -93,7 +100,7 @@ import tools.forma.deps.fleet.ensureFormaLayoutRootTasks
  *   against these at apply time. **Not** [FormaBuildFeatures] and **not** plugin shopping —
  *   see [FormaFeatureFlags] and docs/TARGET-FEATURE-OPTIONS.md.
  * @param extraPlugins list of extra artifacts / plugin providers to add to the **buildscript classpath only**.
- *   See "Classpath vs apply" in TARGET-PLUGINS.md.
+ *   See [BuildscriptClasspath], docs/BUILDSCRIPT-PROJECT-CLASSPATH.md, and TARGET-PLUGINS.md.
  */
 fun ScriptHandlerScope.androidProjectConfiguration(
     project: Project,
@@ -171,15 +178,8 @@ val buildScriptConfiguration: ScriptHandlerScope.(List<Any>) -> Unit = { classpa
         mavenCentral()
     }
     dependencies {
-        classpathDeps.forEach {
-            when (it) {
-                is Provider<*> ->
-                    (it.get() as? PluginDependency)?.let { plugin ->
-                        classpath("${plugin.pluginId}:${plugin.version.strictVersion}")
-                    }
-                        ?: throw IllegalArgumentException("Only plugin providers are supported")
-                else -> classpath(it)
-            }
+        classpathDeps.forEach { entry ->
+            classpath(BuildscriptClasspath.resolve(entry, contextLabel = "extraPlugins"))
         }
     }
 }

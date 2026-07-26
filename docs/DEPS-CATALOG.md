@@ -195,7 +195,9 @@ step 08 introduces catalogs.
    a clear `IllegalArgumentException` at configuration time.
 6. **Plugins vs apply** — catalog `plugin(...)` + `extraPlugins` put jars on the
    **buildscript classpath only**. Type-owned apply is separate
-   ([TARGET-PLUGINS.md](TARGET-PLUGINS.md)).
+   ([TARGET-PLUGINS.md](TARGET-PLUGINS.md)). Local convention plugins:
+   includeBuild + catalog plugin GAV — not `project(":…")`
+   ([BUILDSCRIPT-PROJECT-CLASSPATH.md](BUILDSCRIPT-PROJECT-CLASSPATH.md)).
 7. **Conditional deps (F-099)** — declare flags once on
    `androidProjectConfiguration(featureFlags = …)`; use `depsIf` / `depsUnless` at
    call sites. Do **not** shop plugins with flags or add per-module Booleans for

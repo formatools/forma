@@ -33,15 +33,28 @@ buildscript {
         //     "forked-media-engine",
         // ),
         extraPlugins = listOf(
-            // jars / Provider<PluginDependency> for the *buildscript classpath only*
+            // buildscript classpath only (F-082) — see BuildscriptClasspath / F-100
+            // String GAV, catalog plugin(...), File/FileCollection — NOT project(":…")
             libs.plugins.navigationSafeArgs,
-            // ...
+            // local convention plugins: includeBuild + catalog plugin GAV (not project())
+            // libs.plugins.toolsFormaDemoDependencies,
         )
     )
 }
 ```
 
 This is the **only** supported way to configure an Android Forma project.
+
+### `extraPlugins` accepted types (F-100)
+
+| Accepted | Rejected |
+|----------|----------|
+| String GAV, catalog `plugin(...)` / `Provider<PluginDependency>`, `File` / `FileCollection`, external module deps | Same-build `project(":…")` / `Project` / `ProjectDependency` |
+
+Gradle **cannot** put same-build project dependencies on the root `buildscript`
+classpath. Local plugins use **includeBuild + catalog plugin GAV** (composite
+substitution). Full design + spike notes (Gradle 9.6.1):
+[`BUILDSCRIPT-PROJECT-CLASSPATH.md`](BUILDSCRIPT-PROJECT-CLASSPATH.md).
 
 ## What `androidProjectConfiguration` does
 
@@ -226,6 +239,7 @@ Readers (feature wiring, dependency helpers, target DSLs) obtain values through 
 ## Cross references
 
 - [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md) — classpath (`extraPlugins`) vs. type-owned apply
+- [`BUILDSCRIPT-PROJECT-CLASSPATH.md`](BUILDSCRIPT-PROJECT-CLASSPATH.md) — F-100: no `project()` on buildscript; includeBuild house style
 - [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) — F-081 / F-082 surface rules (no chains, minimal attrs, global config)
 - [`GETTING-STARTED.md`](GETTING-STARTED.md) — tutorial usage + checklist
 - [`COMPOSE.md`](COMPOSE.md) — `compose` + `composeCompilerVersion` details
@@ -239,7 +253,7 @@ Readers (feature wiring, dependency helpers, target DSLs) obtain values through 
 
 - [ ] Exactly one `androidProjectConfiguration(...)` call in the **root** `buildscript { }`
 - [ ] `project = rootProject` (or equivalent root)
-- [ ] `extraPlugins` only for classpath jars (see TARGET-PLUGINS for how to actually apply)
+- [ ] `extraPlugins` only for classpath jars (see TARGET-PLUGINS for how to actually apply; no `project(":…")` — see BUILDSCRIPT-PROJECT-CLASSPATH)
 - [ ] No calls to any `Project.androidProjectConfiguration` form (removed)
 - [ ] Child targets rely on `Forma.settings` / per-target overrides only
 - [ ] Type-owned plugins used for external plugin application (no ad-hoc apply)

@@ -2,6 +2,29 @@
 
 Newest entries first.
 
+## 2026-07-26 — F-100: Buildscript classpath classifier (no same-build project())
+
+- **Ticket:** F-100 → `done` (GH #111)
+- **Branch:** `forma/F-100-buildscript-project-classpath` (from `origin/v2`)
+- **Spike (Gradle 9.6.1, real host):**
+  - Same-build `classpath(project(":plugin"))` → **fails** `Project dependencies cannot be declared here.`
+  - `classpath(rootProject.project(":plugin"))` → class-loader / configure failure
+  - `includeBuild` + GAV on buildscript classpath → **works** (plugin class visible)
+- **Ship shape (hybrid C — A impossible):**
+  - Pure `tools.forma.config.BuildscriptClasspath` — classify/resolve `extraPlugins` entries; reject `Project`/`ProjectDependency` with includeBuild recipe + `docs/BUILDSCRIPT-PROJECT-CLASSPATH.md`
+  - Accept: String GAV, `Provider<PluginDependency>` / bare, `Provider<String>`, File/FileCollection, external module deps, map notation
+  - Wire `buildScriptConfiguration` (android) + `kmpBuildscriptClasspath` (kmp) through shared resolver
+  - Jacoco happy-path include for `BuildscriptClasspath*`
+- **Docs:** `docs/BUILDSCRIPT-PROJECT-CLASSPATH.md`; PROJECT-CONFIGURATION / TARGET-PLUGINS / GETTING-STARTED / DEPS-CATALOG cross-links; KDoc on android+kmp config
+- **Tests:** `:config` `BuildscriptClasspathTest` (12 cases)
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** (1m20s, 75 tasks)
+  - `plugins/`: `./gradlew :config:test --tests tools.forma.config.BuildscriptClasspathTest` → **BUILD SUCCESSFUL**
+  - `application/`: `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (2m14s, 603 tasks)
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after CLI timeout (re-verify + PR)
+- **Not in this slice:** dual raw buildscript path; inventing broken `project()` support; F-101+
+- **Next step:** F-101 (close `target(...)` deps API audit) after F-100 merges
+
 ## 2026-07-25 — F-110: KMP user docs + agent skill + curriculum
 
 - **Ticket:** F-110 → `done` (P11 v1 complete; next board **F-100**)

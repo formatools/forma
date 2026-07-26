@@ -1,10 +1,9 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
-import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.ScriptHandlerScope
 import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import org.gradle.kotlin.dsl.repositories
-import org.gradle.plugin.use.PluginDependency
+import tools.forma.config.BuildscriptClasspath
 import tools.forma.config.FormaSettingsStore
 import tools.forma.kmp.settings.DEFAULT_KMP_JVM_TARGET
 import tools.forma.kmp.settings.KmpPlatforms
@@ -52,6 +51,8 @@ import tools.forma.kmp.target.registerKmpDefaults
  *   `androidProjectConfiguration` already ran, else must be set explicitly if android is on
  *   and no Android settings exist (classpath still optional until apply)
  * @param extraPlugins additional buildscript classpath jars/providers only
+ *   ([BuildscriptClasspath] — same rules as Android; no same-build `project()`;
+ *   see docs/BUILDSCRIPT-PROJECT-CLASSPATH.md)
  */
 fun ScriptHandlerScope.kmpProjectConfiguration(
     project: Project,
@@ -103,6 +104,9 @@ fun ScriptHandlerScope.kmpProjectConfiguration(
 /**
  * Buildscript classpath helper local to `:kmp` (do **not** import android's
  * `buildScriptConfiguration` — that would create `:kmp` → `:android`).
+ *
+ * Dispatch shares [BuildscriptClasspath] with Android (F-100) so accepted types
+ * and error messages stay in lockstep.
  */
 internal fun ScriptHandlerScope.kmpBuildscriptClasspath(classpathDeps: List<Any>) {
     repositories {
@@ -111,16 +115,12 @@ internal fun ScriptHandlerScope.kmpBuildscriptClasspath(classpathDeps: List<Any>
     }
     dependencies {
         classpathDeps.forEach { dep ->
-            when (dep) {
-                is Provider<*> ->
-                    (dep.get() as? PluginDependency)?.let { plugin ->
-                        classpath("${plugin.pluginId}:${plugin.version.strictVersion}")
-                    }
-                        ?: throw IllegalArgumentException(
-                            "kmpProjectConfiguration extraPlugins: only PluginDependency providers are supported"
-                        )
-                else -> classpath(dep)
-            }
+            classpath(
+                BuildscriptClasspath.resolve(
+                    dep,
+                    contextLabel = "kmpProjectConfiguration extraPlugins",
+                )
+            )
         }
     }
 }

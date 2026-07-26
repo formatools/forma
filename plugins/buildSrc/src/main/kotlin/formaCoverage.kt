@@ -45,6 +45,8 @@ internal val happyPathClassIncludes =
         "**/tools/forma/config/FormaFeatureFlags*",
         "**/tools/forma/config/FormaSettingsStore*",
         "**/tools/forma/config/DependencyValidation*",
+        // F-100 pure buildscript classpath classifier (Project apply paths stay out)
+        "**/tools/forma/config/BuildscriptClasspath*",
         "**/tools/forma/deps/catalog/Generators*",
         "**/tools/forma/deps/core/TargetPlugin*",
         "**/tools/forma/deps/core/DefaultTargetPlugin*",
