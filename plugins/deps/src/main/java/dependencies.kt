@@ -6,6 +6,7 @@ import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.provider.Provider
 import tools.forma.config.FormaSettingsStore
+import tools.forma.core.fleet.ProjectPathForms
 import tools.forma.deps.core.CustomConfiguration
 import tools.forma.deps.core.DepType
 import tools.forma.deps.core.EmptyDependency
@@ -290,11 +291,23 @@ val String.transitiveDep: NamedDependency
 val String.ksp: NamedDependency
     get() = ksp(this)
 
+/** Self-ref when a target needs to depend on / name itself. */
 val Project.target: FormaTarget
     get() = FormaTarget(this)
 
+/**
+ * Resolve a **Forma logical path** to a [FormaTarget].
+ *
+ * Happy path: colon paths such as `target(":feature:home:impl")`. Includer maps nested
+ * dirs to dashed Gradle project names (`:feature-home-impl`); see
+ * [ProjectPathForms.gradleProjectPathFromFormaTarget]. Do **not** use raw `project(":…")`
+ * at call sites — that is an implementation detail inside this helper.
+ *
+ * Typesafe accessors: [target] overload taking [ProjectDependency], or [Project.deps].
+ * Slash / Bazel-style paths are out of scope (discussion #57).
+ */
 fun Project.target(name: String): FormaTarget =
-    project(":" + name.substring(1).replace(":", "-")).target
+    project(ProjectPathForms.gradleProjectPathFromFormaTarget(name)).target
 
 /**
  * Resolve a [ProjectDependency] (including typesafe project accessors) to a [FormaTarget].
