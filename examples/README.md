@@ -39,6 +39,7 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | 09 | `android/09-test-utils` | `testUtil`, `androidTestUtil` (unit + instrumented usage) |
 | 10 | `android/10-target-plugins` | Path B `navigationRes`, type-owned safe-args, `extraPlugins` classpath |
 | 11 | `android/11-metro-di` | Path A Metro on `impl`/`app` + `metroImpl`/`metroApp` DSLs, compile-time DI |
+| 12 | `android/12-navigation-ports` | Presentation `Navigator` ports + root adapter; Jetpack/Safe Args only at root; Path B `navigationRes` |
 | 13 | `android/13-android-native` | `androidNative` (CMake) + JNI `androidUtil` consumer |
 | 14 | `android/14-google-firebase` | Firebase Crashlytics + Analytics via Path A `firebaseBinary` |
 

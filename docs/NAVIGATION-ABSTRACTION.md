@@ -8,7 +8,7 @@ reuse of existing Path B `navigationRes` only where type=rule already fits.
 |-------|--------|--------|
 | Design (this doc) | **F-102** | Problem, layers A/B, v1 approach, rejects, ticket map |
 | Sample ports + root adapter | **F-111** | Gold-standard `application/` refactor |
-| Progressive example | **F-112** | `examples/android/12-navigation-ports` |
+| Progressive example | **F-112** | `examples/android/12-navigation-ports` (shipped) |
 | Optional type tweaks | only if evidence | No new forever router DSL in plugins |
 
 ---
@@ -199,7 +199,7 @@ See [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md) Path B and sample
 build-performance contract; abstraction work must not reintroduce absolute-path
 safe-args lines or call-site plugin apply.
 
-### 4.4 Progressive example shape (F-112 — implement later)
+### 4.4 Progressive example shape (F-112 — shipped)
 
 `examples/android/12-navigation-ports/` (name locked here for the ladder):
 
@@ -249,7 +249,7 @@ Documented pattern only:
 |----|---------------|-------------|
 | **F-102** | **done** (design) | This document + cross-links + board split |
 | **F-111** | todo | Sample: presentation ports + adapter at composition root; strip Nav/Safe Args from feature `impl`/VM where practical; keep `navigationRes`; `application/` still green |
-| **F-112** | todo | Progressive example `examples/android/12-navigation-ports` + ladder/skill links |
+| **F-112** | done | Progressive example `examples/android/12-navigation-ports` + ladder/skill links |
 | F-102c (optional) | only if needed | Tiny type/docs tweak to `navigationRes` / TARGET-PLUGINS — **no** router engine |
 
 **Ordering:** F-111 may land before or after F-112; prefer **F-112 first** if the

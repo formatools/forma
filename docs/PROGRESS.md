@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-26 — F-112: Progressive example navigation ports
+
+- **Ticket:** F-112 → `done` (teach F-102 Layer A/B; sample migration remains **F-111**)
+- **Branch:** `forma/F-112-navigation-ports` (from `origin/v2`)
+- **Example:** `examples/android/12-navigation-ports/`
+  - `navigation-api` (`api`) — `Navigator` + sealed `AppDestination` + `NavigatorProvider` (**zero** `androidx.navigation`)
+  - `feature/list|detail` `impl` + `viewbinding` — UI emits destinations / `back()` only; plain Bundle arg key on detail (no `*Args` / `findNavController`)
+  - `navigation/res` — Path B `navigationRes` + two-destination graph; Safe Args type-owned
+  - `root-app` — composition root: `NavPortsActivity` + `JetpackNavigator` (sole Safe Args / `NavController` consumer)
+  - `root-res` + `binary` — host layout / APK composition
+- **Docs/curriculum:** example README; `PROGRESSIVE-EXAMPLES.md` row 12 shipped; `examples/README.md` ladder; agent overview skill blurb; `NAVIGATION-ABSTRACTION.md` F-112 done
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `examples/android/12-navigation-ports` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (51s)
+  - `:navigation-res:tasks --all` lists `generateSafeArgsDebug` / `Release`
+- **Notes / pitfalls fixed while shipping:**
+  - Safe-args plugin **2.9.8** (2.7.7 fails “must be used with android plugin” under AGP 9 — same ceiling as sample)
+  - External nav coords via **`transitiveDeps`** — plain `deps("gav")` is non-transitive and breaks Safe Args codegen compile (`NavArgs`, annotation)
+  - Path A Firebase registration on `AndroidTargetTypes.binary` is **global JVM registry** — stop Gradle daemons between example 14 and other `androidBinary` trees if residual apply appears
+- **Not in this slice:** F-111 Marvel sample refactor; matrix/engine DSL; example 10 safe-args pin bump (still 2.7.7 — known stale)
+- **Skills/modes:** Hermes direct (progressive-example scaffold class; F-050/F-112)
+- **Next step:** **F-111** sample navigation ports + root adapter
+
 ## 2026-07-26 — F-114: Google first-party libraries coverage + Firebase usage
 
 - **Ticket:** F-114 → `done` (clarifies Stepan “1st party” = Google/AndroidX stacks, not Forma target types)
