@@ -17,6 +17,8 @@ plugin on every call site of that type.
 
 1. Put the Gradle plugin jar on the **classpath** (`extraPlugins` / catalog `plugin(...)`).
    See [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) — `extraPlugins` is buildscript-classpath only.
+   Local convention plugins: **includeBuild + catalog plugin GAV**, not `project(":…")`
+   ([`BUILDSCRIPT-PROJECT-CLASSPATH.md`](BUILDSCRIPT-PROJECT-CLASSPATH.md), F-100).
 2. Bind the plugin to a **type** once:
    - **Path B (typical):** `targetPlugin` + `deriveTargetType` + thin DSL (see sample `NavigationRes.kt` / example `forma-defs/`).
    - **Path A:** `registerTargetPlugin(AndroidTargetTypes.res, …)` only if *every* module of that kind should get it.

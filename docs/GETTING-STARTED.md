@@ -203,7 +203,9 @@ Hands-on: [examples/android/10-target-plugins](../examples/android/10-target-plu
 Sample: `application/core/navigation/res` + `build-dependencies/.../NavigationRes.kt`.
 
 `extraPlugins` / catalog `plugin(...)` = **classpath**. Type-owned registry =
-**apply** on the right targets.
+**apply** on the right targets. Local convention plugins use **includeBuild +
+catalog plugin GAV** — not `project(":…")` on the buildscript classpath
+([BUILDSCRIPT-PROJECT-CLASSPATH.md](BUILDSCRIPT-PROJECT-CLASSPATH.md)).
 
 Useful `gradle.properties` (sample-aligned):
 
