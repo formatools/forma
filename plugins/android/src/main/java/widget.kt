@@ -8,7 +8,6 @@ import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
-import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.fleet.registerFormaLayout
@@ -29,8 +28,8 @@ fun Project.widget(
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
-    testDependencies: NamedDependency = emptyDependency(),
-    androidTestDependencies: NamedDependency = emptyDependency(),
+    testDependencies: FormaDependency = emptyDependency(),
+    androidTestDependencies: FormaDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap()

@@ -74,6 +74,14 @@ class AndroidTargetRegistryKmpEdgesTest {
         assertTrue(g.isAllowed(t.api, t.jvmLibrary))
         assertFalse(g.isAllowed(t.impl, t.impl))
         assertTrue(g.isAllowed(t.impl, t.api))
+
+        // F-113: native consumers (JNI wrappers + composition roots)
+        assertTrue(g.isAllowed(t.androidUtil, t.native))
+        assertTrue(g.isAllowed(t.app, t.native))
+        assertTrue(g.isAllowed(t.binary, t.native))
+        assertFalse(g.isAllowed(t.impl, t.native))
+        assertFalse(g.isAllowed(t.native, t.androidUtil))
+        assertFalse(g.isAllowed(t.native, t.native))
     }
 
     @Test

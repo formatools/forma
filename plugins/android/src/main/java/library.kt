@@ -11,7 +11,6 @@ import tools.forma.android.feature.processorConfigurationFeatures
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.core.FormaDependency
-import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.fleet.registerFormaLayout
 import tools.forma.validation.asValidator
 import tools.forma.validation.validate
@@ -24,7 +23,7 @@ fun Project.library(
     dependencies: FormaDependency = emptyDependency(),
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
-    testDependencies: NamedDependency = emptyDependency()
+    testDependencies: FormaDependency = emptyDependency()
 ) {
     AndroidTargetRegistry.selfValidator(AndroidTargetTypes.jvmLibrary).asValidator().validate(target)
     registerFormaLayout(packageName)

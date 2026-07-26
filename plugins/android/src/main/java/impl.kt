@@ -8,7 +8,6 @@ import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.utils.BuildConfiguration
 import tools.forma.deps.core.FormaDependency
-import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.fleet.registerFormaLayout
@@ -34,8 +33,13 @@ import tools.forma.validation.validate
 fun Project.impl(
     packageName: String,
     dependencies: FormaDependency = emptyDependency(),
-    testDependencies: NamedDependency = emptyDependency(),
-    androidTestDependencies: NamedDependency = emptyDependency(),
+    /** Unit-test classpath — named GAVs and/or first-party `testUtil` project targets. */
+    testDependencies: FormaDependency = emptyDependency(),
+    /**
+     * Instrumented-test classpath — named GAVs and/or first-party `androidTestUtil`
+     * project targets (not validated by the main `impl` matrix row).
+     */
+    androidTestDependencies: FormaDependency = emptyDependency(),
     viewBinding: Boolean = Forma.settings.buildFeatures.viewBinding,
     compose: Boolean = Forma.settings.compose,
     testInstrumentationRunner: String = androidJunitRunner,

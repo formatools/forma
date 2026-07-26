@@ -30,14 +30,14 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | Multi-feature composition | 07 | 04 | — | forma-project-layout |
 | `projectDependencies` catalogs (**house style**) | 08 | — | — | forma-deps-catalog |
 | `testUtil` | 09 | 05 | — | platform skills |
-| `androidTestUtil` | 09 | — | — | forma-android-targets |
+| `androidTestUtil` | 09 (androidTest uses helpers) | — | — | forma-android-targets |
 | Type-owned target plugins (`navigationRes` Path B) | 10 | — | — | forma-target-plugins |
 | Metro DI (`metroImpl` / `metroApp`, Path A on impl/app) | 11 | — | — | forma-target-plugins |
 | Navigation ports (presentation ports + adapter; Jetpack behind root) | **12** (F-112 todo) | — | — | — (design: [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md)) |
+| `androidNative` + JNI via `androidUtil` | **13** | — | — | forma-android-targets |
 | `kmpLibrary` + `kmpProjectConfiguration` | — | — | 01 | forma-kmp-targets |
 | JVM/Android → `kmp.*` consumer edge | — | — | 01 (JVM binary) | forma-kmp-targets |
 | Fleet check/generate/migrate (`tools.forma.core.fleet`) | docs | docs | — | forma-fleet-tooling |
-| `androidNative` | skill/docs | — | — | forma-android-targets |
 | Bazel adapter / sample | skill | skill | — | forma-bazel |
 
 ## Verify

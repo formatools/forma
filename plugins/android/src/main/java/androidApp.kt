@@ -11,7 +11,6 @@ import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
-import tools.forma.deps.core.NamedDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
 import tools.forma.deps.fleet.registerFormaLayout
@@ -36,8 +35,8 @@ fun Project.androidApp(
     owner: Owner = NoOwner,
     visibility: Visibility = Public,
     dependencies: FormaDependency = emptyDependency(),
-    testDependencies: NamedDependency = emptyDependency(),
-    androidTestDependencies: NamedDependency = emptyDependency(),
+    testDependencies: FormaDependency = emptyDependency(),
+    androidTestDependencies: FormaDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),

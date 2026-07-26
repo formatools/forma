@@ -36,9 +36,10 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | 06 | `android/06-compose` | `compose` flags, `composeWidget` |
 | 07 | `android/07-multi-feature` | two features at composition root |
 | 08 | `android/08-deps-catalog` | `projectDependencies` / `library` / `bundle` / `plugin` |
-| 09 | `android/09-test-utils` | `testUtil`, `androidTestUtil` (+ `androidNative` docs) |
+| 09 | `android/09-test-utils` | `testUtil`, `androidTestUtil` (unit + instrumented usage) |
 | 10 | `android/10-target-plugins` | Path B `navigationRes`, type-owned safe-args, `extraPlugins` classpath |
 | 11 | `android/11-metro-di` | Path A Metro on `impl`/`app` + `metroImpl`/`metroApp` DSLs, compile-time DI |
+| 13 | `android/13-android-native` | `androidNative` (CMake) + JNI `androidUtil` consumer |
 
 ### KMP (`tools.forma.kmp`)
 

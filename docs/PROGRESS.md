@@ -2,6 +2,20 @@
 
 Newest entries first.
 
+## 2026-07-26 — F-113: Android first-party library examples complete
+
+- **Ticket:** F-113 → `done`
+- **Branch:** `forma/F-113-android-library-examples` (from `origin/v2`)
+- **Why:** Progressive ladder claimed full Android target coverage but (1) `androidTestUtil` was declared without any androidTest consumer, (2) `androidNative` was docs-only and **unconsumable** (no matrix edges), (3) `androidTestDependencies` / `testDependencies` were typed `NamedDependency` so first-party project targets could not be passed.
+- **Code:**
+  - Matrix: `androidUtil` / `androidApp` / `androidBinary` → `native`; native remains a leaf (empty allow list). Kit + registry + unit assertions.
+  - DSL: `testDependencies` / `androidTestDependencies` widened to `FormaDependency` on `impl`, `androidApp`, `widget`, `composeWidget`, `uiLibrary`, `library`.
+  - `examples/android/09-test-utils`: instrumented `AdderAndroidTest` uses `AndroidChecks` via `androidTestDependencies = deps(target(":common:android-test-util")) + …`.
+  - `examples/android/13-android-native`: CMake `androidNative` + JNI `androidUtil` façade + Activity usage.
+- **Docs:** DEPENDENCY-MATRIX, PROGRESSIVE-EXAMPLES, CALL-SITE-SURFACE, README, examples/README, agent skill `forma-android-targets` coverage table.
+- **Verify:** plugins unit + jacoco; 09 assemble + unit + assembleDebugAndroidTest; 13 assembleDebug (NDK 28.2 + CMake 3.22.1 on host).
+- **Next step:** F-111 / F-112 navigation ports (board top `todo`).
+
 ## 2026-07-26 — F-102: Navigation abstraction design (GH #46)
 
 - **Ticket:** F-102 → `done` (design bar only). Implement follow-ups **F-111** (sample ports + root adapter), **F-112** (`examples/android/12-navigation-ports`).
