@@ -49,20 +49,21 @@ systems like Buck and Bazel.
 
 1. [**Android project tutorial**](docs/GETTING-STARTED.md) — mental model, run the sample, greenfield skeleton, target cheat sheet (F-015 / GH #53)
 2. [**JVM getting started**](docs/JVM-GETTING-STARTED.md) — pure JVM tutorial, run the sample, greenfield skeleton with `binary`, `api`/`impl`, target cheat sheet (F-032)
-3. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
-4. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
-5. [External deps catalogs](docs/DEPS-CATALOG.md) · [Target plugins](docs/TARGET-PLUGINS.md) (type-owned, Bazel-like; examples `10-target-plugins`, `11-metro-di`) · [Call-site surface](docs/CALL-SITE-SURFACE.md) (Unit DSLs + flag inventory) · [Fleet tooling](docs/FLEET-TOOLING.md) (check/generate Gradle tasks + core APIs, F-084/F-088) · [Principle audit](docs/PRINCIPLE-AUDIT.md) (F-085) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
-6. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
-7. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
-8. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
-9. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
-10. [JVM sample application](docs/JVM-SAMPLE.md) — multi-module pure-JVM gold standard (`jvm-application/`, F-031)
-11. [**Kotlin Multiplatform design**](docs/KMP-TARGETS.md) — `tools.forma.kmp` types, matrix, no call-site target shopping (F-105; implement F-106…F-110)
-12. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
-13. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
-14. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
-15. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050)
-16. [**Test coverage**](docs/TEST-COVERAGE.md) — JaCoCo on `plugins/`, happy-path LINE ≥60% gate
+3. [**KMP getting started**](docs/KMP-GETTING-STARTED.md) — shared multiplatform libraries, `kmpProjectConfiguration`, JVM/Android consumers (F-110)
+4. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
+5. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
+6. [External deps catalogs](docs/DEPS-CATALOG.md) · [Target plugins](docs/TARGET-PLUGINS.md) (type-owned, Bazel-like; examples `10-target-plugins`, `11-metro-di`) · [Call-site surface](docs/CALL-SITE-SURFACE.md) (Unit DSLs + flag inventory) · [Fleet tooling](docs/FLEET-TOOLING.md) (check/generate Gradle tasks + core APIs, F-084/F-088) · [Principle audit](docs/PRINCIPLE-AUDIT.md) (F-085) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
+7. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
+8. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
+9. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
+10. [JVM targets](docs/JVM-TARGETS.md) — pure JVM platform plugin `tools.forma.jvm` (F-030)
+11. [JVM sample application](docs/JVM-SAMPLE.md) — multi-module pure-JVM gold standard (`jvm-application/`, F-031)
+12. [**Kotlin Multiplatform design**](docs/KMP-TARGETS.md) — `tools.forma.kmp` types, matrix, no call-site target shopping (F-105…F-110 shipped)
+13. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
+14. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
+15. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
+16. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050; KMP skill `forma-kmp-targets`)
+17. [**Test coverage**](docs/TEST-COVERAGE.md) — JaCoCo on `plugins/`, happy-path LINE ≥60% gate
 
 Configuration made easy:
 

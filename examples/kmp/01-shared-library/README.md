@@ -50,7 +50,9 @@ BUILD SUCCESSFUL
 ## Non-goals (this step)
 - Android consumer / `android = true` platforms (optional later; needs `androidProjectConfiguration` + AGP)
 - `kmpApi` / `kmpUtil` / expect-actual
-- Full KMP getting-started docs and agent skill (F-110)
 
 ## Next
-F-110 curriculum docs. Broader KMP ladder may add api/util and Android consumer steps later.
+- Tutorial: [`docs/KMP-GETTING-STARTED.md`](../../../docs/KMP-GETTING-STARTED.md)
+- Agent skill: [`forma-kmp-targets`](../../agent-skills/forma-kmp-targets.md)
+- Design/matrix: [`docs/KMP-TARGETS.md`](../../../docs/KMP-TARGETS.md)
+- Broader KMP ladder may add api/util and Android consumer steps later.

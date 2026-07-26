@@ -7,10 +7,10 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 |----------|-------|
 | Humans learning Android Forma | [examples/android/01-hello-apk](../examples/android/01-hello-apk) then climb |
 | Humans learning JVM Forma | [examples/jvm/01-hello-binary](../examples/jvm/01-hello-binary) |
-| Humans learning KMP Forma | [examples/kmp/01-shared-library](../examples/kmp/01-shared-library) |
+| Humans learning KMP Forma | [examples/kmp/01-shared-library](../examples/kmp/01-shared-library) + [KMP-GETTING-STARTED.md](KMP-GETTING-STARTED.md) |
 | Coding agents | [examples/agent-skills/](../examples/agent-skills/) |
 | Full product reference | [SAMPLE-APP.md](SAMPLE-APP.md) / [JVM-SAMPLE.md](JVM-SAMPLE.md) |
-| Narrative tutorials | [GETTING-STARTED.md](GETTING-STARTED.md) / [JVM-GETTING-STARTED.md](JVM-GETTING-STARTED.md) |
+| Narrative tutorials | [GETTING-STARTED.md](GETTING-STARTED.md) / [JVM-GETTING-STARTED.md](JVM-GETTING-STARTED.md) / [KMP-GETTING-STARTED.md](KMP-GETTING-STARTED.md) |
 
 ## Feature coverage matrix
 
@@ -33,8 +33,8 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | `androidTestUtil` | 09 | — | — | forma-android-targets |
 | Type-owned target plugins (`navigationRes` Path B) | 10 | — | — | forma-target-plugins |
 | Metro DI (`metroImpl` / `metroApp`, Path A on impl/app) | 11 | — | — | forma-target-plugins |
-| `kmpLibrary` + `kmpProjectConfiguration` | — | — | 01 | F-110 (`forma-kmp-targets`) |
-| JVM/Android → `kmp.*` consumer edge | — | — | 01 (JVM binary) | F-110 |
+| `kmpLibrary` + `kmpProjectConfiguration` | — | — | 01 | forma-kmp-targets |
+| JVM/Android → `kmp.*` consumer edge | — | — | 01 (JVM binary) | forma-kmp-targets |
 | Fleet check/generate/migrate (`tools.forma.core.fleet`) | docs | docs | — | forma-fleet-tooling |
 | `androidNative` | skill/docs | — | — | forma-android-targets |
 | Bazel adapter / sample | skill | skill | — | forma-bazel |

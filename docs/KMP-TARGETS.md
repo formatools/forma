@@ -1,6 +1,7 @@
 # Kotlin Multiplatform (KMP) targets — design (F-105)
 
-**Status:** design accepted (F-105). Implementation: **F-106…F-110** (see `TICKETS.md` § P11).
+**Status:** design accepted (F-105). Implementation **F-106…F-110 done** (see `TICKETS.md` § P11).
+User tutorial: [`KMP-GETTING-STARTED.md`](KMP-GETTING-STARTED.md) · agent skill: [`forma-kmp-targets`](../examples/agent-skills/forma-kmp-targets.md).
 
 **North star:** KMP is a **third platform adapter** on forma-core (after Android + pure JVM), not a free-form
 `kotlin { targets { … } }` escape hatch. Call sites stay **Bazel-like**: type + attributes. The
@@ -349,7 +350,7 @@ requires Android settings present or fails fast with a clear error.
 | **F-107** | Feature applicator: apply KMP (+ Android KMP lib), jvm+android targets, source sets, `kmpLibrary` DSL + deps apply path | Unit tests + compile; minimal smoke module if feasible |
 | **F-108** | Extend Android + JVM restriction matrices to allow KMP deps; docs matrix | Registry unit tests; sample edge compile |
 | **F-109** | Progressive example `examples/kmp/01-shared-library` (shared kmp-library + jvm binary and/or tiny android binary consumer) | **Done** — pure KMP+JVM (`KmpPlatforms(jvm=true, android=false)`); `./gradlew build` + `:binary:run` green. See example README. |
-| **F-110** | User docs (`KMP-GETTING-STARTED` or section), agent skill, PROGRESSIVE-EXAMPLES ladder, README links | Doc-only + example already green |
+| **F-110** | User docs (`KMP-GETTING-STARTED`), agent skill, PROGRESSIVE-EXAMPLES ladder, README links | **Done** — `docs/KMP-GETTING-STARTED.md` + `examples/agent-skills/forma-kmp-targets.md` + curriculum/README links |
 
 Do **not** merge F-107 without a written spike note in PROGRESS if the Android KMP library plugin
 API differs from this doc — update §4.3 in the same PR.
@@ -432,6 +433,9 @@ feature/hello/impl/          # existing android impl
 
 ## 12. See also
 
+- User tutorial: [`KMP-GETTING-STARTED.md`](KMP-GETTING-STARTED.md)
+- Progressive example: [`examples/kmp/01-shared-library`](../examples/kmp/01-shared-library)
+- Agent skill: [`forma-kmp-targets`](../examples/agent-skills/forma-kmp-targets.md)
 - Implementation plan (Hermes): `.hermes/plans/*-kmp-multiplatform.md` (workspace)
 - JVM precedent: [`JVM-TARGETS.md`](JVM-TARGETS.md), `plugins/jvm/`
 - Target plugins: [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)

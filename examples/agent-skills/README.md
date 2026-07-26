@@ -8,6 +8,7 @@ matrix rules, and progressive example pointers.
 | [forma-overview](forma-overview.md) | Any Forma work; entry map |
 | [forma-android-targets](forma-android-targets.md) | Creating/editing Android targets |
 | [forma-jvm-targets](forma-jvm-targets.md) | Pure JVM targets |
+| [forma-kmp-targets](forma-kmp-targets.md) | KMP shared libraries (`kmpLibrary`, platforms once) |
 | [forma-dependency-matrix](forma-dependency-matrix.md) | Dependency / visibility errors |
 | [forma-deps-catalog](forma-deps-catalog.md) | External deps / catalogs |
 | [forma-target-plugins](forma-target-plugins.md) | External plugins on types (Path A/B); never `.withPlugin` |
