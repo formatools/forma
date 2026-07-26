@@ -10,6 +10,7 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 |-------|------|-------|
 | JVM | [`jvm/`](jvm/) | 01 hello-binary → 05 test-util |
 | Android | [`android/`](android/) | 01 hello-apk → 11 metro-di |
+| KMP | [`kmp/`](kmp/) | 01 shared-library (kmpLibrary + JVM binary) |
 | Agent skills | [`agent-skills/`](agent-skills/) | SKILL docs for coding agents |
 | User index | [`docs/PROGRESSIVE-EXAMPLES.md`](../docs/PROGRESSIVE-EXAMPLES.md) | narrative + feature coverage matrix |
 
@@ -39,6 +40,12 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | 10 | `android/10-target-plugins` | Path B `navigationRes`, type-owned safe-args, `extraPlugins` classpath |
 | 11 | `android/11-metro-di` | Path A Metro on `impl`/`app` + `metroImpl`/`metroApp` DSLs, compile-time DI |
 
+### KMP (`tools.forma.kmp`)
+
+| Step | Directory | Features |
+|------|-----------|----------|
+| 01 | `kmp/01-shared-library` | `kmpLibrary`, `kmpProjectConfiguration` (jvm-only platforms), JVM `binary` → `*-kmp-library` |
+
 Bazel is covered by agent skill + existing [`bazel-adapter/`](../bazel-adapter/) and [`bazel-sample/`](../bazel-sample/) (not duplicated here).
 
 ## Verify
@@ -47,6 +54,10 @@ Bazel is covered by agent skill + existing [`bazel-adapter/`](../bazel-adapter/)
 source scripts/env-mac.sh
 
 for d in examples/jvm/*/; do
+  (cd "$d" && ./gradlew build --quiet && ./gradlew :binary:run --quiet)
+done
+
+for d in examples/kmp/*/; do
   (cd "$d" && ./gradlew build --quiet && ./gradlew :binary:run --quiet)
 done
 

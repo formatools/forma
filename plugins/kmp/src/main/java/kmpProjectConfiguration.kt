@@ -1,5 +1,3 @@
-package tools.forma.kmp
-
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.provider.Provider
@@ -16,6 +14,10 @@ import tools.forma.kmp.target.registerKmpDefaults
 
 /**
  * Single project-global entry for Kotlin Multiplatform configuration (F-107 / F-082 spirit).
+ *
+ * **Default package** (same pattern as [androidProjectConfiguration]) so root
+ * `buildscript { kmpProjectConfiguration(...) }` resolves without imports — Gradle Kotlin
+ * DSL does not reliably resolve packaged extension imports inside `buildscript { }`.
  *
  * Call once from the **root** `build.gradle.kts` inside `buildscript { }`:
  *
