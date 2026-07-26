@@ -201,6 +201,11 @@ No `.withPlugin`, no `pluginConfig = pluginConfig(binding)`.
 (sample **2.9.8**). See [`CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md)
 § Navigation Safe Args task cache — do not paper over with call-site plugin APIs.
 
+**Presentation vs graphs (F-102 / GH #46):** `navigationRes` owns **graphs +
+safe-args apply**. Keeping Jetpack Navigation / `*Directions` out of feature
+`impl` is **app architecture** (ports + root adapter), not a new Forma router
+DSL — see [`NAVIGATION-ABSTRACTION.md`](NAVIGATION-ABSTRACTION.md).
+
 ---
 
 ## 5. Plugin config = rule attributes (uniform, optional)

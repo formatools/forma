@@ -229,7 +229,7 @@ application/
 ├── core/
 │   ├── di/android-util     androidUtil
 │   ├── mvvm/ui-library     uiLibrary
-│   ├── navigation/res      androidRes
+│   ├── navigation/res      navigationRes (Path B; safe-args type-owned)
 │   ├── network/library     library (JVM)
 │   └── theme/{android-util,res}
 ├── common/
@@ -251,7 +251,9 @@ application/
 Wiring pattern:
 
 - Feature **api** = JVM Kotlin contracts (+ network/library etc.)
-- Feature **impl** = Android library + Dagger + navigation + viewbinding/res/widget
+- Feature **impl** = Android library + Dagger + viewbinding/res/widget (today also
+  Jetpack Navigation bleed — see [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md);
+  F-111 moves Nav/Safe Args to a root adapter)
 - **binary** depends on root-app + all feature api/impl + shared core (explicit
   graph; not only transitive)
 - `packageName` aligned to path under `tools.forma.sample…` (F-014)
@@ -375,6 +377,7 @@ Suggested extraction order (tickets F-020…F-024):
 | Shared `library` suffix for JVM vs Android library | F-020 design: unique `TargetType.id`, shared suffix OK ([`forma-core-api.md`](forma-core-api.md) §7); optional rename later |
 | Plugin publish / Portal path | F-016 (`docs/PLUGIN-PUBLISH.md`; Portal org GH #133 is human) |
 | ~~Configuration-time cost (validators/deps/repos)~~ → [`docs/CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md) | F-017 done |
+| Navigation tooling bleed into feature `impl` (GH #46) → design [`NAVIGATION-ABSTRACTION.md`](NAVIGATION-ABSTRACTION.md); implement F-111/F-112 | F-102 design done |
 
 ---
 
@@ -392,6 +395,7 @@ Suggested extraction order (tickets F-020…F-024):
 | Auto module discovery | `includer/` |
 | CI | `.github/workflows/main.yml` |
 | Sample structure | `application/feature/**`, `binary/` · [SAMPLE-APP.md](SAMPLE-APP.md); JVM: `jvm-application/` · [JVM-SAMPLE.md](JVM-SAMPLE.md) |
+| Navigation ports vs `navigationRes` | [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md) (F-102 design; F-111/F-112 implement) |
 
 ---
 

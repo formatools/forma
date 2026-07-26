@@ -142,14 +142,16 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 | F-099 | done | Target-feature configuration options | GH **#126** — **done:** design `docs/TARGET-FEATURE-OPTIONS.md` + project-global `FormaFeatureFlags` on `androidProjectConfiguration` / `AndroidProjectSettings`; `depsIf`/`depsUnless`/`whenFlag` resolve at `applyDependencies` via pure `resolveFeatureFlags`; unit tests `:config`+`:deps`; docs PROJECT-CONFIGURATION / CALL-SITE / DEPS-CATALOG. Rejects call-site plugin shopping + binary-only flags. |
 | F-100 | done | Gradle project on buildscript classpath | GH **#111** — **done:** spike Gradle 9.6.1 — same-build `project()` on root buildscript **impossible** (`Project dependencies cannot be declared here`); includeBuild + GAV works. Shared `BuildscriptClasspath` classifier rejects `Project`/`ProjectDependency` with actionable error; accepts String GAV, catalog `plugin(...)`, File/FileCollection. Docs `BUILDSCRIPT-PROJECT-CLASSPATH.md` + PROJECT-CONFIGURATION/TARGET-PLUGINS/GETTING-STARTED. Unit tests `:config`; android+kmp wired. |
 | F-101 | done | Close `target(...)` deps API (audit) | GH **#56** **closable** — **done:** pure `ProjectPathForms.gradleProjectPathFromFormaTarget` + unit tests; `Project.target(String)` wired through it; docs DEPS-CATALOG §3 Project/target deps + CALL-SITE-SURFACE + GETTING-STARTED + README `target` example. Happy path = colon Forma paths + typesafe accessors; raw `project()` rejected; slash notation deferred #57. |
-| F-102 | todo | Navigation abstraction (sample + optional targets) | GH **#46** — reduce Jetpack Navigation codegen bleed across features. **Design first** (doc): presentation-layer nav ports vs Navigation Component; optional Forma nav targets only if type=rule fits. Prefer progressive example / sample refactor slice over new forever DSL. Large — split follow-ups if needed. |
+| F-102 | done | Navigation abstraction design | GH **#46** — **done (design):** [`docs/NAVIGATION-ABSTRACTION.md`](docs/NAVIGATION-ABSTRACTION.md) — Layer A presentation ports (no androidx.navigation in feature impl/VM) vs Layer B existing Path B `navigationRes` only; v1 = Jetpack behind root adapter; reject engine router DSL / plugin shopping / impl→impl / dual happy paths. Implement split: **F-111** sample, **F-112** progressive example. |
+| F-111 | todo | Sample navigation ports + root adapter | GH **#46** implement — apply F-102 design to `application/`: Navigator/destinations (or equiv) without Nav in feature `impl`/VM; adapter at composition root owns NavController + Safe Args; keep `navigationRes`; strip feature→`core/navigation/res` where practical. No Forma engine DSL. |
+| F-112 | todo | Progressive example: navigation ports | GH **#46** teach — `examples/android/12-navigation-ports` per F-102 §4.4; ladder + README; minimal graph; ports vs adapter vs `navigationRes`. Prefer before or with F-111. |
 | F-103 | todo | Hybrid targets example (flat dir / api+impl co-location) | GH **#44** — teaching example: simplified flat layout (api/impl/stub mental model, easy multi-module nav). May use includer layout + progressive example; align with F-084/F-088 fleet layout. No restore of `androidLibrary`. |
 | F-104 | todo | Hybrid configuration / stub targets for IDE sync | GH **#43** — stub targets + deps API so IDE sync can swap `impl`→`stub` (compileOnly/runtimeOnly pattern) via **one project-global flag**, not per-module hacks. Design+spike; depend on F-101/`target` APIs. Keep matrix truth. |
 
 ## P11 — Kotlin Multiplatform (Stepan 2026-07-25)
 
 Third Gradle platform on forma-core (`tools.forma.kmp`). **Design:** [`docs/KMP-TARGETS.md`](docs/KMP-TARGETS.md).
-**P11 v1 complete (F-105…F-110).** **F-100 / F-101 done.** Next board priority is **P10** top `todo` (**F-102**…) unless
+**P11 v1 complete (F-105…F-110).** **F-100…F-102 done** (F-102 = navigation design only). Next board priority is **P10** top `todo` (**F-111** sample nav ports, then **F-112** / **F-103**…) unless
 Stepan reprioritizes. v1 = **jvm + android** shared libraries only; type-owned MPP; **no** per-module
 target shopping; composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 
@@ -177,7 +179,7 @@ Keep for reference; do not start unless higher tickets done or user prioritizes:
 - ~~GH #77 transitiveDeps extension~~ → **F-096**
 - GH #54 Generate target structure from minimal config → **theme under F-084 / F-088**
 - ~~GH #51 Support build types~~ → **F-097**
-- ~~GH #46 New navigation system~~ → **F-102**
+- ~~GH #46 New navigation system~~ → **F-102** design done; implement **F-111** / **F-112**
 - ~~GH #44 Hybrid targets example~~ → **F-103**
 - ~~GH #43 Hybrid configuration example~~ → **F-104**
 - GH #36 Docs for external plugins → **P7 / F-070–F-073**

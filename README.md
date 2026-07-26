@@ -52,7 +52,7 @@ systems like Buck and Bazel.
 3. [**KMP getting started**](docs/KMP-GETTING-STARTED.md) — shared multiplatform libraries, `kmpProjectConfiguration`, JVM/Android consumers (F-110)
 4. [Sample app gold standard](docs/SAMPLE-APP.md) — multi-feature layout to copy
 5. [Dependency matrix](docs/DEPENDENCY-MATRIX.md) — what may depend on what
-6. [External deps catalogs](docs/DEPS-CATALOG.md) · [Target plugins](docs/TARGET-PLUGINS.md) (type-owned, Bazel-like; examples `10-target-plugins`, `11-metro-di`) · [Call-site surface](docs/CALL-SITE-SURFACE.md) (Unit DSLs + flag inventory) · [Fleet tooling](docs/FLEET-TOOLING.md) (check/generate Gradle tasks + core APIs, F-084/F-088) · [Principle audit](docs/PRINCIPLE-AUDIT.md) (F-085) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
+6. [External deps catalogs](docs/DEPS-CATALOG.md) · [Target plugins](docs/TARGET-PLUGINS.md) (type-owned, Bazel-like; examples `10-target-plugins`, `11-metro-di`) · [Navigation abstraction](docs/NAVIGATION-ABSTRACTION.md) (presentation ports vs `navigationRes`, F-102) · [Call-site surface](docs/CALL-SITE-SURFACE.md) (Unit DSLs + flag inventory) · [Fleet tooling](docs/FLEET-TOOLING.md) (check/generate Gradle tasks + core APIs, F-084/F-088) · [Principle audit](docs/PRINCIPLE-AUDIT.md) (F-085) · [Compose](docs/COMPOSE.md) · [Environment](docs/ENV.md)
 7. [Plugin publish path](docs/PLUGIN-PUBLISH.md) — Portal metadata DSL + release notes (F-016)
 8. [Configuration performance](docs/CONFIGURATION-PERFORMANCE.md) — measure + hot-path guidance (F-017 / GH #106)
 9. [forma-core public API design](docs/forma-core-api.md) — extraction contract for types / restrictions / registry (F-020)
