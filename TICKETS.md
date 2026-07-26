@@ -149,9 +149,9 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 ## P11 — Kotlin Multiplatform (Stepan 2026-07-25)
 
 Third Gradle platform on forma-core (`tools.forma.kmp`). **Design:** [`docs/KMP-TARGETS.md`](docs/KMP-TARGETS.md).
-**User priority (2026-07-25):** implement **F-107** next (before F-100…F-104) unless a hotfix blocks.
-v1 = **jvm + android** shared libraries only; type-owned MPP; **no** per-module target shopping;
-composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
+**P11 v1 complete (F-105…F-110).** Next board priority returns to **P10** top `todo` (**F-100**…) unless
+Stepan reprioritizes. v1 = **jvm + android** shared libraries only; type-owned MPP; **no** per-module
+target shopping; composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
@@ -160,7 +160,7 @@ composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 | F-107 | done | Apply kotlin-multiplatform + `kmpLibrary` DSL | `kmpProjectConfiguration` + feature applicator (`com.android.kotlin.multiplatform.library` + jvm); `kmpLibrary`/`kmpApi`/`kmpUtil`/`kmpTestUtil`; commonMain deps; unit tests; plugins jacoco green |
 | F-108 | done | Android/JVM consumer matrix edges → kmp.* | Extend `AndroidTargetRegistry` + `JvmTargetRegistry`; update `DEPENDENCY-MATRIX.md` from code; avoid `:kmp`→`:android` cycle |
 | F-109 | done | Progressive example `examples/kmp/01-shared-library` | Shared `kmp-library` + JVM binary consumer; pure KMP+JVM platforms; `./gradlew build` + `:binary:run` green |
-| F-110 | todo | KMP user docs + agent skill + curriculum | `KMP-GETTING-STARTED.md`, `examples/agent-skills/forma-kmp-targets.md`, PROGRESSIVE-EXAMPLES ladder, README |
+| F-110 | done | KMP user docs + agent skill + curriculum | `docs/KMP-GETTING-STARTED.md`; `examples/agent-skills/forma-kmp-targets.md`; PROGRESSIVE-EXAMPLES + README + overview skill links |
 
 ## Backlog (lower priority / historical GitHub)
 

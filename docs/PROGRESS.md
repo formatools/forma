@@ -2,6 +2,20 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-110: KMP user docs + agent skill + curriculum
+
+- **Ticket:** F-110 → `done` (P11 v1 complete; next board **F-100**)
+- **Branch:** `forma/F-110-kmp-docs` (from `origin/v2` @ F-109)
+- **Docs / skills:**
+  - `docs/KMP-GETTING-STARTED.md` — mental model, Path A example 01, Path B greenfield, cheat sheet, consumer edges, mobile monorepo, pitfalls, checklist
+  - `examples/agent-skills/forma-kmp-targets.md` — DSL/suffix/platforms/matrix rejects + skeleton
+  - Curriculum links: `PROGRESSIVE-EXAMPLES.md`, `examples/agent-skills/README.md` + `forma-overview.md`, `README.md` (KMP tutorial #3), `KMP-TARGETS.md` status + §8/§12, example 01 README Next
+  - `TICKETS.md` P11 header: v1 complete; resume P10 **F-100**
+- **Code:** docs/curriculum only (no engine changes)
+- **Verify (real host):** `examples/kmp/01-shared-library` `./gradlew build` + `:binary:run` (sanity after docs; product already green on F-109)
+- **Skills/modes:** Hermes direct (architecture/docs class; F-110 mechanical curriculum)
+- **Next step:** F-100 — Gradle project on buildscript classpath (GH #111)
+
 ## 2026-07-25 — F-109: Progressive example `examples/kmp/01-shared-library`
 
 - **Ticket:** F-109 → `done` (next F-110 KMP user docs + agent skill)
