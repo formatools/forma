@@ -63,78 +63,97 @@ val Provider<ExternalModuleDependencyBundle>.dep: List<NameSpec>
     get() = get().map { it.dep }
 
 infix operator fun FormaDependency.plus(dep: FormaDependency): MixedDependency {
-    // Avoid three filterIsInstance passes (names/targets/files) when both sides are already typed.
+    // Avoid filterIsInstance passes when both sides are already typed.
     val leftNames: List<NameSpec>
     val leftTargets: List<TargetSpec>
     val leftFiles: List<FileSpec>
+    val leftPlatforms: List<PlatformSpec>
     when (this) {
         is NamedDependency -> {
             leftNames = names
             leftTargets = emptyList()
             leftFiles = emptyList()
+            leftPlatforms = emptyList()
         }
         is TargetDependency -> {
             leftNames = emptyList()
             leftTargets = targets
             leftFiles = emptyList()
+            leftPlatforms = emptyList()
         }
         is FileDependency -> {
             leftNames = emptyList()
             leftTargets = emptyList()
             leftFiles = files
+            leftPlatforms = emptyList()
         }
         is MixedDependency -> {
             leftNames = names
             leftTargets = targets
             leftFiles = files
+            leftPlatforms = platforms
         }
         is PlatformDependency -> {
             leftNames = emptyList()
             leftTargets = emptyList()
             leftFiles = emptyList()
+            leftPlatforms = names
         }
         EmptyDependency -> {
             leftNames = emptyList()
             leftTargets = emptyList()
             leftFiles = emptyList()
+            leftPlatforms = emptyList()
         }
     }
     val rightNames: List<NameSpec>
     val rightTargets: List<TargetSpec>
     val rightFiles: List<FileSpec>
+    val rightPlatforms: List<PlatformSpec>
     when (dep) {
         is NamedDependency -> {
             rightNames = dep.names
             rightTargets = emptyList()
             rightFiles = emptyList()
+            rightPlatforms = emptyList()
         }
         is TargetDependency -> {
             rightNames = emptyList()
             rightTargets = dep.targets
             rightFiles = emptyList()
+            rightPlatforms = emptyList()
         }
         is FileDependency -> {
             rightNames = emptyList()
             rightTargets = emptyList()
             rightFiles = dep.files
+            rightPlatforms = emptyList()
         }
         is MixedDependency -> {
             rightNames = dep.names
             rightTargets = dep.targets
             rightFiles = dep.files
+            rightPlatforms = dep.platforms
         }
         is PlatformDependency -> {
             rightNames = emptyList()
             rightTargets = emptyList()
             rightFiles = emptyList()
+            rightPlatforms = dep.names
         }
         EmptyDependency -> {
             rightNames = emptyList()
             rightTargets = emptyList()
             rightFiles = emptyList()
+            rightPlatforms = emptyList()
         }
     }
-    return MixedDependency(leftNames + rightNames, leftTargets + rightTargets, leftFiles + rightFiles)
+    return MixedDependency(
+        names = leftNames + rightNames,
+        targets = leftTargets + rightTargets,
+        files = leftFiles + rightFiles,
+        platforms = leftPlatforms + rightPlatforms,
+    )
 }
 
 inline fun <reified T : FormaDependency> emptyDependency(): T =

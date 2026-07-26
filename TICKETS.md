@@ -148,6 +148,7 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 | F-103 | todo | Hybrid targets example (flat dir / api+impl co-location) | GH **#44** — teaching example: simplified flat layout (api/impl/stub mental model, easy multi-module nav). May use includer layout + progressive example; align with F-084/F-088 fleet layout. No restore of `androidLibrary`. |
 | F-104 | todo | Hybrid configuration / stub targets for IDE sync | GH **#43** — stub targets + deps API so IDE sync can swap `impl`→`stub` (compileOnly/runtimeOnly pattern) via **one project-global flag**, not per-module hacks. Design+spike; depend on F-101/`target` APIs. Keep matrix truth. |
 | F-113 | done | Android first-party library examples complete | Close ladder gaps: real `androidTestUtil` usage in 09; `androidNative` step **13** + matrix edges (`androidUtil`/`app`/`binary`→`native`); `test*`/`androidTest*` deps = `FormaDependency` so project targets work; docs/skills/matrix aligned. |
+| F-114 | done | Google 1P libraries coverage + Firebase usage | Audit Architecture Components/Room/Nav/Compose/Material/Dagger/Play/Gson vs real sample usage; add `docs/GOOGLE-LIBRARIES.md`; progressive **14-google-firebase** (Path A `firebaseBinary` + dummy GMS JSON + Crashlytics/Analytics API use); fix `PlatformDependency + NamedDependency` dropping BOM platforms. |
 
 ## P11 — Kotlin Multiplatform (Stepan 2026-07-25)
 

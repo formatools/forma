@@ -40,6 +40,7 @@ fun FormaDependency.resolveFeatureFlags(flags: FormaFeatureFlags): FormaDependen
                 names = names.resolveFeatureFlags(flags),
                 targets = targets,
                 files = files,
+                platforms = platforms,
             )
         is TargetDependency -> this
         is FileDependency -> this

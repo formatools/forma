@@ -35,6 +35,7 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | Metro DI (`metroImpl` / `metroApp`, Path A on impl/app) | 11 | — | — | forma-target-plugins |
 | Navigation ports (presentation ports + adapter; Jetpack behind root) | **12** (F-112 todo) | — | — | — (design: [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md)) |
 | `androidNative` + JNI via `androidUtil` | **13** | — | — | forma-android-targets |
+| Google Firebase (Crashlytics + Analytics, Path A `firebaseBinary`) | **14** | — | — | forma-target-plugins + [GOOGLE-LIBRARIES.md](GOOGLE-LIBRARIES.md) |
 | `kmpLibrary` + `kmpProjectConfiguration` | — | — | 01 | forma-kmp-targets |
 | JVM/Android → `kmp.*` consumer edge | — | — | 01 (JVM binary) | forma-kmp-targets |
 | Fleet check/generate/migrate (`tools.forma.core.fleet`) | docs | docs | — | forma-fleet-tooling |
