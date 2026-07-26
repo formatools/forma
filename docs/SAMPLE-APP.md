@@ -136,3 +136,11 @@ graphs stay on `navigationRes`. Sample refactor = **F-111**; progressive example
 Safe-args is owned by the derived type and auto-applies. See
 [TARGET-PLUGINS.md](TARGET-PLUGINS.md), [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md)
 (Layer B), and progressive example `examples/android/10-target-plugins/`.
+
+## Google first-party libraries (AndroidX / Firebase / …)
+
+Coverage of Architecture Components, Room, Navigation, Compose, Material, Dagger,
+Play Core, Gson, and Firebase is tracked in **[GOOGLE-LIBRARIES.md](GOOGLE-LIBRARIES.md)**.
+The sample exercises most Jetpack stacks in real feature code; Firebase Crashlytics
+teaching path is progressive example **`examples/android/14-google-firebase`**
+(sample binary still has Crashlytics on the buildscript classpath only).

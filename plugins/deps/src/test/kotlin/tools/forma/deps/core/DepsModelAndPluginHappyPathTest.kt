@@ -7,9 +7,26 @@ import kotlin.test.assertSame
 import kotlin.test.assertTrue
 import dep
 import ksp
+import plus
 import tools.forma.core.target.targetType
 import transitiveDep
 import transitiveDeps
+import tools.forma.deps.core.CompileOnly
+import tools.forma.deps.core.EmptyDependency
+import tools.forma.deps.core.FileDependency
+import tools.forma.deps.core.FileSpec
+import tools.forma.deps.core.Implementation
+import tools.forma.deps.core.Ksp
+import tools.forma.deps.core.MixedDependency
+import tools.forma.deps.core.NameSpec
+import tools.forma.deps.core.NamedDependency
+import tools.forma.deps.core.PlatformDependency
+import tools.forma.deps.core.PlatformSpec
+import tools.forma.deps.core.TargetPluginRegistry
+import tools.forma.deps.core.deriveTargetType
+import tools.forma.deps.core.registerTargetPlugin
+import tools.forma.deps.core.targetPlugin
+import tools.forma.deps.core.DefaultTargetPluginRegistry
 
 /**
  * Happy-path unit coverage for pure deps model + type-owned plugin registry helpers
@@ -59,6 +76,20 @@ class DepsModelAndPluginHappyPathTest {
         assertTrue(viaFun.names.single().transitive)
         assertEquals("g:processor:1", viaFun.names.single().name)
         assertEquals(Ksp, viaExt.names.single().config)
+    }
+
+    @Test
+    fun `plus preserves PlatformDependency BOM with named artifacts`() {
+        val bom = PlatformDependency(listOf(PlatformSpec("com.google.firebase:firebase-bom:33.16.0", Implementation)))
+        val crash = "com.google.firebase:firebase-crashlytics".dep
+        val mixed = bom + crash
+        assertEquals(1, mixed.platforms.size)
+        assertEquals("com.google.firebase:firebase-bom:33.16.0", mixed.platforms.single().name)
+        assertEquals(1, mixed.names.size)
+        assertEquals("com.google.firebase:firebase-crashlytics", mixed.names.single().name)
+        // platforms appear in flattened dependency list for forEach
+        assertTrue(mixed.dependency.any { it is PlatformSpec })
+        assertTrue(mixed.dependency.any { it is NameSpec })
     }
 
     @Test

@@ -2,6 +2,19 @@
 
 Newest entries first.
 
+## 2026-07-26 — F-114: Google first-party libraries coverage + Firebase usage
+
+- **Ticket:** F-114 → `done` (clarifies Stepan “1st party” = Google/AndroidX stacks, not Forma target types)
+- **Branch:** `forma/F-114-google-libraries-coverage`
+- **Audit:** Architecture Components (VM/LiveData), Navigation+safe-args, Paging 2.x, Room, Compose, Material, Dagger, Play Core (`SplitCompatApplication`), Gson already **used** in `application/`. Firebase was **catalog/classpath-only** (no apply, no API use).
+- **Code:**
+  - `examples/android/14-google-firebase` — Path A `firebaseBinary` (GMS + Crashlytics plugins on `android.binary`), dummy `google-services.json`, `FirebaseApp`/`FirebaseCrashlytics`/`FirebaseAnalytics` usage in Application + Activity
+  - **Bugfix:** `FormaDependency.plus` dropped `PlatformDependency` BOMs when mixed with named artifacts → Firebase BOM + versionless SDKs failed resolution. `MixedDependency.platforms` preserved across `+` + feature-flag resolve
+- **Docs:** `docs/GOOGLE-LIBRARIES.md` coverage matrix; PROGRESSIVE-EXAMPLES + examples/README ladder row 14; TICKETS F-114
+- **Verify:** `:deps:test` (BOM plus test); `examples/android/14-google-firebase` `:binary:assembleDebug` (Crashlytics inject + processDebugGoogleServices green)
+- **Not in this slice:** migrate sample `application/binary` to live `firebaseBinary` (still TODO comment; needs real Firebase project for production JSON); WorkManager/DataStore/CameraX
+- **Next step:** F-111 / F-112 navigation ports (board top `todo`)
+
 ## 2026-07-26 — F-113: Android first-party library examples complete
 
 - **Ticket:** F-113 → `done`

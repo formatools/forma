@@ -22,8 +22,15 @@ data class FileDependency(
     val files: List<FileSpec> = emptyList()
 ) : FormaDependency(files)
 
+/**
+ * Mixed first-party + third-party (and optional BOMs).
+ *
+ * [platforms] must be preserved across [plus] so Firebase/AndroidX BOM + artifact
+ * stacks work (F-114). Platforms are applied as Gradle `platform(...)` entries.
+ */
 data class MixedDependency(
     val names: List<NameSpec> = emptyList(),
     val targets: List<TargetSpec> = emptyList(),
-    val files: List<FileSpec> = emptyList()
-) : FormaDependency(targets + names + files)
+    val files: List<FileSpec> = emptyList(),
+    val platforms: List<PlatformSpec> = emptyList(),
+) : FormaDependency(targets + names + files + platforms)
