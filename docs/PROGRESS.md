@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-25 — F-109: Progressive example `examples/kmp/01-shared-library`
+
+- **Ticket:** F-109 → `done` (next F-110 KMP user docs + agent skill)
+- **Branch:** `forma/F-109-kmp-shared-library-example` (from `origin/v2` @ F-108)
+- **Example (`examples/kmp/01-shared-library/`):**
+  - Settings: `tools.forma.includer` + `tools.forma.jvm` + `tools.forma.kmp`; `arbitraryBuildScriptNames`; includeBuild `plugins`/`includer`/`build-settings`; Gradle wrapper **9.6.1**
+  - Root `buildscript { kmpProjectConfiguration(platforms = KmpPlatforms(jvm=true, android=false)) }` — pure KMP+JVM (no AGP)
+  - `shared-kmp-library/` → `kmpLibrary(packageName=…)` + `src/commonMain/kotlin/…/Greeting.kt` (`fun greet`)
+  - `binary/` → JVM `binary` deps `target(":shared-kmp-library")`; main prints greeting
+  - Example README with verify commands + expected output
+- **Engine fix (minimal, required for root buildscript):**
+  - Move `kmpProjectConfiguration` to **default package** (file `plugins/kmp/src/main/java/kmpProjectConfiguration.kt`), parity with `androidProjectConfiguration` — Gradle Kotlin DSL does not resolve packaged extension imports inside `buildscript { }`
+- **Curriculum:** `examples/README.md` KMP track; `docs/PROGRESSIVE-EXAMPLES.md` matrix KMP column; `docs/KMP-TARGETS.md` §8 F-109 row
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `examples/kmp/01-shared-library/`: `./gradlew build` + `:binary:run` → **BUILD SUCCESSFUL** (30s); run prints `Hello, World — from Forma KMP shared library` + success line
+  - `plugins/`: `./gradlew :kmp:test :jvm:test test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** (52s) after default-package move
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after CLI timeout (verify + PR)
+- **Not in this slice:** Android consumer; F-110 docs/skill; iOS/other platforms
+- **Next step:** F-110 — KMP getting started + agent skill + fuller curriculum polish
+
 ## 2026-07-25 — F-108: Android/JVM consumer matrix edges → kmp.*
 
 - **Ticket:** F-108 → `done` (next F-109 progressive KMP example)

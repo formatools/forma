@@ -18,7 +18,7 @@ data class KmpPlatforms(
 }
 
 /**
- * Stored by [tools.forma.kmp.kmpProjectConfiguration] (or defaults on first DSL use).
+ * Stored by [kmpProjectConfiguration] (or defaults on first DSL use).
  *
  * @property platforms fleet-wide Kotlin targets (not call-site attrs)
  * @property jvmTarget Kotlin/JVM bytecode target string (default `"11"`)

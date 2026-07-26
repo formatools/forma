@@ -309,8 +309,9 @@ Android/JVM.
 
 ### 7.1 `kmpProjectConfiguration` (new)
 
-Single entrypoint (F-082 spirit), `ScriptHandlerScope` or root `Project` — match whatever pattern
-`:jvm` grows into; Android keeps `androidProjectConfiguration` for AGP/SDK.
+Single entrypoint (F-082 spirit), `ScriptHandlerScope` — **default package** (parity with
+`androidProjectConfiguration`) so root `buildscript { kmpProjectConfiguration(...) }` resolves
+without imports under Gradle Kotlin DSL. Android keeps `androidProjectConfiguration` for AGP/SDK.
 
 Responsibilities:
 
@@ -347,7 +348,7 @@ requires Android settings present or fails fast with a clear error.
 | **F-106** | `:kmp` module skeleton, `KmpTargetTypes`, `KmpTargetRegistry` + unit matrix tests, empty Settings plugin, publish metadata | `plugins/` `:kmp:test` + root plugins build |
 | **F-107** | Feature applicator: apply KMP (+ Android KMP lib), jvm+android targets, source sets, `kmpLibrary` DSL + deps apply path | Unit tests + compile; minimal smoke module if feasible |
 | **F-108** | Extend Android + JVM restriction matrices to allow KMP deps; docs matrix | Registry unit tests; sample edge compile |
-| **F-109** | Progressive example `examples/kmp/01-shared-library` (shared kmp-library + jvm binary and/or tiny android binary consumer) | Documented `./gradlew` tasks green on host |
+| **F-109** | Progressive example `examples/kmp/01-shared-library` (shared kmp-library + jvm binary and/or tiny android binary consumer) | **Done** — pure KMP+JVM (`KmpPlatforms(jvm=true, android=false)`); `./gradlew build` + `:binary:run` green. See example README. |
 | **F-110** | User docs (`KMP-GETTING-STARTED` or section), agent skill, PROGRESSIVE-EXAMPLES ladder, README links | Doc-only + example already green |
 
 Do **not** merge F-107 without a written spike note in PROGRESS if the Android KMP library plugin
