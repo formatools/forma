@@ -114,8 +114,8 @@ androidUtil(
         google.material,
         androidx.appcompat,
     ) + deps(
-        // Internal project dependencies, declared separately from externals
-        project(":demo-android-util")
+        // Internal modules: Forma target paths (colons), not raw project()
+        target(":demo:android:util")
     ),
     // Test dependencies declaration
     testDependencies = deps(

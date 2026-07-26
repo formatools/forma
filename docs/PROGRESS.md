@@ -2,6 +2,24 @@
 
 Newest entries first.
 
+## 2026-07-26 — F-101: Close `target(...)` deps API audit (GH #56)
+
+- **Ticket:** F-101 → `done` (GH #56 closable)
+- **Branch:** `forma/F-101-target-deps-api` (from `origin/v2`)
+- **Code:**
+  - Pure `ProjectPathForms.gradleProjectPathFromFormaTarget` — Forma colon path → Gradle/includer dashed path (`:feature:home:impl` → `:feature-home-impl`); requires leading `:`; rejects empty / `:`-only
+  - `Project.target(String)` wired through the helper (behavior parity for valid inputs)
+  - Unit tests in `ProjectPathFormsTest` (multi-segment, single-segment, already-dashed, trim, rejects)
+- **Docs:**
+  - `docs/DEPS-CATALOG.md` §3 **Project / target deps** — API table, path forms, rejects (raw `project()`, slash/#57)
+  - `docs/CALL-SITE-SURFACE.md` § Project deps via `target(...)` only
+  - `docs/GETTING-STARTED.md` Project/internal blurb + cross-link
+  - `README.md` sample snippet: `target(":demo:android:util")` instead of `project(...)`
+- **Not in this slice:** Bazel slash path notation (#57); matrix/validator changes; sample refactors; F-102+
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `plugins/`: `./gradlew :deps:test :core:test test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** (1m11s, 75 tasks)
+- **Next step:** F-102 (navigation abstraction); close GH #56 on merge
+
 ## 2026-07-26 — F-100: Buildscript classpath classifier (no same-build project())
 
 - **Ticket:** F-100 → `done` (GH #111)

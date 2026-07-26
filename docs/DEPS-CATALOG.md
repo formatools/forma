@@ -162,7 +162,90 @@ step 08 introduces catalogs.
 
 ---
 
-## 3. API surface (plugins `:deps`)
+## 3. Project / target deps (internal modules)
+
+**House style (one global way):** internal module edges use **`target(...)`** only.
+Do **not** put raw Gradle `project(":…")` in target `dependencies =` blocks.
+
+Canonical issue: GH **#56** (F-101). Slash / Bazel-style path notation is **out of
+scope** — see discussion **#57**.
+
+### Happy path
+
+| API | Shape | Role |
+|-----|--------|------|
+| `target(":a:b:c")` | `Project.target(String)` | Forma **logical** path (colons). Resolved to includer Gradle project path (`:a-b-c`) via pure `ProjectPathForms.gradleProjectPathFromFormaTarget` |
+| `target(projects.someModule)` | `Project.target(ProjectDependency)` | Typesafe project accessors (Gradle 9: path only) |
+| `project.target` / `this.target` | `Project.target` property | Self-ref when a module needs its own `FormaTarget` |
+| `deps(target(...), …)` | `deps(vararg FormaTarget)` | Internal edges → `TargetDependency` |
+| `deps(...) + deps(target(...))` | `+` on `FormaDependency` | Compose named/catalog deps with project targets |
+| `deps(projects.foo, …)` | `Project.deps(vararg ProjectDependency)` | Bridge typesafe accessors → `TargetDependency` without spelling `target` each time |
+
+```kotlin
+impl(
+    packageName = "com.example.feature.home.impl",
+    dependencies = deps(
+        libs.androidxCoreKtx,
+    ) + deps(
+        target(":feature:home:api"),
+        target(":core:util"),
+    ),
+)
+
+// Typesafe accessors (when enabled in settings):
+dependencies = deps(target(projects.featureHomeApi))
+// equivalent bridge:
+dependencies = deps(projects.featureHomeApi)
+```
+
+### Path forms (colon happy path only)
+
+| Form | Example | Where |
+|------|---------|--------|
+| **Forma logical path** | `:feature:home:impl` | `target("…")` call sites — **this is the happy path** |
+| **Gradle / Includer project path** | `:feature-home-impl` | Task paths, `./gradlew :feature-home-impl:assemble`, typesafe accessor project path |
+| Filesystem dir | `feature/home/impl` | On disk; Includer discovers `build.gradle.kts` here |
+
+Normalization (parity with historic `target(String)`):
+
+| Input (`target("…")`) | Gradle project path |
+|----------------------|---------------------|
+| `:feature:home:impl` | `:feature-home-impl` |
+| `:root-app` | `:root-app` |
+| `:feature-home-impl` (already dashed) | `:feature-home-impl` (accepted; prefer colons) |
+| missing leading `:` / empty / `:` only | **rejected** (`IllegalArgumentException`) |
+
+Leading **`:` is required**. Do not invent dual slash syntax (`\feature\home\impl` or
+`//feature/home:impl`) in product code — deferred to #57.
+
+### Rejected as happy path
+
+| Pattern | Why |
+|---------|-----|
+| `dependencies = deps(project(":feature-home-api"))` or bare `project(":…")` in module deps | Gradle API leak; wrong terminology; bypasses Forma path form |
+| Dual documented path syntax (colon **and** slash) at call sites | Two ways for one concern — violates root principle 2 until #57 decides |
+| Scattering `project(...)` “because Gradle docs say so” | Implementation detail **inside** `Project.target(String)` only |
+
+`project(...)` remains a Gradle primitive used **inside** Forma helpers (and for
+non-deps concerns such as includeBuild). It is not the module-deps teaching path.
+
+### API surface additions (`dependencies.kt` + core)
+
+| Symbol | Role |
+|--------|------|
+| `Project.target` (property) | Self `FormaTarget` |
+| `Project.target(String)` | Forma colon path → `FormaTarget` |
+| `Project.target(ProjectDependency)` | Typesafe accessor → `FormaTarget` |
+| `deps(vararg FormaTarget)` | Target edges |
+| `Project.deps(vararg ProjectDependency)` | Typesafe → `TargetDependency` |
+| `ProjectPathForms.gradleProjectPathFromFormaTarget` | Pure path normalize (unit-tested in `:core`) |
+
+See also call-site summary: [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) § Project deps.
+Live **who may depend on whom**: [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md).
+
+---
+
+## 4. API surface (plugins `:deps`)
 
 | Symbol | Package | Role |
 |--------|---------|------|
@@ -177,10 +260,12 @@ step 08 introduces catalogs.
 | `depsIf` / `depsUnless` / `NamedDependency.whenFlag` | root (`dependencies.kt`) | **F-099** — gate named deps on project-global `FormaFeatureFlags`; resolved at `applyDependencies` time (not construction). Unknown flag = false |
 | `resolveFeatureFlags` | `tools.forma.deps.core` | Pure filter of flag-gated `NameSpec`s (unit-tested) |
 | `applyDependencies` | `tools.forma.deps.core` | Wire deps + plugin side effects (+ F-099 flag resolution) |
+| `target` / `Project.target` / `deps(FormaTarget…)` / `Project.deps(ProjectDependency…)` | root (`dependencies.kt`) | **F-101** — internal project deps; see [§3](#3-project--target-deps-internal-modules) |
+| `ProjectPathForms.gradleProjectPathFromFormaTarget` | `tools.forma.core.fleet` | Pure Forma path → Gradle path |
 
 ---
 
-## 4. Practical tips
+## 5. Practical tips
 
 1. **Pin versions in one place** — catalog constants in `settings.gradle.kts` (house style)
    or a single `versions` object inside an advanced typed module; never scatter GAVs across
@@ -202,6 +287,10 @@ step 08 introduces catalogs.
    `androidProjectConfiguration(featureFlags = …)`; use `depsIf` / `depsUnless` at
    call sites. Do **not** shop plugins with flags or add per-module Booleans for
    every product toggle. See [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
+8. **Internal modules use `target(...)`** — colon Forma paths
+   (`target(":feature:home:api")`) or typesafe `target(projects…)` /
+   `deps(projects…)`. Never teach raw `project(":…")` in `dependencies =`.
+   Full table: [§3](#3-project--target-deps-internal-modules).
 
 ---
 
@@ -216,3 +305,4 @@ step 08 introduces catalogs.
   [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md)
 - Call-site surface: [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md)
 - Product feature flags + conditional deps: [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md)
+- Project / target deps (F-101): [§3](#3-project--target-deps-internal-modules)

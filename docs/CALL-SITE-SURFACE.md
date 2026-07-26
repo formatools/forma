@@ -220,6 +220,27 @@ Helpers **tag** specs; `applyDependencies` resolves against the store. Do not te
 raw `if (project.hasProperty)` Gradle as the happy path. Full design + rejected
 alternatives: [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
 
+## Project deps via `target(...)` only (F-101 / GH #56)
+
+Internal module edges are **Forma targets**, not raw Gradle `project(...)` at the
+call site.
+
+| Happy path | Example |
+|------------|---------|
+| Colon Forma path | `deps(target(":feature:home:api"))` |
+| Typesafe accessor | `deps(target(projects.featureHomeApi))` or `deps(projects.featureHomeApi)` |
+| Self ref | `this.target` / `project.target` |
+| Composition | `deps(libs.foo) + deps(target(":core:util"))` |
+
+| Rejected as happy path | Notes |
+|------------------------|--------|
+| `project(":feature-home-api")` in `dependencies =` | Implementation detail inside `target(String)` only |
+| Slash / Bazel path notation in `target("…")` | Out of scope — discussion **#57** |
+
+**Path reminder:** Forma logical path uses **colons** (`:feature:home:impl`);
+Includer / Gradle task paths use **dashes** (`:feature-home-impl`). Canonical API
+table + normalization rules: [`DEPS-CATALOG.md`](DEPS-CATALOG.md) § Project / target deps.
+
 ## Removed (F-081)
 
 | Removed | Replacement |
@@ -234,5 +255,5 @@ alternatives: [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
 - Matrix: [DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md)  
 - Plugins: [TARGET-PLUGINS.md](TARGET-PLUGINS.md)  
 - Global config (one path + store story): [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) (F-082)
-- External deps house style: [`DEPS-CATALOG.md`](DEPS-CATALOG.md) (**F-083** — `projectDependencies` happy path; typed catalogs advanced)
+- External deps house style: [`DEPS-CATALOG.md`](DEPS-CATALOG.md) (**F-083** — `projectDependencies` happy path; typed catalogs advanced; **F-101** project/`target` deps §3)
 - Full-tree teaching audit: [`PRINCIPLE-AUDIT.md`](PRINCIPLE-AUDIT.md) (**F-085**)

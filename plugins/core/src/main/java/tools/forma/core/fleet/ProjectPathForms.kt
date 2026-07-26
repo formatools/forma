@@ -29,6 +29,28 @@ object ProjectPathForms {
     }
 
     /**
+     * Forma logical target path → Gradle/includer project path (F-101 / GH #56).
+     *
+     * Happy-path call sites use colon Forma paths in `target("…")`:
+     * - `:feature:home:impl` → `:feature-home-impl`
+     * - `:root-app` → `:root-app` (single segment; dashes already in the name stay)
+     *
+     * Leading `:` is **required**. Slash / Bazel-style paths are out of scope (discussion #57).
+     * Behavior matches historic `":" + name.substring(1).replace(":", "-")` for valid inputs.
+     */
+    fun gradleProjectPathFromFormaTarget(formaPath: String): String {
+        val trimmed = formaPath.trim()
+        require(trimmed.isNotEmpty()) { "Forma target path must not be empty" }
+        require(trimmed.startsWith(":")) {
+            "Forma target path must start with ':': '$formaPath'"
+        }
+        val body = trimmed.substring(1)
+        require(body.isNotEmpty()) { "Forma target path body must not be empty: '$formaPath'" }
+        // Colons → dashes (includer project name). Already-dashed bodies are identity.
+        return ":${body.replace(":", "-")}"
+    }
+
+    /**
      * Best-effort reverse of [gradleProjectPath]: `:feature-home-impl` → `feature/home/impl`.
      *
      * **Ambiguous** when path segments themselves contain `-` (includer joins with `-`).

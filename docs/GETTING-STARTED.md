@@ -375,9 +375,14 @@ dependencies = deps(libs.androidxCoreKtx, libs.material) +
 ### Project / internal
 
 ```kotlin
-target(":feature:hello:api")           // Forma path (colons)
-// Gradle project path is often :feature-hello-api (Includer dashes)
+target(":feature:hello:api")           // Forma path (colons) — happy path
+// Gradle / Includer project path is often :feature-hello-api (dashes)
+// typesafe: target(projects.featureHelloApi) or deps(projects.featureHelloApi)
 ```
+
+Use **`target(...)` only** for module deps — not raw `project(":…")`. Full API
+table, composition (`deps` + `deps(target…)`), and rejects:
+[`DEPS-CATALOG.md`](DEPS-CATALOG.md) § Project / target deps (F-101).
 
 **Composition roots must list feature `api` + `impl` explicitly** — do not rely
 on transitive feature wiring alone. That keeps Dagger graphs honest and matches

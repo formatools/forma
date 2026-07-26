@@ -78,6 +78,72 @@ class ProjectPathFormsTest {
     fun `empty relative rejected`() {
         assertFailsWith<IllegalArgumentException> { ProjectPathForms.gradleProjectPath("") }
     }
+
+    // --- F-101: Forma target path → Gradle/includer project path ---
+
+    @Test
+    fun `forma multi-segment path maps colons to dashes`() {
+        assertEquals(
+            ":feature-home-impl",
+            ProjectPathForms.gradleProjectPathFromFormaTarget(":feature:home:impl"),
+        )
+        assertEquals(
+            ":feature-hello-api",
+            ProjectPathForms.gradleProjectPathFromFormaTarget(":feature:hello:api"),
+        )
+    }
+
+    @Test
+    fun `forma single-segment path is identity including dashes`() {
+        assertEquals(
+            ":root-app",
+            ProjectPathForms.gradleProjectPathFromFormaTarget(":root-app"),
+        )
+        assertEquals(
+            ":binary",
+            ProjectPathForms.gradleProjectPathFromFormaTarget(":binary"),
+        )
+    }
+
+    @Test
+    fun `forma already-dashed multi token body stays dashed`() {
+        // Call sites should prefer colon Forma paths; dashed body is still accepted.
+        assertEquals(
+            ":feature-home-impl",
+            ProjectPathForms.gradleProjectPathFromFormaTarget(":feature-home-impl"),
+        )
+    }
+
+    @Test
+    fun `forma path trims surrounding whitespace`() {
+        assertEquals(
+            ":a-b-c",
+            ProjectPathForms.gradleProjectPathFromFormaTarget("  :a:b:c  "),
+        )
+    }
+
+    @Test
+    fun `forma path requires leading colon`() {
+        assertFailsWith<IllegalArgumentException> {
+            ProjectPathForms.gradleProjectPathFromFormaTarget("feature:home:impl")
+        }
+        assertFailsWith<IllegalArgumentException> {
+            ProjectPathForms.gradleProjectPathFromFormaTarget("feature-home-impl")
+        }
+    }
+
+    @Test
+    fun `forma path rejects empty and colon-only`() {
+        assertFailsWith<IllegalArgumentException> {
+            ProjectPathForms.gradleProjectPathFromFormaTarget("")
+        }
+        assertFailsWith<IllegalArgumentException> {
+            ProjectPathForms.gradleProjectPathFromFormaTarget("   ")
+        }
+        assertFailsWith<IllegalArgumentException> {
+            ProjectPathForms.gradleProjectPathFromFormaTarget(":")
+        }
+    }
 }
 
 class LayoutGeneratorCheckerTest {
