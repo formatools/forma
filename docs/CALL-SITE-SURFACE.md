@@ -201,6 +201,7 @@ They are **not** AGP `BuildFeatures` and **not** a second path to apply plugins.
 | Flag declarations | **Project only** | `androidProjectConfiguration(featureFlags = FormaFeatureFlags(...))` |
 | Read | `Forma.settings.featureFlags["name"]` | Unknown names → **false** |
 | Conditional named deps | Call-site helpers | `depsIf` / `depsUnless` / `NamedDependency.whenFlag` |
+| Conditional **target** deps + stub pair | Call-site helpers | `TargetDependency.whenFlag` / target `depsIf` / **`featureImplementation`** (F-104) |
 | Plugin identity shopping gated by flags | **Rejected** | Type-owned plugins stay type-owned ([TARGET-PLUGINS.md](TARGET-PLUGINS.md)) |
 | Per-`impl` Boolean for each product flag | **Rejected** | Fat call sites; dual path |
 
@@ -214,11 +215,21 @@ dependencies = deps(
     depsIf("daggerReflect", "com.jakewharton.dagger:dagger-reflect:…".dep),
     depsUnless("daggerReflect", "com.google.dagger:dagger-compiler:…".ksp),
 )
+
+// composition root — impl ↔ stub-impl (F-104); flag useFeatureStubs
+dependencies = deps(
+    deps(target(":feature:hello:api")),
+    featureImplementation(
+        impl = target(":feature:hello:impl"),
+        stub = target(":feature:hello:stub-impl"),
+    ),
+)
 ```
 
 Helpers **tag** specs; `applyDependencies` resolves against the store. Do not teach
 raw `if (project.hasProperty)` Gradle as the happy path. Full design + rejected
-alternatives: [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
+alternatives: [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md),
+stub swap: [`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md).
 
 ## Project deps via `target(...)` only (F-101 / GH #56)
 

@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-27 — F-104: Hybrid stub swap via project-global feature flag
+
+- **Ticket:** F-104 → `done` (GH #43)
+- **Branch:** `forma/F-104-hybrid-stub-config` (from `origin/v2`)
+- **Actions:**
+  - Design: `docs/HYBRID-CONFIGURATION.md` (flag, API, IDE property, simple-swap semantics, rejected paths)
+  - `TargetSpec` optional `featureFlag` / `featureFlagExpected`; `resolveFeatureFlags` filters targets in `TargetDependency` + `MixedDependency`
+  - DSL: `TargetDependency.whenFlag`, target overloads of `depsIf`/`depsUnless`, `featureImplementation(impl, stub)` (default flag `useFeatureStubs`)
+  - Constants: `USE_FEATURE_STUBS_FLAG` / `USE_FEATURE_STUBS_PROPERTY` (`forma.useFeatureStubs`)
+  - Example 15: root `featureFlags` property-backed; roots use pair helper; stubs same FQN as impl for classpath replacement; README documents both assemble modes
+  - Cross-links: TARGET-FEATURE-OPTIONS, DEPS-CATALOG, CALL-SITE-SURFACE, PROJECT-CONFIGURATION, PROGRESSIVE-EXAMPLES, agent skill `forma-project-layout`
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after CLI timeout (verify + commit/PR)
+- **Verify (real host):**
+  - `plugins/` `./gradlew :deps:test test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** (75 tasks)
+  - `examples/android/15-hybrid-targets` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL**; APK strings include `Hello` + `World` (not Stub)
+  - same `./gradlew :binary:assembleDebug -Pforma.useFeatureStubs=true` → **BUILD SUCCESSFUL**; APK strings include `HelloStub` + `WorldStub`
+  - `:feature-hello-stub-impl:compileDebugKotlin` + world stub → green
+- **Not in this slice:** dual-config compileOnly+impl as default; gold `application/` layout change; new target type/suffix; matrix edits
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none (only F-094 Portal remains blocked human/admin)
+- **Next step:** empty coding queue except F-094 blocked — idle workers `[SILENT]` unless new tickets
+
 ## 2026-07-27 — F-103: Hybrid targets progressive example
 
 - **Ticket:** F-103 → `done`

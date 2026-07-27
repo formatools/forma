@@ -258,7 +258,10 @@ Live **who may depend on whom**: [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md).
 | `deps` / `String.dep` / `Provider.dep` | root (`dependencies.kt`) | Bridge into `FormaDependency` (named deps default **non-transitive**) |
 | `transitiveDeps` / `String.transitiveDep` | root (`dependencies.kt`) | Same bridge with **transitive** named deps (`String.transitiveDep` = single-string parity with `String.dep`) |
 | `depsIf` / `depsUnless` / `NamedDependency.whenFlag` | root (`dependencies.kt`) | **F-099** — gate named deps on project-global `FormaFeatureFlags`; resolved at `applyDependencies` time (not construction). Unknown flag = false |
-| `resolveFeatureFlags` | `tools.forma.deps.core` | Pure filter of flag-gated `NameSpec`s (unit-tested) |
+| `depsIf` / `depsUnless` / `TargetDependency.whenFlag` (targets) | root (`dependencies.kt`) | **F-104** — same flag gating for first-party `target(...)` edges |
+| `featureImplementation(impl, stub)` | root (`dependencies.kt`) | **F-104** — composition-root impl ↔ stub-impl pair; default flag `useFeatureStubs` |
+| `USE_FEATURE_STUBS_FLAG` / `USE_FEATURE_STUBS_PROPERTY` | `tools.forma.deps.core` | Canonical flag name + Gradle property for IDE stub swap |
+| `resolveFeatureFlags` | `tools.forma.deps.core` | Pure filter of flag-gated `NameSpec`s **and** `TargetSpec`s (unit-tested) |
 | `applyDependencies` | `tools.forma.deps.core` | Wire deps + plugin side effects (+ F-099 flag resolution) |
 | `target` / `Project.target` / `deps(FormaTarget…)` / `Project.deps(ProjectDependency…)` | root (`dependencies.kt`) | **F-101** — internal project deps; see [§3](#3-project--target-deps-internal-modules) |
 | `ProjectPathForms.gradleProjectPathFromFormaTarget` | `tools.forma.core.fleet` | Pure Forma path → Gradle path |
@@ -283,10 +286,13 @@ Live **who may depend on whom**: [`DEPENDENCY-MATRIX.md`](DEPENDENCY-MATRIX.md).
    ([TARGET-PLUGINS.md](TARGET-PLUGINS.md)). Local convention plugins:
    includeBuild + catalog plugin GAV — not `project(":…")`
    ([BUILDSCRIPT-PROJECT-CLASSPATH.md](BUILDSCRIPT-PROJECT-CLASSPATH.md)).
-7. **Conditional deps (F-099)** — declare flags once on
+7. **Conditional deps (F-099 / F-104)** — declare flags once on
    `androidProjectConfiguration(featureFlags = …)`; use `depsIf` / `depsUnless` at
-   call sites. Do **not** shop plugins with flags or add per-module Booleans for
-   every product toggle. See [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
+   call sites for named **and** target deps. For impl ↔ stub-impl at roots prefer
+   `featureImplementation(impl, stub)` (flag `useFeatureStubs`). Do **not** shop
+   plugins with flags or add per-module Booleans for every product toggle. See
+   [`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md) and
+   [`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md).
 8. **Internal modules use `target(...)`** — colon Forma paths
    (`target(":feature:home:api")`) or typesafe `target(projects…)` /
    `deps(projects…)`. Never teach raw `project(":…")` in `dependencies =`.

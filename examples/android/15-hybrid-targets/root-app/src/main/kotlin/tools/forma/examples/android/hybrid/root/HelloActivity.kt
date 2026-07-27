@@ -9,10 +9,11 @@ import tools.forma.examples.android.hybrid.feature.world.api.WorldMessage
 import tools.forma.examples.android.hybrid.feature.world.impl.DefaultWorldMessage
 
 /**
- * Composition root wires hello + world from **impl** defaults.
- * To try stubs: swap root-app/binary deps to `:…:stub-impl` and import
- * [tools.forma.examples.android.hybrid.feature.hello.stub.StubHelloMessage] /
- * [tools.forma.examples.android.hybrid.feature.world.stub.StubWorldMessage].
+ * Composition root always imports production FQNs. [featureImplementation] +
+ * `useFeatureStubs` swaps which module supplies those classes (impl vs stub-impl).
+ *
+ * - default → "Hello World"
+ * - `-Pforma.useFeatureStubs=true` → "HelloStub WorldStub"
  */
 class HelloActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

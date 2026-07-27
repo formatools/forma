@@ -189,12 +189,27 @@ dependencies = deps(
 )
 ```
 
+**Hybrid stub swap (F-104)** — declare `useFeatureStubs` (often from
+`-Pforma.useFeatureStubs`) and use `featureImplementation(impl, stub)` at
+composition roots. See [`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md).
+
+```kotlin
+featureFlags = FormaFeatureFlags(
+    tools.forma.deps.core.USE_FEATURE_STUBS_FLAG to
+        providers.gradleProperty(tools.forma.deps.core.USE_FEATURE_STUBS_PROPERTY)
+            .map { it.toBoolean() }
+            .orElse(false)
+            .get(),
+)
+```
+
 Resolution runs at **apply** time against the store (not when the helper is built).
 Unknown flag names are **false** (`get` / `isEnabled`); use `require(name)` only when
 a missing declaration must fail configuration.
 
 Full design, rejected alternatives, and DI recipe:
-[`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md).
+[`TARGET-FEATURE-OPTIONS.md`](TARGET-FEATURE-OPTIONS.md). Stub swap:
+[`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md).
 
 ## What it does **not** do
 
