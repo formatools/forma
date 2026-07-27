@@ -9,7 +9,7 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | Track | Path | Steps |
 |-------|------|-------|
 | JVM | [`jvm/`](jvm/) | 01 hello-binary → 05 test-util |
-| Android | [`android/`](android/) | 01 hello-apk → 11 metro-di |
+| Android | [`android/`](android/) | 01 hello-apk → 15 hybrid-targets |
 | KMP | [`kmp/`](kmp/) | 01 shared-library (kmpLibrary + JVM binary) |
 | Agent skills | [`agent-skills/`](agent-skills/) | SKILL docs for coding agents |
 | User index | [`docs/PROGRESSIVE-EXAMPLES.md`](../docs/PROGRESSIVE-EXAMPLES.md) | narrative + feature coverage matrix |
@@ -42,6 +42,7 @@ Gold-standard product apps remain [`application/`](../application/) (Android) an
 | 12 | `android/12-navigation-ports` | Presentation `Navigator` ports + root adapter; Jetpack/Safe Args only at root; Path B `navigationRes` |
 | 13 | `android/13-android-native` | `androidNative` (CMake) + JNI `androidUtil` consumer |
 | 14 | `android/14-google-firebase` | Firebase Crashlytics + Analytics via Path A `firebaseBinary` |
+| 15 | `android/15-hybrid-targets` | Co-located `feature/<name>/{api,impl,stub-impl}`; multi-feature; manual stub swap teaser (F-104) |
 
 ### KMP (`tools.forma.kmp`)
 
