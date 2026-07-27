@@ -32,7 +32,25 @@ object Ksp : ConfigurationType {
 
 sealed class DepSpec(val config: ConfigurationType)
 
-class TargetSpec(val target: FormaTarget, config: ConfigurationType = Implementation) : DepSpec(config)
+/**
+ * First-party project dependency.
+ *
+ * Optional [featureFlag] gates inclusion at apply time against project-global
+ * [tools.forma.config.FormaFeatureFlags] (F-099 / F-104). When null, always applied.
+ * See `depsIf` / `depsUnless` / [TargetDependency] `whenFlag` /
+ * `featureImplementation` and [resolveFeatureFlags].
+ *
+ * [config] defaults to [Implementation]; use [CompileOnly] / [RuntimeOnly] when a
+ * recipe needs dual-config edges (not required for the simple impl↔stub swap).
+ */
+class TargetSpec(
+    val target: FormaTarget,
+    config: ConfigurationType = Implementation,
+    /** When non-null, include only if project flags match [featureFlagExpected]. */
+    val featureFlag: String? = null,
+    /** Expected [tools.forma.config.FormaFeatureFlags] value for [featureFlag] (default true). */
+    val featureFlagExpected: Boolean = true,
+) : DepSpec(config)
 
 class FileSpec(val file: File, config: ConfigurationType) : DepSpec(config)
 

@@ -22,6 +22,8 @@ import tools.forma.deps.core.PlatformDependency
 import tools.forma.deps.core.PlatformSpec
 import tools.forma.deps.core.TargetDependency
 import tools.forma.deps.core.TargetSpec
+import tools.forma.deps.core.USE_FEATURE_STUBS_FLAG
+import tools.forma.deps.core.featureImplementationPair
 import tools.forma.target.FormaTarget
 
 /**
@@ -232,6 +234,23 @@ fun NamedDependency.whenFlag(flag: String, enabled: Boolean = true): NamedDepend
     )
 
 /**
+ * Gate every target spec in this [TargetDependency] on project-global feature flag [flag]
+ * (F-104 / GH #43). Same apply-time resolution as [NamedDependency.whenFlag].
+ * Preserves each spec's [TargetSpec.config].
+ */
+fun TargetDependency.whenFlag(flag: String, enabled: Boolean = true): TargetDependency =
+    TargetDependency(
+        targets.map { spec ->
+            TargetSpec(
+                target = spec.target,
+                config = spec.config,
+                featureFlag = flag,
+                featureFlagExpected = enabled,
+            )
+        }
+    )
+
+/**
  * Include [dependencies] only when project-global flag [flag] equals [enabled]
  * (default: flag on). Compose with [deps]:
  *
@@ -254,11 +273,97 @@ fun depsIf(
 ): NamedDependency = deps(*dependencies).whenFlag(flag, enabled)
 
 /**
+ * Include project [dependencies] only when project-global flag [flag] equals [enabled]
+ * (F-104 target parity with named [depsIf]).
+ */
+fun depsIf(
+    flag: String,
+    vararg dependencies: TargetDependency,
+    enabled: Boolean = true,
+): TargetDependency = deps(*dependencies).whenFlag(flag, enabled)
+
+/**
+ * Include [targets] only when project-global flag [flag] equals [enabled]
+ * (F-104 — `depsIf("useFeatureStubs", target(":f:stub-impl"))`).
+ */
+fun depsIf(
+    flag: String,
+    vararg targets: FormaTarget,
+    enabled: Boolean = true,
+): TargetDependency = deps(*targets).whenFlag(flag, enabled)
+
+/**
  * Include [dependencies] only when project-global flag [flag] is **off**
  * (unknown flags count as off — see [tools.forma.config.FormaFeatureFlags]).
  */
 fun depsUnless(flag: String, vararg dependencies: NamedDependency): NamedDependency =
     deps(*dependencies).whenFlag(flag, enabled = false)
+
+/**
+ * Include project [dependencies] only when project-global flag [flag] is **off** (F-104).
+ */
+fun depsUnless(flag: String, vararg dependencies: TargetDependency): TargetDependency =
+    deps(*dependencies).whenFlag(flag, enabled = false)
+
+/**
+ * Include [targets] only when project-global flag [flag] is **off** (F-104).
+ */
+fun depsUnless(flag: String, vararg targets: FormaTarget): TargetDependency =
+    deps(*targets).whenFlag(flag, enabled = false)
+
+/**
+ * Composition-root helper: depend on production [impl] **or** [stub] based on one
+ * project-global flag (F-104 / GH #43). Default flag name is
+ * [USE_FEATURE_STUBS_FLAG] (`"useFeatureStubs"`).
+ *
+ * ```kotlin
+ * dependencies = deps(
+ *     target(":feature:hello:api"),
+ *     featureImplementation(
+ *         impl = target(":feature:hello:impl"),
+ *         stub = target(":feature:hello:stub-impl"),
+ *     ),
+ * )
+ * ```
+ *
+ * | Flag | Classpath |
+ * |------|-----------|
+ * | off / unset | `implementation(impl)` only |
+ * | on | `implementation(stub)` only |
+ *
+ * Do **not** list both paths with hand-written `if (project.hasProperty)` — declare
+ * the flag once on `androidProjectConfiguration(featureFlags = …)`.
+ * See `docs/HYBRID-CONFIGURATION.md`.
+ */
+fun featureImplementation(
+    impl: FormaTarget,
+    stub: FormaTarget,
+    flag: String = USE_FEATURE_STUBS_FLAG,
+): TargetDependency =
+    TargetDependency(
+        featureImplementationPair(
+            impl = listOf(TargetSpec(impl, Implementation)),
+            stub = listOf(TargetSpec(stub, Implementation)),
+            flag = flag,
+        )
+    )
+
+/**
+ * Same as [featureImplementation] taking [FormaTarget], for already-wrapped
+ * [TargetDependency] values (preserves non-default [TargetSpec.config]).
+ */
+fun featureImplementation(
+    impl: TargetDependency,
+    stub: TargetDependency,
+    flag: String = USE_FEATURE_STUBS_FLAG,
+): TargetDependency =
+    TargetDependency(
+        featureImplementationPair(
+            impl = impl.targets,
+            stub = stub.targets,
+            flag = flag,
+        )
+    )
 
 /** Typesafe project accessors / [ProjectDependency] → target deps (Gradle 9: path only, no dependencyProject). */
 fun Project.deps(vararg projects: ProjectDependency): TargetDependency =

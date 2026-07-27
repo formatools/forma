@@ -146,16 +146,17 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 | F-111 | done | Sample navigation ports + root adapter | GH **#46** implement — `core/navigation/api` ports + `root-app` Jetpack adapter + `core/navigation/android-util` home-shell binder; feature `impl`/VM Nav-free; `navigationRes` kept; feature→`core/navigation/res` stripped. |
 | F-112 | done | Progressive example: navigation ports | GH **#46** teach — `examples/android/12-navigation-ports` per F-102 §4.4; ladder + README; minimal graph; ports vs adapter vs `navigationRes`. Prefer before or with F-111. |
 | F-103 | done | Hybrid targets example (flat dir / api+impl co-location) | GH **#44** — `examples/android/15-hybrid-targets`: co-located `feature/{hello,world}/{api,impl,stub-impl}` (stub role = `impl` type; `-impl` suffix required). Roots wire api+impl; manual stub swap documented (F-104 separate). No `androidLibrary`, no engine churn. |
-| F-104 | todo | Hybrid configuration / stub targets for IDE sync | GH **#43** — stub targets + deps API so IDE sync can swap `impl`→`stub` (compileOnly/runtimeOnly pattern) via **one project-global flag**, not per-module hacks. Design+spike; depend on F-101/`target` APIs. Keep matrix truth. |
+| F-104 | done | Hybrid configuration / stub targets for IDE sync | GH **#43** — **done:** `docs/HYBRID-CONFIGURATION.md`; `TargetSpec` flag gating + `resolveFeatureFlags` on targets; `featureImplementation` / target `depsIf`/`whenFlag`; flag `useFeatureStubs` + `-Pforma.useFeatureStubs`; example 15 migrated; `:deps` unit tests. Simple swap (not dual-config default). Matrix unchanged. |
 | F-113 | done | Android first-party library examples complete | Close ladder gaps: real `androidTestUtil` usage in 09; `androidNative` step **13** + matrix edges (`androidUtil`/`app`/`binary`→`native`); `test*`/`androidTest*` deps = `FormaDependency` so project targets work; docs/skills/matrix aligned. |
 | F-114 | done | Google 1P libraries coverage + Firebase usage | Audit Architecture Components/Room/Nav/Compose/Material/Dagger/Play/Gson vs real sample usage; add `docs/GOOGLE-LIBRARIES.md`; progressive **14-google-firebase** (Path A `firebaseBinary` + dummy GMS JSON + Crashlytics/Analytics API use); fix `PlatformDependency + NamedDependency` dropping BOM platforms. |
 
 ## P11 — Kotlin Multiplatform (Stepan 2026-07-25)
 
 Third Gradle platform on forma-core (`tools.forma.kmp`). **Design:** [`docs/KMP-TARGETS.md`](docs/KMP-TARGETS.md).
-**P11 v1 complete (F-105…F-110).** **F-100…F-102 done** (F-102 = navigation design only). **F-111 + F-112 done** (sample + progressive nav ports). **F-103 done** (hybrid targets example 15). Next board priority is **P10** top `todo` (**F-104** IDE stub swap…) unless
-Stepan reprioritizes. v1 = **jvm + android** shared libraries only; type-owned MPP; **no** per-module
-target shopping; composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
+**P11 v1 complete (F-105…F-110).** **F-100…F-104 done** (nav design/sample/example + hybrid layout/stub swap).
+Open board: **F-094** Plugin Portal only (`blocked` human/admin). Workers with no `todo`/`in_progress` → **`[SILENT]`**.
+v1 KMP = **jvm + android** shared libraries only; type-owned MPP; **no** per-module target shopping;
+composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|

@@ -1,8 +1,9 @@
 # Target-feature configuration options (F-099 / GH #126)
 
 **Status:** design + thin API shipped. Project-global named boolean flags +
-conditional dependency helpers. Binary-linked configuration and `configuration`
-targets remain **deferred**.
+conditional dependency helpers (named deps F-099; **target** deps + stub swap
+**F-104** — see [`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md)).
+Binary-linked configuration remains **deferred**.
 
 ## Problem
 
@@ -160,9 +161,14 @@ binary↔configuration product. The recipe above is the supported pattern.
 | Item | Notes |
 |------|--------|
 | Binary-linked configuration (1:1 with binaries) | May return as a later ticket; must still feed flags **early** enough for feature modules (e.g. root still declares, binary selects profile) |
-| `configuration` / stub targets (F-104) | Separate structural idea |
 | Non-boolean dimensions | Start with booleans; enums/multi only if a ticket demands |
 | Flag-gated **target plugins** | Prefer derived types; do not reopen free-form plugin lists |
+
+## Shipped follow-on: hybrid stub swap (F-104)
+
+Target-level flag gating + `featureImplementation(impl, stub)` for IDE/local
+`impl` → `stub-impl` substitution. Canonical flag `useFeatureStubs` /
+property `forma.useFeatureStubs`. **Design + API:** [`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md).
 
 ## API checklist
 
@@ -172,11 +178,13 @@ binary↔configuration product. The recipe above is the supported pattern.
 - [x] Apply-time `resolveFeatureFlags` in `applyDependencies`
 - [x] Pure unit tests (`:config`, `:deps`)
 - [x] Docs: this file + PROJECT-CONFIGURATION + CALL-SITE-SURFACE + DEPS-CATALOG
+- [x] F-104: target flag gating + `featureImplementation` — [`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md)
 
 ## Cross references
 
 - [`PROJECT-CONFIGURATION.md`](PROJECT-CONFIGURATION.md) — `featureFlags` section
 - [`CALL-SITE-SURFACE.md`](CALL-SITE-SURFACE.md) — conditional deps ≠ plugin shopping
 - [`DEPS-CATALOG.md`](DEPS-CATALOG.md) — API table
+- [`HYBRID-CONFIGURATION.md`](HYBRID-CONFIGURATION.md) — F-104 stub swap
 - [`TARGET-PLUGINS.md`](TARGET-PLUGINS.md) — type-owned plugins
 - [`VISION.md`](VISION.md) — root principles

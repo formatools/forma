@@ -36,7 +36,7 @@ narrative tutorials when you want a **minimal buildable project per concept**.
 | Navigation ports (presentation ports + adapter; Jetpack behind root) | **12** | — | — | forma-android-targets + [NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md) |
 | `androidNative` + JNI via `androidUtil` | **13** | — | — | forma-android-targets |
 | Google Firebase (Crashlytics + Analytics, Path A `firebaseBinary`) | **14** | — | — | forma-target-plugins + [GOOGLE-LIBRARIES.md](GOOGLE-LIBRARIES.md) |
-| Hybrid flat layout (`feature/<name>/{api,impl,stub-impl}`) | **15** | — | — | forma-project-layout |
+| Hybrid flat layout + `featureImplementation` stub swap (`useFeatureStubs`) | **15** | — | — | forma-project-layout + [HYBRID-CONFIGURATION.md](HYBRID-CONFIGURATION.md) |
 | `kmpLibrary` + `kmpProjectConfiguration` | — | — | 01 | forma-kmp-targets |
 | JVM/Android → `kmp.*` consumer edge | — | — | 01 (JVM binary) | forma-kmp-targets |
 | Fleet check/generate/migrate (`tools.forma.core.fleet`) | docs | docs | — | forma-fleet-tooling |

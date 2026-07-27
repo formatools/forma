@@ -35,8 +35,9 @@ fun Project.applyDependencies(
         return
     }
 
-    // F-099: resolve feature-flag-gated named deps against project-global flags at apply
-    // time (not when depsIf/depsUnless was called). Unknown flags = false.
+    // F-099 / F-104: resolve feature-flag-gated named + target deps against project-global
+    // flags at apply time (not when depsIf/depsUnless/featureImplementation was called).
+    // Unknown flags = false.
     val featureFlags = FormaSettingsStore.featureFlagsOrEmpty()
     val resolvedDependencies = dependencies.resolveFeatureFlags(featureFlags)
     val resolvedTestDependencies = testDependencies.resolveFeatureFlags(featureFlags)
