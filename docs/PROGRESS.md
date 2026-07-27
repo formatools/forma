@@ -2,6 +2,25 @@
 
 Newest entries first.
 
+## 2026-07-27 — F-103: Hybrid targets progressive example
+
+- **Ticket:** F-103 → `done`
+- **Branch:** `forma/F-103-hybrid-targets` (from `origin/v2`)
+- **Actions:**
+  - Added `examples/android/15-hybrid-targets` — co-located `feature/{hello,world}/{api,impl,stub-impl}`
+  - Stubs are real `impl` modules in `stub-impl/` dirs (`packageName` `…stub`) — bare `stub/` fails self-type suffix (`Allowed name suffix(es): impl`); documented in example README
+  - Composition roots default to **api + impl**; commented manual swap to `stub-impl` → F-104 teaser
+  - `configureondemand=false` so unused stub-impl siblings still configure/validate
+  - Curriculum: example README, `docs/PROGRESSIVE-EXAMPLES.md` row 15, `examples/README.md` ladder + fix stale 01→11 wording, `examples/agent-skills/forma-project-layout.md` hybrid section
+  - No `plugins/` engine changes; no `androidLibrary`; matrix rules unchanged (`impl` ↛ `impl`)
+- **Build verification:**
+  - `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL**
+  - `./gradlew :feature-hello-stub-impl:compileDebugKotlin :feature-world-stub-impl:compileDebugKotlin` → green
+- **Commits/PRs:** this branch
+- **Blockers:** none
+- **Next step:** F-104 (IDE sync swap impl→stub via project-global flag)
+
+
 ## 2026-07-26 — F-111: Sample navigation ports + root adapter
 
 - **Ticket:** F-111 → `done` (GH #46 sample implement; design F-102 + teach F-112 already done)
