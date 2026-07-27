@@ -19,8 +19,6 @@ package tools.forma.sample.feature.characters.detail.impl.ui
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import tools.forma.sample.common.extensions.android.util.loadImage
@@ -28,6 +26,8 @@ import tools.forma.sample.common.extensions.android.util.observe
 import tools.forma.sample.common.progressbar.viewbinding.ProgressBarDialog
 import tools.forma.sample.core.mvvm.library.ui.BaseViewBindingFragment
 import tools.forma.sample.core.mvvm.library.viewModels
+import tools.forma.sample.core.navigation.api.CharacterDetailArgs
+import tools.forma.sample.core.navigation.api.NavigatorProvider
 import tools.forma.sample.feature.characters.core.api.di.CharactersCoreFeatureProvider
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
 import tools.forma.sample.feature.characters.detail.api.presentation.ICharacterDetailViewState
@@ -46,8 +46,6 @@ class CharacterDetailFragment : BaseViewBindingFragment(
     private val viewModel: CharacterDetailViewModel by viewModels()
     private val viewBinding: FragmentCharacterDetailBinding by viewBinding(FragmentCharacterDetailBinding::bind)
 
-    private val args: CharacterDetailFragmentArgs by navArgs()
-
     private lateinit var progressDialog: ProgressBarDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +55,8 @@ class CharacterDetailFragment : BaseViewBindingFragment(
 
         observe(viewModel.data, ::onViewDataChange)
         observe(viewModel.state, ::onViewStateChange)
-        viewModel.loadCharacterDetail(args.characterId)
+        val characterId = requireArguments().getLong(CharacterDetailArgs.CHARACTER_ID)
+        viewModel.loadCharacterDetail(characterId)
     }
 
     override fun onInitDependencyInjection() {
@@ -101,9 +100,7 @@ class CharacterDetailFragment : BaseViewBindingFragment(
                     Snackbar.LENGTH_LONG
                 ).show()
             is CharacterDetailViewState.Dismiss ->
-                // TODO https://github.com/formatools/forma/issues/46
-                // Need abstract navigation layer here
-                findNavController().navigateUp()
+                requireProvider(NavigatorProvider::class).getNavigator().back()
             else -> progressDialog.dismiss()
         }
     }

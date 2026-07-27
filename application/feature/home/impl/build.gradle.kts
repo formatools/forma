@@ -5,7 +5,6 @@ impl(
             androidx.core_ktx,
             androidx.appcompat,
             androidx.constraintlayout,
-            androidx.navigation,
             google.material,
             google.dagger,
             viewbinding.viewpropertydelegate
@@ -19,7 +18,8 @@ impl(
                 target(":core:di:android-util"),
                 target(":core:theme:android-util"),
                 target(":core:mvvm:ui-library"),
-                target(":core:navigation:res"),
+                target(":core:navigation:api"),
+                target(":core:navigation:android-util"),
                 target(":common:extensions:android-util"),
             )
 )

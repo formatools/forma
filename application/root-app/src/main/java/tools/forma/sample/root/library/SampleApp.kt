@@ -21,6 +21,10 @@ import tools.forma.sample.common.util.clock.Clock
 import tools.forma.sample.core.di.library.BaseComponent
 import tools.forma.sample.core.di.library.BaseComponentProvider
 import tools.forma.sample.core.di.library.DaggerBaseComponent
+import tools.forma.sample.core.navigation.android.util.HomeShellNavigation
+import tools.forma.sample.core.navigation.android.util.HomeShellNavigationProvider
+import tools.forma.sample.core.navigation.api.Navigator
+import tools.forma.sample.core.navigation.api.NavigatorProvider
 import tools.forma.sample.core.network.library.Config
 import tools.forma.sample.core.theme.android.util.ThemeUtils
 import tools.forma.sample.core.theme.android.util.di.DaggerThemeComponent
@@ -35,15 +39,17 @@ import tools.forma.sample.feature.characters.favorite.api.di.CharacterFavoriteFe
 import tools.forma.sample.feature.characters.favorite.impl.di.CharacterFavoriteComponent
 import tools.forma.sample.feature.characters.favorite.impl.di.DaggerCharacterFavoriteComponent
 import tools.forma.sample.root.library.di.DaggerRootComponent
-import timber.log.Timber
+import tools.forma.sample.root.library.navigation.JetpackHomeShellNavigation
+import tools.forma.sample.root.library.navigation.JetpackNavigator
 import javax.inject.Inject
-import kotlin.random.Random
 
 class SampleApp : SplitCompatApplication(),
     BaseComponentProvider,
     ThemeComponentProvider,
     CharactersCoreFeatureProvider,
-    CharacterFavoriteFeatureProvider {
+    CharacterFavoriteFeatureProvider,
+    NavigatorProvider,
+    HomeShellNavigationProvider {
 
     private lateinit var baseComponent: BaseComponent
     override fun getBaseComponent(): BaseComponent = baseComponent
@@ -56,6 +62,14 @@ class SampleApp : SplitCompatApplication(),
 
     private lateinit var characterFavoriteComponent: CharacterFavoriteComponent
     override fun getCharacterFavoriteFeature(): CharacterFavoriteFeature = characterFavoriteComponent
+
+    private val jetpackNavigator = JetpackNavigator()
+    private val homeShellNavigation: HomeShellNavigation =
+        JetpackHomeShellNavigation(jetpackNavigator)
+
+    override fun getNavigator(): Navigator = jetpackNavigator
+
+    override fun getHomeShellNavigation(): HomeShellNavigation = homeShellNavigation
 
     @Inject
     lateinit var config: Config

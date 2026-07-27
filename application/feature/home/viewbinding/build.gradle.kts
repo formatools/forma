@@ -3,11 +3,10 @@ viewBinding(
     dependencies = deps(
         google.inject,
         google.material,
-        androidx.navigation,
         androidx.appcompat,
         androidx.constraintlayout
     ) + deps(
-        target(":core:navigation:res"),
+        target(":core:navigation:api"),
         target(":core:mvvm:ui-library"),
         target(":core:theme:res"),
         target(":feature:home:res"),

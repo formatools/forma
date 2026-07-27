@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-26 — F-111: Sample navigation ports + root adapter
+
+- **Ticket:** F-111 → `done` (GH #46 sample implement; design F-102 + teach F-112 already done)
+- **Branch:** `forma/F-111-sample-navigation-ports` (from `origin/v2`)
+- **Skills/modes:** Grok Build `--mode full` (design/plan + implement); Hermes finish path after CLI timeout (verify + docs + PR)
+- **Code (application/ only — no Forma engine DSL):**
+  - `core/navigation/api` (`api`) — `Navigator`, `NavigatorProvider`, sealed `AppDestination.CharacterDetail`, `CharacterDetailArgs.CHARACTER_ID`, `HomeChromeMode`
+  - `core/navigation/android-util` — moved multi-backstack `NavigationExtensions` from common; `HomeShellNavigation` / `HomeShellNavigationProvider` (boolean chrome flag — **no** `api` import so matrix `androidUtil` ↛ `api` holds)
+  - `root-app` — `JetpackNavigator` (rebindable `NavController` + Safe Args `CharactersListFragmentDirections`); `JetpackHomeShellNavigation` owns graph `R.navigation` / tab-root `R.id` + action bar; `SampleApp` implements both providers
+  - Features Nav-free: list/detail fragments use ports; detail reads plain Bundle key; `HomeViewModel` takes `HomeChromeMode` only; `HomeFragment` binds shell provider only
+  - Stripped `androidx.navigation` + `target(":core:navigation:res")` from list/detail/favorite/home feature modules + cargo-cult favorite viewbinding; common extensions no longer depends on navigation
+  - Layer B unchanged: `core/navigation/res` still `navigationRes`
+- **Verify (real host, `source scripts/env-mac.sh`):**
+  - `application/` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (1m7s, 623 tasks)
+  - `rg` under `application/feature` for `findNavController|FragmentDirections|navArgs(|androidx.navigation` → **no matches**
+  - `rg` `core:navigation:res` under `application/feature/**/build.gradle.kts` → **no matches**
+- **Docs:** NAVIGATION-ABSTRACTION DoD F-111 checked; SAMPLE-APP wiring sketch; TICKETS F-111 done; P11 header next = F-103
+- **Not in this slice:** F-103/F-104; Forma router engine; moving HomeFragment into root-app; optional `core/mvvm` unused nav dep cleanup
+- **Next step:** **F-103** hybrid targets example (flat dir / api+impl co-location)
+
 ## 2026-07-26 — F-112: Progressive example navigation ports
 
 - **Ticket:** F-112 → `done` (teach F-102 Layer A/B; sample migration remains **F-111**)
