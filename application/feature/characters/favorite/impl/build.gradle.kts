@@ -4,7 +4,6 @@ impl(
         androidx.core_ktx,
         androidx.appcompat,
         androidx.constraintlayout,
-        androidx.navigation,
         androidx.viewmodel,
         androidx.recyclerview,
         androidx.swiperefreshlayout,
@@ -27,7 +26,6 @@ impl(
         target(":core:theme:android-util"),
         target(":core:mvvm:ui-library"),
         target(":core:network:library"),
-        target(":core:navigation:res"),
 
         target(":common:util"),
         target(":common:extensions:android-util"),

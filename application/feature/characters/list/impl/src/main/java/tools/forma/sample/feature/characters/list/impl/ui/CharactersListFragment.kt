@@ -19,7 +19,6 @@ package tools.forma.sample.feature.characters.list.impl.ui
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import by.kirich1409.viewbindingdelegate.viewBinding
 import tools.forma.sample.common.extensions.android.util.gridLayoutManager
@@ -27,6 +26,8 @@ import tools.forma.sample.common.extensions.android.util.observe
 import tools.forma.sample.common.recyclerview.widget.RecyclerViewItemDecoration
 import tools.forma.sample.core.mvvm.library.ui.BaseViewBindingFragment
 import tools.forma.sample.core.mvvm.library.viewModels
+import tools.forma.sample.core.navigation.api.AppDestination
+import tools.forma.sample.core.navigation.api.NavigatorProvider
 import tools.forma.sample.feature.characters.core.api.di.CharactersCoreFeatureProvider
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
 import tools.forma.sample.feature.characters.list.viewbinding.databinding.FragmentCharactersListBinding
@@ -105,13 +106,10 @@ class CharactersListFragment : BaseViewBindingFragment(
 
     private fun onViewEvent(viewEvent: ICharactersListViewEvent) {
         when (viewEvent) {
-            // TODO https://github.com/formatools/forma/issues/46
-            // Need abstract navigation layer here
             is CharactersListViewEvent.OpenCharacterDetail ->
-                findNavController().navigate(
-                    CharactersListFragmentDirections
-                        .actionCharactersListFragmentToCharacterDetailFragment(viewEvent.id)
-                )
+                requireProvider(NavigatorProvider::class)
+                    .getNavigator()
+                    .navigate(AppDestination.CharacterDetail(characterId = viewEvent.id))
         }
     }
 }

@@ -94,9 +94,12 @@ binary (androidBinary)
 root-app hosts SampleApp DI:
   BaseComponent + ThemeComponent + CharactersCore + CharacterFavorite
 
-home/impl hosts bottom navigation:
-  navigation_characters_list_graph + navigation_character_favorite_graph
-  (from core/navigation/res)
+Navigation (F-111):
+  core/navigation/api          — Navigator + AppDestination + HomeChromeMode (no androidx.navigation)
+  core/navigation/android-util — HomeShellNavigation port + multi-backstack helpers
+  core/navigation/res          — Path B navigationRes (graphs + Safe Args)
+  root-app                     — JetpackNavigator + JetpackHomeShellNavigation (sole Nav/Safe Args consumer)
+  home/impl                    — thin shell; binds HomeShellNavigationProvider only
 ```
 
 ## Build
@@ -124,11 +127,13 @@ Not in scope for F-014: full navigation redesign (GH #46), publish path (F-016).
 Configuration-time performance: [CONFIGURATION-PERFORMANCE.md](CONFIGURATION-PERFORMANCE.md) (F-017).
 
 **Navigation abstraction (F-102 / GH #46):** design is in
-[NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md) — presentation-layer ports
-so feature `impl`/ViewModels do not take Jetpack Navigation / Safe Args codegen;
-graphs stay on `navigationRes`. Sample refactor = **F-111**; progressive example
+[NAVIGATION-ABSTRACTION.md](NAVIGATION-ABSTRACTION.md). **F-111 landed** on this
+sample: Layer A ports in `core/navigation/api`, Jetpack adapter in `root-app`,
+home multi-backstack binder port in `core/navigation/android-util`, graphs stay
+on `navigationRes`. Feature `impl`/VM have **no** `findNavController` / Safe Args /
+graph R.ids. Progressive teach:
 [`examples/android/12-navigation-ports`](../examples/android/12-navigation-ports)
-(**F-112**, shipped). This gold-standard tree still shows today’s bleed until F-111 lands.
+(**F-112**).
 
 ## Type-owned plugins (navigation)
 

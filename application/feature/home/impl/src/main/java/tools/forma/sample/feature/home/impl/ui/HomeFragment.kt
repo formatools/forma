@@ -23,14 +23,13 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import tools.forma.sample.common.extensions.android.util.setupWithNavController
 import tools.forma.sample.core.mvvm.library.ui.BaseViewBindingFragment
 import tools.forma.sample.core.mvvm.library.viewModels
+import tools.forma.sample.core.navigation.android.util.HomeShellNavigationProvider
+import tools.forma.sample.core.navigation.api.HomeChromeMode
 import tools.forma.sample.core.theme.android.util.ThemeUtils
 import tools.forma.sample.core.theme.android.util.di.ThemeComponentProvider
-import tools.forma.sample.feature.home.impl.R
 import tools.forma.sample.feature.home.impl.di.DaggerHomeComponent
 import tools.forma.sample.feature.home.viewbinding.databinding.FragmentHomeBinding
 import tools.forma.sample.feature.home.viewbinding.ui.HomeViewModel
@@ -39,18 +38,19 @@ import javax.inject.Inject
 
 private const val DELAY_TO_APPLY_THEME = 1000L
 
-class HomeFragment : BaseViewBindingFragment(tools.forma.sample.feature.home.viewbinding.R.layout.fragment_home) {
+/**
+ * Home composition shell. Bottom-nav multi-backstack + graph ids live in the
+ * root-owned [tools.forma.sample.root.library.navigation.JetpackHomeShellNavigation]
+ * adapter; this fragment only binds via [HomeShellNavigationProvider].
+ */
+class HomeFragment :
+    BaseViewBindingFragment(tools.forma.sample.feature.home.viewbinding.R.layout.fragment_home) {
 
     @Inject
     lateinit var themeUtils: ThemeUtils
 
     private val viewModel: HomeViewModel by viewModels()
     private val viewBinding: FragmentHomeBinding by viewBinding(FragmentHomeBinding::bind)
-
-    private val navGraphIds = listOf(
-        tools.forma.sample.core.navigation.library.R.navigation.navigation_characters_list_graph,
-        tools.forma.sample.core.navigation.library.R.navigation.navigation_character_favorite_graph
-    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,13 +83,18 @@ class HomeFragment : BaseViewBindingFragment(tools.forma.sample.feature.home.vie
             setOnMenuItemClickListener {
                 try {
                     // Correct way to take app version code and version name, instead of BuildConfig
-                    val packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
+                    val packageInfo =
+                        requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
                     val versionName = packageInfo.versionName
                     val versionCode = packageInfo.versionCode
                     Toast
                         .makeText(
                             requireContext(),
-                            getString(tools.forma.sample.feature.home.res.R.string.home_app_info_template, versionName, versionCode),
+                            getString(
+                                tools.forma.sample.feature.home.res.R.string.home_app_info_template,
+                                versionName,
+                                versionCode
+                            ),
                             Toast.LENGTH_LONG
                         )
                         .show()
@@ -123,18 +128,24 @@ class HomeFragment : BaseViewBindingFragment(tools.forma.sample.feature.home.vie
     }
 
     private fun setupBottomNavigationBar() {
-        // TODO https://github.com/formatools/forma/issues/46
-        // Need abstract navigation layer here
-        val navController = viewBinding.bottomNavigation.setupWithNavController(
-            navGraphIds = navGraphIds,
-            fragmentManager = childFragmentManager,
-            containerId = tools.forma.sample.feature.home.viewbinding.R.id.nav_host_container,
-            intent = requireActivity().intent
-        )
-
-        navController.observe(viewLifecycleOwner) {
-            viewModel.navigationControllerChanged(it)
-            setupActionBarWithNavController(requireCompatActivity(), it)
-        }
+        requireProvider(HomeShellNavigationProvider::class)
+            .getHomeShellNavigation()
+            .bind(
+                activity = requireCompatActivity(),
+                bottomNavigationView = viewBinding.bottomNavigation,
+                fragmentManager = childFragmentManager,
+                containerId = tools.forma.sample.feature.home.viewbinding.R.id.nav_host_container,
+                intent = requireActivity().intent,
+                lifecycleOwner = viewLifecycleOwner,
+                onNavigationScreen = { isNavigationScreen ->
+                    viewModel.onChromeModeChanged(
+                        if (isNavigationScreen) {
+                            HomeChromeMode.NavigationScreen
+                        } else {
+                            HomeChromeMode.FullScreen
+                        }
+                    )
+                },
+            )
     }
 }

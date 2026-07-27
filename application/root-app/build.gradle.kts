@@ -21,6 +21,8 @@ androidApp(
                 target(":feature:characters:favorite:api"),
                 target(":feature:characters:favorite:impl"),
                 target(":core:di:android-util"),
+                target(":core:navigation:api"),
+                target(":core:navigation:android-util"),
                 target(":core:navigation:res"),
                 target(":core:theme:android-util"),
                 target(":core:network:library"),

@@ -19,31 +19,25 @@ package tools.forma.sample.feature.home.viewbinding.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import tools.forma.sample.feature.home.viewbinding.R
-
+import tools.forma.sample.core.navigation.api.HomeChromeMode
 import javax.inject.Inject
 
-// TODO https://github.com/formatools/forma/issues/46
-// Move out from here strong deps of navigation component
-val NAV_FRAGMENTS_ID = setOf(
-    tools.forma.sample.core.navigation.library.R.id.characters_list_fragment,
-    tools.forma.sample.core.navigation.library.R.id.character_favorite_fragment
-)
-
+/**
+ * Home chrome state only. Destination / NavController wiring lives in the
+ * composition-root adapter (F-111 / GH #46).
+ */
 class HomeViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableLiveData<HomeViewState>()
     val state: LiveData<HomeViewState>
         get() = _state
 
-    fun navigationControllerChanged(navController: NavController) {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (NAV_FRAGMENTS_ID.contains(destination.id)) {
-                _state.postValue(HomeViewState.NavigationScreen)
-            } else {
-                _state.postValue(HomeViewState.FullScreen)
+    fun onChromeModeChanged(mode: HomeChromeMode) {
+        _state.postValue(
+            when (mode) {
+                HomeChromeMode.NavigationScreen -> HomeViewState.NavigationScreen
+                HomeChromeMode.FullScreen -> HomeViewState.FullScreen
             }
-        }
+        )
     }
 }

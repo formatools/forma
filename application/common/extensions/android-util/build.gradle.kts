@@ -8,7 +8,6 @@ androidUtil(
             androidx.constraintlayout,
             androidx.fragment,
             androidx.viewmodel,
-            androidx.navigation,
             androidx.recyclerview,
             androidx.paging,
             google.material,

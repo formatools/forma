@@ -1,13 +1,14 @@
 # Navigation abstraction (F-102 / GH #46)
 
-**Status:** design shipped (this doc). Implementation is **not** a Forma engine
-feature — it is **sample architecture + progressive teaching**, with optional
-reuse of existing Path B `navigationRes` only where type=rule already fits.
+**Status:** design + implement slices shipped (F-102 / **F-111** / **F-112**).
+Implementation is **not** a Forma engine feature — it is **sample architecture +
+progressive teaching**, with optional reuse of existing Path B `navigationRes`
+only where type=rule already fits.
 
 | Slice | Ticket | Scope |
 |-------|--------|--------|
 | Design (this doc) | **F-102** | Problem, layers A/B, v1 approach, rejects, ticket map |
-| Sample ports + root adapter | **F-111** | Gold-standard `application/` refactor |
+| Sample ports + root adapter | **F-111** | Gold-standard `application/` refactor (**done**) |
 | Progressive example | **F-112** | `examples/android/12-navigation-ports` (shipped) |
 | Optional type tweaks | only if evidence | No new forever router DSL in plugins |
 
@@ -248,7 +249,7 @@ Documented pattern only:
 | ID | Status intent | Deliverable |
 |----|---------------|-------------|
 | **F-102** | **done** (design) | This document + cross-links + board split |
-| **F-111** | todo | Sample: presentation ports + adapter at composition root; strip Nav/Safe Args from feature `impl`/VM where practical; keep `navigationRes`; `application/` still green |
+| **F-111** | **done** | Sample: presentation ports + adapter at composition root; strip Nav/Safe Args from feature `impl`/VM where practical; keep `navigationRes`; `application/` still green |
 | **F-112** | done | Progressive example `examples/android/12-navigation-ports` + ladder/skill links |
 | F-102c (optional) | only if needed | Tiny type/docs tweak to `navigationRes` / TARGET-PLUGINS — **no** router engine |
 
@@ -263,20 +264,20 @@ order is fine as long as both follow this design.
 
 **F-111**
 
-- [ ] Navigator / destinations (or equivalent) with **no** androidx.navigation in
+- [x] Navigator / destinations (or equivalent) with **no** androidx.navigation in
       feature contracts used by `impl`/VM
-- [ ] Adapter at root (or root-owned module) owns `NavController` + Safe Args
-- [ ] Feature modules no longer depend on `core/navigation/res` unless justified
+- [x] Adapter at root (or root-owned module) owns `NavController` + Safe Args
+- [x] Feature modules no longer depend on `core/navigation/res` unless justified
       in PROGRESS
-- [ ] Comments/TODOs for GH #46 in touched files resolved or narrowed
-- [ ] `application/` `./gradlew :binary:assembleDebug` (or full `build`) green on
+- [x] Comments/TODOs for GH #46 in touched files resolved or narrowed
+- [x] `application/` `./gradlew :binary:assembleDebug` (or full `build`) green on
       real host — never invent green
 
 **F-112**
 
-- [ ] Example builds; README explains ports vs adapter vs `navigationRes`
-- [ ] `PROGRESSIVE-EXAMPLES.md` matrix row + examples README link
-- [ ] No `.withPlugin`; no `androidLibrary`
+- [x] Example builds; README explains ports vs adapter vs `navigationRes`
+- [x] `PROGRESSIVE-EXAMPLES.md` matrix row + examples README link
+- [x] No `.withPlugin`; no `androidLibrary`
 
 ---
 
