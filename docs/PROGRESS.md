@@ -2,6 +2,18 @@
 
 Newest entries first.
 
+## 2026-07-29 — F-115: NiA dogfood phase B vertical spike green
+
+- **Ticket:** F-115 still `in_progress` (phase C next)
+- **Actions:**
+  - `publish-local.sh 0.1.3-NIA` → mavenLocal
+  - New external tree `/Users/claw/work/nowinandroid-forma/forma-spike` (no Forma `includeBuild`, no NiA build-logic)
+  - Modules: `core-model-library`, `core-navigation-api` (ports), `feature-topic-{api,res,impl}`, `root-app`/`root-res`, `binary`
+  - Applied F1 (nav ports) + F8 (api res → androidRes) + F9 (flat includes without includer on mavenLocal)
+- **Verify (real host):** `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (108 tasks, ~1m); APK `binary-debug.apk` ~8.9MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase B + findings F8–F10
+- **Next:** phase C grow toward real topic impl + more features / Hilt Path A
+
 ## 2026-07-29 — F-115: Now in Android dogfood (phase A inventory)
 
 - **Ticket:** F-115 → `in_progress` (P12)

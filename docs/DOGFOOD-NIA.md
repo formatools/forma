@@ -1,9 +1,11 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — inventory + type mapping (phase A)  
+**Status:** `in_progress` — phase B vertical spike **green**  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
-**Forma branch for docs/tickets:** `forma/F-115-nia-dogfood`  
+**Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
+**Spike tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`  
+**Forma plugins:** `mavenLocal` version **`0.1.3-NIA`**  
 **Goal:** Validate Forma’s meta-build approach on a **real multi-module OSS** graph — not another in-repo sample.
 
 ## Product bar (what “success” means)
@@ -158,49 +160,57 @@ These are the **value** of dogfooding — expected friction, not blockers to ign
 
 ## Phased execution plan
 
-### Phase A — Inventory + mapping (**this doc**) ✅
+### Phase A — Inventory + mapping ✅
 
 - [x] Clone upstream, pin SHA  
 - [x] Module + convention + edge inventory  
 - [x] Type map + matrix findings  
 - [x] Ticket F-115 on board  
 
-### Phase B — Vertical spike (next coding)
+### Phase B — Vertical spike ✅ (2026-07-29)
 
-Workspace: **`/Users/claw/work/nowinandroid-forma`** (fork/clone of pin; do not dirty upstream clone used as reference).
+Workspace: **`/Users/claw/work/nowinandroid-forma/forma-spike`** (external consumer; upstream clone stays reference-only).
 
-1. `publish-local.sh 0.1.3-NIA` from Forma `v2`.  
-2. Replace root `pluginManagement` / remove `includeBuild("build-logic")` for migrated modules (or hybrid: build-logic only for unmigrated).  
-3. **Smallest vertical** (recommended):
-   - JVM `core-model-library`
-   - `core-data` stack trimmed **or** stubs
-   - `feature-topic-api` + `feature-topic-impl` (simpler than foryou permissions)
-   - `app-binary` depending on topic api+impl only  
-4. Prove: attrs-only call sites, no `.withPlugin`, matrix errors are actionable.  
-5. Log every refused edge + resolution in this doc § Findings log.
+| Step | Result |
+|------|--------|
+| `bash scripts/publish-local.sh 0.1.3-NIA` | **ok** — `~/.m2/.../0.1.3-NIA` |
+| Settings | `plugins { id("tools.forma.android") version "0.1.3-NIA" }` + `mavenLocal()` — **no** `includeBuild` Forma plugins, **no** NiA `build-logic` |
+| Graph | `core-model-library` + `core-navigation-api` + `feature-topic-{api,res,impl}` + `root-app` + `root-res` + `binary` |
+| Verify | `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (~1m, 108 tasks) |
+| Artifact | `forma-spike/binary/build/outputs/apk/debug/binary-debug.apk` (~8.9 MB) |
+
+**Call sites:** attrs-only (`library` / `api` / `androidRes` / `impl(compose=true)` / `androidApp` / `androidBinary`). Zero `.withPlugin` / free-form plugin lists.
+
+**Real NiA DNA in spike:** `Topic` / `FollowableTopic` model sources; topic package namespace; topic strings moved to `androidRes`; Navigator port instead of Nav3 on api.
+
+**Not yet (phase C):** full upstream `TopicScreen`/`TopicViewModel` (Hilt, `core.data`, designsystem, `core.ui`); multi-feature app; flavors; Room/Firebase Path A on this tree.
 
 ### Phase C — Expand features + cores
 
+- Grow spike toward real topic impl deps (data/domain as `androidUtil`)  
 - foryou / interests / bookmarks / search / settings  
-- navigation ports migration (F1)  
-- Room derived type on database  
 - Hilt Path A on impl (+ binary)  
+- Room derived type on database  
 - Firebase on binary  
+- Optional: hybrid stub pairs for IDE  
 
 ### Phase D — Case study write-up
 
 - Before/after build files (LOC, plugin lines)  
 - Config time optional (`CONFIGURATION-PERFORMANCE.md` recipe)  
-- Upstream PR? **No** — dogfood stays fork unless Google interest; Forma gets docs + maybe `examples/dogfood-nia-notes` only  
+- Upstream PR? **No** — dogfood stays fork unless Google interest  
 
 ## Findings log (living)
 
 | ID | Date | Edge / issue | Resolution |
 |----|------|--------------|------------|
-| F1 | 2026-07-29 | feature api → navigation android lib | Planned ports split |
-| F2 | 2026-07-29 | search api → domain | Move contracts / impl-only domain |
-| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | TBD during spike |
-| F5 | 2026-07-29 | test impl→impl | Test fakes; no matrix weaken |
+| F1 | 2026-07-29 | feature api → navigation android lib | **Spike:** `core-navigation-api` pure `Navigator` port; `TopicNavKey` drops `NavKey`; adapter in `root-app` |
+| F2 | 2026-07-29 | search api → domain | Still open (search not in spike) |
+| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | Deferred (no `uiLibrary` in spike); model consumed as JVM `library` from `impl` (**allowed**) |
+| F5 | 2026-07-29 | test impl→impl | Deferred |
+| F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
+| F9 | 2026-07-29 | `tools.forma.includer` **not** published to mavenLocal | External consumer used **flat** `include(":feature-topic-api")` + `projectDir`; Forma `target(":feature:topic:api")` → `:feature-topic-api`. Product gap: publish includer or document flat-name recipe in PLUGIN-PUBLISH |
+| F10 | 2026-07-29 | First target() resolve failed with nested `:feature:topic:api` includes | Confirmed path mapping; flat names required without includer |
 
 ## Local reference commands
 
