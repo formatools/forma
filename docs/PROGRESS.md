@@ -2,6 +2,20 @@
 
 Newest entries first.
 
+## 2026-07-29 — F-115: Now in Android dogfood (phase A inventory)
+
+- **Ticket:** F-115 → `in_progress` (P12)
+- **Branch:** `forma/F-115-nia-dogfood` (from `origin/v2`)
+- **Why:** Stepan selected NiA as primary real-world multimodule OSS target to validate meta-build approach outside in-repo samples.
+- **Actions:**
+  - Cloned upstream → `/Users/claw/work/nowinandroid` @ `7d45eae`
+  - Inventory: settings includes, ~36 modules, `build-logic` convention plugins, **104** explicit project edges
+  - Noted tip already has feature **api/impl** splits (strong Forma fit) + Navigation 3 + Hilt + Room + Firebase
+  - Wrote [`docs/DOGFOOD-NIA.md`](DOGFOOD-NIA.md): convention→type ownership, full type map, matrix findings **F1–F7** (api→navigation, search api→domain, uiLibrary→model gap, test impl→impl, flavors, …)
+  - Board: P12 + F-115; README doc index #18
+- **Not in this slice:** phase B fork migration / assemble under Forma (next)
+- **Next step:** clone `/Users/claw/work/nowinandroid-forma`, `publish-local.sh 0.1.3-NIA`, vertical spike topic feature + binary
+
 ## 2026-07-27 — F-104: Hybrid stub swap via project-global feature flag
 
 - **Ticket:** F-104 → `done` (GH #43)

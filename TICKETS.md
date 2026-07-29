@@ -154,7 +154,6 @@ worker (ops); `v2`→`master` (explicit git promote only). **F-094** stays `bloc
 
 Third Gradle platform on forma-core (`tools.forma.kmp`). **Design:** [`docs/KMP-TARGETS.md`](docs/KMP-TARGETS.md).
 **P11 v1 complete (F-105…F-110).** **F-100…F-104 done** (nav design/sample/example + hybrid layout/stub swap).
-Open board: **F-094** Plugin Portal only (`blocked` human/admin). Workers with no `todo`/`in_progress` → **`[SILENT]`**.
 v1 KMP = **jvm + android** shared libraries only; type-owned MPP; **no** per-module target shopping;
 composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 
@@ -166,6 +165,18 @@ composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 | F-108 | done | Android/JVM consumer matrix edges → kmp.* | Extend `AndroidTargetRegistry` + `JvmTargetRegistry`; update `DEPENDENCY-MATRIX.md` from code; avoid `:kmp`→`:android` cycle |
 | F-109 | done | Progressive example `examples/kmp/01-shared-library` | Shared `kmp-library` + JVM binary consumer; pure KMP+JVM platforms; `./gradlew build` + `:binary:run` green |
 | F-110 | done | KMP user docs + agent skill + curriculum | `docs/KMP-GETTING-STARTED.md`; `examples/agent-skills/forma-kmp-targets.md`; PROGRESSIVE-EXAMPLES + README + overview skill links |
+
+## P12 — Real-world dogfood (Stepan 2026-07-29)
+
+External multimodule OSS validation of meta-build axioms (structure over configuration,
+type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
+
+Open coding: **F-115** (`in_progress`). **F-094** Portal remains `blocked` (human).
+4h workers: pick F-115 phase B+ unless blocked; do not `[SILENT]` while F-115 is open.
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-115 | in_progress | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design/inventory: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). Phase A done (module map + matrix findings F1–F7). Phase B: fork `/Users/claw/work/nowinandroid-forma`, `publish-local` `0.1.3-NIA`, vertical spike `model-library` + `topic` api/impl + `binary`. Do **not** reintroduce `androidLibrary`; nav via ports (F1). |
 
 ## Backlog (lower priority / historical GitHub)
 
