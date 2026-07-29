@@ -64,6 +64,7 @@ systems like Buck and Bazel.
 15. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
 16. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050; KMP skill `forma-kmp-targets`)
 17. [**Test coverage**](docs/TEST-COVERAGE.md) — JaCoCo on `plugins/`, happy-path LINE ≥60% gate
+18. [**Dogfood: Now in Android**](docs/DOGFOOD-NIA.md) — real-world multimodule OSS migration map + matrix findings (F-115)
 
 Configuration made easy:
 
