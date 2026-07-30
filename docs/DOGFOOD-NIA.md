@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt + Room + **Firebase Path A green** (more features next)  
+**Status:** `in_progress` — phase C Hilt + Room + Firebase + **DataStore Preferences green** (more features / sync next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -236,7 +236,22 @@ Workspace: same **`forma-spike`** external tree.
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (268 tasks); `processDebugGoogleServices` + Crashlytics inject tasks green |
 | In-repo | Example **14** Path A companions aligned to `transitiveDeps` (same F17 lesson) |
 
-**Still open in phase C:** remaining NiA features (foryou/bookmarks/search/settings), flavors, full designsystem, DataStore UserData, WorkManager sync.
+**Still open in phase C (pre-DataStore):** remaining features, full designsystem, DataStore UserData, WorkManager sync.
+
+### Phase C — DataStore Preferences UserData ✅ (2026-07-30)
+
+| Step | Result |
+|------|--------|
+| Module | `core-datastore-android-util` — `hiltAndroidUtil` + Preferences DataStore |
+| Source | `NiaPreferencesDataSource` (followed topic ids) + Hilt `DataStoreModule` (`PreferenceDataStoreFactory`) |
+| Data | `OfflineFirstUserDataRepository` replaces in-memory UserData |
+| Domain | `FollowTopicUseCase` so interests feature stays on domain only (no data types on feature classpath) |
+| UI | Interests list Follow chip writes DataStore; topic detail already toggled via data |
+| Companions | `transitiveDeps("androidx.datastore:datastore-preferences:1.1.7")` — **no** Gradle plugin (F18) |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (291 tasks) |
+| Deferred | Proto DataStore + `datastore-proto` (upstream NiA shape) — later if needed |
+
+**Still open in phase C:** remaining NiA features (foryou/bookmarks/search/settings), flavors, full designsystem, Proto DataStore parity, WorkManager sync.
 
 ### Phase D — Case study write-up
 
@@ -262,6 +277,8 @@ Workspace: same **`forma-spike`** external tree.
 | F15 | 2026-07-30 | No public `androidUtil(type=)` before helper | Engine needed `androidUtilTarget` (like `resourcesTarget`) so Path B Room DSL can pass derived type + processor features |
 | F16 | 2026-07-30 | Hilt + Firebase both need Path A on binary | `TargetPluginRegistry` **accumulates** plugins per type (dedup by id). Thin `hiltFirebaseBinary` loads both binding objects then `androidBinary`. |
 | F17 | 2026-07-30 | Firebase SDKs via `.dep` / `deps()` non-transitive | Crashlytics/Analytics AARs resolve but **without** `firebase-common` → `FirebaseApp` unresolved on binary. **Fix:** type-owned companions use `transitiveDeps(...)` (BOM still `transitivePlatform`). Example 14 companions fixed the same way. |
+| F18 | 2026-07-30 | DataStore has no structure Gradle plugin | Preferences DataStore is a **library stack** on `hiltAndroidUtil` (companions at call site). No Path A/B plugin id. Proto DataStore would add JVM `library` + serializer — deferred; Preferences enough to validate UserData edge + follow toggle. |
+| F19 | 2026-07-30 | Feature VM → data types without matrix edge | interests.impl depended on domain only; injecting `UserDataRepository` failed KSP resolve. **Fix:** `FollowTopicUseCase` on domain — feature stays domain-facing (cleaner than adding data edge). |
 
 ## Local reference commands
 

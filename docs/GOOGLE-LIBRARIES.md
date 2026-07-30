@@ -64,7 +64,7 @@ usage** (not classpath-only comments).
 | Stack | Why |
 |-------|-----|
 | WorkManager | No sample job; add when a ticket needs background work |
-| DataStore / Preferences | Sample uses simpler stores; add with a feature need |
+| DataStore / Preferences | F-115 NiA spike: Preferences DataStore on `hiltAndroidUtil` (no Gradle plugin — library stack). Proto DataStore deferred |
 | CameraX / Media3 / Maps / Ads | Product-specific; not Forma meta-build teaching defaults |
 | Hilt | Sample teaches **Dagger + KSP**; Metro is alternate DI example |
 | Firebase Auth / Firestore / Remote Config / … | Crashlytics+Analytics establish the **plugin + BOM** pattern; expand per product need |
