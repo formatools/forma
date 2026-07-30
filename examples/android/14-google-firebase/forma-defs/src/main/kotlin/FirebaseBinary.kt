@@ -19,11 +19,13 @@ import tools.forma.owners.Owner
  *
  * Call sites stay attributes-only — no plugin ids.
  */
+// transitiveDeps: Crashlytics/Analytics need firebase-common on the consumer compile
+// classpath when Application code lives on binary. deps()/String.dep are non-transitive.
 private val firebaseBomAndSdks: FormaDependency =
     transitivePlatform("com.google.firebase:firebase-bom:33.16.0") +
-        deps(
-            "com.google.firebase:firebase-crashlytics".dep,
-            "com.google.firebase:firebase-analytics".dep,
+        transitiveDeps(
+            "com.google.firebase:firebase-crashlytics",
+            "com.google.firebase:firebase-analytics",
         )
 
 private val googleServices = targetPlugin(id = "com.google.gms.google-services")

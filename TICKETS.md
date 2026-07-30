@@ -176,7 +176,7 @@ Open coding: **F-115** (`in_progress`). **F-094** Portal remains `blocked` (huma
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C Hilt+Room done:** spike green with Hilt Path A + Room Path B (`roomAndroidUtil` / `androidUtilTarget`), data OfflineFirst+DAO, topic+interests (no impl→impl). Engine: KSP companion (F12) + `androidUtilTarget` (F15). **Next phase C:** Firebase binary, more features. No `androidLibrary`. |
+| F-115 | in_progress | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C Hilt+Room+Firebase done:** spike green with Hilt Path A + Room Path B + **Firebase Path A** (`hiltFirebaseBinary`, dummy GMS JSON, Analytics/Crashlytics API on binary). Engine: KSP companion (F12) + `androidUtilTarget` (F15). Findings F16/F17 (stack Path A; `transitiveDeps` for Firebase SDKs). **Next phase C:** more features / DataStore / sync. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 
