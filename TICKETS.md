@@ -172,11 +172,11 @@ External multimodule OSS validation of meta-build axioms (structure over configu
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
 Open coding: **F-115** (`in_progress`). **F-094** Portal remains `blocked` (human).
-4h workers: pick F-115 phase B+ unless blocked; do not `[SILENT]` while F-115 is open.
+4h workers: pick F-115 phase C remainder (Hilt Path A / more features) unless blocked; do not `[SILENT]` while F-115 is open.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B done:** mavenLocal `0.1.3-NIA` + `/Users/claw/work/nowinandroid-forma/forma-spike` `:binary:assembleDebug` **green**. Findings F1/F8/F9 applied in spike. **Phase C:** expand real topic deps (data/Hilt/designsystem) + more features. No `androidLibrary`. |
+| F-115 | in_progress | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C partial done:** spike green with data/domain `androidUtil`, designsystem `uiLibrary`, topic ViewModel, interests feature (no impl→impl). Finding F11 (`compose=false` on non-UI androidUtil). **Next phase C:** Hilt Path A, Room/Firebase, more features. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 

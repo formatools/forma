@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase B vertical spike **green**  
+**Status:** `in_progress` — phase C (data/domain/designsystem + interests) **green**  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -183,16 +183,22 @@ Workspace: **`/Users/claw/work/nowinandroid-forma/forma-spike`** (external consu
 
 **Real NiA DNA in spike:** `Topic` / `FollowableTopic` model sources; topic package namespace; topic strings moved to `androidRes`; Navigator port instead of Nav3 on api.
 
-**Not yet (phase C):** full upstream `TopicScreen`/`TopicViewModel` (Hilt, `core.data`, designsystem, `core.ui`); multi-feature app; flavors; Room/Firebase Path A on this tree.
+**Not yet (phase C remainder):** Hilt Path A; Room/Firebase; full upstream designsystem/core.ui; remaining features (foryou/bookmarks/search/settings); flavors.
 
-### Phase C — Expand features + cores
+### Phase C — Expand features + cores (partial ✅ 2026-07-29)
 
-- Grow spike toward real topic impl deps (data/domain as `androidUtil`)  
-- foryou / interests / bookmarks / search / settings  
-- Hilt Path A on impl (+ binary)  
-- Room derived type on database  
-- Firebase on binary  
-- Optional: hybrid stub pairs for IDE  
+Workspace: same **`forma-spike`** external tree.
+
+| Step | Result |
+|------|--------|
+| Cores | `core-data-android-util` (`TopicsRepository` + in-memory), `core-domain-android-util` (`GetFollowableTopicsUseCase`), `core-designsystem-ui-library` (slim `NiaTheme` / loading / background) |
+| Topic | `TopicViewModel` + designsystem-backed `TopicRoute` / `TopicScreen` (manual DI) |
+| Interests | `feature-interests-{api,res,impl}` — domain use case; navigates via **topic api** only |
+| Root | Manual DI graph + multi-destination Navigator adapter |
+| Verify | `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (198 tasks); APK ~9.2 MB |
+| Finding F11 | Project-global `compose=true` forces Compose compiler on `androidUtil` unless `compose = false` — set on data/domain |
+
+**Still open in phase C:** Hilt Path A (type-owned like Metro F-095), Room derived type, Firebase binary, foryou/bookmarks/search/settings, full designsystem port.
 
 ### Phase D — Case study write-up
 
@@ -206,11 +212,12 @@ Workspace: **`/Users/claw/work/nowinandroid-forma/forma-spike`** (external consu
 |----|------|--------------|------------|
 | F1 | 2026-07-29 | feature api → navigation android lib | **Spike:** `core-navigation-api` pure `Navigator` port; `TopicNavKey` drops `NavKey`; adapter in `root-app` |
 | F2 | 2026-07-29 | search api → domain | Still open (search not in spike) |
-| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | Deferred (no `uiLibrary` in spike); model consumed as JVM `library` from `impl` (**allowed**) |
-| F5 | 2026-07-29 | test impl→impl | Deferred |
+| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Phase C:** `uiLibrary` designsystem has **no** model edge; model flows `impl` → JVM `library` (**allowed**). F3 gap stays if designsystem must import model types later |
+| F5 | 2026-07-29 | test / runtime impl→impl | **Phase C runtime:** interests.impl → topic.**api** only. Test classpath still deferred |
 | F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
 | F9 | 2026-07-29 | `tools.forma.includer` **not** published to mavenLocal | External consumer used **flat** `include(":feature-topic-api")` + `projectDir`; Forma `target(":feature:topic:api")` → `:feature-topic-api`. Product gap: publish includer or document flat-name recipe in PLUGIN-PUBLISH |
 | F10 | 2026-07-29 | First target() resolve failed with nested `:feature:topic:api` includes | Confirmed path mapping; flat names required without includer |
+| F11 | 2026-07-29 | project-global `compose=true` + `androidUtil` | Compose compiler runs on data/domain without Compose runtime → ICE. **Fix:** `androidUtil(..., compose = false)` on non-UI cores |
 
 ## Local reference commands
 

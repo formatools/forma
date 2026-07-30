@@ -2,6 +2,22 @@
 
 Newest entries first.
 
+## 2026-07-29 — F-115: NiA dogfood phase C (data/domain/designsystem + interests)
+
+- **Ticket:** F-115 still `in_progress` (Hilt Path A / Room / remaining features next)
+- **Skills/modes:** Hermes direct dogfood scaffold (external spike; no Forma engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - Added `core-data-android-util`, `core-domain-android-util`, `core-designsystem-ui-library`
+  - Topic: `TopicViewModel` + designsystem-backed screen; deps on data + uiLibrary
+  - Interests: `feature-interests-{api,res,impl}` using domain use case; navigates via topic **api** only
+  - Root: manual DI + multi-destination Navigator adapter
+  - **F11:** `compose = false` on non-UI `androidUtil` (project-global compose otherwise ICE)
+- **Verify (real host):** `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (198 tasks); APK `binary-debug.apk` ~9.2MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C + findings F3/F5/F11; TICKETS F-115 notes
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** Hilt Path A (type-owned like Metro), or more features / Room derived type
+
 ## 2026-07-29 — F-115: NiA dogfood phase B vertical spike green
 
 - **Ticket:** F-115 still `in_progress` (phase C next)
