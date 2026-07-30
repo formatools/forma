@@ -1,11 +1,11 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt Path A **green** (Room/more features next)  
+**Status:** `in_progress` — phase C Hilt Path A + **Room Path B green** (Firebase / more features next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
 **Spike tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`  
-**Forma plugins:** `mavenLocal` version **`0.1.3-NIA`** (republish after F-115 engine fix)  
+**Forma plugins:** `mavenLocal` version **`0.1.3-NIA`** (republish after `androidUtilTarget` + prior KSP fix)  
 **Goal:** Validate Forma’s meta-build approach on a **real multi-module OSS** graph — not another in-repo sample.
 
 ## Product bar (what “success” means)
@@ -209,7 +209,21 @@ Workspace: same **`forma-spike`** external tree.
 | F11+ | `compose = false` on data/domain **and** binary Application host (Compose compiler without runtime ICE) |
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (242 tasks); Hilt tasks `hiltAggregateDepsDebug` / `hiltJavaCompileDebug` green |
 
-**Still open in phase C:** Room derived type, Firebase binary, foryou/bookmarks/search/settings, full designsystem port.
+**Still open in phase C (pre-Room):** Firebase binary, foryou/bookmarks/search/settings, full designsystem port.
+
+### Phase C — Room Path B ✅ (2026-07-30)
+
+| Step | Result |
+|------|--------|
+| Engine | `androidUtilTarget(type, …)` — Path B twin of `resourcesTarget`; `androidUtil` delegates |
+| `forma-defs` | `RoomAndroidUtilType` = `deriveTargetType(base=androidUtil, suffix=android-util)` + thin `roomAndroidUtil` |
+| Plugins on type | `androidx.room` (runtime/ktx + `room-compiler`.ksp) **and** Hilt re-bound (F14: derived types do not inherit base Path A plugins) |
+| Module | `core-database-android-util` — slim `NiaDatabase` / `TopicEntity` / `TopicDao` / Hilt `DatabaseModule`; `exportSchema=true` → `schemas/…/1.json` |
+| Data | `OfflineFirstTopicsRepository` seeds DAO when empty; UserData still in-memory |
+| Classpath | `extraPlugins` += Room Gradle plugin (`libs.plugins.room`) |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (266 tasks); KSP `TopicDao_Impl` / `NiaDatabase_Impl`; APK ~10 MB |
+
+**Still open in phase C:** Firebase binary, remaining features, full designsystem, DataStore UserData.
 
 ### Phase D — Case study write-up
 
@@ -231,6 +245,8 @@ Workspace: same **`forma-spike`** external tree.
 | F11 | 2026-07-29 | project-global `compose=true` + `androidUtil` | Compose compiler runs on data/domain without Compose runtime → ICE. **Fix:** `androidUtil(..., compose = false)` on non-UI cores; same on binary when only Application sources |
 | F12 | 2026-07-29 | Path A companion `.ksp` deps | `applyTargetPlugins` called `applyDependencies` **without** `configurationFeatures` → no `ksp` configuration. **Engine fix:** optional `configurationFeatures` param forwarded from DSLs that already know processors (`impl`/`app`/`androidUtil`/`binary`/…) |
 | F13 | 2026-07-29 | Hilt Application placement | `@HiltAndroidApp` must live on `com.android.application` (`androidBinary` / `hiltBinary`), not library-shell `androidApp` |
+| F14 | 2026-07-30 | Path B does not inherit base type plugins | `deriveTargetType` clones matrix/content rules only; plugin registry is per-type. Room util must **re-register Hilt** (or stack plugins on the derived type) — not rely on Path A `androidUtil` Hilt alone |
+| F15 | 2026-07-30 | No public `androidUtil(type=)` before helper | Engine needed `androidUtilTarget` (like `resourcesTarget`) so Path B Room DSL can pass derived type + processor features |
 
 ## Local reference commands
 
