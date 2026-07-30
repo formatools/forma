@@ -20,7 +20,7 @@ Newest entries first.
 - **Blockers:** none product; F-094 Portal still human-blocked
 - **Next:** more NiA features (foryou/bookmarks/search/settings) and/or WorkManager sync
 
-## 2026-07-30 — F-115: NiA dogfood Firebase Path A + transitive Firebase SDKs
+## 2026-07-30 — Audit policy: cron continuation gate (docs)
 
 - **Source:** Audit topic 4241 — implement 2026-07-29 recommendations (Hermes skills + local cron prompts; this repo slice is board/prompt only)
 - **Board:** F-115 tagged `priority: now` + `cron may continue` so 4h worker may keep dogfood under the new gate
