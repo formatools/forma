@@ -51,14 +51,15 @@ fun Project.uiLibrary(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),
         kotlinAndroidFeatureDefinition()
     )
-    applyTargetPlugins(AndroidTargetTypes.uiLibrary)
+    val processors = processorConfigurationFeatures()
+    applyTargetPlugins(AndroidTargetTypes.uiLibrary, configurationFeatures = processors)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.uiLibrary).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
         androidTestDependencies = androidTestDependencies,
-        configurationFeatures = processorConfigurationFeatures()
+        configurationFeatures = processors
     )
 }
 

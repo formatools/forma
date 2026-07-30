@@ -1,11 +1,11 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C (data/domain/designsystem + interests) **green**  
+**Status:** `in_progress` — phase C Hilt Path A **green** (Room/more features next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
 **Spike tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`  
-**Forma plugins:** `mavenLocal` version **`0.1.3-NIA`**  
+**Forma plugins:** `mavenLocal` version **`0.1.3-NIA`** (republish after F-115 engine fix)  
 **Goal:** Validate Forma’s meta-build approach on a **real multi-module OSS** graph — not another in-repo sample.
 
 ## Product bar (what “success” means)
@@ -183,7 +183,7 @@ Workspace: **`/Users/claw/work/nowinandroid-forma/forma-spike`** (external consu
 
 **Real NiA DNA in spike:** `Topic` / `FollowableTopic` model sources; topic package namespace; topic strings moved to `androidRes`; Navigator port instead of Nav3 on api.
 
-**Not yet (phase C remainder):** Hilt Path A; Room/Firebase; full upstream designsystem/core.ui; remaining features (foryou/bookmarks/search/settings); flavors.
+**Not yet (phase C remainder):** Room/Firebase; full upstream designsystem/core.ui; remaining features (foryou/bookmarks/search/settings); flavors.
 
 ### Phase C — Expand features + cores (partial ✅ 2026-07-29)
 
@@ -192,13 +192,24 @@ Workspace: same **`forma-spike`** external tree.
 | Step | Result |
 |------|--------|
 | Cores | `core-data-android-util` (`TopicsRepository` + in-memory), `core-domain-android-util` (`GetFollowableTopicsUseCase`), `core-designsystem-ui-library` (slim `NiaTheme` / loading / background) |
-| Topic | `TopicViewModel` + designsystem-backed `TopicRoute` / `TopicScreen` (manual DI) |
+| Topic | `TopicViewModel` + designsystem-backed `TopicRoute` / `TopicScreen` (manual DI first) |
 | Interests | `feature-interests-{api,res,impl}` — domain use case; navigates via **topic api** only |
 | Root | Manual DI graph + multi-destination Navigator adapter |
 | Verify | `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (198 tasks); APK ~9.2 MB |
 | Finding F11 | Project-global `compose=true` forces Compose compiler on `androidUtil` unless `compose = false` — set on data/domain |
 
-**Still open in phase C:** Hilt Path A (type-owned like Metro F-095), Room derived type, Firebase binary, foryou/bookmarks/search/settings, full designsystem port.
+### Phase C — Hilt Path A ✅ (2026-07-29)
+
+| Step | Result |
+|------|--------|
+| `forma-defs` | Local composite (`tools.forma.nia:forma-defs:0.0.1`) — Path A `registerTargetPlugin` on `impl` / `app` / `androidUtil` / `binary` + thin `hiltImpl` / `hiltApp` / `hiltAndroidUtil` / `hiltBinary` |
+| Classpath | `extraPlugins`: forma-defs + `hilt-android-gradle-plugin` 2.59 + KSP 2.3.10 (classpath only) |
+| Sources | `@HiltAndroidApp` on **binary**; `@AndroidEntryPoint` MainActivity; `@HiltViewModel` + assisted topicId; data `@Binds` module; domain `@Inject` use case |
+| Engine fix | `applyTargetPlugins` now forwards `processorConfigurationFeatures` so companion `.ksp` deps create `ksp` config (was empty → “Configuration with name 'ksp' not found”) |
+| F11+ | `compose = false` on data/domain **and** binary Application host (Compose compiler without runtime ICE) |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (242 tasks); Hilt tasks `hiltAggregateDepsDebug` / `hiltJavaCompileDebug` green |
+
+**Still open in phase C:** Room derived type, Firebase binary, foryou/bookmarks/search/settings, full designsystem port.
 
 ### Phase D — Case study write-up
 
@@ -217,7 +228,9 @@ Workspace: same **`forma-spike`** external tree.
 | F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
 | F9 | 2026-07-29 | `tools.forma.includer` **not** published to mavenLocal | External consumer used **flat** `include(":feature-topic-api")` + `projectDir`; Forma `target(":feature:topic:api")` → `:feature-topic-api`. Product gap: publish includer or document flat-name recipe in PLUGIN-PUBLISH |
 | F10 | 2026-07-29 | First target() resolve failed with nested `:feature:topic:api` includes | Confirmed path mapping; flat names required without includer |
-| F11 | 2026-07-29 | project-global `compose=true` + `androidUtil` | Compose compiler runs on data/domain without Compose runtime → ICE. **Fix:** `androidUtil(..., compose = false)` on non-UI cores |
+| F11 | 2026-07-29 | project-global `compose=true` + `androidUtil` | Compose compiler runs on data/domain without Compose runtime → ICE. **Fix:** `androidUtil(..., compose = false)` on non-UI cores; same on binary when only Application sources |
+| F12 | 2026-07-29 | Path A companion `.ksp` deps | `applyTargetPlugins` called `applyDependencies` **without** `configurationFeatures` → no `ksp` configuration. **Engine fix:** optional `configurationFeatures` param forwarded from DSLs that already know processors (`impl`/`app`/`androidUtil`/`binary`/…) |
+| F13 | 2026-07-29 | Hilt Application placement | `@HiltAndroidApp` must live on `com.android.application` (`androidBinary` / `hiltBinary`), not library-shell `androidApp` |
 
 ## Local reference commands
 

@@ -12,8 +12,15 @@ import tools.forma.validation.EmptyValidator
  * Plugins are looked up from the global TargetPluginRegistry (populated via
  * registerTargetPlugin or deriveTargetType). This is the mechanism that makes
  * "type owns plugin, call site has zero plugin surface".
+ *
+ * [configurationFeatures] must mirror the host DSL's processor map (e.g. KSP)
+ * so companion deps that use [Ksp] / custom configurations can create those
+ * configurations before [applyDependencies] adds them (F-115 Hilt Path A).
  */
-fun Project.applyTargetPlugins(type: TargetType) {
+fun Project.applyTargetPlugins(
+    type: TargetType,
+    configurationFeatures: Map<ConfigurationType, () -> Unit> = emptyMap(),
+) {
     val specs = TargetPluginRegistry.get(type)
     specs.forEach { spec ->
         apply(plugin = spec.id)
@@ -23,7 +30,8 @@ fun Project.applyTargetPlugins(type: TargetType) {
             applyDependencies(
                 validator = EmptyValidator,
                 dependencies = deps,
-                repositoriesConfiguration = EmptyRepositoriesConfiguration
+                repositoriesConfiguration = EmptyRepositoriesConfiguration,
+                configurationFeatures = configurationFeatures,
             )
         }
     }
