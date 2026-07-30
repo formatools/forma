@@ -2,6 +2,32 @@
 
 Newest entries first.
 
+## 2026-07-30 — F-115: NiA dogfood DataStore Preferences UserData
+
+- **Ticket:** F-115 still `in_progress` (more features / WorkManager sync / Proto DataStore next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `core-datastore-android-util` — Preferences DataStore + `NiaPreferencesDataSource` + Hilt `DataStoreModule`
+  - data: `OfflineFirstUserDataRepository` replaces in-memory UserData; deps → datastore
+  - domain: `FollowTopicUseCase` (F19 — interests stays domain-only)
+  - interests UI: Follow chip writes DataStore via use case
+  - Findings **F18** (DataStore = library stack, no Gradle plugin), **F19** (feature→data via domain use case)
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (291 tasks)
+  - `:core-datastore-android-util:compileDebugKotlin` green; Hilt aggregate green
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C DataStore + F18/F19; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** more NiA features (foryou/bookmarks/search/settings) and/or WorkManager sync
+
+## 2026-07-30 — Audit policy: cron continuation gate (docs)
+
+- **Source:** Audit topic 4241 — implement 2026-07-29 recommendations (Hermes skills + local cron prompts; this repo slice is board/prompt only)
+- **Board:** F-115 tagged `priority: now` + `cron may continue` so 4h worker may keep dogfood under the new gate
+- **Docs:** `docs/cron-worker-prompt.txt` — continuation gate + rm -rf path echo; merge only gated ticket PRs
+- **Live cron:** `~/.hermes/cron/jobs.json` job `18717ea2093c` prompt patched (backup `jobs.json.bak-audit-impl-20260730`)
+- **No product code** in this slice
+
 ## 2026-07-30 — F-115: NiA dogfood Firebase Path A + transitive Firebase SDKs
 
 - **Ticket:** F-115 still `in_progress` (more features / DataStore / sync next)
