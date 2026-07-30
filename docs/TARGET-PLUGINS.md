@@ -24,6 +24,12 @@ plugin on every call site of that type.
    - **Path A:** `registerTargetPlugin(AndroidTargetTypes.res, …)` only if *every* module of that kind should get it.
 3. Call sites set **attributes only** — never plugin ids, never `.withPlugin`.
 
+**Companion deps + KSP (F-115):** `targetPlugin(id, dependencies = …)` may include
+`.ksp` processor GAVs. `applyTargetPlugins` forwards the host DSL’s
+`processorConfigurationFeatures` so the `ksp` configuration exists before those
+deps are added (Hilt Path A / Room Path B). Republish plugins after pulling this
+engine fix when dogfooding from `mavenLocal`.
+
 Hands-on: [`examples/android/10-target-plugins`](../examples/android/10-target-plugins)
 (safe-args) · [`examples/android/11-metro-di`](../examples/android/11-metro-di) (Metro DI).  
 Agent skill: [`forma-target-plugins`](../examples/agent-skills/forma-target-plugins.md).

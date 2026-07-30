@@ -2,6 +2,27 @@
 
 Newest entries first.
 
+## 2026-07-29 — F-115: NiA dogfood Hilt Path A + applyTargetPlugins KSP fix
+
+- **Ticket:** F-115 still `in_progress` (Room / more features next)
+- **Skills/modes:** Hermes direct dogfood + small engine fix (target-plugin companion KSP)
+- **Engine (`plugins/`):**
+  - `applyTargetPlugins(type, configurationFeatures=…)` forwards processor map
+  - Wired on `impl` / `androidApp` / `androidUtil` / `uiLibrary` / `library` / `androidBinary`
+  - Republished mavenLocal **`0.1.3-NIA`**
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `forma-defs` Path A: Hilt on impl/app/androidUtil/binary + thin DSLs
+  - `@HiltAndroidApp` on binary; `@AndroidEntryPoint` root-app; `@HiltViewModel` features
+  - data `@Binds` + domain `@Inject`; interests → topic **api** only
+  - Findings F12 (KSP companion), F13 (Application on binary), F11 extended to binary
+- **Verify (real host):**
+  - `plugins/` `:deps:test` + `publishAllToMavenLocal -PformaLocalVersion=0.1.3-NIA` → **BUILD SUCCESSFUL**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (242 tasks; Hilt aggregate/compile green)
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C Hilt; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** Room Path B derived type and/or more NiA features
+
 ## 2026-07-29 — F-115: NiA dogfood phase C (data/domain/designsystem + interests)
 
 - **Ticket:** F-115 still `in_progress` (Hilt Path A / Room / remaining features next)

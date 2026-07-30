@@ -1,6 +1,7 @@
 import org.gradle.api.Project
 import tools.forma.android.feature.AndroidBinaryFeatureConfiguration
 import tools.forma.android.feature.androidBinaryFeatureDefinition
+import tools.forma.android.feature.processorConfigurationFeatures
 import tools.forma.android.feature.applyFeatures
 import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
@@ -88,10 +89,12 @@ fun Project.androidBinary(
     applyFeatures(
         androidBinaryFeatureDefinition(binaryFeatureConfiguration)
     )
-    applyTargetPlugins(AndroidTargetTypes.binary)
+    val processors = processorConfigurationFeatures()
+    applyTargetPlugins(AndroidTargetTypes.binary, configurationFeatures = processors)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.binary).asValidator(),
-        dependencies = dependencies
+        dependencies = dependencies,
+        configurationFeatures = processors,
     )
 }

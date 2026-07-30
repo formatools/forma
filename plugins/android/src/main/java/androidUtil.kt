@@ -59,12 +59,13 @@ fun Project.androidUtil(
         androidLibraryFeatureDefinition(androidFeatureConfig),
         kotlinAndroidFeatureDefinition()
     )
-    applyTargetPlugins(AndroidTargetTypes.androidUtil)
+    val processors = processorConfigurationFeatures()
+    applyTargetPlugins(AndroidTargetTypes.androidUtil, configurationFeatures = processors)
 
     applyDependencies(
         validator = AndroidTargetRegistry.validatorFor(AndroidTargetTypes.androidUtil).asValidator(),
         dependencies = dependencies,
         testDependencies = testDependencies,
-        configurationFeatures = processorConfigurationFeatures()
+        configurationFeatures = processors
     )
 }
