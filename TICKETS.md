@@ -176,7 +176,7 @@ Open coding: **F-115** (`in_progress`, **`priority: now`**, **cron may continue*
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C Hilt+Room+Firebase+DataStore done:** spike green with Hilt Path A + Room Path B + Firebase Path A + **Preferences DataStore** UserData (`core-datastore-android-util`, `OfflineFirstUserDataRepository`, `FollowTopicUseCase`). Engine: KSP companion (F12) + `androidUtilTarget` (F15). Findings F16–F19. **Next phase C:** more features / WorkManager sync / Proto DataStore. No `androidLibrary`. |
+| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C Hilt+Room+Firebase+DataStore+ForYou done:** spike green with Hilt Path A + Room Path B + Firebase Path A + Preferences DataStore + **`feature-foryou`** (news feed Room v2, onboarding, bookmarks prefs). Findings F16–F20. **Next phase C:** bookmarks/search/settings / WorkManager sync / Proto DataStore. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 

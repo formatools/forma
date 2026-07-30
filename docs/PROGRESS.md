@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-30 — F-115: NiA dogfood For You feature + news feed
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (bookmarks/search/settings / WorkManager next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - Model: `NewsResource` / `UserNewsResource`
+  - Room v2: `NewsResourceEntity`/`NewsResourceDao` + schema `2.json` + destructive migrate
+  - DataStore: bookmarks + `shouldHideOnboarding` keys
+  - Data: `NewsRepository` + extended `UserData`
+  - Domain: feed/bookmark/onboarding use cases (F19)
+  - Feature: `feature-foryou-{api,res,impl}` — home start; → interests/topic **api** only (F20)
+  - Root: multi-dest Navigator; start = For You
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (335 tasks)
+  - APK `binary-debug.apk` ~12.8 MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C For You + F20; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** bookmarks/search/settings and/or WorkManager sync
+
 ## 2026-07-30 — F-115: NiA dogfood DataStore Preferences UserData
 
 - **Ticket:** F-115 still `in_progress` (more features / WorkManager sync / Proto DataStore next)
