@@ -2,6 +2,29 @@
 
 Newest entries first.
 
+## 2026-07-30 — F-115: NiA dogfood Room Path B + androidUtilTarget
+
+- **Ticket:** F-115 still `in_progress` (Firebase / more features next)
+- **Skills/modes:** Hermes direct dogfood + mechanical Path B engine helper (F-050/F-115 class)
+- **Engine (`plugins/android`):**
+  - New `androidUtilTarget(type, …)` — shared AGP/util wiring + `applyTargetPlugins` with processor features
+  - `androidUtil` delegates to it with `AndroidTargetTypes.androidUtil`
+  - Republished mavenLocal **`0.1.3-NIA`**
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `forma-defs/RoomAndroidUtil.kt` — Path B `deriveTargetType` + `roomAndroidUtil` thin DSL
+  - `core-database-android-util` — Room DB/DAO/entity + Hilt provides; schema `1.json` exported
+  - data: `OfflineFirstTopicsRepository` seeds DAO; still no impl→impl
+  - Findings **F14** (derived types need Hilt re-bind), **F15** (`androidUtilTarget` helper)
+- **Verify (real host):**
+  - `scripts/publish-local.sh 0.1.3-NIA` → **ok**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (266 tasks)
+  - KSP generated `TopicDao_Impl` / `NiaDatabase_Impl`; Room schema JSON present
+  - APK `binary-debug.apk` ~10.2 MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C Room; TICKETS F-115 notes; TARGET-PLUGINS pointer; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** Firebase Path A on binary and/or more NiA features
+
 ## 2026-07-29 — F-115: NiA dogfood Hilt Path A + applyTargetPlugins KSP fix
 
 - **Ticket:** F-115 still `in_progress` (Room / more features next)

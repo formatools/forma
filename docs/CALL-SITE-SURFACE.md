@@ -45,7 +45,9 @@ All return **`Unit`**.
 | `androidNative` | `native` | `buildSystem`, `abi`, … | NDK leaf; consumers `androidUtil`/`app`/`binary` |
 | Path B derived (e.g. `navigationRes`) | often shared suffix | same as base + type-owned plugins | Consumer-defined; see TARGET-PLUGINS |
 
-Internal helper `resourcesTarget(type, …)` backs `androidRes` and derived res DSLs —
+Internal helpers: `resourcesTarget(type, …)` backs `androidRes` and derived res DSLs;
+`androidUtilTarget(type, …)` backs `androidUtil` and derived util DSLs (e.g. dogfood
+`roomAndroidUtil`) —
 not a public “generic library” escape hatch.
 
 ## JVM target DSLs (`tools.forma.jvm`)
