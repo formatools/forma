@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt + Room + Firebase + **DataStore Preferences green** (more features / sync next)  
+**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + **For You feature green** (bookmarks/search/settings / sync next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -251,7 +251,21 @@ Workspace: same **`forma-spike`** external tree.
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (291 tasks) |
 | Deferred | Proto DataStore + `datastore-proto` (upstream NiA shape) — later if needed |
 
-**Still open in phase C:** remaining NiA features (foryou/bookmarks/search/settings), flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+**Still open in phase C (pre-For You):** remaining NiA features (foryou/bookmarks/search/settings), flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+
+### Phase C — For You feature + news feed ✅ (2026-07-30)
+
+| Step | Result |
+|------|--------|
+| Model | `NewsResource` + `UserNewsResource` on JVM `library` (ISO date string; no kotlinx-datetime) |
+| Room v2 | `NewsResourceEntity` / `NewsResourceDao`; schema `2.json`; destructive migrate on spike |
+| Data | `NewsRepository` + bookmarks/onboarding on DataStore-backed `UserData` |
+| Domain | `GetNewsFeedForFollowedTopics` / `BookmarkNewsResource` / onboarding use cases (F19) |
+| Feature | `feature-foryou-{api,res,impl}` — home start; feed + onboarding + bookmark; → interests/topic **api** only |
+| Root | `MainActivity` start = `ForYouNavKey`; multi-dest Navigator |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (335 tasks); APK ~12.8 MB |
+
+**Still open in phase C:** bookmarks/search/settings features, flavors, full designsystem, Proto DataStore parity, WorkManager sync.
 
 ### Phase D — Case study write-up
 
@@ -279,6 +293,7 @@ Workspace: same **`forma-spike`** external tree.
 | F17 | 2026-07-30 | Firebase SDKs via `.dep` / `deps()` non-transitive | Crashlytics/Analytics AARs resolve but **without** `firebase-common` → `FirebaseApp` unresolved on binary. **Fix:** type-owned companions use `transitiveDeps(...)` (BOM still `transitivePlatform`). Example 14 companions fixed the same way. |
 | F18 | 2026-07-30 | DataStore has no structure Gradle plugin | Preferences DataStore is a **library stack** on `hiltAndroidUtil` (companions at call site). No Path A/B plugin id. Proto DataStore would add JVM `library` + serializer — deferred; Preferences enough to validate UserData edge + follow toggle. |
 | F19 | 2026-07-30 | Feature VM → data types without matrix edge | interests.impl depended on domain only; injecting `UserDataRepository` failed KSP resolve. **Fix:** `FollowTopicUseCase` on domain — feature stays domain-facing (cleaner than adding data edge). |
+| F20 | 2026-07-30 | Multi-feature composition at root | foryou + interests + topic: each `impl` only → other feature **api**; root-app/binary compose all three. Start dest = For You (NiA home). Confirms F5 at 3-feature scale. |
 
 ## Local reference commands
 
