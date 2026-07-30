@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt Path A + **Room Path B green** (Firebase / more features next)  
+**Status:** `in_progress` — phase C Hilt + Room + **Firebase Path A green** (more features next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -223,7 +223,20 @@ Workspace: same **`forma-spike`** external tree.
 | Classpath | `extraPlugins` += Room Gradle plugin (`libs.plugins.room`) |
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (266 tasks); KSP `TopicDao_Impl` / `NiaDatabase_Impl`; APK ~10 MB |
 
-**Still open in phase C:** Firebase binary, remaining features, full designsystem, DataStore UserData.
+**Still open in phase C (pre-Firebase):** remaining features, full designsystem, DataStore UserData.
+
+### Phase C — Firebase Path A ✅ (2026-07-30)
+
+| Step | Result |
+|------|--------|
+| `forma-defs` | `FirebaseBinary.kt` — Path A GMS + Crashlytics on `AndroidTargetTypes.binary` + thin **`hiltFirebaseBinary`** (stacks Hilt + Firebase via accumulate register) |
+| Classpath | `extraPlugins` += `gmsServices` + `firebaseCrashlytics` (catalog names); settings `plugin(...)` GAVs |
+| Binary | Dummy `google-services.json` (package `…spike`); `NiaSpikeApp` calls `FirebaseApp` / Crashlytics / Analytics |
+| Companions | **`transitiveDeps`** for Crashlytics + Analytics (not `deps`/`.dep`) so `firebase-common` is on binary compile classpath |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (268 tasks); `processDebugGoogleServices` + Crashlytics inject tasks green |
+| In-repo | Example **14** Path A companions aligned to `transitiveDeps` (same F17 lesson) |
+
+**Still open in phase C:** remaining NiA features (foryou/bookmarks/search/settings), flavors, full designsystem, DataStore UserData, WorkManager sync.
 
 ### Phase D — Case study write-up
 
@@ -247,6 +260,8 @@ Workspace: same **`forma-spike`** external tree.
 | F13 | 2026-07-29 | Hilt Application placement | `@HiltAndroidApp` must live on `com.android.application` (`androidBinary` / `hiltBinary`), not library-shell `androidApp` |
 | F14 | 2026-07-30 | Path B does not inherit base type plugins | `deriveTargetType` clones matrix/content rules only; plugin registry is per-type. Room util must **re-register Hilt** (or stack plugins on the derived type) — not rely on Path A `androidUtil` Hilt alone |
 | F15 | 2026-07-30 | No public `androidUtil(type=)` before helper | Engine needed `androidUtilTarget` (like `resourcesTarget`) so Path B Room DSL can pass derived type + processor features |
+| F16 | 2026-07-30 | Hilt + Firebase both need Path A on binary | `TargetPluginRegistry` **accumulates** plugins per type (dedup by id). Thin `hiltFirebaseBinary` loads both binding objects then `androidBinary`. |
+| F17 | 2026-07-30 | Firebase SDKs via `.dep` / `deps()` non-transitive | Crashlytics/Analytics AARs resolve but **without** `firebase-common` → `FirebaseApp` unresolved on binary. **Fix:** type-owned companions use `transitiveDeps(...)` (BOM still `transitivePlatform`). Example 14 companions fixed the same way. |
 
 ## Local reference commands
 

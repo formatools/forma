@@ -26,6 +26,9 @@ printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
 ## Notes
 - This is **not** a live Firebase backend — the JSON is a dummy for assemble.
 - Production apps: real `google-services.json` from the Firebase console; never commit secrets.
+- Path A companions use **`transitiveDeps`** for Crashlytics/Analytics (not `deps`/`.dep`) so
+  `firebase-common` lands on the binary compile classpath when Application code lives there
+  (NiA dogfood finding **F17** / F-115).
 - Gold sample Architecture Components / Room / Navigation coverage:
   [`docs/GOOGLE-LIBRARIES.md`](../../../docs/GOOGLE-LIBRARIES.md).
 - Sample app still has Crashlytics on the **buildscript classpath** only (TODO Path B

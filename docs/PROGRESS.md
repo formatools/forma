@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-30 — F-115: NiA dogfood Firebase Path A + transitive Firebase SDKs
+
+- **Ticket:** F-115 still `in_progress` (more features / DataStore / sync next)
+- **Skills/modes:** Hermes direct dogfood (external spike + example 14 companion fix; no engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `forma-defs/FirebaseBinary.kt` — Path A GMS + Crashlytics on binary; thin `hiltFirebaseBinary` stacks Hilt+Firebase
+  - `binary/google-services.json` dummy; `NiaSpikeApp` real Firebase API use
+  - Classpath: `extraPlugins` + settings plugins for GMS/Crashlytics Gradle plugins
+  - Findings **F16** (Path A accumulate stack), **F17** (`transitiveDeps` required for Firebase SDKs on binary)
+- **In-repo:** `examples/android/14-google-firebase` Path A companions → `transitiveDeps` (same F17)
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (268 tasks)
+  - Tasks: `processDebugGoogleServices`, `injectCrashlyticsMappingFileIdDebug`, Hilt aggregate green
+  - APK `binary-debug.apk` ~12.7 MB
+  - Example 14 `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL**
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C Firebase + F16/F17; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** more NiA features and/or DataStore UserData / WorkManager sync
+
 ## 2026-07-30 — F-115: NiA dogfood Room Path B + androidUtilTarget
 
 - **Ticket:** F-115 still `in_progress` (Firebase / more features next)
