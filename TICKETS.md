@@ -172,7 +172,7 @@ External multimodule OSS validation of meta-build axioms (structure over configu
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
 Open coding: **F-115** (`in_progress`). **F-094** Portal remains `blocked` (human).
-4h workers: pick F-115 phase C remainder (Firebase / more features) unless blocked; do not `[SILENT]` while F-115 is open.
+4h workers: pick F-115 phase C remainder (more features / DataStore / sync) unless blocked; do not `[SILENT]` while F-115 is open.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
