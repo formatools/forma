@@ -2,6 +2,25 @@
 
 Newest entries first.
 
+## 2026-07-31 — F-115: NiA dogfood WorkManager sync
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (Proto DataStore / flavors next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - Data: `SyncManager` port; `TopicsRepository`/`NewsRepository.sync()` offline seed
+  - Module: `sync-work-android-util` — `hiltAndroidUtil` + WorkManager + Hilt Work (F18 library stack)
+  - Workers: `SyncWorker` + `DelegatingWorker` + `WorkManagerSyncManager` + stub subscriber
+  - Binary: `Sync.initialize` in `NiaSpikeApp`; deps → `:sync:work:android-util`
+  - **F23:** no `res/` on androidUtil — hardcoded sync notification copy
+  - **F24:** `deps()` overload split for `.ksp` + `target()`
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (486 tasks)
+  - APK `binary-debug.apk` ~13 MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C WorkManager + F23/F24; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** Proto DataStore and/or flavors
+
 ## 2026-07-31 — F-115: NiA dogfood Settings feature
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (WorkManager / Proto DataStore next)

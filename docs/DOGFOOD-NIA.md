@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + For You + Bookmarks + Search + **Settings feature green** (WorkManager / Proto DataStore next)  
+**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + features + Settings + **WorkManager sync green** (Proto DataStore / flavors next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -308,7 +308,22 @@ Workspace: same **`forma-spike`** external tree.
 | Root | `SettingsNavKey`; For You “Settings” entry; **6-feature** composition |
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (463 tasks); APK ~13 MB |
 
-**Still open in phase C:** flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+**Still open in phase C (pre-WorkManager):** flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+
+### Phase C — WorkManager sync ✅ (2026-07-31)
+
+| Step | Result |
+|------|--------|
+| Data | `SyncManager` port on `core-data-android-util`; `TopicsRepository`/`NewsRepository.sync()` offline seed refresh |
+| Module | `sync-work-android-util` — `hiltAndroidUtil` leaf (WorkManager + Hilt Work **library stack**, F18 sibling) |
+| Sources | `SyncWorker` + `DelegatingWorker` + `WorkManagerSyncManager` + stub `SyncSubscriber` + `Sync.initialize` |
+| Edges | sync → data only; **binary** → sync (composition root); no feature edge |
+| Binary | `NiaSpikeApp.onCreate` → `Sync.initialize`; version `0.10.0-nia-forma-sync` |
+| **F23** | `androidUtil` forbids `res/` — sync notification copy hardcoded (optional later `androidRes`) |
+| **F24** | `deps()` cannot mix `.ksp` NamedDependency + `target()` in one overload — compose with `+` |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (486 tasks); APK ~13 MB |
+
+**Still open in phase C:** flavors, full designsystem, Proto DataStore parity.
 
 ### Phase D — Case study write-up
 
@@ -339,6 +354,8 @@ Workspace: same **`forma-spike`** external tree.
 | F20 | 2026-07-30 | Multi-feature composition at root | foryou + bookmarks + interests + topic: each `impl` only → other feature **api**; root-app/binary compose all four. Start dest = For You (NiA home). Confirms F5 at 4-feature scale. |
 | F21 | 2026-07-31 | Search + 5-feature root | search.impl → topic/interests/foryou **api** only; root composes five features. Recent queries on DataStore (F18). Contains-search over Room (no FTS) still proves matrix + F2. |
 | F22 | 2026-07-31 | Settings upstream impl-only | NiA `:feature:settings:impl` has no api module. Spike adds `settings-api` (SettingsNavKey only) so root/other features navigate via **api** ports (F1) without depending on settings impl. Theme prefs on Preferences DataStore — still no Proto. |
+| F23 | 2026-07-31 | sync work notification strings | `androidUtil` content rule = no `res/`. Spike hardcodes notification title/channel (system sync icon). Optional later: `sync-work-res` `androidRes` + matrix edge. |
+| F24 | 2026-07-31 | `deps()` overload mix | Cannot pass `.ksp` NamedDependency and `target()` FormaTarget in one `deps(...)` call (distinct overloads). Compose `transitiveDeps + deps(ksp) + deps(target)`. |
 
 ## Local reference commands
 

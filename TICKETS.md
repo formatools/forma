@@ -172,11 +172,11 @@ External multimodule OSS validation of meta-build axioms (structure over configu
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
 Open coding: **F-115** (`in_progress`, **`priority: now`**, **cron may continue**). **F-094** Portal remains `blocked` (human).
-4h workers: pick F-115 phase C remainder (WorkManager sync / Proto DataStore / flavors) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
+4h workers: pick F-115 phase C remainder (Proto DataStore / flavors) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C Hilt+Room+Firebase+DataStore+ForYou+Bookmarks+Search+Settings done:** spike green with Hilt Path A + Room Path B + Firebase Path A + Preferences DataStore + **`feature-foryou`** + **`feature-bookmarks`** + **`feature-search`** + **`feature-settings`** (theme brand/dark/dynamic via domain; **F22** settings-api added for F1 ports). Findings F16–F22 (6-feature root). **Next phase C:** WorkManager sync / Proto DataStore / flavors. No `androidLibrary`. |
+| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C through WorkManager sync done:** Hilt Path A + Room Path B + Firebase Path A + Preferences DataStore + ForYou/Bookmarks/Search/Settings + **`sync-work-android-util`** (WorkManager + Hilt Work library stack; binary `Sync.initialize`). Findings F16–F24 (6-feature root + sync leaf). **Next phase C:** Proto DataStore / flavors. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 
