@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-31 — F-115: NiA dogfood Search feature
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (settings / WorkManager next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - Model: `SearchResult` / `UserSearchResult` / `RecentSearchQuery`
+  - Data: `SearchContentsRepository` (contains over Room) + `RecentSearchRepository` (DataStore)
+  - Domain: search/count/recent + insert/clear use cases (F19)
+  - Feature: `feature-search-{api,res,impl}` — query, recent, topic/news results
+  - **F2 closed:** search api → navigation api only (no domain)
+  - Edges: search → topic/interests/foryou **api**; foryou → search **api** (F5/F21)
+  - Root: `SearchNavKey`; 5-feature composition
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (420 tasks)
+  - APK `binary-debug.apk` ~13 MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C Search + F2/F21; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** settings and/or WorkManager sync / Proto DataStore
+
 ## 2026-07-30 — F-115: NiA dogfood Bookmarks (Saved) feature
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (search/settings / WorkManager next)

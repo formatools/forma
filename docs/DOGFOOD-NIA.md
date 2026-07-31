@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + For You + **Bookmarks feature green** (search/settings / sync next)  
+**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + For You + Bookmarks + **Search feature green** (settings / sync next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -278,7 +278,22 @@ Workspace: same **`forma-spike`** external tree.
 | Root | `BookmarksNavKey` in Navigator; For You header opens Saved |
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (377 tasks); APK ~13 MB |
 
-**Still open in phase C:** search/settings features, flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+**Still open in phase C (pre-Search):** search/settings features, flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+
+### Phase C — Search feature ✅ (2026-07-31)
+
+| Step | Result |
+|------|--------|
+| Model | `SearchResult` / `UserSearchResult` / `RecentSearchQuery` on JVM `library` |
+| Data | `SearchContentsRepository` (contains filter over Room topics+news; no FTS) + `RecentSearchRepository` (DataStore recent queries) |
+| Domain | `GetSearchContents` / count / recent + insert/clear + follow/bookmark use cases (F19) |
+| Feature | `feature-search-{api,res,impl}` — query field, recent list, topic/news results |
+| **F2** | search **api** → navigation **api** only — **no** domain edge (upstream had api→domain) |
+| Edges | search.impl → topic/interests/foryou **api** only (F5); foryou → search **api** |
+| Root | `SearchNavKey` in Navigator; For You “Search” entry; **5-feature** composition (F21) |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (420 tasks); APK ~13 MB |
+
+**Still open in phase C:** settings feature, flavors, full designsystem, Proto DataStore parity, WorkManager sync.
 
 ### Phase D — Case study write-up
 
@@ -291,7 +306,7 @@ Workspace: same **`forma-spike`** external tree.
 | ID | Date | Edge / issue | Resolution |
 |----|------|--------------|------------|
 | F1 | 2026-07-29 | feature api → navigation android lib | **Spike:** `core-navigation-api` pure `Navigator` port; `TopicNavKey` drops `NavKey`; adapter in `root-app` |
-| F2 | 2026-07-29 | search api → domain | Still open (search not in spike) |
+| F2 | 2026-07-29 | search api → domain | **Closed 2026-07-31:** search `api` = `SearchNavKey` + nav port only; contracts/use cases stay on domain for **impl**. No matrix exception. |
 | F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Phase C:** `uiLibrary` designsystem has **no** model edge; model flows `impl` → JVM `library` (**allowed**). F3 gap stays if designsystem must import model types later |
 | F5 | 2026-07-29 | test / runtime impl→impl | **Phase C runtime:** interests.impl → topic.**api** only. Test classpath still deferred |
 | F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
@@ -307,6 +322,7 @@ Workspace: same **`forma-spike`** external tree.
 | F18 | 2026-07-30 | DataStore has no structure Gradle plugin | Preferences DataStore is a **library stack** on `hiltAndroidUtil` (companions at call site). No Path A/B plugin id. Proto DataStore would add JVM `library` + serializer — deferred; Preferences enough to validate UserData edge + follow toggle. |
 | F19 | 2026-07-30 | Feature VM → data types without matrix edge | interests.impl depended on domain only; injecting `UserDataRepository` failed KSP resolve. **Fix:** `FollowTopicUseCase` on domain — feature stays domain-facing (cleaner than adding data edge). |
 | F20 | 2026-07-30 | Multi-feature composition at root | foryou + bookmarks + interests + topic: each `impl` only → other feature **api**; root-app/binary compose all four. Start dest = For You (NiA home). Confirms F5 at 4-feature scale. |
+| F21 | 2026-07-31 | Search + 5-feature root | search.impl → topic/interests/foryou **api** only; root composes five features. Recent queries on DataStore (F18). Contains-search over Room (no FTS) still proves matrix + F2. |
 
 ## Local reference commands
 
