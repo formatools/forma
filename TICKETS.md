@@ -172,11 +172,11 @@ External multimodule OSS validation of meta-build axioms (structure over configu
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
 Open coding: **F-115** (`in_progress`, **`priority: now`**, **cron may continue**). **F-094** Portal remains `blocked` (human).
-4h workers: pick F-115 phase C remainder (more features / WorkManager sync / Proto DataStore) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
+4h workers: pick F-115 phase C remainder (search/settings / WorkManager sync / Proto DataStore) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C Hilt+Room+Firebase+DataStore+ForYou done:** spike green with Hilt Path A + Room Path B + Firebase Path A + Preferences DataStore + **`feature-foryou`** (news feed Room v2, onboarding, bookmarks prefs). Findings F16–F20. **Next phase C:** bookmarks/search/settings / WorkManager sync / Proto DataStore. No `androidLibrary`. |
+| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C Hilt+Room+Firebase+DataStore+ForYou+Bookmarks done:** spike green with Hilt Path A + Room Path B + Firebase Path A + Preferences DataStore + **`feature-foryou`** + **`feature-bookmarks`** (Saved list + undo; domain use cases). Findings F16–F20 (4-feature root). **Next phase C:** search/settings / WorkManager sync / Proto DataStore. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 

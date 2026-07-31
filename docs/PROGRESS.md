@@ -2,6 +2,23 @@
 
 Newest entries first.
 
+## 2026-07-30 — F-115: NiA dogfood Bookmarks (Saved) feature
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (search/settings / WorkManager next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - Domain: `GetBookmarkedNewsResourcesUseCase` (news ∩ bookmarked ids; F19)
+  - Feature: `feature-bookmarks-{api,res,impl}` — Saved list, remove, snackbar undo
+  - Edges: bookmarks → topic/foryou **api** only; foryou → bookmarks **api** (F5/F20)
+  - Root: `BookmarksNavKey` + For You “Saved” entry; 4-feature composition
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (377 tasks)
+  - APK `binary-debug.apk` ~13 MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C Bookmarks + F20 scale-up; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** search/settings and/or WorkManager sync / Proto DataStore
+
 ## 2026-07-30 — F-115: NiA dogfood For You feature + news feed
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (bookmarks/search/settings / WorkManager next)
