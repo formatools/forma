@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-07-31 — F-115: NiA dogfood Settings feature
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (WorkManager / Proto DataStore next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - DataStore: theme brand / dark config / dynamic color keys (F18)
+  - Data: `UserData` theme fields + repository setters
+  - Domain: `GetUserEditableSettings` + update brand/dark/dynamic use cases (F19)
+  - Feature: `feature-settings-{api,res,impl}` — theme radios + privacy/brand/feedback links
+  - **F22:** spike adds settings **api** (upstream was impl-only) for NavKey ports (F1)
+  - Edges: settings.impl → domain only (no other feature); foryou → settings **api**
+  - Root: `SettingsNavKey`; For You “Settings” entry; **6-feature** composition
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (463 tasks)
+  - APK `binary-debug.apk` ~13 MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C Settings + F22; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** WorkManager sync and/or Proto DataStore / flavors
+
 ## 2026-07-31 — F-115: NiA dogfood Search feature
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (settings / WorkManager next)

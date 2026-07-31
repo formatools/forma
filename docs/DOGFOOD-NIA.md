@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + For You + Bookmarks + **Search feature green** (settings / sync next)  
+**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + For You + Bookmarks + Search + **Settings feature green** (WorkManager / Proto DataStore next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -293,7 +293,22 @@ Workspace: same **`forma-spike`** external tree.
 | Root | `SearchNavKey` in Navigator; For You “Search” entry; **5-feature** composition (F21) |
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (420 tasks); APK ~13 MB |
 
-**Still open in phase C:** settings feature, flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+**Still open in phase C (pre-Settings):** settings feature, flavors, full designsystem, Proto DataStore parity, WorkManager sync.
+
+### Phase C — Settings feature ✅ (2026-07-31)
+
+| Step | Result |
+|------|--------|
+| DataStore | theme brand / dark config / dynamic color keys on Preferences (F18) |
+| Data | `UserData` + `UserDataRepository` theme setters |
+| Domain | `GetUserEditableSettings` + update brand/dark/dynamic use cases (F19) |
+| Feature | `feature-settings-{api,res,impl}` — theme radios + links panel (no OSS licenses activity) |
+| **F22** | upstream settings is **impl-only**; spike adds **settings-api** for NavKey ports (F1) |
+| Edges | settings.impl → domain/model/designsystem/nav only (no other feature); foryou → settings **api** |
+| Root | `SettingsNavKey`; For You “Settings” entry; **6-feature** composition |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (463 tasks); APK ~13 MB |
+
+**Still open in phase C:** flavors, full designsystem, Proto DataStore parity, WorkManager sync.
 
 ### Phase D — Case study write-up
 
@@ -323,6 +338,7 @@ Workspace: same **`forma-spike`** external tree.
 | F19 | 2026-07-30 | Feature VM → data types without matrix edge | interests.impl depended on domain only; injecting `UserDataRepository` failed KSP resolve. **Fix:** `FollowTopicUseCase` on domain — feature stays domain-facing (cleaner than adding data edge). |
 | F20 | 2026-07-30 | Multi-feature composition at root | foryou + bookmarks + interests + topic: each `impl` only → other feature **api**; root-app/binary compose all four. Start dest = For You (NiA home). Confirms F5 at 4-feature scale. |
 | F21 | 2026-07-31 | Search + 5-feature root | search.impl → topic/interests/foryou **api** only; root composes five features. Recent queries on DataStore (F18). Contains-search over Room (no FTS) still proves matrix + F2. |
+| F22 | 2026-07-31 | Settings upstream impl-only | NiA `:feature:settings:impl` has no api module. Spike adds `settings-api` (SettingsNavKey only) so root/other features navigate via **api** ports (F1) without depending on settings impl. Theme prefs on Preferences DataStore — still no Proto. |
 
 ## Local reference commands
 
