@@ -47,7 +47,8 @@ All return **`Unit`**.
 
 Internal helpers: `resourcesTarget(type, …)` backs `androidRes` and derived res DSLs;
 `androidUtilTarget(type, …)` backs `androidUtil` and derived util DSLs (e.g. dogfood
-`roomAndroidUtil`) —
+`roomAndroidUtil`); `libraryTarget(type, …)` backs `library` and derived JVM library
+DSLs (e.g. dogfood `protobufLibrary`) —
 not a public “generic library” escape hatch.
 
 ## JVM target DSLs (`tools.forma.jvm`)

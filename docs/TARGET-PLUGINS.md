@@ -33,7 +33,9 @@ engine fix when dogfooding from `mavenLocal`.
 Hands-on: [`examples/android/10-target-plugins`](../examples/android/10-target-plugins)
 (safe-args) · [`examples/android/11-metro-di`](../examples/android/11-metro-di) (Metro DI).  
 **Dogfood Path B util:** NiA spike `roomAndroidUtil` via engine helper `androidUtilTarget`
-(same role as `resourcesTarget` for res) — see [`DOGFOOD-NIA.md`](DOGFOOD-NIA.md).  
+(same role as `resourcesTarget` for res).  
+**Dogfood Path B JVM library:** NiA spike `protobufLibrary` via engine helper `libraryTarget`
+— see [`DOGFOOD-NIA.md`](DOGFOOD-NIA.md).  
 Agent skill: [`forma-target-plugins`](../examples/agent-skills/forma-target-plugins.md).
 
 Global configuration lives at root `buildscript { androidProjectConfiguration(...) }` (F-082).

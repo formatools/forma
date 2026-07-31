@@ -1,11 +1,11 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt + Room + Firebase + DataStore + features + Settings + **WorkManager sync green** (Proto DataStore / flavors next)  
+**Status:** `in_progress` — phase C Hilt + Room + Firebase + **Proto DataStore** + features + Settings + WorkManager green (flavors / full designsystem next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
 **Spike tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`  
-**Forma plugins:** `mavenLocal` version **`0.1.3-NIA`** (republish after `androidUtilTarget` + prior KSP fix)  
+**Forma plugins:** `mavenLocal` version **`0.1.3-NIA`** (republish after `libraryTarget` + `androidUtilTarget` + prior KSP fix)  
 **Goal:** Validate Forma’s meta-build approach on a **real multi-module OSS** graph — not another in-repo sample.
 
 ## Product bar (what “success” means)
@@ -323,7 +323,23 @@ Workspace: same **`forma-spike`** external tree.
 | **F24** | `deps()` cannot mix `.ksp` NamedDependency + `target()` in one overload — compose with `+` |
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (486 tasks); APK ~13 MB |
 
-**Still open in phase C:** flavors, full designsystem, Proto DataStore parity.
+**Still open in phase C (pre-Proto DataStore):** flavors, full designsystem, Proto DataStore parity.
+
+### Phase C — Proto DataStore ✅ (2026-07-31)
+
+| Step | Result |
+|------|--------|
+| Engine | `libraryTarget(type, …)` — Path B twin of `androidUtilTarget`/`resourcesTarget`; `library` delegates |
+| `forma-defs` | `ProtobufLibraryType` = `deriveTargetType(base=jvmLibrary, suffix=library)` + thin **`protobufLibrary`** |
+| Module | `core-datastore-proto-library` — slim `UserPreferences` + theme enums (lite Java/Kotlin) |
+| DataStore | `core-datastore-android-util` — typed `DataStore<UserPreferences>` + `UserPreferencesSerializer`; no Preferences API |
+| Companions | `transitiveDeps(androidx.datastore:datastore + protobuf-kotlin-lite)` — DataStore still **no** structure plugin (F18); protobuf lite transitive for consumers (F17 sibling / **F26**) |
+| Classpath | `extraPlugins` += protobuf Gradle plugin; settings `plugin(protobuf-gradle-plugin)` |
+| **F25** | Path B protobuf on JVM `library` — type owns `com.google.protobuf`; call site attrs-only |
+| **F26** | Generated proto types expose lite supers → consumers need `protobuf-kotlin-lite` on compile classpath |
+| Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (493 tasks); APK ~14 MB |
+
+**Still open in phase C:** flavors, full designsystem port.
 
 ### Phase D — Case study write-up
 
@@ -356,6 +372,8 @@ Workspace: same **`forma-spike`** external tree.
 | F22 | 2026-07-31 | Settings upstream impl-only | NiA `:feature:settings:impl` has no api module. Spike adds `settings-api` (SettingsNavKey only) so root/other features navigate via **api** ports (F1) without depending on settings impl. Theme prefs on Preferences DataStore — still no Proto. |
 | F23 | 2026-07-31 | sync work notification strings | `androidUtil` content rule = no `res/`. Spike hardcodes notification title/channel (system sync icon). Optional later: `sync-work-res` `androidRes` + matrix edge. |
 | F24 | 2026-07-31 | `deps()` overload mix | Cannot pass `.ksp` NamedDependency and `target()` FormaTarget in one `deps(...)` call (distinct overloads). Compose `transitiveDeps + deps(ksp) + deps(target)`. |
+| F25 | 2026-07-31 | Protobuf needs type-owned apply on JVM library | NiA `datastore-proto` is pure JVM + `com.google.protobuf`. Engine needed `libraryTarget` (like `androidUtilTarget`) so Path B `protobufLibrary` can pass derived type. Call sites stay attrs-only. |
+| F26 | 2026-07-31 | Proto lite supers on consumers | `UserPreferences` / enums extend protobuf lite; androidUtil consumer must `transitiveDeps(protobuf-kotlin-lite)` even when proto module already depends on it (project dep does not re-export non-api runtime the same way as NiA `api(libs.protobuf…)`). |
 
 ## Local reference commands
 
