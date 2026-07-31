@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-07-31 — F-115: NiA dogfood Proto DataStore
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (flavors / full designsystem next)
+- **Skills/modes:** Hermes direct dogfood (external spike + mechanical `libraryTarget` engine helper; no Grok Build this slice)
+- **Engine (forma repo):**
+  - `libraryTarget(type, …)` — Path B twin of `androidUtilTarget`/`resourcesTarget`; `library` delegates
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `forma-defs/ProtobufLibrary.kt` — Path B `deriveTargetType(base=jvmLibrary)` + thin `protobufLibrary`
+  - Module: `core-datastore-proto-library` — slim UserPreferences + theme protos (lite)
+  - DataStore: typed `DataStore<UserPreferences>` + serializer; drop Preferences API
+  - Classpath: protobuf Gradle plugin on settings/`extraPlugins`
+  - **F25:** protobuf type-owned on JVM library via Path B
+  - **F26:** consumers need `transitiveDeps(protobuf-kotlin-lite)` for lite supers
+- **Verify (real host):**
+  - `bash scripts/publish-local.sh 0.1.3-NIA` → ok
+  - `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (493 tasks)
+  - APK `binary-debug.apk` ~14 MB
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C Proto DataStore + F25/F26; TICKETS F-115 notes; CALL-SITE / TARGET-PLUGINS helpers; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** flavors and/or full designsystem port
+
 ## 2026-07-31 — F-115: NiA dogfood WorkManager sync
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (Proto DataStore / flavors next)
