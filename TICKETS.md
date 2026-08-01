@@ -176,7 +176,7 @@ Open coding: **F-115** (`in_progress`, **`priority: now`**, **cron may continue*
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C through core:ui done:** Hilt Path A + Room Path B + Firebase Path A + Proto DataStore + ForYou/Bookmarks/Search/Settings + WorkManager + binary flavors + designsystem `uiLibrary` + **`core:ui` `composeWidget`** (F29 DTOs). Findings F16–F29 (F3 closed DS+ui). **Next phase C:** remaining cores (network/analytics/notifications) / F27. No `androidLibrary`. |
+| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C through core:network done:** Hilt Path A + Room Path B + Firebase Path A + Proto DataStore + ForYou/Bookmarks/Search/Settings + WorkManager + binary flavors + designsystem `uiLibrary` + `core:ui` `composeWidget` + **`core:network` demo assets** (F30). Findings F16–F30 (F3 closed DS+ui). **Next phase C:** analytics/notifications / F27. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 
