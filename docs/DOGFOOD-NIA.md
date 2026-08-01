@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C through **binary product flavors** green (full designsystem next)  
+**Status:** `in_progress` — phase C through **full designsystem** green (core.ui / remaining cores next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -136,7 +136,8 @@ These are the **value** of dogfooding — expected friction, not blockers to ign
 
 - **Today:** feature.impl convention force-deps `:core:ui` + `:core:designsystem` (generic android.library + compose).
 - **Forma:** map to `uiLibrary` / `composeWidget`; `impl` **may** depend on `ui-library` (allowed).
-- **Watch:** `uiLibrary` ↛ JVM `library` in matrix — `:core:ui` → `:core:model` must be `model` as something `uiLibrary` can use, **or** model types only flow via feature/domain edges, **or** record matrix gap ticket if product should allow `uiLibrary` → `library`.
+- **Designsystem (2026-08-01):** full port stays **model-free** — Coil `DynamicAsyncImage` takes `String` URLs; features pass model fields. **F3 closed for designsystem.**
+- **Still open for `core:ui`:** shared NewsFeed cards that import model types either stay on feature `impl`, move model-free presentation DTOs, or need an explicit matrix product decision (`uiLibrary` → `library`) — do **not** weaken matrix silently.
 
 ### F4 — `:core:data` façade api-exposes database/network/datastore
 
@@ -351,10 +352,24 @@ Workspace: same **`forma-spike`** external tree.
 | Spike binary | `hiltFirebaseBinary(productFlavors = demo+prod contentType)`; demo `applicationIdSuffix = ".demo"` |
 | Tasks | `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` (bare `assembleDebug` gone once flavored) |
 | **F7** | closed for APK root |
-| **F27** | multi-module library flavors / `prodImplementation` FCM still deferred — unflavored libs OK against flavored app |
+| **F27** | multi-module library flavors / variant deps (e.g. sync FCM) — not in v1; unflavored libraries resolve against flavored APK. |
 | Verify | `forma-spike` assembleDemoDebug + assembleProdDebug green after `publish-local 0.1.3-NIA` |
 
-**Still open in phase C:** full designsystem / core.ui port.
+**Still open in phase C (pre-designsystem):** full designsystem / core.ui port.
+
+### Phase C — Full designsystem port ✅ (2026-08-01)
+
+| Step | Result |
+|------|--------|
+| Module | `core-designsystem-ui-library` — replace slim theme/loading with **upstream main sources** (theme tokens, NiaIcons, components, Coil `DynamicAsyncImage`, Material3 adaptive NavigationSuite, scrollbars, placeholder drawable) |
+| Type | still pure **`uiLibrary`** + `compose=true` — attrs-only; **no** model project edge (**F3**) |
+| Companions | Coil + material-icons-extended + material3-adaptive (+ navigation-suite) via `transitiveDeps` — **library stack**, no structure plugin (**F28** / F18 sibling) |
+| Root | `MainActivityViewModel` + `GetUserEditableSettings` → `NiaTheme(darkTheme, androidTheme, disableDynamicTheming)` so Settings brand/dark/dynamic recompose tree |
+| Features | For You uses `NiaTopAppBar`/`NiaIcons`/`NiaButton`/`NiaFilterChip`; Interests/Topic use `NiaFilterChip` + `DynamicAsyncImage` |
+| Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (538 tasks); APKs ~25 MB |
+| Version | `0.13.0-nia-forma-designsystem` |
+
+**Still open in phase C:** `core:ui` shared NewsFeed cards module; optional remaining cores (network/analytics/notifications); F27 library flavors.
 
 ### Phase D — Case study write-up
 
@@ -368,7 +383,8 @@ Workspace: same **`forma-spike`** external tree.
 |----|------|--------------|------------|
 | F1 | 2026-07-29 | feature api → navigation android lib | **Spike:** `core-navigation-api` pure `Navigator` port; `TopicNavKey` drops `NavKey`; adapter in `root-app` |
 | F2 | 2026-07-29 | search api → domain | **Closed 2026-07-31:** search `api` = `SearchNavKey` + nav port only; contracts/use cases stay on domain for **impl**. No matrix exception. |
-| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Phase C:** `uiLibrary` designsystem has **no** model edge; model flows `impl` → JVM `library` (**allowed**). F3 gap stays if designsystem must import model types later |
+| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Closed for designsystem 2026-08-01:** full `uiLibrary` port stays model-free (Coil URL strings). Model still flows `impl` → JVM `library`. Remaining: optional `core:ui` NewsFeed cards may need DTOs or matrix product decision — not silent weaken. |
+| F28 | 2026-08-01 | designsystem Coil/icons/adaptive | No structure Gradle plugin — companions are **library stack** on `uiLibrary` via `transitiveDeps` (F18 sibling). Type remains plain `uiLibrary`. |
 | F5 | 2026-07-29 | test / runtime impl→impl | **Phase C runtime:** interests.impl → topic.**api** only. Test classpath still deferred |
 | F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
 | F9 | 2026-07-29 | `tools.forma.includer` **not** published to mavenLocal | External consumer used **flat** `include(":feature-topic-api")` + `projectDir`; Forma `target(":feature:topic:api")` → `:feature-topic-api`. Product gap: publish includer or document flat-name recipe in PLUGIN-PUBLISH |

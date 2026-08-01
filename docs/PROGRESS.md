@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-08-01 — F-115: NiA dogfood full designsystem port
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (`core:ui` / remaining cores next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change; no Grok Build)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `core-designsystem-ui-library`: full upstream main sources (theme tokens, NiaIcons, components, Coil DynamicAsyncImage, Material3 adaptive NavigationSuite, scrollbars, placeholder drawable)
+  - still plain **`uiLibrary`** + compose — Coil/icons/adaptive via `transitiveDeps` (**F28** library stack)
+  - **F3 closed for DS:** no project edge to model; features pass URL strings
+  - Root: `MainActivityViewModel` + settings → `NiaTheme(androidTheme/dynamic/dark)`
+  - Features: For You NiaTopAppBar/icons/button/chip; Interests/Topic NiaFilterChip + DynamicAsyncImage
+  - version `0.13.0-nia-forma-designsystem`
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :core-designsystem-ui-library:compileDebugKotlin` → **BUILD SUCCESSFUL**
+  - `forma-spike` `./gradlew :binary:assembleDemoDebug :binary:assembleProdDebug` → **BUILD SUCCESSFUL** (538 tasks)
+  - APKs ~25 MB under `binary/build/outputs/apk/{demo,prod}/debug/`
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C designsystem + F3/F28; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** optional `core:ui` shared NewsFeed cards / remaining cores (network/analytics/notifications)
+
 ## 2026-07-31 — F-115: NiA dogfood binary product flavors (F7)
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (full designsystem next)
