@@ -2,6 +2,25 @@
 
 Newest entries first.
 
+## 2026-08-01 — F-115: NiA dogfood core:ui shared cards
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (remaining cores / F27 next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change; no Grok Build)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `core-ui-compose-widget`: **`composeWidget`** → designsystem `uiLibrary` (matrix; not second uiLibrary)
+  - NewsResourceCard / NewsFeed helpers / InterestsItem + core_ui strings
+  - **F29 / F3 closed for core.ui:** presentation DTOs `NewsResourceCardUi` / `NewsTopicChipUi` — no model project edge; features map `UserNewsResource` locally
+  - Companions: Custom Tabs + Coil via `transitiveDeps` (F18 sibling)
+  - Consumers: foryou / bookmarks / search cards; interests + search topics via InterestsItem
+  - version `0.14.0-nia-forma-core-ui`
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :core-ui-compose-widget:compileDebugKotlin :binary:assembleDemoDebug :binary:assembleProdDebug` → **BUILD SUCCESSFUL** (558 tasks)
+  - APKs ~22 MB under `binary/build/outputs/apk/{demo,prod}/debug/`
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C core.ui + F3/F29; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** optional remaining cores (network/analytics/notifications) / F27 library flavors
+
 ## 2026-08-01 — F-115: NiA dogfood full designsystem port
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (`core:ui` / remaining cores next)

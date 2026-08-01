@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C through **full designsystem** green (core.ui / remaining cores next)  
+**Status:** `in_progress` — phase C through **core:ui** green (remaining cores next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -137,7 +137,7 @@ These are the **value** of dogfooding — expected friction, not blockers to ign
 - **Today:** feature.impl convention force-deps `:core:ui` + `:core:designsystem` (generic android.library + compose).
 - **Forma:** map to `uiLibrary` / `composeWidget`; `impl` **may** depend on `ui-library` (allowed).
 - **Designsystem (2026-08-01):** full port stays **model-free** — Coil `DynamicAsyncImage` takes `String` URLs; features pass model fields. **F3 closed for designsystem.**
-- **Still open for `core:ui`:** shared NewsFeed cards that import model types either stay on feature `impl`, move model-free presentation DTOs, or need an explicit matrix product decision (`uiLibrary` → `library`) — do **not** weaken matrix silently.
+- **`core:ui` (2026-08-01):** **`composeWidget`** (not second `uiLibrary`) so matrix edge `compose-widget` → `ui-library` holds; presentation DTOs (`NewsResourceCardUi`) keep UI free of `core:model`. **F3 closed for core.ui** (see **F29**).
 
 ### F4 — `:core:data` façade api-exposes database/network/datastore
 
@@ -369,7 +369,21 @@ Workspace: same **`forma-spike`** external tree.
 | Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (538 tasks); APKs ~25 MB |
 | Version | `0.13.0-nia-forma-designsystem` |
 
-**Still open in phase C:** `core:ui` shared NewsFeed cards module; optional remaining cores (network/analytics/notifications); F27 library flavors.
+**Still open in phase C (pre-core.ui):** optional remaining cores (network/analytics/notifications); F27 library flavors.
+
+### Phase C — core:ui shared cards ✅ (2026-08-01)
+
+| Step | Result |
+|------|--------|
+| Module | `core-ui-compose-widget` — NewsResourceCard / NewsFeed helpers / InterestsItem + strings |
+| Type | **`composeWidget`** (not `uiLibrary`) — matrix allows `compose-widget` → `ui-library`; **uiLibrary ↛ uiLibrary** |
+| F3 / F29 | Presentation DTOs `NewsResourceCardUi` / `NewsTopicChipUi` — **no** project edge to model; features map `UserNewsResource` at call site |
+| Companions | Custom Tabs (`androidx.browser`) + Coil via `transitiveDeps` — library stack (F18 sibling) |
+| Consumers | foryou / bookmarks / search use `newsResourceCardItems`; interests + search topics use `InterestsItem` |
+| Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (558 tasks) |
+| Version | `0.14.0-nia-forma-core-ui` |
+
+**Still open in phase C:** optional remaining cores (network/analytics/notifications); F27 library flavors.
 
 ### Phase D — Case study write-up
 
@@ -383,8 +397,9 @@ Workspace: same **`forma-spike`** external tree.
 |----|------|--------------|------------|
 | F1 | 2026-07-29 | feature api → navigation android lib | **Spike:** `core-navigation-api` pure `Navigator` port; `TopicNavKey` drops `NavKey`; adapter in `root-app` |
 | F2 | 2026-07-29 | search api → domain | **Closed 2026-07-31:** search `api` = `SearchNavKey` + nav port only; contracts/use cases stay on domain for **impl**. No matrix exception. |
-| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Closed for designsystem 2026-08-01:** full `uiLibrary` port stays model-free (Coil URL strings). Model still flows `impl` → JVM `library`. Remaining: optional `core:ui` NewsFeed cards may need DTOs or matrix product decision — not silent weaken. |
+| F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Closed for designsystem 2026-08-01** and **core.ui 2026-08-01:** designsystem `uiLibrary` model-free; core.ui uses `composeWidget` + presentation DTOs (no model edge). Model still flows `impl` → JVM `library` only. |
 | F28 | 2026-08-01 | designsystem Coil/icons/adaptive | No structure Gradle plugin — companions are **library stack** on `uiLibrary` via `transitiveDeps` (F18 sibling). Type remains plain `uiLibrary`. |
+| F29 | 2026-08-01 | core.ui type + model | **`composeWidget`** (suffix `compose-widget`) depends on designsystem `ui-library` (matrix). Shared cards take `NewsResourceCardUi` DTOs; features own model→DTO mapping. Rejects second `uiLibrary` (no self-edge) and rejects matrix weaken `uiLibrary`→`library`. |
 | F5 | 2026-07-29 | test / runtime impl→impl | **Phase C runtime:** interests.impl → topic.**api** only. Test classpath still deferred |
 | F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
 | F9 | 2026-07-29 | `tools.forma.includer` **not** published to mavenLocal | External consumer used **flat** `include(":feature-topic-api")` + `projectDir`; Forma `target(":feature:topic:api")` → `:feature-topic-api`. Product gap: publish includer or document flat-name recipe in PLUGIN-PUBLISH |
