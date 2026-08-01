@@ -2,6 +2,30 @@
 
 Newest entries first.
 
+## 2026-07-31 — F-115: NiA dogfood binary product flavors (F7)
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (full designsystem next)
+- **Skills/modes:** Hermes direct dogfood + mechanical binary-only flavor API (F-092/F-097 class; no Grok Build this slice)
+- **Engine (forma repo):**
+  - `FormaProductFlavor` + pure `resolveProductFlavorPlan` / `applyProductFlavors`
+  - `androidBinary(productFlavors=…)` + `AndroidBinaryFeatureConfiguration.productFlavors`
+  - `BuildConfiguration` stays build-types only; empty flavors = unflavored default
+  - Unit tests `FormaProductFlavorTest`; thin wrappers (`hiltBinary`/`hiltFirebaseBinary`/`firebaseBinary`) forward attr
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - binary: demo/prod on `contentType`; demo `applicationIdSuffix=.demo`
+  - dummy `google-services.json` clients for base + `.demo` packages
+  - version `0.12.0-nia-forma-flavors`
+  - **F7** closed for APK root; **F27** library flavors / `prodImplementation` deferred
+- **Verify (real host):**
+  - `plugins/` `./gradlew :android:test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL**
+  - `bash scripts/publish-local.sh 0.1.3-NIA` → ok
+  - `forma-spike` `./gradlew :binary:assembleDemoDebug :binary:assembleProdDebug` → **BUILD SUCCESSFUL** (538 tasks)
+  - APKs under `binary/build/outputs/apk/{demo,prod}/debug/`
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C flavors + F7/F27; `CALL-SITE-SURFACE` product flavors; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** full designsystem / core.ui port
+
 ## 2026-07-31 — F-115: NiA dogfood Proto DataStore
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (flavors / full designsystem next)

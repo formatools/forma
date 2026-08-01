@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C Hilt + Room + Firebase + **Proto DataStore** + features + Settings + WorkManager green (flavors / full designsystem next)  
+**Status:** `in_progress` — phase C through **binary product flavors** green (full designsystem next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -156,7 +156,8 @@ These are the **value** of dogfooding — expected friction, not blockers to ign
 ### F7 — Product flavors `demo` / `prod`
 
 - Affects source sets and dependency variants (`prodImplementation` FCM on sync).
-- **Gap:** document whether Forma `buildConfiguration` covers flavor dimensions or temporary raw AGP remains behind binary type only.
+- **Resolved (binary v1, 2026-07-31):** `FormaProductFlavor` + `androidBinary(productFlavors=…)` — binary-only; `BuildConfiguration` stays build-types. NiA spike: `demo`/`prod` on `contentType`; `assembleDemoDebug` / `assembleProdDebug`.
+- **Still gap (F27):** library-level productFlavors + `demoImplementation`/`prodImplementation` edges (e.g. sync FCM) — not in v1; unflavored libraries resolve against flavored APK.
 
 ## Phased execution plan
 
@@ -339,7 +340,21 @@ Workspace: same **`forma-spike`** external tree.
 | **F26** | Generated proto types expose lite supers → consumers need `protobuf-kotlin-lite` on compile classpath |
 | Verify | `forma-spike` `./gradlew :binary:assembleDebug` → **BUILD SUCCESSFUL** (493 tasks); APK ~14 MB |
 
-**Still open in phase C:** flavors, full designsystem port.
+**Still open in phase C (pre-flavors):** full designsystem port.
+
+### Phase C — Binary product flavors ✅ (2026-07-31)
+
+| Step | Result |
+|------|--------|
+| Engine | `FormaProductFlavor` + pure `resolveProductFlavorPlan` + `ApplicationExtension.applyProductFlavors`; binary-only attr on `androidBinary` / feature config |
+| Keep separate | `BuildConfiguration` = build-types only (not flavors) |
+| Spike binary | `hiltFirebaseBinary(productFlavors = demo+prod contentType)`; demo `applicationIdSuffix = ".demo"` |
+| Tasks | `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` (bare `assembleDebug` gone once flavored) |
+| **F7** | closed for APK root |
+| **F27** | multi-module library flavors / `prodImplementation` FCM still deferred — unflavored libs OK against flavored app |
+| Verify | `forma-spike` assembleDemoDebug + assembleProdDebug green after `publish-local 0.1.3-NIA` |
+
+**Still open in phase C:** full designsystem / core.ui port.
 
 ### Phase D — Case study write-up
 
@@ -374,6 +389,7 @@ Workspace: same **`forma-spike`** external tree.
 | F24 | 2026-07-31 | `deps()` overload mix | Cannot pass `.ksp` NamedDependency and `target()` FormaTarget in one `deps(...)` call (distinct overloads). Compose `transitiveDeps + deps(ksp) + deps(target)`. |
 | F25 | 2026-07-31 | Protobuf needs type-owned apply on JVM library | NiA `datastore-proto` is pure JVM + `com.google.protobuf`. Engine needed `libraryTarget` (like `androidUtilTarget`) so Path B `protobufLibrary` can pass derived type. Call sites stay attrs-only. |
 | F26 | 2026-07-31 | Proto lite supers on consumers | `UserPreferences` / enums extend protobuf lite; androidUtil consumer must `transitiveDeps(protobuf-kotlin-lite)` even when proto module already depends on it (project dep does not re-export non-api runtime the same way as NiA `api(libs.protobuf…)`). |
+| F27 | 2026-07-31 | Library product flavors / variant deps | Binary-only `FormaProductFlavor` closes F7 for APK. NiA also flavors libraries + `prodImplementation(FCM)` on sync. v1 leaves libraries unflavored (AGP resolves). Future: optional library flavor attrs or type-owned missingDimensionStrategy — do **not** put free-form `android { productFlavors }` on every module. |
 
 ## Local reference commands
 

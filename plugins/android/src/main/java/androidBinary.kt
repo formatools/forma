@@ -6,6 +6,7 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.android.utils.FormaSigningConfig
 import tools.forma.android.validation.disallowResources
 import tools.forma.deps.core.FormaDependency
@@ -39,6 +40,11 @@ import tools.forma.validation.validate
  * take a signing API. Do not use raw module-level `android { signingConfigs }` as
  * the supported path.
  *
+ * **Product flavors (F-115 / NiA F7):** [productFlavors] are **binary-only** attrs
+ * ([FormaProductFlavor]). [BuildConfiguration] stays build-types only. Empty list
+ * (default) keeps a single unflavored APK. v1 does **not** put flavors on library
+ * targets — multi-module `demoImplementation` edges stay a documented gap.
+ *
  * @param packageName Application package name / `applicationId` + namespace
  * @param owner owner of the target, team responsible for maintenance
  * @param versionCode Android `versionCode` for this APK (required; per-binary)
@@ -47,6 +53,7 @@ import tools.forma.validation.validate
  * @param buildConfiguration Android Gradle Plugin build-type configuration DSL
  * @param signingConfigs named [FormaSigningConfig] entries for this APK (optional)
  * @param buildTypeSigning map of build type name → signing config name (optional)
+ * @param productFlavors product flavors for this APK (optional; empty = unflavored)
  * @param testInstrumentationRunner class name used for instrumentation tests execution
  * @param consumerMinificationFiles Proguard/R8 minification files list
  * @param manifestPlaceholders placeholders to be injected in manifest
@@ -60,6 +67,7 @@ fun Project.androidBinary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     signingConfigs: Map<String, FormaSigningConfig> = emptyMap(),
     buildTypeSigning: Map<String, String> = emptyMap(),
+    productFlavors: List<FormaProductFlavor> = emptyList(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
     manifestPlaceholders: Map<String, Any> = emptyMap(),
@@ -83,6 +91,7 @@ fun Project.androidBinary(
         manifestPlaceholders = manifestPlaceholders,
         signingConfigs = signingConfigs,
         buildTypeSigning = buildTypeSigning,
+        productFlavors = productFlavors,
         selfValidator = selfV,
         compose = compose,
     )

@@ -32,7 +32,7 @@ All return **`Unit`**.
 | `api` | `api` | `packageName`, `dependencies` | JVM contracts; no Android UI |
 | `impl` | `impl` | deps, **`viewBinding`**, **`compose`**, test runners, `buildConfiguration` | Feature impl; no → other `impl` |
 | `androidApp` | `app` | deps, **`compose`**, `buildConfiguration`, … | Composition **library** (not APK) — **no** `versionCode`/`Name` |
-| `androidBinary` | `binary` | **`versionCode`/`versionName` (required)**, deps, **`compose`**, **`signingConfigs` / `buildTypeSigning`**, … | APK composition root; version + signing are **per-binary only** (F-092 / F-097) |
+| `androidBinary` | `binary` | **`versionCode`/`versionName` (required)**, deps, **`compose`**, **`signingConfigs` / `buildTypeSigning`**, **`productFlavors`**, … | APK composition root; version + signing + flavors are **per-binary only** (F-092 / F-097 / F-115) |
 | `library` | `library` | deps (pure JVM inside Android plugin) | Distinct from removed `androidLibrary` |
 | `util` | `util` | deps | JVM helpers |
 | `androidUtil` | `android-util` | deps, **`compose`** | Android helpers, no res content |
@@ -147,8 +147,46 @@ env or `gradle.properties` (local, gitignored) — never from the repo. `assembl
 must stay green without secrets (omit `buildTypeSigning` for `debug` or leave AGP
 default).
 
-**Not in scope:** product flavors, Play App Signing backend integration, library
-AAR signing APIs.
+**Not in scope:** Play App Signing backend integration, library AAR signing APIs.
+
+## Product flavors (F-115 / NiA F7)
+
+| Concern | Owner | Notes |
+|---------|--------|--------|
+| Flavor dimensions + product flavors | **`androidBinary` call site only** (`productFlavors: List<FormaProductFlavor>`) | Wired to AGP `ApplicationExtension.flavorDimensions` + `productFlavors` |
+| Build types | **`BuildConfiguration`** (unchanged) | Flavors are **not** stuffed into build-type map |
+| Library / `impl` / `androidApp` flavor API | **None (v1)** | Unflavored libraries resolve against flavored APKs; multi-module `demoImplementation` is a documented gap |
+| Raw `android { productFlavors { … } }` | **Rejected as happy path** | Escape hatch only |
+
+**Call-site shape (NiA `demo` / `prod`):**
+
+```kotlin
+import tools.forma.android.utils.FormaProductFlavor
+
+androidBinary(
+    packageName = "com.example.app",
+    versionCode = 1,
+    versionName = "0.1.0",
+    productFlavors = listOf(
+        FormaProductFlavor(
+            name = "demo",
+            dimension = "contentType",
+            applicationIdSuffix = ".demo",
+        ),
+        FormaProductFlavor(
+            name = "prod",
+            dimension = "contentType",
+        ),
+    ),
+    dependencies = deps(/* … */),
+)
+// Tasks: assembleDemoDebug / assembleProdDebug (not bare assembleDebug)
+```
+
+**Empty list (default)** keeps a single unflavored APK so existing samples stay
+`assembleDebug`. Optional attrs on [FormaProductFlavor]: `versionNameSuffix`,
+`matchingFallbacks`, `manifestPlaceholders`, `buildConfigFields` (BuildConfig
+fields apply only when project-global `buildFeatures.buildConfig` is already on).
 
 ## AGP BuildFeatures (F-091 / GH #88)
 
