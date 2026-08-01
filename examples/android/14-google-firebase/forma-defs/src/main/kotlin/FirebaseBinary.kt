@@ -3,6 +3,7 @@ import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.target.registerTargetPlugin
 import tools.forma.android.target.targetPlugin
 import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.android.utils.FormaSigningConfig
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
@@ -56,6 +57,7 @@ fun Project.firebaseBinary(
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     signingConfigs: Map<String, FormaSigningConfig> = emptyMap(),
     buildTypeSigning: Map<String, String> = emptyMap(),
+    productFlavors: List<FormaProductFlavor> = emptyList(),
 ) {
     FirebasePluginBindings
     androidBinary(
@@ -67,5 +69,6 @@ fun Project.firebaseBinary(
         buildConfiguration = buildConfiguration,
         signingConfigs = signingConfigs,
         buildTypeSigning = buildTypeSigning,
+        productFlavors = productFlavors,
     )
 }

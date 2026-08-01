@@ -5,10 +5,12 @@ package tools.forma.android.feature
 import com.android.build.api.dsl.ApplicationExtension
 import tools.forma.android.target.BinaryTargetTemplate
 import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.android.utils.FormaSigningConfig
 import tools.forma.android.utils.applyBuildTypeSigning
 import tools.forma.android.utils.applyCoreLibraryDesugaring
 import tools.forma.android.utils.applyFrom
+import tools.forma.android.utils.applyProductFlavors
 import tools.forma.android.utils.applySigningConfigs
 import tools.forma.validation.Validator
 import tools.forma.validation.validator
@@ -21,6 +23,9 @@ import tools.forma.validation.validator
  *
  * [signingConfigs] / [buildTypeSigning] are **per-binary** (F-097 / GH #51) —
  * APK signing identity lives only on the composition root, not on library shells.
+ *
+ * [productFlavors] are **per-binary** (F-115 / NiA F7) — flavor dimensions live
+ * on the APK root only in v1; [BuildConfiguration] stays build-types only.
  */
 data class AndroidBinaryFeatureConfiguration(
     val packageName: String,
@@ -37,6 +42,11 @@ data class AndroidBinaryFeatureConfiguration(
      * so call sites do not need AGP `SigningConfig` references inside build-type lambdas.
      */
     val buildTypeSigning: Map<String, String> = emptyMap(),
+    /**
+     * Product flavors for this APK (optional). Empty = unflavored binary (default).
+     * See [FormaProductFlavor].
+     */
+    val productFlavors: List<FormaProductFlavor> = emptyList(),
     /** Enable Jetpack Compose for the application (APK) target. */
     val compose: Boolean = false,
     val selfValidator: Validator = validator(BinaryTargetTemplate)
@@ -73,6 +83,8 @@ fun androidBinaryFeatureDefinition(
                 signingConfigs = signingConfigs,
                 buildTypeSigning = configuration.buildTypeSigning,
             )
+            // Product flavors after build types (binary-only; empty = unflavored).
+            applyProductFlavors(configuration.productFlavors)
             compileOptions.applyFrom(formaConfiguration)
             applyCoreLibraryDesugaring(project, formaConfiguration)
 
