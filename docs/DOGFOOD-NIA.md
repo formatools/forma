@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C through **core:ui** green (remaining cores next)  
+**Status:** `in_progress` — phase C through **core:network** green (analytics/notifications / F27 next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -383,7 +383,21 @@ Workspace: same **`forma-spike`** external tree.
 | Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (558 tasks) |
 | Version | `0.14.0-nia-forma-core-ui` |
 
-**Still open in phase C:** optional remaining cores (network/analytics/notifications); F27 library flavors.
+**Still open in phase C (pre-network):** optional remaining cores (network/analytics/notifications); F27 library flavors.
+
+### Phase C — core:network demo data source ✅ (2026-08-01)
+
+| Step | Result |
+|------|--------|
+| Module | `core-network-android-util` — `NiaNetworkDataSource` + `DemoNiaNetworkDataSource` + bundled upstream `topics.json` / `news.json` |
+| Type | plain **`hiltAndroidUtil`** — attrs-only; no Retrofit yet |
+| Companions | `kotlinx-serialization-json` via `transitiveDeps` — **library stack**, manual Json element parse (**F30** / F18 sibling; no `plugin.serialization`) |
+| Data | OfflineFirst topics/news seed + `sync()` pull network → Room; remove hardcoded `TopicSeed`/`NewsSeed` |
+| Flavors | Demo bind for **all** product flavors (F27 library/source-set flavors still deferred; no prod Retrofit) |
+| Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (581 tasks); APKs ~22 MB |
+| Version | `0.15.0-nia-forma-network` |
+
+**Still open in phase C:** optional remaining cores (analytics/notifications); F27 library flavors.
 
 ### Phase D — Case study write-up
 
@@ -400,6 +414,7 @@ Workspace: same **`forma-spike`** external tree.
 | F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Closed for designsystem 2026-08-01** and **core.ui 2026-08-01:** designsystem `uiLibrary` model-free; core.ui uses `composeWidget` + presentation DTOs (no model edge). Model still flows `impl` → JVM `library` only. |
 | F28 | 2026-08-01 | designsystem Coil/icons/adaptive | No structure Gradle plugin — companions are **library stack** on `uiLibrary` via `transitiveDeps` (F18 sibling). Type remains plain `uiLibrary`. |
 | F29 | 2026-08-01 | core.ui type + model | **`composeWidget`** (suffix `compose-widget`) depends on designsystem `ui-library` (matrix). Shared cards take `NewsResourceCardUi` DTOs; features own model→DTO mapping. Rejects second `uiLibrary` (no self-edge) and rejects matrix weaken `uiLibrary`→`library`. |
+| F30 | 2026-08-01 | network kotlinx.serialization | Demo network uses `kotlinx-serialization-json` as **library stack** on `hiltAndroidUtil` (manual Json element parse). No `org.jetbrains.kotlin.plugin.serialization` structure plugin for dogfood demo path. Retrofit/prod + flavor source sets remain F27. |
 | F5 | 2026-07-29 | test / runtime impl→impl | **Phase C runtime:** interests.impl → topic.**api** only. Test classpath still deferred |
 | F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
 | F9 | 2026-07-29 | `tools.forma.includer` **not** published to mavenLocal | External consumer used **flat** `include(":feature-topic-api")` + `projectDir`; Forma `target(":feature:topic:api")` → `:feature-topic-api`. Product gap: publish includer or document flat-name recipe in PLUGIN-PUBLISH |

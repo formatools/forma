@@ -2,6 +2,25 @@
 
 Newest entries first.
 
+## 2026-08-01 — F-115: NiA dogfood core:network demo data source
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (analytics/notifications / F27 next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change; no Grok Build)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `core-network-android-util`: **`hiltAndroidUtil`** — `NiaNetworkDataSource` + `DemoNiaNetworkDataSource`
+  - Bundled upstream `topics.json` / `news.json` assets
+  - **F30:** kotlinx-serialization-json library stack + manual Json element parse (no structure plugin)
+  - Data: OfflineFirst topics/news seed + `sync()` pull network → Room; remove hardcoded TopicSeed/NewsSeed
+  - Demo bind for all product flavors (Retrofit/prod + library flavors still F27)
+  - version `0.15.0-nia-forma-network`
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :core-network-android-util:compileDebugKotlin :binary:assembleDemoDebug :binary:assembleProdDebug` → **BUILD SUCCESSFUL** (581 tasks)
+  - APKs ~22 MB under `binary/build/outputs/apk/{demo,prod}/debug/`
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C network + F30; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** optional remaining cores (analytics/notifications) / F27 library flavors
+
 ## 2026-08-01 — F-115: NiA dogfood core:ui shared cards
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (remaining cores / F27 next)
