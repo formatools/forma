@@ -172,11 +172,11 @@ External multimodule OSS validation of meta-build axioms (structure over configu
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
 Open coding: **F-115** (`in_progress`, **`priority: now`**, **cron may continue**). **F-094** Portal remains `blocked` (human).
-4h workers: pick F-115 phase C remainder (full designsystem) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
+4h workers: pick F-115 phase C remainder (remaining cores / optional F27) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C through full designsystem done:** Hilt Path A + Room Path B + Firebase Path A + Proto DataStore + ForYou/Bookmarks/Search/Settings + WorkManager + binary flavors + **upstream designsystem on `uiLibrary`**. Findings F16–F28 (F3 closed for DS). **Next phase C:** `core:ui` shared cards / remaining cores. No `androidLibrary`. |
+| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C through core:ui done:** Hilt Path A + Room Path B + Firebase Path A + Proto DataStore + ForYou/Bookmarks/Search/Settings + WorkManager + binary flavors + designsystem `uiLibrary` + **`core:ui` `composeWidget`** (F29 DTOs). Findings F16–F29 (F3 closed DS+ui). **Next phase C:** remaining cores (network/analytics/notifications) / F27. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 
