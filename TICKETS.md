@@ -171,12 +171,12 @@ composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 External multimodule OSS validation of meta-build axioms (structure over configuration,
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
-Open coding: **F-115** (`in_progress`, **`priority: now`**, **cron may continue**). **F-094** Portal remains `blocked` (human).
-4h workers: pick F-115 **Phase D** case study (or residual dogfood polish) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
+Open coding: **none gated** after F-115 done. **F-094** Portal remains `blocked` (human).
+4h workers: if no ticket has `todo`/`in_progress` with **`priority: now`** / **`cron may continue`**, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough). Do not invent tickets.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C done through F27 library flavors:** Hilt/Room/Firebase/Proto DS + features + WM + binary flavors + designsystem + core:ui + network + analytics/notifications + **library `productFlavors` + `.forProductFlavor` deps** (F27). Findings F16–F31 (F27 closed). **Next:** Phase D case study. No `androidLibrary`. |
+| F-115 | done | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). Case study: [`docs/DOGFOOD-NIA-CASE-STUDY.md`](docs/DOGFOOD-NIA-CASE-STUDY.md). **Phase A–D complete:** external mavenLocal spike green (`assembleDemoDebug`/`ProdDebug`); Hilt/Room/Firebase/Proto DS + features + WM + flavors (F7/F27) + designsystem/core.ui/network/analytics/notifications; findings F1–F31; module scripts **−59%** LOC vs upstream. No `androidLibrary`. Optional parity leftovers = new tickets only. |
 
 ## Backlog (lower priority / historical GitHub)
 

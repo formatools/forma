@@ -2,6 +2,23 @@
 
 Newest entries first.
 
+## 2026-08-02 — F-115: Phase D case study (NiA dogfood complete)
+
+- **Ticket:** F-115 → **`done`** (was `in_progress` · `priority: now` · `cron may continue`)
+- **Skills/modes:** Hermes direct docs (Phase D write-up; no engine DSL; no Grok Build) — dogfood metrics from pinned upstream + external spike trees
+- **Deliverable:** [`docs/DOGFOOD-NIA-CASE-STUDY.md`](docs/DOGFOOD-NIA-CASE-STUDY.md)
+  - Module `build.gradle.kts` **1476 → 600** LOC (−59%)
+  - Org build logic **1917** (`build-logic`) → **401** (`forma-defs`) LOC (−79%)
+  - **0** raw `android {}` / **0** `.withPlugin` on spike; ~113 upstream plugin-apply lines vs single-method DSLs
+  - Call-site pairs (foryou impl, Room database, binary vs app)
+  - Findings digest F1–F31; residual gaps = optional new tickets only
+  - Config-time: recipe pointer only (no locked same-host pair)
+- **Docs/board:** DOGFOOD-NIA Phase D ✅ + status complete; TICKETS F-115 done; empty gated queue note; README case-study link
+- **Verify:** metrics via `find`/`wc`/`grep` on `/Users/claw/work/nowinandroid` + `…/nowinandroid-forma/forma-spike` (prior cascade APKs still present: demo/prod ~22 MB)
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** F-094 Portal still human-blocked; no open `priority: now` coding after merge
+- **Next:** empty gated board → 4h workers `[SILENT]` until Stepan adds/promotes tickets
+
 ## 2026-08-01 — F-115: NiA dogfood library product flavors (F27)
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (Phase D case study next)
