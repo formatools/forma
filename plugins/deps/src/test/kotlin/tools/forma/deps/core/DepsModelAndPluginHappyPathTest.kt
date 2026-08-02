@@ -6,12 +6,14 @@ import kotlin.test.assertEquals
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 import dep
+import forProductFlavor
 import ksp
 import plus
 import tools.forma.core.target.targetType
 import transitiveDep
 import transitiveDeps
 import tools.forma.deps.core.CompileOnly
+import tools.forma.deps.core.CustomConfiguration
 import tools.forma.deps.core.EmptyDependency
 import tools.forma.deps.core.FileDependency
 import tools.forma.deps.core.FileSpec
@@ -24,6 +26,7 @@ import tools.forma.deps.core.PlatformDependency
 import tools.forma.deps.core.PlatformSpec
 import tools.forma.deps.core.TargetPluginRegistry
 import tools.forma.deps.core.deriveTargetType
+import tools.forma.deps.core.productFlavorImplementation
 import tools.forma.deps.core.registerTargetPlugin
 import tools.forma.deps.core.targetPlugin
 import tools.forma.deps.core.DefaultTargetPluginRegistry
@@ -90,6 +93,71 @@ class DepsModelAndPluginHappyPathTest {
         // platforms appear in flattened dependency list for forEach
         assertTrue(mixed.dependency.any { it is PlatformSpec })
         assertTrue(mixed.dependency.any { it is NameSpec })
+    }
+
+    @Test
+    fun `productFlavorImplementation maps to AGP flavor Implementation config`() {
+        assertEquals("prodImplementation", productFlavorImplementation("prod").name)
+        assertEquals("demoImplementation", productFlavorImplementation("demo").name)
+        assertFailsWithBlankFlavor()
+    }
+
+    private fun assertFailsWithBlankFlavor() {
+        try {
+            productFlavorImplementation(" ")
+            throw AssertionError("expected blank flavor to fail")
+        } catch (e: IllegalArgumentException) {
+            assertTrue(e.message!!.contains("blank"))
+        }
+    }
+
+    @Test
+    fun `NamedDependency forProductFlavor remaps config and preserves transitive + flags`() {
+        val flagged =
+            NamedDependency(
+                listOf(
+                    NameSpec(
+                        name = "com.google.firebase:firebase-analytics",
+                        config = Implementation,
+                        transitive = true,
+                        featureFlag = "useFirebase",
+                        featureFlagExpected = true,
+                    ),
+                ),
+            ).forProductFlavor("prod")
+        val spec = flagged.names.single()
+        assertEquals("com.google.firebase:firebase-analytics", spec.name)
+        assertEquals(CustomConfiguration("prodImplementation"), spec.config)
+        assertEquals("prodImplementation", spec.config.name)
+        assertTrue(spec.transitive)
+        assertEquals("useFirebase", spec.featureFlag)
+        assertEquals(true, spec.featureFlagExpected)
+    }
+
+    @Test
+    fun `PlatformDependency forProductFlavor remaps BOM config and preserves transitive`() {
+        val bom =
+            PlatformDependency(
+                listOf(PlatformSpec("com.google.firebase:firebase-bom:33.16.0", Implementation, transitive = true)),
+            ).forProductFlavor("prod")
+        val spec = bom.names.single()
+        assertEquals("com.google.firebase:firebase-bom:33.16.0", spec.name)
+        assertEquals(CustomConfiguration("prodImplementation"), spec.config)
+        assertTrue(spec.transitive)
+    }
+
+    @Test
+    fun `forProductFlavor composes with plus for NiA prod stack`() {
+        val stack =
+            transitiveDeps("com.google.firebase:firebase-analytics").forProductFlavor("prod") +
+                PlatformDependency(
+                    listOf(PlatformSpec("com.google.firebase:firebase-bom:33.16.0", Implementation)),
+                ).forProductFlavor("prod")
+        assertEquals(1, stack.names.size)
+        assertEquals(1, stack.platforms.size)
+        assertEquals("prodImplementation", stack.names.single().config.name)
+        assertEquals("prodImplementation", stack.platforms.single().config.name)
+        assertTrue(stack.names.single().transitive)
     }
 
     @Test

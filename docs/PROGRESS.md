@@ -2,6 +2,30 @@
 
 Newest entries first.
 
+## 2026-08-01 — F-115: NiA dogfood library product flavors (F27)
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (Phase D case study next)
+- **Skills/modes:** Grok Build CLI `--mode full` (design/plan + implement + check) model `grok-4.5`; Hermes finish path (publish-local + spike verify + PROGRESS/PR)
+- **Engine (`plugins/`):**
+  - `LibraryExtension.applyProductFlavors` + `AndroidLibraryFeatureConfiguration.productFlavors` + flavor `src/<name>/kotlin` dirs
+  - DSL attr `productFlavors` on `androidUtil` / `androidUtilTarget` / `impl` / `androidApp` / `composeWidget` (empty default)
+  - `NamedDependency.forProductFlavor` / `PlatformDependency.forProductFlavor` → AGP `prodImplementation` via `CustomConfiguration` (no free-form config strings)
+  - Unit tests: `:android:test` + `:deps:test` **BUILD SUCCESSFUL**
+- **Publish:** `bash scripts/publish-local.sh 0.1.3-NIA` → mavenLocal
+- **External spike** `/Users/claw/work/nowinandroid-forma/forma-spike`:
+  - `niaContentTypeFlavors` shared list in forma-defs; forward on hilt wrappers
+  - analytics: demo Stub / prod FirebaseAnalyticsHelper + flavor-scoped BOM+analytics
+  - notifications: demo NoOp / prod SystemTray binds via flavor source sets
+  - intermediate consumers (data/domain/ui/features/root/sync) share library flavors for AGP variant match
+  - binary `0.17.0-nia-forma-library-flavors`
+- **Verify (real host):**
+  - `forma-spike` `./gradlew :binary:assembleDemoDebug :binary:assembleProdDebug` → **BUILD SUCCESSFUL** (945 tasks)
+  - APKs: `binary-demo-debug.apk` ~22 MB, `binary-prod-debug.apk` ~22 MB
+- **Docs:** CALL-SITE-SURFACE flavors F7+F27; DOGFOOD-NIA F27 closed; TICKETS F-115 Phase D next
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** Phase D case study write-up (before/after LOC, config notes)
+
 ## 2026-08-01 — F-115: NiA dogfood core:analytics + core:notifications
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (F27 library flavors / Phase D next)

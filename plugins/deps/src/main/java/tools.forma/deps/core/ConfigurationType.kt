@@ -30,6 +30,22 @@ object Ksp : ConfigurationType {
 
 @JvmInline value class CustomConfiguration(override val name: String) : ConfigurationType
 
+/**
+ * AGP product-flavor implementation configuration name (`prodImplementation`, …).
+ *
+ * Pure helper for F-115 / NiA F27 flavor-scoped external deps. Prefer
+ * [NamedDependency.forProductFlavor] / [PlatformDependency.forProductFlavor] at
+ * call sites rather than free-form configuration strings.
+ *
+ * @throws IllegalArgumentException when [flavor] is blank
+ */
+fun productFlavorImplementation(flavor: String): CustomConfiguration {
+    require(flavor.isNotBlank()) {
+        "product flavor name for configuration must not be blank"
+    }
+    return CustomConfiguration("${flavor}Implementation")
+}
+
 sealed class DepSpec(val config: ConfigurationType)
 
 /**

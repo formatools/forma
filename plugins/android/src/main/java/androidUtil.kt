@@ -1,4 +1,5 @@
 import tools.forma.android.target.AndroidTargetTypes
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.owners.NoOwner
 import tools.forma.owners.Owner
 import tools.forma.android.visibility.Public
@@ -31,6 +32,12 @@ fun Project.androidUtil(
     testDependencies: FormaDependency = emptyDependency(),
     /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
     compose: Boolean = Forma.settings.compose,
+    /**
+     * Library product flavors (F-115 / NiA F27). Same [FormaProductFlavor] model as
+     * `androidBinary`; empty = unflavored. Pair with `NamedDependency.forProductFlavor` /
+     * `PlatformDependency.forProductFlavor` for AGP `prodImplementation` edges.
+     */
+    productFlavors: List<FormaProductFlavor> = emptyList(),
 ) {
     androidUtilTarget(
         type = AndroidTargetTypes.androidUtil,
@@ -40,5 +47,6 @@ fun Project.androidUtil(
         dependencies = dependencies,
         testDependencies = testDependencies,
         compose = compose,
+        productFlavors = productFlavors,
     )
 }

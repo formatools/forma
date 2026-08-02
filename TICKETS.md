@@ -172,11 +172,11 @@ External multimodule OSS validation of meta-build axioms (structure over configu
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
 Open coding: **F-115** (`in_progress`, **`priority: now`**, **cron may continue**). **F-094** Portal remains `blocked` (human).
-4h workers: pick F-115 phase C remainder (**F27 library flavors** / Phase D) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
+4h workers: pick F-115 **Phase D** case study (or residual dogfood polish) while gated; if no ticket has `priority: now` / `cron may continue`, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough).
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C through analytics+notifications done:** Hilt/Room/Firebase/Proto DS + features + WM + flavors + designsystem + core:ui + network + **`core:analytics`** + **`core:notifications`{res,util}** (F31). Findings F16–F31. **Next phase C:** F27 library flavors / Phase D case study. No `androidLibrary`. |
+| F-115 | in_progress · **priority: now** · **cron may continue** | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). **Phase A+B+C done through F27 library flavors:** Hilt/Room/Firebase/Proto DS + features + WM + binary flavors + designsystem + core:ui + network + analytics/notifications + **library `productFlavors` + `.forProductFlavor` deps** (F27). Findings F16–F31 (F27 closed). **Next:** Phase D case study. No `androidLibrary`. |
 
 ## Backlog (lower priority / historical GitHub)
 

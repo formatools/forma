@@ -24,8 +24,9 @@ import tools.forma.validation.validator
  * [signingConfigs] / [buildTypeSigning] are **per-binary** (F-097 / GH #51) —
  * APK signing identity lives only on the composition root, not on library shells.
  *
- * [productFlavors] are **per-binary** (F-115 / NiA F7) — flavor dimensions live
- * on the APK root only in v1; [BuildConfiguration] stays build-types only.
+ * [productFlavors] on the APK root (F-115 / NiA F7). Libraries that need matching
+ * dimensions use the same [FormaProductFlavor] list on `androidUtil` (F27);
+ * [BuildConfiguration] stays build-types only.
  */
 data class AndroidBinaryFeatureConfiguration(
     val packageName: String,
