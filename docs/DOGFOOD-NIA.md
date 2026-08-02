@@ -1,6 +1,7 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C through **library product flavors (F27)** green; **Phase D** case study next  
+**Status:** **Phase A–D complete** (2026-08-02) — case study [`DOGFOOD-NIA-CASE-STUDY.md`](DOGFOOD-NIA-CASE-STUDY.md); spike remains external reference  
+
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -431,13 +432,18 @@ Workspace: same **`forma-spike`** external tree.
 | Version | `0.17.0-nia-forma-library-flavors` |
 | **F27** | **closed** |
 
-**Still open:** Phase D case-study write-up (optional remaining Retrofit/prod network out of scope).
+**Still open (optional, not F-115 bar):** Retrofit/prod network flavor path; test graph; non-structure tooling (Roborazzi/baseline/…).
 
-### Phase D — Case study write-up
+### Phase D — Case study write-up ✅ (2026-08-02)
 
-- Before/after build files (LOC, plugin lines)  
-- Config time optional (`CONFIGURATION-PERFORMANCE.md` recipe)  
-- Upstream PR? **No** — dogfood stays fork unless Google interest  
+| Step | Result |
+|------|--------|
+| Doc | [`DOGFOOD-NIA-CASE-STUDY.md`](DOGFOOD-NIA-CASE-STUDY.md) — before/after LOC, call-site pairs, findings digest, residual gaps |
+| Module scripts | **1476 → 600** LOC (−59%); org logic **1917 → 401** LOC build-logic vs forma-defs (−79%) |
+| Call sites | **0** raw `android {}`, **0** `.withPlugin`; single-method target DSLs |
+| Config time | Recipe only (no locked same-host pair) — see case study §3.5 |
+| Upstream PR | **No** — fork-only unless Google interest |
+| F-115 bar | **Met** — structure / matrix / roots / type-owned plugins / measurable spike / case study |
 
 ## Findings log (living)
 
