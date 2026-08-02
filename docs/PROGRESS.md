@@ -2,6 +2,26 @@
 
 Newest entries first.
 
+## 2026-08-01 — F-115: NiA dogfood core:analytics + core:notifications
+
+- **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (F27 library flavors / Phase D next)
+- **Skills/modes:** Hermes direct dogfood (external spike + docs; no Forma engine DSL change; no Grok Build)
+- **External tree:** `/Users/claw/work/nowinandroid-forma/forma-spike`
+  - `core-analytics-android-util`: **`hiltAndroidUtil`** — AnalyticsHelper + Stub bind (all flavors); LocalAnalyticsHelper
+  - `core-notifications-res`: **`androidRes`** — strings + vector icon (unique namespace `…notifications.res`)
+  - `core-notifications-android-util`: **`hiltAndroidUtil`** — Notifier + SystemTrayNotifier → res + model
+  - Data: UserData analytics events; News sync → tray notify for new followed-topic items after onboard
+  - UI/root: NewsFeed open events; CompositionLocalProvider + TrackScreenViewEvent
+  - **F31:** res split for notifications (F23 sibling); F27 still covers flavor-specific binds
+  - version `0.16.0-nia-forma-analytics-notifications`
+- **Verify (real host, JDK 21):**
+  - `forma-spike` `./gradlew :binary:assembleDemoDebug :binary:assembleProdDebug` → **BUILD SUCCESSFUL** (645 tasks)
+  - APKs under `binary/build/outputs/apk/{demo,prod}/debug/`
+- **Docs:** `docs/DOGFOOD-NIA.md` phase C analytics/notifications + F31; TICKETS F-115 notes; spike README
+- **Commits/PRs:** this branch → PR base `v2`
+- **Blockers:** none product; F-094 Portal still human-blocked
+- **Next:** F27 library flavors (analytics prod Firebase / notifications demo NoOp) or Phase D case study
+
 ## 2026-08-01 — F-115: NiA dogfood core:network demo data source
 
 - **Ticket:** F-115 still `in_progress` · `priority: now` · `cron may continue` (analytics/notifications / F27 next)

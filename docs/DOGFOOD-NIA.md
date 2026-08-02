@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C through **core:network** green (analytics/notifications / F27 next)  
+**Status:** `in_progress` — phase C through **analytics + notifications** green (F27 library flavors next)  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -397,7 +397,24 @@ Workspace: same **`forma-spike`** external tree.
 | Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (581 tasks); APKs ~22 MB |
 | Version | `0.15.0-nia-forma-network` |
 
-**Still open in phase C:** optional remaining cores (analytics/notifications); F27 library flavors.
+**Still open in phase C (pre-analytics):** F27 library flavors — superseded by analytics/notifications section below.
+
+### Phase C — core:analytics + core:notifications ✅ (2026-08-01)
+
+| Step | Result |
+|------|--------|
+| Module | `core-analytics-android-util` — `AnalyticsHelper` / `AnalyticsEvent` / Stub + NoOp + `LocalAnalyticsHelper` |
+| Type | plain **`hiltAndroidUtil`** + Compose **runtime** library stack for CompositionLocal (**F18** sibling; `compose=false` target — F11) |
+| Bind | **StubAnalyticsHelper** for **all** product flavors (F27 prod `FirebaseAnalyticsHelper` + flavor source sets deferred) |
+| Module | `core-notifications-res` **`androidRes`** + `core-notifications-android-util` **`hiltAndroidUtil`** |
+| **F31 / F23** | Tray strings + vector icon on **res** module (unique namespace `…notifications.res`); util imports `R as NotificationsR` — androidUtil still no `res/` |
+| Bind | **SystemTrayNotifier** for all flavors (validates res split + data edge; demo NoOp deferred with F27) |
+| Data | UserData toggles → analytics events; News `sync()` → notifier for new followed-topic items after onboard |
+| UI | `core-ui` → analytics; NewsFeed logs `news_resource_opened`; root `CompositionLocalProvider` + `TrackScreenViewEvent` |
+| Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (645 tasks); APKs ~22 MB |
+| Version | `0.16.0-nia-forma-analytics-notifications` |
+
+**Still open in phase C:** F27 library flavors / prod Firebase analytics + demo NoOp notifier source sets; optional case-study Phase D.
 
 ### Phase D — Case study write-up
 
@@ -414,6 +431,7 @@ Workspace: same **`forma-spike`** external tree.
 | F3 | 2026-07-29 | ui → model vs uiLibrary matrix | **Closed for designsystem 2026-08-01** and **core.ui 2026-08-01:** designsystem `uiLibrary` model-free; core.ui uses `composeWidget` + presentation DTOs (no model edge). Model still flows `impl` → JVM `library` only. |
 | F28 | 2026-08-01 | designsystem Coil/icons/adaptive | No structure Gradle plugin — companions are **library stack** on `uiLibrary` via `transitiveDeps` (F18 sibling). Type remains plain `uiLibrary`. |
 | F29 | 2026-08-01 | core.ui type + model | **`composeWidget`** (suffix `compose-widget`) depends on designsystem `ui-library` (matrix). Shared cards take `NewsResourceCardUi` DTOs; features own model→DTO mapping. Rejects second `uiLibrary` (no self-edge) and rejects matrix weaken `uiLibrary`→`library`. |
+| F31 | 2026-08-01 | notifications res vs androidUtil | **Closed:** `core-notifications-res` (`androidRes`, namespace `…notifications.res`) + util → res edge. AGP requires unique namespace vs util. Validates F23 with real tray notifier (not only hardcoded sync copy). |
 | F30 | 2026-08-01 | network kotlinx.serialization | Demo network uses `kotlinx-serialization-json` as **library stack** on `hiltAndroidUtil` (manual Json element parse). No `org.jetbrains.kotlin.plugin.serialization` structure plugin for dogfood demo path. Retrofit/prod + flavor source sets remain F27. |
 | F5 | 2026-07-29 | test / runtime impl→impl | **Phase C runtime:** interests.impl → topic.**api** only. Test classpath still deferred |
 | F8 | 2026-07-29 | upstream topic **api** ships `res/strings` | **Spike:** `feature/topic/res` `androidRes`; `api` has no `res/` (matrix content rule) |
@@ -435,7 +453,7 @@ Workspace: same **`forma-spike`** external tree.
 | F24 | 2026-07-31 | `deps()` overload mix | Cannot pass `.ksp` NamedDependency and `target()` FormaTarget in one `deps(...)` call (distinct overloads). Compose `transitiveDeps + deps(ksp) + deps(target)`. |
 | F25 | 2026-07-31 | Protobuf needs type-owned apply on JVM library | NiA `datastore-proto` is pure JVM + `com.google.protobuf`. Engine needed `libraryTarget` (like `androidUtilTarget`) so Path B `protobufLibrary` can pass derived type. Call sites stay attrs-only. |
 | F26 | 2026-07-31 | Proto lite supers on consumers | `UserPreferences` / enums extend protobuf lite; androidUtil consumer must `transitiveDeps(protobuf-kotlin-lite)` even when proto module already depends on it (project dep does not re-export non-api runtime the same way as NiA `api(libs.protobuf…)`). |
-| F27 | 2026-07-31 | Library product flavors / variant deps | Binary-only `FormaProductFlavor` closes F7 for APK. NiA also flavors libraries + `prodImplementation(FCM)` on sync. v1 leaves libraries unflavored (AGP resolves). Future: optional library flavor attrs or type-owned missingDimensionStrategy — do **not** put free-form `android { productFlavors }` on every module. |
+| F27 | 2026-07-31 | Library product flavors / variant deps | Binary-only `FormaProductFlavor` closes F7 for APK. NiA also flavors libraries + `prodImplementation(FCM)` on sync + **analytics demo/prod binds** + **notifications demo NoOp / prod tray**. Spike binds Stub analytics + SystemTray notifier for **all** flavors until library flavor attrs exist. Future: optional library flavor attrs or type-owned missingDimensionStrategy — do **not** put free-form `android { productFlavors }` on every module. |
 
 ## Local reference commands
 
