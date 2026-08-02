@@ -1,6 +1,6 @@
 # Dogfood: Now in Android → Forma (F-115)
 
-**Status:** `in_progress` — phase C through **analytics + notifications** green (F27 library flavors next)  
+**Status:** `in_progress` — phase C through **library product flavors (F27)** green; **Phase D** case study next  
 **Upstream:** [android/nowinandroid](https://github.com/android/nowinandroid) (Apache-2.0)  
 **Pinned checkout (local):** `/Users/claw/work/nowinandroid` @ `7d45eae` (main tip when cloned 2026-07-29)  
 **Dogfood fork:** `/Users/claw/work/nowinandroid-forma`  
@@ -157,8 +157,8 @@ These are the **value** of dogfooding — expected friction, not blockers to ign
 ### F7 — Product flavors `demo` / `prod`
 
 - Affects source sets and dependency variants (`prodImplementation` FCM on sync).
-- **Resolved (binary v1, 2026-07-31):** `FormaProductFlavor` + `androidBinary(productFlavors=…)` — binary-only; `BuildConfiguration` stays build-types. NiA spike: `demo`/`prod` on `contentType`; `assembleDemoDebug` / `assembleProdDebug`.
-- **Still gap (F27):** library-level productFlavors + `demoImplementation`/`prodImplementation` edges (e.g. sync FCM) — not in v1; unflavored libraries resolve against flavored APK.
+- **Resolved (binary v1, 2026-07-31):** `FormaProductFlavor` + `androidBinary(productFlavors=…)` — binary; `BuildConfiguration` stays build-types. NiA spike: `demo`/`prod` on `contentType`; `assembleDemoDebug` / `assembleProdDebug`.
+- **Resolved (library F27, 2026-08-01):** same `FormaProductFlavor` on `androidUtil` / library feature config + `LibraryExtension.applyProductFlavors` + `src/<flavor>/kotlin`; flavor-scoped deps via `.forProductFlavor("prod")` → `prodImplementation`.
 
 ## Phased execution plan
 
@@ -352,7 +352,7 @@ Workspace: same **`forma-spike`** external tree.
 | Spike binary | `hiltFirebaseBinary(productFlavors = demo+prod contentType)`; demo `applicationIdSuffix = ".demo"` |
 | Tasks | `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` (bare `assembleDebug` gone once flavored) |
 | **F7** | closed for APK root |
-| **F27** | multi-module library flavors / variant deps (e.g. sync FCM) — not in v1; unflavored libraries resolve against flavored APK. |
+| **F27** | closed in library flavors section below |
 | Verify | `forma-spike` assembleDemoDebug + assembleProdDebug green after `publish-local 0.1.3-NIA` |
 
 **Still open in phase C (pre-designsystem):** full designsystem / core.ui port.
@@ -405,16 +405,33 @@ Workspace: same **`forma-spike`** external tree.
 |------|--------|
 | Module | `core-analytics-android-util` — `AnalyticsHelper` / `AnalyticsEvent` / Stub + NoOp + `LocalAnalyticsHelper` |
 | Type | plain **`hiltAndroidUtil`** + Compose **runtime** library stack for CompositionLocal (**F18** sibling; `compose=false` target — F11) |
-| Bind | **StubAnalyticsHelper** for **all** product flavors (F27 prod `FirebaseAnalyticsHelper` + flavor source sets deferred) |
+| Bind (pre-F27) | **StubAnalyticsHelper** for all flavors until library flavors section |
 | Module | `core-notifications-res` **`androidRes`** + `core-notifications-android-util` **`hiltAndroidUtil`** |
 | **F31 / F23** | Tray strings + vector icon on **res** module (unique namespace `…notifications.res`); util imports `R as NotificationsR` — androidUtil still no `res/` |
-| Bind | **SystemTrayNotifier** for all flavors (validates res split + data edge; demo NoOp deferred with F27) |
+| Bind (pre-F27) | **SystemTrayNotifier** for all flavors until library flavors section |
 | Data | UserData toggles → analytics events; News `sync()` → notifier for new followed-topic items after onboard |
 | UI | `core-ui` → analytics; NewsFeed logs `news_resource_opened`; root `CompositionLocalProvider` + `TrackScreenViewEvent` |
 | Verify | `forma-spike` `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` → **BUILD SUCCESSFUL** (645 tasks); APKs ~22 MB |
 | Version | `0.16.0-nia-forma-analytics-notifications` |
 
-**Still open in phase C:** F27 library flavors / prod Firebase analytics + demo NoOp notifier source sets; optional case-study Phase D.
+### Phase C — Library product flavors (F27) ✅ (2026-08-01)
+
+| Step | Result |
+|------|--------|
+| Engine | `AndroidLibraryFeatureConfiguration.productFlavors` + `LibraryExtension.applyProductFlavors(plan)` (no-op empty; `src/<flavor>/kotlin`; APK-only fields ignored) |
+| Model | Same **`FormaProductFlavor`** as binary — one global way; KDoc no longer binary-only |
+| DSL | `androidUtil` / `androidUtilTarget(productFlavors=…)` + thin `hiltAndroidUtil` forward |
+| Flavor-scoped deps | `NamedDependency.forProductFlavor` / `PlatformDependency.forProductFlavor` → `CustomConfiguration("${flavor}Implementation")`; preserves transitive + feature flags |
+| Unit tests | `FormaProductFlavorTest` library plan reuse; `DepsModelAndPluginHappyPathTest` flavor config mapping |
+| Spike analytics | `hiltAndroidUtil(productFlavors=demo+prod)`; Hilt modules in `src/demo` (Stub) / `src/prod` (Firebase + `FirebaseAnalyticsHelper`); `prod` BOM + analytics via `.forProductFlavor("prod")` |
+| Spike notifications | same flavors; `src/demo` NoOpNotifier bind / `src/prod` SystemTrayNotifier bind; main keeps implementations |
+| Spike sync | optional `prodImplementation` FCM via `.forProductFlavor("prod")` (deps-only; no new FCM source) |
+| Docs | `CALL-SITE-SURFACE.md` library flavors + flavor-scoped deps |
+| Verify | `plugins` `:android:test` + `:deps:test`; `publish-local 0.1.3-NIA`; spike `:binary:assembleDemoDebug` + `:binary:assembleProdDebug` |
+| Version | `0.17.0-nia-forma-library-flavors` |
+| **F27** | **closed** |
+
+**Still open:** Phase D case-study write-up (optional remaining Retrofit/prod network out of scope).
 
 ### Phase D — Case study write-up
 
@@ -453,7 +470,7 @@ Workspace: same **`forma-spike`** external tree.
 | F24 | 2026-07-31 | `deps()` overload mix | Cannot pass `.ksp` NamedDependency and `target()` FormaTarget in one `deps(...)` call (distinct overloads). Compose `transitiveDeps + deps(ksp) + deps(target)`. |
 | F25 | 2026-07-31 | Protobuf needs type-owned apply on JVM library | NiA `datastore-proto` is pure JVM + `com.google.protobuf`. Engine needed `libraryTarget` (like `androidUtilTarget`) so Path B `protobufLibrary` can pass derived type. Call sites stay attrs-only. |
 | F26 | 2026-07-31 | Proto lite supers on consumers | `UserPreferences` / enums extend protobuf lite; androidUtil consumer must `transitiveDeps(protobuf-kotlin-lite)` even when proto module already depends on it (project dep does not re-export non-api runtime the same way as NiA `api(libs.protobuf…)`). |
-| F27 | 2026-07-31 | Library product flavors / variant deps | Binary-only `FormaProductFlavor` closes F7 for APK. NiA also flavors libraries + `prodImplementation(FCM)` on sync + **analytics demo/prod binds** + **notifications demo NoOp / prod tray**. Spike binds Stub analytics + SystemTray notifier for **all** flavors until library flavor attrs exist. Future: optional library flavor attrs or type-owned missingDimensionStrategy — do **not** put free-form `android { productFlavors }` on every module. |
+| F27 | 2026-07-31 | Library product flavors / variant deps | **Closed 2026-08-01:** same `FormaProductFlavor` on `androidUtil` + `LibraryExtension.applyProductFlavors` + `src/<flavor>/kotlin`; flavor-scoped deps via `.forProductFlavor` → `prodImplementation`. Spike analytics demo Stub / prod Firebase; notifications demo NoOp / prod SystemTray; optional sync FCM prod dep. No raw `android { productFlavors }` at call sites. |
 
 ## Local reference commands
 

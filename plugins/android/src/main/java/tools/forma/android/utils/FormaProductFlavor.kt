@@ -2,24 +2,31 @@ package tools.forma.android.utils
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.ApplicationProductFlavor
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.dsl.ProductFlavor
 
 /**
- * Typed product-flavor identity for `androidBinary` (F-115 / NiA F7 dogfood).
+ * Typed product-flavor identity for Forma Android targets (F-115 / NiA F7 + F27).
  *
- * **Binary-only (v1):** product flavors are composition-root config — same placement
- * rationale as [FormaSigningConfig] (F-097) and versionCode/Name (F-092). They are
- * **not** stuffed into [BuildConfiguration] (build-types only) and are **not** a
- * library/impl shopping API.
+ * **Same model for binary and library:** [FormaProductFlavor] is the one global way
+ * to declare flavor dimensions. Composition-root APKs use it on `androidBinary`;
+ * library targets that go through [tools.forma.android.feature.androidLibraryFeatureDefinition]
+ * (e.g. `androidUtil`) accept the same list.
  *
- * Multi-module flavor dimensions (library `productFlavors` + `demoImplementation`
- * edges) stay out of v1: AGP accepts unflavored library deps against a flavored
- * application. Document gaps rather than invent dual happy paths.
+ * Libraries **ignore** APK-only fields ([applicationIdSuffix], [versionNameSuffix]) —
+ * [applyFormaProductFlavor] only writes those onto [ApplicationProductFlavor].
+ * [BuildConfiguration] stays build-types only (flavors are not stuffed into it).
+ *
+ * Empty list (default) = unflavored target so existing samples stay unchanged.
+ * Flavor-scoped external deps use `NamedDependency.forProductFlavor` /
+ * `PlatformDependency.forProductFlavor` → AGP `prodImplementation` etc.
+ * (see `docs/CALL-SITE-SURFACE.md`).
  *
  * @param name flavor name (`demo`, `prod`, …)
  * @param dimension flavor dimension name (`contentType`, …)
- * @param applicationIdSuffix optional APK id suffix (e.g. `".demo"`); null = none
- * @param versionNameSuffix optional versionName suffix; null = none
+ * @param applicationIdSuffix optional APK id suffix (e.g. `".demo"`); null = none;
+ *   ignored on library targets
+ * @param versionNameSuffix optional versionName suffix; null = none; ignored on libraries
  * @param matchingFallbacks optional AGP matchingFallbacks for this flavor
  * @param manifestPlaceholders extra placeholders merged onto this flavor
  * @param buildConfigFields optional BuildConfig field map (name → value expression)
@@ -55,8 +62,7 @@ data class BuildConfigField(
 /**
  * Pure plan for AGP apply: ordered unique dimensions + flavors.
  *
- * @throws IllegalArgumentException on blank names, duplicate flavor names, or
- *   empty non-null lists that would create a half-configured dimension set
+ * @throws IllegalArgumentException on blank names or duplicate flavor names
  */
 fun resolveProductFlavorPlan(
     flavors: List<FormaProductFlavor>,
@@ -67,7 +73,7 @@ fun resolveProductFlavorPlan(
     flavors.forEach { flavor ->
         require(flavor.name !in names) {
             "Duplicate product flavor name '${flavor.name}' " +
-                "(each name may appear once on androidBinary)"
+                "(each name may appear once per target)"
         }
         names += flavor.name
         dimensions += flavor.dimension
@@ -104,6 +110,27 @@ fun ApplicationExtension.applyProductFlavors(plan: ProductFlavorPlan) {
     }
 }
 
+/**
+ * Applies [ProductFlavorPlan] onto AGP [LibraryExtension] flavor containers and
+ * registers `src/<flavor>/kotlin` on each flavor source set.
+ *
+ * No-op when the plan is empty (default library call sites). Does **not** require
+ * [ApplicationProductFlavor] fields — APK-only attrs are skipped by
+ * [applyFormaProductFlavor].
+ */
+fun LibraryExtension.applyProductFlavors(plan: ProductFlavorPlan) {
+    if (plan.flavors.isEmpty()) return
+    flavorDimensions.clear()
+    flavorDimensions.addAll(plan.dimensions)
+    plan.flavors.forEach { forma ->
+        val existing = productFlavors.findByName(forma.name)
+        val flavor = existing ?: productFlavors.create(forma.name)
+        applyFormaProductFlavor(flavor, forma)
+        // Kotlin sources under src/<flavor>/kotlin (parity with main/test wiring).
+        sourceSets.maybeCreate(forma.name).java.srcDir("src/${forma.name}/kotlin")
+    }
+}
+
 /** Writes one [FormaProductFlavor] onto an AGP [ProductFlavor] / application flavor. */
 fun applyFormaProductFlavor(target: ProductFlavor, forma: FormaProductFlavor) {
     target.dimension = forma.dimension
@@ -127,5 +154,13 @@ fun applyFormaProductFlavor(target: ProductFlavor, forma: FormaProductFlavor) {
  * Empty [flavors] is a no-op (keeps unflavored APKs working).
  */
 fun ApplicationExtension.applyProductFlavors(flavors: List<FormaProductFlavor>) {
+    applyProductFlavors(resolveProductFlavorPlan(flavors))
+}
+
+/**
+ * Convenience: resolve + apply in one step for library feature definition.
+ * Empty [flavors] is a no-op (keeps unflavored libraries working).
+ */
+fun LibraryExtension.applyProductFlavors(flavors: List<FormaProductFlavor>) {
     applyProductFlavors(resolveProductFlavorPlan(flavors))
 }

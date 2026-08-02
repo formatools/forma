@@ -24,6 +24,7 @@ import tools.forma.deps.core.TargetDependency
 import tools.forma.deps.core.TargetSpec
 import tools.forma.deps.core.USE_FEATURE_STUBS_FLAG
 import tools.forma.deps.core.featureImplementationPair
+import tools.forma.deps.core.productFlavorImplementation
 import tools.forma.target.FormaTarget
 
 /**
@@ -232,6 +233,52 @@ fun NamedDependency.whenFlag(flag: String, enabled: Boolean = true): NamedDepend
             )
         }
     )
+
+/**
+ * Map every name spec onto AGP `{flavor}Implementation` (F-115 / NiA F27).
+ *
+ * Preserves [NameSpec.transitive] and feature-flag gating. Compose with [plus]:
+ *
+ * ```kotlin
+ * dependencies = deps(target(":core:model:library")) +
+ *     transitiveDeps("com.google.firebase:firebase-analytics").forProductFlavor("prod") +
+ *     transitivePlatform("com.google.firebase:firebase-bom:33.16.0").forProductFlavor("prod")
+ * ```
+ *
+ * Requires matching [tools.forma.android.utils.FormaProductFlavor] on the library target
+ * so AGP creates the configuration. Do **not** scatter free-form config name strings.
+ */
+fun NamedDependency.forProductFlavor(flavor: String): NamedDependency {
+    val config = productFlavorImplementation(flavor)
+    return NamedDependency(
+        names.map { spec ->
+            NameSpec(
+                name = spec.name,
+                config = config,
+                transitive = spec.transitive,
+                featureFlag = spec.featureFlag,
+                featureFlagExpected = spec.featureFlagExpected,
+            )
+        }
+    )
+}
+
+/**
+ * Map every platform (BOM) spec onto AGP `{flavor}Implementation` (F-115 / NiA F27).
+ * Preserves [PlatformSpec.transitive]. See [NamedDependency.forProductFlavor].
+ */
+fun PlatformDependency.forProductFlavor(flavor: String): PlatformDependency {
+    val config = productFlavorImplementation(flavor)
+    return PlatformDependency(
+        names.map { spec ->
+            PlatformSpec(
+                name = spec.name,
+                config = config,
+                transitive = spec.transitive,
+            )
+        }
+    )
+}
 
 /**
  * Gate every target spec in this [TargetDependency] on project-global feature flag [flag]

@@ -4,6 +4,7 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.feature.processorConfigurationFeatures
 import tools.forma.android.target.AndroidTargetRegistry
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
@@ -25,6 +26,9 @@ import tools.forma.validation.validate
  * (e.g. dogfood `roomAndroidUtil`) so plugin identity stays on the type while the
  * AGP/util wiring is shared. Call sites of derived DSLs remain attributes-only —
  * never pass plugin ids here.
+ *
+ * [productFlavors] (F-115 / NiA F27): optional library product flavors using the
+ * same [FormaProductFlavor] model as `androidBinary`. Empty = unflavored.
  */
 fun Project.androidUtilTarget(
     type: TargetType,
@@ -35,6 +39,7 @@ fun Project.androidUtilTarget(
     testDependencies: FormaDependency = emptyDependency(),
     /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
     compose: Boolean = Forma.settings.compose,
+    productFlavors: List<FormaProductFlavor> = emptyList(),
 ) {
     disallowResources()
 
@@ -44,6 +49,7 @@ fun Project.androidUtilTarget(
     val androidFeatureConfig = AndroidLibraryFeatureConfiguration(
         packageName = packageName,
         compose = compose,
+        productFlavors = productFlavors,
     )
 
     applyFeatures(

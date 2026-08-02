@@ -7,6 +7,7 @@ import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.deps.core.FormaDependency
 import tools.forma.deps.core.applyDependencies
 import tools.forma.deps.core.applyTargetPlugins
@@ -29,6 +30,8 @@ import tools.forma.validation.validate
  *   use the dedicated `viewBinding` target type instead (always on).
  * @param compose enable Jetpack Compose for this target; defaults to project-wide
  *   [androidProjectConfiguration] `compose` flag.
+ * @param productFlavors optional library product flavors (F-115 / NiA F27); empty = unflavored.
+ *   Required when this impl depends on flavored libraries (matching AGP dimensions).
  */
 fun Project.impl(
     packageName: String,
@@ -45,7 +48,8 @@ fun Project.impl(
     testInstrumentationRunner: String = androidJunitRunner,
     buildConfiguration: BuildConfiguration = BuildConfiguration(),
     consumerMinificationFiles: Set<String> = emptySet(),
-    manifestPlaceholders: Map<String, Any> = emptyMap()
+    manifestPlaceholders: Map<String, Any> = emptyMap(),
+    productFlavors: List<FormaProductFlavor> = emptyList(),
 ) {
 
     val selfV = AndroidTargetRegistry.selfValidator(AndroidTargetTypes.impl).asValidator()
@@ -59,7 +63,8 @@ fun Project.impl(
         manifestPlaceholders,
         selfValidator = selfV,
         viewBinding = viewBinding,
-        compose = compose
+        compose = compose,
+        productFlavors = productFlavors,
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),

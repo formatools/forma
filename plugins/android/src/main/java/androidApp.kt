@@ -7,6 +7,7 @@ import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
 import tools.forma.android.utils.BuildConfiguration
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.android.validation.disallowResources
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
@@ -43,6 +44,8 @@ fun Project.androidApp(
     manifestPlaceholders: Map<String, Any> = emptyMap(),
     /** Enable Jetpack Compose; defaults to project-wide `compose` setting. */
     compose: Boolean = Forma.settings.compose,
+    /** Library product flavors (F-115 / NiA F27); empty = unflavored. */
+    productFlavors: List<FormaProductFlavor> = emptyList(),
 ) {
 
     disallowResources()
@@ -58,6 +61,7 @@ fun Project.androidApp(
         manifestPlaceholders,
         selfValidator = selfV,
         compose = compose,
+        productFlavors = productFlavors,
     )
     applyFeatures(
         androidLibraryFeatureDefinition(libraryFeatureConfiguration),

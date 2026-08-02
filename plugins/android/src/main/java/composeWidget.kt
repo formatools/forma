@@ -5,6 +5,7 @@ import tools.forma.android.feature.applyFeatures
 import tools.forma.android.feature.kotlinAndroidFeatureDefinition
 import tools.forma.android.target.AndroidTargetRegistry
 import tools.forma.android.target.AndroidTargetTypes
+import tools.forma.android.utils.FormaProductFlavor
 import tools.forma.android.visibility.Public
 import tools.forma.android.visibility.Visibility
 import tools.forma.deps.core.FormaDependency
@@ -32,7 +33,9 @@ fun Project.composeWidget(
     androidTestDependencies: FormaDependency = emptyDependency(),
     testInstrumentationRunner: String = androidJunitRunner,
     consumerMinificationFiles: Set<String> = emptySet(),
-    manifestPlaceholders: Map<String, Any> = emptyMap()
+    manifestPlaceholders: Map<String, Any> = emptyMap(),
+    /** Library product flavors (F-115 / NiA F27); empty = unflavored. */
+    productFlavors: List<FormaProductFlavor> = emptyList(),
 ) {
     val selfV = AndroidTargetRegistry.selfValidator(AndroidTargetTypes.composeWidget).asValidator()
     selfV.validate(target)
@@ -44,6 +47,7 @@ fun Project.composeWidget(
         consumerMinificationFiles = consumerMinificationFiles,
         manifestPlaceholders = manifestPlaceholders,
         compose = true,
+        productFlavors = productFlavors,
         selfValidator = selfV
     )
 

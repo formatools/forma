@@ -6,8 +6,8 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 /**
- * Pure unit coverage for binary product-flavor model (F-115 / NiA F7).
- * No Gradle Project / AGP containers.
+ * Pure unit coverage for product-flavor model (F-115 / NiA F7 + F27 library reuse).
+ * No Gradle Project / AGP containers — plan resolution is shared by binary and library.
  */
 class FormaProductFlavorTest {
 
@@ -108,5 +108,21 @@ class FormaProductFlavorTest {
             BuildConfigField("String", "\"demo\""),
             plan.flavors[0].buildConfigFields["NIA_CONTENT_TYPE"],
         )
+    }
+
+    @Test
+    fun `library plan reuses same resolve as binary — APK-only fields stay on model`() {
+        // Libraries pass the same FormaProductFlavor list; applyFormaProductFlavor
+        // skips applicationIdSuffix on non-ApplicationProductFlavor. Plan is identical.
+        val libraryCallSite = listOf(
+            FormaProductFlavor(name = "demo", dimension = "contentType", applicationIdSuffix = ".demo"),
+            FormaProductFlavor(name = "prod", dimension = "contentType"),
+        )
+        val plan = resolveProductFlavorPlan(libraryCallSite)
+        assertEquals(ProductFlavorPlan.EMPTY, resolveProductFlavorPlan(emptyList()))
+        assertEquals(listOf("contentType"), plan.dimensions)
+        assertEquals(listOf("demo", "prod"), plan.flavors.map { it.name })
+        // Model still carries APK suffix (binary may share the list); library apply ignores it.
+        assertEquals(".demo", plan.flavors[0].applicationIdSuffix)
     }
 }

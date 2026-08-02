@@ -149,16 +149,19 @@ default).
 
 **Not in scope:** Play App Signing backend integration, library AAR signing APIs.
 
-## Product flavors (F-115 / NiA F7)
+## Product flavors (F-115 / NiA F7 + F27)
 
 | Concern | Owner | Notes |
 |---------|--------|--------|
-| Flavor dimensions + product flavors | **`androidBinary` call site only** (`productFlavors: List<FormaProductFlavor>`) | Wired to AGP `ApplicationExtension.flavorDimensions` + `productFlavors` |
+| Flavor model | **`FormaProductFlavor`** (one global way) | Same data class for binary + library; libraries ignore APK-only fields (`applicationIdSuffix` / `versionNameSuffix`) |
+| Binary flavor dimensions | **`androidBinary(productFlavors=…)`** | Wired to AGP `ApplicationExtension.flavorDimensions` + `productFlavors` |
+| Library flavor dimensions | **`androidUtil` / `impl` / `androidApp` / `composeWidget` (+ thin Hilt wrappers)** (F27) | Wired via `AndroidLibraryFeatureConfiguration` → `LibraryExtension.applyProductFlavors`; registers `src/<flavor>/kotlin`. Intermediate consumers of flavored libraries must declare the **same** dimension list (AGP variant matching). |
 | Build types | **`BuildConfiguration`** (unchanged) | Flavors are **not** stuffed into build-type map |
-| Library / `impl` / `androidApp` flavor API | **None (v1)** | Unflavored libraries resolve against flavored APKs; multi-module `demoImplementation` is a documented gap |
+| Flavor-scoped external deps | **`NamedDependency.forProductFlavor` / `PlatformDependency.forProductFlavor`** | Maps onto AGP `{flavor}Implementation` via `ConfigurationType.CustomConfiguration`; preserves transitive + feature-flag gates |
 | Raw `android { productFlavors { … } }` | **Rejected as happy path** | Escape hatch only |
+| Free-form config name strings at call sites | **Rejected** | Prefer `.forProductFlavor("prod")` over hand-written `"prodImplementation"` |
 
-**Call-site shape (NiA `demo` / `prod`):**
+**Binary call-site shape (NiA `demo` / `prod`):**
 
 ```kotlin
 import tools.forma.android.utils.FormaProductFlavor
@@ -183,10 +186,39 @@ androidBinary(
 // Tasks: assembleDemoDebug / assembleProdDebug (not bare assembleDebug)
 ```
 
-**Empty list (default)** keeps a single unflavored APK so existing samples stay
+**Library + flavor-scoped deps (NiA analytics / notifications):**
+
+```kotlin
+import tools.forma.android.utils.FormaProductFlavor
+
+val contentTypeFlavors = listOf(
+    FormaProductFlavor(name = "demo", dimension = "contentType"),
+    FormaProductFlavor(name = "prod", dimension = "contentType"),
+)
+
+androidUtil(
+    packageName = "com.example.analytics",
+    productFlavors = contentTypeFlavors,
+    dependencies = transitiveDeps(
+        "androidx.compose.runtime:runtime:…",
+    ) +
+        transitivePlatform("com.google.firebase:firebase-bom:33.16.0")
+            .forProductFlavor("prod") +
+        transitiveDeps("com.google.firebase:firebase-analytics")
+            .forProductFlavor("prod"),
+)
+// Sources: src/main/kotlin + src/demo/kotlin + src/prod/kotlin
+// prodImplementation(firebase-bom platform) + prodImplementation(firebase-analytics)
+```
+
+**Empty list (default)** keeps unflavored targets so existing samples stay
 `assembleDebug`. Optional attrs on [FormaProductFlavor]: `versionNameSuffix`,
 `matchingFallbacks`, `manifestPlaceholders`, `buildConfigFields` (BuildConfig
 fields apply only when project-global `buildFeatures.buildConfig` is already on).
+
+Other library DSLs (`impl`, `uiLibrary`, …) can gain `productFlavors` later by
+forwarding into `AndroidLibraryFeatureConfiguration` — **androidUtil** is the
+dogfood path for F27; do not invent per-module raw AGP blocks.
 
 ## AGP BuildFeatures (F-091 / GH #88)
 
