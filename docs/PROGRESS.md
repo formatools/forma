@@ -2,6 +2,19 @@
 
 Newest entries first.
 
+## 2026-08-03 — NiA migration perf benchmark (post F-115)
+
+- **Context:** F-115 done; user asked to run tests + understand perf implications of the migration and create a benchmark
+- **Plugins unit tests:** `plugins/` `./gradlew test jacocoHappyPathCoverageVerification` → **BUILD SUCCESSFUL** (~1m 5s, happy-path gate green)
+- **Harness:** `scripts/bench-nia-migration.sh` — same-host upstream NiA vs `forma-spike` (cold/warm `help`, CC miss/hit, optional assemble, LOC)
+- **Locked results:** `docs/benchmarks/nia-migration-20260803T174730Z/` (+ `docs/benchmarks/README.md`)
+  - Cold **configuring projects** 12.51s → **5.14s (−59%)**
+  - Warm configuring 1.58s → **0.71s (−55%)**
+  - CC hit `help` ~parity (~1.2–1.3s)
+  - Assemble wall recorded but **confounded** (tooling graph / wrapper / cache) — quote config metrics
+- **Docs:** case study §3.5 filled; `CONFIGURATION-PERFORMANCE.md` pointer
+- **Next:** empty gated coding board still; F-094 human-blocked
+
 ## 2026-08-02 — F-115: Phase D case study (NiA dogfood complete)
 
 - **Ticket:** F-115 → **`done`** (was `in_progress` · `priority: now` · `cron may continue`)

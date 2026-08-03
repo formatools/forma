@@ -113,19 +113,46 @@ Plugins published: `bash scripts/publish-local.sh 0.1.3-NIA` from the Forma repo
 
 ### 3.5 Configuration-time performance
 
-No same-machine cold `--profile` pair was locked for upstream NiA vs spike in this Phase D pass (different wrappers, SDKs, and composite `forma-defs` confound absolute seconds).
+**Same-host pair locked 2026-08-03** (OpenJDK 21.0.11, worker Mac). Harness:
+[`scripts/bench-nia-migration.sh`](../scripts/bench-nia-migration.sh) →
+[`docs/benchmarks/nia-migration-20260803T174730Z/RESULTS.md`](benchmarks/nia-migration-20260803T174730Z/RESULTS.md).
 
-**Recipe** (from [`CONFIGURATION-PERFORMANCE.md`](CONFIGURATION-PERFORMANCE.md)) if a future worker wants a pair:
+| Metric (Gradle `--profile`) | Upstream NiA | Forma spike | Δ |
+|-----------------------------|--------------|-------------|---|
+| Cold `help` **configuring projects** | **12.51 s** | **5.14 s** | **−59%** |
+| Warm `help` configuring projects | 1.58 s | 0.71 s | −55% |
+| CC miss `help` configuring projects | 2.51 s | 0.98 s | −61% |
+| CC hit `help` wall clock | 1.24 s | 1.34 s | ~parity |
+| Cold `help` wall clock | 22.8 s | 19.0 s | −17% |
+
+**Read as:** on this graph size, Forma’s validators / attrs-only apply path are
+**not** the dominant cost versus NiA convention plugins + AGP — configuration is
+**substantially cheaper** on the spike for cold and warm runs. Configuration
+cache hit path is parity (~1.3 s) once both trees store a CC entry.
+
+**Caveats (do not over-claim):**
+
+- Module graphs are similar but not identical (spike omits Roborazzi / baseline /
+  lint-catalog tooling modules).
+- Wrappers differ (upstream Gradle **9.4.0** pin vs spike **9.6.1**).
+- Spike cold startup can be slightly higher (composite `forma-defs` + mavenLocal
+  plugin resolution) while **configuring projects** still wins.
+- `assembleDemoDebug` wall clock also favored spike in this run (~279 s → ~65 s)
+  but is **confounded** by tooling graph + cache warmth; quote **configuring
+  projects** from `help` for migration perf, not assemble alone.
+
+Re-run:
 
 ```bash
-cd /Users/claw/work/nowinandroid-forma/forma-spike
-./gradlew --stop
-rm -rf .gradle/configuration-cache
-./gradlew help --no-configuration-cache --profile --offline
-# build/reports/profile/profile-*.html → "Configuring Projects"
+export JAVA_HOME=/usr/local/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
+export ANDROID_HOME=/usr/local/share/android-commandlinetools
+cd /Users/claw/work/forma
+BENCH_ASSEMBLE=1 bash scripts/bench-nia-migration.sh
 ```
 
-Qualitative: spike configuration is dominated by AGP per Android module + Hilt/KSP/Room on annotated types — the same class of work NiA pays — not by Forma validator overhead on this graph size. Prefer same-host before/after if quoting wall-clock.
+Qualitative hold: configuration remains AGP/Hilt/KSP/Room-class work per Android
+module — Forma is not free, but the closed matrix + type-owned plugins did not
+regress configuration vs convention-plugin NiA on this host.
 
 ---
 
