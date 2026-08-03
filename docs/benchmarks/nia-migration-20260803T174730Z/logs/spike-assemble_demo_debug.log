@@ -1,0 +1,809 @@
+Starting a Gradle Daemon, 3 stopped Daemons could not be reused, use --status for details
+
+> Configure project :forma-defs
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file 'forma-defs/build.gradle.kts'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by build file 'forma-defs/build.gradle.kts'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by build file 'forma-defs/build.gradle.kts'
+Build was configured to prefer settings repositories over project repositories but repository 'Gradle Central Plugin Repository' was added by build file 'forma-defs/build.gradle.kts'
+
+> Task :forma-defs:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :forma-defs:compileKotlin UP-TO-DATE
+> Task :forma-defs:compileJava NO-SOURCE
+> Task :forma-defs:pluginDescriptors UP-TO-DATE
+> Task :forma-defs:processResources NO-SOURCE
+> Task :forma-defs:classes UP-TO-DATE
+> Task :forma-defs:jar UP-TO-DATE
+> Task :feature-bookmarks-api:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-navigation-api:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature-search-api:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature-foryou-api:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-model-library:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature-topic-api:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-data-android-util:preBuild UP-TO-DATE
+> Task :core-analytics-android-util:preBuild UP-TO-DATE
+> Task :core-data-android-util:preDemoDebugBuild UP-TO-DATE
+> Task :core-datastore-android-util:preBuild UP-TO-DATE
+> Task :feature-settings-api:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature-interests-api:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-datastore-android-util:preDebugBuild UP-TO-DATE
+> Task :core-domain-android-util:preBuild UP-TO-DATE
+> Task :core-designsystem-ui-library:preBuild UP-TO-DATE
+> Task :core-network-android-util:preBuild UP-TO-DATE
+> Task :core-analytics-android-util:preDemoDebugBuild UP-TO-DATE
+> Task :core-database-android-util:preBuild UP-TO-DATE
+> Task :core-designsystem-ui-library:preDebugBuild UP-TO-DATE
+> Task :core-domain-android-util:preDemoDebugBuild UP-TO-DATE
+> Task :core-network-android-util:preDebugBuild UP-TO-DATE
+> Task :core-database-android-util:preDebugBuild UP-TO-DATE
+> Task :binary:preBuild UP-TO-DATE
+> Task :binary:preDemoDebugBuild UP-TO-DATE
+> Task :binary:mergeDemoDebugNativeDebugMetadata NO-SOURCE
+> Task :feature-foryou-api:processResources NO-SOURCE
+> Task :feature-interests-api:processResources NO-SOURCE
+> Task :feature-topic-api:processResources NO-SOURCE
+> Task :core-notifications-android-util:preBuild UP-TO-DATE
+> Task :feature-settings-api:processResources NO-SOURCE
+> Task :core-network-android-util:processDebugNavigationResources UP-TO-DATE
+> Task :feature-bookmarks-api:processResources NO-SOURCE
+> Task :feature-search-api:processResources NO-SOURCE
+> Task :core-notifications-res:preBuild UP-TO-DATE
+> Task :core-notifications-android-util:preDemoDebugBuild UP-TO-DATE
+> Task :core-ui-compose-widget:preBuild UP-TO-DATE
+> Task :core-notifications-res:preDebugBuild UP-TO-DATE
+> Task :feature-bookmarks-impl:preBuild UP-TO-DATE
+> Task :feature-bookmarks-res:preBuild UP-TO-DATE
+> Task :core-data-android-util:processDemoDebugNavigationResources UP-TO-DATE
+> Task :core-analytics-android-util:processDemoDebugNavigationResources UP-TO-DATE
+> Task :feature-foryou-impl:preBuild UP-TO-DATE
+> Task :binary:generateDemoDebugResources UP-TO-DATE
+> Task :core-database-android-util:processDebugNavigationResources UP-TO-DATE
+> Task :core-domain-android-util:processDemoDebugNavigationResources UP-TO-DATE
+> Task :core-designsystem-ui-library:processDebugNavigationResources UP-TO-DATE
+> Task :core-datastore-android-util:processDebugNavigationResources UP-TO-DATE
+> Task :feature-bookmarks-impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature-bookmarks-res:preDebugBuild UP-TO-DATE
+> Task :feature-foryou-res:preBuild UP-TO-DATE
+> Task :feature-foryou-impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature-foryou-res:preDebugBuild UP-TO-DATE
+> Task :core-ui-compose-widget:preDemoDebugBuild UP-TO-DATE
+> Task :feature-interests-impl:preBuild UP-TO-DATE
+> Task :feature-interests-impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature-search-impl:preBuild UP-TO-DATE
+> Task :feature-interests-res:preBuild UP-TO-DATE
+> Task :feature-search-impl:preDemoDebugBuild UP-TO-DATE
+> Task :core-notifications-android-util:processDemoDebugNavigationResources UP-TO-DATE
+> Task :feature-search-res:preBuild UP-TO-DATE
+> Task :feature-settings-res:preBuild UP-TO-DATE
+> Task :feature-interests-res:preDebugBuild UP-TO-DATE
+> Task :feature-bookmarks-impl:processDemoDebugNavigationResources UP-TO-DATE
+> Task :core-notifications-res:processDebugNavigationResources UP-TO-DATE
+> Task :feature-settings-res:preDebugBuild UP-TO-DATE
+> Task :feature-topic-impl:preBuild UP-TO-DATE
+> Task :feature-bookmarks-res:processDebugNavigationResources UP-TO-DATE
+> Task :feature-settings-impl:preBuild UP-TO-DATE
+> Task :feature-topic-res:preBuild UP-TO-DATE
+> Task :root-app:preBuild UP-TO-DATE
+> Task :root-res:preBuild UP-TO-DATE
+> Task :feature-topic-impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature-search-res:preDebugBuild UP-TO-DATE
+> Task :feature-topic-res:preDebugBuild UP-TO-DATE
+> Task :core-ui-compose-widget:processDemoDebugNavigationResources UP-TO-DATE
+> Task :root-app:preDemoDebugBuild UP-TO-DATE
+> Task :feature-interests-impl:processDemoDebugNavigationResources UP-TO-DATE
+> Task :feature-settings-impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature-foryou-impl:processDemoDebugNavigationResources UP-TO-DATE
+> Task :root-res:preDebugBuild UP-TO-DATE
+> Task :feature-search-impl:processDemoDebugNavigationResources UP-TO-DATE
+> Task :sync-work-android-util:preBuild UP-TO-DATE
+> Task :feature-interests-res:processDebugNavigationResources UP-TO-DATE
+> Task :feature-foryou-res:processDebugNavigationResources UP-TO-DATE
+> Task :sync-work-android-util:preDemoDebugBuild UP-TO-DATE
+> Task :feature-settings-res:processDebugNavigationResources UP-TO-DATE
+> Task :core-datastore-proto-library:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core-datastore-proto-library:protobufDummy UP-TO-DATE
+> Task :feature-settings-impl:processDemoDebugNavigationResources UP-TO-DATE
+> Task :feature-topic-res:processDebugNavigationResources UP-TO-DATE
+> Task :feature-topic-impl:processDemoDebugNavigationResources UP-TO-DATE
+> Task :root-app:processDemoDebugNavigationResources UP-TO-DATE
+> Task :core-analytics-android-util:generateDemoDebugResources UP-TO-DATE
+> Task :feature-search-res:processDebugNavigationResources UP-TO-DATE
+> Task :feature-bookmarks-impl:generateDemoDebugResources UP-TO-DATE
+> Task :core-notifications-android-util:generateDemoDebugResources UP-TO-DATE
+> Task :core-data-android-util:generateDemoDebugResources UP-TO-DATE
+> Task :core-notifications-res:generateDebugResources UP-TO-DATE
+> Task :core-database-android-util:generateDebugResources UP-TO-DATE
+> Task :sync-work-android-util:processDemoDebugNavigationResources UP-TO-DATE
+> Task :core-network-android-util:generateDebugResources UP-TO-DATE
+> Task :core-datastore-android-util:generateDebugResources UP-TO-DATE
+> Task :core-designsystem-ui-library:generateDebugResources UP-TO-DATE
+> Task :core-domain-android-util:generateDemoDebugResources UP-TO-DATE
+> Task :core-ui-compose-widget:generateDemoDebugResources UP-TO-DATE
+> Task :core-designsystem-ui-library:javaPreCompileDebug UP-TO-DATE
+> Task :core-ui-compose-widget:javaPreCompileDemoDebug UP-TO-DATE
+> Task :core-notifications-android-util:packageDemoDebugResources UP-TO-DATE
+> Task :core-database-android-util:packageDebugResources UP-TO-DATE
+> Task :feature-bookmarks-res:generateDebugResources UP-TO-DATE
+> Task :core-network-android-util:packageDebugResources UP-TO-DATE
+> Task :core-analytics-android-util:packageDemoDebugResources UP-TO-DATE
+> Task :feature-bookmarks-impl:packageDemoDebugResources UP-TO-DATE
+> Task :core-notifications-res:packageDebugResources UP-TO-DATE
+> Task :core-data-android-util:packageDemoDebugResources UP-TO-DATE
+> Task :core-datastore-android-util:packageDebugResources UP-TO-DATE
+> Task :core-designsystem-ui-library:packageDebugResources UP-TO-DATE
+> Task :core-database-android-util:parseDebugLocalResources UP-TO-DATE
+> Task :feature-bookmarks-impl:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-notifications-android-util:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-datastore-android-util:parseDebugLocalResources UP-TO-DATE
+> Task :core-network-android-util:parseDebugLocalResources UP-TO-DATE
+> Task :core-data-android-util:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-notifications-res:parseDebugLocalResources UP-TO-DATE
+> Task :root-res:processDebugNavigationResources UP-TO-DATE
+> Task :core-ui-compose-widget:packageDemoDebugResources UP-TO-DATE
+> Task :core-domain-android-util:javaPreCompileDemoDebug UP-TO-DATE
+> Task :core-analytics-android-util:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-designsystem-ui-library:parseDebugLocalResources UP-TO-DATE
+> Task :feature-bookmarks-impl:generateDemoDebugRFile UP-TO-DATE
+> Task :core-data-android-util:generateDemoDebugRFile UP-TO-DATE
+> Task :core-network-android-util:generateDebugRFile UP-TO-DATE
+> Task :core-notifications-android-util:generateDemoDebugRFile UP-TO-DATE
+> Task :core-database-android-util:generateDebugRFile UP-TO-DATE
+> Task :core-ui-compose-widget:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-domain-android-util:packageDemoDebugResources UP-TO-DATE
+> Task :core-analytics-android-util:generateDemoDebugRFile UP-TO-DATE
+> Task :core-datastore-android-util:generateDebugRFile UP-TO-DATE
+> Task :core-notifications-res:generateDebugRFile UP-TO-DATE
+> Task :core-designsystem-ui-library:generateDebugRFile UP-TO-DATE
+> Task :core-data-android-util:javaPreCompileDemoDebug UP-TO-DATE
+> Task :feature-bookmarks-impl:javaPreCompileDemoDebug UP-TO-DATE
+> Task :core-network-android-util:javaPreCompileDebug UP-TO-DATE
+> Task :core-domain-android-util:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-notifications-android-util:javaPreCompileDemoDebug UP-TO-DATE
+> Task :feature-foryou-impl:generateDemoDebugResources UP-TO-DATE
+> Task :core-ui-compose-widget:generateDemoDebugRFile UP-TO-DATE
+> Task :feature-bookmarks-res:packageDebugResources UP-TO-DATE
+> Task :feature-foryou-res:generateDebugResources UP-TO-DATE
+> Task :feature-interests-impl:generateDemoDebugResources UP-TO-DATE
+> Task :core-datastore-android-util:javaPreCompileDebug UP-TO-DATE
+> Task :feature-search-impl:generateDemoDebugResources UP-TO-DATE
+> Task :feature-interests-res:generateDebugResources UP-TO-DATE
+> Task :feature-bookmarks-res:parseDebugLocalResources UP-TO-DATE
+> Task :core-domain-android-util:generateDemoDebugRFile UP-TO-DATE
+> Task :feature-search-res:generateDebugResources UP-TO-DATE
+> Task :feature-foryou-impl:packageDemoDebugResources UP-TO-DATE
+> Task :core-notifications-res:compileDebugKotlin NO-SOURCE
+> Task :feature-settings-impl:generateDemoDebugResources UP-TO-DATE
+> Task :feature-foryou-impl:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-notifications-res:javaPreCompileDebug UP-TO-DATE
+> Task :feature-bookmarks-res:generateDebugRFile UP-TO-DATE
+> Task :feature-search-impl:packageDemoDebugResources UP-TO-DATE
+> Task :feature-interests-impl:packageDemoDebugResources UP-TO-DATE
+> Task :feature-interests-res:packageDebugResources UP-TO-DATE
+> Task :feature-foryou-res:packageDebugResources UP-TO-DATE
+> Task :core-database-android-util:javaPreCompileDebug UP-TO-DATE
+> Task :feature-search-impl:parseDemoDebugLocalResources UP-TO-DATE
+> Task :feature-search-res:packageDebugResources UP-TO-DATE
+> Task :feature-interests-impl:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-notifications-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :feature-foryou-impl:generateDemoDebugRFile UP-TO-DATE
+> Task :feature-interests-res:parseDebugLocalResources UP-TO-DATE
+> Task :feature-bookmarks-res:compileDebugKotlin NO-SOURCE
+> Task :feature-settings-res:generateDebugResources UP-TO-DATE
+> Task :feature-search-res:parseDebugLocalResources UP-TO-DATE
+> Task :feature-foryou-res:parseDebugLocalResources UP-TO-DATE
+> Task :feature-search-impl:generateDemoDebugRFile UP-TO-DATE
+> Task :feature-bookmarks-res:javaPreCompileDebug UP-TO-DATE
+> Task :feature-interests-impl:generateDemoDebugRFile UP-TO-DATE
+> Task :feature-foryou-impl:javaPreCompileDemoDebug UP-TO-DATE
+> Task :feature-interests-res:generateDebugRFile UP-TO-DATE
+> Task :feature-search-res:generateDebugRFile UP-TO-DATE
+> Task :feature-bookmarks-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :feature-topic-impl:generateDemoDebugResources UP-TO-DATE
+> Task :feature-foryou-res:generateDebugRFile UP-TO-DATE
+> Task :feature-search-impl:javaPreCompileDemoDebug UP-TO-DATE
+> Task :feature-interests-impl:javaPreCompileDemoDebug UP-TO-DATE
+> Task :feature-bookmarks-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :root-app:generateDemoDebugResources UP-TO-DATE
+> Task :feature-topic-res:generateDebugResources UP-TO-DATE
+> Task :feature-settings-res:packageDebugResources UP-TO-DATE
+> Task :feature-bookmarks-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :feature-search-res:compileDebugKotlin NO-SOURCE
+> Task :core-notifications-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :root-res:generateDebugResources UP-TO-DATE
+> Task :feature-topic-impl:packageDemoDebugResources UP-TO-DATE
+> Task :feature-interests-res:compileDebugKotlin NO-SOURCE
+> Task :feature-settings-res:parseDebugLocalResources UP-TO-DATE
+> Task :feature-foryou-res:compileDebugKotlin NO-SOURCE
+> Task :feature-settings-impl:packageDemoDebugResources UP-TO-DATE
+> Task :feature-search-res:javaPreCompileDebug UP-TO-DATE
+> Task :core-notifications-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :feature-interests-res:javaPreCompileDebug UP-TO-DATE
+> Task :feature-topic-res:packageDebugResources UP-TO-DATE
+> Task :feature-foryou-res:javaPreCompileDebug UP-TO-DATE
+> Task :feature-settings-impl:parseDemoDebugLocalResources UP-TO-DATE
+> Task :root-app:packageDemoDebugResources UP-TO-DATE
+> Task :sync-work-android-util:generateDemoDebugResources UP-TO-DATE
+> Task :feature-topic-impl:parseDemoDebugLocalResources UP-TO-DATE
+> Task :feature-search-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :feature-settings-res:generateDebugRFile UP-TO-DATE
+> Task :feature-interests-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :root-res:packageDebugResources UP-TO-DATE
+> Task :feature-topic-res:parseDebugLocalResources UP-TO-DATE
+> Task :root-app:parseDemoDebugLocalResources UP-TO-DATE
+> Task :feature-search-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :feature-settings-impl:generateDemoDebugRFile UP-TO-DATE
+> Task :feature-foryou-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :feature-topic-impl:generateDemoDebugRFile UP-TO-DATE
+> Task :root-res:parseDebugLocalResources UP-TO-DATE
+> Task :feature-search-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :core-data-android-util:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-topic-res:generateDebugRFile UP-TO-DATE
+> Task :feature-settings-impl:javaPreCompileDemoDebug UP-TO-DATE
+> Task :feature-foryou-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :sync-work-android-util:packageDemoDebugResources UP-TO-DATE
+> Task :feature-topic-impl:javaPreCompileDemoDebug UP-TO-DATE
+> Task :core-database-android-util:generateDebugAssets UP-TO-DATE
+> Task :feature-settings-res:compileDebugKotlin NO-SOURCE
+> Task :core-datastore-android-util:generateDebugAssets UP-TO-DATE
+> Task :root-res:generateDebugRFile UP-TO-DATE
+> Task :feature-foryou-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :core-domain-android-util:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-settings-res:javaPreCompileDebug UP-TO-DATE
+> Task :sync-work-android-util:parseDemoDebugLocalResources UP-TO-DATE
+> Task :core-database-android-util:mergeDebugAssets UP-TO-DATE
+> Task :core-datastore-android-util:mergeDebugAssets UP-TO-DATE
+> Task :core-network-android-util:generateDebugAssets UP-TO-DATE
+> Task :core-notifications-android-util:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-settings-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :feature-topic-res:compileDebugKotlin NO-SOURCE
+> Task :core-domain-android-util:mergeDemoDebugAssets UP-TO-DATE
+> Task :core-notifications-res:generateDebugAssets UP-TO-DATE
+> Task :core-notifications-android-util:mergeDemoDebugAssets UP-TO-DATE
+> Task :core-network-android-util:mergeDebugAssets UP-TO-DATE
+> Task :core-ui-compose-widget:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-topic-res:javaPreCompileDebug UP-TO-DATE
+> Task :feature-bookmarks-impl:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-settings-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :sync-work-android-util:generateDemoDebugRFile UP-TO-DATE
+> Task :core-notifications-res:mergeDebugAssets UP-TO-DATE
+> Task :feature-interests-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :feature-bookmarks-res:generateDebugAssets UP-TO-DATE
+> Task :core-data-android-util:mergeDemoDebugAssets UP-TO-DATE
+> Task :root-app:generateDemoDebugRFile UP-TO-DATE
+> Task :feature-foryou-impl:generateDemoDebugAssets UP-TO-DATE
+> Task :core-ui-compose-widget:mergeDemoDebugAssets UP-TO-DATE
+> Task :feature-bookmarks-impl:mergeDemoDebugAssets UP-TO-DATE
+> Task :feature-foryou-res:generateDebugAssets UP-TO-DATE
+> Task :feature-interests-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :feature-settings-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :feature-topic-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :feature-interests-impl:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-interests-res:generateDebugAssets UP-TO-DATE
+> Task :feature-bookmarks-res:mergeDebugAssets UP-TO-DATE
+> Task :root-app:javaPreCompileDemoDebug UP-TO-DATE
+> Task :feature-search-impl:generateDemoDebugAssets UP-TO-DATE
+> Task :root-res:compileDebugKotlin NO-SOURCE
+> Task :feature-search-res:generateDebugAssets UP-TO-DATE
+> Task :feature-foryou-impl:mergeDemoDebugAssets UP-TO-DATE
+> Task :feature-settings-impl:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-foryou-res:mergeDebugAssets UP-TO-DATE
+> Task :feature-topic-impl:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-settings-res:generateDebugAssets UP-TO-DATE
+> Task :feature-interests-impl:mergeDemoDebugAssets UP-TO-DATE
+> Task :root-res:javaPreCompileDebug UP-TO-DATE
+> Task :feature-interests-res:mergeDebugAssets UP-TO-DATE
+> Task :feature-search-impl:mergeDemoDebugAssets UP-TO-DATE
+> Task :root-app:generateDemoDebugAssets UP-TO-DATE
+> Task :feature-settings-impl:mergeDemoDebugAssets UP-TO-DATE
+> Task :feature-settings-res:mergeDebugAssets UP-TO-DATE
+> Task :feature-search-res:mergeDebugAssets UP-TO-DATE
+> Task :feature-topic-impl:mergeDemoDebugAssets UP-TO-DATE
+> Task :root-app:mergeDemoDebugAssets UP-TO-DATE
+> Task :root-res:compileDebugJavaWithJavac NO-SOURCE
+> Task :feature-bookmarks-res:processDebugJavaRes NO-SOURCE
+> Task :core-notifications-res:processDebugJavaRes NO-SOURCE
+> Task :feature-foryou-res:processDebugJavaRes NO-SOURCE
+> Task :feature-settings-res:processDebugJavaRes NO-SOURCE
+> Task :feature-interests-res:processDebugJavaRes NO-SOURCE
+> Task :root-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :feature-bookmarks-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core-notifications-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :feature-settings-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :feature-interests-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core-data-android-util:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :root-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :root-res:generateDebugAssets UP-TO-DATE
+> Task :core-notifications-res:createFullJarDebug UP-TO-DATE
+> Task :root-res:mergeDebugAssets UP-TO-DATE
+> Task :root-res:processDebugJavaRes NO-SOURCE
+> Task :root-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :feature-topic-res:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :feature-search-res:processDebugJavaRes NO-SOURCE
+> Task :feature-foryou-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :sync-work-android-util:javaPreCompileDemoDebug UP-TO-DATE
+> Task :sync-work-android-util:generateDemoDebugAssets UP-TO-DATE
+> Task :sync-work-android-util:mergeDemoDebugAssets UP-TO-DATE
+> Task :feature-search-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :root-res:createFullJarDebug UP-TO-DATE
+> Task :feature-topic-res:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :feature-topic-res:generateDebugAssets UP-TO-DATE
+> Task :feature-search-res:createFullJarDebug UP-TO-DATE
+> Task :feature-bookmarks-res:createFullJarDebug UP-TO-DATE
+> Task :feature-interests-res:createFullJarDebug UP-TO-DATE
+> Task :feature-foryou-res:createFullJarDebug UP-TO-DATE
+> Task :feature-topic-res:mergeDebugAssets UP-TO-DATE
+> Task :feature-settings-res:createFullJarDebug UP-TO-DATE
+> Task :core-database-android-util:writeDebugAarMetadata UP-TO-DATE
+> Task :core-datastore-android-util:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-topic-res:processDebugJavaRes NO-SOURCE
+> Task :core-domain-android-util:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :core-network-android-util:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-topic-res:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core-notifications-android-util:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :feature-topic-res:createFullJarDebug UP-TO-DATE
+> Task :core-notifications-res:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-bookmarks-impl:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :core-ui-compose-widget:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :binary:injectCrashlyticsMappingFileIdDemoDebug
+> Task :feature-bookmarks-res:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-foryou-impl:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :feature-interests-impl:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :feature-foryou-res:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-interests-res:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-search-impl:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :feature-search-res:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-settings-impl:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :feature-settings-res:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-topic-impl:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :feature-topic-res:writeDebugAarMetadata UP-TO-DATE
+> Task :sync-work-android-util:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :root-res:writeDebugAarMetadata UP-TO-DATE
+> Task :core-network-android-util:extractDeepLinksDebug UP-TO-DATE
+> Task :core-domain-android-util:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :core-datastore-android-util:extractDeepLinksDebug UP-TO-DATE
+> Task :root-app:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :core-notifications-res:extractDeepLinksDebug UP-TO-DATE
+> Task :core-notifications-android-util:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :core-data-android-util:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :core-database-android-util:extractDeepLinksDebug UP-TO-DATE
+> Task :core-ui-compose-widget:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :binary:injectCrashlyticsVersionControlInfoDemoDebug
+> Task :feature-bookmarks-impl:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :feature-bookmarks-res:extractDeepLinksDebug UP-TO-DATE
+> Task :core-network-android-util:processDebugManifest UP-TO-DATE
+> Task :core-datastore-android-util:processDebugManifest UP-TO-DATE
+> Task :core-notifications-res:processDebugManifest UP-TO-DATE
+> Task :feature-foryou-impl:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :feature-foryou-res:extractDeepLinksDebug UP-TO-DATE
+> Task :core-data-android-util:processDemoDebugManifest UP-TO-DATE
+> Task :core-database-android-util:processDebugManifest UP-TO-DATE
+> Task :feature-bookmarks-res:processDebugManifest UP-TO-DATE
+> Task :core-domain-android-util:processDemoDebugManifest UP-TO-DATE
+> Task :feature-bookmarks-impl:processDemoDebugManifest UP-TO-DATE
+> Task :core-ui-compose-widget:processDemoDebugManifest UP-TO-DATE
+> Task :feature-interests-impl:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :core-notifications-android-util:processDemoDebugManifest UP-TO-DATE
+> Task :feature-interests-res:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-search-impl:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :feature-search-res:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-settings-impl:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :feature-settings-res:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-topic-impl:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :feature-foryou-impl:processDemoDebugManifest UP-TO-DATE
+> Task :feature-topic-res:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-foryou-res:processDebugManifest UP-TO-DATE
+> Task :root-app:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :root-res:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-interests-impl:processDemoDebugManifest UP-TO-DATE
+> Task :feature-interests-res:processDebugManifest UP-TO-DATE
+> Task :sync-work-android-util:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :binary:processDemoDebugGoogleServices
+> Task :core-data-android-util:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :feature-search-res:processDebugManifest UP-TO-DATE
+> Task :feature-topic-res:processDebugManifest UP-TO-DATE
+> Task :feature-search-impl:processDemoDebugManifest UP-TO-DATE
+> Task :feature-settings-res:processDebugManifest UP-TO-DATE
+> Task :feature-settings-impl:processDemoDebugManifest UP-TO-DATE
+> Task :feature-topic-impl:processDemoDebugManifest UP-TO-DATE
+> Task :root-app:processDemoDebugManifest UP-TO-DATE
+> Task :root-res:processDebugManifest UP-TO-DATE
+> Task :core-data-android-util:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :core-domain-android-util:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :core-database-android-util:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core-notifications-android-util:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :core-notifications-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core-datastore-android-util:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core-network-android-util:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core-ui-compose-widget:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :sync-work-android-util:processDemoDebugManifest UP-TO-DATE
+> Task :feature-bookmarks-impl:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :feature-bookmarks-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core-database-android-util:compileDebugLibraryResources UP-TO-DATE
+> Task :core-notifications-android-util:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :core-domain-android-util:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :feature-bookmarks-res:compileDebugLibraryResources UP-TO-DATE
+> Task :binary:packageDemoDebugResources UP-TO-DATE
+> Task :core-datastore-android-util:compileDebugLibraryResources UP-TO-DATE
+> Task :core-notifications-res:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-bookmarks-impl:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :core-ui-compose-widget:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :feature-foryou-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core-network-android-util:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-foryou-impl:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :feature-interests-impl:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :feature-interests-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :feature-search-impl:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :feature-search-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :feature-settings-impl:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :feature-settings-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :feature-foryou-res:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-topic-impl:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :feature-topic-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :feature-search-impl:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :feature-interests-res:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-foryou-impl:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :feature-interests-impl:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :feature-search-res:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-settings-impl:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :feature-settings-res:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-topic-impl:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :root-app:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :root-res:mapDebugSourceSetPaths UP-TO-DATE
+> Task :sync-work-android-util:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :core-data-android-util:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :feature-topic-res:compileDebugLibraryResources UP-TO-DATE
+> Task :core-database-android-util:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core-datastore-android-util:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core-network-android-util:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core-notifications-android-util:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :core-domain-android-util:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :sync-work-android-util:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :root-app:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :root-res:compileDebugLibraryResources UP-TO-DATE
+> Task :core-notifications-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core-data-android-util:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core-database-android-util:mergeDebugNativeLibs NO-SOURCE
+> Task :core-datastore-android-util:mergeDebugNativeLibs NO-SOURCE
+> Task :core-notifications-android-util:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core-domain-android-util:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core-ui-compose-widget:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :core-network-android-util:mergeDebugNativeLibs NO-SOURCE
+> Task :core-data-android-util:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-bookmarks-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-bookmarks-impl:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :core-notifications-res:mergeDebugNativeLibs NO-SOURCE
+> Task :core-domain-android-util:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core-notifications-android-util:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core-datastore-android-util:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core-network-android-util:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-foryou-impl:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :core-database-android-util:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core-notifications-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core-ui-compose-widget:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-bookmarks-res:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-bookmarks-impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-interests-impl:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :feature-interests-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-foryou-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-bookmarks-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core-ui-compose-widget:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-search-impl:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :feature-bookmarks-impl:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-search-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-settings-impl:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :feature-foryou-impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-interests-impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-foryou-res:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-topic-impl:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :feature-interests-res:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-topic-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-foryou-impl:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-search-impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-settings-impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-search-res:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-foryou-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-interests-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-search-impl:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-interests-impl:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-settings-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-search-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :root-app:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :feature-topic-impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-settings-impl:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-topic-res:mergeDebugNativeLibs NO-SOURCE
+> Task :root-res:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-topic-impl:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :sync-work-android-util:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :root-app:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-topic-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-settings-res:mergeDebugNativeLibs NO-SOURCE
+> Task :root-res:mergeDebugNativeLibs NO-SOURCE
+> Task :sync-work-android-util:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature-settings-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :root-app:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :root-res:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :sync-work-android-util:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :core-datastore-proto-library:extractIncludeProto
+> Task :core-datastore-proto-library:extractProto
+> Task :core-analytics-android-util:javaPreCompileDemoDebug UP-TO-DATE
+> Task :core-analytics-android-util:generateDemoDebugAssets UP-TO-DATE
+> Task :core-analytics-android-util:mergeDemoDebugAssets UP-TO-DATE
+> Task :core-analytics-android-util:writeDemoDebugAarMetadata UP-TO-DATE
+> Task :core-analytics-android-util:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :core-analytics-android-util:processDemoDebugManifest UP-TO-DATE
+> Task :core-analytics-android-util:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :core-analytics-android-util:compileDemoDebugLibraryResources UP-TO-DATE
+> Task :core-analytics-android-util:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :core-analytics-android-util:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core-analytics-android-util:copyDemoDebugJniLibsProjectOnly UP-TO-DATE
+> Task :binary:processDemoDebugNavigationResources UP-TO-DATE
+> Task :binary:parseDemoDebugLocalResources UP-TO-DATE
+> Task :binary:generateDemoDebugRFile UP-TO-DATE
+> Task :binary:javaPreCompileDemoDebug UP-TO-DATE
+> Task :binary:generateDemoDebugAssets UP-TO-DATE
+> Task :binary:generateDemoDebugGlobalSynthetics UP-TO-DATE
+> Task :core-datastore-proto-library:generateProto
+> Task :binary:checkDemoDebugDuplicateClasses UP-TO-DATE
+> Task :binary:desugarDemoDebugFileDependencies UP-TO-DATE
+> Task :core-designsystem-ui-library:generateDebugAssets UP-TO-DATE
+> Task :core-model-library:processResources NO-SOURCE
+> Task :core-navigation-api:processResources NO-SOURCE
+> Task :core-designsystem-ui-library:mergeDebugAssets UP-TO-DATE
+> Task :core-designsystem-ui-library:writeDebugAarMetadata UP-TO-DATE
+> Task :core-datastore-proto-library:processResources UP-TO-DATE
+> Task :core-designsystem-ui-library:extractDeepLinksDebug UP-TO-DATE
+> Task :core-designsystem-ui-library:processDebugManifest UP-TO-DATE
+> Task :core-designsystem-ui-library:mapDebugSourceSetPaths UP-TO-DATE
+> Task :core-designsystem-ui-library:compileDebugLibraryResources UP-TO-DATE
+> Task :core-designsystem-ui-library:mergeDebugJniLibFolders UP-TO-DATE
+> Task :core-designsystem-ui-library:mergeDebugNativeLibs NO-SOURCE
+> Task :core-designsystem-ui-library:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :binary:mergeExtDexDemoDebug UP-TO-DATE
+> Task :binary:mergeDemoDebugAssets UP-TO-DATE
+> Task :binary:compressDemoDebugAssets UP-TO-DATE
+> Task :binary:checkDemoDebugAarMetadata UP-TO-DATE
+> Task :binary:mapDemoDebugSourceSetPaths UP-TO-DATE
+> Task :binary:compileDemoDebugNavigationResources UP-TO-DATE
+> Task :binary:mergeDemoDebugResources UP-TO-DATE
+> Task :binary:createDemoDebugCompatibleScreenManifests UP-TO-DATE
+> Task :binary:extractDeepLinksDemoDebug UP-TO-DATE
+> Task :binary:processDemoDebugMainManifest UP-TO-DATE
+> Task :binary:processDemoDebugManifest UP-TO-DATE
+> Task :binary:processDemoDebugManifestForPackage UP-TO-DATE
+> Task :binary:processDemoDebugResources UP-TO-DATE
+> Task :binary:mergeDemoDebugJniLibFolders UP-TO-DATE
+> Task :binary:validateSigningDemoDebug UP-TO-DATE
+> Task :binary:writeDemoDebugAppMetadata UP-TO-DATE
+> Task :binary:writeDemoDebugSigningConfigVersions UP-TO-DATE
+> Task :core-navigation-api:compileKotlin
+> Task :core-navigation-api:compileJava NO-SOURCE
+> Task :core-navigation-api:classes UP-TO-DATE
+> Task :core-navigation-api:jar UP-TO-DATE
+> Task :core-model-library:compileKotlin
+> Task :core-model-library:compileJava NO-SOURCE
+> Task :core-model-library:classes UP-TO-DATE
+> Task :core-model-library:jar UP-TO-DATE
+> Task :core-datastore-proto-library:compileKotlin
+> Task :core-datastore-proto-library:compileJava FROM-CACHE
+> Task :core-datastore-proto-library:classes UP-TO-DATE
+> Task :core-datastore-proto-library:jar
+> Task :feature-foryou-api:compileKotlin
+> Task :feature-bookmarks-api:compileKotlin
+> Task :feature-search-api:compileKotlin
+> Task :feature-settings-api:compileKotlin
+> Task :feature-interests-api:compileKotlin
+> Task :feature-foryou-api:compileJava NO-SOURCE
+> Task :feature-foryou-api:classes UP-TO-DATE
+> Task :feature-bookmarks-api:compileJava NO-SOURCE
+> Task :feature-bookmarks-api:classes UP-TO-DATE
+> Task :feature-settings-api:compileJava NO-SOURCE
+> Task :feature-settings-api:classes UP-TO-DATE
+> Task :feature-interests-api:compileJava NO-SOURCE
+> Task :feature-interests-api:classes UP-TO-DATE
+> Task :feature-foryou-api:jar UP-TO-DATE
+> Task :feature-search-api:compileJava NO-SOURCE
+> Task :feature-search-api:classes UP-TO-DATE
+> Task :feature-bookmarks-api:jar UP-TO-DATE
+> Task :feature-settings-api:jar UP-TO-DATE
+> Task :feature-interests-api:jar UP-TO-DATE
+> Task :feature-search-api:jar UP-TO-DATE
+> Task :core-analytics-android-util:kspDemoDebugKotlin
+> Task :feature-topic-api:compileKotlin
+> Task :feature-topic-api:compileJava NO-SOURCE
+> Task :feature-topic-api:classes UP-TO-DATE
+> Task :feature-topic-api:jar UP-TO-DATE
+> Task :binary:mergeDemoDebugNativeLibs UP-TO-DATE
+> Task :binary:stripDemoDebugDebugSymbols UP-TO-DATE
+> Task :core-analytics-android-util:compileDemoDebugKotlin
+> Task :core-datastore-android-util:kspDebugKotlin
+> Task :core-network-android-util:kspDebugKotlin
+> Task :core-notifications-android-util:kspDemoDebugKotlin
+
+> Task :core-notifications-android-util:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid-forma/forma-spike/core/notifications/android-util/src/main/kotlin/com/google/samples/apps/nowinandroid/core/notifications/SystemTrayNotifier.kt:52:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid-forma/forma-spike/core/notifications/android-util/src/main/kotlin/com/google/samples/apps/nowinandroid/core/notifications/SystemTrayNotifier.kt:59:13 Return in function with expression body and without explicit return type. Use block body '{...}' or add an explicit return type. This will become an error in language version 2.5. See https://youtrack.jetbrains.com/issue/KTLC-288.
+
+> Task :core-network-android-util:compileDebugKotlin
+> Task :core-datastore-android-util:compileDebugKotlin
+> Task :core-database-android-util:kspDebugKotlin
+> Task :core-analytics-android-util:compileDemoDebugJavaWithJavac
+> Task :core-notifications-android-util:compileDemoDebugJavaWithJavac
+> Task :core-datastore-android-util:compileDebugJavaWithJavac
+> Task :core-network-android-util:compileDebugJavaWithJavac
+> Task :core-analytics-android-util:processDemoDebugJavaRes UP-TO-DATE
+> Task :core-notifications-android-util:processDemoDebugJavaRes UP-TO-DATE
+> Task :core-network-android-util:processDebugJavaRes UP-TO-DATE
+> Task :core-datastore-android-util:processDebugJavaRes UP-TO-DATE
+> Task :core-notifications-android-util:transformDemoDebugClassesWithAsm
+> Task :core-notifications-android-util:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :core-notifications-android-util:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :core-analytics-android-util:transformDemoDebugClassesWithAsm
+> Task :core-analytics-android-util:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :core-notifications-android-util:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :core-analytics-android-util:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :core-notifications-android-util:createFullJarDemoDebug UP-TO-DATE
+> Task :core-analytics-android-util:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :core-analytics-android-util:createFullJarDemoDebug UP-TO-DATE
+> Task :core-network-android-util:transformDebugClassesWithAsm
+> Task :core-network-android-util:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :core-network-android-util:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :core-datastore-android-util:transformDebugClassesWithAsm
+> Task :core-datastore-android-util:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :core-network-android-util:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core-network-android-util:createFullJarDebug UP-TO-DATE
+> Task :core-datastore-android-util:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :core-datastore-android-util:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core-datastore-android-util:createFullJarDebug UP-TO-DATE
+> Task :core-database-android-util:compileDebugKotlin
+> Task :core-database-android-util:compileDebugJavaWithJavac
+> Task :core-database-android-util:copyRoomSchemas NO-SOURCE
+> Task :core-database-android-util:processDebugJavaRes UP-TO-DATE
+> Task :core-database-android-util:transformDebugClassesWithAsm
+> Task :core-database-android-util:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :core-database-android-util:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :core-database-android-util:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core-database-android-util:createFullJarDebug UP-TO-DATE
+> Task :core-designsystem-ui-library:compileDebugKotlin
+> Task :core-designsystem-ui-library:compileDebugJavaWithJavac NO-SOURCE
+> Task :core-designsystem-ui-library:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :core-designsystem-ui-library:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :core-designsystem-ui-library:processDebugJavaRes UP-TO-DATE
+> Task :core-designsystem-ui-library:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :core-designsystem-ui-library:createFullJarDebug UP-TO-DATE
+> Task :core-data-android-util:kspDemoDebugKotlin
+> Task :core-ui-compose-widget:compileDemoDebugKotlin
+> Task :core-ui-compose-widget:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :core-ui-compose-widget:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :core-ui-compose-widget:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :core-ui-compose-widget:processDemoDebugJavaRes UP-TO-DATE
+> Task :core-ui-compose-widget:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :core-ui-compose-widget:createFullJarDemoDebug UP-TO-DATE
+> Task :core-data-android-util:compileDemoDebugKotlin
+> Task :core-data-android-util:compileDemoDebugJavaWithJavac
+> Task :core-data-android-util:processDemoDebugJavaRes UP-TO-DATE
+> Task :core-data-android-util:transformDemoDebugClassesWithAsm
+> Task :core-data-android-util:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :core-data-android-util:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :core-data-android-util:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :core-data-android-util:createFullJarDemoDebug UP-TO-DATE
+> Task :core-domain-android-util:kspDemoDebugKotlin
+> Task :feature-topic-impl:kspDemoDebugKotlin
+> Task :sync-work-android-util:kspDemoDebugKotlin
+> Task :core-domain-android-util:compileDemoDebugKotlin
+> Task :core-domain-android-util:compileDemoDebugJavaWithJavac
+> Task :core-domain-android-util:processDemoDebugJavaRes UP-TO-DATE
+> Task :core-domain-android-util:transformDemoDebugClassesWithAsm
+> Task :core-domain-android-util:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :core-domain-android-util:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :core-domain-android-util:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :core-domain-android-util:createFullJarDemoDebug UP-TO-DATE
+> Task :feature-topic-impl:compileDemoDebugKotlin
+
+> Task :sync-work-android-util:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid-forma/forma-spike/sync/work/android-util/src/main/kotlin/com/google/samples/apps/nowinandroid/sync/status/WorkManagerSyncManager.kt:19:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+
+> Task :sync-work-android-util:compileDemoDebugJavaWithJavac
+> Task :sync-work-android-util:processDemoDebugJavaRes UP-TO-DATE
+> Task :feature-topic-impl:compileDemoDebugJavaWithJavac
+> Task :sync-work-android-util:transformDemoDebugClassesWithAsm
+> Task :feature-topic-impl:processDemoDebugJavaRes UP-TO-DATE
+> Task :sync-work-android-util:bundleLibRuntimeToDirDemoDebug
+> Task :sync-work-android-util:bundleLibRuntimeToJarDemoDebug
+> Task :sync-work-android-util:bundleLibCompileToJarDemoDebug
+> Task :sync-work-android-util:createFullJarDemoDebug
+> Task :feature-topic-impl:transformDemoDebugClassesWithAsm
+> Task :feature-topic-impl:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :feature-topic-impl:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :feature-topic-impl:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :feature-topic-impl:createFullJarDemoDebug UP-TO-DATE
+> Task :feature-settings-impl:kspDemoDebugKotlin
+> Task :feature-interests-impl:kspDemoDebugKotlin
+> Task :feature-foryou-impl:kspDemoDebugKotlin
+> Task :feature-bookmarks-impl:kspDemoDebugKotlin
+> Task :feature-search-impl:kspDemoDebugKotlin
+> Task :feature-interests-impl:compileDemoDebugKotlin
+> Task :feature-interests-impl:compileDemoDebugJavaWithJavac
+> Task :feature-interests-impl:processDemoDebugJavaRes UP-TO-DATE
+> Task :feature-interests-impl:transformDemoDebugClassesWithAsm
+> Task :feature-interests-impl:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :feature-interests-impl:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :feature-interests-impl:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :feature-interests-impl:createFullJarDemoDebug UP-TO-DATE
+> Task :feature-bookmarks-impl:compileDemoDebugKotlin
+> Task :feature-settings-impl:compileDemoDebugKotlin
+> Task :feature-bookmarks-impl:compileDemoDebugJavaWithJavac
+> Task :feature-foryou-impl:compileDemoDebugKotlin
+> Task :feature-bookmarks-impl:processDemoDebugJavaRes UP-TO-DATE
+> Task :feature-settings-impl:compileDemoDebugJavaWithJavac
+> Task :feature-settings-impl:processDemoDebugJavaRes UP-TO-DATE
+> Task :feature-bookmarks-impl:transformDemoDebugClassesWithAsm
+> Task :feature-bookmarks-impl:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :feature-bookmarks-impl:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :feature-bookmarks-impl:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :feature-bookmarks-impl:createFullJarDemoDebug UP-TO-DATE
+> Task :feature-settings-impl:transformDemoDebugClassesWithAsm
+> Task :feature-settings-impl:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :feature-settings-impl:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :feature-settings-impl:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :feature-settings-impl:createFullJarDemoDebug UP-TO-DATE
+> Task :feature-search-impl:compileDemoDebugKotlin
+> Task :feature-foryou-impl:compileDemoDebugJavaWithJavac
+> Task :feature-foryou-impl:processDemoDebugJavaRes UP-TO-DATE
+> Task :feature-foryou-impl:transformDemoDebugClassesWithAsm
+> Task :feature-foryou-impl:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :feature-foryou-impl:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :feature-foryou-impl:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :feature-foryou-impl:createFullJarDemoDebug UP-TO-DATE
+> Task :feature-search-impl:compileDemoDebugJavaWithJavac
+> Task :feature-search-impl:processDemoDebugJavaRes UP-TO-DATE
+> Task :feature-search-impl:transformDemoDebugClassesWithAsm
+> Task :feature-search-impl:bundleLibCompileToJarDemoDebug UP-TO-DATE
+> Task :feature-search-impl:bundleLibRuntimeToJarDemoDebug UP-TO-DATE
+> Task :feature-search-impl:bundleLibRuntimeToDirDemoDebug UP-TO-DATE
+> Task :feature-search-impl:createFullJarDemoDebug UP-TO-DATE
+> Task :root-app:kspDemoDebugKotlin
+> Task :root-app:compileDemoDebugKotlin
+> Task :root-app:compileDemoDebugJavaWithJavac
+> Task :root-app:processDemoDebugJavaRes UP-TO-DATE
+> Task :root-app:transformDemoDebugClassesWithAsm
+> Task :root-app:bundleLibCompileToJarDemoDebug
+> Task :root-app:bundleLibRuntimeToDirDemoDebug
+> Task :root-app:bundleLibRuntimeToJarDemoDebug
+> Task :root-app:createFullJarDemoDebug
+> Task :binary:mergeLibDexDemoDebug
+> Task :binary:kspDemoDebugKotlin
+> Task :binary:compileDemoDebugKotlin
+> Task :binary:compileDemoDebugJavaWithJavac
+> Task :binary:processDemoDebugJavaRes UP-TO-DATE
+> Task :binary:hiltSyncDemoDebug
+> Task :binary:hiltAggregateDepsDemoDebug
+> Task :binary:mergeDemoDebugJavaResource
+> Task :binary:hiltJavaCompileDemoDebug
+> Task :binary:transformDemoDebugClassesWithAsm
+> Task :binary:dexBuilderDemoDebug UP-TO-DATE
+> Task :binary:mergeProjectDexDemoDebug UP-TO-DATE
+> Task :binary:packageDemoDebug
+> Task :binary:createDemoDebugApkListingFileRedirect UP-TO-DATE
+> Task :binary:assembleDemoDebug
+
+[Incubating] Problems report is available at: file:///Users/claw/work/nowinandroid-forma/forma-spike/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 2s
+600 actionable tasks: 96 executed, 1 from cache, 503 up-to-date
+
+See the profiling report at: file:///Users/claw/work/nowinandroid-forma/forma-spike/build/reports/profile/profile-2026-08-03-10-55-23.html
+A fine-grained performance profile is available: use the --scan option.
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html

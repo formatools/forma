@@ -1,0 +1,13 @@
+{
+  "upstream_module_build_files": 36,
+  "upstream_module_build_loc": 1476,
+  "spike_module_build_files": 37,
+  "spike_module_build_loc": 600,
+  "upstream_build_logic_kt_files": 28,
+  "upstream_build_logic_kt_loc": 1917,
+  "spike_forma_defs_kt_files": 5,
+  "spike_forma_defs_kt_loc": 401,
+  "spike_raw_android_blocks": 1,
+  "spike_withPlugin": 0,
+  "spike_withPlugin_tree": 0
+}

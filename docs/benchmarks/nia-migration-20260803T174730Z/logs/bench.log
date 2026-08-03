@@ -1,0 +1,37 @@
+[bench] LOC metrics
+[bench] === tree=upstream dir=/Users/claw/work/nowinandroid ===
+[bench] pre-resolve help (online) for upstream
+[bench] RUN upstream/cold_help_1 in /Users/claw/work/nowinandroid — help --no-configuration-cache --profile
+[bench]   wall_ms=22844 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/upstream-cold_help_1.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/upstream-cold_help_1.html
+[bench] RUN upstream/warm_help_1 in /Users/claw/work/nowinandroid — help --no-configuration-cache --profile
+[bench]   wall_ms=4092 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/upstream-warm_help_1.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/upstream-warm_help_1.html
+[bench] RUN upstream/cc_miss_help in /Users/claw/work/nowinandroid — help --configuration-cache --profile
+[bench]   wall_ms=5232 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/upstream-cc_miss_help.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/upstream-cc_miss_help.html
+[bench] RUN upstream/cc_hit_help in /Users/claw/work/nowinandroid — help --configuration-cache --profile
+[bench]   wall_ms=1244 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/upstream-cc_hit_help.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/upstream-cc_hit_help.html
+[bench] RUN upstream/assemble_demo_debug in /Users/claw/work/nowinandroid — :app:assembleDemoDebug --profile
+[bench]   wall_ms=278820 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/upstream-assemble_demo_debug.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/upstream-assemble_demo_debug.html
+[bench] === tree=spike dir=/Users/claw/work/nowinandroid-forma/forma-spike ===
+[bench] pre-resolve help (online) for spike
+[bench] RUN spike/cold_help_1 in /Users/claw/work/nowinandroid-forma/forma-spike — help --no-configuration-cache --profile
+[bench]   wall_ms=18996 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/spike-cold_help_1.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/spike-cold_help_1.html
+[bench] RUN spike/warm_help_1 in /Users/claw/work/nowinandroid-forma/forma-spike — help --no-configuration-cache --profile
+[bench]   wall_ms=3279 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/spike-warm_help_1.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/spike-warm_help_1.html
+[bench] RUN spike/cc_miss_help in /Users/claw/work/nowinandroid-forma/forma-spike — help --configuration-cache --profile
+[bench]   wall_ms=3995 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/spike-cc_miss_help.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/spike-cc_miss_help.html
+[bench] RUN spike/cc_hit_help in /Users/claw/work/nowinandroid-forma/forma-spike — help --configuration-cache --profile
+[bench]   wall_ms=1336 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/spike-cc_hit_help.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/spike-cc_hit_help.html
+[bench] RUN spike/assemble_demo_debug in /Users/claw/work/nowinandroid-forma/forma-spike — :binary:assembleDemoDebug --profile
+[bench]   wall_ms=64698 exit=0 log=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/logs/spike-assemble_demo_debug.log
+[bench]   profile → /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/profiles/spike-assemble_demo_debug.html
+[bench] DONE out=/Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z
+[bench] See /Users/claw/work/forma/docs/benchmarks/nia-migration-20260803T174730Z/RESULTS.md

@@ -28,6 +28,23 @@ Warm / configuration-cache path:
 Optional: `./gradlew help --scan` when a Build Scan account is available
 (GH #42). Local `--profile` is enough for regression checks on this host.
 
+### NiA migration pair (F-115, 2026-08-03)
+
+Same-host upstream NiA vs Forma spike harness:
+
+```bash
+export JAVA_HOME=/usr/local/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
+export ANDROID_HOME=/usr/local/share/android-commandlinetools
+cd /Users/claw/work/forma   # or any checkout with the script
+BENCH_ASSEMBLE=1 bash scripts/bench-nia-migration.sh
+```
+
+Results index: [`docs/benchmarks/README.md`](benchmarks/README.md).  
+Locked pair: cold configuring projects **12.51 s → 5.14 s (−59%)**; warm
+**1.58 s → 0.71 s (−55%)**; CC hit `help` ~parity. Full table + caveats in
+[`docs/benchmarks/nia-migration-20260803T174730Z/RESULTS.md`](benchmarks/nia-migration-20260803T174730Z/RESULTS.md)
+and case study §3.5.
+
 ### Profile anchors on worker host (2026-07-12)
 
 Absolute numbers move with machine load, daemon state, and composite plugin

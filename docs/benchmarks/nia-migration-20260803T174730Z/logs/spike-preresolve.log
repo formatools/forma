@@ -1,0 +1,44 @@
+Starting a Gradle Daemon, 1 stopped Daemon could not be reused, use --status for details
+
+> Configure project :forma-defs
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file 'forma-defs/build.gradle.kts'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by build file 'forma-defs/build.gradle.kts'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by build file 'forma-defs/build.gradle.kts'
+Build was configured to prefer settings repositories over project repositories but repository 'Gradle Central Plugin Repository' was added by build file 'forma-defs/build.gradle.kts'
+
+> Task :forma-defs:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :forma-defs:pluginDescriptors
+> Task :forma-defs:processResources NO-SOURCE
+> Task :forma-defs:compileKotlin
+> Task :forma-defs:compileJava NO-SOURCE
+> Task :forma-defs:classes UP-TO-DATE
+
+> Task :forma-defs:jar
+:jar: No valid plugin descriptors were found in META-INF/gradle-plugins
+
+> Task :help
+
+Welcome to Gradle 9.6.1.
+
+To run a build, run gradlew <task> ...
+
+To see a list of available tasks, run gradlew tasks
+
+To see more detail about a task, run gradlew help --task <task>
+
+To see a list of command-line options, run gradlew --help
+
+For more detail on using Gradle, see https://docs.gradle.org/9.6.1/userguide/command_line_interface.html
+
+For troubleshooting, visit https://help.gradle.org
+
+[Incubating] Problems report is available at: file:///Users/claw/work/nowinandroid-forma/forma-spike/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 30s
+4 actionable tasks: 4 executed

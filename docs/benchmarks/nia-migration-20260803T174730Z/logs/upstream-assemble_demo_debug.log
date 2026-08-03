@@ -1,0 +1,758 @@
+Starting a Gradle Daemon, 3 stopped Daemons could not be reused, use --status for details
+Parallel Configuration Cache is an incubating feature.
+Calculating task graph as no cached configuration is available for tasks: :app:assembleDemoDebug
+Type-safe project accessors is an incubating feature.
+> Task :build-logic:convention:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:convention:compileKotlin UP-TO-DATE
+> Task :build-logic:convention:compileJava NO-SOURCE
+> Task :build-logic:convention:pluginDescriptors UP-TO-DATE
+> Task :build-logic:convention:processResources UP-TO-DATE
+> Task :build-logic:convention:classes UP-TO-DATE
+> Task :build-logic:convention:jar UP-TO-DATE
+> Task :core:database:preBuild UP-TO-DATE
+> Task :core:datastore:preBuild UP-TO-DATE
+> Task :core:model:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:domain:preBuild UP-TO-DATE
+> Task :core:common:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:designsystem:preBuild UP-TO-DATE
+> Task :core:notifications:preBuild UP-TO-DATE
+> Task :core:data:preBuild UP-TO-DATE
+> Task :core:navigation:preBuild UP-TO-DATE
+> Task :core:analytics:preBuild UP-TO-DATE
+> Task :ui-test-hilt-manifest:preBuild UP-TO-DATE
+> Task :core:datastore-proto:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :ui-test-hilt-manifest:preDemoDebugBuild UP-TO-DATE
+> Task :core:datastore-proto:protobufDummy UP-TO-DATE
+> Task :core:analytics:preDemoDebugBuild UP-TO-DATE
+> Task :core:data:preDemoDebugBuild UP-TO-DATE
+> Task :core:navigation:preDemoDebugBuild UP-TO-DATE
+> Task :core:notifications:preDemoDebugBuild UP-TO-DATE
+> Task :core:designsystem:preDemoDebugBuild UP-TO-DATE
+> Task :core:database:preDemoDebugBuild UP-TO-DATE
+> Task :core:datastore:preDemoDebugBuild UP-TO-DATE
+> Task :core:network:preBuild UP-TO-DATE
+> Task :core:domain:preDemoDebugBuild UP-TO-DATE
+> Task :core:network:preDemoDebugBuild UP-TO-DATE
+> Task :core:ui:preBuild UP-TO-DATE
+> Task :sync:work:preBuild UP-TO-DATE
+> Task :sync:work:preDemoDebugBuild UP-TO-DATE
+> Task :core:ui:preDemoDebugBuild UP-TO-DATE
+> Task :core:network:processDemoDebugNavigationResources
+> Task :core:ui:processDemoDebugNavigationResources
+> Task :core:datastore:processDemoDebugNavigationResources
+> Task :core:domain:processDemoDebugNavigationResources
+> Task :core:designsystem:processDemoDebugNavigationResources
+> Task :core:database:processDemoDebugNavigationResources
+> Task :sync:work:processDemoDebugNavigationResources
+> Task :core:notifications:processDemoDebugNavigationResources
+> Task :core:data:processDemoDebugNavigationResources
+> Task :core:analytics:processDemoDebugNavigationResources
+> Task :ui-test-hilt-manifest:processDemoDebugNavigationResources
+> Task :core:navigation:processDemoDebugNavigationResources
+> Task :feature:bookmarks:api:preBuild UP-TO-DATE
+> Task :feature:foryou:impl:preBuild UP-TO-DATE
+> Task :feature:foryou:api:preBuild UP-TO-DATE
+> Task :feature:bookmarks:impl:preBuild UP-TO-DATE
+> Task :feature:search:api:preBuild UP-TO-DATE
+> Task :feature:search:impl:preBuild UP-TO-DATE
+> Task :feature:search:api:preDemoDebugBuild UP-TO-DATE
+> Task :feature:search:impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature:topic:api:preBuild UP-TO-DATE
+> Task :feature:interests:impl:preBuild UP-TO-DATE
+> Task :feature:bookmarks:api:preDemoDebugBuild UP-TO-DATE
+> Task :feature:topic:impl:preBuild UP-TO-DATE
+> Task :feature:topic:api:preDemoDebugBuild UP-TO-DATE
+> Task :feature:interests:api:preBuild UP-TO-DATE
+> Task :feature:interests:impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature:foryou:impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature:foryou:api:preDemoDebugBuild UP-TO-DATE
+> Task :feature:bookmarks:impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature:settings:impl:preBuild UP-TO-DATE
+> Task :feature:settings:impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature:interests:api:preDemoDebugBuild UP-TO-DATE
+> Task :feature:topic:impl:preDemoDebugBuild UP-TO-DATE
+> Task :feature:topic:api:processDemoDebugNavigationResources
+> Task :feature:foryou:impl:processDemoDebugNavigationResources FROM-CACHE
+> Task :feature:bookmarks:impl:processDemoDebugNavigationResources FROM-CACHE
+> Task :feature:search:impl:processDemoDebugNavigationResources FROM-CACHE
+> Task :feature:interests:impl:processDemoDebugNavigationResources FROM-CACHE
+> Task :feature:search:api:processDemoDebugNavigationResources
+> Task :feature:bookmarks:api:processDemoDebugNavigationResources
+> Task :feature:foryou:api:processDemoDebugNavigationResources
+> Task :feature:topic:impl:processDemoDebugNavigationResources FROM-CACHE
+> Task :feature:interests:api:processDemoDebugNavigationResources
+> Task :feature:settings:impl:processDemoDebugNavigationResources
+> Task :ui-test-hilt-manifest:generateDemoDebugResources
+> Task :core:data:generateDemoDebugResources FROM-CACHE
+> Task :core:network:generateDemoDebugResources FROM-CACHE
+> Task :core:datastore:generateDemoDebugResources FROM-CACHE
+> Task :core:analytics:generateDemoDebugResources
+> Task :core:database:generateDemoDebugResources FROM-CACHE
+> Task :core:ui:generateDemoDebugResources
+> Task :core:navigation:generateDemoDebugResources FROM-CACHE
+> Task :core:notifications:generateDemoDebugResources
+> Task :core:designsystem:generateDemoDebugResources
+> Task :sync:work:generateDemoDebugResources
+> Task :feature:bookmarks:api:generateDemoDebugResources
+> Task :core:analytics:packageDemoDebugResources
+> Task :core:network:packageDemoDebugResources
+> Task :core:database:packageDemoDebugResources
+> Task :core:datastore:packageDemoDebugResources
+> Task :ui-test-hilt-manifest:packageDemoDebugResources
+> Task :core:data:packageDemoDebugResources
+> Task :core:datastore-proto:extractIncludeProto
+> Task :core:datastore-proto:extractProto
+> Task :core:ui:packageDemoDebugResources
+> Task :core:notifications:packageDemoDebugResources
+> Task :feature:bookmarks:api:javaPreCompileDemoDebug
+> Task :core:datastore-proto:generateProto
+> Task :core:designsystem:javaPreCompileDemoDebug
+> Task :core:navigation:packageDemoDebugResources
+> Task :sync:work:javaPreCompileDemoDebug
+> Task :sync:work:packageDemoDebugResources
+> Task :core:navigation:javaPreCompileDemoDebug
+> Task :core:designsystem:packageDemoDebugResources
+> Task :feature:bookmarks:api:packageDemoDebugResources
+> Task :core:data:parseDemoDebugLocalResources
+> Task :core:datastore:parseDemoDebugLocalResources
+> Task :core:database:parseDemoDebugLocalResources
+> Task :core:analytics:parseDemoDebugLocalResources
+> Task :ui-test-hilt-manifest:parseDemoDebugLocalResources
+> Task :core:analytics:javaPreCompileDemoDebug FROM-CACHE
+> Task :ui-test-hilt-manifest:javaPreCompileDemoDebug FROM-CACHE
+> Task :core:network:parseDemoDebugLocalResources
+> Task :core:notifications:parseDemoDebugLocalResources
+> Task :core:datastore:javaPreCompileDemoDebug FROM-CACHE
+> Task :core:database:generateDemoDebugRFile
+> Task :core:data:generateDemoDebugRFile
+> Task :core:datastore:generateDemoDebugRFile
+> Task :ui-test-hilt-manifest:generateDemoDebugRFile
+> Task :core:ui:parseDemoDebugLocalResources
+> Task :core:data:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:bookmarks:impl:generateDemoDebugResources FROM-CACHE
+> Task :core:network:generateDemoDebugRFile
+> Task :core:analytics:generateDemoDebugRFile
+> Task :feature:topic:api:generateDemoDebugResources
+> Task :core:network:generateDemoDebugBuildConfig
+> Task :core:notifications:javaPreCompileDemoDebug FROM-CACHE
+> Task :core:network:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:bookmarks:impl:packageDemoDebugResources
+> Task :core:ui:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:bookmarks:impl:parseDemoDebugLocalResources FROM-CACHE
+> Task :core:notifications:generateDemoDebugRFile
+> Task :feature:foryou:api:generateDemoDebugResources
+> Task :feature:bookmarks:impl:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:topic:api:packageDemoDebugResources
+> Task :feature:foryou:impl:generateDemoDebugResources FROM-CACHE
+> Task :feature:topic:api:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:foryou:api:packageDemoDebugResources
+> Task :feature:foryou:impl:packageDemoDebugResources
+> Task :feature:foryou:impl:parseDemoDebugLocalResources FROM-CACHE
+> Task :feature:foryou:api:javaPreCompileDemoDebug FROM-CACHE
+> Task :core:ui:generateDemoDebugRFile
+> Task :core:domain:generateDemoDebugResources FROM-CACHE
+> Task :core:domain:packageDemoDebugResources
+> Task :feature:foryou:api:parseDemoDebugLocalResources
+> Task :core:domain:parseDemoDebugLocalResources FROM-CACHE
+> Task :feature:bookmarks:impl:generateDemoDebugRFile
+> Task :core:domain:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:foryou:impl:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:interests:api:generateDemoDebugResources
+> Task :feature:interests:api:packageDemoDebugResources
+> Task :feature:foryou:api:generateDemoDebugRFile
+> Task :core:domain:generateDemoDebugRFile
+> Task :feature:interests:api:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:interests:impl:generateDemoDebugResources FROM-CACHE
+> Task :feature:foryou:impl:generateDemoDebugRFile
+> Task :feature:search:impl:generateDemoDebugResources FROM-CACHE
+> Task :feature:search:api:generateDemoDebugResources
+> Task :feature:interests:api:parseDemoDebugLocalResources
+> Task :feature:interests:impl:packageDemoDebugResources
+> Task :feature:interests:impl:parseDemoDebugLocalResources FROM-CACHE
+> Task :feature:search:impl:packageDemoDebugResources
+> Task :feature:search:impl:parseDemoDebugLocalResources FROM-CACHE
+> Task :feature:search:api:packageDemoDebugResources
+> Task :feature:interests:api:generateDemoDebugRFile
+> Task :feature:interests:impl:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:interests:impl:generateDemoDebugRFile
+> Task :feature:search:api:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:search:impl:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:topic:api:parseDemoDebugLocalResources
+> Task :feature:topic:impl:generateDemoDebugResources FROM-CACHE
+> Task :feature:settings:impl:generateDemoDebugResources
+> Task :feature:search:api:parseDemoDebugLocalResources
+> Task :feature:topic:api:generateDemoDebugRFile
+> Task :core:data:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:topic:impl:packageDemoDebugResources
+> Task :core:model:processResources NO-SOURCE
+> Task :feature:search:api:generateDemoDebugRFile
+> Task :feature:settings:impl:packageDemoDebugResources
+> Task :feature:topic:impl:parseDemoDebugLocalResources FROM-CACHE
+> Task :core:datastore-proto:processResources
+> Task :feature:settings:impl:javaPreCompileDemoDebug FROM-CACHE
+> Task :feature:topic:impl:javaPreCompileDemoDebug FROM-CACHE
+> Task :core:datastore:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:settings:impl:parseDemoDebugLocalResources
+> Task :core:datastore:mergeDemoDebugAssets
+> Task :core:domain:generateDemoDebugAssets UP-TO-DATE
+> Task :core:navigation:parseDemoDebugLocalResources FROM-CACHE
+> Task :core:domain:mergeDemoDebugAssets
+> Task :core:navigation:generateDemoDebugAssets UP-TO-DATE
+> Task :core:navigation:generateDemoDebugRFile
+> Task :core:network:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:search:impl:generateDemoDebugRFile
+> Task :core:notifications:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:topic:impl:generateDemoDebugRFile
+> Task :core:ui:generateDemoDebugAssets UP-TO-DATE
+> Task :core:notifications:mergeDemoDebugAssets
+> Task :core:data:mergeDemoDebugAssets
+> Task :feature:bookmarks:impl:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:foryou:api:generateDemoDebugAssets UP-TO-DATE
+> Task :core:ui:mergeDemoDebugAssets
+> Task :sync:work:generateDemoDebugAssets UP-TO-DATE
+> Task :core:navigation:mergeDemoDebugAssets
+> Task :feature:foryou:api:mergeDemoDebugAssets
+> Task :feature:foryou:impl:generateDemoDebugAssets UP-TO-DATE
+> Task :sync:work:mergeDemoDebugAssets
+> Task :feature:bookmarks:api:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:settings:impl:generateDemoDebugRFile
+> Task :feature:interests:api:generateDemoDebugAssets UP-TO-DATE
+> Task :sync:work:parseDemoDebugLocalResources
+> Task :feature:interests:api:mergeDemoDebugAssets
+> Task :feature:interests:impl:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:interests:impl:mergeDemoDebugAssets
+> Task :feature:search:api:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:bookmarks:api:parseDemoDebugLocalResources
+> Task :feature:search:impl:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:search:api:mergeDemoDebugAssets
+> Task :core:designsystem:generateDemoDebugAssets UP-TO-DATE
+> Task :sync:work:generateDemoDebugRFile
+> Task :feature:settings:impl:generateDemoDebugAssets UP-TO-DATE
+> Task :core:designsystem:mergeDemoDebugAssets
+> Task :feature:topic:api:generateDemoDebugAssets UP-TO-DATE
+> Task :feature:foryou:impl:mergeDemoDebugAssets
+> Task :feature:topic:impl:generateDemoDebugAssets UP-TO-DATE
+> Task :core:designsystem:parseDemoDebugLocalResources
+> Task :feature:topic:impl:mergeDemoDebugAssets
+> Task :feature:settings:impl:mergeDemoDebugAssets
+> Task :core:designsystem:generateDemoDebugRFile
+> Task :core:datastore:writeDemoDebugAarMetadata
+> Task :core:domain:writeDemoDebugAarMetadata
+> Task :core:network:mergeDemoDebugAssets
+> Task :core:network:writeDemoDebugAarMetadata
+> Task :core:database:generateDemoDebugAssets UP-TO-DATE
+> Task :core:database:mergeDemoDebugAssets
+> Task :core:database:writeDemoDebugAarMetadata
+> Task :core:ui:writeDemoDebugAarMetadata
+> Task :core:notifications:writeDemoDebugAarMetadata
+> Task :feature:foryou:api:writeDemoDebugAarMetadata
+> Task :feature:foryou:impl:writeDemoDebugAarMetadata
+> Task :feature:bookmarks:impl:mergeDemoDebugAssets
+> Task :feature:search:impl:mergeDemoDebugAssets
+> Task :feature:interests:impl:writeDemoDebugAarMetadata
+> Task :feature:search:api:writeDemoDebugAarMetadata
+> Task :feature:topic:api:mergeDemoDebugAssets
+> Task :core:database:javaPreCompileDemoDebug
+> Task :feature:settings:impl:writeDemoDebugAarMetadata
+> Task :sync:work:writeDemoDebugAarMetadata
+> Task :core:data:writeDemoDebugAarMetadata
+> Task :ui-test-hilt-manifest:generateDemoDebugAssets UP-TO-DATE
+> Task :core:data:extractDeepLinksDemoDebug
+> Task :ui-test-hilt-manifest:mergeDemoDebugAssets
+> Task :feature:interests:api:writeDemoDebugAarMetadata
+> Task :ui-test-hilt-manifest:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:topic:impl:writeDemoDebugAarMetadata
+> Task :feature:bookmarks:api:mergeDemoDebugAssets
+> Task :core:database:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:bookmarks:api:generateDemoDebugRFile
+> Task :feature:topic:api:writeDemoDebugAarMetadata
+> Task :core:datastore:extractDeepLinksDemoDebug FROM-CACHE
+> Task :ui-test-hilt-manifest:processDemoDebugManifest
+> Task :core:data:processDemoDebugManifest
+> Task :core:domain:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:network:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:database:processDemoDebugManifest
+> Task :feature:bookmarks:api:writeDemoDebugAarMetadata
+> Task :core:ui:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:notifications:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:ui:processDemoDebugManifest
+> Task :sync:work:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:search:impl:writeDemoDebugAarMetadata
+> Task :feature:bookmarks:impl:writeDemoDebugAarMetadata
+> Task :core:domain:processDemoDebugManifest
+> Task :core:analytics:generateDemoDebugAssets UP-TO-DATE
+> Task :sync:work:processDemoDebugManifest
+> Task :feature:bookmarks:impl:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:analytics:mergeDemoDebugAssets
+> Task :feature:bookmarks:impl:processDemoDebugManifest
+> Task :feature:bookmarks:api:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:datastore:processDemoDebugManifest
+> Task :core:analytics:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:network:processDemoDebugManifest
+> Task :feature:foryou:api:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:bookmarks:api:processDemoDebugManifest
+> Task :feature:foryou:impl:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:foryou:impl:processDemoDebugManifest
+> Task :feature:interests:api:extractDeepLinksDemoDebug FROM-CACHE
+> Task :ui-test-hilt-manifest:writeDemoDebugAarMetadata
+> Task :feature:interests:impl:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:interests:impl:processDemoDebugManifest
+> Task :core:analytics:writeDemoDebugAarMetadata
+> Task :feature:search:api:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:interests:api:processDemoDebugManifest
+> Task :feature:search:impl:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:search:api:processDemoDebugManifest
+> Task :feature:settings:impl:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:search:impl:processDemoDebugManifest
+> Task :feature:topic:api:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:settings:impl:processDemoDebugManifest
+> Task :feature:topic:impl:extractDeepLinksDemoDebug FROM-CACHE
+> Task :feature:topic:impl:processDemoDebugManifest
+> Task :feature:topic:api:processDemoDebugManifest
+> Task :core:analytics:compileDemoDebugLibraryResources
+> Task :core:data:compileDemoDebugLibraryResources FROM-CACHE
+> Task :core:database:compileDemoDebugLibraryResources FROM-CACHE
+> Task :core:datastore:compileDemoDebugLibraryResources FROM-CACHE
+> Task :core:domain:compileDemoDebugLibraryResources FROM-CACHE
+> Task :core:network:compileDemoDebugLibraryResources FROM-CACHE
+> Task :feature:foryou:api:processDemoDebugManifest
+> Task :core:ui:compileDemoDebugLibraryResources
+> Task :core:notifications:compileDemoDebugLibraryResources
+> Task :ui-test-hilt-manifest:compileDemoDebugLibraryResources
+> Task :feature:bookmarks:impl:compileDemoDebugLibraryResources FROM-CACHE
+> Task :feature:foryou:api:compileDemoDebugLibraryResources
+> Task :feature:foryou:impl:compileDemoDebugLibraryResources FROM-CACHE
+> Task :core:analytics:processDemoDebugManifest
+> Task :feature:interests:api:compileDemoDebugLibraryResources
+> Task :feature:interests:impl:compileDemoDebugLibraryResources FROM-CACHE
+> Task :feature:search:impl:compileDemoDebugLibraryResources FROM-CACHE
+> Task :feature:search:api:compileDemoDebugLibraryResources
+> Task :feature:topic:api:compileDemoDebugLibraryResources
+> Task :feature:topic:impl:compileDemoDebugLibraryResources FROM-CACHE
+> Task :feature:bookmarks:api:compileDemoDebugLibraryResources
+> Task :core:analytics:mergeDemoDebugJniLibFolders
+> Task :core:analytics:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:notifications:processDemoDebugManifest
+> Task :feature:settings:impl:compileDemoDebugLibraryResources
+> Task :core:data:mergeDemoDebugJniLibFolders
+> Task :core:data:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:analytics:copyDemoDebugJniLibsProjectOnly
+> Task :core:data:copyDemoDebugJniLibsProjectOnly
+> Task :core:database:mergeDemoDebugJniLibFolders
+> Task :core:datastore:mergeDemoDebugJniLibFolders
+> Task :core:domain:mergeDemoDebugJniLibFolders
+> Task :core:datastore:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:domain:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:database:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:domain:copyDemoDebugJniLibsProjectOnly
+> Task :sync:work:compileDemoDebugLibraryResources
+> Task :core:notifications:mergeDemoDebugJniLibFolders
+> Task :core:network:mergeDemoDebugJniLibFolders
+> Task :core:notifications:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:network:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:network:copyDemoDebugJniLibsProjectOnly
+> Task :core:notifications:copyDemoDebugJniLibsProjectOnly
+> Task :core:database:copyDemoDebugJniLibsProjectOnly
+> Task :sync:work:mergeDemoDebugJniLibFolders
+> Task :sync:work:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:bookmarks:api:mergeDemoDebugJniLibFolders
+> Task :ui-test-hilt-manifest:mergeDemoDebugJniLibFolders
+> Task :ui-test-hilt-manifest:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:bookmarks:api:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:bookmarks:api:copyDemoDebugJniLibsProjectOnly
+> Task :core:ui:mergeDemoDebugJniLibFolders
+> Task :core:ui:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:ui:copyDemoDebugJniLibsProjectOnly
+> Task :feature:bookmarks:impl:mergeDemoDebugJniLibFolders
+> Task :feature:bookmarks:impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :ui-test-hilt-manifest:copyDemoDebugJniLibsProjectOnly
+> Task :feature:bookmarks:impl:copyDemoDebugJniLibsProjectOnly
+> Task :feature:foryou:impl:mergeDemoDebugJniLibFolders
+> Task :feature:interests:api:mergeDemoDebugJniLibFolders
+> Task :feature:interests:api:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:foryou:impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:foryou:impl:copyDemoDebugJniLibsProjectOnly
+> Task :core:datastore:copyDemoDebugJniLibsProjectOnly
+> Task :feature:interests:impl:mergeDemoDebugJniLibFolders
+> Task :feature:search:api:mergeDemoDebugJniLibFolders
+> Task :feature:search:api:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:interests:impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:interests:impl:copyDemoDebugJniLibsProjectOnly
+> Task :feature:foryou:api:mergeDemoDebugJniLibFolders
+> Task :feature:foryou:api:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:interests:api:copyDemoDebugJniLibsProjectOnly
+> Task :feature:search:impl:mergeDemoDebugJniLibFolders
+> Task :feature:search:impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:search:impl:copyDemoDebugJniLibsProjectOnly
+> Task :feature:search:api:copyDemoDebugJniLibsProjectOnly
+> Task :feature:foryou:api:copyDemoDebugJniLibsProjectOnly
+> Task :feature:topic:impl:mergeDemoDebugJniLibFolders
+> Task :feature:topic:api:mergeDemoDebugJniLibFolders
+> Task :feature:topic:api:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:topic:impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :sync:work:copyDemoDebugJniLibsProjectOnly
+> Task :feature:topic:api:copyDemoDebugJniLibsProjectOnly
+> Task :feature:topic:impl:copyDemoDebugJniLibsProjectOnly
+> Task :feature:settings:impl:mergeDemoDebugJniLibFolders
+> Task :feature:settings:impl:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :feature:settings:impl:copyDemoDebugJniLibsProjectOnly
+> Task :core:navigation:writeDemoDebugAarMetadata
+> Task :core:navigation:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:navigation:compileDemoDebugLibraryResources FROM-CACHE
+> Task :core:navigation:processDemoDebugManifest
+> Task :core:navigation:mergeDemoDebugJniLibFolders
+> Task :core:navigation:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:navigation:copyDemoDebugJniLibsProjectOnly
+> Task :core:navigation:kspDemoDebugKotlin
+> Task :core:analytics:kspDemoDebugKotlin
+> Task :core:common:kspKotlin
+> Task :core:common:processResources NO-SOURCE
+> Task :core:designsystem:writeDemoDebugAarMetadata
+> Task :core:designsystem:extractDeepLinksDemoDebug FROM-CACHE
+> Task :core:designsystem:processDemoDebugManifest
+> Task :core:designsystem:mergeDemoDebugJniLibFolders
+> Task :core:designsystem:mergeDemoDebugNativeLibs NO-SOURCE
+> Task :core:designsystem:copyDemoDebugJniLibsProjectOnly
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDemoDebugBuild UP-TO-DATE
+> Task :app:mergeDemoDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDemoDebugResources
+> Task :app:injectCrashlyticsMappingFileIdDemoDebug
+> Task :app:injectCrashlyticsVersionControlInfoDemoDebug
+> Task :app:processDemoDebugGoogleServices
+> Task :app:packageDemoDebugResources
+> Task :ui-test-hilt-manifest:kspDemoDebugKotlin
+> Task :core:designsystem:compileDemoDebugLibraryResources
+> Task :ui-test-hilt-manifest:compileDemoDebugKotlin
+> Task :core:navigation:compileDemoDebugKotlin
+> Task :core:navigation:compileDemoDebugJavaWithJavac NO-SOURCE
+
+> Task :core:model:compileKotlin
+w: Opt-in requirement marker kotlinx.coroutines.ExperimentalCoroutinesApi is unresolved. Please make sure it's present in the module dependencies
+
+> Task :core:model:compileJava NO-SOURCE
+> Task :core:model:classes UP-TO-DATE
+> Task :core:model:jar
+> Task :core:analytics:compileDemoDebugKotlin
+> Task :core:common:compileKotlin
+
+> Task :core:datastore-proto:compileKotlin
+w: Opt-in requirement marker kotlinx.coroutines.ExperimentalCoroutinesApi is unresolved. Please make sure it's present in the module dependencies
+
+> Task :app:processDemoDebugNavigationResources
+> Task :app:javaPreCompileDemoDebug FROM-CACHE
+> Task :app:generateDemoDebugAssets UP-TO-DATE
+> Task :app:parseDemoDebugLocalResources
+> Task :app:mergeDemoDebugAssets
+> Task :app:generateDemoDebugRFile
+> Task :app:compressDemoDebugAssets
+> Task :core:navigation:processDemoDebugJavaRes
+> Task :app:demoDebugOssDependencyTask
+> Task :core:navigation:transformDemoDebugClassesWithAsm
+> Task :core:navigation:bundleLibRuntimeToJarDemoDebug
+> Task :core:navigation:bundleLibCompileToJarDemoDebug
+> Task :core:navigation:createFullJarDemoDebug
+> Task :app:demoDebugOssLicensesTask
+> Task :feature:foryou:api:compileDemoDebugKotlin
+> Task :feature:foryou:api:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :feature:bookmarks:api:compileDemoDebugKotlin
+> Task :feature:bookmarks:api:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :feature:interests:api:compileDemoDebugKotlin
+> Task :feature:bookmarks:api:bundleLibRuntimeToJarDemoDebug
+> Task :feature:bookmarks:api:bundleLibCompileToJarDemoDebug
+> Task :feature:interests:api:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :feature:bookmarks:api:processDemoDebugJavaRes
+> Task :feature:foryou:api:processDemoDebugJavaRes
+> Task :feature:interests:api:processDemoDebugJavaRes
+> Task :feature:foryou:api:bundleLibRuntimeToJarDemoDebug
+> Task :app:generateDemoDebugJacocoPropertiesFile
+> Task :feature:foryou:api:bundleLibCompileToJarDemoDebug
+> Task :feature:foryou:api:createFullJarDemoDebug
+> Task :feature:bookmarks:api:createFullJarDemoDebug
+> Task :feature:interests:api:bundleLibCompileToJarDemoDebug
+> Task :core:common:compileJava
+> Task :core:common:classes
+> Task :core:common:jar
+> Task :feature:interests:api:bundleLibRuntimeToJarDemoDebug
+> Task :feature:interests:api:createFullJarDemoDebug
+> Task :core:datastore-proto:compileJava
+> Task :core:datastore-proto:classes
+> Task :core:datastore-proto:jar
+> Task :app:checkDemoDebugDuplicateClasses
+> Task :core:designsystem:compileDemoDebugKotlin
+> Task :core:analytics:compileDemoDebugJavaWithJavac
+> Task :ui-test-hilt-manifest:compileDemoDebugJavaWithJavac
+> Task :core:notifications:kspDemoDebugKotlin
+> Task :core:datastore:kspDemoDebugKotlin
+> Task :core:network:kspDemoDebugKotlin
+> Task :core:analytics:processDemoDebugJavaRes
+> Task :core:analytics:transformDemoDebugClassesWithAsm
+> Task :core:analytics:bundleLibCompileToJarDemoDebug
+> Task :core:analytics:bundleLibRuntimeToJarDemoDebug
+> Task :core:analytics:createFullJarDemoDebug
+
+> Task :core:notifications:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid/core/notifications/src/main/kotlin/com/google/samples/apps/nowinandroid/core/notifications/SystemTrayNotifier.kt:57:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/core/notifications/src/main/kotlin/com/google/samples/apps/nowinandroid/core/notifications/SystemTrayNotifier.kt:64:13 Return in function with expression body and without explicit return type. Use block body '{...}' or add an explicit return type. This will become an error in language version 2.4. See https://youtrack.jetbrains.com/issue/KTLC-288.
+
+> Task :core:notifications:compileDemoDebugJavaWithJavac
+> Task :core:notifications:processDemoDebugJavaRes
+> Task :core:notifications:transformDemoDebugClassesWithAsm
+> Task :core:notifications:bundleLibCompileToJarDemoDebug
+> Task :core:notifications:bundleLibRuntimeToJarDemoDebug
+> Task :core:notifications:createFullJarDemoDebug
+> Task :core:datastore:compileDemoDebugKotlin
+> Task :app:desugarDemoDebugFileDependencies
+> Task :core:datastore:compileDemoDebugJavaWithJavac
+> Task :core:datastore:processDemoDebugJavaRes
+
+> Task :core:designsystem:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid/core/designsystem/src/main/kotlin/com/google/samples/apps/nowinandroid/core/designsystem/component/Tabs.kt:88:5 'fun TabRow(selectedTabIndex: Int, modifier: Modifier = ..., containerColor: Color = ..., contentColor: Color = ..., indicator: ComposableFunction1<List<TabPosition>, Unit> = ..., divider: ComposableFunction0<Unit> = ..., tabs: ComposableFunction0<Unit>): Unit' is deprecated. Replaced with PrimaryTabRow and SecondaryTabRow.
+w: file:///Users/claw/work/nowinandroid/core/designsystem/src/main/kotlin/com/google/samples/apps/nowinandroid/core/designsystem/component/Tabs.kt:95:37 'fun Modifier.tabIndicatorOffset(currentTabPosition: TabPosition): Modifier' is deprecated. Solely for use alongside deprecated TabRowDefaults.Indicator method. For recommended PrimaryIndicator and SecondaryIndicator methods, please use TabIndicatorScope.tabIndicatorOffset method.
+
+> Task :core:datastore:transformDemoDebugClassesWithAsm
+> Task :core:datastore:bundleLibCompileToJarDemoDebug
+> Task :core:datastore:bundleLibRuntimeToJarDemoDebug
+> Task :core:datastore:createFullJarDemoDebug
+> Task :core:designsystem:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :core:designsystem:processDemoDebugJavaRes
+> Task :core:designsystem:bundleLibCompileToJarDemoDebug
+> Task :core:designsystem:bundleLibRuntimeToJarDemoDebug
+> Task :core:designsystem:createFullJarDemoDebug
+
+> Task :core:network:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid/core/network/src/main/kotlin/com/google/samples/apps/nowinandroid/core/network/demo/DemoNiaNetworkDataSource.kt:40:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to property.
+- To opt in to applying to both value parameter and property, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+
+> Task :core:database:kspDemoDebugKotlin
+> Task :core:network:compileDemoDebugJavaWithJavac
+> Task :core:network:processDemoDebugJavaRes
+> Task :core:network:transformDemoDebugClassesWithAsm
+> Task :core:network:bundleLibCompileToJarDemoDebug
+> Task :core:network:bundleLibRuntimeToJarDemoDebug
+> Task :core:network:createFullJarDemoDebug
+> Task :ui-test-hilt-manifest:transformDemoDebugClassesWithAsm
+> Task :ui-test-hilt-manifest:processDemoDebugJavaRes
+> Task :ui-test-hilt-manifest:bundleLibCompileToJarDemoDebug
+> Task :ui-test-hilt-manifest:bundleLibRuntimeToJarDemoDebug
+> Task :ui-test-hilt-manifest:createFullJarDemoDebug
+> Task :core:ui:compileDemoDebugKotlin
+> Task :core:ui:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :core:ui:bundleLibCompileToJarDemoDebug
+> Task :core:ui:bundleLibRuntimeToJarDemoDebug
+> Task :core:ui:processDemoDebugJavaRes
+> Task :core:ui:createFullJarDemoDebug
+> Task :core:database:compileDemoDebugKotlin
+> Task :core:database:compileDemoDebugJavaWithJavac
+> Task :core:database:copyRoomSchemas NO-SOURCE
+> Task :core:database:processDemoDebugJavaRes
+> Task :app:l8DexDesugarLibDemoDebug
+> Task :core:database:transformDemoDebugClassesWithAsm
+> Task :feature:topic:api:kspDemoDebugKotlin
+> Task :feature:topic:api:compileDemoDebugKotlin
+> Task :feature:topic:api:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :feature:topic:api:transformDemoDebugClassesWithAsm
+> Task :feature:topic:api:bundleLibRuntimeToJarDemoDebug
+> Task :feature:topic:api:processDemoDebugJavaRes
+> Task :feature:topic:api:createFullJarDemoDebug
+> Task :app:mergeExtDexDemoDebug
+> Task :core:database:bundleLibRuntimeToJarDemoDebug
+> Task :core:database:createFullJarDemoDebug
+> Task :feature:topic:api:bundleLibCompileToJarDemoDebug
+> Task :core:database:bundleLibCompileToJarDemoDebug
+> Task :core:data:kspDemoDebugKotlin
+
+> Task :core:data:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid/core/data/src/main/kotlin/com/google/samples/apps/nowinandroid/core/data/repository/DefaultSearchContentsRepository.kt:44:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to property.
+- To opt in to applying to both value parameter and property, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/core/data/src/main/kotlin/com/google/samples/apps/nowinandroid/core/data/util/ConnectivityManagerNetworkMonitor.kt:40:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/core/data/src/main/kotlin/com/google/samples/apps/nowinandroid/core/data/util/ConnectivityManagerNetworkMonitor.kt:41:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to property.
+- To opt in to applying to both value parameter and property, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/core/data/src/main/kotlin/com/google/samples/apps/nowinandroid/core/data/util/TimeZoneMonitor.kt:57:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/core/data/src/main/kotlin/com/google/samples/apps/nowinandroid/core/data/util/TimeZoneMonitor.kt:59:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to property.
+- To opt in to applying to both value parameter and property, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+
+> Task :core:data:compileDemoDebugJavaWithJavac
+> Task :core:data:processDemoDebugJavaRes
+> Task :core:data:transformDemoDebugClassesWithAsm
+> Task :core:data:bundleLibCompileToJarDemoDebug
+> Task :core:domain:kspDemoDebugKotlin SKIPPED
+> Task :core:data:bundleLibRuntimeToJarDemoDebug
+> Task :core:data:createFullJarDemoDebug
+> Task :core:domain:compileDemoDebugKotlin
+> Task :core:domain:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :core:domain:bundleLibCompileToJarDemoDebug
+> Task :core:domain:bundleLibRuntimeToJarDemoDebug
+> Task :core:domain:processDemoDebugJavaRes
+> Task :core:domain:createFullJarDemoDebug
+> Task :feature:search:api:compileDemoDebugKotlin
+> Task :feature:search:api:compileDemoDebugJavaWithJavac NO-SOURCE
+> Task :feature:search:api:bundleLibCompileToJarDemoDebug
+> Task :feature:search:api:bundleLibRuntimeToJarDemoDebug
+> Task :feature:search:api:processDemoDebugJavaRes
+> Task :feature:search:api:createFullJarDemoDebug
+> Task :feature:topic:impl:kspDemoDebugKotlin
+> Task :feature:settings:impl:kspDemoDebugKotlin
+> Task :feature:bookmarks:impl:kspDemoDebugKotlin
+> Task :feature:interests:impl:kspDemoDebugKotlin
+> Task :feature:foryou:impl:kspDemoDebugKotlin
+> Task :feature:search:impl:kspDemoDebugKotlin
+> Task :feature:bookmarks:impl:compileDemoDebugKotlin
+> Task :feature:settings:impl:compileDemoDebugKotlin
+> Task :feature:interests:impl:compileDemoDebugKotlin
+> Task :feature:topic:impl:compileDemoDebugKotlin
+> Task :sync:work:kspDemoDebugKotlin
+> Task :feature:foryou:impl:compileDemoDebugKotlin
+> Task :feature:search:impl:compileDemoDebugKotlin
+
+> Task :sync:work:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid/sync/work/src/main/kotlin/com/google/samples/apps/nowinandroid/sync/status/WorkManagerSyncManager.kt:37:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/sync/work/src/main/kotlin/com/google/samples/apps/nowinandroid/sync/workers/SyncWorker.kt:58:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to property.
+- To opt in to applying to both value parameter and property, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+
+> Task :sync:work:compileDemoDebugJavaWithJavac
+> Task :sync:work:processDemoDebugJavaRes
+> Task :sync:work:transformDemoDebugClassesWithAsm
+> Task :sync:work:bundleLibCompileToJarDemoDebug
+> Task :sync:work:bundleLibRuntimeToJarDemoDebug
+> Task :sync:work:createFullJarDemoDebug
+> Task :feature:settings:impl:compileDemoDebugJavaWithJavac
+> Task :feature:search:impl:compileDemoDebugJavaWithJavac
+> Task :feature:topic:impl:compileDemoDebugJavaWithJavac
+> Task :feature:bookmarks:impl:compileDemoDebugJavaWithJavac
+> Task :feature:foryou:impl:compileDemoDebugJavaWithJavac
+> Task :feature:interests:impl:compileDemoDebugJavaWithJavac
+> Task :feature:bookmarks:impl:processDemoDebugJavaRes
+> Task :feature:topic:impl:processDemoDebugJavaRes
+> Task :feature:foryou:impl:processDemoDebugJavaRes
+> Task :feature:search:impl:processDemoDebugJavaRes
+> Task :feature:interests:impl:processDemoDebugJavaRes
+> Task :feature:settings:impl:processDemoDebugJavaRes
+> Task :feature:bookmarks:impl:transformDemoDebugClassesWithAsm
+> Task :feature:interests:impl:transformDemoDebugClassesWithAsm
+> Task :feature:bookmarks:impl:bundleLibCompileToJarDemoDebug
+> Task :feature:bookmarks:impl:bundleLibRuntimeToJarDemoDebug
+> Task :feature:interests:impl:bundleLibCompileToJarDemoDebug
+> Task :feature:settings:impl:transformDemoDebugClassesWithAsm
+> Task :feature:interests:impl:bundleLibRuntimeToJarDemoDebug
+> Task :feature:bookmarks:impl:createFullJarDemoDebug
+> Task :feature:topic:impl:transformDemoDebugClassesWithAsm
+> Task :feature:interests:impl:createFullJarDemoDebug
+> Task :feature:settings:impl:bundleLibCompileToJarDemoDebug
+> Task :feature:settings:impl:bundleLibRuntimeToJarDemoDebug
+> Task :feature:topic:impl:bundleLibCompileToJarDemoDebug
+> Task :feature:foryou:impl:transformDemoDebugClassesWithAsm
+> Task :feature:settings:impl:createFullJarDemoDebug
+> Task :feature:topic:impl:bundleLibRuntimeToJarDemoDebug
+> Task :feature:search:impl:transformDemoDebugClassesWithAsm
+> Task :feature:topic:impl:createFullJarDemoDebug
+> Task :feature:foryou:impl:bundleLibCompileToJarDemoDebug
+> Task :feature:foryou:impl:bundleLibRuntimeToJarDemoDebug
+> Task :feature:search:impl:bundleLibCompileToJarDemoDebug
+> Task :feature:search:impl:bundleLibRuntimeToJarDemoDebug
+> Task :feature:foryou:impl:createFullJarDemoDebug
+> Task :feature:search:impl:createFullJarDemoDebug
+> Task :app:compileDemoDebugNavigationResources
+> Task :app:checkDemoDebugAarMetadata
+> Task :app:mapDemoDebugSourceSetPaths
+> Task :app:mergeLibDexDemoDebug
+> Task :app:createDemoDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDemoDebug
+> Task :app:processDemoDebugMainManifest
+> Task :app:processDemoDebugManifest
+> Task :app:mergeDemoDebugResources
+> Task :app:mergeDemoDebugJniLibFolders
+> Task :app:mergeDemoDebugNativeLibs
+> Task :app:validateSigningDemoDebug
+> Task :app:writeDemoDebugAppMetadata
+> Task :app:writeDemoDebugSigningConfigVersions
+> Task :app:processDemoDebugManifestForPackage
+> Task :app:stripDemoDebugDebugSymbols
+> Task :app:processDemoDebugResources
+> Task :app:kspDemoDebugKotlin
+
+> Task :app:compileDemoDebugKotlin
+w: file:///Users/claw/work/nowinandroid/app/src/main/kotlin/com/google/samples/apps/nowinandroid/navigation/TopLevelNavItem.kt:44:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/app/src/main/kotlin/com/google/samples/apps/nowinandroid/navigation/TopLevelNavItem.kt:45:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to field.
+- To opt in to applying to both value parameter and field, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+w: file:///Users/claw/work/nowinandroid/app/src/main/kotlin/com/google/samples/apps/nowinandroid/util/ProfileVerifierLogger.kt:52:5 This annotation is currently applied to the value parameter only, but in the future it will also be applied to property.
+- To opt in to applying to both value parameter and property, add '-Xannotation-default-target=param-property' to your compiler arguments.
+- To keep applying to the value parameter only, use the '@param:' annotation target.
+
+See https://youtrack.jetbrains.com/issue/KT-73255 for more details.
+
+> Task :app:compileDemoDebugJavaWithJavac
+> Task :app:processDemoDebugJavaRes
+> Task :app:hiltSyncDemoDebug
+> Task :app:hiltAggregateDepsDemoDebug
+> Task :app:mergeDemoDebugJavaResource
+> Task :app:hiltJavaCompileDemoDebug
+> Task :app:transformDemoDebugClassesWithAsm
+> Task :app:jacocoDemoDebug
+> Task :app:dexBuilderDemoDebug
+> Task :app:mergeProjectDexDemoDebug
+> Task :app:packageDemoDebug
+> Task :app:createDemoDebugApkListingFileRedirect
+> Task :app:assembleDemoDebug
+ASM Instrumentation process wasn't able to resolve some classes, this means that
+the instrumented classes might contain corrupt stack frames. Make sure the
+dependencies that contain these classes are on the runtime or the provided
+classpath. Otherwise, the jvm might fail to load the corrupt classes at runtime
+when running in a jvm environment like unit tests.
+
+Classes that weren't resolved:
+> androidx.window.extensions.embedding.AnimationBackground$ColorBackground
+> androidx.window.extensions.embedding.AnimationBackground
+> androidx.window.extensions.embedding.ActivityEmbeddingComponent
+> androidx.window.extensions.embedding.ActivityStack$Token
+> androidx.window.extensions.embedding.ActivityStack
+> androidx.window.extensions.layout.WindowLayoutComponent
+> androidx.window.sidecar.SidecarDeviceState
+> androidx.window.sidecar.SidecarInterface
+> androidx.compose.animation.tooling.ComposeAnimatedProperty
+
+
+BUILD SUCCESSFUL in 4m 36s
+527 actionable tasks: 448 executed, 75 from cache, 4 up-to-date
+Configuration cache entry discarded because incompatible task was found: 'task `:app:demoDebugOssLicensesTask` of type `com.google.android.gms.oss.licenses.plugin.LicensesTask`'.
+
+See the profiling report at: file:///Users/claw/work/nowinandroid/build/reports/profile/profile-2026-08-03-10-48-39.html
+A fine-grained performance profile is available: use the --scan option.

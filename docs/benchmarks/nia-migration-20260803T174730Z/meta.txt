@@ -1,0 +1,10 @@
+stamp=20260803T174730Z
+host=Claws-MacBook-Pro.local
+date=Mon Aug  3 10:47:30 PDT 2026
+java=openjdk version "21.0.11" 2026-04-21
+JAVA_HOME=/usr/local/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
+ANDROID_HOME=/usr/local/share/android-commandlinetools
+UPSTREAM_DIR=/Users/claw/work/nowinandroid
+SPIKE_DIR=/Users/claw/work/nowinandroid-forma/forma-spike
+BENCH_ASSEMBLE=1
+BENCH_OFFLINE=0
