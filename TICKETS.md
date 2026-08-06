@@ -171,12 +171,23 @@ composition stays at Android/JVM roots. iOS/JS/Wasm = later phase.
 External multimodule OSS validation of meta-build axioms (structure over configuration,
 type-owned plugins, attrs-only call sites, closed matrix). **Not** another in-repo sample.
 
-Open coding: **none gated** after F-115 done. **F-094** Portal remains `blocked` (human).
+Open coding after promote: **F-116** (gated). **F-094** Portal remains `blocked` (human).
 4h workers: if no ticket has `todo`/`in_progress` with **`priority: now`** / **`cron may continue`**, respond `[SILENT]` (audit 2026-07-29 gate — interactive “Go ahead” alone is not enough). Do not invent tickets.
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
 | F-115 | done | Dogfood Now in Android under Forma | Primary OSS target [`android/nowinandroid`](https://github.com/android/nowinandroid). Design: [`docs/DOGFOOD-NIA.md`](docs/DOGFOOD-NIA.md). Case study: [`docs/DOGFOOD-NIA-CASE-STUDY.md`](docs/DOGFOOD-NIA-CASE-STUDY.md). **Phase A–D complete:** external mavenLocal spike green (`assembleDemoDebug`/`ProdDebug`); Hilt/Room/Firebase/Proto DS + features + WM + flavors (F7/F27) + designsystem/core.ui/network/analytics/notifications; findings F1–F31; module scripts **−59%** LOC vs upstream. No `androidLibrary`. Optional parity leftovers = new tickets only. |
+
+## P13 — Promoted GH backlog (2026-08-06 Stepan)
+
+Promoted remaining open historical GitHub issues after empty post–F-115 queue.
+Workers pick top `todo` in order. **Still not product tickets:** `v2`→`master` (explicit git promote only); case-study residual NiA parity (includer publish, Retrofit prod network, test graph, Roborazzi/fleet tooling) — open as new F-xxx only if prioritized separately. **F-094** stays `blocked`.
+
+Hygiene this promote: closed GH **#46** (nav — F-102/111/112) and **#43** (hybrid — F-103/104) as already landed on `v2`.
+
+| ID | Status | Title | Notes |
+|----|--------|-------|-------|
+| F-116 | todo | Sample clean architecture (domain use cases) | GH **#48** · **`priority: now`** · **`cron may continue`**. Gold sample: weaken presentation↔data coupling via **domain use cases**; kill `GlobalScope` / data-layer scope ownership (see legacy `CharacterPageDataSource` / `CharactersListViewModel` pattern if still present). Keep flat role graph — domain as `api`/`impl` (or util) ports, no `impl`→`impl`, no `androidLibrary`. Docs: `docs/SAMPLE-APP.md` + any progressive pointer if teaching-worthy. Close #48 on merge. |
 
 ## Backlog (lower priority / historical GitHub)
 
@@ -193,15 +204,15 @@ Keep for reference; do not start unless higher tickets done or user prioritizes:
 - ~~GH #77 transitiveDeps extension~~ → **F-096**
 - GH #54 Generate target structure from minimal config → **theme under F-084 / F-088**
 - ~~GH #51 Support build types~~ → **F-097**
-- ~~GH #46 New navigation system~~ → **F-102** design + **F-111** sample + **F-112** example **done**
+- ~~GH #46 New navigation system~~ → **F-102** design + **F-111** sample + **F-112** example **done** (GH closed 2026-08-06)
 - ~~GH #44 Hybrid targets example~~ → **F-103**
-- ~~GH #43 Hybrid configuration example~~ → **F-104**
+- ~~GH #43 Hybrid configuration example~~ → **F-104** (GH closed 2026-08-06)
 - GH #36 Docs for external plugins → **P7 / F-070–F-073**
 - ~~GH #126 Target features configuration options~~ → **F-099**
 - ~~GH #111 Gradle project as buildscript classpath~~ → **F-100**
 - ~~GH #103 Java 8+ API on Android API ≤26~~ → **F-098**
 - ~~GH #56 Implement targets deps APIs~~ → **F-101**
-- GH #48 Clean sample architecture (domain use cases) — sample quality only; not meta-build; leave unpromoted unless prioritized
+- ~~GH #48 Clean sample architecture (domain use cases)~~ → **F-116** (promoted 2026-08-06)
 
 ## How workers update this file
 
