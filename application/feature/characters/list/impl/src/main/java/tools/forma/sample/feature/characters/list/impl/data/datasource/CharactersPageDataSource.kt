@@ -20,24 +20,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import tools.forma.sample.core.network.library.NetworkState
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
-import tools.forma.sample.feature.characters.core.api.domain.repository.MarvelRepository
+import tools.forma.sample.feature.characters.core.api.domain.usecase.IGetCharactersUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 const val PAGE_INIT_ELEMENTS = 0
 const val PAGE_MAX_ELEMENTS = 50
 
 /**
- * Incremental data loader for page-keyed content, where requests return keys for next/previous
- * pages. Obtaining paginated the Marvel characters.
+ * Incremental data loader for page-keyed content. Thin paging adapter: loads via
+ * [IGetCharactersUseCase] on a [CoroutineScope] owned by the presentation layer
+ * (typically [androidx.lifecycle.viewModelScope]). Does not own a scope or call
+ * the repository directly.
  *
  * @see PageKeyedDataSource
  */
-// TODO https://github.com/formatools/forma/issues/48
-// Rewrite on clean version with separate Repository with local/remote datasource
 open class CharacterPageDataSource(
-    private val repository: MarvelRepository,
+    private val getCharactersUseCase: IGetCharactersUseCase,
+    private val scope: CoroutineScope,
 ) : PageKeyedDataSource<Int, ICharacter>() {
 
     val networkState = MutableLiveData<NetworkState>()
@@ -48,16 +49,13 @@ open class CharacterPageDataSource(
         callback: LoadInitialCallback<Int, ICharacter>
     ) {
         networkState.postValue(NetworkState.Loading())
-        // TODO https://github.com/formatools/forma/issues/48
-        // Don't do that!!! Using GlobalScope here only for first working version
-        // Make it from UseCase and calling it from View Model scope
-        GlobalScope.launch(CoroutineExceptionHandler { _, _ ->
+        scope.launch(CoroutineExceptionHandler { _, _ ->
             retry = {
                 loadInitial(params, callback)
             }
             networkState.postValue(NetworkState.Error())
         }) {
-            val response = repository.getCharacters(
+            val response = getCharactersUseCase(
                 offset = PAGE_INIT_ELEMENTS,
                 limit = PAGE_MAX_ELEMENTS
             )
@@ -79,16 +77,13 @@ open class CharacterPageDataSource(
         callback: LoadCallback<Int, ICharacter>
     ) {
         networkState.postValue(NetworkState.Loading(true))
-        // TODO https://github.com/formatools/forma/issues/48
-        // Don't do that!!! Using GlobalScope here only for first working version
-        // Make it from UseCase and calling it from View Model scope
-        GlobalScope.launch(CoroutineExceptionHandler { _, _ ->
+        scope.launch(CoroutineExceptionHandler { _, _ ->
             retry = {
                 loadAfter(params, callback)
             }
             networkState.postValue(NetworkState.Error(true))
         }) {
-            val response = repository.getCharacters(
+            val response = getCharactersUseCase(
                 offset = params.key,
                 limit = PAGE_MAX_ELEMENTS
             )

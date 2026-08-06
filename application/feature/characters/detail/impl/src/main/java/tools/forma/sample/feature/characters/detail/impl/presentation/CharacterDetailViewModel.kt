@@ -21,7 +21,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
-import tools.forma.sample.feature.characters.core.api.domain.repository.MarvelRepository
+import tools.forma.sample.feature.characters.core.api.domain.usecase.IGetCharacterUseCase
 import tools.forma.sample.feature.characters.detail.api.presentation.ICharacterDetailViewModel
 import tools.forma.sample.feature.characters.detail.api.presentation.ICharacterDetailViewState
 import tools.forma.sample.feature.characters.favorite.api.domain.usecase.IGetCharacterFavoriteUseCase
@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterDetailViewModel @Inject constructor(
-        private val marvelRepository: MarvelRepository,
+        private val getCharacterUseCase: IGetCharacterUseCase,
         private val getCharacterFavoriteUseCase: IGetCharacterFavoriteUseCase,
         private val setCharacterFavoriteUseCase: ISetCharacterFavoriteUseCase,
 ) : ViewModel(), ICharacterDetailViewModel {
@@ -47,7 +47,7 @@ class CharacterDetailViewModel @Inject constructor(
         _state.postValue(CharacterDetailViewState.Loading)
         viewModelScope.launch {
             try {
-                val result = marvelRepository.getCharacter(characterId)
+                val result = getCharacterUseCase(characterId)
                 _data.postValue(result)
 
                 getCharacterFavoriteUseCase(characterId)?.let {

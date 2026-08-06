@@ -31,7 +31,7 @@ application/
 └── feature/
     ├── home/{api,impl,res,viewbinding}
     └── characters/
-        ├── core/{api,impl}                    (shared domain + Marvel API)
+        ├── core/{api,impl}                    (shared domain + Marvel API + use cases)
         ├── list/{api,impl,res,viewbinding}
         ├── detail/{api,impl,res,viewbinding}
         └── favorite/{api,impl,res,viewbinding}
@@ -59,6 +59,42 @@ Rules enforced by validators ([DEPENDENCY-MATRIX.md](DEPENDENCY-MATRIX.md)):
 - **Composition roots** (`androidApp` / `androidBinary`) pull feature `api` + `impl`
   explicitly — do not rely on transitive feature wiring alone.
 - **`api` stays free of `res/`** under `src/main`.
+
+## Characters feature layering (domain use cases)
+
+`feature/characters` is the gold sample for **weak presentation↔data coupling**
+via domain use cases (F-116 / GH #48). Pattern mirrors `favorite` and applies to
+list + detail as well.
+
+| Layer | Where | Depends on |
+|-------|--------|------------|
+| Contracts | `core/api` — `MarvelRepository`, `IGetCharactersUseCase`, `IGetCharacterUseCase`, `ICharacter` | network types only |
+| Domain impl | `core/impl` — repository + use-case classes; exposed on `CharactersCoreFeature` | `core/api` |
+| Presentation | list/detail `impl` ViewModels | **use-case interfaces** from `core/api` (not repository) |
+| Paging glue | list `impl` `CharacterPageDataSource` | use case + **ViewModel `CoroutineScope`** |
+
+Rules demonstrated:
+
+- ViewModels take use-case interfaces and run work on `viewModelScope`.
+- Paging `DataSource` is a thin adapter: no `GlobalScope`, no direct repository calls,
+  no ownership of a process-global coroutine scope — the ViewModel supplies
+  `viewModelScope` through the factory.
+- Cross-feature code stays on `api` ports; **no `impl`→`impl`**.
+- Favorite already followed this pattern (`IGetAllCharactersFavoriteUseCase`, etc.);
+  list/detail now match via characters `core`.
+
+Sketch:
+
+```
+CharactersListViewModel ──IGetCharactersUseCase──► core.api
+CharacterDetailViewModel ──IGetCharacterUseCase──► core.api
+        │                                              ▲
+        │ viewModelScope                               │ implements
+        ▼                                              │
+CharacterPageDataSource ───────────────────────────────┘
+        (paging only; no GlobalScope / no repository)
+core.impl: GetCharactersUseCase / GetCharacterUseCase → MarvelRepository
+```
 
 ## Package naming
 

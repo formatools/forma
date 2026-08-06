@@ -19,19 +19,21 @@ package tools.forma.sample.feature.characters.list.impl.data.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
-import tools.forma.sample.feature.characters.core.api.domain.repository.MarvelRepository
-import javax.inject.Inject
-import javax.inject.Provider
+import tools.forma.sample.feature.characters.core.api.domain.usecase.IGetCharactersUseCase
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Data source factory which also provides a way to observe the last created data source.
  * This allows us to channel its network request status etc back to the UI.
  *
+ * Constructed by the ViewModel with [IGetCharactersUseCase] and the ViewModel's
+ * [CoroutineScope] so paging loads never use a process-global scope.
+ *
  * @see DataSource.Factory
  */
-@Deprecated("Seems this class invoke some domain logic. It's wrong!", ReplaceWith("On target UseCase"))
-class CharactersPageDataSourceFactory @Inject constructor(
-    private val repository: MarvelRepository,
+class CharactersPageDataSourceFactory(
+    private val getCharactersUseCase: IGetCharactersUseCase,
+    private val scope: CoroutineScope,
 ) : DataSource.Factory<Int, ICharacter>() {
 
     var sourceLiveData = MutableLiveData<CharacterPageDataSource>()
@@ -43,7 +45,7 @@ class CharactersPageDataSourceFactory @Inject constructor(
      * @see DataSource.Factory.create
      */
     override fun create(): DataSource<Int, ICharacter> {
-        val dataSource = CharacterPageDataSource(repository)
+        val dataSource = CharacterPageDataSource(getCharactersUseCase, scope)
         sourceLiveData.postValue(dataSource)
         return dataSource
     }

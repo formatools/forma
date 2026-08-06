@@ -187,7 +187,7 @@ Hygiene this promote: closed GH **#46** (nav — F-102/111/112) and **#43** (hyb
 
 | ID | Status | Title | Notes |
 |----|--------|-------|-------|
-| F-116 | todo | Sample clean architecture (domain use cases) | GH **#48** · **`priority: now`** · **`cron may continue`**. Gold sample: weaken presentation↔data coupling via **domain use cases**; kill `GlobalScope` / data-layer scope ownership (see legacy `CharacterPageDataSource` / `CharactersListViewModel` pattern if still present). Keep flat role graph — domain as `api`/`impl` (or util) ports, no `impl`→`impl`, no `androidLibrary`. Docs: `docs/SAMPLE-APP.md` + any progressive pointer if teaching-worthy. Close #48 on merge. |
+| F-116 | done | Sample clean architecture (domain use cases) | GH **#48**. Domain use cases on characters `core` (`IGetCharactersUseCase` / `IGetCharacterUseCase`); list paging via `viewModelScope` (no `GlobalScope`); detail VM on use case. Docs: `docs/SAMPLE-APP.md`. Close #48 on merge. |
 
 ## Backlog (lower priority / historical GitHub)
 
