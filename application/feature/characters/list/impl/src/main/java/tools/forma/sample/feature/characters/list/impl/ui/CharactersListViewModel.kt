@@ -20,23 +20,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import tools.forma.sample.core.mvvm.library.lifecycle.SingleLiveData
 import tools.forma.sample.core.network.library.NetworkState
+import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
+import tools.forma.sample.feature.characters.core.api.domain.usecase.IGetCharactersUseCase
 import tools.forma.sample.feature.characters.list.impl.data.datasource.CharactersPageDataSourceFactory
 import tools.forma.sample.feature.characters.list.impl.data.datasource.PAGE_MAX_ELEMENTS
-import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
 import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewEvent
 import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewModel
 import tools.forma.sample.feature.characters.list.viewbinding.domain.model.ICharactersListViewState
 import javax.inject.Inject
 
 class CharactersListViewModel @Inject constructor(
-    // TODO https://github.com/formatools/forma/issues/48
-    // Aggregate UseCase here
-    private val dataSourceFactory: CharactersPageDataSourceFactory
+    getCharactersUseCase: IGetCharactersUseCase,
 ) : ViewModel(), ICharactersListViewModel {
+
+    private val dataSourceFactory = CharactersPageDataSourceFactory(
+        getCharactersUseCase = getCharactersUseCase,
+        scope = viewModelScope,
+    )
 
     override val networkState = dataSourceFactory.sourceLiveData.switchMap {
         it.networkState

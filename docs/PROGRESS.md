@@ -2,6 +2,22 @@
 
 Newest entries first.
 
+## 2026-08-06 — F-116: sample domain use cases; kill GlobalScope
+
+- **Ticket:** F-116 → `done` (GH #48)
+- **Branch:** `forma/F-116-sample-clean-arch` (from `origin/v2`)
+- **Actions:**
+  - Added `IGetCharactersUseCase` / `IGetCharacterUseCase` on `feature/characters/core/api`; impls + `@Binds` in `core/impl`; exposed on `CharactersCoreFeature`
+  - List paging: `CharacterPageDataSource` takes use case + `CoroutineScope` (from VM `viewModelScope`); zero `GlobalScope`; no direct `MarvelRepository`
+  - `CharactersListViewModel` depends on `IGetCharactersUseCase`; owns factory with scope
+  - `CharacterDetailViewModel` uses `IGetCharacterUseCase` (not repository)
+  - Docs: `docs/SAMPLE-APP.md` characters layering section
+- **Verify (real):**
+  - `application/` `./gradlew :feature-characters-list-impl:compileDebugKotlin :feature-characters-detail-impl:compileDebugKotlin :feature-characters-core-impl:compileDebugKotlin :binary:assembleDebug` → **BUILD SUCCESSFUL** in 2m30s
+  - `grep -R GlobalScope application --include='*.kt'` → empty (product sources)
+- **Not in slice:** Paging3 migration; Forma engine changes; progressive example module
+- **Next:** close GH #48 on merge; board open item remains F-094 (human Portal)
+
 ## 2026-08-06 — P13: promote remaining open GH into TICKETS
 
 - **Context:** Empty gated coding board post F-115/#250; Stepan: **Promote gh issues**

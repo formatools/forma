@@ -8,32 +8,48 @@ import tools.forma.sample.feature.characters.core.api.data.response.CharacterRes
 import tools.forma.sample.feature.characters.core.api.data.service.MarvelService
 import tools.forma.sample.feature.characters.core.api.domain.model.ICharacter
 import tools.forma.sample.feature.characters.core.api.domain.repository.MarvelRepository
+import tools.forma.sample.feature.characters.core.api.domain.usecase.IGetCharacterUseCase
+import tools.forma.sample.feature.characters.core.api.domain.usecase.IGetCharactersUseCase
 import tools.forma.sample.feature.characters.core.impl.data.mapper.CharacterMapper
 import tools.forma.sample.feature.characters.core.impl.domain.repository.ServiceMarvelRepository
+import tools.forma.sample.feature.characters.core.impl.domain.usecase.GetCharacterUseCase
+import tools.forma.sample.feature.characters.core.impl.domain.usecase.GetCharactersUseCase
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
-internal class CharactersCoreModule {
+internal abstract class CharactersCoreModule {
 
     @Singleton
-    @Provides
-    fun provideMarvelService(retrofit: Retrofit): MarvelService =
-        retrofit.create(MarvelService::class.java)
+    @Binds
+    abstract fun bindGetCharactersUseCase(useCase: GetCharactersUseCase): IGetCharactersUseCase
 
     @Singleton
-    @Provides
-    fun provideMarvelRepository(
-        service: MarvelService,
-        config: Config,
-        clock: Clock,
-        characterMapper: Mapper<BaseResponse<CharacterResponse>, List<ICharacter>>,
-    ): MarvelRepository =
-        ServiceMarvelRepository(service, config, clock, characterMapper)
+    @Binds
+    abstract fun bindGetCharacterUseCase(useCase: GetCharacterUseCase): IGetCharacterUseCase
 
-    @Provides
-    fun provideCharacterMapper(): Mapper<BaseResponse<CharacterResponse>, List<ICharacter>> =
-        CharacterMapper()
+    companion object {
+
+        @Singleton
+        @Provides
+        fun provideMarvelService(retrofit: Retrofit): MarvelService =
+            retrofit.create(MarvelService::class.java)
+
+        @Singleton
+        @Provides
+        fun provideMarvelRepository(
+            service: MarvelService,
+            config: Config,
+            clock: Clock,
+            characterMapper: Mapper<BaseResponse<CharacterResponse>, List<ICharacter>>,
+        ): MarvelRepository =
+            ServiceMarvelRepository(service, config, clock, characterMapper)
+
+        @Provides
+        fun provideCharacterMapper(): Mapper<BaseResponse<CharacterResponse>, List<ICharacter>> =
+            CharacterMapper()
+    }
 }
