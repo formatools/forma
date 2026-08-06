@@ -2,6 +2,17 @@
 
 Newest entries first.
 
+## 2026-08-06 — P13: promote remaining open GH into TICKETS
+
+- **Context:** Empty gated coding board post F-115/#250; Stepan: **Promote gh issues**
+- **Open GH audit:** only **#133** (Portal), **#48** (sample clean arch), **#46** (nav), **#43** (hybrid)
+- **Hygiene:** closed **#46** (done via F-102/111/112) and **#43** (done via F-103/104) with comments pointing at `v2` docs/examples
+- **Promoted:** **F-116** ← GH **#48** sample domain use cases / clean architecture · `todo` · **`priority: now`** · **`cron may continue`**
+- **Left open / blocked:** **#133** = **F-094** (human Portal org/user)
+- **Not promoted as tickets:** `v2`→`master`; optional NiA case-study residuals (includer publish, Retrofit prod, test graph, Roborazzi/fleet) — still residual list in `docs/DOGFOOD-NIA-CASE-STUDY.md` §7
+- **Docs:** `TICKETS.md` P13 + backlog strikes; this PROGRESS entry
+- **Next:** 4h / interactive pickup **F-116**; F-094 still human-blocked
+
 ## 2026-08-03 — NiA migration perf benchmark (post F-115)
 
 - **Context:** F-115 done; user asked to run tests + understand perf implications of the migration and create a benchmark
