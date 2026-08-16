@@ -456,7 +456,7 @@ A tiny, self-contained experimental workspace `bazel-sample/` was added. It is *
 ### Delivered
 | Piece | Location / detail |
 |-------|-------------------|
-| Workspace files | `.bazelversion` (7.4.1), `WORKSPACE` (http_archive), `.bazelrc` |
+| Workspace files | `.bazelversion` (**8.7.0**), `MODULE.bazel` (bzlmod), `.bazelrc` |
 | Two features | `feature/greeter/{api,impl}`, `feature/calculator/{api,impl}` |
 | Shared | `common/library`, `common/util` (test-util omitted for minimal) |
 | Composition root | `binary/` with `kt_jvm_binary` + `main_class` |
@@ -486,7 +486,7 @@ All 7 targets analyzed and built: 2 api + 2 impl + 2 common + 1 binary.
 
 ### Limitations (sample)
 - Experimental / non-production banner in README.
-- WORKSPACE (bzlmod MODULE attempt hit extension friction; documented).
+- Originally WORKSPACE (bzlmod extension friction on Bazel 7). **2026-08-16:** sample pin is Bazel **8.7.0** + `MODULE.bazel` (`rules_kotlin` 2.4.0).
 - No external deps, no tests, no Android.
 - Manual maintenance of BUILDs (no generator yet).
 
@@ -529,4 +529,6 @@ jvm_impl(
 
 `impl → impl` fails in Starlark (`Illegal Forma dependency: jvm.impl → jvm.impl`) **and** in the Kotlin `RestrictionGraph` checker. `JvmBazelAdapter.generate()` emits the same macros (v3).
 
-**Non-goals for this experiment:** Android/`rules_android`, bzlmod, external GAV, replacing Gradle platforms.
+**Non-goals for this experiment:** Android/`rules_android`, external GAV, replacing Gradle platforms.
+
+**Toolchain (2026-08-16):** `bazel-sample/.bazelversion` = **8.7.0**. External deps via `MODULE.bazel` (`rules_kotlin` 2.4.0, `bazel_skylib` 1.8.2). Verified: `bazelisk test //forma:forma_matrix_tests`, `build //...`, `run //binary:binary`.

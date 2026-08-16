@@ -1,4 +1,2 @@
-# Experimental F-042 sample uses WORKSPACE + http_archive (bzlmod had extension friction).
-# Force WORKSPACE mode for reliability in this tiny tree.
-common --noenable_bzlmod
+# Bazel 8.7 + Bzlmod (BCR). WORKSPACE kept as historical pin only — not loaded.
 build --test_output=errors

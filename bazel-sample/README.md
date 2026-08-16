@@ -31,7 +31,7 @@ An `impl` depending on another `impl` **fails analysis** in Starlark (`check_dep
   source /path/to/forma/scripts/env-mac.sh
   java -version   # must be 17+
   ```
-- bazelisk (recommended) or Bazel 7.x+
+- bazelisk (recommended) or Bazel **8.7.0**
   ```bash
   brew install bazelisk
   ```
@@ -43,8 +43,9 @@ An `impl` depending on another `impl` **fails analysis** in Starlark (`check_dep
 
 ```
 bazel-sample/
-├── .bazelversion          # 7.4.1
-├── WORKSPACE              # http_archive pins (bzlmod disabled in .bazelrc)
+├── .bazelversion          # 8.7.0
+├── MODULE.bazel           # bzlmod: rules_kotlin 2.4.0 + bazel_skylib
+├── WORKSPACE              # historical 7.x pin — not loaded on Bazel 8
 ├── .bazelrc
 ├── README.md
 ├── forma/                 # v3 Starlark types
@@ -81,7 +82,7 @@ Hello, World! (2 + 3 = 5)
 Bazel sample (forma concepts) build + run successful.
 ```
 
-Using plain `bazel` (if you have Bazel 7+ installed and it matches):
+Using plain `bazel` (if you have Bazel 8.7 installed and it matches):
 
 ```bash
 bazel build //...
@@ -155,7 +156,7 @@ See also the golden fragments in `bazel-adapter/examples/jvm-application-build/`
 - No Android / `rules_android`.
 - Toolchain is default (Java 11+ compatible with rules_kotlin).
 - Not intended to replace `jvm-application/` Gradle build.
-- Uses WORKSPACE + `--noenable_bzlmod` (bzlmod left for a later polish); pins may need bumps as Bazel/rules_kotlin evolve.
+- Uses Bzlmod (`MODULE.bazel`) on Bazel **8.7.0**. `WORKSPACE` is leftover from the 7.4.1 experiment and is not loaded.
 
 This sample exists to prove that the forma-core concepts (matrix, api contracts, composition root, no-impl-to-impl) are portable to Bazel with the mapping designed in F-040/F-041.
 

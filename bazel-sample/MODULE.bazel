@@ -1,0 +1,13 @@
+"""Experimental Forma Bazel sample (F-042 / F-117).
+
+Bazel 8.7 defaults to Bzlmod. Pin Kotlin + skylib from BCR so
+`//forma:defs.bzl` can load `@rules_kotlin//kotlin:jvm.bzl`.
+"""
+
+module(
+    name = "forma_bazel_sample",
+    version = "0.0.0",
+)
+
+bazel_dep(name = "rules_kotlin", version = "2.4.0")
+bazel_dep(name = "bazel_skylib", version = "1.8.2")

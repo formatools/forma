@@ -1,5 +1,5 @@
-# Experimental Bazel sample (F-042) — WORKSPACE (chosen after bzlmod rules_kotlin extension friction).
-# This file + http_archive is reliable for the minimal experimental tree.
+# Historical F-042 WORKSPACE pin (Bazel 7.4.1 + --noenable_bzlmod).
+# Bazel 8.7.0 uses MODULE.bazel (bzlmod). This file is not loaded.
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 

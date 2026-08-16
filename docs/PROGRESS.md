@@ -2,6 +2,25 @@
 
 Newest entries first.
 
+## 2026-08-16 — Bazel 8.7.0 pin (v3 sample)
+
+- **Ask:** Update bazel to 8.7 (Claw topic 136)
+- **Branch:** `v3` (experiment; integration tip stays `v2`)
+- **Change:**
+  - `bazel-sample/.bazelversion` **7.4.1 → 8.7.0**
+  - Bazel 8 disables WORKSPACE by default; `rules_java` 7.4.0 from the old WORKSPACE failed (`cannot load rules_java_deps.bzl`)
+  - Added `bazel-sample/MODULE.bazel` (bzlmod): `rules_kotlin` **2.4.0**, `bazel_skylib` **1.8.2**
+  - Dropped `--noenable_bzlmod` from `.bazelrc`
+  - Docs: `bazel-sample/README.md`, `docs/BAZEL-ADAPTER.md`
+- **Verify (real, this run, OpenJDK 21 + bazelisk 8.7.0):**
+  - `bazelisk version` → **Build label: 8.7.0**
+  - `bazelisk test //forma:forma_matrix_tests` → **4/4 PASSED**
+  - `bazelisk build //...` → **Build completed successfully** (11 targets)
+  - `bazelisk run //binary:binary` → `Hello, World! (2 + 3 = 5)`
+  - `cd bazel-adapter && ./gradlew test` → **BUILD SUCCESSFUL**
+- **Not in slice:** Android/`rules_android`, GAV/`maven_install`, promoting `v3`→`v2`
+- **Next:** keep v3 experiment-only unless Stepan asks to merge
+
 ## 2026-08-15 — F-117 v3 experiment: Starlark target types for BUILD files
 
 - **Ticket:** F-117 → `done` **on branch `v3` only** (not merged to `v2`; default integration stays `v2`)
