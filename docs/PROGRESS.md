@@ -2,6 +2,28 @@
 
 Newest entries first.
 
+## 2026-08-15 — F-117 v3 experiment: Starlark target types for BUILD files
+
+- **Ticket:** F-117 → `done` **on branch `v3` only** (not merged to `v2`; default integration stays `v2`)
+- **Ask:** run an experiment on a **v3** branch using a **Bazel Starlark implementation for build files**
+- **Why:** F-041/F-042 emitted/hand-authored raw `kt_jvm_*` (call sites re-selected rule/tags/srcs). Axiom 1 wants type-owned behavior; call sites = attrs.
+- **Delivered on `v3`:**
+  - `bazel-sample/forma/defs.bzl` — `jvm_api` / `jvm_impl` / `jvm_library` / `jvm_util` / `jvm_test_util` / `jvm_binary`
+  - `bazel-sample/forma/matrix.bzl` — closed JVM allow-list + `check_deps` / `infer_jvm_type`
+  - `bazel-sample/forma/matrix_test.bzl` — bazel-skylib unittest
+  - All sample `BUILD.bazel` files converted to attrs-only macro call sites
+  - `JvmBazelAdapter.generate()` emits the same macros; unit tests updated
+  - Scratch illegal BUILD: `forma/illegal_impl_to_impl/BUILD.illegal.example`
+- **Verify (real, this run, OpenJDK 21 + bazelisk 7.4.1 via `.bazelversion`):**
+  - `cd bazel-sample && bazelisk test //forma:forma_matrix_tests` → **4/4 PASSED**
+  - `bazelisk build //...` → **Build completed successfully** (11 targets)
+  - `bazelisk run //binary:binary` → `Hello, World! (2 + 3 = 5)` / `Bazel sample (forma concepts) build + run successful.`
+  - `bazelisk query 'attr(tags, "forma:type", //...)'` → 7 product targets (macros own tags)
+  - Scratch `jvm_impl(deps=[//feature/calculator/impl:impl])` → analysis **fail**: `Illegal Forma dependency: jvm.impl → jvm.impl`
+  - `cd bazel-adapter && ./gradlew test` → **BUILD SUCCESSFUL**
+- **Not in slice:** Android/`rules_android`, bzlmod, GAV/`maven_install`, promoting `v3`→`v2`
+- **Next:** Stepan decide whether to PR `v3` → `v2` as F-117 or keep v3 as experiment-only
+
 ## 2026-08-06 — F-116: sample domain use cases; kill GlobalScope
 
 - **Ticket:** F-116 → `done` (GH #48)

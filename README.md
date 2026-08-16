@@ -61,7 +61,7 @@ systems like Buck and Bazel.
 12. [**Kotlin Multiplatform design**](docs/KMP-TARGETS.md) — `tools.forma.kmp` types, matrix, no call-site target shopping (F-105…F-110 shipped)
 13. [Bazel adapter design](docs/BAZEL-ADAPTER.md) — target types to rules, restriction graph to visibility (F-040 design)
 14. [Bazel adapter spike](bazel-adapter/README.md) — generate/check BUILD from Forma model (F-041; JVM-first)
-15. [Bazel sample (experimental)](bazel-sample/) — minimal `kt_jvm_*` workspace exercising forma-core matrix + `impl` ↛ `impl` (F-042)
+15. [Bazel sample (experimental)](bazel-sample/) — Starlark `jvm_*` macros (v3) + matrix + `impl` ↛ `impl` (F-042)
 16. [**Progressive examples + agent skills**](docs/PROGRESSIVE-EXAMPLES.md) — feature-by-feature ladders (`examples/`) + coding-agent skills (F-050; KMP skill `forma-kmp-targets`)
 17. [**Test coverage**](docs/TEST-COVERAGE.md) — JaCoCo on `plugins/`, happy-path LINE ≥60% gate
 18. [**Dogfood: Now in Android**](docs/DOGFOOD-NIA.md) — real-world multimodule OSS migration map + matrix findings (F-115) · [**case study**](docs/DOGFOOD-NIA-CASE-STUDY.md) (Phase D before/after)

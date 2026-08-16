@@ -1,17 +1,13 @@
-# Hand-authored for F-042 minimal sample (mirrors JvmBazelAdapter conventions from F-041).
+# v3 Starlark call site — attributes only.
 # gradlePath equivalent: :common:util  type=jvm.util
 
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//forma:defs.bzl", "jvm_util")
 
-kt_jvm_library(
+jvm_util(
     name = "util",
-    srcs = glob(["src/main/kotlin/**/*.kt"]),
     visibility = [
         "//binary:__pkg__",
         "//feature/greeter/impl:__pkg__",
         "//feature/calculator/impl:__pkg__",
-    ],
-    tags = [
-        "forma:type=jvm.util",
     ],
 )

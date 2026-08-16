@@ -49,23 +49,28 @@ class JvmBazelAdapterTest {
     }
 
     @Test
-    fun `binary uses kt_jvm_binary and carries main_class from metadata`() {
+    fun `binary uses jvm_binary Starlark macro and carries main_class from metadata`() {
         val builds = adapter.generate(fixture)
         val bin = builds.getValue("binary")
-        assertTrue(bin.contains("kt_jvm_binary("))
+        assertTrue(bin.contains("load(\"//forma:defs.bzl\", \"jvm_binary\")"))
+        assertTrue(bin.contains("jvm_binary("))
         assertTrue(bin.contains("main_class = \"tools.forma.jvm.sample.binary.MainKt\""))
-        assertTrue(bin.contains("forma:type=jvm.binary"))
+        assertFalse(bin.contains("kt_jvm_binary("))
+        assertFalse(bin.contains("tags = ["))
     }
 
     @Test
-    fun `non-binary use kt_jvm_library and carry forma type tag`() {
+    fun `non-binary use type macros and do not re-select rule or tags`() {
         val builds = adapter.generate(fixture)
         val apiB = builds.getValue("feature/greeter/api")
-        assertTrue(apiB.contains("kt_jvm_library("))
-        assertTrue(apiB.contains("forma:type=jvm.api"))
+        assertTrue(apiB.contains("load(\"//forma:defs.bzl\", \"jvm_api\")"))
+        assertTrue(apiB.contains("jvm_api("))
+        assertFalse(apiB.contains("kt_jvm_library("))
+        assertFalse(apiB.contains("forma:type="))
 
         val implB = builds.getValue("feature/greeter/impl")
-        assertTrue(implB.contains("forma:type=jvm.impl"))
+        assertTrue(implB.contains("jvm_impl("))
+        assertFalse(implB.contains("kt_jvm_library("))
     }
 
     @Test
@@ -111,12 +116,14 @@ class JvmBazelAdapterTest {
     }
 
     @Test
-    fun `generated content contains srcs glob and tags for all`() {
+    fun `generated content is attrs-only Starlark (type owns srcs and tags)`() {
         val builds = adapter.generate(fixture)
         for ((_, c) in builds) {
-            assertTrue("srcs = glob([\"src/main/kotlin/**/*.kt\"])" in c)
-            assertTrue("tags = [" in c)
-            assertTrue("forma:type=" in c)
+            assertTrue("load(\"//forma:defs.bzl\"" in c)
+            assertFalse("srcs = glob" in c)
+            assertFalse("tags = [" in c)
+            assertFalse("forma:type=" in c)
+            assertFalse("kt_jvm_" in c)
         }
     }
 }

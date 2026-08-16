@@ -15,13 +15,12 @@ It demonstrates:
 - Label conventions: `//feature/greeter/impl:impl`, `//binary:binary`
 - **No `impl` → `impl` dependencies allowed** (enforced by model + documented in BUILD authoring)
 
-The BUILD files are hand-authored to match the output shape produced by
-`JvmBazelAdapter.generate()` from F-041 (see `bazel-adapter/examples/` and
-`bazel-adapter/src/main/kotlin/tools/forma/bazel/adapter/JvmBazelAdapter.kt`).
+The BUILD files are **Starlark call sites** (`jvm_api` / `jvm_impl` / `jvm_library` / `jvm_util` / `jvm_binary`) defined in [`forma/defs.bzl`](forma/defs.bzl). Each symbol is a Forma **TargetType**: it owns rule kind, `tags`, default `srcs`, and the closed matrix (`forma/matrix.bzl`). Call sites set **attributes only**.
+
+This is the **v3 experiment**: implement types in Bazel Starlark instead of emitting raw `kt_jvm_*` from Kotlin string concat (F-041).
 
 Cross-feature code goes **only through `api`** (see `Main.kt` and the impls).
-An `impl` depending on another `impl` is rejected by the `RestrictionGraph`
-used in the adapter (see illegal fixture test below).
+An `impl` depending on another `impl` **fails analysis** in Starlark (`check_deps`) and is also rejected by the Kotlin `RestrictionGraph` in `bazel-adapter`.
 
 ---
 
@@ -48,12 +47,16 @@ bazel-sample/
 ├── WORKSPACE              # http_archive pins (bzlmod disabled in .bazelrc)
 ├── .bazelrc
 ├── README.md
+├── forma/                 # v3 Starlark types
+│   ├── defs.bzl           # jvm_api / jvm_impl / jvm_library / jvm_util / jvm_binary
+│   ├── matrix.bzl         # closed allow-list + check_deps
+│   └── matrix_test.bzl    # bazel-skylib unittest
 ├── binary/
-│   ├── BUILD.bazel
+│   ├── BUILD.bazel        # jvm_binary(...) attrs only
 │   └── src/main/kotlin/.../Main.kt
 ├── common/
-│   ├── library/...
-│   └── util/...
+│   ├── library/           # jvm_library(...)
+│   └── util/              # jvm_util(...)
 └── feature/
     ├── greeter/{api,impl}/...
     └── calculator/{api,impl}/...
@@ -66,9 +69,8 @@ bazel-sample/
 ```bash
 cd bazel-sample
 
-# Recommended: bazelisk (uses .bazelversion)
 bazelisk build //...
-
+bazelisk test //forma:forma_matrix_tests
 bazelisk run //binary:binary
 ```
 
@@ -110,8 +112,9 @@ See:
 
 This rule is **core forma discipline**, not a Bazel visibility accident.
 
-1. The `JvmBazelAdapter` (F-041) uses `RestrictionGraph.isAllowed(...)` (from `tools.forma:core`) and **never emits** an illegal edge in generated `deps`.
-2. `check()` on an illegal model reports violations.
+1. **Starlark macros (v3, this tree):** `jvm_impl(deps = [other impl])` calls `check_deps` and `fail()`s at analysis with `Illegal Forma dependency: jvm.impl → jvm.impl`. Covered by `//forma:forma_matrix_tests` (injectable `_fail`). Scratch BUILD: `forma/illegal_impl_to_impl/BUILD.illegal.example`.
+2. The `JvmBazelAdapter` (F-041 / v3 emit) uses `RestrictionGraph.isAllowed(...)` (from `tools.forma:core`) and **never emits** an illegal edge in generated `deps`.
+3. `check()` on an illegal model reports violations.
 
 Run the adapter test that proves the illegal case is caught:
 
@@ -136,11 +139,10 @@ If you manually add an illegal dep to a BUILD and run the adapter check against 
 ## How the BUILD files were produced
 
 - Labels and target names follow §3 of `docs/BAZEL-ADAPTER.md`
-- Every target carries `tags = ["forma:type=jvm.<kind>"]`
-- Visibility is narrow except for the public binary
-- `kt_jvm_library` / `kt_jvm_binary` + `srcs = glob(["src/main/kotlin/**/*.kt"])`
+- Call sites load `//forma:defs.bzl` and pass **attrs only** (`name`, `deps`, `visibility`, `main_class`)
+- Type macros own `kt_jvm_*`, `tags = ["forma:type=..."]`, default `srcs` glob, and the matrix
 - `main_class` on the binary
-- `load("@rules_kotlin//kotlin:jvm.bzl", ...)` — note: the F-041 generator omits the load line; sample BUILDs must include it
+- Generator (`JvmBazelAdapter`) now emits the same macro call sites (v3)
 
 See also the golden fragments in `bazel-adapter/examples/jvm-application-build/`.
 

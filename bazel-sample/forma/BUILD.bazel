@@ -1,0 +1,8 @@
+load(":matrix_test.bzl", "forma_matrix_test_suite")
+
+exports_files([
+    "defs.bzl",
+    "matrix.bzl",
+])
+
+forma_matrix_test_suite()

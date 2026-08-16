@@ -494,3 +494,39 @@ F-042 acceptance criteria met: tiny tree, two features + shared + binary, BUILDs
 
 ### Next
 F-042 landed (see Sample results below). Further Bazel work (full generator integration, Android, publish) would be future phases.
+
+---
+
+## v3 experiment — Starlark target types (F-117)
+
+**Branch:** `v3` (from `origin/v2` @ `be1dfc1`). Not the default integration branch.
+
+F-041/F-042 emitted or hand-authored **raw** `kt_jvm_library` / `kt_jvm_binary` (call sites re-selected rule, tags, srcs). That violates axiom 1 (type owns behavior; call sites = attrs).
+
+**Change:** implement JVM TargetTypes as Starlark macros:
+
+| File | Role |
+|------|------|
+| `bazel-sample/forma/defs.bzl` | `jvm_api` / `jvm_impl` / `jvm_library` / `jvm_util` / `jvm_test_util` / `jvm_binary` |
+| `bazel-sample/forma/matrix.bzl` | Closed allow-list + `check_deps` / `infer_jvm_type` |
+| `bazel-sample/forma/matrix_test.bzl` | bazel-skylib unittest (`//forma:forma_matrix_tests`) |
+
+Call-site BUILD files now look like Gradle Forma DSLs:
+
+```starlark
+load("//forma:defs.bzl", "jvm_impl")
+
+jvm_impl(
+    name = "impl",
+    deps = [
+        "//feature/greeter/api:api",
+        "//common/util:util",
+        "//common/library:library",
+    ],
+    visibility = ["//binary:__pkg__"],
+)
+```
+
+`impl → impl` fails in Starlark (`Illegal Forma dependency: jvm.impl → jvm.impl`) **and** in the Kotlin `RestrictionGraph` checker. `JvmBazelAdapter.generate()` emits the same macros (v3).
+
+**Non-goals for this experiment:** Android/`rules_android`, bzlmod, external GAV, replacing Gradle platforms.

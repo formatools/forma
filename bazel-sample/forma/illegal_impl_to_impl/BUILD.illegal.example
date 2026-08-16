@@ -1,0 +1,18 @@
+# Negative fixture — NOT a Bazel package (no BUILD.bazel).
+# Copy to a scratch dir or rename this file to BUILD.bazel to reproduce
+# the analysis-time fail:
+#
+#   Illegal Forma dependency: jvm.impl → jvm.impl (//feature/calculator/impl:impl)
+#
+# The live matrix test is `//forma:forma_matrix_tests`.
+
+load("//forma:defs.bzl", "jvm_impl")
+
+jvm_impl(
+    name = "should_fail",
+    srcs = [],
+    deps = [
+        "//feature/calculator/impl:impl",
+        "//feature/greeter/api:api",
+    ],
+)

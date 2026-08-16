@@ -1,11 +1,10 @@
-# Hand-authored for F-042 minimal sample (mirrors JvmBazelAdapter conventions from F-041).
+# v3 Starlark call site — attributes only.
 # gradlePath equivalent: :feature:calculator:impl  type=jvm.impl
 
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("//forma:defs.bzl", "jvm_impl")
 
-kt_jvm_library(
+jvm_impl(
     name = "impl",
-    srcs = glob(["src/main/kotlin/**/*.kt"]),
     deps = [
         "//common/library:library",
         "//common/util:util",
@@ -13,8 +12,5 @@ kt_jvm_library(
     ],
     visibility = [
         "//binary:__pkg__",
-    ],
-    tags = [
-        "forma:type=jvm.impl",
     ],
 )

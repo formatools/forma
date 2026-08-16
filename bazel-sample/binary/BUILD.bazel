@@ -1,11 +1,10 @@
-# Hand-authored for F-042 minimal sample (mirrors JvmBazelAdapter conventions from F-041).
+# v3 Starlark call site — attributes only. Type owns rule/tags/srcs/matrix.
 # gradlePath equivalent: :binary  type=jvm.binary
 
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_binary")
+load("//forma:defs.bzl", "jvm_binary")
 
-kt_jvm_binary(
+jvm_binary(
     name = "binary",
-    srcs = glob(["src/main/kotlin/**/*.kt"]),
     deps = [
         "//common/library:library",
         "//common/util:util",
@@ -14,11 +13,5 @@ kt_jvm_binary(
         "//feature/greeter/api:api",
         "//feature/greeter/impl:impl",
     ],
-    visibility = [
-        "//visibility:public",
-    ],
     main_class = "tools.forma.jvm.sample.binary.MainKt",
-    tags = [
-        "forma:type=jvm.binary",
-    ],
 )

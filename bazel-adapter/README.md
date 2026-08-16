@@ -1,8 +1,10 @@
-# bazel-adapter (F-041 spike)
+# bazel-adapter (F-041 spike + v3 Starlark emit)
 
 JVM-first adapter that converts a portable `FormaProjectModel` (targets + declared edges) into Bazel `BUILD.bazel` fragments (or validates them) while preserving the forma-core `RestrictionGraph` discipline.
 
-**Core invariant:** `impl` may never depend on another `impl`; composition happens only at `binary`. The adapter enforces this using `RestrictionGraph.isAllowed` from `tools.forma:core`.
+**v3 emit:** generated files are **attrs-only** Starlark call sites (`jvm_api` / `jvm_impl` / `jvm_binary` / …). Rule kind, `tags`, default `srcs`, and the closed matrix live in `bazel-sample/forma/defs.bzl` + `matrix.bzl`.
+
+**Core invariant:** `impl` may never depend on another `impl`; composition happens only at `binary`. The adapter filters with `RestrictionGraph.isAllowed`; the Starlark macros fail analysis on the same illegal edges.
 
 ## What it contains
 
@@ -31,6 +33,7 @@ You do **not** need Bazel installed for the spike.
 - Only JVM 6-type matrix (`jvm.api` ... `jvm.binary`)
 - Project edges only (no external catalog GAV translation)
 - Visibility is computed from declared consumers in the model + graph (hybrid; good enough)
+- Generated BUILD files load `//forma:defs.bzl` (macros live in `bazel-sample/`; goldens are not a standalone workspace)
 - No full BUILD parser — check validates the *model* edges (and lightly inspects generated text)
 - No `kt_jvm_test` emission yet (testDependencies carried in model but ignored for rule emission)
 - No content rules (pure JVM has none)

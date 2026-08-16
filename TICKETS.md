@@ -64,6 +64,7 @@ Canonical write-up: `docs/VISION.md` § Root principles. Plugins design: `docs/T
 | F-040 | done | Design Bazel adapter mapping (targets ↔ rules, visibility ↔ deps) | `docs/BAZEL-ADAPTER.md` + cross-links; commit 45674c7 |
 | F-041 | done | Spike: generate or check Bazel BUILD from forma declarations | `bazel-adapter/` generate+check via core RestrictionGraph; examples + tests green |
 | F-042 | done | Minimal Bazel sample using forma-core concepts | `bazel-sample/` + real `bazelisk build`/`run` + docs; see PROGRESS |
+| F-117 | done | Experiment: Bazel Starlark types for BUILD files (v3) | landed **on `v3` only** (not `v2`); `forma/{defs,matrix}.bzl` + adapter emit; see PROGRESS |
 
 ## P5 — Progressive examples + agent skills
 
