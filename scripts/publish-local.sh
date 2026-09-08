@@ -3,13 +3,13 @@
 #
 # Usage:
 #   ./scripts/publish-local.sh
-#   ./scripts/publish-local.sh 0.1.3-LOCAL     # version override (recommended for experiments)
+#   ./scripts/publish-local.sh 0.2.0-LOCAL     # version override (recommended for experiments)
 #
 # Then consume from another project WITHOUT includeBuild:
 #   pluginManagement {
 #     repositories { mavenLocal(); google(); mavenCentral(); gradlePluginPortal() }
 #   }
-#   plugins { id("tools.forma.android") version "0.1.3-LOCAL" }
+#   plugins { id("tools.forma.android") version "0.2.0-LOCAL" }
 #
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -27,7 +27,7 @@ echo "=== publishAllToMavenLocal ${VERSION_ARG:+(version $VERSION_ARG)} ==="
 ./gradlew publishAllToMavenLocal "${EXTRA[@]}" --console=plain
 
 # Resolve version used
-VER="${VERSION_ARG:-0.1.3}"
+VER="${VERSION_ARG:-0.2.0}"
 echo
 echo "=== installed under ~/.m2 (tools/forma) ==="
 find "${HOME}/.m2/repository/tools/forma" -maxdepth 3 -type d 2>/dev/null | head -40 || true

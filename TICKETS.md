@@ -125,7 +125,7 @@ Promoted from daily next-actions / historical GH. Workers pick top `todo` in ord
 | F-091 | done | BuildFeatures under Forma | GH **#88** — `FormaBuildFeatures` project-global (defaults **off**); central apply on library+binary; type-owned viewBinding/composeWidget + minimal `impl`/`compose` attrs; docs CALL-SITE + PROJECT-CONFIGURATION. |
 | F-092 | done | versionCode / versionName on binary (and app) | GH **#82** — **done:** required `versionCode`/`versionName` on `androidBinary` only (wired to AGP `defaultConfig`); **not** on `AndroidProjectSettings` / `androidProjectConfiguration`; `androidApp` stays library shell (no version attrs — Gradle app-module limit). Sample + examples already use call-site API; docs/KDoc locked. |
 | F-093 | done | Remove legacy `.kapt` once unused | **KSP-only:** hard-removed `String.kapt` / `kapt()` / `object Kapt` / `kotlin-kapt` auto-apply / `kaptConfigurationFeature`. Zero in-repo consumers after F-086; no external-compat shim. |
-| F-094 | blocked | Gradle Plugin Portal Forma org/user | GH **#133** — human/admin: create shared Portal user/org and credentials for team publish. Worker cannot finish without Stepan Portal access. Track only; see `docs/PLUGIN-PUBLISH.md`. |
+| F-094 | done | Gradle Plugin Portal 0.2.0 | Published **2026-09-07** (`tools.forma.android` + facades + `kmp` + `jvm`). GH **#133** org transfer still open / separate. |
 | F-095 | done | Progressive example: Metro DI framework | `examples/android/11-metro-di` — Path A Metro on impl/app + `metroImpl`/`metroApp` DSLs + mini `@DependencyGraph`; docs ladder; assembleDebug green. |
 
 ## P10 — Promoted backlog (2026-07-24 Stepan)
@@ -197,7 +197,7 @@ Keep for reference; do not start unless higher tickets done or user prioritizes:
 - ~~GH #97 Excluded from dependency validation~~ → **F-090**
 - ~~GH #88 BuildFeatures support~~ → **F-091**
 - ~~GH #82 Version code/name in binary~~ → **F-092**
-- ~~GH #133 Portal Forma user~~ → **F-094** (blocked on human admin)
+- ~~GH #133 Portal Forma user~~ → **F-094** (0.2.0 published 2026-09-07; org transfer still #133)
 - ~~F-019 AndroidX ceiling~~ → **F-087**
 - ~~Legacy `.kapt` removal~~ → **F-093**
 - ~~F-084 Gradle-task follow-ups~~ → **F-088**

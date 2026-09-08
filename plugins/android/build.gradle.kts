@@ -46,5 +46,6 @@ tasks.named<Task>("publishPlugins") {
         ":config:publishPlugins",
         ":deps:publishPlugins",
         ":kmp:publishPlugins",
+        ":jvm:publishPlugins",
     )
 }
