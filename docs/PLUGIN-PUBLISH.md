@@ -20,13 +20,14 @@ expected ownership model and credential flow so workers do not invent secrets.
 | `includer/` | `tools.forma.includer` | Separate build (own version) |
 | `depgen/` | `tools.forma.depgen` | Separate build |
 
-Current shared version for the `plugins/` multi-project: **`0.1.3`**
+Current shared version for the `plugins/` multi-project: **`0.2.0`**
 (see `formaPluginConfiguration` in `plugins/build.gradle.kts`).
 
 Core and plugins share the version (overridable for local testing via `-PformaLocalVersion`).
 
-`:android`’s `publishPlugins` task depends on sibling `publishPlugins` so a
-single `:android:publishPlugins` publishes the whole set.
+`:android`’s `publishPlugins` task depends on sibling `publishPlugins`
+(`:target`, `:validation`, `:owners`, `:config`, `:deps`, `:kmp`, **`:jvm`**)
+so a single `:android:publishPlugins` publishes the whole set.
 
 ## Coordinates (F-024)
 
@@ -37,38 +38,38 @@ Android consumers continue to use the unchanged plugin id `tools.forma.android`.
 
 | Artifact | Coordinates | Type | Notes |
 |----------|-------------|------|-------|
-| forma-core | `tools.forma:core:0.1.3` (+ `-sources`) | Maven library | Single jar. Contains `tools.forma.core.target`, `.restriction`, `.validation`. |
+| forma-core | `tools.forma:core:0.2.0` (+ `-sources`) | Maven library | Single jar. Contains `tools.forma.core.target`, `.restriction`, `.validation`. |
 | Android | `tools.forma.android` (Plugin Portal) | Gradle plugin | Primary Android entrypoint. Depends on core (transitive). |
 | JVM | `tools.forma.jvm` (Plugin Portal) | Gradle plugin | Pure JVM targets (F-030). Depends on core (transitive); **no AGP**. See [`JVM-TARGETS.md`](JVM-TARGETS.md). |
 | Facades (compat) | `tools.forma.target`, `.validation`, `.deps`, `.config`, `.owners` | Gradle plugins (thin) | Remain published; delegate/re-export core. |
 
-Group `tools.forma`, version `0.1.3` (shared source of truth in root `formaPluginConfiguration`).
+Group `tools.forma`, version `0.2.0` (shared source of truth in root `formaPluginConfiguration`).
 
 ### Consumers
 
 - **Normal Android apps** (recommended): use the plugin — no direct core dep needed.
   ```kotlin
   plugins {
-      id("tools.forma.android") version "0.1.3"
+      id("tools.forma.android") version "0.2.0"
   }
   ```
 - **Pure JVM apps** (F-030): use the JVM plugin (no AGP):
   ```kotlin
   plugins {
-      id("tools.forma.jvm") version "0.1.3"
+      id("tools.forma.jvm") version "0.2.0"
   }
   ```
   DSL lives in package `tools.forma.jvm` — see [`JVM-TARGETS.md`](JVM-TARGETS.md).
 - **Pure engine / Bazel adapters**: depend directly on the library when writing
   adapters that do not need a platform DSL:
-  `implementation("tools.forma:core:0.1.3")`.
+  `implementation("tools.forma:core:0.2.0")`.
 
 ### How plugin POMs declare the core dependency
 
 - Build files declare `implementation(project(":core"))` (and sibling facades).
 - During `maven-publish` (via `com.gradle.plugin-publish` for plugins):
   matching GAV project dependencies are rewritten as external
-  `tools.forma:core:0.1.3` (and peer plugins) in the published POM.
+  `tools.forma:core:0.2.0` (and peer plugins) in the published POM.
 - `publishAllToMavenLocal` explicitly depends on `:core:publishToMavenLocal`
   first so local resolution succeeds for plugin POMs and markers.
 
@@ -112,7 +113,7 @@ replaced by two helpers from `plugins/buildSrc`:
 // plugins/build.gradle.kts
 formaPluginConfiguration {
     group = "tools.forma"
-    version = "0.1.3"
+    version = "0.2.0"
     website = "https://forma.tools/"
     vcsUrl = "https://github.com/formatools/forma.git"
     displayName = "Forma - Meta Build System with Gradle and Android support"
@@ -213,13 +214,13 @@ Use this when you want to consume Forma from **another** Gradle project **withou
 
 ```bash
 # From repo root (recommended wrapper):
-./scripts/publish-local.sh                 # version 0.1.3
-./scripts/publish-local.sh 0.1.3-LOCAL     # recommended for experiments
+./scripts/publish-local.sh                 # version 0.2.0
+./scripts/publish-local.sh 0.2.0-LOCAL     # recommended for experiments
 
 # Or:
 cd plugins
 ./gradlew publishAllToMavenLocal
-./gradlew publishAllToMavenLocal -PformaLocalVersion=0.1.3-LOCAL
+./gradlew publishAllToMavenLocal -PformaLocalVersion=0.2.0-LOCAL
 ```
 
 What gets installed under `~/.m2/repository/tools/forma/`:
@@ -233,7 +234,7 @@ What gets installed under `~/.m2/repository/tools/forma/`:
 `tools.forma:core` from mavenLocal.
 
 **Do not** pass `-PformaLocalVersion` for real Portal releases — keep Portal
-on the plain `0.1.3` (or next release) version string.
+on the plain `0.2.0` (or next release) version string.
 
 ### Consume from a test project
 
@@ -250,7 +251,7 @@ pluginManagement {
 
 // build.gradle.kts or settings plugins {}
 plugins {
-    id("tools.forma.android") version "0.1.3-LOCAL"
+    id("tools.forma.android") version "0.2.0-LOCAL"
 }
 ```
 
@@ -271,7 +272,7 @@ Unchanged for apps:
 
 ```kotlin
 plugins {
-    id("tools.forma.android") version "0.1.3"
+    id("tools.forma.android") version "0.2.0"
 }
 ```
 

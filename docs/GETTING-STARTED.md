@@ -99,7 +99,7 @@ You can consume Forma from the **Gradle Plugin Portal** or via **composite
 `includeBuild`** (as this monorepo does for development).
 
 Published plugin id: `tools.forma.android` (badge version on the [README](../README.md);
-sample monorepo develops **0.1.3** line). Companion settings plugin:
+sample monorepo develops **0.2.0** line). Companion settings plugin:
 `tools.forma.includer` (auto-`include` subprojects that contain `build.gradle.kts`).
 
 ### 4.1 `settings.gradle.kts`
@@ -117,7 +117,7 @@ pluginManagement {
 
 plugins {
     id("tools.forma.includer") version "0.2.0"
-    id("tools.forma.android") version "0.1.3"
+    id("tools.forma.android") version "0.2.0"
 }
 
 // Discover every build.gradle.kts under this root (skip nested settings.gradle*).

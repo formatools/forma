@@ -6,9 +6,9 @@ plugins {
 
 // Shared Plugin Portal metadata for all subprojects (F-016 / GH #132).
 // Subprojects call formaPublishedPlugin(name = …) instead of copying gradlePlugin blocks.
-// Local testing: -PformaLocalVersion=0.1.3-LOCAL  (mavenLocal only; never use for Portal)
+// Local testing: -PformaLocalVersion=0.2.0-LOCAL  (mavenLocal only; never use for Portal)
 val publishedVersion =
-    (findProperty("formaLocalVersion") as String?)?.takeIf { it.isNotBlank() } ?: "0.1.3"
+    (findProperty("formaLocalVersion") as String?)?.takeIf { it.isNotBlank() } ?: "0.2.0"
 
 formaPluginConfiguration {
     group = "tools.forma"
@@ -32,7 +32,7 @@ registerFormaAggregateCoverageReport()
  * without includeBuild / Plugin Portal credentials.
  *
  *   ./gradlew publishAllToMavenLocal
- *   ./gradlew publishAllToMavenLocal -PformaLocalVersion=0.1.3-LOCAL
+ *   ./gradlew publishAllToMavenLocal -PformaLocalVersion=0.2.0-LOCAL
  */
 tasks.register("publishAllToMavenLocal") {
     group = "publishing"

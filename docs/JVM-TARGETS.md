@@ -74,7 +74,7 @@ pluginManagement {
     }
 }
 plugins {
-    id("tools.forma.jvm") version "0.1.3"
+    id("tools.forma.jvm") version "0.2.0"
     // or includeBuild("../plugins") in a composite
 }
 

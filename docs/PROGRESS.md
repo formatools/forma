@@ -2,6 +2,24 @@
 
 Newest entries first.
 
+## 2026-09-07 — F-094: Plugin Portal 0.2.0
+
+- **Ticket:** F-094 → `done` (Portal upload). GH **#133** org/user transfer still OPEN (separate).
+- **Branch:** `forma/F-094-portal-0.2.0` (from `origin/v2`)
+- **Why not 0.1.3:** Portal rejected re-upload — `tools.forma.config` / `android` **0.1.3** already exist (2023-07-16). Versions immutable. Stepan picked **0.2.0**.
+- **Actions:**
+  - Bumped shared `formaPluginConfiguration` version `0.1.3` → **`0.2.0`**
+  - Current-pin docs: README, GETTING-STARTED, JVM-*, PLUGIN-PUBLISH, ARCHITECTURE, `scripts/publish-local.sh`
+  - `:android:publishPlugins` → **BUILD SUCCESSFUL** (config/deps/kmp/owners/target/validation/android)
+  - `:jvm` was missing from the android publish chain — uploaded separately; chained `:jvm:publishPlugins` for next cuts
+- **Verify (live Portal HTTP 200 on `/plugin/<id>/0.2.0`):**
+  - [tools.forma.android](https://plugins.gradle.org/plugin/tools.forma.android/0.2.0)
+  - [tools.forma.jvm](https://plugins.gradle.org/plugin/tools.forma.jvm/0.2.0)
+  - [tools.forma.kmp](https://plugins.gradle.org/plugin/tools.forma.kmp/0.2.0)
+  - facades: `config`, `target`, `validation`, `deps`, `owners`
+- **Not in slice:** includer/depgen (own version cadence); GH #133 org transfer; `v2`→`master`
+- **Next:** merge this PR to `v2`; #133 remains human if we want a shared Forma Portal org
+
 ## 2026-08-06 — F-116: sample domain use cases; kill GlobalScope
 
 - **Ticket:** F-116 → `done` (GH #48)
